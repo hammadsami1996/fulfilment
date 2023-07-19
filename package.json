@@ -1,0 +1,42 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "@alpinejs/focus": "^3.11.1",
+        "@inertiajs/vue3": "^1.0.0",
+        "@tailwindcss/aspect-ratio": "^0.4.2",
+        "@tailwindcss/forms": "^0.5.2",
+        "@tailwindcss/typography": "^0.5.9",
+        "@vitejs/plugin-vue": "^4.0.0",
+        "alpinejs": "^3.4.2",
+        "autoprefixer": "^10.4.14",
+        "axios": "^1.3.4",
+        "init": "^0.1.2",
+        "laravel-vite-plugin": "^0.7.4",
+        "npx": "^10.2.2",
+        "postcss": "^8.4.23",
+        "sass": "^1.60.0",
+        "tailwindcss": "^3.3.2",
+        "vite": "^4.1.4"
+    },
+    "dependencies": {
+        "@headlessui/tailwindcss": "^0.1.2",
+        "@headlessui/vue": "^0.0.0-insiders.fb612f7",
+        "@meforma/vue-toaster": "^1.3.0",
+        "@vitejs/plugin-vue": "^4.0.0",
+        "@vue/compiler-sfc": "^3.2.47",
+        "i": "^0.3.7",
+        "moment": "^2.29.4",
+        "npm": "^9.6.2",
+        "vue": "^3.2.47",
+        "vue-loader": "^17.0.1",
+        "vue-router": "^4.1.6",
+        "vue-toast-notification": "3.0",
+        "vuex": "^4.1.0",
+        "vuex-persistedstate": "^4.1.0"
+    }
+}
