@@ -25,7 +25,18 @@
                         placeholder=" Sku"
                         v-model="form.sku"
                     />
-                    <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.sku[0] }}</p>
+                    <p class="text-red-600 text-xs italic" v-if="error.sku">{{ error.sku[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Price <span class="text-red-600">(Required)</span></label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        type="number"
+                        v-model="form.price"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.price">{{ error.price[0] }}</p>
                 </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">

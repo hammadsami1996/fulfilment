@@ -69,7 +69,8 @@
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Name', field: 'name',},
                     {label: 'SKU', field: 'sku',},
-                    {label: 'Action', field: 'action', action: true}
+                    {label: 'Price', field: 'price' , },
+                    {label: 'Action', field: 'action', action: true},
                     ]
             }
         },

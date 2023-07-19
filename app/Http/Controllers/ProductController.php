@@ -25,6 +25,7 @@ class ProductController extends Controller
         $form = [
             "name" => '',
             "skus" => '',
+            "price" => '',
         ];
         return response()->json([
             'form' => $form
@@ -55,8 +56,13 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'sku' => 'required',
+            'price' => 'required',
+        ]);
         $model = Product::findOrFail($id);
         return response()->json([
             "form" => $model
@@ -68,9 +74,13 @@ class ProductController extends Controller
      */
     public function update(Request $request,$id)
     {
+        $request->validate([
+            'name' => 'required',
+            'sku' => 'required',
+            'price' => 'required',
+        ]);
         $model = Product::findOrFail($id);
         $model->fill($request->all());
-//        $model->updated_by = Auth::id();
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
     }

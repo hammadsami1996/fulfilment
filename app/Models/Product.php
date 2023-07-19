@@ -13,14 +13,14 @@ class Product extends Model
     use HasFactory, Notifiable, HasRoles;
     use Search;
     protected $fillable = [
-        'name', 'sku'
+        'name', 'sku', 'price'
     ];
     protected $columns = [
-        'name', 'sku'
+        'name', 'sku', 'price'
     ];
 
     protected $search = [
-        'name', 'sku',
+        'name', 'sku', 'price'
     ];
     protected $appends = ['text'];
 
