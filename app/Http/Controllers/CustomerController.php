@@ -46,6 +46,21 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+//            'cateogory' => 'required',
+            'balance' => 'required',
+            'type_id' => 'required',
+//            'discount' => 'required',
+//            'address' => 'required',
+//            'country_id' => 'required',
+//            'state_id' => 'required',
+//            'city_id' => 'required',
+//            'number' => 'required',
+            'cnic' => 'required',
+        ]);
         $model = new Customer();
         $model->fill($request->all());
         $model->save();
@@ -78,6 +93,21 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+//            'cateogory' => 'required',
+            'balance' => 'required',
+            'type_id' => 'required',
+//            'discount' => 'required',
+//            'address' => 'required',
+//            'country_id' => 'required',
+//            'state_id' => 'required',
+//            'city_id' => 'required',
+//            'number' => 'required',
+            'cnic' => 'required',
+        ]);
         $model = Customer::with('type')->findOrFail($id);
         $model->fill($request->all());
         //        $model->updated_by = Auth::id();

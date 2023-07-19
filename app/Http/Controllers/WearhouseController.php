@@ -34,6 +34,10 @@ class WearhouseController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'location' => 'required',
+        ]);
         $model = new Wearhouse();
         $model->fill($request->all());
         $model->save();
@@ -65,6 +69,10 @@ class WearhouseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'location' => 'required',
+        ]);
         $model = Wearhouse::findOrFail($id);
         $model->fill($request->all());
 //        $model->updated_by = Auth::id();

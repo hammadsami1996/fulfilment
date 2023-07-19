@@ -35,6 +35,11 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'location' => 'required',
+            'company_id' => 'required',
+        ]);
         $model = new Store();
         $model->fill($request->all());
         $model->save();
@@ -66,6 +71,11 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'location' => 'required',
+            'company_id' => 'required',
+        ]);
         $model = Store::with('company')->findOrFail($id);
         $model->fill($request->all());
 //        $model->updated_by = Auth::id();

@@ -37,6 +37,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'sku' => 'required',
+            'price' => 'required',
+        ]);
 
         $model = new Product();
         $model->fill($request->all());
@@ -56,13 +61,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, $id)
+    public function edit( $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'sku' => 'required',
-            'price' => 'required',
-        ]);
+
         $model = Product::findOrFail($id);
         return response()->json([
             "form" => $model

@@ -18,8 +18,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Wearhouse Id </label>
                     <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/>
-
-                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.wearhouse_id">{{ error.wearhouse_id[0] }}</p>-->
+                    <p class="text-red-600 text-xs italic" v-if="error.wearhouse_id">{{ error.wearhouse_id[0] }}</p>
                 </div>
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
@@ -29,6 +28,7 @@
                     >Qty </label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        type="number"
                         v-model="form.qty"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.qty">{{ error.qty[0] }}</p>
@@ -39,6 +39,7 @@
                     >Price </label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        type="number"
                         v-model="form.price"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.price">{{ error.price[0] }}</p>

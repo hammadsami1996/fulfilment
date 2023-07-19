@@ -31,7 +31,7 @@ class SupplierController extends Controller
             "email" => '',
             "opening_balance" => '',
         ];
-        return response()->json([   
+        return response()->json([
             'form' => $form
         ]);
     }
@@ -41,6 +41,16 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'company_name' => 'required',
+            'website' => 'required',
+            'address' => 'required',
+            'number_1' => 'required',
+            'number_2' => 'required',
+            'email' => 'required',
+            'opening_balance' => 'required',
+        ]);
         $model = new Supplier();
         $model->fill($request->all());
         $model->save();
@@ -72,6 +82,16 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'company_name' => 'required',
+            'website' => 'required',
+            'address' => 'required',
+            'number_1' => 'required',
+            'number_2' => 'required',
+            'email' => 'required',
+            'opening_balance' => 'required',
+        ]);
         $model = Supplier::findOrFail($id);
         $model->fill($request->all());
 //        $model->updated_by = Auth::id();

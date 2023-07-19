@@ -35,9 +35,9 @@
             </div>
             <div class="flex flex-col text-center md:flex-row md:items-center md:justify-between space-y-6 md:space-y-0 md:space-x-10">
               <nav class="space-x-4 md:space-x-6">
-                <a href=" {{ URL::route('jobs')}}" class="text-sm font-semibold text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-500">
-                  <span>Jobs</span>
-                </a>
+{{--                <a href=" {{ URL::route('jobs')}}" class="text-sm font-semibold text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-500">--}}
+{{--                  <span>Jobs</span>--}}
+{{--                </a>--}}
 
                 <a href="{{ URL::route('register')}}" class="text-sm font-semibold text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-500">
                     <span>Register</span>

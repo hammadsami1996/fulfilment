@@ -36,6 +36,12 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'product_id' => 'required',
+            'wearhouse_id' => 'required',
+            'qty' => 'required',
+            'price' => 'required',
+        ]);
         $model = new Inventory();
         $model->fill($request->all());
         $model->save();
@@ -67,6 +73,12 @@ class InventoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'product_id' => 'required',
+            'wearhouse_id' => 'required',
+            'qty' => 'required',
+            'price' => 'required',
+        ]);
         $model = Inventory::with('product', 'wearhouse')->findOrFail($id);
         $model->fill($request->all());
 //        $model->updated_by = Auth::id();

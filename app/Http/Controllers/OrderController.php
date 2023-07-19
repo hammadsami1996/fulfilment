@@ -45,6 +45,20 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+//            'store' => 'required',
+            'order_date' => 'required',
+            'customer_id' => 'required',
+//            'city' => 'required',
+//            'total' => 'required',
+//            'tax' => 'required',
+//            'balance' => 'required',
+//            'courier' => 'required',
+//            'payment_status' => 'required',
+//            'location' => 'required',
+//            'sales_rep' => 'required',
+            'selling_price' => 'required',
+        ]);
         $model = new Order();
         $model->fill($request->all());
         $model->save();
@@ -75,6 +89,20 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+//            'store' => 'required',
+            'order_date' => 'required',
+            'customer_id' => 'required',
+//            'city' => 'required',
+//            'total' => 'required',
+//            'tax' => 'required',
+//            'balance' => 'required',
+//            'courier' => 'required',
+//            'payment_status' => 'required',
+//            'location' => 'required',
+//            'sales_rep' => 'required',
+            'selling_price' => 'required',
+        ]);
         $model = Order::with('customer')->findOrFail($id);
         $model->fill($request->all());
         $model->save();

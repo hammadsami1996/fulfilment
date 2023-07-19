@@ -45,6 +45,20 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'supplier_id' => 'required',
+//            'po_number' => 'required',
+            'po_reference_number' => 'required',
+            'po_date' => 'required',
+            'due_date' => 'required',
+            'discount' => 'required',
+            'sku' => 'required',
+//            'name' => 'required',
+//            'qty' => 'required',
+//            'purchasing_price' => 'required',
+//            'tax' => 'required',
+//            'sub_total' => 'required',
+        ]);
         $model = new Purchase();
         $model->fill($request->all());
         $model->save();
@@ -76,6 +90,20 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'supplier_id' => 'required',
+//            'po_number' => 'required',
+            'po_reference_number' => 'required',
+            'po_date' => 'required',
+            'due_date' => 'required',
+            'discount' => 'required',
+            'sku' => 'required',
+//            'name' => 'required',
+//            'qty' => 'required',
+//            'purchasing_price' => 'required',
+//            'tax' => 'required',
+//            'sub_total' => 'required',
+        ]);
         $model = Purchase::with('supplier')->findOrFail($id);
         $model->fill($request->all());
 //        $model->updated_by = Auth::id();

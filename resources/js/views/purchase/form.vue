@@ -11,6 +11,8 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Supplier</label>
                     <typeahead :initialize="form.supplier" :url="suppliers" @input="onSupplier" display="name"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.supplier_id">{{error.supplier_id[0] }}</p>
+
 
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
@@ -20,10 +22,10 @@
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                         placeholder=" PO Reference No."
+                        type="number"
                         v-model="form.po_reference_number"
                     />
-                    <p class="text-red-600 text-xs italic" v-if="error.po_reference_number">{{
-                        error.po_reference_number[0] }}</p>
+                    <p class="text-red-600 text-xs italic" v-if="error.po_reference_number">{{error.po_reference_number[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
@@ -34,6 +36,8 @@
                         type="date"
                         v-model="form.po_date"
                     />
+                    <p class="text-red-600 text-xs italic" v-if="error.po_date">{{error.po_date[0] }}</p>
+
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
@@ -44,6 +48,7 @@
                         type="date"
                         v-model="form.due_date"
                     />
+                    <p class="text-red-600 text-xs italic" v-if="error.due_date">{{error.due_date[0] }}</p>
                 </div>
 
             </div>
@@ -57,6 +62,7 @@
                         type="number"
                         v-model="form.discount"
                     />
+                    <p class="text-red-600 text-xs italic" v-if="error.discount">{{error.discount[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
@@ -66,6 +72,7 @@
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                         v-model="form.sku"
                     />
+                    <p class="text-red-600 text-xs italic" v-if="error.sku">{{error.sku[0] }}</p>
                 </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">

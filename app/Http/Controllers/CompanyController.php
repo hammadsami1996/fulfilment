@@ -34,6 +34,9 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         $model = new Company();
         $model->fill($request->all());
         $model->save();
@@ -65,6 +68,9 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         $model = Company::findOrFail($id);
         $model->fill($request->all());
         $model->updated_by = Auth::id();

@@ -26,7 +26,7 @@
                         type="number"
                         v-model="form.balance"
                     />
-                    <p class="text-red-600 text-xs italic" v-if="error.company_name">{{ error.company_name[0] }}</p>
+                    <p class="text-red-600 text-xs italic" v-if="error.balance">{{ error.balance[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
@@ -34,7 +34,7 @@
                     >Type</label>
                     <typeahead :initialize="form.type" :url="typess" @input="onType" display="name"/>
 
-<!--                    <p class="text-red-600 text-xs italic" v-if="error.type">{{ error.type[0] }}</p>-->
+                    <p class="text-red-600 text-xs italic" v-if="error.type_id">{{ error.type_id[0] }}</p>
                 </div>
             </div>
             <hr>

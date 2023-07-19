@@ -34,6 +34,8 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Company</label>
                     <typeahead :initialize="form.company" :url="companys" @input="onCompany" display="name" />
+                    <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
+
 
                 </div>
             </div>
