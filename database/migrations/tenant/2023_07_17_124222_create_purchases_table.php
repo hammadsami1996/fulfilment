@@ -16,8 +16,8 @@ return new class extends Migration
             $table->integer('supplier_id');
             $table->integer('po_number');
             $table->integer('po_reference_number');
-            $table->timestamps('po_date');
-            $table->timestamps('due_date');
+            $table->dateTime('po_date');
+            $table->dateTime('due_date');
             $table->integer('discount');
             $table->string('sku');
             $table->string('name');
