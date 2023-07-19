@@ -18,7 +18,13 @@ return new class extends Migration
             $table->string('value');
             $table->timestamps();
         });
+
+        // Insert a new record into the table
+        DB::table('counters')->insert(['key' => 'purchase_order',
+            'perfix' => 'PO-', 'value' => 100734// Add more columns and values as needed.
+        ]);
     }
+
 
     /**
      * Reverse the migrations.

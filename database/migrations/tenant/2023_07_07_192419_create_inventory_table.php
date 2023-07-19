@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id')->unique();
-            $table->integer('wearhouse_id')->unique();
-            $table->integer('qty')->unique();
-            $table->integer('price')->unique();
+            $table->integer('product_id');
+            $table->integer('wearhouse_id');
+            $table->integer('qty');
+            $table->integer('price');
             $table->timestamps();
         });
     }
