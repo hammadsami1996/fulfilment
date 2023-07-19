@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Counter;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
+
         $form = [
             "supplier_id" => '',
             "po_number" => '',
@@ -59,9 +61,16 @@ class PurchaseController extends Controller
 //            'tax' => 'required',
 //            'sub_total' => 'required',
         ]);
+        $number = Counter::where('key', 'purchase_order');
+
         $model = new Purchase();
         $model->fill($request->all());
+        $model->po_number = ($number->first()->prefix . $number->first()->value);
         $model->save();
+
+        $number->update([
+            'value' => ($number->first()->value + 1)
+        ]);
         return response()->json(["saved" => true, "id" => $model->id]);
     }
 

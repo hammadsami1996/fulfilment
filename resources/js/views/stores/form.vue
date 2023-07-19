@@ -111,8 +111,8 @@
             setData(res) {
                 // console.log(res);
                 this.form = res.data.form;
-                if (this.$route.meta.mode === 'edit') {
-                    this.stores = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
+                if (this.$route.meta.mode == 'edit') {
+                    this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
                     this.title = 'Edit';
                     this.message = `${this.capital} has been updated`;
                 }

@@ -47,7 +47,7 @@ class SupplierController extends Controller
             'website' => 'required',
             'address' => 'required',
             'number_1' => 'required',
-            'number_2' => 'required',
+//            'number_2' => 'required',
             'email' => 'required',
             'opening_balance' => 'required',
         ]);
@@ -88,7 +88,7 @@ class SupplierController extends Controller
             'website' => 'required',
             'address' => 'required',
             'number_1' => 'required',
-            'number_2' => 'required',
+//            'number_2' => 'required',
             'email' => 'required',
             'opening_balance' => 'required',
         ]);

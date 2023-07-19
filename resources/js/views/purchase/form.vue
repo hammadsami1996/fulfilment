@@ -12,8 +12,6 @@
                     >Supplier</label>
                     <typeahead :initialize="form.supplier" :url="suppliers" @input="onSupplier" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.supplier_id">{{error.supplier_id[0] }}</p>
-
-
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
@@ -25,7 +23,20 @@
                         type="number"
                         v-model="form.po_reference_number"
                     />
-                    <p class="text-red-600 text-xs italic" v-if="error.po_reference_number">{{error.po_reference_number[0] }}</p>
+                    <p class="text-red-600 text-xs italic" v-if="error.po_reference_number">
+                        {{error.po_reference_number[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" v-if="$route.meta.mode && $route.meta.mode == 'edit'">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >PO Number:<small>(Auto Generated)</small></label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        disabled
+                        placeholder=" PO No."
+                        v-model="form.po_number"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.po_number">{{error.po_number[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
@@ -39,6 +50,10 @@
                     <p class="text-red-600 text-xs italic" v-if="error.po_date">{{error.po_date[0] }}</p>
 
                 </div>
+
+
+            </div>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -50,9 +65,6 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.due_date">{{error.due_date[0] }}</p>
                 </div>
-
-            </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"

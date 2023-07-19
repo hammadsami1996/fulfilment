@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->integer('supplier_id');
-            $table->integer('po_number');
+            $table->string('po_number');
             $table->integer('po_reference_number');
             $table->dateTime('po_date');
             $table->dateTime('due_date');

@@ -73,7 +73,7 @@ class CompanyController extends Controller
         ]);
         $model = Company::findOrFail($id);
         $model->fill($request->all());
-        $model->updated_by = Auth::id();
+//        $model->updated_by = Auth::id();
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
     }
@@ -84,7 +84,7 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         $model = Company::findOrFail($id);
-        $model->deleted_by = Auth::id();
+//        $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);
