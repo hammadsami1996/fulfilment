@@ -61,7 +61,7 @@
                                         <x-text-input
                                             class="block border placeholder-gray-400 px-5 py-3 leading-6 w-full rounded border-gray-200 focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
                                             type="number" id="mobile_no" name="mobile_no" placeholder="Enter your mobile no"
-                                           :value="old('number')" required autocomplete="mobile_no"/>
+                                           :value="old('mobile_no')" required autocomplete="mobile_no"/>
                                         <x-input-error :messages="$errors->get('mobile_no')" class="mt-2"/>
 
                                     </div>
