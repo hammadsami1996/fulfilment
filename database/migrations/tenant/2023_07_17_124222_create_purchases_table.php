@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->integer('supplier_id');
-            $table->string('po_number');
-            $table->integer('po_reference_number');
-            $table->dateTime('po_date');
-            $table->dateTime('due_date');
-            $table->integer('discount');
-            $table->string('sku');
-            $table->string('name');
-            $table->integer('qty');
-            $table->integer('purchasing_price');
-            $table->integer('tax');
-            $table->integer('sub_total');
+            $table->integer('supplier_id')->nullable();
+            $table->string('po_number')->nullable();
+            $table->integer('po_reference_number')->nullable();
+            $table->dateTime('po_date')->nullable();
+            $table->dateTime('due_date')->nullable();
+            $table->integer('discount')->nullable();
+            $table->string('sku')->nullable();
+            $table->string('name')->nullable();
+            $table->integer('qty')->nullable();
+            $table->integer('purchasing_price')->nullable();
+            $table->integer('tax')->nullable();
+            $table->integer('sub_total')->nullable();
             $table->timestamps();
         });
     }

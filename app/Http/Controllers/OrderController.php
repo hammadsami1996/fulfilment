@@ -34,6 +34,8 @@ class OrderController extends Controller
             "location" => '',
             "sales_rep" => '',
             "selling_price" => '',
+
+
         ];
         return response()->json([
             'form' => $form

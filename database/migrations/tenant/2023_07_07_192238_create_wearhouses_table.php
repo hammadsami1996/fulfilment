@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('wearhouses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('location');
+            $table->string('name')->nullable();
+            $table->string('location')->nullable();
             $table->timestamps();
         });
     }

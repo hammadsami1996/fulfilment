@@ -1,95 +1,241 @@
 <template>
-    <div v-if="show">
-        <div class="p-6">
-            <h1 class="text-lg font-bold mb-4">
-                {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
-            </h1>
-            <h2 class="font-bold">Personal Detail</h2>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Customer Name <span class="text-red-600">*</span></label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        placeholder=" Supplier Name"
-                        v-model="form.name"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Opening Balance</label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        type="number"
-                        v-model="form.balance"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.balance">{{ error.balance[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Type</label>
-                    <typeahead :initialize="form.type" :url="typess" @input="onType" display="name"/>
+    <div v-if="show" class="p-6">
+        <h1 class="text-lg font-bold mb-4">
+            {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
+        </h1>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Order Date *</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    type="date"
+                    v-model="form.order_date"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.order_date">{{error.order_date[0] }}</p>
+            </div>
 
-                    <p class="text-red-600 text-xs italic" v-if="error.type_id">{{ error.type_id[0] }}</p>
-                </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Customer</label>
+                <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
+                <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{error.customer_id[0] }}</p>
             </div>
-            <hr>
-            <h2 class="mt-2 text-base font-bold">Contact Details</h2>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Email:</label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        placeholder=" Email"
-                        v-model="form.email"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Number</label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        placeholder=" Number"
-                        type="number"
-                        v-model="form.phone"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >CNIC</label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        placeholder=" CNIC"
-                        v-model="form.cnic"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.cnic">{{ error.cnic[0] }}</p>
-                </div>
-            </div>
-            <div class="flex justify-end mt-8 space-x-4">
-                <button
-                    @click="formSubmitted"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-                    type="button">
-                    {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
-                </button>
-                <button
-                    @click="successfull()"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
-                    type="button">
-                    Cancel
-                </button>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Qty</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    type="number"
+                    v-model="form.qty"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.qty">{{error.qty[0] }}</p>
             </div>
         </div>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Selling Price</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    type="number"
+                    v-model="form.selling_price"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.selling_price">{{error.selling_price[0] }}</p>
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Discount %:</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    type="number"
+                    v-model="form.discount"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.discount">{{error.discount[0] }}</p>
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Sku</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.sku"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.sku">{{error.sku[0] }}</p>
+            </div>
+        </div>
+        <hr class="mt-6">
+        <h1 class="font-bold mt-2">Billing Address</h1>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Name</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.b_name"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.b_name">{{error.b_name[0] }}</p>
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Phone</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.b_phone"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.b_phone">{{error.b_phone[0] }}</p>
+            </div>
+        </div>
+
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Address #1</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.b_address_1"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Address #2</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.b_address_2"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>
+            </div>
+        </div>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Country:</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                />
+                <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >State:</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                />
+                <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >City:</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                />
+                <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
+            </div>
+        </div>
+        <hr class="mt-6">
+        <h1 class="font-bold mt-2">Shipping Address</h1>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Name</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.s_name"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.s_name">{{error.s_name[0] }}</p>
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Phone</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.s_phone"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.s_phone">{{error.s_phone[0] }}</p>
+            </div>
+        </div>
+
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Address #1</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.s_address_1"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{error.s_address_1[0] }}</p>
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Address #2</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.s_address_2"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>
+            </div>
+        </div>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Country:</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                />
+                <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{error.s_address_1[0] }}</p>-->
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >State:</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                />
+                <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>-->
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >City:</label>
+                <input
+                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                />
+                <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>-->
+            </div>
+        </div>
+        <div class="flex justify-end mt-8 space-x-4">
+            <button
+                @click="formSubmitted"
+                class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                type="button">
+                {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
+            </button>
+            <button
+                @click="successfull()"
+                class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                type="button">
+                Cancel
+            </button>
+        </div>
+
     </div>
 </template>
 

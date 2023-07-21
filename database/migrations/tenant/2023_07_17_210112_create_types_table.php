@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
+        DB::table('types')->insert(['name' => 'payable',
+            // Add more columns and values as needed.
+        ]);
     }
 
     /**

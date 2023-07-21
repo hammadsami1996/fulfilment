@@ -30,6 +30,7 @@
                     >Qty</label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        type="number"
                         v-model="form.qty"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.qty">{{error.qty[0] }}</p>
@@ -113,7 +114,7 @@
                 store: '/api/order',
                 method: 'POST',
                 small: 'order',
-                capital: 'Purchase',
+                capital: 'Order',
                 title: 'Add',
                 message: 'New order Added',
                 permissions: {},

@@ -11,7 +11,7 @@
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 20/07/2023 02:23:09
+ Date: 20/07/2023 02:47:19
 */
 
 SET NAMES utf8mb4;
@@ -134,6 +134,18 @@ INSERT INTO `permissions` VALUES (161, 'edit-purchase', 'web', NULL, NULL, 159, 
 INSERT INTO `permissions` VALUES (162, 'create-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
 INSERT INTO `permissions` VALUES (163, 'delete-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
 INSERT INTO `permissions` VALUES (164, 'export-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
+INSERT INTO `permissions` VALUES (165, NULL, 'web', 'Order', NULL, NULL, 56, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (166, 'view-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (167, 'edit-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (168, 'create-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (169, 'delete-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (170, 'export-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (171, NULL, 'web', 'Customer', NULL, NULL, 56, '2023-07-19 21:43:31', '2023-07-19 21:43:31');
+INSERT INTO `permissions` VALUES (172, 'view-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:31', '2023-07-19 21:43:31');
+INSERT INTO `permissions` VALUES (173, 'edit-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:31', '2023-07-19 21:43:31');
+INSERT INTO `permissions` VALUES (174, 'create-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:32', '2023-07-19 21:43:32');
+INSERT INTO `permissions` VALUES (175, 'delete-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:32', '2023-07-19 21:43:32');
+INSERT INTO `permissions` VALUES (176, 'export-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:32', '2023-07-19 21:43:32');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -231,6 +243,16 @@ INSERT INTO `role_has_permissions` VALUES (161, 1);
 INSERT INTO `role_has_permissions` VALUES (162, 1);
 INSERT INTO `role_has_permissions` VALUES (163, 1);
 INSERT INTO `role_has_permissions` VALUES (164, 1);
+INSERT INTO `role_has_permissions` VALUES (166, 1);
+INSERT INTO `role_has_permissions` VALUES (167, 1);
+INSERT INTO `role_has_permissions` VALUES (168, 1);
+INSERT INTO `role_has_permissions` VALUES (169, 1);
+INSERT INTO `role_has_permissions` VALUES (170, 1);
+INSERT INTO `role_has_permissions` VALUES (172, 1);
+INSERT INTO `role_has_permissions` VALUES (173, 1);
+INSERT INTO `role_has_permissions` VALUES (174, 1);
+INSERT INTO `role_has_permissions` VALUES (175, 1);
+INSERT INTO `role_has_permissions` VALUES (176, 1);
 INSERT INTO `role_has_permissions` VALUES (64, 3);
 INSERT INTO `role_has_permissions` VALUES (118, 3);
 INSERT INTO `role_has_permissions` VALUES (119, 3);

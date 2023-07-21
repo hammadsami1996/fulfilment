@@ -14,15 +14,18 @@ class Customer extends Model
     use Search;
     protected $fillable = [
         'name', 'email', 'phone','cateogory','balance','type_id','discount','address','country_id',
-        'state_id', 'city_id', 'number', 'cnic'
+        'state_id', 'city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
+        's_phone', 's_address_1', 's_address_2'
     ];
     protected $columns = [
         'name', 'email', 'phone','cateogory','balance','type_id','discount','address','country_id',
-        'state_id', 'city_id', 'number', 'cnic'    ];
+        'state_id', 'city_id', 'number', 'cnic' , 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
+        's_phone', 's_address_1', 's_address_2'   ];
 
     protected $search = [
         'name', 'email', 'phone','cateogory','balance','type_id','discount','address','country_id',
-        'state_id', 'city_id', 'number', 'cnic'    ];
+        'state_id', 'city_id', 'number', 'cnic' , 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
+        's_phone', 's_address_1', 's_address_2'   ];
     protected $appends = ['text'];
 
 
