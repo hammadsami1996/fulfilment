@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('state_id')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('number')->nullable();
-            $table->integer('cnic')->nullable();
+            $table->decimal('cnic')->nullable();
             $table->string('b_name')->nullable();
             $table->string('b_phone')->nullable();
             $table->string('b_address_1')->nullable();

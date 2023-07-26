@@ -84,6 +84,7 @@
                 title: 'Add',
                 message: 'New product Added',
                 permissions: {},
+
             }
         },
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('store')->nullable();
+            $table->integer('store_id')->nullable();
             $table->timestamp('order_date')->nullable();
             $table->string('customer_id')->nullable();
             $table->string('city')->nullable();
@@ -25,6 +25,12 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('sales_rep')->nullable();
             $table->integer('selling_price')->nullable();
+            $table->integer('external_order_no')->nullable();
+            $table->integer('tracking_id')->nullable();
+            $table->integer('product_id')->nullable();
+            $table->decimal('subTotal')->nullable();
+            $table->decimal('discount')->nullable();
+            $table->decimal('discount_percent')->nullable();
             $table->timestamps();
         });
     }

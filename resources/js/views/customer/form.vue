@@ -1,47 +1,36 @@
 <template>
-    <div v-if="show" class="p-6">
+    <div v-if="show" class="p-4">
         <h1 class="text-lg font-bold mb-4">
             {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
         </h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Order Date *</label>
-                <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                    type="date"
-                    v-model="form.order_date"
-                />
-                <p class="text-red-600 text-xs italic" v-if="error.order_date">{{error.order_date[0] }}</p>
+                <label class="block font-medium text-sm text-gray-700 mb-2">Order Date *</label>
+                <input class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" type="date" v-model="form.order_date" />
+                <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
             </div>
 
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Customer</label>
-                <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
-                <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{error.customer_id[0] }}</p>
+                <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
+                <input class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" type="text" v-model="form.name" />
+                <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
             </div>
+
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Qty</label>
-                <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                    type="number"
-                    v-model="form.qty"
-                />
-                <p class="text-red-600 text-xs italic" v-if="error.qty">{{error.qty[0] }}</p>
+                <label class="block font-medium text-sm text-gray-700 mb-2">Qty</label>
+                <input class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" type="number" v-model="form.qty" />
+                <p class="text-red-600 text-xs italic" v-if="error.qty">{{ error.qty[0] }}</p>
             </div>
+
         </div>
+
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Selling Price</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     type="number"
                     v-model="form.selling_price"
                 />
@@ -52,7 +41,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Discount %:</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     type="number"
                     v-model="form.discount"
                 />
@@ -63,10 +52,44 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Sku</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     v-model="form.sku"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.sku">{{error.sku[0] }}</p>
+            </div>
+        </div>
+        <hr class="mt-6">
+        <h1 class="font-bold mt-2">Personal Contact</h1>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Email</label>
+                <input
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.email"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.email">{{error.email[0] }}</p>
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >Phone</label>
+                <input
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.phone"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.phone">{{error.phone[0] }}</p>
+            </div>
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <label
+                    class="block font-medium text-sm text-gray-700 mb-2"
+                >CNIC</label>
+                <input
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    v-model="form.cnic"
+                />
+                <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p>
             </div>
         </div>
         <hr class="mt-6">
@@ -77,7 +100,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Name</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     v-model="form.b_name"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_name">{{error.b_name[0] }}</p>
@@ -87,7 +110,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Phone</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     v-model="form.b_phone"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_phone">{{error.b_phone[0] }}</p>
@@ -100,7 +123,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Address #1</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     v-model="form.b_address_1"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>
@@ -110,7 +133,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Address #2</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     v-model="form.b_address_2"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>
@@ -122,7 +145,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Country:</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                 />
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
             </div>
@@ -131,7 +154,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >State:</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                 />
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
             </div>
@@ -140,7 +163,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >City:</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                 />
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
             </div>
@@ -153,7 +176,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Name</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     v-model="form.s_name"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_name">{{error.s_name[0] }}</p>
@@ -163,7 +186,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Phone</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     v-model="form.s_phone"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_phone">{{error.s_phone[0] }}</p>
@@ -176,7 +199,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Address #1</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     v-model="form.s_address_1"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{error.s_address_1[0] }}</p>
@@ -186,7 +209,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Address #2</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                     v-model="form.s_address_2"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>
@@ -198,7 +221,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Country:</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                 />
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{error.s_address_1[0] }}</p>-->
             </div>
@@ -207,7 +230,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >State:</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                 />
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>-->
             </div>
@@ -216,7 +239,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >City:</label>
                 <input
-                    class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
                 />
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>-->
             </div>
@@ -270,7 +293,7 @@
                 title: 'Add',
                 message: 'New Customer Added',
                 permissions: {},
-                typess: '/api/type',
+                // typess: '/api/type',
             }
         },
 
@@ -303,7 +326,6 @@
                 }
                 this.show = true
             },
-
             formSubmitted() {
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {

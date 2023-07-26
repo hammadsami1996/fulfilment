@@ -59,8 +59,8 @@ class CustomerController extends Controller
             'email' => 'required',
             'phone' => 'required',
 //            'cateogory' => 'required',
-            'balance' => 'required',
-            'type_id' => 'required',
+//            'balance' => 'required',
+//            'type_id' => 'required',
 //            'discount' => 'required',
 //            'address' => 'required',
 //            'country_id' => 'required',
@@ -94,6 +94,7 @@ class CustomerController extends Controller
         return response()->json([
             "form" => $model
         ]);
+
     }
 
     /**
@@ -106,8 +107,8 @@ class CustomerController extends Controller
             'email' => 'required',
             'phone' => 'required',
 //            'cateogory' => 'required',
-            'balance' => 'required',
-            'type_id' => 'required',
+//            'balance' => 'required',
+//            'type_id' => 'required',
 //            'discount' => 'required',
 //            'address' => 'required',
 //            'country_id' => 'required',
