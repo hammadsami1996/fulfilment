@@ -81,7 +81,6 @@ class InventoryController extends Controller
         ]);
         $model = Inventory::with('product', 'wearhouse')->findOrFail($id);
         $model->fill($request->all());
-//        $model->updated_by = Auth::id();
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
     }
@@ -92,7 +91,6 @@ class InventoryController extends Controller
     public function destroy($id)
     {
         $model = Inventory::with('product', 'wearhouse')->findOrFail($id);
-        $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

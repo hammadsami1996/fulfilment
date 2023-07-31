@@ -13,19 +13,27 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->integer('phone');
-            $table->string('cateogory');
-            $table->integer('balance');
-            $table->string('type');
-            $table->integer('discount');
-            $table->string('address');
-            $table->integer('country_id');
-            $table->integer('state_id');
-            $table->integer('city_id');
-            $table->integer('number');
-            $table->integer('cnic');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->integer('phone')->nullable();
+            $table->integer('category_id')->nullable();
+            $table->integer('balance')->nullable();
+            $table->string('type_id')->nullable();
+            $table->integer('discount')->nullable();
+            $table->string('address')->nullable();
+            $table->integer('country_id')->nullable();
+            $table->integer('state_id')->nullable();
+            $table->integer('city_id')->nullable();
+            $table->integer('number')->nullable();
+            $table->decimal('cnic')->nullable();
+            $table->string('b_name')->nullable();
+            $table->string('b_phone')->nullable();
+            $table->string('b_address_1')->nullable();
+            $table->string('b_address_2')->nullable();
+            $table->string('s_name')->nullable();
+            $table->string('s_phone')->nullable();
+            $table->string('s_address_1')->nullable();
+            $table->string('s_address_2')->nullable();
             $table->timestamps();
         });
     }

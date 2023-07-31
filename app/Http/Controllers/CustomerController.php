@@ -12,7 +12,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Customer::with('type')->search()]);
+        return response()->json(['data' => Customer::with('type', 'category')->search()]);
 
     }
 
@@ -25,7 +25,7 @@ class CustomerController extends Controller
             "name" => '',
             "email" => '',
             "phone" => '',
-            "cateogory" => '',
+            "category_id" => '',
             "balance" => '',
             "type_id" => '',
             "discount" => '',
@@ -35,6 +35,14 @@ class CustomerController extends Controller
             "city_id" => '',
             "number" => '',
             "cnic" => '',
+            "b_name" => '',
+            "b_phone" => '',
+            "b_address_1" => '',
+            "b_address_2" => '',
+            "s_name" => '',
+            "s_phone" => '',
+            "s_address_1" => '',
+            "s_address_2" => '',
         ];
         return response()->json([
             'form' => $form
@@ -51,8 +59,8 @@ class CustomerController extends Controller
             'email' => 'required',
             'phone' => 'required',
 //            'cateogory' => 'required',
-            'balance' => 'required',
-            'type_id' => 'required',
+//            'balance' => 'required',
+//            'type_id' => 'required',
 //            'discount' => 'required',
 //            'address' => 'required',
 //            'country_id' => 'required',
@@ -72,7 +80,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $model = Customer::with('type')->findOrFail($id);
+        $model = Customer::with('type', 'category')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -82,10 +90,11 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $model = Customer::with('type')->findOrFail($id);
+        $model = Customer::with('type', 'category')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
+
     }
 
     /**
@@ -98,8 +107,8 @@ class CustomerController extends Controller
             'email' => 'required',
             'phone' => 'required',
 //            'cateogory' => 'required',
-            'balance' => 'required',
-            'type_id' => 'required',
+//            'balance' => 'required',
+//            'type_id' => 'required',
 //            'discount' => 'required',
 //            'address' => 'required',
 //            'country_id' => 'required',
@@ -108,7 +117,7 @@ class CustomerController extends Controller
 //            'number' => 'required',
             'cnic' => 'required',
         ]);
-        $model = Customer::with('type')->findOrFail($id);
+        $model = Customer::with('type', 'category')->findOrFail($id);
         $model->fill($request->all());
         //        $model->updated_by = Auth::id();
         $model->save();
@@ -120,7 +129,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $model = Customer::with('type')->findOrFail($id);
+        $model = Customer::with('type', 'category')->findOrFail($id);
         //        $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();

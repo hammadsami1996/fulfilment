@@ -1,11 +1,36 @@
 <template>
     <div>
+        <div class="bg-gray-100 py-4">
+            <nav class="container mx-auto flex justify-center">
+                <a @click="all" class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-blue-500 focus:text-gray-700 focus:border-blue-300">
+                    All
+                </a>
+                <a @click="unfulfilled" class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
+                    Unfulfilled
+                </a>
+                <a @click="partially_fulfilled" class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
+                    Partially Fulfilled
+                </a>
+                <a @click="cancelled" class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-rose-500 focus:text-gray-700 focus:border-rose-300">
+                    Cancelled
+                </a>
+                <a @click="unpaid" class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
+                    Unpaid
+                </a>
+                <a @click="duplicate" class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
+                    Duplicate
+                </a>
+                <a @click="s" class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">
+                    +
+                </a>
+            </nav>
+        </div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
             <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
                              type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
-                    Create
+                    Create Order
                 </router-link>
             </div>
         </div>
@@ -67,16 +92,15 @@
                 capital: "Order",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Store', field: 'store',},
+                    {label: 'Store', field: 'name', displayText: 'stores'},
                     {label: 'Order Date', field: 'order_date'},
-                    {label: 'Order ID', field: 'order_id'},
                     {label: 'Customer', field: 'name', displayText: 'customer'},
-                    {label: 'City', field: 'city'},
-                    {label: 'Total', field: 'total'},
-                    {label: 'Tax', field: 'tax'},
-                    {label: 'Balance', field: 'balance'},
-                    {label: 'Location', field: 'location'},
-                    {label: 'Sales.Rep', field: 'sales_rep'},
+                    {label: 'Delivery Status', field: 'city'},
+                    {label: 'Payment Status', field: 'subTotal'},
+                    // {label: 'Tax', field: 'tax_percent', displayText: 'items.product'},
+                    // {label: 'Balance', field: 'balance'},
+                    // {label: 'Location', field: 'location'},
+                    // {label: 'Sales.Rep', field: 'sales_rep'},
                     {label: 'Action', field: 'action', action: true}
                     ]
             }

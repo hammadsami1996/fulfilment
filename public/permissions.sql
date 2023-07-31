@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantgeo
+ Source Schema         : tenantfulfilment7
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 17/07/2023 17:48:41
+ Date: 20/07/2023 02:47:19
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `permissions`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 158 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 165 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permissions
@@ -128,12 +128,24 @@ INSERT INTO `permissions` VALUES (155, 'edit-supplier', 'web', NULL, NULL, 153, 
 INSERT INTO `permissions` VALUES (156, 'create-supplier', 'web', NULL, NULL, 153, NULL, '2023-07-14 12:35:46', '2023-07-14 12:35:46');
 INSERT INTO `permissions` VALUES (157, 'delete-supplier', 'web', NULL, NULL, 153, NULL, '2023-07-14 12:35:46', '2023-07-14 12:35:46');
 INSERT INTO `permissions` VALUES (158, 'export-supplier', 'web', NULL, NULL, 153, NULL, '2023-07-14 12:35:46', '2023-07-14 12:35:46');
-INSERT INTO `permissions` VALUES (159, NULL, 'web', 'View-purchase', NULL, NULL, 56, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
-INSERT INTO `permissions` VALUES (160, 'view-view-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
-INSERT INTO `permissions` VALUES (161, 'edit-view-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
-INSERT INTO `permissions` VALUES (162, 'create-view-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
-INSERT INTO `permissions` VALUES (163, 'delete-view-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
-INSERT INTO `permissions` VALUES (164, 'export-view-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
+INSERT INTO `permissions` VALUES (159, NULL, 'web', 'Purchase', NULL, NULL, 56, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
+INSERT INTO `permissions` VALUES (160, 'view-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
+INSERT INTO `permissions` VALUES (161, 'edit-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
+INSERT INTO `permissions` VALUES (162, 'create-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
+INSERT INTO `permissions` VALUES (163, 'delete-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
+INSERT INTO `permissions` VALUES (164, 'export-purchase', 'web', NULL, NULL, 159, NULL, '2023-07-17 12:36:20', '2023-07-17 12:36:20');
+INSERT INTO `permissions` VALUES (165, NULL, 'web', 'Order', NULL, NULL, 56, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (166, 'view-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (167, 'edit-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (168, 'create-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (169, 'delete-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (170, 'export-order', 'web', NULL, NULL, 165, NULL, '2023-07-19 21:43:16', '2023-07-19 21:43:16');
+INSERT INTO `permissions` VALUES (171, NULL, 'web', 'Customer', NULL, NULL, 56, '2023-07-19 21:43:31', '2023-07-19 21:43:31');
+INSERT INTO `permissions` VALUES (172, 'view-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:31', '2023-07-19 21:43:31');
+INSERT INTO `permissions` VALUES (173, 'edit-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:31', '2023-07-19 21:43:31');
+INSERT INTO `permissions` VALUES (174, 'create-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:32', '2023-07-19 21:43:32');
+INSERT INTO `permissions` VALUES (175, 'delete-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:32', '2023-07-19 21:43:32');
+INSERT INTO `permissions` VALUES (176, 'export-customer', 'web', NULL, NULL, 171, NULL, '2023-07-19 21:43:32', '2023-07-19 21:43:32');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -231,6 +243,16 @@ INSERT INTO `role_has_permissions` VALUES (161, 1);
 INSERT INTO `role_has_permissions` VALUES (162, 1);
 INSERT INTO `role_has_permissions` VALUES (163, 1);
 INSERT INTO `role_has_permissions` VALUES (164, 1);
+INSERT INTO `role_has_permissions` VALUES (166, 1);
+INSERT INTO `role_has_permissions` VALUES (167, 1);
+INSERT INTO `role_has_permissions` VALUES (168, 1);
+INSERT INTO `role_has_permissions` VALUES (169, 1);
+INSERT INTO `role_has_permissions` VALUES (170, 1);
+INSERT INTO `role_has_permissions` VALUES (172, 1);
+INSERT INTO `role_has_permissions` VALUES (173, 1);
+INSERT INTO `role_has_permissions` VALUES (174, 1);
+INSERT INTO `role_has_permissions` VALUES (175, 1);
+INSERT INTO `role_has_permissions` VALUES (176, 1);
 INSERT INTO `role_has_permissions` VALUES (64, 3);
 INSERT INTO `role_has_permissions` VALUES (118, 3);
 INSERT INTO `role_has_permissions` VALUES (119, 3);
@@ -250,7 +272,7 @@ CREATE TABLE `roles`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `roles_name_guard_name_unique`(`name`, `guard_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of roles

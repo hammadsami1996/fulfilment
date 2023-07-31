@@ -76,6 +76,7 @@ class StoreController extends Controller
             'location' => 'required',
             'company_id' => 'required',
         ]);
+//        dd($request);
         $model = Store::with('company')->findOrFail($id);
         $model->fill($request->all());
 //        $model->updated_by = Auth::id();

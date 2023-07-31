@@ -13,7 +13,7 @@
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:slot="props">
-{{props.item.status == 1 ? "Active" : "Inactive"}}
+                    {{props.item.status == 1 ? "Active" : "Inactive"}}
                 </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
@@ -78,7 +78,7 @@
                     {label: 'Job Skill', field: 'name', displayText: 'skill'},
                     {label: 'Salary', field: 'salary'},
                     {label: 'Description', field: 'description',},
-                    {label: 'Status', field: 'extra', extra:true},
+                    {label: 'Status', field: 'extra', extra: true},
                     // {label: 'Status', field: 'slot', slot:true},
                     {label: 'Action', field: 'action', action: true}]
 
@@ -97,7 +97,7 @@
                         // console.log(res);
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
-                            this.$toast.error( this.capital +" Deleted successfully!");
+                            this.$toast.error(this.capital + " Deleted successfully!");
                         }
                     })
             },

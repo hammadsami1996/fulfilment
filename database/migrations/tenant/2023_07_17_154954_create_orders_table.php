@@ -13,18 +13,24 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('store');
-            $table->timestamp('order_date');
-            $table->integer('customer');
-            $table->string('city');
-            $table->integer('total');
-            $table->integer('tax');
-            $table->integer('balance');
-            $table->string('courier');
-            $table->integer('payment_status');
-            $table->string('location');
-            $table->string('sales_rep');
-            $table->integer('selling_price');
+            $table->integer('store_id')->nullable();
+            $table->timestamp('order_date')->nullable();
+            $table->string('customer_id')->nullable();
+            $table->string('city')->nullable();
+            $table->integer('total')->nullable();
+            $table->integer('tax')->nullable();
+            $table->integer('balance')->nullable();
+            $table->string('courier')->nullable();
+            $table->integer('payment_status')->nullable();
+            $table->string('location')->nullable();
+            $table->string('sales_rep')->nullable();
+            $table->integer('selling_price')->nullable();
+            $table->integer('external_order_no')->nullable();
+            $table->integer('tracking_id')->nullable();
+            $table->integer('product_id')->nullable();
+            $table->decimal('subTotal')->nullable();
+            $table->decimal('discount')->nullable();
+            $table->decimal('discount_percent')->nullable();
             $table->timestamps();
         });
     }

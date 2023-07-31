@@ -11,21 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('types', function (Blueprint $table) {
+        Schema::create('counters', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('key');
+            $table->string('perfix');
+            $table->string('value');
             $table->timestamps();
         });
-        DB::table('types')->insert(['name' => 'payable',
-            // Add more columns and values as needed.
+
+        // Insert a new record into the table
+        DB::table('counters')->insert(['key' => 'purchase_order',
+            'perfix' => 'PO-', 'value' => 100734// Add more columns and values as needed.
         ]);
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('types');
+        Schema::dropIfExists('counters');
     }
 };

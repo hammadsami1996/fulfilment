@@ -58,6 +58,23 @@ export default [
             ],
         },
     },
+    {
+        path: '/customer_category',
+        name: 'create-customer_category',
+        component: () => import('../views/customer/customer_category.vue'),
+        meta: {
+            pageTitle: 'Customer Category',
+            breadcrumb: [
+                {
+                    text: 'Home'
+                },
+                {
+                    text: 'Customer Category',
+                    active: true,
+                },
+            ],
+        },
+    },
 
 
 ]

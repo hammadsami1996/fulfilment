@@ -12,7 +12,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Order::with('customer')->search()]);
+        return response()->json(['data' => Order::with('customer',  'items.product', 'stores')->search()]);
 
     }
 
@@ -22,7 +22,7 @@ class OrderController extends Controller
     public function create()
     {
         $form = [
-            "store" => '',
+            "store_id" => '',
             "order_date" => '',
             "customer_id" => '',
             "city" => '',
@@ -34,6 +34,15 @@ class OrderController extends Controller
             "location" => '',
             "sales_rep" => '',
             "selling_price" => '',
+            "external_order_no" => '',
+            "tracking_id" => '',
+            "product_id" => '',
+            "subTotal" => '',
+            "discount" => '',
+            'discount_percent' => 0,
+            'selling_price' => 0,
+
+
         ];
         return response()->json([
             'form' => $form
@@ -45,6 +54,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
         $request->validate([
 //            'store' => 'required',
             'order_date' => 'required',
@@ -57,11 +67,16 @@ class OrderController extends Controller
 //            'payment_status' => 'required',
 //            'location' => 'required',
 //            'sales_rep' => 'required',
-            'selling_price' => 'required',
+//            'selling_price' => 'required',
+            'external_order_no' => 'required',
+            'tracking_id' => 'required',
         ]);
         $model = new Order();
-        $model->fill($request->all());
-        $model->save();
+        $model->fill($request->except('items'));
+        $model->storeHasMany([
+            'items' => $request->items
+        ]);
+//        $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
     }
 
@@ -70,15 +85,16 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $model = Order::with('customer')->findOrFail($id);
-        return response()->json(["data" => $model]);    }
+        $model = Order::with('customer',  'items.product', 'stores')->findOrFail($id);
+        return response()->json(["data" => $model]);
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
     {
-        $model = Order::with('customer')->findOrFail($id);
+        $model = Order::with('customer', 'items.product', 'stores')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -103,9 +119,12 @@ class OrderController extends Controller
 //            'sales_rep' => 'required',
             'selling_price' => 'required',
         ]);
-        $model = Order::with('customer')->findOrFail($id);
-        $model->fill($request->all());
-        $model->save();
+        $model = Order::findOrFail($id);
+        $model->fill($request->except('items'));
+        $model->updateHasMany([
+            'items' => $request->items
+        ]);
+//        $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
     }
 
@@ -114,7 +133,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $model = Order::with('customer')->findOrFail($id);
+        $model = Order::with('customer', 'items', 'stores')->findOrFail($id);
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

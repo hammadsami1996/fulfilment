@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(['data' => Company::search()]);
+        return response()->json(['data' => Category::search()]);
     }
 
     /**
@@ -21,8 +21,7 @@ class CompanyController extends Controller
     public function create()
     {
         $form = [
-            "name" => '',
-            "vaccation" => '',
+            "customer_category" => '',
         ];
         return response()->json([
             'form' => $form
@@ -34,10 +33,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-        $model = new Company();
+        $model = new Category();
         $model->fill($request->all());
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
@@ -48,7 +44,7 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        $model = Company::findOrFail($id);
+        $model = Category::findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -57,10 +53,11 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        $model = Company::findOrFail($id);
+        $model = Category::with('type', 'category')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
+
     }
 
     /**
@@ -68,12 +65,8 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-        $model = Company::findOrFail($id);
+        $model = Category::findOrFail($id);
         $model->fill($request->all());
-//        $model->updated_by = Auth::id();
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
     }
@@ -83,8 +76,7 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        $model = Company::findOrFail($id);
-//        $model->deleted_by = Auth::id();
+        $model = Category::findOrFail($id);
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

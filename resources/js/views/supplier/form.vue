@@ -78,7 +78,7 @@
                         type="number"
                         v-model="form.number_2"
                     />
-                    <p class="text-red-600 text-xs italic" v-if="error.number_2">{{ error.number_2[0] }}</p>
+<!--                    <p class="text-red-600 text-xs italic" v-if="error.number_2">{{ error.number_2[0] }}</p>-->
                 </div>
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
