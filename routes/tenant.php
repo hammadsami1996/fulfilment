@@ -161,8 +161,7 @@ Route::middleware([
         Route::resource('order', \App\Http\Controllers\OrderController::class);
         Route::resource('customer', \App\Http\Controllers\CustomerController::class);
         Route::resource('type', \App\Http\Controllers\TypeController::class);
-
-
+        Route::resource('category', \App\Http\Controllers\CategoryController::class);
 
 
     });

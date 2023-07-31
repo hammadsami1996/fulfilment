@@ -12,7 +12,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Customer::with('type')->search()]);
+        return response()->json(['data' => Customer::with('type', 'category')->search()]);
 
     }
 
@@ -25,7 +25,7 @@ class CustomerController extends Controller
             "name" => '',
             "email" => '',
             "phone" => '',
-            "cateogory" => '',
+            "category_id" => '',
             "balance" => '',
             "type_id" => '',
             "discount" => '',
@@ -80,7 +80,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $model = Customer::with('type')->findOrFail($id);
+        $model = Customer::with('type', 'category')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -90,7 +90,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $model = Customer::with('type')->findOrFail($id);
+        $model = Customer::with('type', 'category')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -117,7 +117,7 @@ class CustomerController extends Controller
 //            'number' => 'required',
             'cnic' => 'required',
         ]);
-        $model = Customer::with('type')->findOrFail($id);
+        $model = Customer::with('type', 'category')->findOrFail($id);
         $model->fill($request->all());
         //        $model->updated_by = Auth::id();
         $model->save();
@@ -129,7 +129,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $model = Customer::with('type')->findOrFail($id);
+        $model = Customer::with('type', 'category')->findOrFail($id);
         //        $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();

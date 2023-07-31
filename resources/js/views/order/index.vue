@@ -30,7 +30,7 @@
             <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
                              type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
-                    Create
+                    Create Order
                 </router-link>
             </div>
         </div>

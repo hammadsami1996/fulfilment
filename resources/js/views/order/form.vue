@@ -134,11 +134,9 @@
                             </button>
                             <span class="text-sm text-gray-600">Total Units: {{ qtySum }} | Total Items: {{ form.items.length }}</span>
                         </td>
-
                         <td class="item-empty align-right panel-title">
                             <span class="item-dark font-semibold">Sub Total</span>
                         </td>
-
                         <td class="item-empty align-right panel-title">
                             <span class="item-dark">{{ subTotal }}</span>
                         </td>
