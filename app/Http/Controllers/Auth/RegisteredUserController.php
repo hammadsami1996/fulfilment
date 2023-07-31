@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Settings;
 use App\Models\Tenant;
 use App\Models\User;
-use http\Env;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -82,7 +81,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $tenant = Tenant::create(['id' => $request->name]);
-        $tenant->domains()->create(['domain' => $request->name  . env('DOMAIN')]);
+        $tenant->domains()->create(['domain' => $request->name . env('DOMAIN')]);
         $query = "insert into users (name,email,password) values('" . $request->name . "','" . $request->email . "','" . Hash::make($request->password) . "')";
         tenancy()->initialize($tenant);
 
