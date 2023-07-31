@@ -138,14 +138,14 @@
                             <span class="item-dark font-semibold">Sub Total</span>
                         </td>
                         <td class="item-empty align-right panel-title">
-                            <span class="item-dark">{{ subTotal }}</span>
+                            <span class="item-dark">{{ subTotal | formatMoney }}</span>
                         </td>
                         <td class="item-empty align-right"></td>
                         <td class="item-empty align-right panel-title">
                             <span class="item-dark">{{ tot_tax_amt }}</span>
                         </td>
                         <td class="item-empty align-right panel-title" colspan="1">
-                            <span class="item-dark">{{ total }}</span>
+                            <span class="item-dark">{{ total }} </span>
                         </td>
                     </tr>
                     <tr>

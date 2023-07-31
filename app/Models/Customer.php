@@ -12,21 +12,22 @@ class Customer extends Model
 {
     use HasFactory, Notifiable, HasRoles;
     use Search;
+
     protected $fillable = [
-        'name', 'email', 'phone','balance','type_id','discount','address','country_id',
-        'state_id', 'city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
-        's_phone', 's_address_1', 's_address_2','category_id'
+        'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
+        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
+        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id'
     ];
     protected $columns = [
-        'name', 'email', 'phone','balance','type_id','discount','address','country_id',
-        'state_id', 'city_id', 'number', 'cnic' , 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
-        's_phone', 's_address_1', 's_address_2', 'category_id'
+        'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
+        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
+        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id'
     ];
 
     protected $search = [
-        'name', 'email', 'phone','balance','type_id','discount','address','country_id',
-        'state_id', 'city_id', 'number', 'cnic' , 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
-        's_phone', 's_address_1', 's_address_2' , 'category_id'
+        'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
+        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
+        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id'
     ];
     protected $appends = ['text'];
 
@@ -35,12 +36,33 @@ class Customer extends Model
     {
         return $this->attributes['name'];
     }
+
     public function type()
     {
         return $this->belongsTo(Type::class, 'type_id', 'id');
     }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
+    public function s_country()
+    {
+        return $this->belongsTo(Country::class,  's_country_id', 'id');
+    }
+    public function b_country()
+    {
+        return $this->belongsTo(Country::class, 'b_country_id',  'id');
+    }
+
+    public function s_city()
+    {
+        return $this->belongsTo(City::class,  's_city_id', 'id');
+    }
+    public function b_city()
+    {
+        return $this->belongsTo(City::class,  'b_city_id', 'id');
+    }
+
 }

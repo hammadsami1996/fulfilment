@@ -1,68 +1,33 @@
 <template>
-    <div v-if="show" class="p-4">
+    <div class="p-4" v-if="show">
         <h1 class="text-lg font-bold mb-4">
             {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
         </h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                 <label class="block font-medium text-sm text-gray-700 mb-2">Order Date *</label>
-                <input class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" type="date" v-model="form.order_date" />
+                <input
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    type="date" v-model="form.order_date"/>
                 <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
             </div>
 
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
-                <input class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" type="text" v-model="form.name" />
+                <input
+                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    type="text" v-model="form.name"/>
                 <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
             </div>
-
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label class="block font-medium text-sm text-gray-700 mb-2">Qty</label>
-                <input class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" type="number" v-model="form.qty" />
-                <p class="text-red-600 text-xs italic" v-if="error.qty">{{ error.qty[0] }}</p>
-            </div>
-
         </div>
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Selling Price</label>
-                <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
-                    type="number"
-                    v-model="form.selling_price"
-                />
-                <p class="text-red-600 text-xs italic" v-if="error.selling_price">{{error.selling_price[0] }}</p>
-            </div>
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Discount %:</label>
-                <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
-                    type="number"
-                    v-model="form.discount"
-                />
-                <p class="text-red-600 text-xs italic" v-if="error.discount">{{error.discount[0] }}</p>
-            </div>
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Sku</label>
-                <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
-                    v-model="form.sku"
-                />
-                <p class="text-red-600 text-xs italic" v-if="error.sku">{{error.sku[0] }}</p>
-            </div>
-        </div>
+
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Category</label>
-                <typeahead :initialize="form.category" :url="categorys" @input="onCategory" display="customer_category"/>
+                <typeahead :initialize="form.category" :url="categorys" @input="onCategory"
+                           display="customer_category"/>
                 <p class="text-red-600 text-xs italic" v-if="error.category_id">{{error.category_id[0] }}</p>
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
@@ -78,7 +43,9 @@
                 >Balance</label>
                 <input
                     class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    type="number"
                     v-model="form.balance"
+
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.balance">{{error.balance[0] }}</p>
             </div>
@@ -102,6 +69,7 @@
                 >Phone</label>
                 <input
                     class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    type="number"
                     v-model="form.phone"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.phone">{{error.phone[0] }}</p>
@@ -112,6 +80,7 @@
                 >CNIC</label>
                 <input
                     class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    type="number"
                     v-model="form.cnic"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p>
@@ -165,31 +134,28 @@
             </div>
         </div>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <!--            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">-->
+            <!--                <label-->
+            <!--                    class="block font-medium text-sm text-gray-700 mb-2"-->
+            <!--                >State:</label>-->
+            <!--                <typeahead :initialize="form.nationality" :url="countries" @input="onNationality" display="title"/>-->
+            <!--                &lt;!&ndash;                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>&ndash;&gt;-->
+            <!--            </div>-->
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Country:</label>
-                <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
-                />
+                <typeahead :initialize="form.b_country" :url="countries" @input="onCountries($event,'b_')"
+                           display="title"/>
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
-                >State:</label>
-                <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
-                />
-                <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
-            </div>
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
                 >City:</label>
-                <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
-                />
+                <typeahead :initialize="form.b_city"
+                           :url="form.b_country_id != null ? `/api/city?country_id=${form.b_country_id}` : cities"
+                           @input="onCities($event,'b_city')" display="title"/>
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
             </div>
         </div>
@@ -241,31 +207,27 @@
             </div>
         </div>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <!--            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">-->
+            <!--                <label-->
+            <!--                    class="block font-medium text-sm text-gray-700 mb-2"-->
+            <!--                >State:</label>-->
+            <!--                <typeahead :initialize="form.nationality" :url="countries" @input="onNationality" display="title"/>-->
+            <!--                &lt;!&ndash;                    <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>&ndash;&gt;-->
+            <!--            </div>-->
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Country:</label>
-                <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
-                />
+                <typeahead :initialize="form.s_country" :url="countries" @input="onCountries($event,'s_')" display="title"/>
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{error.s_address_1[0] }}</p>-->
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
-                >State:</label>
-                <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
-                />
-                <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>-->
-            </div>
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
                 >City:</label>
-                <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
-                />
+                <typeahead :initialize="form.s_city"
+                           :url="form.s_country_id != null ? `/api/city?country_id=${form.s_country_id}` : cities"
+                           @input="onCities($event,'s_city')" display="title"/>
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>-->
             </div>
         </div>
@@ -320,6 +282,8 @@
                 permissions: {},
                 typess: '/api/type',
                 categorys: '/api/category',
+                cities: '/api/city',
+                countries: '/api/country',
             }
         },
 
@@ -337,6 +301,26 @@
                 })
         },
         methods: {
+            onCities(e, key) {
+                const city = e.target.value
+                this.form[key] = city
+                this.form[key + '_id'] = city.id
+            },
+            onCountries(e, key) {
+                const country = e.target.value
+                if (this.form[key + 'country_id'] != country.id) {
+                    this.form[key + 'city'] = null
+                    this.form[key + 'city_id'] = null
+                }
+                this.form[key + 'country'] = country
+                this.form[key + 'country_id'] = country.id
+            },
+            // onNationality(e) {
+            //     const nationality = e.target.value
+            //     this.form.nationality = nationality
+            //     this.form.nationality_id = nationality.id
+            //
+            // },
             onType(e) {
                 const type = e.target.value
                 this.form.type = type

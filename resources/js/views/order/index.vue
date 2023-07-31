@@ -97,10 +97,6 @@
                     {label: 'Customer', field: 'name', displayText: 'customer'},
                     {label: 'Delivery Status', field: 'city'},
                     {label: 'Payment Status', field: 'subTotal'},
-                    // {label: 'Tax', field: 'tax_percent', displayText: 'items.product'},
-                    // {label: 'Balance', field: 'balance'},
-                    // {label: 'Location', field: 'location'},
-                    // {label: 'Sales.Rep', field: 'sales_rep'},
                     {label: 'Action', field: 'action', action: true}
                     ]
             }
