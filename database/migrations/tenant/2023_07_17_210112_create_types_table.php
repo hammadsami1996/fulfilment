@@ -19,6 +19,9 @@ return new class extends Migration
         DB::table('types')->insert(['name' => 'payable',
             // Add more columns and values as needed.
         ]);
+        DB::table('types')->insert(['name' => 'receivable',
+            // Add more columns and values as needed.
+        ]);
     }
 
     /**

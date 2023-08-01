@@ -273,7 +273,11 @@
                 return total;
             },
             total_discount() {
-                return (this.total - Number(this.form.discount));
+                var final = (this.total - Number(this.form.discount));
+                    this.form.finaltotal = final ;
+                // return (this.total - Number(this.form.discount));
+                return final;
+
             },
 
         },

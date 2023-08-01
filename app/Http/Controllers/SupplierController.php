@@ -44,7 +44,7 @@ class SupplierController extends Controller
         $request->validate([
             'name' => 'required',
             'company_name' => 'required',
-            'website' => 'required',
+            // 'website' => 'required',
             'address' => 'required',
             'number_1' => 'required',
 //            'number_2' => 'required',
@@ -85,7 +85,7 @@ class SupplierController extends Controller
         $request->validate([
             'name' => 'required',
             'company_name' => 'required',
-            'website' => 'required',
+            // 'website' => 'required',
             'address' => 'required',
             'number_1' => 'required',
 //            'number_2' => 'required',
