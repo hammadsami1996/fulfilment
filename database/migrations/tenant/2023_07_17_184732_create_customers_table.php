@@ -19,11 +19,11 @@ return new class extends Migration
             $table->integer('category_id')->nullable();
             $table->integer('balance')->nullable();
             $table->string('type_id')->nullable();
-            $table->integer('discount')->nullable();
             $table->string('address')->nullable();
-            $table->integer('country_id')->nullable();
-            $table->integer('state_id')->nullable();
-            $table->integer('city_id')->nullable();
+            $table->integer('b_country_id')->nullable();
+            $table->integer('s_country_id')->nullable();
+            $table->integer('b_city_id')->nullable();
+            $table->integer('s_city_id')->nullable();
             $table->integer('number')->nullable();
             $table->decimal('cnic')->nullable();
             $table->string('b_name')->nullable();

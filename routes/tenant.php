@@ -146,6 +146,10 @@ Route::middleware([
         Route::get('submit/{id}', [\App\Http\Controllers\CandidateController::class, 'submit_get']);
         Route::get('accept/{id}', [\App\Http\Controllers\CandidateController::class, 'accept_get']);
         Route::get('reject/{id}', [\App\Http\Controllers\CandidateController::class, 'reject_get']);
+        Route::post('update', [\App\Http\Controllers\DeliverystatusController::class, 'updatestatus']);
+
+        // Route::get('status', [\App\Http\Controllers\OrderController::class, 'delivery']);
+
 
         Route::resource('candidate', \App\Http\Controllers\CandidateController::class);
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
@@ -161,6 +165,8 @@ Route::middleware([
         Route::resource('order', \App\Http\Controllers\OrderController::class);
         Route::resource('customer', \App\Http\Controllers\CustomerController::class);
         Route::resource('type', \App\Http\Controllers\TypeController::class);
+        Route::resource('status', \App\Http\Controllers\DeliverystatusController::class);
+
         Route::resource('category', \App\Http\Controllers\CategoryController::class);
 
 

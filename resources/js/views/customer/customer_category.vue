@@ -47,7 +47,7 @@
             return {
                 error: {},
                 show: false,
-                resource: '/category',
+                resource: '/customer',
                 store: '/api/category',
                 method: 'POST',
                 small: 'category',

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Delivery_status;
+
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -54,7 +56,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
+    //    dd($request->all());
         $request->validate([
 //            'store' => 'required',
             'order_date' => 'required',
@@ -73,6 +75,12 @@ class OrderController extends Controller
         ]);
         $model = new Order();
         $model->fill($request->except('items'));
+        $model->subTotal = collect($request->items)->sum(function($item) {
+            return $item['qty'] * $item['unit_price'];
+        });
+        $model->tax = $request->mtax_amount;
+        $model->total = $request->finaltotal;
+        
         $model->storeHasMany([
             'items' => $request->items
         ]);
@@ -138,4 +146,7 @@ class OrderController extends Controller
         $model->delete();
         return response()->json(["deleted" => true]);
     }
+
+
+   
 }
