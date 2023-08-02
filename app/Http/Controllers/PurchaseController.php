@@ -36,6 +36,7 @@ class PurchaseController extends Controller
             "purchasing_price" => '',
             "tax" => '',
             "sub_total" => '',
+            
         ];
         return response()->json([
             'form' => $form
@@ -47,10 +48,11 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+            // dd($request->all());
         $request->validate([
             'supplier_id' => 'required',
 //            'po_number' => 'required',
-            'po_reference_number' => 'required',
+            // 'po_reference_number' => 'required',
             'po_date' => 'required',
             'due_date' => 'required',
             'discount' => 'required',
@@ -66,7 +68,14 @@ class PurchaseController extends Controller
         $model = new Purchase();
         $model->fill($request->all());
         $model->po_number = ($number->first()->prefix . $number->first()->value);
-        $model->save();
+        // $model->save();
+        $model->tax = $request->mtax_amount;
+        $model->total = $request->finaltotal;
+        $model->sub_total = $request->tvalue_ex_tax;
+        
+        $model->storeHasMany([
+            'items' => $request->items
+        ]);
 
         $number->update([
             'value' => ($number->first()->value + 1)

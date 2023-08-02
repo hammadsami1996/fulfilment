@@ -36,7 +36,38 @@
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+                <template v-slot:status="props">
+               
+                         <button v-if="props.item.status_id == 1" style=" background-image: linear-gradient(90deg,#f8d664,orange);  font-weight: bold;" @click="shows(1 ,props.item.id) ">
+                            Pending
+                                </button>
+                                <button v-if="props.item.status_id == 2" style=" background-image: linear-gradient(90deg,#e8f571,greenyellow); font-weight: bold;" @click="shows(2 ,props.item.id) ">
+                                    Confirmed
+                                </button>
+                                <button v-if="props.item.status_id == 3" style=" background-image: linear-gradient(90deg,#5b8da1,rgb(44, 44, 134)); font-weight: bold; " @click="shows(3 ,props.item.id) ">
+                                    Shipped
+                                </button>
+                                <button v-if="props.item.status_id == 4" style=" background-image: linear-gradient(90deg,#587e5a,green); font-weight: bold;" @click="shows(4 , props.item.id) ">
+                                    Delivered
+                                </button>
+                                <div v-if="sts && props.item.id == ids">
+                                    <div>
+                                        <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
+                                    Update
+                                </button>
+                                <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;" @click="Cancel() ">
+                                    Cancel
+                                </button>
+
+                                    
+                                    </div>
+                                    <typeahead :initialize="form.deliver" :url="delivery+'?status='+id" @input="onDelivery" display="name"/>
+                             
+                            
+                         </div>
+                        </template>
                 <template v-slot:action="props">
+                   
                     <div class="text-sm font-medium flex">
                          <span v-if="permissions.includes(`edit-${small}`)">
                         <a
@@ -67,27 +98,46 @@
                         </span>
                     </div>
                 </template>
+
+
+
+                <!-- <template v-slot:show > 
+                   
+               <div class="uiverse">
+                <span class="tooltip" style="color: black;">Confirmed</span>
+              <img src="/images/icons8-confirm-48.png" >
+         
+            </div>
+                      
+              </template> -->
             </panel>
         </div>
     </div>
 </template>
 
+
 <script>
     import Panel from "@/components/panel/panel.vue";
     import {form} from "@/libs/mixins";
     import {byMethod} from "@/libs/api";
+    import Typeahead from "@/Components/typeahead/typeahead.vue";
 
     export default {
         mixins: [form],
         components: {
-            Panel,
+            Panel, Typeahead,
         },
         name: "Index",
         data() {
             return {
+                sts:false,
+                id:null,
+                ids:null,
+
                 permissions: [],
                 urlApi: "/api/order",
                 resource: "/order",
+                delivery:'/api/status',
                 small: "order",
                 capital: "Order",
                 columns: [
@@ -95,9 +145,11 @@
                     {label: 'Store', field: 'name', displayText: 'stores'},
                     {label: 'Order Date', field: 'order_date'},
                     {label: 'Customer', field: 'name', displayText: 'customer'},
-                    {label: 'Delivery Status', field: 'city'},
+                    {label: 'Delivery Status', field: 'status' , slot:true},
                     {label: 'Payment Status', field: 'subTotal'},
-                    {label: 'Action', field: 'action', action: true}
+                    {label: 'Action', field: 'action', action: true},
+                    // {label: 'Status', field: 'show', slot:true}
+
                     ]
             }
         },
@@ -105,6 +157,36 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+            Cancel(){
+                this.sts = false;
+                this.form.deliver = null;
+            },
+            shows(e,status_id){
+                this.sts = true;
+                this.ids = status_id;
+                this.id = e
+            },
+            Update(e ,id){
+               
+                byMethod('POST', '/api/update?ids='+id , e).then(res => {
+                    if (res.data.saved) {
+                        this.sts = false,
+                        this.form.deliver = null;
+                        this.$refs.TableData.reload();
+                    }
+                })
+
+
+            },
+
+          
+
+
+            onDelivery(e) {
+                const deliver = e.target.value
+                this.form.deliver = deliver
+                this.form.deliver_id = deliver.id
+            },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
@@ -121,3 +203,100 @@
         },
     }
 </script>
+<style scoped>
+    
+button {
+  border-radius: .25rem;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 400;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: #fff;
+  -webkit-clip-path: polygon(0 0,0 0,100% 0,100% 0,100% calc(100% - 15px),calc(100% - 15px) 100%,15px 100%,0 100%);
+  clip-path: polygon(0 0,0 0,100% 0,100% 0,100% calc(100% - 15px),calc(100% - 15px) 100%,15px 100%,0 100%);
+  height: 40px;
+  font-size: 0.7rem;
+  line-height: 14px;
+  letter-spacing: 1.2px;
+  transition: .2s .1s;
+  /* background-image: linear-gradient(90deg,#1c1c1c,#6220fb); */
+  /* background-color: blue; */
+  border: 0 solid;
+  overflow: hidden;
+}
+
+button:hover {
+  cursor: pointer;
+  transition: all .3s ease-in;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+
+
+.uiverse {
+  position: relative;
+  
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+  width: 80px;
+  height: 40px;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background: #ffffff;
+  color: #ffffff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #ffffff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.uiverse:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+svg:hover span,
+svg:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.uiverse:hover,
+.uiverse:hover .tooltip,
+.uiverse:hover .tooltip::before {
+  /* background: linear-gradient(320deg, rgb(3, 77, 146), rgb(0, 60, 255)); */
+  background: #fff;
+  color: #ffffff;
+}
+
+</style>

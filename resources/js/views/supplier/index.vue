@@ -73,6 +73,8 @@
                     {label: 'Email', field: 'email'},
                     {label: 'Address', field: 'address'},
                     {label: 'Balance', field: 'opening_balance'},
+                    
+                    
                     {label: 'Action', field: 'action', action: true}
                     ]
             }

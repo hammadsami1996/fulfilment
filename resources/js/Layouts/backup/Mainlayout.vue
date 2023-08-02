@@ -14,9 +14,9 @@
     <!-- Page Container -->
     <div
         id="page-container"
-        class="flex flex-col mx-auto w-full min-h-screen min-w-[320px] bg-gray-100 dark:text-gray-100 dark:bg-gray-900"
+        class="flex flex-col mx-auto w-full min-h-screen bg-gray-100"
         :class="{
-      'lg:pl-64': desktopSidebarOpen
+      'lg:pl-72': desktopSidebarOpen
     }"
     >
         <!-- Page Sidebar -->
@@ -178,11 +178,18 @@
         <main id="page-content" class="flex flex-auto flex-col max-w-full pt-16">
             <!-- Page Section -->
             <div class="max-w-10xl mx-auto p-4 lg:p-8 w-full">
-                <div class="bg-white shadow overflow-hidden rounded-lg p-2">
+                <!-- ADD YOUR MAIN CONTENT BELOW -->
+
+                <!-- Placeholder -->
+<!--                <div class="flex items-center justify-center rounded-xl bg-gray-50 border-2 border-dashed border-gray-200 text-gray-400 py-64">-->
+                    <div class="bg-white shadow overflow-hidden rounded-lg p-2">
                     <!-- Striped Table -->
-                    <router-view/>
-                    <!-- END Striped Table -->
-                </div>
+                            <router-view/>
+                        <!-- END Striped Table -->
+                    </div>
+<!--                </div>-->
+
+                <!--ADD YOUR MAIN CONTENT ABOVE-->
             </div>
             <!-- END Page Section -->
         </main>

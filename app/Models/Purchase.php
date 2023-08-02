@@ -7,14 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use App\Support\HasManyRelation;
 
 class Purchase extends Model
 {
+    use HasManyRelation;
     use HasFactory, Notifiable, HasRoles;
     use Search;
     protected $fillable = [
         'supplier_id', 'po_number', 'po_reference_number', 'po_date', 'due_date', 'discount', 'sku', 'name',
-        'qty', 'purchasing_price', 'tax', 'sub_total'
+        'qty', 'purchasing_price', 'tax', 'sub_total','discount_percent'
     ];
     protected $columns = [
         'supplier_id', 'po_number', 'po_reference_number', 'po_date', 'due_date', 'discount', 'sku', 'name',
@@ -36,4 +38,9 @@ class Purchase extends Model
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
+    public function items()
+    {
+        return $this->hasMany(Purchase_item::class);
+    }
 }
+
