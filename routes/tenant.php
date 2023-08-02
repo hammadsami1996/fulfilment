@@ -162,6 +162,7 @@ Route::middleware([
         Route::resource('customer', \App\Http\Controllers\CustomerController::class);
         Route::resource('type', \App\Http\Controllers\TypeController::class);
         Route::resource('category', \App\Http\Controllers\CategoryController::class);
+        Route::resource('product_category', \App\Http\Controllers\ProductCategoryController::class);
 
 
     });
