@@ -13,24 +13,38 @@ class Product extends Model
     use HasFactory, Notifiable, HasRoles;
     use Search;
     protected $fillable = [
-        'name', 'sku', 'price'
+        'title', 'description',  'product_sku', 'model_no',  'barcode', 'manage_inventory',
+        'product_qty', 'product_types', 'cost_price', 'selling_price',  'start_date',
+        'end_date', 'product_category','brand_id', 'head_id'
     ];
     protected $columns = [
-        'name', 'sku', 'price'
+        'title', 'description',  'product_sku', 'model_no', 'barcode', 'manage_inventory',
+        'product_qty', 'product_types', 'cost_price', 'selling_price', 'start_date',
+        'end_date', 'product_category','brand_id', 'head_id'
     ];
 
     protected $search = [
-        'name', 'sku', 'price'
+        'title', 'description',  'product_sku', 'model_no', 'barcode', 'manage_inventory',
+        'product_qty', 'product_types', 'cost_price', 'selling_price',  'start_date',
+        'end_date', 'product_category','brand_id', 'head_id'
     ];
     protected $appends = ['text'];
 
     public function getTextAttribute()
     {
-        return $this->attributes['name'];
+        return $this->attributes['title'];
     }
-    public function inventory()
+    public function product_img()
     {
-        return $this->hasMany(Inventory::class, 'product', 'id');
+        return $this->hasMany(ProductImg::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class, 'head_id', 'id')->with('category');
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id', 'id');
     }
 
 }

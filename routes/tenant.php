@@ -169,6 +169,7 @@ Route::middleware([
 
         Route::resource('category', \App\Http\Controllers\CategoryController::class);
         Route::resource('product_category', \App\Http\Controllers\ProductCategoryController::class);
+        Route::resource('brand', \App\Http\Controllers\BrandController::class);
 
 
     });

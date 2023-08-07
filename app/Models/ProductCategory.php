@@ -13,6 +13,7 @@ class ProductCategory extends Model
 
     use HasFactory, Notifiable, HasRoles;
     use Search;
+
     protected $fillable = [
         'name', 'head_id'
     ];
@@ -25,9 +26,24 @@ class ProductCategory extends Model
     ];
     protected $appends = ['text'];
 
-
     public function getTextAttribute()
     {
-        return $this->attributes['name'];
+        return $this->getParent($this);
+    }
+
+    public function getParent($model)
+    {
+        if ($model->category != null) {
+            $path = $this->getParent($model->category);
+            $path .= '->' . $model->name;
+        } else {
+            $path = $model->name;
+        }
+        return $path;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class, 'head_id', 'id')->with('category');
     }
 }
