@@ -21,10 +21,8 @@
                     </div>
                 </div>
             </div>
-
             <!--            Image Gallery-->
-            <div class="bg-white shadow rounded-lg mt-4">
-                <div class="p-4">
+            <div class="bg-white shadow rounded-lg mt-4 p-4">
                     <h3 class="text-xl font-semibold mb-2 text-indigo-600">Image Gallery</h3>
                     <div
                         class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
@@ -80,28 +78,61 @@
                             </tfoot>
                         </table>
                     </div>
-                </div>
             </div>
-            <!--            Product Type-->
-            <div class="bg-white shadow rounded-lg mt-4">
-                <div class="card-block">
-                    <h3 class="text-2xl font-semibold mb-4 text-indigo-600">Variants</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        <div class="col-span-1 md:col-span-2">
-                            <div class="bg-white shadow rounded-lg p-2">
-                                <label class="block text-gray-700 font-medium mb-2">Product Type</label>
-                                <typeahead :initial="form.product_type" :url="product_types" @input="onproducttypes"
-                                           class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            <!--            Variantions-->
+            <div class="bg-white shadow rounded-lg mt-2 p-4">
+                <h3 class="text-xl font-semibold mb-2 text-indigo-600">Variants</h3>
+                <div
+                    class="border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+                    <div class="flex items-center space-x-2 py-2 px-3">
+                        <div class="flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <label class="block font-medium text-gray-700">Option Name</label>
+                            </div>
+                            <div class="mt-2">
+                                <div class="relative">
+                                    <typeahead
+                                        class="w-full border border-gray-300 rounded py-1 px-2 focus:outline-none focus:border-indigo-500"
+                                        type="number" >
+                                    </typeahead>
+                                </div>
                             </div>
                         </div>
-                        <div v-if="prod_type === 1 || ($route.meta.mode === 'edit' && form.attribute_sets != null)">
-                            <div class="bg-white shadow rounded-lg p-2">
-                                <typeahead :initial="form.attribute_sets" :url="attributeset" @input="onattribute"
-                                           class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        <button
+                            class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
+                            type="button">
+                            <i class="fa fa-trash mr-1"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-2 py-2 px-3">
+                        <div class="flex-grow">
+                            <div class="flex items-center space-x-2">
+                                <label class="block font-medium text-gray-700">Option Values</label>
+                            </div>
+                            <div class="mt-2">
+                                <div class="relative">
+                                    <typeahead
+                                        class="w-full border border-gray-300 rounded py-1 px-2 focus:outline-none focus:border-indigo-500"
+                                        type="text" >
+                                    </typeahead>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="p-2">
+                        <button
+                            class="text-sm bg-indigo-600 text-white py-1 px-2 rounded hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200"
+                            type="button">
+                            Done
+                        </button>
+                    </div>
+                    <hr class="border-t border-gray-300 ">
+                    <div class="p-2">
+                        <button
+                            class="underline text text-blue-600 py-1 px-2 rounded hover:text-blue-700 focus:outline-none focus:ring focus:ring-blue-200"
+                            type="button">
+                            + Add another option
+                        </button>
                     </div>
                 </div>
             </div>
@@ -241,7 +272,6 @@
         }
         return urls[to.meta.mode] || urls.add
     }
-
     export default {
         mixins: [form],
         components: {
@@ -289,9 +319,6 @@
                 const brand = e.target.value
                 this.form.brand = brand
                 this.form.brand_id = brand.id
-            },
-            onproducttypes() {
-
             },
             addNewLine() {
                 if (!this.form.product_img) {
