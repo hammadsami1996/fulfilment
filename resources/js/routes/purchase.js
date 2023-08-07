@@ -36,6 +36,29 @@ export default [
             ],
         },
     },
+
+    {
+        path: '/recieve_order/:id/edit',
+        name: 'Create-recieve_order',
+        component: () => import('../views/recieve_order/form.vue'),
+        meta: {
+            mode: 'edit',
+            pageTitle: 'Recieve Order',
+            breadcrumb: [
+                {
+                    text: 'Home'
+                },
+                {
+                    text: 'recieve_order',
+                    link: '/recieve_order'
+                },
+                {
+                    text: 'Recivece order Create',
+                    active: true,
+                },
+            ],
+        },
+    },
     {
         path: '/purchase/:id/edit',
         name: 'edit-purchase',

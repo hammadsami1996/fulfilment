@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Delivery_status;
 use App\Models\Order;
+use App\Models\Purchase;
+
 
 
 
@@ -18,19 +20,22 @@ class DeliverystatusController extends Controller
      */
     public function index()
     {
-        // dd(request('status'));
-       if(request('status') == 1){
-        $results = Delivery_status::orderBy('id')->where('id' , 2)->orwhere('id' , 5)
+        // dd(request('id'));
+    //    if(request('status') == 1){
+        $id = request('id');
+        $data = Purchase::where('id',$id)->value('status_id');
+        // dd($data);
+        $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $data)->orderBy('id')
           ->search();
-        }
-        if(request('status') == 2){
-            $results = Delivery_status::orderBy('id')->where('id' , 3)->orwhere('id' , 5)
-              ->search();
-            }
-            if(request('status') == 3){
-                $results = Delivery_status::orderBy('id')->where('id' , 4)->orwhere('id' , 5)
-                  ->search();
-                }
+        // }
+        // if(request('status') == 2){
+        //     $results = Delivery_status::orderBy('id')->where('id' , 3)->orwhere('id' , 5)
+        //       ->search();
+        //     }
+        //     if(request('status') == 3){
+        //         $results = Delivery_status::orderBy('id')->where('id' , 4)->orwhere('id' , 5)
+        //           ->search();
+        //         }
      
         return response()->json(['data' => $results]);
     }
@@ -88,6 +93,15 @@ class DeliverystatusController extends Controller
     {
     //    dd($request->all());
             $data = Order::where('id' , $request->ids)->first();
+            $data->status_id = $request->id;
+            $data->save();
+            return response()->json(["saved" => true, "id" => $data->id]);
+    }
+
+    public function updatedstatus(Request $request  )
+    {
+    //    dd($request->all());
+            $data = Purchase::where('id' , $request->ids)->first();
             $data->status_id = $request->id;
             $data->save();
             return response()->json(["saved" => true, "id" => $data->id]);

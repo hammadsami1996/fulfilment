@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Delivery_status;
+use App\Models\Inventory;
+use App\Models\Product;
+
+
 
 use Illuminate\Http\Request;
 
@@ -14,7 +18,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Order::with('customer',  'items.product', 'stores')->search()]);
+        return response()->json(['data' => Order::with('customer',  'items.product', 'stores' ,'status')->search()]);
 
     }
 
@@ -56,7 +60,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-    //    dd($request->all());
+    //    dd($request->items);
         $request->validate([
 //            'store' => 'required',
             'order_date' => 'required',
@@ -73,6 +77,32 @@ class OrderController extends Controller
             'external_order_no' => 'required',
             'tracking_id' => 'required',
         ]);
+        $wearhouse = $request->wearhouse_id;
+        // dd($request->wearhouse_id);
+        foreach($request->items  as $numbers){
+            $product = Product::where('id', $numbers['product_id'])->value('quantity');
+            if($product >= $numbers['qty']){
+                $inventory = Inventory::where('product_id', $numbers['product_id'])->where('wearhouse_id' ,$wearhouse )->value('qty');
+                // dd($inventory);
+                if($inventory < $numbers['qty']){
+    
+                    return response()->json(["error" => true]);
+    
+                }
+            }
+            else{
+                return response()->json(["error" => true]);
+            }
+            // dd($number['product_id']);
+           
+
+        }
+
+      
+
+     
+        // dd('abcd');
+
         $model = new Order();
         $model->fill($request->except('items'));
         $model->subTotal = collect($request->items)->sum(function($item) {
@@ -84,8 +114,24 @@ class OrderController extends Controller
         $model->storeHasMany([
             'items' => $request->items
         ]);
+        $wearhouses = $request->wearhouse_id;
+        // dd($request->wearhouse_id);
+        foreach($request->items  as $number){
+            // dd($number['product_id']);
+            $inventory = Inventory::where('product_id', $number['product_id'])->where('wearhouse_id' ,$wearhouses );
+            $inventory->update([
+                'qty' => ($inventory->first()->qty - $number['qty'])
+            ]);
+            $product = Product::where('id', $number['product_id']);
+            $product->update([
+                'quantity' => ($product->first()->quantity - $number['qty'])
+            ]);
+            // dd($number['qty']);
+        }
+        // $inventory = Inventory::where('product_id' , );
 //        $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
+   
     }
 
     /**
@@ -145,6 +191,20 @@ class OrderController extends Controller
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);
+    }
+
+
+
+    public function remain(Request $request){
+        // dd($request[1]);
+        $product_id = $request[0];
+        $warehouse = $request[1];
+        
+
+        $inventory = Inventory::where('product_id' ,$product_id )->where('wearhouse_id' , $warehouse)->value('qty');
+        // dd($inventory);
+        return response()->json(["data" => $inventory]);
+
     }
 
 

@@ -13,7 +13,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Purchase::with('supplier')->search()]);
+        return response()->json(['data' => Purchase::with('supplier', 'status')->search()]);
 
     }
 
@@ -55,7 +55,7 @@ class PurchaseController extends Controller
             // 'po_reference_number' => 'required',
             'po_date' => 'required',
             'due_date' => 'required',
-            'discount' => 'required',
+            // 'discount' => 'required',
             'sku' => 'required',
 //            'name' => 'required',
 //            'qty' => 'required',
@@ -64,10 +64,11 @@ class PurchaseController extends Controller
 //            'sub_total' => 'required',
         ]);
         $number = Counter::where('key', 'purchase_order');
+        // dd($number->first()->perfix);
 
         $model = new Purchase();
         $model->fill($request->all());
-        $model->po_number = ($number->first()->prefix . $number->first()->value);
+        $model->po_number = ($number->first()->perfix . $number->first()->value);
         // $model->save();
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;

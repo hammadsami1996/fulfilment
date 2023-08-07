@@ -38,39 +38,17 @@
         </div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
-            <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
+            <!-- <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
                              type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
                     Create
                 </router-link>
-            </div>
+            </div> -->
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
-                <template v-slot:statuses="props">
-                    <button   :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) " >
-                           {{ props.item.status.name }}
-                                </button>
-                                <!-- <button @click="shows(1 ,props.item.id) ">Draft</button> -->
-               
-                        
-                                <div v-if="sts && props.item.id == ids">
-                                    <div>
-                                        <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
-                                    Update
-                                </button> -->
-                                <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;" @click="Cancel() ">
-                                    Cancel
-                                </button>
-
-                                    
-                                    </div>
-                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=purchase&id='+ props.item.id"   @input="onDelivery($event ,props.item.id)" display="name"/>
-                             
-                            
-                         </div>
-                        </template>
-                <template v-slot:action="props">
+                
+                <!-- <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
                          <span v-if="permissions.includes(`edit-${small}`)">
                         <a
@@ -100,7 +78,7 @@
                         </a>
                         </span>
                     </div>
-                </template>
+                </template> -->
             </panel>
         </div>
     </div>
@@ -124,21 +102,21 @@
                 id:null,
                 ids:null,
                 permissions: [],
-                urlApi: "/api/purchase",
-                resource: "/purchase",
-                small: "purchase",
-                capital: "Purchase",
+                urlApi: "/api/receive_order",
+                resource: "/receive_order",
+                small: "Receive order",
+                capital: "Receive order",
                 delivery:'/api/status',
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
+                    {label: 'RO Number', field: 'number'},
                     {label: 'Supplier', field: 'name', displayText: 'supplier'},
                     {label: 'PO Number', field: 'po_number'},
-                    {label: 'PO Number Reference', field: 'po_reference_number'},
-                    {label: 'Total', field: 'sub_total'},
-                    {label: 'Tax', field: 'tax'},
-                    {label: 'Status', field: 'statuses' , slot:true},
+                    {label: 'Addintion Note', field: 'note'},
+                    // {label: 'Tax', field: 'tax'},
+                    // {label: 'Status', field: 'statuses' , slot:true},
 
-                    {label: 'Action', field: 'action', action: true}
+                    // {label: 'Action', field: 'action', action: true}
                     ]
             }
         },
@@ -155,38 +133,28 @@
                 this.ids = status_id;
                 this.id = e
             },
-            onDelivery(e ,id) {
+            onDelivery(e) {
                 const deliver = e.target.value
                 this.form.deliver = deliver
                 this.form.deliver_id = deliver.id
-                this.Update(this.form.deliver ,id);
-               
             },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
             Update(e ,id){
-               console.log(e.id);
-               if(e.id == 27){
-
-                this.$router.push(`/recieve_order/${id}/edit`)
-                }
-                else{
-
-                    byMethod('POST', '/api/updated?ids='+id , e).then(res => {
-                        if (res.data.saved) {
-                            this.sts = false,
-                            this.form.deliver = null;
-                            
-                            this.$refs.TableData.reload();
-                        }
-                    })
-                }
+               
+               byMethod('POST', '/api/updated?ids='+id , e).then(res => {
+                   if (res.data.saved) {
+                       this.sts = false,
+                       this.form.deliver = null;
+                       this.$refs.TableData.reload();
+                   }
+               })
 
 
            },
             deleteRole(e) {
-                byMethod('delete', `/api/purchase/${e}`)
+                byMethod('delete', `/api/receive_order/${e}`)
                     .then((res) => {
                         // console.log(res);
                         if (res.data.deleted) {

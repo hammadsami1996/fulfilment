@@ -42,5 +42,9 @@ class Purchase extends Model
     {
         return $this->hasMany(Purchase_item::class);
     }
+    public function status()
+    {
+        return $this->belongsTo(Delivery_status::class, 'status_id', 'id');
+    }
 }
 
