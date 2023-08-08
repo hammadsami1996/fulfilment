@@ -13,8 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $result = Product::with('inventory')->search();
 
-        return response()->json(['data' => Product::search()]);
+        return response()->json(['data' => $result]);
     }
 
     /**

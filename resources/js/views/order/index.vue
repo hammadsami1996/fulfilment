@@ -36,9 +36,12 @@
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
-                <template v-slot:status="props">
+                <template v-slot:statuses="props">
+                    <button   :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) " >
+                           {{ props.item.status.name }}
+                                </button>
                
-                         <button v-if="props.item.status_id == 1" style=" background-image: linear-gradient(90deg,#f8d664,orange);  font-weight: bold;" @click="shows(1 ,props.item.id) ">
+                         <!-- <button v-if="props.item.status_id == 1"  :style="{ background: props.item.status.color }" @click="shows(1 ,props.item.id) ">
                             Pending
                                 </button>
                                 <button v-if="props.item.status_id == 2" style=" background-image: linear-gradient(90deg,#e8f571,greenyellow); font-weight: bold;" @click="shows(2 ,props.item.id) ">
@@ -47,21 +50,21 @@
                                 <button v-if="props.item.status_id == 3" style=" background-image: linear-gradient(90deg,#5b8da1,rgb(44, 44, 134)); font-weight: bold; " @click="shows(3 ,props.item.id) ">
                                     Shipped
                                 </button>
-                                <button v-if="props.item.status_id == 4" style=" background-image: linear-gradient(90deg,#587e5a,green); font-weight: bold;" @click="shows(4 , props.item.id) ">
+                                <button v-if="props.item.status_id == 4" style=" background-image: linear-gradient(90deg,#587e5a,green); font-weight: bold;" >
                                     Delivered
-                                </button>
+                                </button> -->
                                 <div v-if="sts && props.item.id == ids">
                                     <div>
-                                        <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
+                                        <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
                                     Update
-                                </button>
+                                </button> -->
                                 <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;" @click="Cancel() ">
                                     Cancel
                                 </button>
 
                                     
                                     </div>
-                                    <typeahead :initialize="form.deliver" :url="delivery+'?status='+id" @input="onDelivery" display="name"/>
+                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=order'" @input="onDelivery($event ,props.item.id)" display="name"/>
                              
                             
                          </div>
@@ -145,7 +148,7 @@
                     {label: 'Store', field: 'name', displayText: 'stores'},
                     {label: 'Order Date', field: 'order_date'},
                     {label: 'Customer', field: 'name', displayText: 'customer'},
-                    {label: 'Delivery Status', field: 'status' , slot:true},
+                    {label: 'Delivery Status', field: 'statuses' , slot:true},
                     {label: 'Payment Status', field: 'subTotal'},
                     {label: 'Action', field: 'action', action: true},
                     // {label: 'Status', field: 'show', slot:true}
@@ -182,10 +185,11 @@
           
 
 
-            onDelivery(e) {
+            onDelivery(e , id) {
                 const deliver = e.target.value
                 this.form.deliver = deliver
                 this.form.deliver_id = deliver.id
+                this.Update(this.form.deliver ,id);
             },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
@@ -206,6 +210,7 @@
 <style scoped>
     
 button {
+font-weight: bold !important;
   border-radius: .25rem;
   text-transform: uppercase;
   font-style: normal;

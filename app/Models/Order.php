@@ -16,7 +16,7 @@ class Order extends Model
     use HasManyRelation;
     protected $fillable = [
         'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','selling_Price',
-        'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent'
+        'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent','wearhouse_id'
     ];
     protected $columns = [
         'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','selling_Price',
@@ -45,5 +45,10 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(Order_item::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Delivery_status::class, 'status_id', 'id');
     }
 }

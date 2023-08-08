@@ -30,7 +30,7 @@ class Product extends Model
     }
     public function inventory()
     {
-        return $this->hasMany(Inventory::class, 'product', 'id');
+        return $this->belongsTo(Inventory::class, 'product_id', 'id');
     }
 
 }
