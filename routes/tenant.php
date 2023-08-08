@@ -178,6 +178,7 @@ Route::middleware([
         Route::resource('status', \App\Http\Controllers\DeliverystatusController::class);
 
         Route::resource('category', \App\Http\Controllers\CategoryController::class);
+        Route::resource('product_category', \App\Http\Controllers\ProductCategoryController::class);
 
 
     });

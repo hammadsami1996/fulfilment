@@ -1,5 +1,28 @@
 <template>
-    <h1>User Dashboard</h1>
+    <div>
+        <h1>User Dashboard</h1>
+        <Editor editorStyle="height: 320px" v-model="form.value"/>
+    </div>
+</template>
+
+<script>
+    import {form} from '@/libs/mixins'; // Make sure to use the correct path
+    import Editor from 'primevue/editor';
+    export default {
+        mixins: [form],
+        components: {
+            Editor,
+        },
+        data() {
+            return {}
+        },
+        created() {
+        },
+        methods: {}
+    };
+</script>
+
+
 <!--    <div class="bg-gray-800">-->
 <!--        <div class="p-5 flex items-center hover:border-gray-300">-->
 <!--            <div class="w-full">-->
@@ -63,21 +86,3 @@
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
-</template>
-<script>
-    import {get} from '@/libs/api'
-    import {form} from '@/libs/mixins'
-
-    export default {
-        mixins: [form],
-        data() {
-            return {}
-        },
-        created() {
-            get('api/basic_info').then(res => {
-                this.form = res.data.form;
-            })
-        },
-    };
-</script>
-

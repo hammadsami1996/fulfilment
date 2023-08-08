@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilment7
+ Source Schema         : tenantfulfilment8
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 20/07/2023 02:46:40
+ Date: 02/08/2023 12:38:15
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `menus`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `sort` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
@@ -53,5 +53,6 @@ INSERT INTO `menus` VALUES (25, 'Suppliers', '/supplier', 'view-supplier', 1, 'w
 INSERT INTO `menus` VALUES (26, 'Purchase', '/purchase', 'view-purchase', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (27, 'Order', '/order', 'view-order', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (28, 'Customer', '/customer', 'view-customer', 1, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (29, 'Product Category', '/product_category', 'view-product_category', 1, 'web', NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

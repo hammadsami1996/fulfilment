@@ -151,7 +151,7 @@
                             <span class="item-dark font-semibold">Sub Total</span>
                         </td>
                         <td class="item-empty align-right panel-title">
-                            <span class="item-dark">{{ subTotal | formatMoney }}</span>
+                            <span class="item-dark">{{ subTotal}}</span>
                         </td>
                         <td class="item-empty align-right"></td>
                         <td class="item-empty align-right panel-title">
