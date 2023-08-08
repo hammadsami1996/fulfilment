@@ -21,8 +21,27 @@ return new class extends Migration
 
         // Insert a new record into the table
         DB::table('counters')->insert(['key' => 'purchase_order',
-            'perfix' => 'PO-', 'value' => 100734// Add more columns and values as needed.
+            'perfix' => 'PO-', 'value' => 100734,
+            // 'perfix' => 'RO-', 'value' => 100100
+
+            // [
+            //     'key' => 'purchase_order',
+            //     'perfix' => 'PO-',
+            //     'value' => 100734,
+            // ],
+            // [
+            //     'key' => 'receivable_order',
+            //     'perfix' => 'RO-',
+            //     'value' => 100100,
+            // ],
         ]);
+        DB::table('counters')->insert(['key' => 'receivable_order',
+       
+        'perfix' => 'RO-', 'value' => 100100
+
+       
+    ]);
+        
     }
 
 

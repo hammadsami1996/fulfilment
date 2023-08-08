@@ -25,6 +25,11 @@ return new class extends Migration
             $table->integer('purchasing_price')->nullable();
             $table->integer('tax')->nullable();
             $table->integer('sub_total')->nullable();
+            $table->string('discount_percent')->nullable();
+            $table->integer('total')->nullable();
+            $table->integer('status_id')->default(23);
+
+
             $table->timestamps();
         });
     }
