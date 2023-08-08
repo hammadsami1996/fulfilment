@@ -56,16 +56,16 @@
                         
                                 <div v-if="sts && props.item.id == ids">
                                     <div>
-                                        <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
+                                        <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
                                     Update
-                                </button>
+                                </button> -->
                                 <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;" @click="Cancel() ">
                                     Cancel
                                 </button>
 
                                     
                                     </div>
-                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=purchase&id='+ props.item.id"   @input="onDelivery" display="name"/>
+                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=purchase&id='+ props.item.id"   @input="onDelivery($event ,props.item.id)" display="name"/>
                              
                             
                          </div>
@@ -155,10 +155,11 @@
                 this.ids = status_id;
                 this.id = e
             },
-            onDelivery(e) {
+            onDelivery(e ,id) {
                 const deliver = e.target.value
                 this.form.deliver = deliver
                 this.form.deliver_id = deliver.id
+                this.Update(this.form.deliver ,id);
                
             },
             edit(id) {
