@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->integer('phone')->nullable();
+            $table->bigInteger('phone')->nullable();
             $table->integer('category_id')->nullable();
             $table->integer('balance')->nullable();
             $table->string('type_id')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('b_city_id')->nullable();
             $table->integer('s_city_id')->nullable();
             $table->integer('number')->nullable();
-            $table->decimal('cnic')->nullable();
+            $table->string('cnic')->nullable();
             $table->string('b_name')->nullable();
             $table->string('b_phone')->nullable();
             $table->string('b_address_1')->nullable();

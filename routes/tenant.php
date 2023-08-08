@@ -168,6 +168,7 @@ Route::middleware([
         Route::post('receive_order_inventory', [\App\Http\Controllers\ReceiveOrderController::class, 'inventory']);
         Route::post('remianing', [\App\Http\Controllers\OrderController::class, 'remain']);
 
+        Route::get('sts', [\App\Http\Controllers\DeliverystatusController::class, 'searches']);
        
 
 

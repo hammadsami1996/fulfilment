@@ -128,7 +128,7 @@
                 resource: "/purchase",
                 small: "purchase",
                 capital: "Purchase",
-                delivery:'/api/status',
+                delivery:'/api/sts',
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Supplier', field: 'name', displayText: 'supplier'},

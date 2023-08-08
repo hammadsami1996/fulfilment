@@ -88,8 +88,8 @@
                                 class="w-64  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="name"
                             />
-                            <span v-if=" count !=null && index == index? count < item.qty :''" style="color: red; font-weight: bold; margin-right: 120px;">Stock Short(Only {{ count }}:Remianing)</span>
-                            <span v-if="alert && ids == item.product_id &&  item.product_id !=null" style="color: red; font-weight: bold; margin-right: 120px;">No Stock Available in this Warehouse</span>
+                            <span v-if=" count !=null && index == index? count < item.qty :''" style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;" @click="pushroute">Stock Short(Only {{ count }}:Remianing)</span>
+                            <span v-if="alert && ids == item.product_id &&  item.product_id !=null" style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;" @click="pushroute">No Stock Available in this Warehouse</span>
 
                         </td>
                         <td>
@@ -371,6 +371,7 @@
                 this.form.store_id = stores.id
             },
             onProduct(item, index, e) {
+                this.alert = false;
                 const product = e.target.value
                 item.product = product
                 // this.form.items[index].product = product
@@ -479,6 +480,9 @@
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
+            },
+            pushroute(){
+                this.$router.push({path: `/purchase/create`})
             }
         },
     }

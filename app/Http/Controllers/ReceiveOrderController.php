@@ -50,9 +50,10 @@ class ReceiveOrderController extends Controller
         ]);
 
         foreach($request->items as $data){
+            // dd($data);
             $product_id = $data['product_id'];
             $quantity = $data['qty_received'];
-            // dd($data['child']);
+            // dd($quantity);
             foreach($data['child'] as $child){
 
                 if($quantity < $child['qty_deliver']){
@@ -61,12 +62,13 @@ class ReceiveOrderController extends Controller
                 else{
                     $first = Inventory::where('product_id' , $product_id)->where('wearhouse_id', $child['warehouse_id'])->first();
                     if($first !=null ){
-                        // dd('abcd');
+                       
                         $first = Inventory::where('product_id' , $product_id)->where('wearhouse_id', $child['warehouse_id'])->first();
-                        $first->qty = $child['qty_deliver'];
+                        $first->qty += $child['qty_deliver'];
                         $first->save();
                         $product = Product::where('id', $product_id )->first();
-                    $product->quantity = $quantity;
+                        $product->quantity += $quantity;
+                    // $product->quantity = $quantity;
                     $product->save();
                         // dd($first);
 
@@ -93,7 +95,7 @@ class ReceiveOrderController extends Controller
             
             
         }
-        $number = Counter::where('key', 'receive_order');
+        $number = Counter::where('key', 'receivable_order');
     
         $model = new Receive_order();
         $model->fill($request->all());
@@ -117,16 +119,16 @@ class ReceiveOrderController extends Controller
            
 
         });
-        $model = DB::transaction(function() use ($model, $items, $number) {
+        $model = DB::transaction(function() use ($model, $items, $number ,$request) {
         
-        foreach($items as $itm){
-            // dd($itm['qty']);
-            // dd($itm['product']['id']);
-            $id = $itm['product']['id'];
-            $product = Product::findOrFail($id);
-            $product->quantity = $itm['qty'];
-            $product->save();
-        };
+        // foreach($items as $itm){
+        //     // dd($itm['qty']);
+        //     // dd($itm['product']['id']);
+        //     $id = $itm['product']['id'];
+        //     $product = Product::findOrFail($id);
+        //     $product->quantity = $itm['qty'];
+        //     $product->save();
+        // };
     
         // dd($product);
 
@@ -143,7 +145,12 @@ class ReceiveOrderController extends Controller
         $number->update([
             'value' => ($number->first()->value + 1)
         ]);
+        $status = Purchase::where('id' , $request->id)->first();
+        // dd($status);
+        $status->status_id = 27;
+        $status->save();
         return $model;
+        
 
     });
         return response()->json(["saved" => true, "id" => $model->id]);

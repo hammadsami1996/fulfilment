@@ -21,9 +21,13 @@ class DeliverystatusController extends Controller
     public function index()
     {
         // dd(request('id'));
+        // dd(request('id'));
     //    if(request('status') == 1){
         $id = request('id');
-        $data = Purchase::where('id',$id)->value('status_id');
+       
+
+            $data = Order::where('id',$id)->value('status_id');
+        
         // dd($data);
         $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $data)->orderBy('id')
           ->search();
@@ -105,5 +109,21 @@ class DeliverystatusController extends Controller
             $data->status_id = $request->id;
             $data->save();
             return response()->json(["saved" => true, "id" => $data->id]);
+    }
+    public function searches()
+    {
+        
+        $id = request('id');
+  
+
+            $data = Purchase::where('id',$id)->value('status_id');
+            $datas = Delivery_status::where('id',$data)->value('head_id');
+            $datasArray = explode(',', $datas);
+           
+        $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $data)->whereIn('id' , $datasArray)->orderBy('id')
+          ->search();
+       
+     
+        return response()->json(['data' => $results]);
     }
 }

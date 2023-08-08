@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->datetimes('status')->nullable();
+            $table->integer('status')->nullable();
             $table->dateTime('active')->nullable();
             $table->timestamps();
         });

@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\Delivery_status;
 use App\Models\Inventory;
 use App\Models\Product;
+use App\Models\Counter;
+
 
 
 
@@ -74,8 +76,8 @@ class OrderController extends Controller
 //            'location' => 'required',
 //            'sales_rep' => 'required',
 //            'selling_price' => 'required',
-            'external_order_no' => 'required',
-            'tracking_id' => 'required',
+            // 'external_order_no' => 'required',
+            // 'tracking_id' => 'required',
         ]);
         $wearhouse = $request->wearhouse_id;
         // dd($request->wearhouse_id);
@@ -102,7 +104,7 @@ class OrderController extends Controller
 
      
         // dd('abcd');
-
+        $number = Counter::where('key', 'sales_order');
         $model = new Order();
         $model->fill($request->except('items'));
         $model->subTotal = collect($request->items)->sum(function($item) {
@@ -110,9 +112,13 @@ class OrderController extends Controller
         });
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;
+        $model->so_number = ($number->first()->perfix . $number->first()->value);
         
         $model->storeHasMany([
             'items' => $request->items
+        ]);
+        $number->update([
+            'value' => ($number->first()->value + 1)
         ]);
         $wearhouses = $request->wearhouse_id;
         // dd($request->wearhouse_id);
@@ -128,6 +134,7 @@ class OrderController extends Controller
             ]);
             // dd($number['qty']);
         }
+       
         // $inventory = Inventory::where('product_id' , );
 //        $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);

@@ -130,7 +130,7 @@
                         </td>
                         <td>
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                                   class="w-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="number"
                                    v-model="item.qty"
                             >

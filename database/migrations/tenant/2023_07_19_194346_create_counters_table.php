@@ -41,6 +41,13 @@ return new class extends Migration
 
        
     ]);
+
+    DB::table('counters')->insert(['key' => 'sales_order',
+       
+        'perfix' => 'SO-', 'value' => 100001
+
+       
+    ]);
         
     }
 

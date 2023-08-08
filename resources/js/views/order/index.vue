@@ -64,7 +64,7 @@
 
                                     
                                     </div>
-                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=order'" @input="onDelivery($event ,props.item.id)" display="name"/>
+                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=order&id='+ props.item.id" @input="onDelivery($event ,props.item.id)" display="name"/>
                              
                             
                          </div>
@@ -145,6 +145,8 @@
                 capital: "Order",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
+                    {label: 'Sales Number', field: 'so_number'},
+
                     {label: 'Store', field: 'name', displayText: 'stores'},
                     {label: 'Order Date', field: 'order_date'},
                     {label: 'Customer', field: 'name', displayText: 'customer'},

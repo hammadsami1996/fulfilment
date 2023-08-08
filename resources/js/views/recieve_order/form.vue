@@ -116,6 +116,7 @@
                                   
                                    
                             >
+                            <p class="text-red-600 text-xs italic" v-if="error[`items.${index}.qty_received`]">Receiving should be neccessary</p>
                         </td>
                         <td>
 
@@ -146,6 +147,7 @@
                                     display="name"
                                 />
                                 </td>
+                                
 
                                 <td>
                                 <label
@@ -180,6 +182,8 @@
                         </td>
 
                                 </tr>
+                                <hr>
+                                <br>
                 </tbody>
 
                
