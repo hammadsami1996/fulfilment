@@ -100,7 +100,6 @@
                     {label: 'SKU', field: 'product_sku'},
                     {label: 'Cost Price', field: 'cost_price'},
                     {label: 'Selling Price', field: 'selling_price'},
-                    // {label: 'Image', field: 'img', image: true, path:'uploads/product/img',},
                     {label: 'Action', field: 'action', action: true},
                 ]
             }
