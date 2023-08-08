@@ -8,20 +8,22 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Category Name</label>
-                    <typeahead
-                        :initialize="form.category"
-                        :url="category"
-                        @input="onCategory"
-                        class="w-64  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        display="text"
+                    >Title </label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        type="text"
+                        v-model="form.title"
                     />
-                    <p class="text-red-600 text-xs italic" v-if="error.category_id">{{ error.category_id[0] }}</p>
+                    <p class="text-red-600 text-xs italic" v-if="error.title">{{ error.title[0] }}</p>
                 </div>
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 py-3 mt-4 ">
-                    <input v-model="form.name"
-                        class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Status </label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.status"
+                    /><p class="text-red-600 text-xs italic" v-if="error.status">{{ error.status[0] }}</p>
                 </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">
@@ -47,10 +49,11 @@
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
 
+
     function initialize(to) {
         let urls = {
-            add: `/api/product_category/create`,
-            edit: `/api/product_category/${to.params.id}/edit`,
+            add: `/api/brand/create`,
+            edit: `/api/brand/${to.params.id}/edit`,
         }
         return urls[to.meta.mode] || urls.add
     }
@@ -58,22 +61,20 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead
+            Typeahead,
         },
         data() {
             return {
                 error: {},
                 show: false,
-                resource: '/product_category',
-                store: '/api/product_category',
+                resource: '/brand',
+                store: '/api/brand',
                 method: 'POST',
-                small: 'product_category',
-                capital: 'Product Category',
+                small: 'brand',
+                capital: 'Brand',
                 title: 'Add',
-                message: 'New product_category Added',
+                message: 'New brand Added',
                 permissions: {},
-                // companys: '/api/company',
-                category: '/api/product_category',
             }
         },
 
@@ -91,20 +92,13 @@
                 })
         },
         methods: {
-            onCategory(e) {
-                const category = e.target.value
-                this.form.category = category
-                this.form.head_id = category.id
-            },
             setData(res) {
                 // console.log(res);
                 this.form = res.data.form;
-                if (this.$route.meta.mode == 'edit') {
+                if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
                     this.title = 'Edit';
                     this.message = `${this.capital} has been updated`;
-                } else {
-                    this.form.category = {};
                 }
                 this.show = true
             },

@@ -245,7 +245,7 @@
                                 <template v-else-if="column.image">
                                     <img
                                         :src="row[column.field] ? (column.path ? column.path + row[column.field] : row[column.field]) : 'https://cdn.tailkit.com/media/placeholders/avatar-mEZ3PoFGs_k-160x160.jpg'"
-                                        alt="User Avatar"
+                                        alt="User Avarta"
                                         class="inline-block w-10 h-10 rounded-full"
                                     />
                                 </template>
