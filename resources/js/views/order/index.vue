@@ -38,7 +38,7 @@
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:statuses="props">
                     <button   :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) " >
-                           {{ props.item.status.name }}
+                           {{ props.item.status ? props.item.status.name :''}}
                                 </button>
                
                          <!-- <button v-if="props.item.status_id == 1"  :style="{ background: props.item.status.color }" @click="shows(1 ,props.item.id) ">
@@ -59,12 +59,12 @@
                                     Update
                                 </button> -->
                                 <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;" @click="Cancel() ">
-                                    Cancel
+                                    Hide
                                 </button>
 
                                     
                                     </div>
-                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=order&id='+ props.item.id" @input="onDelivery($event ,props.item.id)" display="name"/>
+                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=order&id='+ props.item.status.id" @input="onDelivery($event ,props.item.id)" display="name"/>
                              
                             
                          </div>

@@ -112,6 +112,8 @@
                     {label: 'RO Number', field: 'number'},
                     {label: 'Supplier', field: 'name', displayText: 'supplier'},
                     {label: 'PO Number', field: 'po_number'},
+                    {label: 'Date', field: 'date' },
+
                     {label: 'Addintion Note', field: 'note'},
                     // {label: 'Tax', field: 'tax'},
                     // {label: 'Status', field: 'statuses' , slot:true},
