@@ -84,28 +84,17 @@
 
                     <!-- User Dropdown -->
                     <Menu as="div" class="relative inline-block">
-                        <!-- Dropdown Toggle Button -->
-                        <MenuButton
+    <MenuButton  @click="showDropdown = !showDropdown"
                             class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none px-3 py-2 leading-5 text-sm rounded border-gray-300 bg-white text-gray-800 shadow-sm hover:text-gray-800 hover:bg-gray-100 hover:border-gray-300 hover:shadow focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:bg-white active:border-white active:shadow-none"
                         >
                             <span>{{userData.name}}</span>
                             <svg class="hi-solid hi-chevron-down inline-block w-5 h-5 opacity-50" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                         </MenuButton>
-                        <!-- END Dropdown Toggle Button -->
-
-                        <!-- Dropdown -->
-                        <Transition
-                            enter-active-class="transition ease-out duration-150"
-                            enter-from-class="transform opacity-0 scale-75"
-                            enter-to-class="transform opacity-100 scale-100"
-                            leave-active-class="transition ease-in duration-100"
-                            leave-from-class="transform opacity-100 scale-100"
-                            leave-to-class="transform opacity-0 scale-75"
-                        >
-                            <MenuItems class="absolute right-0 origin-top-right mt-2 w-48 shadow-xl rounded z-1 focus:outline-none">
-                                <div class="bg-white ring-1 ring-black ring-opacity-5 rounded divide-y divide-gray-100">
-                                    <div class="p-2 space-y-1">
-                                        <MenuItem v-slot="{ active }">
+    <div v-if="showDropdown" @click="showDropdown = false"  >
+      <ul class=" absolute right-0 origin-top-right mt-2 w-48 shadow-xl rounded z-1 focus:outline-none">
+        <div class="bg-white ring-1 ring-black ring-opacity-5 rounded divide-y divide-gray-100" style="color: gray;">
+            <div class="p-2 space-y-1 "  >
+                                        <MenuItem v-slot="{ active }"  >
                                             <a
                                                 href="/profile"
                                                 class="flex items-center space-x-2 rounded py-2 px-3 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700"
@@ -118,6 +107,9 @@
                                                 <span>Profile</span>
                                             </a>
                                         </MenuItem>
+
+                                        </div>
+                                        <div class="p-2 space-y-1" >
                                         <MenuItem v-slot="{ active }">
                                             <a
                                                 href="/change_password"
@@ -133,7 +125,7 @@
                                         </MenuItem>
                                     </div>
                                     <div class="p-2 space-y-1">
-                                        <MenuItem v-slot="{ active }">
+                                        <MenuItem v-slot="{ active }" >
                                             <a
                                                 href="/setting"
                                                 class="flex items-center space-x-2 rounded py-2 px-3 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700"
@@ -147,8 +139,8 @@
                                             </a>
                                         </MenuItem>
                                     </div>
-                                    <div class="p-2 space-y-1">
-                                        <MenuItem v-slot="{ active }">
+        <div class="p-2 space-y-1">
+                                        <MenuItem v-slot="{ active }"  >
                                             <a
                                                 href="/logout"
                                                 class="flex items-center space-x-2 rounded py-2 px-3 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700"
@@ -162,11 +154,18 @@
                                             </a>
                                         </MenuItem>
                                     </div>
-                                </div>
-                            </MenuItems>
-                        </Transition>
-                        <!-- END Dropdown -->
-                    </Menu>
+      
+        </div>
+      </ul>
+    </div>
+    </Menu>
+
+                    <div>
+    <!-- <button @click="showDropdown = !showDropdown">
+      Toggle Dropdown
+    </button> -->
+    
+  </div>
                     <!-- END User Dropdown -->
                 </div>
                 <!-- END Right Section -->
@@ -178,11 +177,18 @@
         <main id="page-content" class="flex flex-auto flex-col max-w-full pt-16">
             <!-- Page Section -->
             <div class="max-w-10xl mx-auto p-4 lg:p-8 w-full">
-                <div class="bg-white shadow overflow-hidden rounded-lg p-2">
+                <!-- ADD YOUR MAIN CONTENT BELOW -->
+
+                <!-- Placeholder -->
+<!--                <div class="flex items-center justify-center rounded-xl bg-gray-50 border-2 border-dashed border-gray-200 text-gray-400 py-64">-->
+                    <div class="bg-white shadow overflow-hidden rounded-lg p-2">
                     <!-- Striped Table -->
-                    <router-view/>
-                    <!-- END Striped Table -->
-                </div>
+                            <router-view/>
+                        <!-- END Striped Table -->
+                    </div>
+<!--                </div>-->
+
+                <!--ADD YOUR MAIN CONTENT ABOVE-->
             </div>
             <!-- END Page Section -->
         </main>
@@ -194,3 +200,20 @@
     </div>
     <!-- END Page Container -->
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      showDropdown: false,
+     
+
+    };
+  }
+};
+</script>
+
+
+
+
+
