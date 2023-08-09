@@ -47,6 +47,29 @@
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+                <template v-slot:statuses="props">
+                    <button   :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) " >
+                           {{ props.item.status.name }}
+                                </button>
+                                <!-- <button @click="shows(1 ,props.item.id) ">Draft</button> -->
+               
+                        
+                                <div v-if="sts && props.item.id == ids">
+                                    <div>
+                                        <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
+                                    Update
+                                </button> -->
+                                <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;" @click="Cancel() ">
+                                    Cancel
+                                </button>
+
+                                    
+                                    </div>
+                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=purchase&id='+ props.item.id"   @input="onDelivery($event ,props.item.id)" display="name"/>
+                             
+                            
+                         </div>
+                        </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
                          <span v-if="permissions.includes(`edit-${small}`)">
@@ -87,20 +110,25 @@
     import Panel from "@/components/panel/panel.vue";
     import {form} from "@/libs/mixins";
     import {byMethod} from "@/libs/api";
+    import Typeahead from "@/Components/typeahead/typeahead.vue";
 
     export default {
         mixins: [form],
         components: {
-            Panel,
+            Panel, Typeahead,
         },
         name: "Index",
         data() {
             return {
+                sts:false,
+                id:null,
+                ids:null,
                 permissions: [],
                 urlApi: "/api/purchase",
                 resource: "/purchase",
                 small: "purchase",
                 capital: "Purchase",
+                delivery:'/api/sts',
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Supplier', field: 'name', displayText: 'supplier'},
@@ -108,6 +136,8 @@
                     {label: 'PO Number Reference', field: 'po_reference_number'},
                     {label: 'Total', field: 'sub_total'},
                     {label: 'Tax', field: 'tax'},
+                    {label: 'Status', field: 'statuses' , slot:true},
+
                     {label: 'Action', field: 'action', action: true}
                     ]
             }
@@ -116,9 +146,45 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+            Cancel(){
+                this.sts = false;
+                this.form.deliver = null;
+            },
+            shows(e,status_id){
+                this.sts = true;
+                this.ids = status_id;
+                this.id = e
+            },
+            onDelivery(e ,id) {
+                const deliver = e.target.value
+                this.form.deliver = deliver
+                this.form.deliver_id = deliver.id
+                this.Update(this.form.deliver ,id);
+               
+            },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
+            Update(e ,id){
+               console.log(e.id);
+               if(e.id == 27){
+
+                this.$router.push(`/recieve_order/${id}/edit`)
+                }
+                else{
+
+                    byMethod('POST', '/api/updated?ids='+id , e).then(res => {
+                        if (res.data.saved) {
+                            this.sts = false,
+                            this.form.deliver = null;
+                            
+                            this.$refs.TableData.reload();
+                        }
+                    })
+                }
+
+
+           },
             deleteRole(e) {
                 byMethod('delete', `/api/purchase/${e}`)
                     .then((res) => {
@@ -132,3 +198,34 @@
         },
     }
 </script>
+<style scoped>
+button {
+font-weight: bold !important;
+  border-radius: .25rem;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 400;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: #fff;
+  -webkit-clip-path: polygon(0 0,0 0,100% 0,100% 0,100% calc(100% - 15px),calc(100% - 15px) 100%,15px 100%,0 100%);
+  clip-path: polygon(0 0,0 0,100% 0,100% 0,100% calc(100% - 15px),calc(100% - 15px) 100%,15px 100%,0 100%);
+  height: 40px;
+  font-size: 0.7rem;
+  line-height: 14px;
+  letter-spacing: 1.2px;
+  transition: .2s .1s;
+  /* background-image: linear-gradient(90deg,#1c1c1c,#6220fb); */
+  /* background-color: blue; */
+  border: 0 solid;
+  overflow: hidden;
+}
+
+button:hover {
+  cursor: pointer;
+  transition: all .3s ease-in;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+</style>

@@ -11,7 +11,6 @@
                     type="date" v-model="form.order_date"/>
                 <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
             </div>
-
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
                 <input

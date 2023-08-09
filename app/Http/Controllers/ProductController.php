@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProdductImg;
 use App\Models\Product;
+use App\Models\ProductImg;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -13,8 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-
-        return response()->json(['data' => Product::search()]);
+        return response()->json(['data' => Product::with('category', 'brand')->search()]);
+        
     }
 
     /**
@@ -23,9 +24,21 @@ class ProductController extends Controller
     public function create()
     {
         $form = [
-            "name" => '',
-            "skus" => '',
-            "price" => '',
+            "title" => '',
+            "description" => '',
+            "product_sku" => '',
+            "model_no" => '',
+            "barcode" => '',
+            "manage_inventory" => '',
+            "product_qty" => '',
+            "product_types" => '',
+            "cost_price" => '',
+            "selling_price" => '',
+            "start_date" => '',
+            "end_date" => '',
+            "product_category" => '',
+            "brand_id" => '',
+            "head_id" => '',
         ];
         return response()->json([
             'form' => $form
@@ -35,17 +48,25 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'sku' => 'required',
-            'price' => 'required',
-        ]);
-
         $model = new Product();
         $model->fill($request->all());
+//        dd($model);
         $model->save();
+
+        foreach ($request->product_img as $key => $item) {
+            $file = $item['img'];
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/product/img', $filename);
+            $data = new ProductImg();
+            $data->img = $filename;
+            $data->product_id = $model->id;
+            $data->save();
+        }
+
         return response()->json(["saved" => true, "id" => $model->id]);
     }
 
@@ -61,10 +82,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
-
-        $model = Product::findOrFail($id);
+        $model = Product::with('product_img', 'brand', 'category')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -73,18 +93,60 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'sku' => 'required',
-            'price' => 'required',
-        ]);
+        // Find the existing product by ID
         $model = Product::findOrFail($id);
+
+        // Update the product attributes with the new data
         $model->fill($request->all());
+        // Save the updated product to the database
         $model->save();
-        return response()->json(["saved" => true, "id" => $model->id]);
+
+        // Update, create, or delete product images
+        if ($request->has('product_img') && is_array($request->product_img)) {
+            $existingImageIds = [];
+
+            foreach ($request->product_img as $key => $item) {
+                if (isset($item['id'])) {
+                    $existingImageIds =  (int) $item['id'];
+                }
+                if (isset($item['img']) && $item['img'] instanceof \Illuminate\Http\UploadedFile) {
+                    // If $item['img'] is a file, check if $item has 'id'
+                    if (isset($item['id'])) {
+                        // If 'id' is set, update the existing image
+                        $productImg = ProductImg::findOrFail($item['id']);
+                        $file = $item['img'];
+                        $extension = $file->getClientOriginalExtension();
+                        $filename = time() . '.' . $extension;
+                        $file->move('uploads/product/img', $filename);
+                        $productImg->img = $filename;
+                        $productImg->save();
+                    } else {
+                        // If 'id' is not set, create a new entry for the image
+                        $file = $item['img'];
+                        $extension = $file->getClientOriginalExtension();
+                        $filename = time() . '.' . $extension;
+                        $file->move('uploads/product/img', $filename);
+                        $data = new ProductImg();
+                        $data->img = $filename;
+                        $data->product_id = $model->id;
+                        $data->save();
+                    }
+                }
+                // If $item['img'] is text, do nothing for this item
+            }
+//            dd($existingImageIds);
+            // Delete product images that are not in the request array
+            $existingImageIds = array_wrap($existingImageIds);
+            ProductImg::where('product_id', $model->id)
+                ->whereNotIn('id', $existingImageIds)
+                ->delete();
+
+        }
+        return response()->json(["updated" => true, "id" => $model->id]);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -92,7 +154,6 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $model = Product::findOrFail($id);
-//        $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

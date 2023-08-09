@@ -1,0 +1,696 @@
+<template>
+    <div v-if="mention">
+        <div class="p-6">
+            <h1 class="text-lg font-bold mb-4">
+                {{ $route.meta.mode && $route.meta.mode === "edit" ? `Create ${capital}`: `Add New ${capital}`}}
+                
+            </h1>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Supplier</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        disabled
+                        type="text"
+                        v-model="form.supplier.name"
+                    />
+                    <!-- <typeahead :initialize="form.supplier" :url="suppliers" @input="onSupplier" display="name"/> -->
+                    <p class="text-red-600 text-xs italic" v-if="error.supplier_id">{{error.supplier_id[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >PO No.:</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                       
+                        disabled
+                        v-model="form.po_number"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.po_number">
+                        {{error.po_number[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" v-if="$route.meta.mode && $route.meta.mode == 'edit'">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >RO Number:<small>(Auto Generated)</small></label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        disabled
+                        placeholder=" PO No."
+                        v-model="form.number"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.number">{{error.number[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Date:</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        type="date"
+                        v-model="form.date"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.date">{{error.date[0] }}</p>
+
+                </div>
+
+
+            </div>
+            <br>
+            <hr>
+            <div
+                class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+                <table class="min-w-full text-sm align-middle whitespace-nowrap">
+                    <thead>
+                    <tr class="border-b border-gray-100 dark:border-gray-700/50">
+                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
+                            Item Description
+                        </th>
+                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                            Qty in Order
+                        </th>
+                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                            Recieving
+                        </th>
+                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                            
+                        </th>
+                       
+                    </tr>
+                    </thead>
+                    <tbody v-for="(item,index) in form.items">
+                     <tr class="border-b border-gray-100 dark:border-gray-700/50" >
+                        <input 
+                                   class= " w-64 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="text"
+                                   disabled
+                                   v-model="item.product.name"
+                            >
+                        <!-- <td class="text-center">
+                            <typeahead
+                                :initialize="item.product"
+                                :url="products"
+                                @input="onProduct(item, index, $event)"
+                                class=" w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                display="name"
+                            />
+                        </td> -->
+                        <td>
+                            <input @blur="caltax(item, index)" @input="caltax(item, index)"
+                                   class= "px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="number"
+                                   disabled
+                                   v-model="item.qty"
+                            >
+                        </td>
+                       
+                        <td>
+                            <input @blur="caltax(item,index)" @input="caltax(item, index)"
+                                   class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="number"
+                                   v-model="item.qty_received"
+                                  
+                                   
+                            >
+                            <p class="text-red-600 text-xs italic" v-if="error[`items.${index}.qty_received`]">Receiving should be neccessary</p>
+                        </td>
+                        <td>
+
+                    <button @click="addchild(index)" class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75" style=" margin-top: 10px; color:white; border-radius: 10%;" type="button">
+                        <i class="fa fa-plus-circle"></i> Add Warehouses
+                    </button>
+                    <!-- <input @blur="caltax(item, index)" @input="caltax(item, index)"
+                        class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                        type="number"
+                        disabled
+                    > -->
+                    </td>
+                       
+                    </tr>
+
+                    <tr v-for="(child, childIndex) in item.child">
+
+                                <td class="text-center">
+                                <label
+                                class="block font-medium text-sm text-gray-700 mb-2"
+                                >Wearhouse </label>
+                                <!-- <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/> -->
+                                <typeahead
+                                    :initialize="child.warehouse"
+                                    :url="wearhouses"
+                                    @input="onWearhouse(childIndex, index, $event ,child)"
+                                    class=" h-8 w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    display="name"
+                                />
+                                </td>
+                                
+
+                                <td>
+                                <label
+                                class="block font-bold text-sm text-gray-700 mb-2"
+                                >Product Received</label>
+                                <input 
+                                    class="h-8 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    type="number"
+                                    v-model="child.qty_deliver"
+                                    
+                                    
+                                >
+                                </td>
+                                <!-- <td>
+                                <label
+                                class="block font-bold text-sm text-gray-700 mb-2"
+                                >Product Price</label>
+                                <input 
+                                    class=" h-8 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    type="number"
+                                    v-model="child.unit_price"
+                                    
+                                    
+                                >
+                                </td> -->
+                                <td class=" text-center">
+                            <button @click="removeProduct(child,childIndex,index)"
+                                    class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
+                                    type="button">
+                                <i class="fa fa-trash mr-1"></i>
+                            </button>
+                        </td>
+
+                                </tr>
+                                <hr>
+                                <br>
+                </tbody>
+
+               
+                </table>
+            </div>
+            <br>
+            <hr>
+            <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" style="width: 60%;">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Internal Note:</label>
+                    <textarea class="form-control" v-model="form.note" style="width:100%"></textarea>
+                    <p class="text-red-600 text-xs italic" v-if="error.note">{{error.note[0] }}</p>
+                </div>
+                
+            <div class="flex justify-end mt-8 space-x-4">
+                <button
+                    @click="formSubmitted"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                    type="button">
+                    Add
+                </button>
+                <button
+                    @click="successfull()"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                    type="button">
+                    Cancel
+                </button>
+            </div>
+        </div>
+        <!-- <Modal :show="true"
+                        
+                         height="900"
+                        
+                         v-if="show_size_modal"
+                         >
+                         <div class="p-6" style="background-color:#273746 ; color:white">
+                            <h1 class="text-lg font-bold mb-4 text-center">
+                                    Move to Warehouses
+                            </h1>
+                         </div>
+                         <hr>
+                         <br>
+                        
+                         <div class="w-full sm:w-1/2 pl-3 sm:mb-0 " style="height: 100%;">
+                            <tbody v-for="(item,index) in form.items">
+                            <tr class="border-b border-gray-100 dark:border-gray-700/50 " >
+                        
+                        <td class="text-center">
+                            <label
+                        class="block font-bold text-sm text-gray-700 mb-2"
+                    >Product </label>
+                          
+                            <input 
+                                   class= " h-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="text"
+                                   disabled
+                                   v-model="item.product.name"
+                            >
+                        </td>
+                        <td>
+                           
+                            <label
+                        class="block font-bold text-sm text-gray-700 mb-2"
+                    >Product Received</label>
+                            <input 
+                                   class="h-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="number"
+                                   v-model="item.qty_received"
+                                  
+                                   
+                            >
+                        </td>
+                       
+
+                       
+                        
+                    </tr>
+                    <br>
+                    <hr>
+                
+                   
+                    
+                        
+                        <tr v-for="(child, childIndex) in item.child">
+
+                            <td class="text-center">
+                            <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Wearhouse </label>
+                           
+                            <typeahead
+                                :initialize="child.warehouse"
+                                :url="wearhouses"
+                                @input="onWearhouse(childIndex, index, $event ,child)"
+                                class="  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                display="name"
+                            />
+                        </td>
+
+                        <td>
+                            <label
+                        class="block font-bold text-sm text-gray-700 mb-2"
+                    >Product Received</label>
+                            <input 
+                                   class="h-12 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                   type="number"
+                                   v-model="child.qty_deliver"
+                                  
+                                   
+                            >
+                        </td>
+                        <td>
+                            <label
+                        class="block font-bold text-sm text-gray-700 mb-2"
+                    >Product Price</label>
+                            <input 
+                                   class=" h-12 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                   type="number"
+                                   v-model="child.unit_price"
+                                  
+                                   
+                            >
+                        </td>
+
+                    </tr>
+                    <tr class="item-empty mt-6" >
+                            <button @click="addchild(index)" class="btn ma-0 btn--small btn--small success" style="background-color:#273746; margin-top: 10px; color:white; border-radius: 10%;">
+                                <i class="fa fa-plus-circle"></i> Add Warehouses
+                            </button>
+                        </tr>
+                       
+                       
+                   
+                </tbody>
+
+                </div>
+                <br>
+                <hr>
+                <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">
+                <button
+                    @click="saveinvent"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                    type="button">
+                    Add
+                </button>
+                <button
+                @click="close"
+                    class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                    type="button">
+                    Cancel
+                </button>
+            </div>
+                        
+                        </Modal> -->
+    </div>
+</template>
+
+<script>
+    import {byMethod, get} from '@/libs/api'
+    import {form} from '@/libs/mixins'
+    import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import Modal from "@/Components/Modal.vue";
+    
+
+    function initialize(to) {
+        let urls = {
+            add: `/api/receive_order/create`,
+            edit: `/api/receive_order/${to.params.id}/edit`,
+        }
+        return urls[to.meta.mode] || urls.add
+    }
+
+    export default {
+        mixins: [form],
+        components: {
+            Typeahead,
+            Modal
+        },
+        data() {
+            return {
+                form: {
+                    // items: [],
+                  
+
+                    items: {
+
+                        children: []
+                    }
+
+
+                },
+                show_size_modal:false,
+                error: {},
+                show: false,
+                child:[],
+                mention: false,
+                resource: '/receive_order',
+                store: '/api/receive_order',
+                send: '/api/receive_order_inventory',
+
+                method: 'POST',
+                small: 'recieve order',
+                capital: 'recieve order',
+                title: 'Add',
+                message: 'New recieve order Added',
+                permissions: {},
+                suppliers: '/api/supplier',
+                products: '/api/product',
+                wearhouses: '/api/wearhouse',
+            }
+        },
+
+        beforeRouteEnter(to, from, next) {
+            get(initialize(to))
+                .then((res) => {
+                    next(vm => vm.setData(res))
+                })
+        },
+        beforeRouteUpdate(to, from, next) {
+            get(initialize(to))
+                .then((res) => {
+                    this.setData(res);
+                    next()
+                })
+        },
+
+        computed: {
+            subTotal() {
+                return this.form.items.reduce((carry, item) => {
+                    return carry + Number(item.unit_price) * Number(item.qty);
+                }, 0);
+            },
+            total() {
+                var total = (this.subTotal + Number(this.form.mtax_amount));
+                // Vue.set(this.$data.form, 'tvalue_inc_tax', total);
+                this.form.tvalue_inc_tax = total;
+                this.form.tvalue_ex_tax = this.subTotal;
+                // Vue.set(this.$data.form, 'tvalue_ex_tax', this.subTotal);
+                return (total);
+            },
+            qtySum() {
+                var total = this.form.items.reduce((carry, item) => {
+                    return carry + Number(item.qty);
+                }, 0);
+                // Vue.set(this.$data.form, "total_units", total);
+                this.$data.form.total_units = total;
+                return total;
+            },
+            tot_tax_amt() {
+                var total = 0;
+                total = this.form.items.reduce((carry, item) => {
+                    return carry + Number(item.tax_amount);
+                }, 0);
+                // Vue.set(this.$data.form, "mtax_amount", total);
+                this.form.mtax_amount = total;
+                return total;
+            },
+            total_discount() {
+                var final = (this.total - Number(this.form.discount));
+                    this.form.finaltotal = final ;
+                // return (this.total - Number(this.form.discount));
+                return final;
+
+            },
+            
+
+        },
+        methods: {
+            // addchild(index) {
+            //     console.log(index);
+            //     this.form.items[index].child = []
+            //     const newChild = {
+            //         title: null,
+                    
+
+            //     };
+            //     this.form.items[index].child.push(newChild);
+            //     // this.form.items[index].child = []
+            // },
+
+
+            addchild(index) {
+    console.log(index);
+
+    if (!this.form.items[index].child) {
+      // If the child array doesn't exist, create a new one with a single child object.
+      this.form.items[index].child = [{
+        title: null,
+       
+
+        
+        // Add other properties for the child object if needed.
+      }];
+    } else {
+      // If the child array already exists, push a new child object into it.
+      const newChild = {
+        title: null,
+       
+        // Add other properties for the child object if needed.
+      };
+      this.form.items[index].child.push(newChild);
+    }
+  },
+            onWearhouse(childIndex, index, e ,child) {
+                const warehouse = e.target.value
+                this.global_warehouse_id = warehouse.id;
+                child.warehouse = warehouse;
+                child.warehouse_id = warehouse.id;
+             
+
+
+                // this.$set(this.form.items[index].child[childIndex], "warehouse", warehouse);
+                // this.$set(this.form.items[index].child[childIndex], "child_warehouse_id", warehouse.id);
+            },
+         
+            close(){
+                this.show = false,
+                this.show_size_modal = false
+            },
+            discountamt() {
+                this.form.discount = this.total * Number(this.form.discount_percent) / 100;
+                this.form.discount_percent = Number(((this.form.discount / this.total) * 100).toFixed(2));
+                this.isLoading = false;
+            },
+            discountper() {
+                this.form.discount = this.total * Number(this.form.discount_percent) / 100;
+            },
+            addNewLine() {
+                if (!this.form.items) {
+                    this.form.items = [];
+                }
+                this.form.items.push({
+                    product: null,
+                    product_id: null,
+                    qty: 1,
+                    unit_price: 0,
+                    value_ex_tax: 0,
+                    tax_percent: 0,
+                    tax_amount: 0,
+                    value_inc_tax: 0,
+                });
+
+            },
+            onProduct(item, index, e) {
+                const product = e.target.value
+                item.product = product
+                item.product_name = product.name
+
+                // this.form.items[index].product = product
+                item.product_id = product.id
+                item.unit_price = product.price
+                this.caltax(item, index);
+            },
+            caltax(item, index) {
+                const {qty, unit_price, tax_percent} = item;
+                // Perform the calculations here
+                // For example, to calculate value_ex_tax and tax_amount
+                item.value_ex_tax = qty * unit_price;
+                item.tax_amount = (qty * unit_price * tax_percent) / 100;
+                item.value_inc_tax = item.value_ex_tax + item.tax_amount;
+            },
+            removeProduct(item, childIndex,index ) {
+                console.log(this.form.items[index].child.length)
+                if (this.form.items[index].child.length > 1) {
+                    this.form.items[index].child.splice(childIndex, 1);
+                }
+            },
+            onSupplier(e) {
+                const supplier = e.target.value
+                this.form.supplier = supplier
+                this.form.supplier_id = supplier.id
+            },
+            setData(res) {
+                // console.log(res);
+                this.form = res.data.form;
+                if (this.$route.meta.mode === 'edit') {
+                    this.purchase = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
+                    this.title = 'Edit';
+                    this.message = `${this.capital} has been updated`;
+                }
+                if (!this.form.items) {
+                    this.addNewLine();
+                    
+                 
+                }
+                this.form.items.child=[]
+                this.mention = true
+            },
+
+            formSubmitted() {
+               
+                
+                this.form.selectedPermissions = this.selectedPermissions
+                byMethod(this.method, this.store, this.form).then(res => {
+                    // this.successfull(res)
+                    // console.log(res.data.saved);
+                    if(res.data.error){
+
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: 'Product quantity shift to warehouse should not be greater than Product Received',
+                            type: 'error',
+                            duration: 3000,
+                            
+                        });
+                    
+                        }
+                    if(res.data.saved){
+
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: 'Create Successfully',
+                            type: 'success',
+                            duration: 3000,
+                            
+                        });
+                        this.successfull()
+            //             byMethod(this.method, this.send, this.form.items).then(res => {
+            //     if(res.data.error){
+
+            //         this.$toast.open({
+            //             position: 'top-right',
+            //             message: 'Product quantity shift to warehouse should not be greater than Product Received',
+            //             type: 'error',
+            //             duration: 3000,
+                        
+            //         });
+                   
+            //         }
+                  
+            //        if(res.data.saved){
+
+            //            this.$toast.open({
+            //                position: 'top-right',
+            //                message: 'Successfully Shift Product to Warehouse',
+            //                type: 'success',
+            //                duration: 3000,
+                           
+            //            });
+            //            this.show_size_modal = false;
+            //        }
+            //    })
+              
+                        // this.show_size_modal = true;
+                    }
+                })
+                .catch(err => {
+                    this.error = err.response.data.errors;
+                    this.$toast.open({
+                        position: 'top-right',
+                        message: 'Error',
+                        type: 'error',
+                        duration: 3000
+                    });
+                    // console.log(err);
+                })
+            },
+
+
+            saveinvent() {
+               
+                
+               this.form.selectedPermissions = this.selectedPermissions
+               byMethod(this.method, this.send, this.form.items).then(res => {
+                if(res.data.error){
+
+                    this.$toast.open({
+                        position: 'top-right',
+                        message: 'Product quantity shift to warehouse should not be greater than Product Received',
+                        type: 'error',
+                        duration: 3000,
+                        
+                    });
+                   
+                    }
+                  
+                   if(res.data.saved){
+
+                       this.$toast.open({
+                           position: 'top-right',
+                           message: 'Successfully Shift Product to Warehouse',
+                           type: 'success',
+                           duration: 3000,
+                           
+                       });
+                       this.show_size_modal = false;
+                   }
+               })
+               .catch(err => {
+                   this.error = err.response.data.errors;
+                   this.$toast.open({
+                       position: 'top-right',
+                       message: 'Error',
+                       type: 'error',
+                       duration: 3000
+                   });
+                   // console.log(err);
+               })
+           },
+            successfull(res) {
+                this.$router.push({path: `/receive_order`})
+            }
+        },
+    }
+</script>
+
+<style scoped>
+
+</style>

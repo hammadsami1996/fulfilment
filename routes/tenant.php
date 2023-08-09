@@ -147,6 +147,8 @@ Route::middleware([
         Route::get('accept/{id}', [\App\Http\Controllers\CandidateController::class, 'accept_get']);
         Route::get('reject/{id}', [\App\Http\Controllers\CandidateController::class, 'reject_get']);
         Route::post('update', [\App\Http\Controllers\DeliverystatusController::class, 'updatestatus']);
+        Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
+
 
         // Route::get('status', [\App\Http\Controllers\OrderController::class, 'delivery']);
 
@@ -162,12 +164,23 @@ Route::middleware([
         Route::resource('inventory', \App\Http\Controllers\InventoryController::class);
         Route::resource('supplier', \App\Http\Controllers\SupplierController::class);
         Route::resource('purchase', \App\Http\Controllers\PurchaseController::class);
+        Route::resource('receive_order', \App\Http\Controllers\ReceiveOrderController::class);
+        Route::post('receive_order_inventory', [\App\Http\Controllers\ReceiveOrderController::class, 'inventory']);
+        Route::post('remianing', [\App\Http\Controllers\OrderController::class, 'remain']);
+
+        Route::get('sts', [\App\Http\Controllers\DeliverystatusController::class, 'searches']);
+       
+
+
+
         Route::resource('order', \App\Http\Controllers\OrderController::class);
         Route::resource('customer', \App\Http\Controllers\CustomerController::class);
         Route::resource('type', \App\Http\Controllers\TypeController::class);
         Route::resource('status', \App\Http\Controllers\DeliverystatusController::class);
 
         Route::resource('category', \App\Http\Controllers\CategoryController::class);
+        Route::resource('product_category', \App\Http\Controllers\ProductCategoryController::class);
+        Route::resource('brand', \App\Http\Controllers\BrandController::class);
 
 
     });

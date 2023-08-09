@@ -17,6 +17,11 @@ import supplier from "@/routes/supplier";
 import purchase from "@/routes/purchase";
 import order from "@/routes/order";
 import customer from "@/routes/customer";
+// import customer from "@/routes/receive_order";
+import receive_order from '@/routes/receive_order';
+
+import product_category from "@/routes/product_category";
+import brand from "@/routes/brand";
 
 const toast = useToast(); // Initialize the toast plugin
 const user_type_id = window.apex.user.user_type_id;
@@ -52,6 +57,10 @@ const router = createRouter({
         ...purchase,
         ...order,
         ...customer,
+        ...receive_order,
+
+        ...product_category,
+        ...brand,
         {
             path: '/error-404',
             name: 'error-404',
