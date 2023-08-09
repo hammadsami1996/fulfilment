@@ -98,7 +98,7 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        $model = Purchase::with('supplier')->findOrFail($id);
+        $model = Purchase::with('supplier' ,'items.product')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);

@@ -54,9 +54,9 @@
             </panel>
         </div>
         <!-- Modal Container -->
-        <TransitionRoot :show="isOpen" appear as="template">
+        <!-- <TransitionRoot :show="isOpen" appear as="template">
             <Dialog @close="isOpen = false" as="div" class="relative z-90">
-                <!-- Modal Backdrop -->
+             
                 <TransitionChild
                     as="template"
                     enter="ease-out duration-200"
@@ -68,9 +68,9 @@
                 >
                     <div class="fixed inset-0 bg-gray-800 bg-opacity-75"/>
                 </TransitionChild>
-                <!-- END Modal Backdrop -->
+            
 
-                <!-- Modal Dialog -->
+               
                 <div class="fixed inset-0 overflow-y-auto p-4 lg:p-8" style="top: 27%">
                     <TransitionChild
                         as="template"
@@ -123,16 +123,16 @@
                         </DialogPanel>
                     </TransitionChild>
                 </div>
-                <!-- END Modal Dialog -->
+                
             </Dialog>
-        </TransitionRoot>
-        <!-- END Modal Container -->
+        </TransitionRoot> -->
+       
     </div>
 </template>
 
 <script>
     import Panel from "@/components/panel/panel.vue";
-    import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from '@headlessui/vue';
+    // import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from '@headlessui/vue';
     import typeahead from "@/components/typeahead/typeahead.vue";
     import {byMethod, post} from "@/libs/api";
     import {form} from "@/libs/mixins";
@@ -140,7 +140,7 @@
     export default {
         mixins: [form],
         components: {
-            TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle,
+            // TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle,
             Panel,
             typeahead
         },
