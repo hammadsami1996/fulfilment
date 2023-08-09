@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         return response()->json(['data' => Product::with('category', 'brand')->search()]);
-        
+
     }
 
     /**
@@ -54,7 +54,7 @@ class ProductController extends Controller
         $model = new Product();
         $model->fill($request->all());
 //        dd($model);
-        $model->save();
+        $model->save(s);
 
         foreach ($request->product_img as $key => $item) {
             $file = $item['img'];

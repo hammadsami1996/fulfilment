@@ -18,8 +18,6 @@ class PlanController extends Controller
             return response()->json(['data' => Plan::search()]);
 
         }
-
-
     }
 
     public function create()

@@ -54,85 +54,85 @@
             </panel>
         </div>
         <!-- Modal Container -->
-        <TransitionRoot :show="isOpen" appear as="template">
-            <Dialog @close="isOpen = false" as="div" class="relative z-90">
-                <!-- Modal Backdrop -->
-                <TransitionChild
-                    as="template"
-                    enter="ease-out duration-200"
-                    enter-from="opacity-0"
-                    enter-to="opacity-100"
-                    leave="ease-in duration-100"
-                    leave-from="opacity-100"
-                    leave-to="opacity-0"
-                >
-                    <div class="fixed inset-0 bg-gray-800 bg-opacity-75"/>
-                </TransitionChild>
-                <!-- END Modal Backdrop -->
+<!--        <TransitionRoot :show="isOpen" appear as="template">-->
+<!--            <Dialog @close="isOpen = false" as="div" class="relative z-90">-->
+<!--                &lt;!&ndash; Modal Backdrop &ndash;&gt;-->
+<!--                <TransitionChild-->
+<!--                    as="template"-->
+<!--                    enter="ease-out duration-200"-->
+<!--                    enter-from="opacity-0"-->
+<!--                    enter-to="opacity-100"-->
+<!--                    leave="ease-in duration-100"-->
+<!--                    leave-from="opacity-100"-->
+<!--                    leave-to="opacity-0"-->
+<!--                >-->
+<!--                    <div class="fixed inset-0 bg-gray-800 bg-opacity-75"/>-->
+<!--                </TransitionChild>-->
+<!--                &lt;!&ndash; END Modal Backdrop &ndash;&gt;-->
 
-                <!-- Modal Dialog -->
-                <div class="fixed inset-0 overflow-y-auto p-4 lg:p-8" style="top: 27%">
-                    <TransitionChild
-                        as="template"
-                        enter="ease-out duration-200"
-                        enter-from="opacity-0 scale-125"
-                        enter-to="opacity-100 scale-100"
-                        leave="ease-in duration-100"
-                        leave-from="opacity-100 scale-100"
-                        leave-to="opacity-0 scale-125"
-                    >
-                        <DialogPanel
-                            class="w-full max-w-md mx-auto flex flex-col rounded-lg shadow-sm bg-white overflow-hidden dark:text-gray-100 dark:bg-gray-800"
-                            style="width: 25%; min-height: 60% "
-                        >
-                            <div class="flex justify-between items-center py-4 px-5 bg-gray-100 dark:bg-gray-900">
-                                <DialogTitle
-                                    as="h3"
-                                    class="font-medium"
-                                >
-                                    Assign Roles
-                                </DialogTitle>
-                                <div class="-my-4">
-                                    <button
-                                        @click="isOpen = false"
-                                        class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none px-2 py-1 leading-5 text-sm rounded border-transparent text-gray-600 hover:text-gray-400 focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:text-gray-600"
-                                        type="button"
-                                    >
-                                        <svg class="hi-solid hi-x inline-block w-4 h-4 -mx-1" fill="currentColor"
-                                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path clip-rule="evenodd"
-                                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                  fill-rule="evenodd"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="p-5 grow">
-                                <label class="flex items-center text-gray-700 text-lg font-bold ml-2">Roles</label>
-                                <typeahead :initialize="user_data.roles" @input="onRoles"
-                                           display="name" url="/api/role"/>
-                            </div>
+<!--                &lt;!&ndash; Modal Dialog &ndash;&gt;-->
+<!--                <div class="fixed inset-0 overflow-y-auto p-4 lg:p-8" style="top: 27%">-->
+<!--                    <TransitionChild-->
+<!--                        as="template"-->
+<!--                        enter="ease-out duration-200"-->
+<!--                        enter-from="opacity-0 scale-125"-->
+<!--                        enter-to="opacity-100 scale-100"-->
+<!--                        leave="ease-in duration-100"-->
+<!--                        leave-from="opacity-100 scale-100"-->
+<!--                        leave-to="opacity-0 scale-125"-->
+<!--                    >-->
+<!--                        <DialogPanel-->
+<!--                            class="w-full max-w-md mx-auto flex flex-col rounded-lg shadow-sm bg-white overflow-hidden dark:text-gray-100 dark:bg-gray-800"-->
+<!--                            style="width: 25%; min-height: 60% "-->
+<!--                        >-->
+<!--                            <div class="flex justify-between items-center py-4 px-5 bg-gray-100 dark:bg-gray-900">-->
+<!--                                <DialogTitle-->
+<!--                                    as="h3"-->
+<!--                                    class="font-medium"-->
+<!--                                >-->
+<!--                                    Assign Roles-->
+<!--                                </DialogTitle>-->
+<!--                                <div class="-my-4">-->
+<!--                                    <button-->
+<!--                                        @click="isOpen = false"-->
+<!--                                        class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none px-2 py-1 leading-5 text-sm rounded border-transparent text-gray-600 hover:text-gray-400 focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:text-gray-600"-->
+<!--                                        type="button"-->
+<!--                                    >-->
+<!--                                        <svg class="hi-solid hi-x inline-block w-4 h-4 -mx-1" fill="currentColor"-->
+<!--                                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                            <path clip-rule="evenodd"-->
+<!--                                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"-->
+<!--                                                  fill-rule="evenodd"/>-->
+<!--                                        </svg>-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="p-5 grow">-->
+<!--                                <label class="flex items-center text-gray-700 text-lg font-bold ml-2">Roles</label>-->
+<!--                                <typeahead :initialize="user_data.roles" @input="onRoles"-->
+<!--                                           display="name" url="/api/role"/>-->
+<!--                            </div>-->
 
-                            <div class="space-x-2 py-4 px-5 bg-gray-100 dark:bg-gray-900" style="">
-                                <button @click="updateRoles"
-                                        class="bg-blue-400 space-x-8   rounded-full p-2 mx-1   bottom-0 right-0">save
-                                </button>
-                                <button @click="resetModal" class=" rounded-full p-2 mx-1  bottom-0 right-0">cancel
-                                </button>
-                            </div>
-                        </DialogPanel>
-                    </TransitionChild>
-                </div>
-                <!-- END Modal Dialog -->
-            </Dialog>
-        </TransitionRoot>
+<!--                            <div class="space-x-2 py-4 px-5 bg-gray-100 dark:bg-gray-900" style="">-->
+<!--                                <button @click="updateRoles"-->
+<!--                                        class="bg-blue-400 space-x-8   rounded-full p-2 mx-1   bottom-0 right-0">save-->
+<!--                                </button>-->
+<!--                                <button @click="resetModal" class=" rounded-full p-2 mx-1  bottom-0 right-0">cancel-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </DialogPanel>-->
+<!--                    </TransitionChild>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; END Modal Dialog &ndash;&gt;-->
+<!--            </Dialog>-->
+<!--        </TransitionRoot>-->
         <!-- END Modal Container -->
     </div>
 </template>
 
 <script>
     import Panel from "@/components/panel/panel.vue";
-    import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from '@headlessui/vue';
+    // import { DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from '@headlessui/vue';
     import typeahead from "@/components/typeahead/typeahead.vue";
     import {byMethod, post} from "@/libs/api";
     import {form} from "@/libs/mixins";
@@ -140,7 +140,7 @@
     export default {
         mixins: [form],
         components: {
-            TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle,
+            // TransitionRoot, TransitionChild,  DialogPanel, DialogTitle,
             Panel,
             typeahead
         },
