@@ -169,6 +169,7 @@
                                     <div>
                                         <input @input="discountamt"
                                                class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                               placeholder="%"
                                                type="number" v-model="form.discount_percent"/>
                                     </div>
                                     <div>
@@ -455,7 +456,13 @@
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
                     if(res.data.error){
-                        this.$swal('Quantity cannot be greater than available product quantity for any item!');
+                        // this.$swal('Quantity cannot be greater than available product quantity for any item!');
+                        this.$toast.open({
+                        position: 'top-right',
+                        message:  'Quantity cannot be greater than available product quantity for any item!',
+                        type: 'error',
+                        duration: 3000
+                    });
                     return;
                     }
                     else{

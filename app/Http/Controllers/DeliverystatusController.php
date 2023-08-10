@@ -26,10 +26,10 @@ class DeliverystatusController extends Controller
         $id = request('id');
        
 
-            $data = Order::where('id',$id)->value('status_id');
+            // $data = Order::where('id',$id)->value('status_id');
         
         // dd($data);
-        $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $data)->orderBy('id')
+        $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $id)->orderBy('id')
           ->search();
         // }
         // if(request('status') == 2){
@@ -112,15 +112,15 @@ class DeliverystatusController extends Controller
     }
     public function searches()
     {
-        
+        // dd(request('id'));
         $id = request('id');
   
 
-            $data = Purchase::where('id',$id)->value('status_id');
-            $datas = Delivery_status::where('id',$data)->value('head_id');
+            // $data = Purchase::where('id',$id)->value('status_id');
+            $datas = Delivery_status::where('id',$id)->value('head_id');
             $datasArray = explode(',', $datas);
            
-        $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $data)->whereIn('id' , $datasArray)->orderBy('id')
+        $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $id)->whereIn('id' , $datasArray)->orderBy('id')
           ->search();
        
      
