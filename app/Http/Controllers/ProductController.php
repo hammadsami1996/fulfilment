@@ -54,7 +54,7 @@ class ProductController extends Controller
         $model = new Product();
         $model->fill($request->all());
 //        dd($model);
-        $model->save(s);
+        $model->save();
 
         foreach ($request->product_img as $key => $item) {
             $file = $item['img'];

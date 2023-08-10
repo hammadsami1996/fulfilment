@@ -146,7 +146,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $model = Order::with('customer',  'items.product', 'stores')->findOrFail($id);
+        $model = Order::with('customer',  'items.product', 'stores' ,'wearhouse')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -155,7 +155,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $model = Order::with('customer', 'items.product', 'stores')->findOrFail($id);
+        $model = Order::with('customer', 'items.product', 'stores' ,'wearhouse')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -195,7 +195,7 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $model = Order::with('customer', 'items', 'stores')->findOrFail($id);
-        $model->save();
+        // $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);
     }
