@@ -54,7 +54,7 @@ class ProductController extends Controller
         $model = new Product();
         $model->fill($request->all());
 //        dd($model);
-        $model->save(s);
+        $model->save();
 
         foreach ($request->product_img as $key => $item) {
             $file = $item['img'];
@@ -109,7 +109,7 @@ class ProductController extends Controller
 
             foreach ($request->product_img as $key => $item) {
                 if (isset($item['id'])) {
-                    $existingImageIds =  (int) $item['id'];
+                    $existingImageIds[] = (int)$item['id'];
                 }
                 if (isset($item['img']) && $item['img'] instanceof \Illuminate\Http\UploadedFile) {
                     // If $item['img'] is a file, check if $item has 'id'
@@ -126,19 +126,21 @@ class ProductController extends Controller
                         // If 'id' is not set, create a new entry for the image
                         $file = $item['img'];
                         $extension = $file->getClientOriginalExtension();
-                        $filename = time() . '.' . $extension;
+                        $filename = time() . '_' . $key . '.' . $extension;
                         $file->move('uploads/product/img', $filename);
                         $data = new ProductImg();
                         $data->img = $filename;
                         $data->product_id = $model->id;
                         $data->save();
+                        $existingImageIds[] = (int)$data['id'];
+
                     }
                 }
                 // If $item['img'] is text, do nothing for this item
             }
 //            dd($existingImageIds);
             // Delete product images that are not in the request array
-            $existingImageIds = array_wrap($existingImageIds);
+//            $existingImageIds = array_wrap($existingImageIds);
             ProductImg::where('product_id', $model->id)
                 ->whereNotIn('id', $existingImageIds)
                 ->delete();

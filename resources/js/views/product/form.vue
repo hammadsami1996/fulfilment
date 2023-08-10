@@ -8,7 +8,7 @@
                         <label class="block text-xs font-medium text-gray-700">Title</label>
                         <input
                             class="w-full py-1 px-2 text-xs bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            required type="text" v-model="form.name"
+                            required type="text" v-model="form.title"
                         />
                     </div>
                 </div>
