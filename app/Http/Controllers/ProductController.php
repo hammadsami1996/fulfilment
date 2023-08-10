@@ -102,7 +102,7 @@ class ProductController extends Controller
         $model->fill($request->all());
         // Save the updated product to the database
         $model->save();
-
+            // dd($request->all());
         // Update, create, or delete product images
         if ($request->has('product_img') && is_array($request->product_img)) {
             $existingImageIds = [];
@@ -138,10 +138,12 @@ class ProductController extends Controller
             }
 //            dd($existingImageIds);
             // Delete product images that are not in the request array
-            $existingImageIds = array_wrap($existingImageIds);
+            $existingImageIds = array($existingImageIds);
+           
             ProductImg::where('product_id', $model->id)
                 ->whereNotIn('id', $existingImageIds)
                 ->delete();
+                // dd($model->id);
 
         }
         return response()->json(["updated" => true, "id" => $model->id]);

@@ -52,6 +52,7 @@ class PlanController extends Controller
 
     public function edit($id)
     {
+        // dd('abcd');
         $model = Plan::findOrFail($id);
         return response()->json([
             "form" => $model
