@@ -96,7 +96,7 @@
                 capital: "Product",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Name', field: 'title'},
+                    {label: 'Name', field: 'name'},
                     {label: 'SKU', field: 'product_sku'},
                     {label: 'Cost Price', field: 'cost_price'},
                     {label: 'Selling Price', field: 'selling_price'},
