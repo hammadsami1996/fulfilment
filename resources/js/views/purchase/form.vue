@@ -125,7 +125,7 @@
                                 :url="products"
                                 @input="onProduct(item, index, $event)"
                                 class="w-64  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                display="name"
+                                display="title"
                             />
                         </td>
                         <td>
@@ -188,8 +188,8 @@
                             <span class="item-dark font-semibold">Sub Total</span>
                         </td>
                         <td class="item-empty align-right panel-title " style="margin-left: .5rem;">
-                            
-                           
+
+
                             <span class="item-dark ">{{ subTotal | formatMoney }}</span>
                         </td>
                         <td class="item-empty align-right"></td>
@@ -342,7 +342,7 @@
                 return final;
 
             },
-            
+
 
         },
         methods: {
