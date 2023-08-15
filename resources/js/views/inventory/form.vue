@@ -9,7 +9,7 @@
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Product Id </label>
-                    <typeahead :initialize="form.product" :url="products" @input="onProduct" display="name"/>
+                    <typeahead :initialize="form.product" :url="products" @input="onProduct" display="title"/>
 
                     <p class="text-red-600 text-xs italic" v-if="error.product_id">{{ error.product_id[0] }}</p>
                 </div>

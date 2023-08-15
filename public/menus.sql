@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : local
+ Source Server         : localhost_3306
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantunaib
+ Source Schema         : tenantfulfilment9
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 08/08/2023 18:57:24
+ Date: 15/08/2023 12:42:42
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `menus`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `sort` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
@@ -55,5 +55,6 @@ INSERT INTO `menus` VALUES (27, 'Order', '/order', 'view-order', 1, 'web', NULL,
 INSERT INTO `menus` VALUES (28, 'Customer', '/customer', 'view-customer', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (29, 'Product Category', '/product_category', 'view-product_category', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (30, 'Receive Order', '/receive_order', 'view-receive_order', 1, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (31, 'Brand', '/brand', 'view-brand', 1, 'web', NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

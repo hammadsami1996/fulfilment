@@ -36,7 +36,8 @@ class PurchaseController extends Controller
             "purchasing_price" => '',
             "tax" => '',
             "sub_total" => '',
-            
+            "total" => '',
+
         ];
         return response()->json([
             'form' => $form
@@ -73,7 +74,7 @@ class PurchaseController extends Controller
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;
         $model->sub_total = $request->tvalue_ex_tax;
-        
+
         $model->storeHasMany([
             'items' => $request->items
         ]);
