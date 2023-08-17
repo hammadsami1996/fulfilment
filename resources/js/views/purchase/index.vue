@@ -72,7 +72,7 @@
                         </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
-                         <span v-if="permissions.includes(`edit-${small}`)">
+                         <span v-if="permissions.includes(`edit-${small}`) && props.item.status_id < 25">
                         <a
                             @click.prevent="edit(props.item.id)"
                             href="#"
