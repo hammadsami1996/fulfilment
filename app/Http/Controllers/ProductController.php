@@ -30,7 +30,7 @@ class ProductController extends Controller
             "model_no" => '',
             "barcode" => '',
             "manage_inventory" => '',
-            "product_qty" => '',
+            "quantity" => '',
             "product_types" => '',
             "cost_price" => '',
             "selling_price" => '',

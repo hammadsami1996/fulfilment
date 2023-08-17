@@ -31,7 +31,7 @@ return new class extends Migration
             $table->decimal('subTotal')->nullable();
             $table->decimal('discount')->nullable();
             $table->decimal('discount_percent')->nullable();
-            $table->integer('wearhouse_id')->nullable();
+            $table->integer('warehouse_id')->nullable();
             $table->integer('status_id')->default(1);
             $table->string('so_number')->nullable();
 

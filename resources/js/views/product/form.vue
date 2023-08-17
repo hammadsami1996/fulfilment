@@ -232,7 +232,7 @@
                                 <input
                                     class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                     type="number"
-                                    v-model="form.product_qty"
+                                    v-model="form.quantity"
                                 />
                             </div>
                         </div>

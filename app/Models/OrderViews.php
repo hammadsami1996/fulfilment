@@ -2,22 +2,19 @@
 
 namespace App\Models;
 
+use App\Support\HasManyRelation;
 use App\Support\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use App\Support\HasManyRelation;
 
-class Order extends Model
+class OrderViews extends Model
 {
     use HasFactory, Notifiable, HasRoles;
     use Search;
     use HasManyRelation;
-    protected $fillable = [
-        'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','selling_Price',
-        'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent','warehouse_id'
-    ];
+
     protected $columns = [
         'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','selling_Price',
         'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent'
@@ -44,7 +41,7 @@ class Order extends Model
     }
     public function items()
     {
-        return $this->hasMany(Order_item::class);
+        return $this->hasMany(Order_item::class , 'id', 'order_id');
     }
 
     public function wearhouse()
@@ -57,5 +54,4 @@ class Order extends Model
     {
         return $this->belongsTo(Delivery_status::class, 'status_id', 'id');
     }
-
 }

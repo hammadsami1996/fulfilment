@@ -2,34 +2,38 @@
     <div>
         <div class="bg-gray-100 py-4">
             <nav class="container mx-auto flex justify-center">
-                <a @click="all"
+                <a @click="showRecords(0)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-blue-500 focus:text-gray-700 focus:border-blue-300">
                     All
                 </a>
-                <a @click="unfulfilled"
+                <a @click="showRecords(1)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
-                    Unfulfilled
+                    Pendding
                 </a>
-                <a @click="partially_fulfilled"
+                <a @click="showRecords(2)"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
+                    Confirmed
+                </a>
+                <a @click="showRecords(6)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
-                    Partially Fulfilled
+                    On Hold
                 </a>
-                <a @click="cancelled"
+                <a @click="showRecords(14)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-rose-500 focus:text-gray-700 focus:border-rose-300">
-                    Cancelled
+                    Fake
                 </a>
-                <a @click="unpaid"
+                <a @click="showRecords()"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
-                    Unpaid
+                    Packable
                 </a>
-                <a @click="duplicate"
+                <a @click="showRecords()"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-                    Duplicate
+                    Unpakable
                 </a>
-                <a @click="s"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">
-                    +
-                </a>
+<!--                <a @click="s"-->
+<!--                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">-->
+<!--                    +-->
+<!--                </a>-->
             </nav>
         </div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
@@ -68,7 +72,7 @@
                     </button> -->
                             <button
                                 @click="Cancel() "
-                                style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;">
+                                style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197,13,13)); font-weight: bold;">
                                 Hide
                             </button>
                         </div>
@@ -145,6 +149,7 @@
 
                 permissions: [],
                 urlApi: "/api/order",
+                urlApi1: "/api/order",
                 resource: "/order",
                 delivery: '/api/status',
                 small: "order",
@@ -158,6 +163,7 @@
                     {label: 'Customer', field: 'name', displayText: 'customer'},
                     {label: 'Delivery Status', field: 'statuses', slot: true},
                     {label: 'Payment Status', field: 'subTotal'},
+                    {label: 'Packability', field: 'packability'},
                     {label: 'Action', field: 'action', action: true},
                     // {label: 'Status', field: 'show', slot:true}
 
@@ -178,7 +184,6 @@
                 this.id = e
             },
             Update(e, id) {
-
                 byMethod('POST', '/api/update?ids=' + id, e).then(res => {
                     if (res.data.saved) {
                         this.sts = false,
@@ -186,11 +191,7 @@
                         this.$refs.TableData.reload();
                     }
                 })
-
-
             },
-
-
             onDelivery(e, id) {
                 const deliver = e.target.value
                 this.form.deliver = deliver
@@ -209,6 +210,18 @@
                             this.$toast.error(this.capital + " Deleted successfully!");
                         }
                     })
+            },
+            showRecords(e) {
+                setTimeout(() => {
+                    this.urlApi = this.urlApi1
+                }, 500)
+                setTimeout(() => {
+                    this.urlApi += '?status_id=' + e
+                }, 500)
+                setTimeout(() => {
+                    // console.log(this.$refs);
+                    this.$refs.TableData.reload();
+                }, 500)
             },
         },
     }

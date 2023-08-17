@@ -13,14 +13,14 @@ class Inventory extends Model
     use HasFactory, Notifiable, HasRoles;
     use Search;
     protected $fillable = [
-        'product_id', 'wearhouse_id', 'qty', 'price'
+        'product_id', 'warehouse_id', 'qty', 'price'
     ];
     protected $columns = [
-        'product_id', 'wearhouse_id', 'qty', 'price'
+        'product_id', 'warehouse_id', 'qty', 'price'
     ];
 
     protected $search = [
-        'product_id', 'wearhouse_id', 'qty', 'price'
+        'product_id', 'warehouse_id', 'qty', 'price'
     ];
     protected $appends = ['text'];
 
@@ -35,6 +35,6 @@ class Inventory extends Model
     }
     public function wearhouse()
     {
-        return $this->belongsTo(Wearhouse::class, 'wearhouse_id', 'id');
+        return $this->belongsTo(Wearhouse::class, 'warehouse_id', 'id');
     }
 }

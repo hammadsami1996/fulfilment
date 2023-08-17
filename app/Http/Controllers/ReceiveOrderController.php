@@ -27,9 +27,9 @@ class ReceiveOrderController extends Controller
 
     public function edit($id)
     {
-       
+
         $model = Purchase::with('supplier','items.product')->findOrFail($id);
-       
+
         return response()->json([
             "form" => $model
         ]);
@@ -44,8 +44,8 @@ class ReceiveOrderController extends Controller
 
             'date' => 'required',
             'items.*.qty_received' =>'required',
-           
-        
+
+
 
         ]);
 
@@ -60,10 +60,10 @@ class ReceiveOrderController extends Controller
                     return response()->json(["error" => true]);
                 }
                 else{
-                    $first = Inventory::where('product_id' , $product_id)->where('wearhouse_id', $child['warehouse_id'])->first();
+                    $first = Inventory::where('product_id' , $product_id)->where('warehouse_id', $child['warehouse_id'])->first();
                     if($first !=null ){
-                       
-                        $first = Inventory::where('product_id' , $product_id)->where('wearhouse_id', $child['warehouse_id'])->first();
+
+                        $first = Inventory::where('product_id' , $product_id)->where('warehouse_id', $child['warehouse_id'])->first();
                         $first->qty += $child['qty_deliver'];
                         $first->save();
                         $product = Product::where('id', $product_id )->first();
@@ -78,11 +78,11 @@ class ReceiveOrderController extends Controller
 
                     $abc = new Inventory();
                     $abc->product_id = $product_id;
-                    $abc->wearhouse_id = $child['warehouse_id'];
+                    $abc->warehouse_id = $child['warehouse_id'];
                     $abc->qty = $child['qty_deliver'];
                     // $abc->price = $child['unit_price'];
                     $abc->save();
-    
+
                     $product = Product::where('id', $product_id )->first();
                     $product->quantity = $quantity;
                     $product->save();
@@ -91,12 +91,12 @@ class ReceiveOrderController extends Controller
 
 
             }
-          
-            
-            
+
+
+
         }
         $number = Counter::where('key', 'receivable_order');
-    
+
         $model = new Receive_order();
         $model->fill($request->all());
         $model->number = ($number->first()->perfix . $number->first()->value);
@@ -116,11 +116,11 @@ class ReceiveOrderController extends Controller
                 $item['value_inc_tax'] = round(($item['qty'] * $item['unit_price']) + $item['tax_amount'], 2);
                 return $item;
             }
-           
+
 
         });
         $model = DB::transaction(function() use ($model, $items, $number ,$request) {
-        
+
         // foreach($items as $itm){
         //     // dd($itm['qty']);
         //     // dd($itm['product']['id']);
@@ -129,14 +129,14 @@ class ReceiveOrderController extends Controller
         //     $product->quantity = $itm['qty'];
         //     $product->save();
         // };
-    
+
         // dd($product);
 
 
-       
+
         // dd($items);
         $model->storeHasMany([
-           
+
             'items' => $items,
 
             // 'purchase_order_item_id' => $request->items->id,
@@ -150,7 +150,7 @@ class ReceiveOrderController extends Controller
         $status->status_id = 27;
         $status->save();
         return $model;
-        
+
 
     });
         return response()->json(["saved" => true, "id" => $model->id]);
@@ -173,7 +173,7 @@ class ReceiveOrderController extends Controller
                 // dd($child['warehouse_id']);
                 $abc = new Inventory();
                 $abc->product_id = $product_id;
-                $abc->wearhouse_id = $child['warehouse_id'];
+                $abc->warehouse_id = $child['warehouse_id'];
                 $abc->qty = $child['qty_deliver'];
                 $abc->price = $child['unit_price'];
                 $abc->save();
@@ -185,9 +185,9 @@ class ReceiveOrderController extends Controller
 
 
             }
-          
-            
-            
+
+
+
         }
         return response()->json(["saved" => true, "id" => $abc->id]);
 

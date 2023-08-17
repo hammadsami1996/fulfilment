@@ -113,39 +113,17 @@ Route::middleware([
         Route::get('country', [\App\Http\Controllers\CountryController::class, 'search']);
         Route::get('menus', [\App\Http\Controllers\MenuController::class, 'index']);
         Route::resource('user', \App\Http\Controllers\UserController::class);
-        Route::resource('job', \App\Http\Controllers\JobController::class);
         Route::post('assign_user_role', [\App\Http\Controllers\UserController::class, 'assign_user_role']);
         Route::resource('role', \App\Http\Controllers\RoleController::class);
         Route::resource('permission', \App\Http\Controllers\PermissionController::class);
         Route::resource('plan', \App\Http\Controllers\PlanController::class);
         Route::resource('user_plan', \App\Http\Controllers\UserPlanController::class);
-        Route::resource('user_job', \App\Http\Controllers\UserJobController::class);
-        Route::resource('apply_job', \App\Http\Controllers\ApplyJobController::class);
-        Route::resource('location', \App\Http\Controllers\LocationController::class);
-        Route::resource('job_type', \App\Http\Controllers\JobTypeController::class);
-        Route::resource('job_role', \App\Http\Controllers\JobRoleController::class);
-        Route::resource('job_skill', \App\Http\Controllers\JobSkillController::class);
-        Route::resource('job_speciality', \App\Http\Controllers\JobSpecialityController::class);
-        Route::resource('job_user', \App\Http\Controllers\JobUserController::class);
         Route::post('change_password', [\App\Http\Controllers\UserController::class, 'changePassword']);
         Route::get('basic_info/{id}', [\App\Http\Controllers\UserController::class, 'basic_info_get']);
         Route::post('basic_info/{id}', [\App\Http\Controllers\UserController::class, 'basic_info_save']);
-//        Route::put('basic_info/{id}', [\App\Http\Controllers\UserController::class, 'basic_info_save']);
         Route::get('permission_menu', [\App\Http\Controllers\PermissionController::class, 'permission_menu']);
         Route::post('permission_menu', [\App\Http\Controllers\PermissionController::class, 'permission_menu_post']);
-        Route::get('eligibility_to_work/{id}', [\App\Http\Controllers\EligibilityToWorkController::class, 'eligibility_to_work_get']);
-        Route::post('eligibility_to_work/{id}', [\App\Http\Controllers\EligibilityToWorkController::class, 'eligibility_to_work_save']);
-        Route::get('reference/{id}', [\App\Http\Controllers\ReferenceController::class, 'reference_get']);
-        Route::post('reference/{id}', [\App\Http\Controllers\ReferenceController::class, 'reference_post']);
-        Route::get('emergency/{id}', [\App\Http\Controllers\EmergencyController::class, 'emergency_get']);
-        Route::post('emergency/{id}', [\App\Http\Controllers\EmergencyController::class, 'emergency_post']);
-        Route::get('bank/{id}', [\App\Http\Controllers\BankController::class, 'bank_get']);
-        Route::post('bank/{id}', [\App\Http\Controllers\BankController::class, 'bank_post']);
-        Route::get('medical/{id}', [\App\Http\Controllers\MedicalController::class, 'medical_get']);
-        Route::post('medical/{id}', [\App\Http\Controllers\MedicalController::class, 'medical_post']);
-        Route::get('submit/{id}', [\App\Http\Controllers\CandidateController::class, 'submit_get']);
-        Route::get('accept/{id}', [\App\Http\Controllers\CandidateController::class, 'accept_get']);
-        Route::get('reject/{id}', [\App\Http\Controllers\CandidateController::class, 'reject_get']);
+
         Route::post('update', [\App\Http\Controllers\DeliverystatusController::class, 'updatestatus']);
         Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
 
@@ -169,15 +147,11 @@ Route::middleware([
         Route::post('remianing', [\App\Http\Controllers\OrderController::class, 'remain']);
 
         Route::get('sts', [\App\Http\Controllers\DeliverystatusController::class, 'searches']);
-       
-
-
 
         Route::resource('order', \App\Http\Controllers\OrderController::class);
         Route::resource('customer', \App\Http\Controllers\CustomerController::class);
         Route::resource('type', \App\Http\Controllers\TypeController::class);
         Route::resource('status', \App\Http\Controllers\DeliverystatusController::class);
-
         Route::resource('category', \App\Http\Controllers\CategoryController::class);
         Route::resource('product_category', \App\Http\Controllers\ProductCategoryController::class);
         Route::resource('brand', \App\Http\Controllers\BrandController::class);
