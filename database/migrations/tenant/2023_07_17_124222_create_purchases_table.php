@@ -16,8 +16,8 @@ return new class extends Migration
             $table->integer('supplier_id')->nullable();
             $table->string('po_number')->nullable();
             $table->integer('po_reference_number')->nullable();
-            $table->dateTime('po_date')->nullable();
-            $table->dateTime('due_date')->nullable();
+            $table->date('po_date')->nullable();
+            $table->date('due_date')->nullable();
             $table->integer('discount')->nullable();
             $table->string('sku')->nullable();
             $table->string('name')->nullable();

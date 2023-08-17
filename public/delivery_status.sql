@@ -11,7 +11,7 @@
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 17/08/2023 14:16:24
+ Date: 17/08/2023 16:35:07
 */
 
 SET NAMES utf8mb4;
@@ -60,10 +60,10 @@ INSERT INTO `delivery_status` VALUES (22, 'Return-Proof-Need', NULL, NULL, '#53F
 INSERT INTO `delivery_status` VALUES (23, 'Draft', NULL, NULL, '#30B3A5', 'purchase', '24 , 26 , 30');
 INSERT INTO `delivery_status` VALUES (24, 'Sent', NULL, NULL, '#53FDBA', 'purchase', '25,26,30');
 INSERT INTO `delivery_status` VALUES (25, 'Confirmed', NULL, NULL, '#318E69', 'purchase', '27,26,30');
-INSERT INTO `delivery_status` VALUES (26, 'Closed', NULL, NULL, '#F5A912', 'purchase', '23,30');
+INSERT INTO `delivery_status` VALUES (26, 'Closed', NULL, NULL, '#F5A912', 'purchase', '24,30');
 INSERT INTO `delivery_status` VALUES (27, 'Received', NULL, NULL, '#F5F512', 'purchase', '28,30');
 INSERT INTO `delivery_status` VALUES (28, ' Bill', NULL, NULL, '#2B7CB8', 'purchase', '26');
-INSERT INTO `delivery_status` VALUES (29, 'Partially-Received', NULL, NULL, '#FCA50E', 'purchase', '27,28,26,30');
-INSERT INTO `delivery_status` VALUES (30, 'Cancelled', NULL, NULL, '#F54212', 'purchase', '25');
+INSERT INTO `delivery_status` VALUES (29, 'Partially-Received', NULL, NULL, '#FCA50E', 'purchase', '27,26,30');
+INSERT INTO `delivery_status` VALUES (30, 'Cancelled', NULL, NULL, '#F54212', 'purchase', '24');
 
 SET FOREIGN_KEY_CHECKS = 1;

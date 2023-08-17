@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="bg-gray-100 py-4">
-            <nav class="container mx-auto flex justify-center">
+            <nav class="container mx-auto flex justify-center" style="cursor: pointer;">
                 <a @click="show_data(0)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-blue-500 focus:text-gray-700 focus:border-blue-300">
                     All
@@ -106,6 +106,7 @@
                     </div>
                 </template>
             </panel>
+           
         </div>
     </div>
 </template>
@@ -115,11 +116,12 @@
     import {form} from "@/libs/mixins";
     import {byMethod} from "@/libs/api";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    
 
     export default {
         mixins: [form],
         components: {
-            Panel, Typeahead,
+            Panel, Typeahead
         },
         name: "Index",
         data() {
@@ -129,6 +131,7 @@
                 ids:null,
                 permissions: [],
                 urlApi: "/api/purchase",
+                urlApi_new: "/api/purchases",
                 resource: "/purchase",
                 small: "purchase",
                 capital: "Purchase",
@@ -153,16 +156,21 @@
         },
         methods: {
             show_data(e){
-                byMethod('GET', '/api/purchases?status_id='+e  ).then(res => {
-                    this.url = '/api/purchases?status_id='+e;
-                    this.reload(res)
-                    // this.model = res.data.data;
-                    //     this.pageLength = res.data.data.per_page
-                    //     this.show = true
+                setTimeout(() => {
+                    this.urlApi = this.urlApi_new
+                }, 100)
+                setTimeout(() => {
+                    this.urlApi += '?status_id=' + e
+                }, 100)
+                setTimeout(() => {
+                    // console.log(this.$refs);
+                    this.$refs.TableData.reload();
+                }, 100)
+                // byMethod('GET', '/api/purchases?status_id='+e  ).then(res => {
+                   
+                
 
-                    // this.$refs.TableData.reload();
-
-                })
+                // })
             },
             Cancel(){
                 this.sts = false;

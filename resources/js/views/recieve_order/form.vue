@@ -76,6 +76,9 @@
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             Qty in Order
                         </th>
+                        <th v-if="form.status_id == 29" class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                            Partail Remaining
+                        </th>
                         
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             
@@ -88,12 +91,23 @@
                     </thead>
                     <tbody v-for="(item,index) in form.items">
                      <tr class="border-b border-gray-100 dark:border-gray-700/50" >
-                        <td class="w-48" v-if=" item.product.product_img.lenght > 1">
-                           
-                                            <img :src="`/uploads/product/img/` + item.product.product_img[0].img" style=" max-width: 50%; height: auto;">
-                                      
+                        <td class="w-48"  v-if="item.product && item.product.product_img && item.product.product_img[0]" >
+                           <div style=" max-width: 40%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;" class="image-container" >
+                                            <img :src="`/uploads/product/img/` +  item.product.product_img[0].img" >
+                                        </div>
                                     </td>
+                                    <td v-else >
+                           
+                           <div style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
+                            <img src="/images/no-picture-taking.png" >
+                                            <span class="text-center" style="font-weight: bold;"> No Product Image</span>
+                           
+                           </div>
+                           
+           </td>
                                     <td>
+
+                                        
                         <input 
                                    class= " w-64 px-2 py-1  rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="text"
@@ -111,11 +125,19 @@
                                    v-model="item.qty"
                             >
                         </td>
+                        <td v-if="form.status_id == 29">
+                            <input @blur="caltax(item, index)" @input="caltax(item, index)"
+                                   class= " w-32 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="number"
+                                   disabled
+                                   v-model="item.partail_remaining"
+                            >
+                        </td>
                        
                        
                         <td class="text-right">
 
-                    <button @click="addchild(index)" class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-yellow-300 to-yellow-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75" style=" margin-top: 10px; color:white; border-radius: 10%;" type="button">
+                    <button v-if="item.partail_remaining != 0" @click="addchild(index)" class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-yellow-300 to-yellow-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75" style=" margin-top: 10px; color:white; border-radius: 10%;" type="button">
                         <i class="fa fa-plus-circle"></i> Add Warehouses
                     </button>
                     <!-- <input @blur="caltax(item, index)" @input="caltax(item, index)"
@@ -155,12 +177,14 @@
                                 <input 
                                     class="h-8 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                     type="number"
-                                    @input="sumchild(index)"
+                                    :max="item.partail_remaining"
+                                    @input="sumchild(index,childIndex,child.qty_deliver)"
                                     v-model="child.qty_deliver"
                                     
                                     
                                 >
                                 </td>
+                                
                                 <!-- <td>
                                 <label
                                 class="block font-bold text-sm text-gray-700 mb-2"
@@ -499,7 +523,11 @@
   },
 
 
-  sumchild(index){
+  sumchild(index,childIndex,max){
+    if (max > this.form.items[index].partail_remaining) {
+        this.form.items[index].child[childIndex].qty_deliver = this.form.items[index].partail_remaining;
+      }
+
     const totalQtyDeliver = this.form.items[index].child.reduce(
     (total, child) => total + (child.qty_deliver || 0),
     0
@@ -690,5 +718,20 @@
 </script>
 
 <style scoped>
+.image-container {
+    max-width: 40%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+  
+    transition: transform 0.3s ease-in-out; /* Apply a smooth transition effect */
+    z-index:9999;
+}
 
+.image-container:hover {
+    /* margin-left:25%; */
+    transform: scale(1.8); /* Increase the image size on hover */
+    /* margin-left:25% */
+    
+}
 </style>

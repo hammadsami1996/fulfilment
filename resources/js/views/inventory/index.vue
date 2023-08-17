@@ -13,7 +13,7 @@
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
-                         <span v-if="permissions.includes(`edit-${small}`)">
+                         <!-- <span v-if="permissions.includes(`edit-${small}`)">
                         <a
                             @click.prevent="edit(props.item.id)"
                             href="#"
@@ -26,7 +26,7 @@
                                 <line x1="16" x2="19" y1="5" y2="8"/>
                             </svg>
                         </a>
-                         </span>
+                         </span> -->
                         <span v-if="permissions.includes(`delete-${small}`)">
                         <a
                             @click.prevent="deleteRole(props.item.id)"
@@ -70,7 +70,7 @@
                     {label: 'Product id', field: 'title',  displayText: 'product'},
                     {label: 'Wearhouse id', field: 'name',  displayText: 'wearhouse'},
                     {label: 'Qty', field: 'qty',},
-                    {label: 'Price', field: 'price',},
+                    // {label: 'Price', field: 'price',},
                     {label: 'Action', field: 'action', action: true}
                     ]
             }
