@@ -98,7 +98,7 @@
                                    class= " w-64 px-2 py-1  rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="text"
                                    disabled
-                                   v-model="item.product.name"
+                                   v-model="item.product.title"
                             >
                         </td>
                             

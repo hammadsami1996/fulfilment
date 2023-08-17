@@ -150,7 +150,7 @@
                                 :url="products"
                                 @input="onProduct(item, index, $event)"
                                 class="w-72 h-6 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                display="name"
+                                display="title"
                             />
                         </td>
                        
