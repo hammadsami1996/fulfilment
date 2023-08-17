@@ -137,6 +137,8 @@
                     {label: 'Total', field: 'sub_total'},
                     {label: 'Tax', field: 'tax'},
                     {label: 'Status', field: 'statuses' , slot:true},
+                    {label: 'Partail Remaining', field: 'partial_remaining' ,align:'center' },
+
 
                     {label: 'Action', field: 'action', action: true}
                     ]

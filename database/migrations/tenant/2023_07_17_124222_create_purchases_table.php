@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('discount_percent')->nullable();
             $table->integer('total')->nullable();
             $table->integer('status_id')->default(23);
+            $table->integer('partial_remaining')->nullable();
+
 
 
             $table->timestamps();

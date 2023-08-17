@@ -40,7 +40,7 @@
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                         disabled
-                        placeholder=" PO No."
+                        placeholder=" RO No."
                         v-model="form.number"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.number">{{error.number[0] }}</p>
@@ -67,14 +67,18 @@
                 <table class="min-w-full text-sm align-middle whitespace-nowrap">
                     <thead>
                     <tr class="border-b border-gray-100 dark:border-gray-700/50">
+                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                            Item Image
+                        </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
                             Item Description
                         </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             Qty in Order
                         </th>
+                        
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Recieving
+                            
                         </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             
@@ -84,43 +88,34 @@
                     </thead>
                     <tbody v-for="(item,index) in form.items">
                      <tr class="border-b border-gray-100 dark:border-gray-700/50" >
+                        <td class="w-48">
+                           
+                                            <img :src="`/uploads/product/img/` + item.product.product_img[0].img" style=" max-width: 50%; height: auto;">
+                                      
+                                    </td>
+                                    <td>
                         <input 
-                                   class= " w-64 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   class= " w-64 px-2 py-1  rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="text"
                                    disabled
                                    v-model="item.product.name"
                             >
-                        <!-- <td class="text-center">
-                            <typeahead
-                                :initialize="item.product"
-                                :url="products"
-                                @input="onProduct(item, index, $event)"
-                                class=" w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                display="name"
-                            />
-                        </td> -->
+                        </td>
+                            
+                      
                         <td>
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                                   class= "px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   class= " px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="number"
                                    disabled
                                    v-model="item.qty"
                             >
                         </td>
                        
-                        <td>
-                            <input @blur="caltax(item,index)" @input="caltax(item, index)"
-                                   class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                   type="number"
-                                   v-model="item.qty_received"
-                                  
-                                   
-                            >
-                            <p class="text-red-600 text-xs italic" v-if="error[`items.${index}.qty_received`]">Receiving should be neccessary</p>
-                        </td>
-                        <td>
+                       
+                        <td class="text-right">
 
-                    <button @click="addchild(index)" class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75" style=" margin-top: 10px; color:white; border-radius: 10%;" type="button">
+                    <button @click="addchild(index)" class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-yellow-300 to-yellow-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75" style=" margin-top: 10px; color:white; border-radius: 10%;" type="button">
                         <i class="fa fa-plus-circle"></i> Add Warehouses
                     </button>
                     <!-- <input @blur="caltax(item, index)" @input="caltax(item, index)"
@@ -132,11 +127,15 @@
                        
                     </tr>
 
-                    <tr v-for="(child, childIndex) in item.child">
+                    <tr v-for="(child, childIndex) in item.child" class="text-center">
+                        <!-- <td class="text-right" >
+                                
+                                </td> -->
+                                <td style="display: none;">Total Qty Deliver: {{ item.total_qty_deliver || 0 }}</td>
 
-                                <td class="text-center">
+                                <td>
                                 <label
-                                class="block font-medium text-sm text-gray-700 mb-2"
+                                class="block font-bold text-sm text-gray-700 mb-2 " style=" margin-right: 35%;"
                                 >Wearhouse </label>
                                 <!-- <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/> -->
                                 <typeahead
@@ -152,10 +151,11 @@
                                 <td>
                                 <label
                                 class="block font-bold text-sm text-gray-700 mb-2"
-                                >Product Received</label>
+                                >Quantity Shift</label>
                                 <input 
                                     class="h-8 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                     type="number"
+                                    @input="sumchild(index)"
                                     v-model="child.qty_deliver"
                                     
                                     
@@ -173,9 +173,9 @@
                                     
                                 >
                                 </td> -->
-                                <td class=" text-center">
+                                <td class=" text-left">
                             <button @click="removeProduct(child,childIndex,index)"
-                                    class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
+                                    class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-red-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
                                     type="button">
                                 <i class="fa fa-trash mr-1"></i>
                             </button>
@@ -473,6 +473,7 @@
       // If the child array doesn't exist, create a new one with a single child object.
       this.form.items[index].child = [{
         title: null,
+        qty_deliver: null,
        
 
         
@@ -482,11 +483,30 @@
       // If the child array already exists, push a new child object into it.
       const newChild = {
         title: null,
+        qty_deliver: null,
        
         // Add other properties for the child object if needed.
       };
       this.form.items[index].child.push(newChild);
     }
+    const totalQtyDeliver = this.form.items[index].child.reduce(
+    (total, child) => total + (child.qty_deliver || 0),
+    0
+  );
+
+  // Store the total in the parent item
+  this.form.items[index].total_qty_deliver = totalQtyDeliver;
+  },
+
+
+  sumchild(index){
+    const totalQtyDeliver = this.form.items[index].child.reduce(
+    (total, child) => total + (child.qty_deliver || 0),
+    0
+  );
+
+  // Store the total in the parent item
+  this.form.items[index].total_qty_deliver = totalQtyDeliver;
   },
             onWearhouse(childIndex, index, e ,child) {
                 const warehouse = e.target.value
@@ -575,23 +595,27 @@
             },
 
             formSubmitted() {
-               
+
+                for (const item of this.form.items) {
+                if (item.total_qty_deliver > item.qty) {
+                    console.log('abcd');
+                // Show an error toast for this item
+                this.$toast.open({
+                    position: 'top-right',
+                    message: 'Product quantity shift to warehouse should not be greater than Product Qunatity In Order',
+                    type: 'error',
+                    duration: 3000,
+                });
+                
+                // Return early if validation fails
+                return;
+                }
+            }
                 
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
-                    // this.successfull(res)
-                    // console.log(res.data.saved);
-                    if(res.data.error){
-
-                        this.$toast.open({
-                            position: 'top-right',
-                            message: 'Product quantity shift to warehouse should not be greater than Product Received',
-                            type: 'error',
-                            duration: 3000,
-                            
-                        });
-                    
-                        }
+                    // console.log('aaa');
+                   
                     if(res.data.saved){
 
                         this.$toast.open({
@@ -602,33 +626,7 @@
                             
                         });
                         this.successfull()
-            //             byMethod(this.method, this.send, this.form.items).then(res => {
-            //     if(res.data.error){
-
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: 'Product quantity shift to warehouse should not be greater than Product Received',
-            //             type: 'error',
-            //             duration: 3000,
-                        
-            //         });
-                   
-            //         }
-                  
-            //        if(res.data.saved){
-
-            //            this.$toast.open({
-            //                position: 'top-right',
-            //                message: 'Successfully Shift Product to Warehouse',
-            //                type: 'success',
-            //                duration: 3000,
-                           
-            //            });
-            //            this.show_size_modal = false;
-            //        }
-            //    })
-              
-                        // this.show_size_modal = true;
+       
                     }
                 })
                 .catch(err => {

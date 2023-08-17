@@ -56,7 +56,7 @@ class PurchaseController extends Controller
             'po_date' => 'required',
             'due_date' => 'required',
             // 'discount' => 'required',
-            'sku' => 'required',
+            // 'sku' => 'required',
 //            'name' => 'required',
 //            'qty' => 'required',
 //            'purchasing_price' => 'required',
@@ -98,7 +98,7 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        $model = Purchase::with('supplier' ,'items.product')->findOrFail($id);
+        $model = Purchase::with('supplier' ,'items.product.product_img')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -109,14 +109,15 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd('ab');
         $request->validate([
             'supplier_id' => 'required',
 //            'po_number' => 'required',
-            'po_reference_number' => 'required',
+            // 'po_reference_number' => 'required',
             'po_date' => 'required',
             'due_date' => 'required',
-            'discount' => 'required',
-            'sku' => 'required',
+            // 'discount' => 'required',
+            // 'sku' => 'required',
 //            'name' => 'required',
 //            'qty' => 'required',
 //            'purchasing_price' => 'required',
@@ -125,8 +126,15 @@ class PurchaseController extends Controller
         ]);
         $model = Purchase::with('supplier')->findOrFail($id);
         $model->fill($request->all());
+        $model->tax = $request->mtax_amount;
+        $model->total = $request->finaltotal;
+        $model->sub_total = $request->tvalue_ex_tax;
+        
+        $model->updateHasMany([
+            'items' => $request->items
+        ]);
 //        $model->updated_by = Auth::id();
-        $model->save();
+        // $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
     }
 

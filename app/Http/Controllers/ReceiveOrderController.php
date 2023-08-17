@@ -28,7 +28,7 @@ class ReceiveOrderController extends Controller
     public function edit($id)
     {
        
-        $model = Purchase::with('supplier','items.product')->findOrFail($id);
+        $model = Purchase::with('supplier','items.product.product_img')->findOrFail($id);
        
         return response()->json([
             "form" => $model
@@ -43,23 +43,35 @@ class ReceiveOrderController extends Controller
             'supplier_id' => 'required',
 
             'date' => 'required',
-            'items.*.qty_received' =>'required',
+     
            
         
 
         ]);
-
+        $abcd = 0;
+        $rrr = 0;
+        $qqq = 0;
         foreach($request->items as $data){
-            // dd($data);
+            $totalQtyDeliver = 0;
+            // dd($data['total_qty_deliver']);
             $product_id = $data['product_id'];
-            $quantity = $data['qty_received'];
+            $quantity = $data['qty'];
+            $total_quantity = $data['total_qty_deliver'];
+           
             // dd($quantity);
+            // foreach($data['child'] as $child){
+            //     // dd($totalQtyDeliver +=$child['qty_deliver']);
+            //     $totalQtyDeliver += $child['qty_deliver'];
+            // }
+            // dd($totalQtyDeliver);
             foreach($data['child'] as $child){
-
-                if($quantity < $child['qty_deliver']){
-                    return response()->json(["error" => true]);
-                }
-                else{
+                // dd($child);
+                // dd($totalQtyDeliver +=$child['qty_deliver']);
+                $totalQtyDeliver += $child['qty_deliver'];
+                // if($quantity < $totalQtyDeliver){
+                //     return response()->json(["error" => true]);
+                // }
+                // else{
                     $first = Inventory::where('product_id' , $product_id)->where('wearhouse_id', $child['warehouse_id'])->first();
                     if($first !=null ){
                        
@@ -67,7 +79,7 @@ class ReceiveOrderController extends Controller
                         $first->qty += $child['qty_deliver'];
                         $first->save();
                         $product = Product::where('id', $product_id )->first();
-                        $product->quantity += $quantity;
+                        $product->quantity += $total_quantity;
                     // $product->quantity = $quantity;
                     $product->save();
                         // dd($first);
@@ -84,17 +96,48 @@ class ReceiveOrderController extends Controller
                     $abc->save();
     
                     $product = Product::where('id', $product_id )->first();
-                    $product->quantity = $quantity;
+                    $product->quantity = $total_quantity;
                     $product->save();
                 }
-            }
-
-
-            }
-          
+              
+            // }
             
             
         }
+        // dd($quantity);
+       
+        if($totalQtyDeliver < $quantity){
+       
+            // dd($child['qty_deliver']);
+            $status = Purchase::where('id' , $request->id)->first();
+          
+            $status->status_id = 29;
+            $status->save();
+            $abcd = 1 ;
+        }
+        // dd($abcd);
+        elseif($abcd !=1){
+            // dd($totalQtyDeliver);
+            $status = Purchase::where('id' , $request->id)->first();
+   
+        $status->status_id = 27;
+        $status->save();
+        }
+
+        // $purchase = Purchase::where('id' , $request->id)->value();
+
+        // dd($totalQtyDeliver);
+          
+            
+            
+        $rrr += $totalQtyDeliver;
+        $qqq += $quantity;
+        }
+        // dd($qqq);
+        $purchase = Purchase::where('id' , $request->id)->first();
+        $purchase->partial_remaining = $qqq - $rrr;
+        $purchase->save();
+        // dd($purchase);
         $number = Counter::where('key', 'receivable_order');
     
         $model = new Receive_order();
@@ -108,9 +151,9 @@ class ReceiveOrderController extends Controller
         // $model->total = $request->finaltotal;
         // $model->sub_total = $request->tvalue_ex_tax;
         $items = collect($request->items)->map(function($item) {
-            if($item['qty_received'] > 0) {
+            if($item['qty'] > 0) {
                 $item['purchase_order_item_id'] = $item['id'];
-                $item['qty'] = $item['qty_received'];
+                $item['qty'] = $item['qty'];
                 $item['tax_amount'] = round(($item['qty'] * $item['unit_price']) * ($item['tax_percent'] / 100), 2);
                 $item['value_ex_tax'] = round(($item['qty'] * $item['unit_price']), 2);
                 $item['value_inc_tax'] = round(($item['qty'] * $item['unit_price']) + $item['tax_amount'], 2);
@@ -145,10 +188,10 @@ class ReceiveOrderController extends Controller
         $number->update([
             'value' => ($number->first()->value + 1)
         ]);
-        $status = Purchase::where('id' , $request->id)->first();
-        // dd($status);
-        $status->status_id = 27;
-        $status->save();
+        // $status = Purchase::where('id' , $request->id)->first();
+        // // dd($status);
+        // $status->status_id = 27;
+        // $status->save();
         return $model;
         
 
