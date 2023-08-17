@@ -89,6 +89,7 @@
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                         placeholder=" Email Address"
+                        type="email"
                         v-model="form.email"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>

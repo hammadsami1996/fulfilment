@@ -38,7 +38,7 @@ class User extends Authenticatable
         'city_id',
         'cv',
         'img',
-        'user_type_id',
+//        'user_type_id',
         'phase'
 
     ];
@@ -49,10 +49,10 @@ class User extends Authenticatable
     {
         return $this->attributes['name'];
     }
-    public function usertype()
-    {
-        return $this->belongsTo(User_type::class, 'user_type_id', 'id');
-    }
+//    public function usertype()
+//    {
+//        return $this->belongsTo(User_type::class, 'user_type_id', 'id');
+//    }
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id', 'id');

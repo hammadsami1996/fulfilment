@@ -17,13 +17,17 @@
                     <p class="text-red-600 text-xs italic" v-if="error.title">{{ error.title[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Status </label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        v-model="form.status"
-                    /><p class="text-red-600 text-xs italic" v-if="error.status">{{ error.status[0] }}</p>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600"  v-model="form.status">
+                        <span class="text-gray-700">Status</span>
+                    </label>
+<!--                    <label-->
+<!--                        class="block font-medium text-sm text-gray-700 mb-2"-->
+<!--                    >Status </label>-->
+<!--                    <input-->
+<!--                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"-->
+<!--                        v-model="form.status"-->
+<!--                    /><p class="text-red-600 text-xs italic" v-if="error.status">{{ error.status[0] }}</p>-->
                 </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">

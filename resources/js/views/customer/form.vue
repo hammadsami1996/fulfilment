@@ -58,6 +58,7 @@
                 >Email</label>
                 <input
                     class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    type="email"
                     v-model="form.email"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.email">{{error.email[0] }}</p>
@@ -82,7 +83,7 @@
                     type="number"
                     v-model="form.cnic"
                 />
-                <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p>
+<!--                <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p>-->
             </div>
         </div>
         <hr class="mt-6">

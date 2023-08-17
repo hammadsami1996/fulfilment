@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
 
-class User_type extends Model
+class   User_type extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasPermissions, RefreshesPermissionCache, Search;
 

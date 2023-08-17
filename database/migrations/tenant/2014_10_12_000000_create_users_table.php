@@ -37,7 +37,6 @@ return new class extends Migration
             $table->integer('updated_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->integer('deleted_by')->nullable();
-            $table->integer('user_type_id')->nullable();
             $table->string('phase')->nullable();
             $table->timestamps();
         });

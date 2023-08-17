@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilment9
+ Source Schema         : tenantfulfilment11
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 15/08/2023 12:42:42
+ Date: 17/08/2023 14:08:51
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `menus`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `sort` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
@@ -41,7 +41,7 @@ CREATE TABLE `menus`  (
 INSERT INTO `menus` VALUES (1, 'Main', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (2, 'User', '/user', 'view-user', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (3, 'Role', '/role', 'view-role', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (4, 'Plan', '/plan', 'view-plan', 1, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (4, 'User Subscription', '/user_subscription', 'view-user_subscription', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (8, 'User Dashboard', '/user_dashboard', 'view-user_dashboard', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (15, 'Permission', '/permission', 'view-permission', 1, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
 INSERT INTO `menus` VALUES (20, 'Product', '/product', 'view-product', 1, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
