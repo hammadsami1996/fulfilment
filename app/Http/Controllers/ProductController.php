@@ -61,7 +61,7 @@ class ProductController extends Controller
             'quantity' => 'required',
             'cost_price' => 'required',
             'selling_price' => 'required',
-            'product_category' => 'required',
+            'category' => 'required',
             'brand_id' => 'required',
         ]);
 
