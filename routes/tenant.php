@@ -148,6 +148,7 @@ Route::middleware([
         Route::get('reject/{id}', [\App\Http\Controllers\CandidateController::class, 'reject_get']);
         Route::post('update', [\App\Http\Controllers\DeliverystatusController::class, 'updatestatus']);
         Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
+        Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
 
 
         // Route::get('status', [\App\Http\Controllers\OrderController::class, 'delivery']);

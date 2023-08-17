@@ -88,7 +88,7 @@
                     </thead>
                     <tbody v-for="(item,index) in form.items">
                      <tr class="border-b border-gray-100 dark:border-gray-700/50" >
-                        <td class="w-48">
+                        <td class="w-48" v-if=" item.product.product_img.lenght > 1">
                            
                                             <img :src="`/uploads/product/img/` + item.product.product_img[0].img" style=" max-width: 50%; height: auto;">
                                       
