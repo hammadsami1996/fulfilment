@@ -390,7 +390,7 @@
                 return final;
 
             },
-            
+
 
         },
         methods: {

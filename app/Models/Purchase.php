@@ -16,16 +16,16 @@ class Purchase extends Model
     use Search;
     protected $fillable = [
         'supplier_id', 'po_number', 'po_reference_number', 'po_date', 'due_date', 'discount', 'sku', 'name',
-        'qty', 'purchasing_price', 'tax', 'sub_total','discount_percent'
+        'qty', 'purchasing_price', 'tax', 'sub_total','discount_percent','total'
     ];
     protected $columns = [
         'supplier_id', 'po_number', 'po_reference_number', 'po_date', 'due_date', 'discount', 'sku', 'name',
-        'qty', 'purchasing_price', 'tax', 'sub_total'
+        'qty', 'purchasing_price', 'tax', 'sub_total','total'
     ];
 
     protected $search = [
         'supplier_id', 'po_number', 'po_reference_number', 'po_date', 'due_date', 'discount', 'sku', 'name',
-        'qty', 'purchasing_price', 'tax', 'sub_total'
+        'qty', 'purchasing_price', 'tax', 'sub_total','total'
     ];
     protected $appends = ['text'];
 

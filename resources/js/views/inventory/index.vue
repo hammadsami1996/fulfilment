@@ -67,7 +67,7 @@
                 capital: "Inventory",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Product id', field: 'name',  displayText: 'product'},
+                    {label: 'Product id', field: 'title',  displayText: 'product'},
                     {label: 'Wearhouse id', field: 'name',  displayText: 'wearhouse'},
                     {label: 'Qty', field: 'qty',},
                     {label: 'Price', field: 'price',},

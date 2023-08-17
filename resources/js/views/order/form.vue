@@ -31,23 +31,23 @@
                     <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p>
                 </div>
             </div>
-          
+
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store</label>
                     <typeahead :initialize="form.stores" :url="stores" @input="onStores" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.store_id">{{ error.store_id[0] }}</p>
                 </div>
-            
-            
+
+
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Wearhouse</label>
                     <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.wearhouse_id">{{ error.wearhouse_id[0] }}</p>
                 </div>
-            
+
         </div>
-            
+
             <div
                 class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                 <table class="min-w-full text-sm align-middle whitespace-nowrap">
@@ -86,7 +86,7 @@
                                 :url="products"
                                 @input="onProduct(item, index, $event)"
                                 class="w-64  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                display="name"
+                                display="title"
                             />
                             <span v-if=" count !=null && index == index? count < item.qty :''" style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;" @click="pushroute">Stock Short(Only {{ count }}:Remianing)</span>
                             <span v-if="alert && ids == item.product_id &&  item.product_id !=null" style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;" @click="pushroute">No Stock Available in this Warehouse</span>
@@ -264,7 +264,7 @@
             }
         },
         computed: {
-        
+
             subTotal() {
                 return this.form.items.reduce((carry, item) => {
                     return carry + Number(item.unit_price) * Number(item.qty);
@@ -326,7 +326,7 @@
                 this.form.wearhouse_id = wearhouse.id
             },
             isSaveDisabled() {
-                
+
       for (const item of this.form.items) {
         if (this.count < item.qty) {
             console.log(this.count)
@@ -401,7 +401,7 @@
                     else{
                         console.log('efg')
                         this.count = res.data.data;
-                        
+
                     }
                     // console.log(res.data.data);
 
@@ -437,7 +437,7 @@
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
             },
             formSubmitted() {
-               
+
                 // let hasInvalidQuantity = false;
 
                 // this.form.items.forEach(item => {
@@ -452,7 +452,7 @@
                 //     return;
                 // }
 
-               
+
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
                     if(res.data.error){

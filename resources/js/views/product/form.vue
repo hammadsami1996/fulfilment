@@ -93,7 +93,7 @@
                                 <div class="relative">
                                     <typeahead
                                         class="w-full border border-gray-300 rounded py-1 px-2 focus:outline-none focus:border-indigo-500"
-                                        type="number" >
+                                        type="number">
                                     </typeahead>
                                 </div>
                             </div>
