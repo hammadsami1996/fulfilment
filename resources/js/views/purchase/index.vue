@@ -72,7 +72,7 @@
                         </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
-                         <span v-if="permissions.includes(`edit-${small}`)">
+                         <span v-if="permissions.includes(`edit-${small}`) && props.item.status_id < 25">
                         <a
                             @click.prevent="edit(props.item.id)"
                             href="#"
@@ -137,6 +137,8 @@
                     {label: 'Total', field: 'sub_total'},
                     {label: 'Tax', field: 'tax'},
                     {label: 'Status', field: 'statuses' , slot:true},
+                    {label: 'Partail Remaining', field: 'partial_remaining' ,align:'center' },
+
 
                     {label: 'Action', field: 'action', action: true}
                     ]

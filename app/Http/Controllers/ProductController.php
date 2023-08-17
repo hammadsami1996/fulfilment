@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Product::with('category', 'brand')->search()]);
+        return response()->json(['data' => Product::with('category', 'brand' ,'product_img')->search()]);
 
     }
 
@@ -102,7 +102,7 @@ class ProductController extends Controller
         $model->fill($request->all());
         // Save the updated product to the database
         $model->save();
-
+            // dd($request->all());
         // Update, create, or delete product images
         if ($request->has('product_img') && is_array($request->product_img)) {
             $existingImageIds = [];
@@ -144,6 +144,7 @@ class ProductController extends Controller
             ProductImg::where('product_id', $model->id)
                 ->whereNotIn('id', $existingImageIds)
                 ->delete();
+                // dd($model->id);
 
         }
         return response()->json(["updated" => true, "id" => $model->id]);

@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantunaib
+ Source Schema         : tenantpegasus
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 08/08/2023 18:57:33
+ Date: 17/08/2023 13:38:08
 */
 
 SET NAMES utf8mb4;
@@ -58,12 +58,12 @@ INSERT INTO `delivery_status` VALUES (20, 'Order Merge', NULL, NULL, '#BD1454 ',
 INSERT INTO `delivery_status` VALUES (21, 'Review Order', NULL, NULL, '#066278 ', 'order', NULL);
 INSERT INTO `delivery_status` VALUES (22, 'Return-Proof-Need', NULL, NULL, '#53FDBA ', 'order', NULL);
 INSERT INTO `delivery_status` VALUES (23, 'Draft', NULL, NULL, '#30B3A5', 'purchase', '25 , 26 , 30');
-INSERT INTO `delivery_status` VALUES (24, 'Confirmed', NULL, NULL, '#53FDBA', 'purchase', '27,26,28,29,30');
-INSERT INTO `delivery_status` VALUES (25, 'Sent', NULL, NULL, '#318E69', 'purchase', '24,26,30');
+INSERT INTO `delivery_status` VALUES (24, 'Sent', NULL, NULL, '#53FDBA', 'purchase', '25,26,30');
+INSERT INTO `delivery_status` VALUES (25, 'Confirmed', NULL, NULL, '#318E69', 'purchase', '27,26,28,29,30');
 INSERT INTO `delivery_status` VALUES (26, 'Closed', NULL, NULL, '#F5A912', 'purchase', '23,30');
 INSERT INTO `delivery_status` VALUES (27, 'Received', NULL, NULL, '#F5F512', 'purchase', '28,29,30');
-INSERT INTO `delivery_status` VALUES (28, ' Bill', NULL, NULL, '#2B7CB8', 'purchase', '26,30');
-INSERT INTO `delivery_status` VALUES (29, 'Partially-Received', NULL, NULL, '#FCA50E', 'purchase', '28,26,30');
+INSERT INTO `delivery_status` VALUES (28, ' Bill', NULL, NULL, '#2B7CB8', 'purchase', '26');
+INSERT INTO `delivery_status` VALUES (29, 'Partially-Received', NULL, NULL, '#FCA50E', 'purchase', '27,28,26,30');
 INSERT INTO `delivery_status` VALUES (30, 'Cancelled', NULL, NULL, '#F54212', 'purchase', '25');
 
 SET FOREIGN_KEY_CHECKS = 1;

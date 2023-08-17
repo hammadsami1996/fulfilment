@@ -51,9 +51,6 @@
 
                 </div>
 
-
-            </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -65,17 +62,22 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.due_date">{{error.due_date[0] }}</p>
                 </div>
-                <!-- <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+
+
+            </div>
+            <!-- <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Discount %:</label>
+                    >Due Date:</label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        type="number"
-                        v-model="form.discount_percent"
+                        type="date"
+                        v-model="form.due_date"
                     />
-                    <p class="text-red-600 text-xs italic" v-if="error.discount">{{error.discount[0] }}</p>
-                </div> -->
+                    <p class="text-red-600 text-xs italic" v-if="error.due_date">{{error.due_date[0] }}</p>
+                </div>
+               
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -86,22 +88,37 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.sku">{{error.sku[0] }}</p>
                 </div>
-            </div>
+            </div> -->
+            <br>
+            <hr>
             <div
                 class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                 <table class="min-w-full text-sm align-middle whitespace-nowrap">
-                    <thead>
+                    <thead >
                     <tr class="border-b border-gray-100 dark:border-gray-700/50">
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
+                           Sku
+                        </th>
+                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
                             Item Description
+                        </th>
+                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
+                            Image
                         </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             Qty
                         </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Price
+                           Purchase Price
                         </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="  px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                         
+                        </th>
+                        <th class="  px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                         
+                        </th>
+                     
+                        <!-- <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             Value Ex.Tax
                         </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
@@ -114,35 +131,54 @@
                             Value Inc. Tax
                         </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
-                        </th>
+                        </th> -->
                     </tr>
                     </thead>
                     <tbody>
                      <tr class="border-b border-gray-100 dark:border-gray-700/50" v-for="(item,index) in form.items">
                         <td class="text-center">
+                            {{ item.product ? item.product.product_sku :'0'  }}
+                            <!-- <input 
+                                   class="w-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="text"
+                                   v-model="item.product.product_sku"
+                            > -->
+                        </td>
+                        <td >
                             <typeahead
                                 :initialize="item.product"
                                 :url="products"
                                 @input="onProduct(item, index, $event)"
-                                class="w-64  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                class="w-72 h-6 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="title"
                             />
                         </td>
+                       
+                        <td >
+                            <div  v-if="item.product">
+                                            <img :src="`/uploads/product/img/` + item.product.product_img[0].img" style=" max-width: 50%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
+                                        </div>
+                                        <div  v-else>
+                                            <img src="/images/packaging.png" style=" max-width: 30%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
+                                        </div>
+                                        
+                        </td>
+                       
                         <td>
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                                   class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="number"
                                    v-model="item.qty"
                             >
                         </td>
                         <td>
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                                   class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="number"
                                    v-model="item.unit_price"
                             >
                         </td>
-                        <td>
+                        <!-- <td>
                             <input @blur="caltax(item,index)" @input="caltax(item, index)"
                                    class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="number"
@@ -163,7 +199,7 @@
                             <input
                                 class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 type="number" v-model="item.value_inc_tax">
-                        </td>
+                        </td> -->
                         <td class=" text-center">
                             <button @click="removeProduct(item,index)"
                                     class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
@@ -184,19 +220,19 @@
                             </button>
                             <span class="text-sm text-gray-600 font-semibold">Total Units: {{ qtySum }} | Total Items: {{ form.items.length }}</span>
                         </td>
-                        <td class="item-empty align-right panel-title">
+                        <td colspan="3" class="item-empty align-right panel-title text-right">
                             <span class="item-dark font-semibold">Sub Total</span>
                         </td>
-                        <td class="item-empty align-right panel-title " style="margin-left: .5rem;">
-
-
+                        <td colspan="2"  class="item-empty align-right panel-title text-center" style="margin-left: .5rem;">
+                            
+                           
                             <span class="item-dark ">{{ subTotal | formatMoney }}</span>
                         </td>
-                        <td class="item-empty align-right"></td>
-                        <td class="item-empty align-right panel-title" >
+                        <!-- <td class="item-empty align-right"></td> -->
+                        <td class="item-empty align-right panel-title" style="display: none">
                             <span class="item-dark">{{ tot_tax_amt }}</span>
                         </td>
-                        <td class="item-empty align-right panel-title" colspan="1" >
+                        <td class="item-empty align-right panel-title" colspan="1" style="display: none">
                             <span class="item-dark">{{ total }} </span>
                         </td>
                     </tr>
@@ -221,7 +257,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="7">
+                       
+                            <td colspan="7">
+                            <div class="flex justify-end">
+                                <div class="flex items-center space-x-4" colspan="5">
+                                    <strong class="text-lg text-blue-600" style="padding-right: 15px;">Total</strong>
+                                    
+                                    <div class="text-lg font-bold py-2" colspan="2">
+                                        <strong class="text-red-500" style="padding-right: 15px;">{{ total_discount }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <!-- <td>
                             <table>
                                 <tr>
                                     <td class="text-right py-2 pr-4" colspan="4">
@@ -232,7 +280,7 @@
                                     </td>
                                 </tr>
                             </table>
-                        </td>
+                        </td> -->
                     </tr>
                     </tfoot>
                 </table>
@@ -400,7 +448,10 @@
                 // console.log(res);
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
-                    this.purchase = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
+                    console.log('ddddfdf');
+                    this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
+                    console.log(this.store);
+
                     this.title = 'Edit';
                     this.message = `${this.capital} has been updated`;
                 }
