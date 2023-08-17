@@ -66,10 +66,6 @@
                     <p class="text-red-600 text-xs italic" v-if="error.mobile_no">{{ error.mobile_no[0] }}</p>
 
                 </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="font-medium">User Type</label>
-                    <typeahead :initialize="form.usertype" :url="usertypes" @input="onUser_type" display="user_type" />
-                </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">
                 <button
@@ -118,7 +114,7 @@
                 title: 'Add',
                 message: 'New User Added',
                 permissions: {},
-                usertypes: '/api/user_type',
+
             }
         },
 
@@ -137,11 +133,11 @@
         },
 
         methods: {
-            onUser_type(e) {
-                const usertype = e.target.value
-                this.form.usertype = usertype
-                this.form.user_type_id = usertype.id
-            },
+            // onUser_type(e) {
+            //     const usertype = e.target.value
+            //     this.form.usertype = usertype
+            //     this.form.user_type_id = usertype.id
+            // },
             setData(res) {
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {

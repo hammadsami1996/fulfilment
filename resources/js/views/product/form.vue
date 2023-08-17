@@ -10,6 +10,8 @@
                             class="w-full py-1 px-2 text-xs bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             required type="text" v-model="form.title"
                         />
+                        <p class="text-red-600 text-xs italic" v-if="error.title">{{ error.title[0] }}</p>
+
                     </div>
                 </div>
                 <div class="col-span-12 mt-4">
@@ -18,6 +20,7 @@
                         <div id="description">
                             <Editor editorStyle="height: 240px" v-model="form.description"/>
                         </div>
+                        <p class="text-red-600 text-xs italic" v-if="error.description">{{ error.description[0] }}</p>
                     </div>
                 </div>
             </div>
@@ -147,12 +150,16 @@
                         <input
                             class="w-full py-1 px-2 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             type="number" v-model="form.cost_price">
+                        <p class="text-red-600 text-xs italic" v-if="error.cost_price">{{ error.cost_price[0] }}</p>
+
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Selling Price</label>
                         <input
                             class="w-full py-1 px-2 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             type="number" v-model="form.selling_price">
+                        <p class="text-red-600 text-xs italic" v-if="error.selling_price">{{ error.selling_price[0] }}</p>
+
                     </div>
                 </div>
             </div>
@@ -169,6 +176,8 @@
                             class="w-full py-1 px-1 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             display="text"
                         />
+                        <p class="text-red-600 text-xs italic" v-if="error.product_category">{{ error.product_category[0] }}</p>
+
                     </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700">Brand</label>
@@ -180,6 +189,7 @@
                                 class="w-full py-1 px-1 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 display="title"
                             />
+                            <p class="text-red-600 text-xs italic" v-if="error.brand_id">{{ error.brand_id[0] }}</p>
                         </div>
                     </div>
                 </div>
@@ -195,6 +205,8 @@
                                 class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 type="text" v-model="form.product_sku"
                             />
+                            <p class="text-red-600 text-xs italic" v-if="error.product_sku">{{ error.product_sku[0] }}</p>
+
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Model No</label>
@@ -202,6 +214,7 @@
                                 class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 placeholder="Model No" type="number" v-model="form.model_no"
                             />
+                            <p class="text-red-600 text-xs italic" v-if="error.model_no">{{ error.model_no[0] }}</p>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Barcode</label>
@@ -209,6 +222,8 @@
                                 class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 placeholder="Barcode" type="number" v-model="form.barcode"
                             />
+                            <p class="text-red-600 text-xs italic" v-if="error.barcode">{{ error.barcode[0] }}</p>
+
                         </div>
                         <div class="mt-6">
                             <label class="inline-flex items-center cursor-pointer">
@@ -232,7 +247,7 @@
                                 <input
                                     class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                     type="number"
-                                    v-model="form.product_qty"
+                                    v-model="form.quantity"
                                 />
                             </div>
                         </div>

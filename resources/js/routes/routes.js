@@ -3,7 +3,7 @@ import {useToast} from 'vue-toast-notification'; // Import the toast plugin
 import user from '@/routes/user';
 import role from '@/routes/role';
 import plan from '@/routes/plan';
-import job_user from '@/routes/job_user';
+
 import permission from '@/routes/permission';
 import user_dashboard from "@/routes/user_dashboard";
 import update_profile from "@/routes/update_profile";
@@ -43,7 +43,7 @@ const router = createRouter({
         ...user,
         ...role,
         ...plan,
-        ...job_user,
+
         ...permission,
         ...update_profile,
         ...user_dashboard,

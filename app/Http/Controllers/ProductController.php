@@ -30,7 +30,7 @@ class ProductController extends Controller
             "model_no" => '',
             "barcode" => '',
             "manage_inventory" => '',
-            "product_qty" => '',
+            "quantity" => '',
             "product_types" => '',
             "cost_price" => '',
             "selling_price" => '',
@@ -51,6 +51,20 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'product_sku' => 'required',
+            'model_no' => 'required',
+            'barcode' => 'required',
+            'manage_inventory' => 'required',
+            'quantity' => 'required',
+            'cost_price' => 'required',
+            'selling_price' => 'required',
+            'product_category' => 'required',
+            'brand_id' => 'required',
+        ]);
+
         $model = new Product();
         $model->fill($request->all());
 //        dd($model);
@@ -95,6 +109,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'product_sku' => 'required',
+            'model_no' => 'required',
+            'barcode' => 'required',
+            'cost_price' => 'required',
+            'selling_price' => 'required',
+            'product_category' => 'required',
+            'brand_id' => 'required',
+        ]);
+
         // Find the existing product by ID
         $model = Product::findOrFail($id);
 

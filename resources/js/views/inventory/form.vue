@@ -18,7 +18,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Wearhouse Id </label>
                     <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.wearhouse_id">{{ error.wearhouse_id[0] }}</p>
+                    <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
@@ -116,7 +116,7 @@
             onWearhouse(e) {
                 const wearhouse = e.target.value
                 this.form.wearhouse = wearhouse
-                this.form.wearhouse_id = wearhouse.id
+                this.form.warehouse_id = wearhouse.id
             },
             onProduct(e) {
                 const product = e.target.value

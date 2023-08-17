@@ -43,10 +43,10 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Wearhouse</label>
                     <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.wearhouse_id">{{ error.wearhouse_id[0] }}</p>
+                    <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>
 
-        </div>
+            </div>
 
             <div
                 class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
@@ -88,8 +88,12 @@
                                 class="w-64  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="title"
                             />
-                            <span v-if=" count !=null && index == index? count < item.qty :''" style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;" @click="pushroute">Stock Short(Only {{ count }}:Remianing)</span>
-                            <span v-if="alert && ids == item.product_id &&  item.product_id !=null" style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;" @click="pushroute">No Stock Available in this Warehouse</span>
+                            <span @click="pushroute"
+                                  style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;"
+                                  v-if=" count !=null && index == index? count < item.qty :''">Stock Short(Only {{ count }}:Remianing)</span>
+                            <span @click="pushroute"
+                                  style="color: #ff0000; font-weight: bold; margin-right: 120px; cursor: pointer;"
+                                  v-if="alert && ids == item.product_id &&  item.product_id !=null">No Stock Available in this Warehouse</span>
 
                         </td>
                         <td>
@@ -203,11 +207,11 @@
             </div>
             <hr>
             <div class="flex justify-end mt-8 space-x-4">
-                <button :style="{ background: color }"
-                :disabled="isSaveDisabled()"
-                    @click="formSubmitted"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200  text-white"
-                    type="button">
+                <button :disabled="isSaveDisabled()"
+                        :style="{ background: color }"
+                        @click="formSubmitted"
+                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200  text-white"
+                        type="button">
                     {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
                 </button>
                 <button
@@ -241,13 +245,12 @@
         },
         data() {
             return {
-                isProcess:true,
+                isProcess: true,
                 error: {},
-                alert:false,
+                alert: false,
                 // count: null,
                 color: 'blue',
-                ids:{},
-
+                ids: {},
                 show: false,
                 resource: '/order',
                 store: '/api/order',
@@ -297,7 +300,7 @@
             },
             total_discount() {
                 var final = (this.total - Number(this.form.discount));
-                    this.form.finaltotal = final ;
+                this.form.finaltotal = final;
                 // return (this.total - Number(this.form.discount));
                 return final;
 
@@ -323,23 +326,22 @@
             onWearhouse(e) {
                 const wearhouse = e.target.value
                 this.form.wearhouse = wearhouse
-                this.form.wearhouse_id = wearhouse.id
+                this.form.warehouse_id = wearhouse.id
             },
             isSaveDisabled() {
 
-      for (const item of this.form.items) {
-        if (this.count < item.qty) {
-            console.log(this.count)
-            // isProcess = false;
-            this.color = 'gray'
-          return true;
-        }
-        else{
-            this.color = 'blue';
-        }
-      }
-      return false;
-    },
+                for (const item of this.form.items) {
+                    if (this.count < item.qty) {
+                        console.log(this.count)
+                        // isProcess = false;
+                        this.color = 'gray'
+                        return true;
+                    } else {
+                        this.color = 'blue';
+                    }
+                }
+                return false;
+            },
             addNewLine() {
                 if (!this.form.items) {
                     this.form.items = [];
@@ -384,21 +386,20 @@
                 this.caltax(item, index);
             },
 
-            remain(e){
+            remain(e) {
                 console.log(e);
                 // this.count = 0;
-             this.data = [
-                 e,
-                 this.form.wearhouse_id
+                this.data = [
+                    e,
+                    this.form.warehouse_id
 
-             ]
+                ]
                 byMethod('POST', '/api/remianing', this.data).then(res => {
-                    if(res.data.data == null ){
+                    if (res.data.data == null) {
                         console.log('abcd');
                         this.ids = e;
                         this.alert = true;
-                    }
-                    else{
+                    } else {
                         console.log('efg')
                         this.count = res.data.data;
 
@@ -455,25 +456,24 @@
 
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
-                    if(res.data.error){
+                    if (res.data.error) {
                         // this.$swal('Quantity cannot be greater than available product quantity for any item!');
                         this.$toast.open({
-                        position: 'top-right',
-                        message:  'Quantity cannot be greater than available product quantity for any item!',
-                        type: 'error',
-                        duration: 3000
-                    });
-                    return;
+                            position: 'top-right',
+                            message: 'Quantity cannot be greater than available product quantity for any item!',
+                            type: 'error',
+                            duration: 3000
+                        });
+
+                    } else {
+                        this.successfull(res)
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
+                            type: 'success',
+                            duration: 3000
+                        });
                     }
-                    else{
-                    this.successfull(res)
-                    this.$toast.open({
-                        position: 'top-right',
-                        message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
-                        type: 'success',
-                        duration: 3000
-                    });
-                }
                 }).catch(err => {
                     this.error = err.response.data.errors;
                     this.$toast.open({
@@ -488,9 +488,9 @@
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
             },
-            pushroute(){
-                this.$router.push({path: `/purchase/create`})
-            }
+            // pushroute() {
+            //     this.$router.push({path: `/purchase/create`})
+            // }
         },
     }
 </script>

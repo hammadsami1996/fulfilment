@@ -69,7 +69,7 @@
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Title', field: 'title'},
                     {label: 'status', field: 'status',},
-                    {label: 'Active', field: 'active',},
+                    // {label: 'Active', field: 'active',},
                     {label: 'Action', field: 'action', action: true}
                     ]
             }

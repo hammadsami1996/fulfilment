@@ -14,7 +14,7 @@ class UserController extends Controller
 //        if (!in_array('view-user', Auth::user()->getAllPermissions()->pluck('name')->toArray())) {
 //            return response()->json(["status" => 0, "message" => "Authorization Error"], 422);
 //        }
-        return response()->json(['data' => User::with('roles', 'usertype')->search()]);
+        return response()->json(['data' => User::with('roles')->search()]);
     }
 
     public function create()
@@ -63,7 +63,7 @@ class UserController extends Controller
     public function edit($id)
     {
 
-        $model = User::with('usertype')->findOrFail($id);
+        $model = User::findOrFail($id);
         return response()->json([
             "form" => $model
         ]);

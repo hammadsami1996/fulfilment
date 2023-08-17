@@ -22,7 +22,7 @@ class InventoryController extends Controller
     {
         $form = [
             "product_id" => '',
-            "wearhouse_id" => '',
+            "warehouse_id" => '',
             "qty" => '',
             "price" => '',
         ];
@@ -38,7 +38,7 @@ class InventoryController extends Controller
     {
         $request->validate([
             'product_id' => 'required',
-            'wearhouse_id' => 'required',
+            'warehouse_id' => 'required',
             'qty' => 'required',
             'price' => 'required',
         ]);
@@ -75,7 +75,7 @@ class InventoryController extends Controller
     {
         $request->validate([
             'product_id' => 'required',
-            'wearhouse_id' => 'required',
+            'warehouse_id' => 'required',
             'qty' => 'required',
             'price' => 'required',
         ]);

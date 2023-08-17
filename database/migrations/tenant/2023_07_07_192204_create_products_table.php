@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('model_no')->nullable();
             $table->integer('barcode')->nullable();
             $table->integer('manage_inventory')->nullable();
-            $table->integer('product_qty')->nullable();
+//            $table->integer('product_qty')->nullable();
             $table->string('product_types')->nullable();
             $table->integer('cost_price')->nullable();
             $table->integer('selling_price')->nullable();

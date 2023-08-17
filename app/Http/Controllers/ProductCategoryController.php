@@ -34,6 +34,9 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         $model = new ProductCategory();
         $model->fill($request->all());
         $model->save();
@@ -65,6 +68,9 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         $model = ProductCategory::findOrFail($id);
         $model->fill($request->all());
         $model->save();
