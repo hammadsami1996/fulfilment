@@ -138,6 +138,7 @@
                      <tr class="border-b border-gray-100 dark:border-gray-700/50" v-for="(item,index) in form.items">
                         <td class="text-center">
                             {{ item.product ? item.product.product_sku :'0'  }}
+                            <!-- {{  item.product ? item.product.product_img.lenght:'00' }} -->
                             <!-- <input 
                                    class="w-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="text"
@@ -153,16 +154,27 @@
                                 display="title"
                             />
                         </td>
-                       
-                        <td >
-                            <div  v-if="item.product">
-                                            <img :src="`/uploads/product/img/` + item.product.product_img[0].img" style=" max-width: 50%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
+                    
+                        <td v-if="item.product" >
+                            <div  v-if="item.product && item.product.product_img && item.product.product_img[0] " style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;"  class="image-container">
+                               
+                                            <img :src="`/uploads/product/img/` +  item.product.product_img[0].img" >
                                         </div>
-                                        <div  v-else>
-                                            <img src="/images/packaging.png" style=" max-width: 30%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
+                                        <div  v-else style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;" >
+                                            <img src="/images/no-picture-taking.png" >
+                                            <span class="text-center" style="font-weight: bold;"> No Product Image</span>
                                         </div>
                                         
                         </td>
+                        <td v-else >
+                           
+                                        <div style=" max-width: 50%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
+                                            <img src="/images/packaging.png" style=" max-width: 30%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
+                                        
+                                        </div>
+                                        
+                        </td>
+                        
                        
                         <td>
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
@@ -300,6 +312,7 @@
                 </button>
             </div>
         </div>
+       
     </div>
 </template>
 
@@ -307,6 +320,7 @@
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+
 
     function initialize(to) {
         let urls = {
@@ -319,12 +333,13 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead,
+            Typeahead, 
         },
         data() {
             return {
                 error: {},
                 show: false,
+                show_modal:false,
                 resource: '/purchase',
                 store: '/api/purchase',
                 method: 'POST',
@@ -394,6 +409,7 @@
 
         },
         methods: {
+           
             discountamt() {
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
                 this.form.discount_percent = Number(((this.form.discount / this.total) * 100).toFixed(2));
@@ -423,7 +439,7 @@
                 item.product = product
                 // this.form.items[index].product = product
                 item.product_id = product.id
-                item.unit_price = product.price
+                item.unit_price = product.cost_price
                 this.caltax(item, index);
             },
             caltax(item, index) {
@@ -490,5 +506,18 @@
 </script>
 
 <style scoped>
+.image-container {
+    max-width: 40%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    margin-left: 25%;
+    transition: transform 0.3s ease-in-out; /* Apply a smooth transition effect */
+    z-index:9999;
+}
 
+.image-container:hover {
+    transform: scale(2.6); /* Increase the image size on hover */
+    
+}
 </style>

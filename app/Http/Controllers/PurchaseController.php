@@ -13,7 +13,14 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Purchase::with('supplier', 'status')->search()]);
+    //    dd(request('status_id'));
+        $purchase = Purchase::with('supplier', 'status')
+        ->when(request('status_id') != 0 , function ($q) {
+            // dd(request('status_id'));
+            $q->where('status_id', 'LIKE', request('status_id'));
+        })
+        ->search();
+        return response()->json(['data' => $purchase]);
 
     }
 
@@ -56,6 +63,9 @@ class PurchaseController extends Controller
             // 'po_reference_number' => 'required',
             'po_date' => 'required',
             'due_date' => 'required',
+            'items' => 'required|array|min:1',
+            'items.*.product_id' => 'required|integer|exists:products,id',
+            'items.*.unit_price' => 'required|numeric|min:0',
             // 'discount' => 'required',
             // 'sku' => 'required',
 //            'name' => 'required',
@@ -117,6 +127,9 @@ class PurchaseController extends Controller
             // 'po_reference_number' => 'required',
             'po_date' => 'required',
             'due_date' => 'required',
+            'items' => 'required|array|min:1',
+            'items.*.product_id' => 'required|integer|exists:products,id',
+            'items.*.unit_price' => 'required|numeric|min:0',
             // 'discount' => 'required',
             // 'sku' => 'required',
 //            'name' => 'required',

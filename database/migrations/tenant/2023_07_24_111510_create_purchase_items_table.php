@@ -21,6 +21,8 @@ return new class extends Migration
             $table->decimal('tax_percent')->nullable();
             $table->decimal('tax_amount')->nullable();
             $table->decimal('value_inc_tax')->nullable();
+            $table->integer('partail_remaining')->nullable();
+
             $table->timestamps();
         });
     }

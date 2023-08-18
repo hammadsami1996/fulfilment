@@ -1,38 +1,42 @@
 <template>
     <div>
         <div class="bg-gray-100 py-4">
-            <nav class="container mx-auto flex justify-center">
-                <a @click="show_personal"
+            <nav class="container mx-auto flex justify-center" style="cursor: pointer;">
+                <a @click="show_data(0)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-blue-500 focus:text-gray-700 focus:border-blue-300">
                     All
                 </a>
-                <a @click="show_eligibility"
+                <a @click="show_data(23)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
+                    Draft 
+                </a>
+                <a @click="show_data(24)"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
+                    Sent
+                </a>
+                <a @click="show_data(25)"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-rose-500 focus:text-gray-700 focus:border-rose-300">
+                    Confiremd
+                </a>
+                <a @click="show_data(27)"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
+                    Received
+                </a>
+                <a @click="show_data(29)"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
+                    Partially Received
+                </a>
+                <a @click="show_data(28)"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">
+                    Bill
+                </a>
+                <a @click="show_data(30)"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">
                     Cancelled
                 </a>
-                <a @click="show_references"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
-                    Completed
-                </a>
-                <a @click="show_emergency"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-rose-500 focus:text-gray-700 focus:border-rose-300">
-                    Fulfilled
-                </a>
-                <a @click="show_bank_account"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
-                    Partially Fulfilled
-                </a>
-                <a @click="show_medical"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-                    Partially Returned
-                </a>
-                <a @click="show_submit_information"
+                <a @click="show_data(26)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">
-                    Returned
-                </a>
-                <a @click="show_submit_information"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">
-                    UnFulfilled
+                    Closed
                 </a>
             </nav>
         </div>
@@ -102,6 +106,7 @@
                     </div>
                 </template>
             </panel>
+           
         </div>
     </div>
 </template>
@@ -111,11 +116,12 @@
     import {form} from "@/libs/mixins";
     import {byMethod} from "@/libs/api";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    
 
     export default {
         mixins: [form],
         components: {
-            Panel, Typeahead,
+            Panel, Typeahead
         },
         name: "Index",
         data() {
@@ -125,6 +131,7 @@
                 ids:null,
                 permissions: [],
                 urlApi: "/api/purchase",
+                urlApi_new: "/api/purchases",
                 resource: "/purchase",
                 small: "purchase",
                 capital: "Purchase",
@@ -148,6 +155,23 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+            show_data(e){
+                setTimeout(() => {
+                    this.urlApi = this.urlApi_new
+                }, 100)
+                setTimeout(() => {
+                    this.urlApi += '?status_id=' + e
+                }, 100)
+                setTimeout(() => {
+                    // console.log(this.$refs);
+                    this.$refs.TableData.reload();
+                }, 100)
+                // byMethod('GET', '/api/purchases?status_id='+e  ).then(res => {
+                   
+                
+
+                // })
+            },
             Cancel(){
                 this.sts = false;
                 this.form.deliver = null;

@@ -51,14 +51,15 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'title' => 'required',
             'description' => 'required',
             'product_sku' => 'required',
             'model_no' => 'required',
             'barcode' => 'required',
-            'manage_inventory' => 'required',
-            'quantity' => 'required',
+            // 'manage_inventory' => 'required',
+            // 'quantity' => 'required',
             'cost_price' => 'required',
             'selling_price' => 'required',
             'category' => 'required',
@@ -69,8 +70,9 @@ class ProductController extends Controller
         $model->fill($request->all());
 //        dd($model);
         $model->save();
-
+      
         foreach ($request->product_img as $key => $item) {
+            if(isset($item['img'])){
             $file = $item['img'];
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
@@ -80,6 +82,8 @@ class ProductController extends Controller
             $data->product_id = $model->id;
             $data->save();
         }
+        }
+   
 
         return response()->json(["saved" => true, "id" => $model->id]);
     }
