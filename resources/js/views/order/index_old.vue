@@ -22,18 +22,18 @@
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-rose-500 focus:text-gray-700 focus:border-rose-300">
                     Fake
                 </a>
-                <a @click="showRecords('?packability=packable')"
+                <a @click="showRecords('?packability=Packable')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
-                    packable
+                    Packable
                 </a>
-                <a @click="showRecords('?packability=unpackable')"
+                <a @click="showRecords('?packability=Unpakable')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-                    unpackable
+                    Unpakable
                 </a>
-<!--                <a @click="s"-->
-<!--                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">-->
-<!--                    +-->
-<!--                </a>-->
+                <!--                <a @click="s"-->
+                <!--                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">-->
+                <!--                    +-->
+                <!--                </a>-->
             </nav>
         </div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
@@ -216,8 +216,8 @@
                     this.urlApi = this.urlApi1
                 }, 500)
                 setTimeout(() => {
-                    this.urlApi += e
                     // this.urlApi += '?status_id=' + e
+                    this.urlApi += e
                 }, 500)
                 setTimeout(() => {
                     // console.log(this.$refs);

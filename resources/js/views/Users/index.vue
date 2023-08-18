@@ -76,7 +76,6 @@
 <script>
     import Panel from "@/components/panel/panel.vue";
     import Modal from "@/components/Modal.vue";
-    // import { DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from '@headlessui/vue';
     import typeahead from "@/components/typeahead/typeahead.vue";
     import {byMethod, post} from "@/libs/api";
     import {form} from "@/libs/mixins";
@@ -84,10 +83,7 @@
     export default {
         mixins: [form],
         components: {
-            Modal,
-            // TransitionRoot, TransitionChild,  DialogPanel, DialogTitle,
-            Panel,
-            typeahead
+            Modal, Panel, typeahead
         },
         name: "Index",
         data() {
@@ -114,7 +110,6 @@
                         label: 'Email',
                         field: 'email',
                     },
-
                     {
                         label: 'Action',
                         field: 'action',

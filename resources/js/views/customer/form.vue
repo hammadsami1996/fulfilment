@@ -105,6 +105,7 @@
                 >Phone</label>
                 <input
                     class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    type="number"
                     v-model="form.b_phone"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_phone">{{error.b_phone[0] }}</p>
@@ -160,7 +161,7 @@
             </div>
         </div>
         <hr class="mt-6">
-        <h1 class="font-bold mt-2">Shipping Address</h1>
+        <h1 class="font-bold mt-2">Shipping Address  <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" @click="showShipment" v-model="form.copyBilling"></h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
@@ -178,6 +179,7 @@
                 >Phone</label>
                 <input
                     class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    type="number"
                     v-model="form.s_phone"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_phone">{{error.s_phone[0] }}</p>
@@ -284,6 +286,9 @@
                 categorys: '/api/category',
                 cities: '/api/city',
                 countries: '/api/country',
+                form: {
+                    copyBilling: false
+                }
             }
         },
 
@@ -301,6 +306,24 @@
                 })
         },
         methods: {
+            showShipment() {
+                // console.log(this.form.copyBilling)
+                if (this.form.copyBilling) {
+                    this.form.s_name = this.form.b_name;
+                    this.form.s_phone = this.form.b_phone;
+                    this.form.s_address_1 = this.form.b_address_1;
+                    this.form.s_address_2 = this.form.b_address_2;
+                    this.form.s_country = this.form.b_country;
+                    this.form.s_city = this.form.b_city;
+                } else {
+                    this.form.s_name = '';
+                    this.form.s_phone = '';
+                    this.form.s_address_1 = '';
+                    this.form.s_address_2 = '';
+                    this.form.s_country = '';
+                    this.form.s_city = '';
+                }
+            },
             onCities(e, key) {
                 const city = e.target.value
                 this.form[key] = city

@@ -20,6 +20,8 @@ class OrderController extends Controller
         return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores', 'status')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
+            })->when(\request()->has('packability'), function ($q) {
+                $q->where('packability', \request('packability'));
             })->search()]);
 
     }
