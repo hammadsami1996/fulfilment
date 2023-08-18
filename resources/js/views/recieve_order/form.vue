@@ -3,7 +3,6 @@
         <div class="p-6">
             <h1 class="text-lg font-bold mb-4">
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Create ${capital}`: `Add New ${capital}`}}
-
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
 
@@ -46,16 +45,13 @@
                     <p class="text-red-600 text-xs italic" v-if="error.number">{{error.number[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Date:</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Date:</label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                         type="date"
                         v-model="form.date"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.date">{{error.date[0] }}</p>
-
                 </div>
 
 
@@ -76,10 +72,11 @@
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             Qty in Order
                         </th>
-                        <th v-if="form.status_id == 29" class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25"
+                            v-if="form.status_id == 29">
                             Partail Remaining
                         </th>
-                        
+
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
 
                         </th>
@@ -90,29 +87,32 @@
                     </tr>
                     </thead>
                     <tbody v-for="(item,index) in form.items">
-                     <tr class="border-b border-gray-100 dark:border-gray-700/50" >
-                        <td class="w-48"  v-if="item.product && item.product.product_img && item.product.product_img[0]" >
-                           <div style=" max-width: 40%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;" class="image-container" >
-                                            <img :src="`/uploads/product/img/` +  item.product.product_img[0].img" >
-                                        </div>
-                                    </td>
-                                    <td v-else >
-                           
-                           <div style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
-                            <img src="/images/no-picture-taking.png" >
-                                            <span class="text-center" style="font-weight: bold;"> No Product Image</span>
-                           
-                           </div>
-                           
-           </td>
-                                    <td>
+                    <tr class="border-b border-gray-100 dark:border-gray-700/50">
+                        <td class="w-48" v-if="item.product && item.product.product_img && item.product.product_img[0]">
+                            <div
+                                class="image-container"
+                                style=" max-width: 40%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
+                                <img :src="`/uploads/product/img/` +  item.product.product_img[0].img">
+                            </div>
+                        </td>
+                        <td v-else>
 
-                                        
-                        <input 
-                                   class= " w-64 px-2 py-1  rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                   type="text"
-                                   disabled
-                                   v-model="item.product.title"
+                            <div
+                                style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
+                                <img src="/images/no-picture-taking.png">
+                                <span class="text-center" style="font-weight: bold;"> No Product Image</span>
+
+                            </div>
+
+                        </td>
+                        <td>
+
+
+                            <input
+                                class=" w-64 px-2 py-1  rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                disabled
+                                type="text"
+                                v-model="item.product.title"
                             >
                         </td>
 
@@ -127,26 +127,29 @@
                         </td>
                         <td v-if="form.status_id == 29">
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                                   class= " w-32 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                   type="number"
+                                   class=" w-32 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    disabled
+                                   type="number"
                                    v-model="item.partail_remaining"
                             >
                         </td>
-                       
-                       
+
+
                         <td class="text-right">
 
-                    <button v-if="item.partail_remaining != 0" @click="addchild(index)" class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-yellow-300 to-yellow-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75" style=" margin-top: 10px; color:white; border-radius: 10%;" type="button">
-                        <i class="fa fa-plus-circle"></i> Add Warehouses
-                    </button>
-                    <!-- <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                        class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                        type="number"
-                        disabled
-                    > -->
-                    </td>
-                       
+                            <button @click="addchild(index)"
+                                    class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-yellow-300 to-yellow-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
+                                    style=" margin-top: 10px; color:white; border-radius: 10%;"
+                                    type="button" v-if="item.partail_remaining != 0">
+                                <i class="fa fa-plus-circle"></i> Add Warehouses
+                            </button>
+                            <!-- <input @blur="caltax(item, index)" @input="caltax(item, index)"
+                                class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                type="number"
+                                disabled
+                            > -->
+                        </td>
+
                     </tr>
 
                     <tr class="text-center" v-for="(child, childIndex) in item.child">
@@ -173,31 +176,31 @@
                         <td>
                             <label
                                 class="block font-bold text-sm text-gray-700 mb-2"
-                                >Quantity Shift</label>
-                                <input 
-                                    class="h-8 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                    type="number"
-                                    :max="item.partail_remaining"
-                                    @input="sumchild(index,childIndex,child.qty_deliver)"
-                                    v-model="child.qty_deliver"
-                                    
-                                    
-                                >
-                                </td>
-                                
-                                <!-- <td>
-                                <label
-                                class="block font-bold text-sm text-gray-700 mb-2"
-                                >Product Price</label>
-                                <input 
-                                    class=" h-8 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                    type="number"
-                                    v-model="child.unit_price"
-                                    
-                                    
-                                >
-                                </td> -->
-                                <td class=" text-left">
+                            >Quantity Shift</label>
+                            <input
+                                :max="item.partail_remaining"
+                                @input="sumchild(index,childIndex,child.qty_deliver)"
+                                class="h-8 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                type="number"
+                                v-model="child.qty_deliver"
+
+
+                            >
+                        </td>
+
+                        <!-- <td>
+                        <label
+                        class="block font-bold text-sm text-gray-700 mb-2"
+                        >Product Price</label>
+                        <input
+                            class=" h-8 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            type="number"
+                            v-model="child.unit_price"
+
+
+                        >
+                        </td> -->
+                        <td class=" text-left">
                             <button @click="removeProduct(child,childIndex,index)"
                                     class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-red-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
                                     type="button">
@@ -238,127 +241,131 @@
                 </button>
             </div>
         </div>
-<!--        <Modal :show="true"-->
+        <!-- <Modal :show="true"
 
-<!--               height="900"-->
+                         height="900"
 
-<!--               v-if="show_size_modal"-->
-<!--        >-->
-<!--            <div class="p-6" style="background-color:#273746 ; color:white">-->
-<!--                <h1 class="text-lg font-bold mb-4 text-center">-->
-<!--                    Move to Warehouses-->
-<!--                </h1>-->
-<!--            </div>-->
-<!--            <hr>-->
-<!--            <br>-->
+                         v-if="show_size_modal"
+                         >
+                         <div class="p-6" style="background-color:#273746 ; color:white">
+                            <h1 class="text-lg font-bold mb-4 text-center">
+                                    Move to Warehouses
+                            </h1>
+                         </div>
+                         <hr>
+                         <br>
 
-<!--            <div class="w-full sm:w-1/2 pl-3 sm:mb-0 " style="height: 100%;">-->
-<!--                <tbody v-for="(item,index) in form.items">-->
-<!--                <tr class="border-b border-gray-100 dark:border-gray-700/50 ">-->
+                         <div class="w-full sm:w-1/2 pl-3 sm:mb-0 " style="height: 100%;">
+                            <tbody v-for="(item,index) in form.items">
+                            <tr class="border-b border-gray-100 dark:border-gray-700/50 " >
 
-<!--                    <td class="text-center">-->
-<!--                        <label-->
-<!--                            class="block font-bold text-sm text-gray-700 mb-2"-->
-<!--                        >Product </label>-->
+                        <td class="text-center">
+                            <label
+                        class="block font-bold text-sm text-gray-700 mb-2"
+                    >Product </label>
 
-<!--                        <input-->
-<!--                            class=" h-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"-->
-<!--                            disabled-->
-<!--                            type="text"-->
-<!--                            v-model="item.product.name"-->
-<!--                        >-->
-<!--                    </td>-->
-<!--                    <td>-->
+                            <input
+                                   class= " h-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="text"
+                                   disabled
+                                   v-model="item.product.name"
+                            >
+                        </td>
+                        <td>
 
-<!--                        <label-->
-<!--                            class="block font-bold text-sm text-gray-700 mb-2"-->
-<!--                        >Product Received</label>-->
-<!--                        <input-->
-<!--                            class="h-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"-->
-<!--                            type="number"-->
-<!--                            v-model="item.qty_received"-->
-
-
-<!--                        >-->
-<!--                    </td>-->
+                            <label
+                        class="block font-bold text-sm text-gray-700 mb-2"
+                    >Product Received</label>
+                            <input
+                                   class="h-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="number"
+                                   v-model="item.qty_received"
 
 
-<!--                </tr>-->
-<!--                <br>-->
-<!--                <hr>-->
+                            >
+                        </td>
 
 
-<!--                <tr v-for="(child, childIndex) in item.child">-->
-
-<!--                    <td class="text-center">-->
-<!--                        <label-->
-<!--                            class="block font-medium text-sm text-gray-700 mb-2"-->
-<!--                        >Wearhouse </label>-->
-
-<!--                        <typeahead-->
-<!--                            :initialize="child.warehouse"-->
-<!--                            :url="wearhouses"-->
-<!--                            @input="onWearhouse(childIndex, index, $event ,child)"-->
-<!--                            class="  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"-->
-<!--                            display="name"-->
-<!--                        />-->
-<!--                    </td>-->
-
-<!--                    <td>-->
-<!--                        <label-->
-<!--                            class="block font-bold text-sm text-gray-700 mb-2"-->
-<!--                        >Product Received</label>-->
-<!--                        <input-->
-<!--                            class="h-12 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"-->
-<!--                            type="number"-->
-<!--                            v-model="child.qty_deliver"-->
 
 
-<!--                        >-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <label-->
-<!--                            class="block font-bold text-sm text-gray-700 mb-2"-->
-<!--                        >Product Price</label>-->
-<!--                        <input-->
-<!--                            class=" h-12 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"-->
-<!--                            type="number"-->
-<!--                            v-model="child.unit_price"-->
+                    </tr>
+                    <br>
+                    <hr>
 
 
-<!--                        >-->
-<!--                    </td>-->
-
-<!--                </tr>-->
-<!--                <tr class="item-empty mt-6">-->
-<!--                    <button @click="addchild(index)" class="btn ma-0 btn&#45;&#45;small btn&#45;&#45;small success"-->
-<!--                            style="background-color:#273746; margin-top: 10px; color:white; border-radius: 10%;">-->
-<!--                        <i class="fa fa-plus-circle"></i> Add Warehouses-->
-<!--                    </button>-->
-<!--                </tr>-->
 
 
-<!--                </tbody>-->
+                        <tr v-for="(child, childIndex) in item.child">
 
-<!--            </div>-->
-<!--            <br>-->
-<!--            <hr>-->
-<!--            <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">-->
-<!--                <button-->
-<!--                    @click="saveinvent"-->
-<!--                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"-->
-<!--                    type="button">-->
-<!--                    Add-->
-<!--                </button>-->
-<!--                <button-->
-<!--                    @click="close"-->
-<!--                    class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"-->
-<!--                    type="button">-->
-<!--                    Cancel-->
-<!--                </button>-->
-<!--            </div>-->
+                            <td class="text-center">
+                            <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Wearhouse </label>
 
-<!--        </Modal>-->
+                            <typeahead
+                                :initialize="child.warehouse"
+                                :url="wearhouses"
+                                @input="onWearhouse(childIndex, index, $event ,child)"
+                                class="  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                display="name"
+                            />
+                        </td>
+
+                        <td>
+                            <label
+                        class="block font-bold text-sm text-gray-700 mb-2"
+                    >Product Received</label>
+                            <input
+                                   class="h-12 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                   type="number"
+                                   v-model="child.qty_deliver"
+
+
+                            >
+                        </td>
+                        <td>
+                            <label
+                        class="block font-bold text-sm text-gray-700 mb-2"
+                    >Product Price</label>
+                            <input
+                                   class=" h-12 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                   type="number"
+                                   v-model="child.unit_price"
+
+
+                            >
+                        </td>
+
+                    </tr>
+                    <tr class="item-empty mt-6" >
+                            <button @click="addchild(index)" class="btn ma-0 btn--small btn--small success" style="background-color:#273746; margin-top: 10px; color:white; border-radius: 10%;">
+                                <i class="fa fa-plus-circle"></i> Add Warehouses
+                            </button>
+                        </tr>
+
+
+
+                </tbody>
+
+                </div>
+                <br>
+                <hr>
+                <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">
+                <button
+                    @click="saveinvent"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                    type="button">
+                    Add
+                </button>
+                <button
+                @click="close"
+                    class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                    type="button">
+                    Cancel
+                </button>
+            </div>
+
+                        </Modal> -->
     </div>
 </template>
 
@@ -367,6 +374,7 @@
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import Modal from "@/Components/Modal.vue";
+    import moment from 'moment';
 
 
     function initialize(to) {
@@ -386,6 +394,7 @@
         data() {
             return {
                 form: {
+                    date: null,
                     // items: [],
 
 
@@ -430,8 +439,17 @@
                     next()
                 })
         },
-
+        created() {
+            this.form.date = moment().format('YYYY-MM-DD');
+        },
         computed: {
+            // getCurrentDate() {
+            //     const today = new Date();
+            //     const year = today.getFullYear();
+            //     const month = String(today.getMonth() + 1).padStart(2, '0');
+            //     const day = String(today.getDate()).padStart(2, '0');
+            //     return `${year}-${month}-${day}`;
+            // },
             subTotal() {
                 return this.form.items.reduce((carry, item) => {
                     return carry + Number(item.unit_price) * Number(item.qty);
@@ -487,7 +505,7 @@
 
 
             addchild(index) {
-                console.log(index);
+                // console.log(index);
 
                 if (!this.form.items[index].child) {
                     // If the child array doesn't exist, create a new one with a single child object.
@@ -496,15 +514,13 @@
                         qty_deliver: null,
 
 
-  sumchild(index,childIndex,max){
-    if (this.form.items[index].partail_remaining !=null && max > this.form.items[index].partail_remaining) {
-        this.form.items[index].child[childIndex].qty_deliver = this.form.items[index].partail_remaining;
-      }
-
-    const totalQtyDeliver = this.form.items[index].child.reduce(
-    (total, child) => total + (child.qty_deliver || 0),
-    0
-  );
+                        // Add other properties for the child object if needed.
+                    }];
+                } else {
+                    // If the child array already exists, push a new child object into it.
+                    const newChild = {
+                        title: null,
+                        qty_deliver: null,
 
                         // Add other properties for the child object if needed.
                     };
@@ -520,7 +536,11 @@
             },
 
 
-            sumchild(index) {
+            sumchild(index, childIndex, max) {
+                if (this.form.items[index].partail_remaining != null && max > this.form.items[index].partail_remaining) {
+                    this.form.items[index].child[childIndex].qty_deliver = this.form.items[index].partail_remaining;
+                }
+
                 const totalQtyDeliver = this.form.items[index].child.reduce(
                     (total, child) => total + (child.qty_deliver || 0),
                     0
@@ -587,7 +607,7 @@
                 item.value_inc_tax = item.value_ex_tax + item.tax_amount;
             },
             removeProduct(item, childIndex, index) {
-                console.log(this.form.items[index].child.length)
+                // console.log(this.form.items[index].child.length)
                 if (this.form.items[index].child.length > 1) {
                     this.form.items[index].child.splice(childIndex, 1);
                 }
@@ -611,6 +631,8 @@
 
                 }
                 this.form.items.child = []
+                this.form.date = moment().format('YYYY-MM-DD');
+
                 this.mention = true
             },
 
@@ -618,7 +640,7 @@
 
                 for (const item of this.form.items) {
                     if (item.total_qty_deliver > item.qty) {
-                        console.log('abcd');
+                        // console.log('abcd');
                         // Show an error toast for this item
                         this.$toast.open({
                             position: 'top-right',
@@ -710,20 +732,20 @@
 </script>
 
 <style scoped>
-.image-container {
-    max-width: 40%;
-    height: auto;
-    justify-content: center;
-    align-items: center;
-  
-    transition: transform 0.3s ease-in-out; /* Apply a smooth transition effect */
-    z-index:9999;
-}
+    .image-container {
+        max-width: 40%;
+        height: auto;
+        justify-content: center;
+        align-items: center;
 
-.image-container:hover {
-    /* margin-left:25%; */
-    transform: scale(1.8); /* Increase the image size on hover */
-    /* margin-left:25% */
-    
-}
+        transition: transform 0.3s ease-in-out; /* Apply a smooth transition effect */
+        z-index: 9999;
+    }
+
+    .image-container:hover {
+        /* margin-left:25%; */
+        transform: scale(1.8); /* Increase the image size on hover */
+        /* margin-left:25% */
+
+    }
 </style>

@@ -34,6 +34,7 @@ class OrderController extends Controller
         $form = [
             "store_id" => '',
             "order_date" => '',
+            "so_number" => '',
             "customer_id" => '',
             "city" => '',
             "total" => '',
@@ -106,15 +107,21 @@ class OrderController extends Controller
         $number = Counter::where('key', 'sales_order');
         $model = new Order();
         $model->fill($request->except('items'));
+        $model->so_number = ($number->first()->perfix . $number->first()->value);
+
         $model->subTotal = collect($request->items)->sum(function ($item) {
             return $item['qty'] * $item['unit_price'];
         });
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;
-        $model->so_number = ($number->first()->perfix . $number->first()->value);
+//        $model->so_number = ($number->first()->perfix . $number->first()->value);
 
         $model->storeHasMany([
             'items' => $request->items
+        ]);
+
+        $number->update([
+            'value' => ($number->first()->value + 1)
         ]);
 //        $number->update([
 //            'value' => ($number->first()->value + 1)

@@ -16,16 +16,20 @@ class Order extends Model
     use HasManyRelation;
     protected $fillable = [
         'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','selling_Price',
-        'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent','warehouse_id'
+        'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent',
+        'warehouse_id', 'so_number'
+
     ];
     protected $columns = [
         'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','selling_Price',
         'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent'
+        , 'so_number'
     ];
 
     protected $search = [
         'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','', 'selling_price',
         'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent'
+        , 'so_number'
     ];
     protected $appends = ['text'];
 

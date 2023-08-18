@@ -12,6 +12,11 @@
                     <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
+                    <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">External Order No</label>
                     <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
                            v-model="form.external_order_no"/>
@@ -24,28 +29,62 @@
                            v-model="form.tracking_id"/>
                     <p class="text-red-600 text-xs italic" v-if="error.tracking_id">{{ error.tracking_id[0] }}</p>
                 </div>
-
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
-                    <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" v-if="$route.meta.mode && $route.meta.mode == 'edit'">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >SO Number:<small>(Auto Generated)</small></label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        disabled
+                        placeholder=" SO No."
+                        v-model="form.so_number"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.so_number">{{error.so_number[0] }}</p>
                 </div>
             </div>
 
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> name </label>
+                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text" v-model="form.name"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> email </label>
+                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="email" v-model="form.email"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> phone </label>
+                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number" v-model="form.phone"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
+                </div>
+            </div>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> address </label>
+                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text" v-model="form.s_address_1"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{ error.s_address_1[0] }}</p>
+                </div>
+
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> instructions </label>
+                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number" v-model="form.instruction"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.instruction">{{ error.instruction[0] }}</p>
+                </div>
+            </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store</label>
                     <typeahead :initialize="form.stores" :url="stores" @input="onStores" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.store_id">{{ error.store_id[0] }}</p>
                 </div>
-
-
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Wearhouse</label>
                     <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>
-
             </div>
 
             <div
@@ -264,6 +303,7 @@
                 products: '/api/product',
                 stores: '/api/stores',
                 wearhouses: '/api/wearhouse',
+                customer_data: '/api/coustomer',
             }
         },
         computed: {
@@ -322,7 +362,6 @@
                 })
         },
         methods: {
-
             onWearhouse(e) {
                 const wearhouse = e.target.value
                 this.form.wearhouse = wearhouse
@@ -366,6 +405,10 @@
             onCustomer(e) {
                 const customer = e.target.value
                 this.form.customer = customer
+                this.form.name = customer.name
+                this.form.email = customer.email
+                this.form.phone = customer.phone
+                this.form.s_address_1 = customer.s_address_1
                 this.form.customer_id = customer.id
             },
             onStores(e) {

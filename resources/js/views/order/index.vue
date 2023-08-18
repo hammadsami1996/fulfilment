@@ -157,7 +157,6 @@
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Sales Number', field: 'so_number'},
-
                     {label: 'Store', field: 'name', displayText: 'stores'},
                     {label: 'Order Date', field: 'order_date'},
                     {label: 'Customer', field: 'name', displayText: 'customer'},

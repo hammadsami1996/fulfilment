@@ -12,8 +12,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Customer::with('type', 'category', 's_city','b_city', 's_country','b_country')->search()]);
-
+        return response()->json(['data' => Customer::with('type', 'category', 's_city','b_city', 's_country','b_country')
+            ->search()]);
     }
 
     /**

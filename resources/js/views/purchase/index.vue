@@ -8,7 +8,7 @@
                 </a>
                 <a @click="show_data(23)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
-                    Draft 
+                    Draft
                 </a>
                 <a @click="show_data(24)"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
@@ -56,8 +56,8 @@
                            {{ props.item.status ? props.item.status.name :'' }}
                                 </button>
                                 <!-- <button @click="shows(1 ,props.item.id) ">Draft</button> -->
-               
-                        
+
+
                                 <div v-if="sts && props.item.id == ids">
                                     <div>
                                         <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
@@ -67,11 +67,11 @@
                                     Hide
                                 </button>
 
-                                    
+
                                     </div>
                                     <typeahead :initialize="form.deliver" :url="delivery+'?head=purchase&id='+ props.item.status.id"   @input="onDelivery($event ,props.item.id)" display="name"/>
-                             
-                            
+
+
                          </div>
                         </template>
                 <template v-slot:action="props">
@@ -106,7 +106,7 @@
                     </div>
                 </template>
             </panel>
-           
+
         </div>
     </div>
 </template>
@@ -116,7 +116,7 @@
     import {form} from "@/libs/mixins";
     import {byMethod} from "@/libs/api";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
-    
+
 
     export default {
         mixins: [form],
@@ -167,8 +167,8 @@
                     this.$refs.TableData.reload();
                 }, 100)
                 // byMethod('GET', '/api/purchases?status_id='+e  ).then(res => {
-                   
-                
+
+
 
                 // })
             },
@@ -186,13 +186,13 @@
                 this.form.deliver = deliver
                 this.form.deliver_id = deliver.id
                 this.Update(this.form.deliver ,id);
-               
+
             },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
             Update(e ,id){
-               console.log(e.id);
+               // console.log(e.id);
                if(e.id == 27){
 
                 this.$router.push(`/recieve_order/${id}/edit`)
@@ -203,7 +203,7 @@
                         if (res.data.saved) {
                             this.sts = false,
                             this.form.deliver = null;
-                            
+
                             this.$refs.TableData.reload();
                         }
                     })
