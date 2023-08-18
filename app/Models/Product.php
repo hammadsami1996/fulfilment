@@ -14,7 +14,7 @@ class Product extends Model
     use Search;
     protected $fillable = [
         'title', 'description',  'product_sku', 'model_no',  'barcode', 'manage_inventory',
-        'quantity', 'product_types', 'cost_price', 'selling_price',  'start_date',
+         'product_types', 'cost_price', 'selling_price',  'start_date',
         'end_date', 'product_category','brand_id', 'head_id'
     ];
     protected $columns = [

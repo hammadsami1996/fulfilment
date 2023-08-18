@@ -439,7 +439,7 @@
                 item.product = product
                 // this.form.items[index].product = product
                 item.product_id = product.id
-                item.unit_price = product.price
+                item.unit_price = product.cost_price
                 this.caltax(item, index);
             },
             caltax(item, index) {

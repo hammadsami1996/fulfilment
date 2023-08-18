@@ -524,7 +524,7 @@
 
 
   sumchild(index,childIndex,max){
-    if (max > this.form.items[index].partail_remaining) {
+    if (this.form.items[index].partail_remaining !=null && max > this.form.items[index].partail_remaining) {
         this.form.items[index].child[childIndex].qty_deliver = this.form.items[index].partail_remaining;
       }
 
@@ -711,7 +711,7 @@
                })
            },
             successfull(res) {
-                this.$router.push({path: `/receive_order`})
+                this.$router.push({path: `/purchase`})
             }
         },
     }
