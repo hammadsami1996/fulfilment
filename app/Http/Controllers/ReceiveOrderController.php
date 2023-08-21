@@ -37,7 +37,7 @@ class ReceiveOrderController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->status_id);
+        // dd($request->all());
         $request->validate([
             'supplier_id' => 'required',
 
@@ -49,13 +49,15 @@ class ReceiveOrderController extends Controller
         $rrr = 0;
         $qqq = 0;
         if ($request->status_id == 29) {
+            // dd('abcd');
             foreach ($request->items as $data) {
-
+                    // dd($data);
                 $totalQtyDeliver = 0;
 
 
                 $product_id = $data['product_id'];
                 $quantity = $data['partail_remaining'];
+               
                 if (isset($data['total_qty_deliver'])) {
                     $total_quantity = $data['total_qty_deliver'];
 
@@ -64,7 +66,7 @@ class ReceiveOrderController extends Controller
 
                 if (isset($data['child'])) {
                     foreach ($data['child'] as $child) {
-
+                        // dd($quantity);
                         $totalQtyDeliver += $child['qty_deliver'];
 
                         $first = Inventory::where('product_id', $product_id)->where('warehouse_id', $child['warehouse_id'])->first();
@@ -89,7 +91,7 @@ class ReceiveOrderController extends Controller
                             $abc->save();
 
                             $product = Product::where('id', $product_id)->first();
-                            $product->quantity = $total_quantity;
+                            $product->quantity += $total_quantity;
                             $product->save();
                         }
 
@@ -98,24 +100,24 @@ class ReceiveOrderController extends Controller
 
                     }
                     // }
+                        // dd($quantity);
+                        // dd($quantity);
+                    // if ($totalQtyDeliver < $quantity) {
 
+                    //     // dd($child['qty_deliver']);
+                    //     $status = Purchase::where('id', $request->id)->first();
 
-                    if ($totalQtyDeliver < $quantity) {
+                    //     $status->status_id = 29;
+                    //     $status->save();
+                    //     $abcd = 1;
+                    // } // dd($abcd);
+                    // elseif ($abcd != 1) {
+                    //     // dd($totalQtyDeliver);
+                    //     $status = Purchase::where('id', $request->id)->first();
 
-                        // dd($child['qty_deliver']);
-                        $status = Purchase::where('id', $request->id)->first();
-
-                        $status->status_id = 29;
-                        $status->save();
-                        $abcd = 1;
-                    } // dd($abcd);
-                    elseif ($abcd != 1) {
-                        // dd($totalQtyDeliver);
-                        $status = Purchase::where('id', $request->id)->first();
-
-                        $status->status_id = 27;
-                        $status->save();
-                    }
+                    //     $status->status_id = 27;
+                    //     $status->save();
+                    // }
                     // dd($totalQtyDeliver);
                     $purchases = Purchase_item::where('purchase_id', $request->id)->where('product_id', $data['product_id'])->first();
 
@@ -127,10 +129,29 @@ class ReceiveOrderController extends Controller
                     $rrr += $totalQtyDeliver;
                     $qqq += $quantity;
                 }
-                // dd($qqq);
-                $purchase = Purchase::where('id', $request->id)->first();
-                $purchase->partial_remaining = $qqq - $rrr;
-                $purchase->save();
+          
+            //   dd($totalQtyDeliver);
+              if ($totalQtyDeliver < $quantity) {
+
+                // dd($child['qty_deliver']);
+                $status = Purchase::where('id', $request->id)->first();
+
+                $status->status_id = 29;
+                $status->save();
+                $abcd = 1;
+            } // dd($abcd);
+            elseif ($abcd != 1) {
+                // dd($totalQtyDeliver);
+                $status = Purchase::where('id', $request->id)->first();
+
+                $status->status_id = 27;
+                $status->save();
+            }
+                // $save = $qqq - $rrr;
+                // // dd($save);
+                // $purchase = Purchase::where('id', $request->id)->first();
+                // $purchase->partial_remaining -= $save;
+                // $purchase->save();
                 // dd($purchase);
                 $number = Counter::where('key', 'receivable_order');
 
@@ -139,11 +160,7 @@ class ReceiveOrderController extends Controller
                 $model->number = ($number->first()->perfix . $number->first()->value);
                 $model->purchase_order_id = $request->id;
                 $model->user_id = Auth::user()->id;
-                //   $model->save();
-
-                // $model->tax = $request->mtax_amount;
-                // $model->total = $request->finaltotal;
-                // $model->sub_total = $request->tvalue_ex_tax;
+                
                 $items = collect($request->items)->map(function ($item) {
                     if ($item['qty'] > 0) {
                         $item['purchase_order_item_id'] = $item['id'];
@@ -169,15 +186,18 @@ class ReceiveOrderController extends Controller
                     $number->update([
                         'value' => ($number->first()->value + 1)
                     ]);
-                    // $status = Purchase::where('id' , $request->id)->first();
-                    // // dd($status);
-                    // $status->status_id = 27;
-                    // $status->save();
+            
                     return $model;
 
 
                 });
             }
+            // $save = $qqq - $rrr;
+            // dd($qqq);
+            $purchase = Purchase::where('id', $request->id)->first();
+            $purchase->partial_remaining -= $rrr;
+            $purchase->save();
+            // dd($rrr);
         } else {
 
 
