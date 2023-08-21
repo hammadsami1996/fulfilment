@@ -77,7 +77,7 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.due_date">{{error.due_date[0] }}</p>
                 </div>
-               
+
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -112,12 +112,12 @@
                            Purchase Price
                         </th>
                         <th class="  px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                         
+
                         </th>
                         <th class="  px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                         
+
                         </th>
-                     
+
                         <!-- <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             Value Ex.Tax
                         </th>
@@ -139,7 +139,7 @@
                         <td class="text-center">
                             {{ item.product ? item.product.product_sku :'0'  }}
                             <!-- {{  item.product ? item.product.product_img.lenght:'00' }} -->
-                            <!-- <input 
+                            <!-- <input
                                    class="w-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="text"
                                    v-model="item.product.product_sku"
@@ -154,28 +154,28 @@
                                 display="title"
                             />
                         </td>
-                    
+
                         <td v-if="item.product" >
                             <div  v-if="item.product && item.product.product_img && item.product.product_img[0] " style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;"  class="image-container">
-                               
+
                                             <img :src="`/uploads/product/img/` +  item.product.product_img[0].img" >
                                         </div>
                                         <div  v-else style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;" >
                                             <img src="/images/no-picture-taking.png" >
                                             <span class="text-center" style="font-weight: bold;"> No Product Image</span>
                                         </div>
-                                        
+
                         </td>
                         <td v-else >
-                           
+
                                         <div style=" max-width: 50%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
                                             <img src="/images/packaging.png" style=" max-width: 30%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
-                                        
+
                                         </div>
-                                        
+
                         </td>
-                        
-                       
+
+
                         <td>
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
                                    class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
@@ -236,8 +236,8 @@
                             <span class="item-dark font-semibold">Sub Total</span>
                         </td>
                         <td colspan="2"  class="item-empty align-right panel-title text-center" style="margin-left: .5rem;">
-                            
-                           
+
+
                             <span class="item-dark ">{{ subTotal | formatMoney }}</span>
                         </td>
                         <!-- <td class="item-empty align-right"></td> -->
@@ -269,12 +269,12 @@
                         </td>
                     </tr>
                     <tr>
-                       
+
                             <td colspan="7">
                             <div class="flex justify-end">
                                 <div class="flex items-center space-x-4" colspan="5">
                                     <strong class="text-lg text-blue-600" style="padding-right: 15px;">Total</strong>
-                                    
+
                                     <div class="text-lg font-bold py-2" colspan="2">
                                         <strong class="text-red-500" style="padding-right: 15px;">{{ total_discount }}</strong>
                                     </div>
@@ -312,7 +312,7 @@
                 </button>
             </div>
         </div>
-       
+
     </div>
 </template>
 
@@ -333,7 +333,7 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead, 
+            Typeahead,
         },
         data() {
             return {
@@ -409,7 +409,7 @@
 
         },
         methods: {
-           
+
             discountamt() {
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
                 this.form.discount_percent = Number(((this.form.discount / this.total) * 100).toFixed(2));
@@ -439,7 +439,7 @@
                 item.product = product
                 // this.form.items[index].product = product
                 item.product_id = product.id
-                item.unit_price = product.cost_price
+                item.unit_price = product.selling_price
                 this.caltax(item, index);
             },
             caltax(item, index) {
@@ -464,9 +464,9 @@
                 // console.log(res);
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
-                    console.log('ddddfdf');
+                    // console.log('ddddfdf');
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
-                    console.log(this.store);
+                    // console.log(this.store);
 
                     this.title = 'Edit';
                     this.message = `${this.capital} has been updated`;
@@ -518,6 +518,6 @@
 
 .image-container:hover {
     transform: scale(2.6); /* Increase the image size on hover */
-    
+
 }
 </style>

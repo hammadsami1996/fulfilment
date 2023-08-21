@@ -17,19 +17,19 @@ class Order extends Model
     protected $fillable = [
         'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','selling_Price',
         'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent',
-        'warehouse_id', 'so_number'
+        'warehouse_id', 'so_number', 'name', 'email', 'phone', 'address', 'instraction', 's_addres_1'
 
     ];
     protected $columns = [
         'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','selling_Price',
         'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent'
-        , 'so_number'
+        , 'so_number', 'name', 'email', 'phone', 'address', 'instraction'
     ];
 
     protected $search = [
         'store_id', 'order_date', 'customer_id','city', 'total', 'tax', 'balance', 'courier', 'payment_status','', 'selling_price',
         'location', 'sales_rep', 'selling_price', 'external_order_no','tracking_id', 'product_id', 'subTotal','discount','discount_percent'
-        , 'so_number'
+        , 'so_number', 'name', 'email', 'phone', 'address', 'instraction'
     ];
     protected $appends = ['text'];
 

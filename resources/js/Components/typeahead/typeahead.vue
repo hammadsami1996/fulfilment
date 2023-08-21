@@ -49,11 +49,11 @@
 <!--    </div>-->
 <!--</template>-->
 <template>
-    <div :class="[isOpen ? 'typeahead typeahead-open' : 'typeahead']" class="border border-gray-200 rounded" style="padding: 17px;">
+    <div :class="[isOpen ? 'typeahead typeahead-open' : 'typeahead']" class="border border-gray-200 rounded ">
         <div :style="'font-size:'+size+'px'" class="typeahead-inner">
             <div :class="clearable ? 'row px-1' : ''">
-                <div :class="`${formSize} typeahead-selected`"
-                     :style="'overflow-x: clip; font-size:'+size+'px'"
+                <div :class="`${formSize} typeahead-selected overflow-x-clip font-semibold cursor-pointer py-2 px-4`"
+                     :style="'font-size:'+size+'px'"
                      :tabindex="tabindex"
                      @click="onToggle"
                      @keydown="onKey"
@@ -87,6 +87,7 @@
         </div>
     </div>
 </template>
+
 
 <script>
     import './typeahead.scss'
