@@ -98,7 +98,7 @@
                         <td v-else>
 
                             <div
-                                style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
+                                style=" max-width: 25%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
                                 <img src="/images/no-picture-taking.png">
                                 <span class="text-center" style="font-weight: bold;"> No Product Image</span>
 
