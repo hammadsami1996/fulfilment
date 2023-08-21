@@ -34,6 +34,12 @@ return new class extends Migration
             $table->integer('warehouse_id')->nullable();
             $table->integer('status_id')->default(1);
             $table->string('so_number')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('s_addres_1')->nullable();
+            $table->string('instraction')->nullable();
+            $table->integer('phone')->nullable();
 
             $table->timestamps();
         });

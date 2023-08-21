@@ -14,7 +14,7 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
                     <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p>
+                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p>-->
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">External Order No</label>
@@ -47,30 +47,35 @@
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2"> name </label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text" v-model="form.name"/>
+                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text"
+                           v-model="form.name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2"> email </label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="email" v-model="form.email"/>
+                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="email"
+                           v-model="form.email"/>
                     <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2"> phone </label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number" v-model="form.phone"/>
+                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                           v-model="form.phone"/>
                     <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
                 </div>
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2"> address </label>
-                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text" v-model="form.s_address_1"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{ error.s_address_1[0] }}</p>
+                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text"
+                              v-model="form.s_addres_1"/>
+<!--                    <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>-->
                 </div>
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2"> instructions </label>
-                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number" v-model="form.instruction"/>
+                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                              v-model="form.instruction"/>
                     <p class="text-red-600 text-xs italic" v-if="error.instruction">{{ error.instruction[0] }}</p>
                 </div>
             </div>
@@ -124,7 +129,7 @@
                                 :initialize="item.product"
                                 :url="products"
                                 @input="onProduct(item, index, $event)"
-                                class="w-64  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                class="w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="title"
                             />
                             <span @click="pushroute"
@@ -184,9 +189,8 @@
                     <tr>
                         <td class="item-empty" colspan="2">
                             <button @click="addNewLine"
-                                    class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center space-x-2">
+                                    class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-1 px-2 rounded-full inline-flex items-center space-x-1">
                                 <i class="fa fa-plus-circle"></i>
-                                <span>Add Products</span>
                             </button>
                             <span class="text-sm text-gray-600">Total Units: {{ qtySum }} | Total Items: {{ form.items.length }}</span>
                         </td>
@@ -306,7 +310,6 @@
                 products: '/api/product',
                 stores: '/api/stores',
                 wearhouses: '/api/wearhouse',
-                customer_data: '/api/coustomer',
             }
         },
         computed: {
@@ -346,9 +349,7 @@
                 this.form.finaltotal = final;
                 // return (this.total - Number(this.form.discount));
                 return final;
-
             },
-
         },
 
         beforeRouteEnter(to, from, next) {
@@ -371,10 +372,9 @@
                 this.form.warehouse_id = wearhouse.id
             },
             isSaveDisabled() {
-
                 for (const item of this.form.items) {
                     if (this.count < item.qty) {
-                        console.log(this.count)
+                        // console.log(this.count)
                         // isProcess = false;
                         this.color = 'gray'
                         return true;
@@ -398,7 +398,6 @@
                     tax_amount: 0,
                     value_inc_tax: 0,
                 });
-
             },
             removeProduct(item, index) {
                 if (this.form.items.length > 1) {
@@ -411,7 +410,7 @@
                 this.form.name = customer.name
                 this.form.email = customer.email
                 this.form.phone = customer.phone
-                this.form.s_address_1 = customer.s_address_1
+                this.form.s_addres_1 = customer.s_address_1
                 this.form.customer_id = customer.id
             },
             onStores(e) {
@@ -425,7 +424,7 @@
                 item.product = product
                 // this.form.items[index].product = product
                 item.product_id = product.id
-                item.unit_price = product.price
+                item.unit_price = product.selling_price
                 item.quantity = product.quantity
                 this.remain(item.product_id);
 
@@ -433,25 +432,22 @@
             },
 
             remain(e) {
-                console.log(e);
+                // console.log(e);
                 // this.count = 0;
                 this.data = [
                     e,
                     this.form.warehouse_id
-
                 ]
                 byMethod('POST', '/api/remianing', this.data).then(res => {
                     if (res.data.data == null) {
-                        console.log('abcd');
+                        // console.log('abcd');
                         this.ids = e;
                         this.alert = true;
                     } else {
-                        console.log('efg')
+                        // console.log('efg')
                         this.count = res.data.data;
-
                     }
                     // console.log(res.data.data);
-
                 })
             },
             setData(res) {

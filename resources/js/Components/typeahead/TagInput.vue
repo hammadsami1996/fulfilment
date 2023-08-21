@@ -4,25 +4,24 @@
              @click="toggle" @keydown.down.prevent="onKeydownMain">
             <div class="select-text" v-if="multiple">
                 <div class="select-tags mb-1" v-if="value && value.length">
-                    <div class="tag tag-primary" v-for="(x, i) in value">
+                    <div class="tag tag-primary text-sm p-1" v-for="(x, i) in value">
                         <span class="tag-text">
                           {{relation === '' ?  x[name] : x[relation][name]}}
                         </span>
                         <feather-icon icon="XIcon" size="12" @mousedown.prevent="remove(x, i)"/>
                     </div>
                 </div>
-                <!--        <div v-else>{{$t('type_or_select')}}</div>-->
             </div>
-            <div class="select-text" v-else>
+            <div class="select-text text-sm p-1" v-else>
                 {{value && value[name] ? value[name] : 'Select'}}
             </div>
-            <span v-if="removable && value && value.id" class="select-remove icon icon-trash-a" @click="removeVal"></span>
+            <span v-if="removable && value && value.id" class="select-remove icon icon-trash-a text-sm p-1" @click="removeVal"></span>
             <span v-else :class="[`select-icon icon icon-arrow-${showDropdown ? 'up-b' : 'down-b'}`]"></span>
         </div>
         <div class="select-dropdown" v-if="showDropdown" :style="positionRelative === true ? 'position:relative' : ''">
             <div class="select-inner">
                 <div class="select-search-wrap">
-                    <input type="text" ref="search" class="select-search" placeholder="Search..."
+                    <input type="text" ref="search" class="select-search text-sm p-1" placeholder="Search..."
                            @keydown.down.prevent="onDownKey" @keydown.enter="onEnter"
                            @keydown.up.prevent="onUpKey" @keydown.esc="onBlur"
                            @input="onSearch" @blur="onBlur">
@@ -39,6 +38,7 @@
         </div>
     </div>
 </template>
+
 <script>
     import { get } from '@/libs/api'
     export default {

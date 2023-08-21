@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Counter;
+use App\Models\Customer;
 use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\OrderViews;
-use App\Models\Product;
 use Illuminate\Http\Request;
 
 
@@ -68,8 +68,8 @@ class OrderController extends Controller
 //            dd($request->items);
         $request->validate([
 //            'store' => 'required',
-            'order_date' => 'required',
-            'customer_id' => 'required',
+//            'order_date' => 'required',
+//            'customer_id' => 'required',
 //            'city' => 'required',
 //            'total' => 'required',
 //            'tax' => 'required',
@@ -101,17 +101,29 @@ class OrderController extends Controller
 //
 //
 //        }
+        $c = Customer::where('phone', $request->phone)->first();
+        if (!$c) {
+            $Customer = new Customer();
+            $Customer->name = $request->name;
+            $Customer->email = $request->email;
+            $Customer->phone = $request->phone;
+            $Customer->s_address_1 = $request->address;
+            $Customer->b_address_1 = $request->address;
+            $Customer->save();
+        }
 
-
-        // dd('abcd');
         $number = Counter::where('key', 'sales_order');
         $model = new Order();
         $model->fill($request->except('items'));
+        if (!$c && $Customer['id']) {
+            $model->customer_id = $Customer['id'];
+        }
         $model->so_number = ($number->first()->perfix . $number->first()->value);
 
         $model->subTotal = collect($request->items)->sum(function ($item) {
             return $item['qty'] * $item['unit_price'];
         });
+
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;
 //        $model->so_number = ($number->first()->perfix . $number->first()->value);
