@@ -160,7 +160,7 @@
 
                                             <img :src="`/uploads/product/img/` +  item.product.product_img[0].img" >
                                         </div>
-                                        <div  v-else style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;" >
+                                        <div  v-else style=" max-width: 25%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;" >
                                             <img src="/images/no-picture-taking.png" >
                                             <span class="text-center" style="font-weight: bold;"> No Product Image</span>
                                         </div>
@@ -254,9 +254,11 @@
                                 <div class="flex items-center space-x-4">
                                     <div class="font-bold">Discount</div>
                                     <div>
-                                        <input @input="discountamt"
+                                        <input @input="discountamt(form.discount_percent)"
                                                class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                                placeholder="%"
+                                               min="0"
+                                               
                                                type="number" v-model="form.discount_percent" />
                                     </div>
                                     <div>
@@ -409,11 +411,16 @@
 
         },
         methods: {
+           
+            discountamt(discount) {
+                if(discount > 100){
+                    this.form.discount_percent = 100;
 
-            discountamt() {
+                }
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
                 this.form.discount_percent = Number(((this.form.discount / this.total) * 100).toFixed(2));
                 this.isLoading = false;
+              
             },
             discountper() {
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;

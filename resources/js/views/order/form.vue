@@ -214,9 +214,10 @@
                                 <div class="flex items-center space-x-4">
                                     <div class="font-bold">Discount</div>
                                     <div>
-                                        <input @input="discountamt"
+                                        <input @input="discountamt(form.discount_percent)"
                                                class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                                placeholder="%"
+                                               min="0"
                                                type="number" v-model="form.discount_percent"/>
                                     </div>
                                     <div>
@@ -249,9 +250,11 @@
                 <!-- END Table -->
             </div>
             <hr>
+            <!-- :disabled="isSaveDisabled()"
+                        :style="{ background: color }" -->
             <div class="flex justify-end mt-8 space-x-4">
-                <button :disabled="isSaveDisabled()"
-                        :style="{ background: color }"
+                <button 
+                      style="background-color: blue;"
                         @click="formSubmitted"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200  text-white"
                         type="button">
@@ -467,7 +470,11 @@
                 item.tax_amount = (qty * unit_price * tax_percent) / 100;
                 item.value_inc_tax = item.value_ex_tax + item.tax_amount;
             },
-            discountamt() {
+            discountamt(discount) {
+                if(discount > 100){
+                    this.form.discount_percent = 100;
+
+                }
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
                 this.form.discount_percent = Number(((this.form.discount / this.total) * 100).toFixed(2));
                 this.isLoading = false;

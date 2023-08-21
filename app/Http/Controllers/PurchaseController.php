@@ -96,12 +96,7 @@ class PurchaseController extends Controller
         $number->update([
             'value' => ($number->first()->value + 1)
         ]);
-        foreach ($request->items as $data) {
-            // dd($data['unit_price']);
-            $product = Product::where('id' , $data['product_id'])->first();
-            $product->selling_price = $data['unit_price'];
-            $product->save();
-        }
+      
         return response()->json(["saved" => true, "id" => $model->id]);
     }
 
@@ -158,12 +153,7 @@ class PurchaseController extends Controller
         $model->updateHasMany([
             'items' => $request->items
         ]);
-        foreach ($request->items as $data) {
-            // dd($data['unit_price']);
-            $product = Product::where('id' , $data['product_id'])->first();
-            $product->selling_price = $data['unit_price'];
-            $product->save();
-        }
+     
 //        $model->updated_by = Auth::id();
         // $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
