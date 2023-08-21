@@ -157,9 +157,8 @@
                         <label class="block text-sm font-medium text-gray-700">Selling Price</label>
                         <input
                             class="w-full py-1 px-2 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            type="number" v-model="form.selling_price">
+                            type="number" v-model="form.selling_price" >
                         <p class="text-red-600 text-xs italic" v-if="error.selling_price">{{ error.selling_price[0] }}</p>
-
                     </div>
                 </div>
             </div>

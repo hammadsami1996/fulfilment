@@ -424,7 +424,6 @@
                 item.unit_price = product.selling_price
                 item.quantity = product.quantity
                 this.remain(item.product_id);
-
                 this.caltax(item, index);
             },
 
@@ -450,8 +449,8 @@
             setData(res) {
                 // console.log(res);
                 this.form = res.data.form;
-                if (this.$route.meta.mode === 'edit') {
-                    this.order = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
+                if (this.$route.meta.mode == 'edit') {
+                    this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
                     this.title = 'Edit';
                     this.message = `${this.capital} has been updated`;
                 }
@@ -477,22 +476,6 @@
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
             },
             formSubmitted() {
-
-                // let hasInvalidQuantity = false;
-
-                // this.form.items.forEach(item => {
-                //     if (item.qty > item.product.quantity) {
-                //         hasInvalidQuantity = true;
-                //         return;
-                //     }
-                // });
-
-                // if (hasInvalidQuantity) {
-                //     this.$swal('Quantity cannot be greater than available product quantity for any item!');
-                //     return;
-                // }
-
-
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
                     if (res.data.error) {

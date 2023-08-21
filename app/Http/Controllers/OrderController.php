@@ -182,29 +182,71 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
+//    public function update(Request $request, $id)
+//    {
+//        $request->validate([
+//            'order_date' => 'required',
+//            'customer_id' => 'required',
+//            'selling_price' => 'required',
+//        ]);
+//        $c = Customer::where('phone', $request->phone)->first();
+//        if (!$c) {
+//            $Customer = new Customer();
+//            $Customer->name = $request->name;
+//            $Customer->email = $request->email;
+//            $Customer->phone = $request->phone;
+//            $Customer->s_address_1 = $request->address;
+//            $Customer->b_address_1 = $request->address;
+//            $Customer->save();
+//        }
+//        $model = Order::findOrFail($id);
+//        $model->fill($request->except('items'));
+//        if (!$c && $Customer['id']) {
+//            $model->customer_id = $Customer['id'];
+//        }
+//        $model->updateHasMany([
+//            'items' => $request->items
+//        ]);
+////        $model->save();
+//        return response()->json(["saved" => true, "id" => $model->id]);
+//    }
+
     public function update(Request $request, $id)
     {
         $request->validate([
-//            'store' => 'required',
             'order_date' => 'required',
             'customer_id' => 'required',
-//            'city' => 'required',
-//            'total' => 'required',
-//            'tax' => 'required',
-//            'balance' => 'required',
-//            'courier' => 'required',
-//            'payment_status' => 'required',
-//            'location' => 'required',
-//            'sales_rep' => 'required',
             'selling_price' => 'required',
         ]);
-        $model = Order::findOrFail($id);
-        $model->fill($request->except('items'));
-        $model->updateHasMany([
+
+        $customer = Customer::where('phone', $request->phone)->first();
+
+//        if (!$customer) {
+//            $customer = new Customer();
+//            $customer->name = $request->name;
+//            $customer->email = $request->email;
+//            $customer->phone = $request->phone;
+//            $customer->s_address_1 = $request->address;
+//            $customer->b_address_1 = $request->address;
+//            $customer->save();
+//        }
+
+        $order = Order::findOrFail($id);
+        $order->fill($request->except('items'));
+
+        // Update the customer ID for the order if a customer with the provided phone exists
+        if ($customer) {
+            $order->customer_id = $customer->id;
+        }
+
+        // Assuming you have a method named 'updateHasMany' in your Order model to update related items
+        $order->updateHasMany([
             'items' => $request->items
         ]);
-//        $model->save();
-        return response()->json(["saved" => true, "id" => $model->id]);
+
+        $order->save(); // Save the changes to the order
+
+        return response()->json(["saved" => true, "id" => $order->id]);
     }
 
     /**
