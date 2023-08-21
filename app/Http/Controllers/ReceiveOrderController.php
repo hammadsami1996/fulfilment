@@ -51,7 +51,7 @@ class ReceiveOrderController extends Controller
         if ($request->status_id == 29) {
             // dd('abcd');
             foreach ($request->items as $data) {
-                    // dd($data);
+                    // dd($data['unit_price']);
                 $totalQtyDeliver = 0;
 
 
@@ -77,6 +77,8 @@ class ReceiveOrderController extends Controller
                             $first->save();
                             $product = Product::where('id', $product_id)->first();
                             $product->quantity += $total_quantity;
+                           
+
 
                             $product->save();
 
@@ -92,6 +94,7 @@ class ReceiveOrderController extends Controller
 
                             $product = Product::where('id', $product_id)->first();
                             $product->quantity += $total_quantity;
+                           
                             $product->save();
                         }
 
@@ -233,6 +236,7 @@ class ReceiveOrderController extends Controller
                         $first->save();
                         $product = Product::where('id', $product_id)->first();
                         $product->quantity += $total_quantity;
+                        $product->selling_price = $data['unit_price'];
                         // $product->quantity = $quantity;
                         $product->save();
                         // dd($first);
@@ -244,11 +248,13 @@ class ReceiveOrderController extends Controller
                         $abc->product_id = $product_id;
                         $abc->warehouse_id = $child['warehouse_id'];
                         $abc->qty = $child['qty_deliver'];
+                    
                         // $abc->price = $child['unit_price'];
                         $abc->save();
 
                         $product = Product::where('id', $product_id)->first();
                         $product->quantity = $total_quantity;
+                        $product->selling_price = $data['unit_price'];
                         $product->save();
                     }
 
