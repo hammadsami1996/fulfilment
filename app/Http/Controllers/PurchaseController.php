@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Counter;
 use App\Models\Purchase;
+use App\Models\Product;
+
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -56,7 +58,8 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-            // dd($request->all());
+            // dd($request->items);
+            
         $request->validate([
             'supplier_id' => 'required',
 //            'po_number' => 'required',
@@ -74,6 +77,7 @@ class PurchaseController extends Controller
 //            'tax' => 'required',
 //            'sub_total' => 'required',
         ]);
+       
         $number = Counter::where('key', 'purchase_order');
         // dd($number->first()->perfix);
 
@@ -92,6 +96,12 @@ class PurchaseController extends Controller
         $number->update([
             'value' => ($number->first()->value + 1)
         ]);
+        foreach ($request->items as $data) {
+            // dd($data['unit_price']);
+            $product = Product::where('id' , $data['product_id'])->first();
+            $product->selling_price = $data['unit_price'];
+            $product->save();
+        }
         return response()->json(["saved" => true, "id" => $model->id]);
     }
 
@@ -120,6 +130,7 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         // dd('ab');
         $request->validate([
             'supplier_id' => 'required',
@@ -147,6 +158,12 @@ class PurchaseController extends Controller
         $model->updateHasMany([
             'items' => $request->items
         ]);
+        foreach ($request->items as $data) {
+            // dd($data['unit_price']);
+            $product = Product::where('id' , $data['product_id'])->first();
+            $product->selling_price = $data['unit_price'];
+            $product->save();
+        }
 //        $model->updated_by = Auth::id();
         // $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
