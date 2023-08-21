@@ -130,6 +130,7 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         // dd('ab');
         $request->validate([
             'supplier_id' => 'required',
@@ -157,6 +158,12 @@ class PurchaseController extends Controller
         $model->updateHasMany([
             'items' => $request->items
         ]);
+        foreach ($request->items as $data) {
+            // dd($data['unit_price']);
+            $product = Product::where('id' , $data['product_id'])->first();
+            $product->selling_price = $data['unit_price'];
+            $product->save();
+        }
 //        $model->updated_by = Auth::id();
         // $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
