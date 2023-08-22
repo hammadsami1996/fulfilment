@@ -154,7 +154,7 @@
                                             </a>
                                         </MenuItem>
                                     </div>
-      
+
         </div>
       </ul>
     </div>
@@ -164,7 +164,7 @@
     <!-- <button @click="showDropdown = !showDropdown">
       Toggle Dropdown
     </button> -->
-    
+
   </div>
                     <!-- END User Dropdown -->
                 </div>
@@ -206,7 +206,7 @@ export default {
   data() {
     return {
       showDropdown: false,
-     
+
 
     };
   }

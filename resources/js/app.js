@@ -13,6 +13,7 @@ import 'tailwindcss/tailwind.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import PrimeVue from 'primevue/config';
+import moment from 'moment';
 
 window.Alpine = Alpine;
 Alpine.plugin(focus);
@@ -22,6 +23,7 @@ const store = createStore(storeData);
 
 const app = createApp(App);
 app.use(VueSweetalert2);
+app.use(moment);
 app.use(store);
 app.use(filters);
 app.use(routes);
