@@ -28,8 +28,6 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.company_name">{{ error.company_name[0] }}</p>
                 </div>
-            </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -80,8 +78,6 @@
                     />
 <!--                    <p class="text-red-600 text-xs italic" v-if="error.number_2">{{ error.number_2[0] }}</p>-->
                 </div>
-            </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -107,7 +103,6 @@
                     <p class="text-red-600 text-xs italic" v-if="error.opening_balance">{{ error.opening_balance[0] }}</p>
                 </div>
             </div>
-
             <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted"
