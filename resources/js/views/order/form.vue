@@ -253,7 +253,7 @@
             <!-- :disabled="isSaveDisabled()"
                         :style="{ background: color }" -->
             <div class="flex justify-end mt-8 space-x-4">
-                <button 
+                <button
                       style="background-color: blue;"
                         @click="formSubmitted"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200  text-white"

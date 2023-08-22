@@ -1,3 +1,4 @@
+import moment from 'moment';
 
 export default {
     formatMoney1(value, currency, code = true) {
