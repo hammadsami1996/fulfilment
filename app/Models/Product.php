@@ -46,5 +46,10 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id', 'id');
     }
+    public function purchases()
+    {
+        return $this->hasMany(Purchase_item::class)->orderBy('id' , 'desc')->limit(3);
+        // return $this->hasMany(Purchase_item::class)->orderBy('id' , 'desc')->limit(3);
+    }
 
 }

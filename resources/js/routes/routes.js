@@ -17,6 +17,8 @@ import supplier from "@/routes/supplier";
 import purchase from "@/routes/purchase";
 import order from "@/routes/order";
 import customer from "@/routes/customer";
+import report from "@/routes/report";
+
 // import customer from "@/routes/receive_order";
 import receive_order from '@/routes/receive_order';
 
@@ -61,6 +63,7 @@ const router = createRouter({
 
         ...product_category,
         ...brand,
+        ...report,
         {
             path: '/error-404',
             name: 'error-404',

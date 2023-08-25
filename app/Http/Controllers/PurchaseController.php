@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Counter;
 use App\Models\Purchase;
 use App\Models\Product;
-
+use App\Models\Purchase_item;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -169,5 +169,11 @@ class PurchaseController extends Controller
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);
+    }
+
+    public function details(){
+        // dd(request('id'));
+        $data = Purchase_item::where('product_id' , request('id'))->pluck('id');
+        return response()->json(["data" => $data]);
     }
 }

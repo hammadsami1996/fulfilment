@@ -59,5 +59,28 @@ export default [
         },
     },
 
+    {
+        path: '/order/:id/show',
+        name: 'edit-order',
+        component: () => import('../views/order/show.vue'),
+        meta: {
+            mode: 'edit',
+            pageTitle: 'order',
+            breadcrumb: [
+                {
+                    text: 'Home'
+                },
+                {
+                    text: 'order',
+                    link: '/order'
+                },
+                {
+                    text: 'order Show',
+                    active: true,
+                },
+            ],
+        },
+    },
+
 
 ]

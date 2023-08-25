@@ -62,4 +62,9 @@ class Order extends Model
         return $this->belongsTo(Delivery_status::class, 'status_id', 'id');
     }
 
+    public function status_logs()
+    {
+        return $this->hasMany(Statuslog::class);
+    }
+
 }
