@@ -38,8 +38,23 @@
                 </router-link>
             </div>
         </div>
+        
         <div class="flex-col">
-            <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+            <div  class="ml-6 col-6"  >
+               
+
+
+               <button
+               
+               @click="exportTableToExcel('print', 'products')"
+               class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+               type="button">
+              
+              Excel
+               </button>
+               
+           </div>
+            <panel :columns="columns" :urlApi="urlApi" ref="TableData" id="print">
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
                          <span v-if="permissions.includes(`edit-${small}`)">
@@ -108,6 +123,38 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+
+            exportTableToExcel(tableID, filename = "") {
+                        var downloadLink;
+                        var dataType = "application/vnd.ms-excel";
+                        var tableSelect = document.getElementById(tableID);
+
+
+                        tableSelect.style.borderCollapse = "collapse";
+                        
+                        tableSelect.style.width = "100%";
+                        tableSelect.style.textAlign = "center";
+
+                        
+                        var thead = tableSelect.querySelector("thead");
+                        
+                        var tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
+                        filename = filename ? filename + ".xls" : "Pivot Report.xls";
+
+                        downloadLink = document.createElement("a");
+                        document.body.appendChild(downloadLink);
+
+                        if (navigator.msSaveOrOpenBlob) {
+                            var blob = new Blob(["\ufeff", tableHTML], {
+                                type: dataType,
+                            });
+                            navigator.msSaveOrOpenBlob(blob, filename);
+                        } else {
+                            downloadLink.href = "data:" + dataType + ", " + tableHTML;
+                            downloadLink.download = filename;
+                            downloadLink.click();
+                        }
+                        },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },

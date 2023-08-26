@@ -11,7 +11,9 @@ class SupplierController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+    
     {
+        // dd('abcd');
         return response()->json(['data' => Supplier::search()]);
 
     }

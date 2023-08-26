@@ -13,28 +13,61 @@
         </div>
         <!-- <button @click="selectall">Download</button> -->
        
-        <div class="flex-col">
-            <div class="ml-6">
-        <button
-                    @click="downloadImage"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-                    type="button">
-                    Download Images
+        <div class="flex-row">
+           
+            <div class="flex flex-row">
+            <div class="flex flex-col-6 ml-6 mt-4" colspan="8">
+                <button
+                
+                @click="downloadImage"
+                class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                type="button">
+                <svg style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" fill="white"/></svg>
+                Download Images
                 </button>
+
+
+               
             </div>
-            <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+
+            <div  class="ml-6 col-6 mt-4" style="float:right" >
+               
+
+
+                <button
+                
+                @click="exportTableToExcel('print', 'Order Stock Report')"
+                class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                type="button">
+               
+               Excel
+                </button>
+                
+            </div>
+            <span class="ml-4 mt-6">Suppliers:</span>
+            
+            <div  class="ml-2 col-6 "  >
+               
+
+            <span style="font-size: x-small; font-weight: bold; color:red; cursor: pointer;" @click="clearsupp">clear:</span>
+                
+                <typeahead :initialize="form.supplier" :url="Supplier"   @input="onSupplier" display="name" title="Supplier"/>
+               
+           </div>
+        </div>
+            <panel :columns="columns" :urlApi="urlApi" ref="TableData" id="print">
 
                 <template v-slot:images="props">
                   
 
                     
                   <div class="flex items-center">
-                    <div  v-if="props.item.product_image !=null  " class="w-20 h-20 rounded object-cover">
+                    <div  v-if="props.item.product_image !=null  " class="w-20 h-20 rounded object-cover image-container">
                                 
                                             <img :src="`/uploads/product/img/` +  props.item.product_image" >
                                        
                                     </div>
-                                        <div  v-else class="w-20 h-20 rounded object-cover" >
+                                        <div  v-else class="w-20 h-20 rounded object-cover image-container" >
                                             <img src="/images/no-picture-taking.png" >
                                          
                                         </div>
@@ -78,6 +111,9 @@
             </template>
 
             </panel>
+
+            
+          
         </div>
 
          <Modal :show="true" 
@@ -141,24 +177,40 @@
                 </button>
             </div>
                         </Modal>
+
+
+
+
+                    
     </div>
+ 
 </template>
+
+
+
 
 <script>
     import Panel from "@/components/panel/panel.vue";
     import {form} from "@/libs/mixins";
     import {byMethod} from "@/libs/api";
     import Modal from "@/Components/Modal.vue";
+    import Typeahead from "@/Components/typeahead/typeahead.vue";
+    // import VueHtml2pdf from 'vue-html2pdf'
+   
+ 
+  
     
 
     export default {
         mixins: [form],
         components: {
-            Panel, Modal
+            Panel, Modal ,Typeahead
         },
         name: "Index",
         data() {
             return {
+                Supplier:'/api/supplier',
+                pdf:'pdf-content',
                 show_image_modal: false,
                 show:false,
                 items:[],
@@ -171,9 +223,11 @@
 
                 permissions: [],
                 urlApi: "/api/required_stock",
+                urlApis: "/api/required_stock",
+
                 resource: "/required_stock",
                 small: "required_stock",
-                capital: "Purchase Items Stock",
+                capital: "Required Items Stock",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Sku ', field: 'product_sku'},
@@ -199,6 +253,8 @@
             }
         },
 
+     
+
         created() {
             this.permissions = window.apex.user.permission
         },
@@ -206,7 +262,86 @@
 
                  
         methods: {
-            close() {
+            clearsupp(){
+                this.form.supplier = null
+                this.form.supplier_id = null
+                this.urlApi = this.urlApis
+                setTimeout(() => {
+                    
+                    this.$refs.TableData.reload();
+                }, 100)
+                    
+            },
+            onSupplier(e) {
+                const supplier = e.target.value
+                this.form.supplier = supplier
+                this.form.supplier_id = supplier.id
+                this.filter(this.form.supplier_id)
+                
+
+            },
+            filter(e){
+
+                setTimeout(() => {
+                    this.urlApi = this.urlApis
+                }, 100)
+                setTimeout(() => {
+                    this.urlApi += '?id=' + e
+                }, 100)
+                setTimeout(() => {
+                  
+                    this.$refs.TableData.reload();
+                }, 100)
+                // byMethod('get', '/api/required_stock?id=' +e).then((res) => {
+
+
+                // })
+            },
+            generateReport () {
+            this.$refs.html2Pdf.generatePdf()
+        },
+
+    
+                      exportTableToExcel(tableID, filename = "") {
+                        var downloadLink;
+                        var dataType = "application/vnd.ms-excel";
+                        var tableSelect = document.getElementById(tableID);
+
+
+                        tableSelect.style.borderCollapse = "collapse";
+                        
+                        tableSelect.style.width = "100%";
+                        tableSelect.style.textAlign = "center";
+
+                        
+                        var thead = tableSelect.querySelector("thead");
+                        
+                        var tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
+                        filename = filename ? filename + ".xls" : "Pivot Report.xls";
+
+                        downloadLink = document.createElement("a");
+                        document.body.appendChild(downloadLink);
+
+                        if (navigator.msSaveOrOpenBlob) {
+                            var blob = new Blob(["\ufeff", tableHTML], {
+                                type: dataType,
+                            });
+                            navigator.msSaveOrOpenBlob(blob, filename);
+                        } else {
+                            downloadLink.href = "data:" + dataType + ", " + tableHTML;
+                            downloadLink.download = filename;
+                            downloadLink.click();
+                        }
+                        },
+
+                        onProgress(e) {
+
+                        console.log(e, 'e');
+
+                        },
+
+                       
+                           close() {
                 this.show = false,
                     this.show_image_modal = false
             },
@@ -467,3 +602,11 @@
         },
     }
 </script>
+
+<style scoped>
+.image-container:hover {
+    transform: scale(2.6); 
+
+}
+</style>
+

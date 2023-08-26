@@ -11,6 +11,23 @@
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+                <template v-slot:images="props">
+                  
+
+                    
+                  <div class="flex items-center">
+                    <div  v-if="props.item.product && props.item.product.product_img && props.item.product.product_img[0]  " class="w-20 h-20 rounded object-cover image-container">
+                           
+                                            <img :src="`/uploads/product/img/` +   props.item.product.product_img[0].img" >
+                                       
+                                    </div>
+                                        <div  v-else class="w-20 h-20 rounded object-cover image-container" >
+                                            <img src="/images/no-picture-taking.png" >
+                                         
+                                        </div>
+                                        </div>
+      
+               </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
                          <!-- <span v-if="permissions.includes(`edit-${small}`)">
@@ -67,7 +84,12 @@
                 capital: "Inventory",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
+                    {label: 'Product Sku', field: 'product_sku',  displayText: 'product'},
+                    {label: 'Barcode', field: 'barcode',  displayText: 'product'},
+
+                    {label: 'Images', field: 'images' , slot:true},
                     {label: 'Product id', field: 'title',  displayText: 'product'},
+
                     {label: 'Wearhouse id', field: 'name',  displayText: 'wearhouse'},
                     {label: 'Qty', field: 'qty',},
                     // {label: 'Price', field: 'price',},
@@ -95,3 +117,9 @@
         },
     }
 </script>
+<style scoped>
+.image-container:hover {
+    transform: scale(2.6); 
+
+}
+</style>
