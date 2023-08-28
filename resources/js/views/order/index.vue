@@ -127,7 +127,7 @@
                     <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) ">
                         {{ props.item.status ? props.item.status.name :''}}
                     </button>
-                    <div v-if="sts && props.item.id == ids">
+                    <div v-if="sts && props.item.id == ids" class="p-1">
                         <div>
                             <button
                                 @click="Cancel() "

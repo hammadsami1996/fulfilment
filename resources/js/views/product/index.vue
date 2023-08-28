@@ -36,24 +36,18 @@
                              type="button">
                     Create
                 </router-link>
+                <button
+
+                    @click="exportTableToExcel('print', 'products')"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                    type="button">
+
+                    Excel
+                </button>
             </div>
         </div>
-        
+
         <div class="flex-col">
-            <div  class="ml-6 col-6"  >
-               
-
-
-               <button
-               
-               @click="exportTableToExcel('print', 'products')"
-               class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-               type="button">
-              
-              Excel
-               </button>
-               
-           </div>
             <panel :columns="columns" :urlApi="urlApi" ref="TableData" id="print">
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
@@ -131,13 +125,13 @@
 
 
                         tableSelect.style.borderCollapse = "collapse";
-                        
+
                         tableSelect.style.width = "100%";
                         tableSelect.style.textAlign = "center";
 
-                        
+
                         var thead = tableSelect.querySelector("thead");
-                        
+
                         var tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
                         filename = filename ? filename + ".xls" : "Pivot Report.xls";
 

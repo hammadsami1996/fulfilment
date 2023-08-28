@@ -177,14 +177,14 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $model = Order::with('city' 'customer', 'items.product', 'stores', 'wearhouse' , 'status_logs.status','status_logs.user')->findOrFail($id);
+        $model = Order::with('city', 'customer', 'items.product', 'stores', 'wearhouse' , 'status_logs.status','status_logs.user')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
     }
 
 
-   
+
 
     /**
      * Update the specified resource in storage.

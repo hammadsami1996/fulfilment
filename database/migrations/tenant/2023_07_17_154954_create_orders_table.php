@@ -46,6 +46,7 @@ return new class extends Migration
             $table->integer('shipping_charges')->nullable();
             $table->integer('advance')->nullable();
             $table->integer('delivery_charges')->nullable();
+            $table->integer('shipped_by_id')->nullable();
 
 
 
