@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProdductImg;
+use ZipArchive;
 use App\Models\Product;
 use App\Models\ProductImg;
+use App\Models\ProdductImg;
+use App\Models\Purchase_item;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
-
+use Intervention\Image\Facades\Image;
+// use Spatie\Backtrace\File;
+use File;
+use Response;
+// use Symfony\Component\HttpFoundation\Response;
 class ProductController extends Controller
 {
     /**
@@ -70,6 +77,7 @@ class ProductController extends Controller
         $model->save();
 
         foreach ($request->product_img as $key => $item) {
+           
             if(isset($item['img'])){
             $file = $item['img'];
             $extension = $file->getClientOriginalExtension();
@@ -189,4 +197,103 @@ class ProductController extends Controller
         $model->delete();
         return response()->json(["deleted" => true]);
     }
+
+
+    public function download_images()
+{
+    $datasArray = explode(',', request()->id);
+    $data = Product::with('product_img')->whereIn('id', $datasArray)->search();
+
+    foreach ($data as $key => $result) {
+        $resultArray = get_object_vars($result);
+        $dd = Purchase_item::with('purchase.supplier')->where('product_id' , $result['id'])->orderBy('id', 'desc')->limit(3)->get();
+// dd($dd);
+        // $dd = DB::select("select business_name,c.id,username,email,mobile_no,n.min from contractors c left join no_of_operatives n on c.no_operative = n.id ");
+        $collectdd = collect($dd);
+        // $resultArray['purchases'] = $collectdd->toArray();
+        $data[$key]['purchases'] = ((object)$collectdd)->toArray();
+    }
+
+    $vendor = Purchase_item::whereIn('product_id' , $datasArray)->pluck('purchase_id')->unique();
+    $vendors = Purchase::with('supplier')->whereIn('id' , $vendor)->get();
+    // $data->toArray();
+    // dd($data);
+    // $array = get_object_vars($data);
+  
+    // dd($mergedArray);
+
+    // $zipFileName = 'downloaded_images.zip';
+    // $zipPath = storage_path('images/') . $zipFileName;
+
+    // $zip = new ZipArchive;
+
+    // if ($zip->open($zipPath, ZipArchive::CREATE) === true) {
+    //     foreach ($data as $product) {
+    //         if ($product->product_img->isNotEmpty()) {
+    //             $image = $product->product_img;
+    //             $imageName = $image[0]->img;
+    //             $imagePath = 'uploads/product/img/' . $imageName;
+
+    //             $imageContent = file_get_contents(public_path($imagePath));
+    //             $image = Image::make($imageContent);
+
+    //             $filename = time() . '_' . $imageName;
+
+    //             $path = 'images/';
+    //             $image->save(storage_path($path . $filename));
+
+    //             $zip->addFile(storage_path($path . $filename), $filename);
+    //         }
+    //     }
+    //     $zip->close();
+    // }
+
+    // Return the path of the generated ZIP file
+    return response()->json(['data' => $data , 'id' => $vendors]);
+}
+
+
+    // public function download_images(){
+    //     $datasArray = explode(',', request()->id);
+       
+    //     $data = Product::with('product_img' ,'purchases.purchase')->whereIn('id' , $datasArray)->search();
+    
+    //     $zipFileName = 'downloaded_images.zip';
+    //     $zipPath = storage_path('images/') . $zipFileName;
+    
+    //     $zip = new ZipArchive;
+    
+    //     if ($zip->open($zipPath, ZipArchive::CREATE) === true) {
+    //     foreach ($data as $product) {
+    //             if ($product->product_img->isNotEmpty()) {
+    //                 $image = $product->product_img;
+    //                 // dd($image[0]->img);
+    //                 $imageName = $image[0]->img;
+    //                 $imagePath = 'uploads/product/img/' . $imageName;
+    
+    //                 $imageContent = file_get_contents(public_path($imagePath));
+    //                 $image = Image::make($imageContent);
+                
+    //                 $filename = time() . '_' . $imageName;
+    
+                  
+                   
+    //                 $path = 'images/';
+    //                 $image->save(storage_path($path . $filename));
+    
+                  
+    //                 $zip->addFile(storage_path($path . $filename), $filename);
+    //             }
+    //         }
+    //     }
+    //     $zip->close();
+    //     return response()->json(['data' =>$data]);
+    //     // return response()->download($zipPath);
+    // }
+
+
+   
+
+
+    
 }

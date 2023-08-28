@@ -83,6 +83,10 @@ class Order extends Model
     {
         return $this->belongsTo(Order_type::class, 'order_type_id', 'id');
     }
+    public function status_logs()
+    {
+        return $this->hasMany(Statuslog::class);
+    }
 
 
 }

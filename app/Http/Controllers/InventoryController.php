@@ -12,7 +12,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Inventory::with('product', 'wearhouse')->search()]);
+        return response()->json(['data' => Inventory::with('product.product_img', 'wearhouse')->search()]);
     }
 
     /**

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer('order_id')->nullable();
             $table->integer('product_id')->nullable();
             $table->integer('qty')->nullable();
+            $table->integer('warehouse_id')->nullable();
+
             $table->decimal('unit_price')->nullable();
             $table->decimal('value_ex_tax')->nullable();
             $table->decimal('tax_percent')->nullable();

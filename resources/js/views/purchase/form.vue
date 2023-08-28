@@ -156,10 +156,12 @@
                         </td>
 
                         <td v-if="item.product" >
+                          
                             <div  v-if="item.product && item.product.product_img && item.product.product_img[0] " style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;"  class="image-container">
-
+                                <div class="flex items-center">
                                             <img :src="`/uploads/product/img/` +  item.product.product_img[0].img" >
                                         </div>
+                                    </div>
                                         <div  v-else style=" max-width: 25%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;" >
                                             <img src="/images/no-picture-taking.png" >
                                             <span class="text-center" style="font-weight: bold;"> No Product Image</span>

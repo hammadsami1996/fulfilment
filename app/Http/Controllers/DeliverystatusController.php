@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Delivery_status;
 use App\Models\Order;
 use App\Models\Purchase;
+use App\Models\Statuslog;
+
 
 
 
 
 use App\Models\Type;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DeliverystatusController extends Controller
@@ -95,10 +97,23 @@ class DeliverystatusController extends Controller
 
     public function updatestatus(Request $request  )
     {
-    //    dd($request->all());
+                // dd($request->all());
             $data = Order::where('id' , $request->ids)->first();
+            $logs = new Statuslog();
+            $logs->order_id = $request->ids;
+            $logs->updated_sts = $request->name;
+            $logs->previous_sts = $data->status_id;
+            $logs->user_id = auth()->user()->id;
+            $logs->date = Carbon::now();
+            $logs->save();
+
+
+
             $data->status_id = $request->id;
             $data->save();
+            
+
+
             return response()->json(["saved" => true, "id" => $data->id]);
     }
 

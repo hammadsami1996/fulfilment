@@ -82,7 +82,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-//            dd($request->items);
+        //    dd($request->warehouse_id);
         $request->validate([
 //            'store' => 'required',
 //            'order_date' => 'required',
@@ -126,8 +126,14 @@ class OrderController extends Controller
         $model->total = $request->finaltotal;
 //        $model->so_number = ($number->first()->perfix . $number->first()->value);
 
+        // $model->storeHasMany([
+        //     'items' => $request->items
+        // ]);
         $model->storeHasMany([
-            'items' => $request->items
+            'items' => collect($request->items)->map(function ($item) use ($request) {
+                $item['warehouse_id'] = $request->warehouse_id; // Add warehouse_id to each item
+                return $item;
+            })
         ]);
 
         $number->update([
@@ -171,11 +177,14 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $model = Order::with('customer', 'items.product', 'stores', 'wearhouse', 'city')->findOrFail($id);
+        $model = Order::with('city' 'customer', 'items.product', 'stores', 'wearhouse' , 'status_logs.status','status_logs.user')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
     }
+
+
+   
 
     /**
      * Update the specified resource in storage.
