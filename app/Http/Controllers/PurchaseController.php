@@ -59,7 +59,7 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
             // dd($request->items);
-            
+
         $request->validate([
             'supplier_id' => 'required',
 //            'po_number' => 'required',
@@ -69,20 +69,14 @@ class PurchaseController extends Controller
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|integer|exists:products,id',
             'items.*.unit_price' => 'required|numeric|min:0',
-            // 'discount' => 'required',
-            // 'sku' => 'required',
-//            'name' => 'required',
-//            'qty' => 'required',
-//            'purchasing_price' => 'required',
-//            'tax' => 'required',
-//            'sub_total' => 'required',
         ]);
-       
+
         $number = Counter::where('key', 'purchase_order');
         // dd($number->first()->perfix);
 
         $model = new Purchase();
         $model->fill($request->all());
+        $model->po_date = date('Y-m-d');
         $model->po_number = ($number->first()->perfix . $number->first()->value);
         // $model->save();
         $model->tax = $request->mtax_amount;
@@ -96,7 +90,7 @@ class PurchaseController extends Controller
         $number->update([
             'value' => ($number->first()->value + 1)
         ]);
-      
+
         return response()->json(["saved" => true, "id" => $model->id]);
     }
 
@@ -149,11 +143,11 @@ class PurchaseController extends Controller
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;
         $model->sub_total = $request->tvalue_ex_tax;
-        
+
         $model->updateHasMany([
             'items' => $request->items
         ]);
-     
+
 //        $model->updated_by = Auth::id();
         // $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);

@@ -16,26 +16,29 @@ class Customer extends Model
     protected $fillable = [
         'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
         'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
-        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id'
+        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id','qunatity'
     ];
     protected $columns = [
         'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
         'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
-        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id'
+        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id','qunatity'
     ];
 
     protected $search = [
         'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
         'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
-        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id'
+        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id','qunatity'
     ];
     protected $appends = ['text'];
 
 
     public function getTextAttribute()
     {
-        return $this->attributes['name'];
+        return $this->attributes['name']
+//            . ' - ' . $this->attributes['phone'] . PHP_EOL . ' - ' . $this->attributes['s_address_1']
+            ;
     }
+
 
     public function type()
     {

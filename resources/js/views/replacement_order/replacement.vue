@@ -235,15 +235,6 @@
                                                type="number" v-model="form.discount"/>
                                     </div>
                                 </div>
-                                <div class="flex items-center space-x-4 p-2">
-                                    <div class="font-bold">Dilvery Charges</div>
-                                    <div>
-                                        <input @input="discountamt(form.delivery_charges)"
-                                               class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                               min="0"
-                                               type="number" v-model="form.delivery_charges"/>
-                                    </div>
-                                </div>
                             </div>
                         </td>
                     </tr>
@@ -262,7 +253,6 @@
                         </td>
                     </tr>
                     </tfoot>
-
                     <!--END Table Body -->
                 </table>
                 <!-- END Table -->
@@ -337,7 +327,6 @@
             this.form.order_date = moment().format('YYYY-MM-DD');
         },
         computed: {
-
             subTotal() {
                 return this.form.items.reduce((carry, item) => {
                     return carry + Number(item.unit_price) * Number(item.qty);
@@ -470,7 +459,6 @@
                 this.data = [
                     e,
                     this.form.warehouse_id
-
                 ]
                 byMethod('POST', '/api/remianing', this.data).then(res => {
                     if (res.data.data == null) {

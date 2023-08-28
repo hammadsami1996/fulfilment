@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('store_id')->nullable();
             $table->timestamp('order_date')->nullable();
             $table->string('customer_id')->nullable();
-            $table->string('city')->nullable();
+            $table->integer('city_id')->nullable();
             $table->integer('total')->nullable();
             $table->integer('tax')->nullable();
             $table->integer('balance')->nullable();
@@ -40,6 +40,14 @@ return new class extends Migration
             $table->string('s_addres_1')->nullable();
             $table->string('instraction')->nullable();
             $table->integer('phone')->nullable();
+
+            $table->integer('qunatity')->nullable();
+            $table->integer('order_type_id')->nullable();
+            $table->integer('shipping_charges')->nullable();
+            $table->integer('advance')->nullable();
+            $table->integer('delivery_charges')->nullable();
+
+
 
             $table->timestamps();
         });

@@ -1,17 +1,17 @@
 <template>
     <div>
         <h1>User Dashboard</h1>
-        <Editor editorStyle="height: 320px" v-model="form.value"/>
+<!--        <Editor editorStyle="height: 320px" v-model="form.value"/>-->
     </div>
 </template>
 
 <script>
     import {form} from '@/libs/mixins'; // Make sure to use the correct path
-    import Editor from 'primevue/editor';
+    // import Editor from 'primevue/editor';
     export default {
         mixins: [form],
         components: {
-            Editor,
+            // Editor,
         },
         data() {
             return {}

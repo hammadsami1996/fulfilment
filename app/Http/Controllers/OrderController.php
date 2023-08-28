@@ -17,13 +17,28 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores', 'status')
+//        dd(\request()->all());
+        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores', 'status', 'shipped_by', 'city', 'ordertype')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
             })->when(\request()->has('packability'), function ($q) {
                 $q->where('packability', \request('packability'));
-            })->search()]);
-
+            })->when(\request()->has('city_id') && \request('city_id'), function ($q) {
+                $q->where('city_id', \request('city_id'));
+            })->when(\request()->has('customer_id') && \request('customer_id'), function ($q) {
+                $q->where('customer_id', \request('customer_id'));
+            })->when(\request()->has('shipped_by_id') && \request('shipped_by_id'), function ($q) {
+                $q->where('shipped_by_id', \request('shipped_by_id'));
+            })->when(\request()->has('quantity') && \request('quantity'), function ($q) {
+                $q->where('quantity', \request('quantity'));
+            })->when(\request()->has('order_type_id') && \request('order_type_id'), function ($q) {
+                $q->where('order_type_id', \request('order_type_id'));
+            })->when(\request()->has('discount') && \request('discount'), function ($q) {
+                $q->where('discount_status', \request('discount'));
+            })->when(\request()->has('payment_status') && \request('payment_status'), function ($q) {
+                $q->where('payment_status', \request('payment_status'));
+            })
+            ->search()]);
     }
 
     /**
@@ -36,11 +51,10 @@ class OrderController extends Controller
             "order_date" => '',
             "so_number" => '',
             "customer_id" => '',
-            "city" => '',
+            "city_id" => '',
             "total" => '',
             "tax" => '',
             "balance" => '',
-            "courier" => '',
             "payment_status" => '',
             "location" => '',
             "sales_rep" => '',
@@ -52,8 +66,11 @@ class OrderController extends Controller
             "discount" => '',
             'discount_percent' => 0,
             'selling_price' => 0,
-
-
+            'shipped_by_id' => '',
+            'qunatity' => '',
+            'order_type_id' => '',
+            'payment_status' => '',
+            'delivery_charges' => '',
         ];
         return response()->json([
             'form' => $form
@@ -82,25 +99,6 @@ class OrderController extends Controller
             // 'external_order_no' => 'required',
             // 'tracking_id' => 'required',
         ]);
-//        $wearhouse = $request->warehouse_id;
-////         dd($request->warehouse_id);
-//        foreach ($request->items as $numbers) {
-//            $product = Product::where('id', $numbers['product_id'])->value('quantity');
-//            if ($product >= $numbers['qty']) {
-//                $inventory = Inventory::where('product_id', $numbers['product_id'])->where('warehouse_id', $wearhouse)->value('qty');
-//                // dd($inventory);
-//                if ($inventory < $numbers['qty']) {
-//
-//                    return response()->json(["error" => true]);
-//
-//                }
-//            } else {
-//                return response()->json(["error" => true]);
-//            }
-//            // dd($number['product_id']);
-//
-//
-//        }
         $c = Customer::where('phone', $request->phone)->first();
         if (!$c) {
             $Customer = new Customer();
@@ -173,7 +171,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $model = Order::with('customer', 'items.product', 'stores', 'wearhouse')->findOrFail($id);
+        $model = Order::with('customer', 'items.product', 'stores', 'wearhouse', 'city')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -214,9 +212,9 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'order_date' => 'required',
-            'customer_id' => 'required',
-            'selling_price' => 'required',
+//            'order_date' => 'required',
+//            'customer_id' => 'required',
+//            'selling_price' => 'required',
         ]);
 
         $customer = Customer::where('phone', $request->phone)->first();
@@ -271,6 +269,10 @@ class OrderController extends Controller
         return response()->json(["data" => $inventory]);
 
     }
+//    public function replacement()
+//    {
+//
+//    }
 
 
 }

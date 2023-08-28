@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilment9
+ Source Schema         : tenantfulfilment1st
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 15/08/2023 12:43:21
+ Date: 26/08/2023 17:57:56
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `permissions`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 183 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 189 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permissions
@@ -158,6 +158,12 @@ INSERT INTO `permissions` VALUES (185, 'edit-brand', 'web', NULL, NULL, 183, NUL
 INSERT INTO `permissions` VALUES (186, 'create-brand', 'web', NULL, NULL, 183, NULL, '2023-08-15 07:41:44', '2023-08-15 07:41:44');
 INSERT INTO `permissions` VALUES (187, 'delete-brand', 'web', NULL, NULL, 183, NULL, '2023-08-15 07:41:44', '2023-08-15 07:41:44');
 INSERT INTO `permissions` VALUES (188, 'export-brand', 'web', NULL, NULL, 183, NULL, '2023-08-15 07:41:44', '2023-08-15 07:41:44');
+INSERT INTO `permissions` VALUES (189, NULL, 'web', 'Replacement', NULL, NULL, 56, '2023-08-26 12:46:56', '2023-08-26 12:46:56');
+INSERT INTO `permissions` VALUES (190, 'view-replacement', 'web', NULL, NULL, 189, NULL, '2023-08-26 12:46:56', '2023-08-26 12:46:56');
+INSERT INTO `permissions` VALUES (191, 'edit-replacement', 'web', NULL, NULL, 189, NULL, '2023-08-26 12:46:56', '2023-08-26 12:46:56');
+INSERT INTO `permissions` VALUES (192, 'create-replacement', 'web', NULL, NULL, 189, NULL, '2023-08-26 12:46:56', '2023-08-26 12:46:56');
+INSERT INTO `permissions` VALUES (193, 'delete-replacement', 'web', NULL, NULL, 189, NULL, '2023-08-26 12:46:56', '2023-08-26 12:46:56');
+INSERT INTO `permissions` VALUES (194, 'export-replacement', 'web', NULL, NULL, 189, NULL, '2023-08-26 12:46:56', '2023-08-26 12:46:56');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -275,6 +281,11 @@ INSERT INTO `role_has_permissions` VALUES (185, 1);
 INSERT INTO `role_has_permissions` VALUES (186, 1);
 INSERT INTO `role_has_permissions` VALUES (187, 1);
 INSERT INTO `role_has_permissions` VALUES (188, 1);
+INSERT INTO `role_has_permissions` VALUES (190, 1);
+INSERT INTO `role_has_permissions` VALUES (191, 1);
+INSERT INTO `role_has_permissions` VALUES (192, 1);
+INSERT INTO `role_has_permissions` VALUES (193, 1);
+INSERT INTO `role_has_permissions` VALUES (194, 1);
 INSERT INTO `role_has_permissions` VALUES (64, 3);
 INSERT INTO `role_has_permissions` VALUES (118, 3);
 INSERT INTO `role_has_permissions` VALUES (119, 3);

@@ -429,8 +429,6 @@
                     get(this.urlApi).then(res => {
                         this.model = res.data
                         this.show = true
-                        console.log(this.model);
-
                     });
                 }
             },

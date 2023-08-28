@@ -30,10 +30,6 @@
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
                     unpackable
                 </a>
-<!--                <a @click="s"-->
-<!--                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-cyan-500 focus:text-gray-700 focus:border-cyan-300">-->
-<!--                    +-->
-<!--                </a>-->
             </nav>
         </div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
@@ -44,32 +40,95 @@
                              type="button">
                     Create Order
                 </router-link>
+                <button @click='toggle = !toggle'
+                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                        type="button">
+                    Advaced Search
+                </button>
             </div>
         </div>
+        <div class="bg-gray-200 p-4" v-show='toggle'>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center ">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Customer</label>
+                    <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Shipper</label>
+                    <typeahead :initialize="form.shipped_by" :url="shipped" @input="onshippedby" display="name"/>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Status</label>
+                    <typeahead :initialize="form.deliver" :url="delivery" @input="onDeliverySearch" display="name"/>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">City</label>
+                    <typeahead :initialize="form.city" :url="city" @input="onCity" display="title"/>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Order Type</label>
+                    <typeahead :initialize="form.ordertype" :url="ordertype" @input="onOrder_type" display="name"/>
+                </div>
+            </div>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Discount</label>
+                    <div class="relative">
+                        <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
+                                v-model="form.discount">
+                            <option value="Applied">Applied</option>
+                            <option value="NotApplied">Not Applied</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Packing Status</label>
+                    <select
+                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
+                        name="payment-status" v-model="form.packability">
+                        <option value="packable">packable</option>
+                        <option value="unpackable">unpackable</option>
+                    </select>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Shipping Charges</label>
+                    <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
+                            v-model="form.discount">
+                        <option value="Applied">Applied</option>
+                        <option value="NotApplied">Not Applied</option>
+                    </select>
+                </div>
+                <div class="w-full sm:w-1/2 pl-2 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1 capitalize">Payment Status</label>
+                    <select
+                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
+                        name="payment-status" v-model="form.payment_status">
+                        <option value="0">Paid</option>
+                        <option value="1">Unpaid</option>
+                    </select>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1 capitalize">Quantity</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Quantity" type="number" v-model="form.quantity"/>
+                </div>
+            </div>
+            <button
+                @click="onSearch()"
+                class="mt-4 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-4 py-2 leading-5 text-sm border-gray-200 bg-red-500 hover:bg-red-600 text-white focus:outline-none focus:ring focus:ring-red-300"
+                type="button">
+                Search
+            </button>
+        </div>
+
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:statuses="props">
                     <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) ">
                         {{ props.item.status ? props.item.status.name :''}}
                     </button>
-
-                    <!-- <button v-if="props.item.status_id == 1"  :style="{ background: props.item.status.color }" @click="shows(1 ,props.item.id) ">
-                       Pending
-                           </button>
-                           <button v-if="props.item.status_id == 2" style=" background-image: linear-gradient(90deg,#e8f571,greenyellow); font-weight: bold;" @click="shows(2 ,props.item.id) ">
-                               Confirmed
-                           </button>
-                           <button v-if="props.item.status_id == 3" style=" background-image: linear-gradient(90deg,#5b8da1,rgb(44, 44, 134)); font-weight: bold; " @click="shows(3 ,props.item.id) ">
-                               Shipped
-                           </button>
-                           <button v-if="props.item.status_id == 4" style=" background-image: linear-gradient(90deg,#587e5a,green); font-weight: bold;" >
-                               Delivered
-                           </button> -->
                     <div v-if="sts && props.item.id == ids">
                         <div>
-                            <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
-                        Update
-                    </button> -->
                             <button
                                 @click="Cancel() "
                                 style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197,13,13)); font-weight: bold;">
@@ -79,6 +138,10 @@
                         <typeahead :initialize="form.deliver" :url="delivery+'?head=order&id='+ props.item.status.id"
                                    @input="onDelivery($event ,props.item.id)" display="name"/>
                     </div>
+                </template>
+                <template v-slot:ship="props">
+                    <typeahead :initialize="props.item.shipped_by" :url="shipped"
+                               @input="onShipped($event , props.item)" display="name"/>
                 </template>
                 <template v-slot:action="props">
 
@@ -112,17 +175,6 @@
                         </span>
                     </div>
                 </template>
-
-
-                <!-- <template v-slot:show >
-
-               <div class="uiverse">
-                <span class="tooltip" style="color: black;">Confirmed</span>
-              <img src="/images/icons8-confirm-48.png" >
-
-            </div>
-
-              </template> -->
             </panel>
         </div>
     </div>
@@ -143,29 +195,33 @@
         name: "Index",
         data() {
             return {
+                toggle: false,
                 sts: false,
                 id: null,
                 ids: null,
-
                 permissions: [],
                 urlApi: "/api/order",
                 urlApi1: "/api/order",
                 resource: "/order",
                 delivery: '/api/status',
+                shipped: '/api/shipped',
+                customers: '/api/customer',
+                ordertype: '/api/order_type',
+                city: '/api/city',
                 small: "order",
                 capital: "Order",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Sales Number', field: 'so_number'},
                     {label: 'Store', field: 'name', displayText: 'stores'},
-                    {label: 'Order Date', field: 'order_date'},
-                    {label: 'Customer', field: 'name', displayText: 'customer'},
+                    // {label: 'Order Date', field: 'order_date'},
+                    {label: 'Customer', field: 'text', displayText: 'customer'},
                     {label: 'Delivery Status', field: 'statuses', slot: true},
+                    {label: 'City', field: 'title', displayText: 'city'},
+                    {label: 'Shipped By', field: 'ship', slot: true},
                     {label: 'Payment Status', field: 'subTotal'},
                     {label: 'Packability', field: 'packability'},
                     {label: 'Action', field: 'action', action: true},
-                    // {label: 'Status', field: 'show', slot:true}
-
                 ]
             }
         },
@@ -197,6 +253,41 @@
                 this.form.deliver_id = deliver.id
                 this.Update(this.form.deliver, id);
             },
+            onDeliverySearch(e, id) {
+                const deliver = e.target.value
+                this.form.deliver = deliver
+                this.form.deliver_id = deliver.id
+            },
+            onShipped(e, f) {
+                const shipped_by = e.target.value
+                f.shipped_by = shipped_by
+                f.shipped_by_id = shipped_by.id
+                byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
+            },
+            onCustomer(e) {
+                const customer = e.target.value
+                this.form.customer = customer
+                this.form.name = customer.name
+                this.form.email = customer.email
+                this.form.phone = customer.phone
+                this.form.s_addres_1 = customer.s_address_1
+                this.form.customer_id = customer.id
+            },
+            onshippedby(e) {
+                const shipped_by = e.target.value
+                this.form.shipped_by = shipped_by
+                this.form.shipped_by_id = shipped_by.id
+            },
+            onOrder_type(e) {
+                const ordertype = e.target.value
+                this.form.ordertype = ordertype
+                this.form.order_type_id = ordertype.id
+            },
+            onCity(e) {
+                const city = e.target.value
+                this.form.city = city
+                this.form.cities = city.id
+            },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
@@ -223,6 +314,43 @@
                     this.$refs.TableData.reload();
                 }, 500)
             },
+            onSearch() {
+                setTimeout(() => {
+                    this.urlApi = this.urlApi1
+                }, 500)
+                setTimeout(() => {
+                    let param = "?q=";
+                    if (this.form.customer != null) {
+                        param += `&customer_id=${this.form.customer_id}`;
+                    }
+                    if (this.form.city != null) {
+                        param += `&city_id=${this.form.city_id}`;
+                    }
+                    if (this.form.ordertype != null) {
+                        param += `&order_type_id=${this.form.order_type_id}`;
+                    }
+                    if (this.form.shipped_by != null) {
+                        param += `&shipped_by_id=${this.form.shipped_by_id}`;
+                    }
+                    if (this.form.discount != null) {
+                        param += `&discount=${this.form.discount}`;
+                    }
+                    if (this.form.packability != null) {
+                        param += `&packability=${this.form.packability}`;
+                    }
+                    if (this.form.payment_status != null) {
+                        param += `&payment_status=${this.form.payment_status}`;
+                    }
+                    this.urlApi += param
+                    // this.urlApi += '?status_id=' + e
+                }, 500)
+                setTimeout(() => {
+                    // console.log(this.$refs);
+                    this.$refs.TableData.reload();
+                }, 500)
+
+            }
+
         },
     }
 </script>

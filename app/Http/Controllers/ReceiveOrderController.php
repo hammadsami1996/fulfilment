@@ -57,7 +57,7 @@ class ReceiveOrderController extends Controller
 
                 $product_id = $data['product_id'];
                 $quantity = $data['partail_remaining'];
-               
+
                 if (isset($data['total_qty_deliver'])) {
                     $total_quantity = $data['total_qty_deliver'];
 
@@ -77,7 +77,7 @@ class ReceiveOrderController extends Controller
                             $first->save();
                             $product = Product::where('id', $product_id)->first();
                             $product->quantity += $total_quantity;
-                           
+
 
 
                             $product->save();
@@ -94,7 +94,7 @@ class ReceiveOrderController extends Controller
 
                             $product = Product::where('id', $product_id)->first();
                             $product->quantity += $total_quantity;
-                           
+
                             $product->save();
                         }
 
@@ -132,7 +132,7 @@ class ReceiveOrderController extends Controller
                     $rrr += $totalQtyDeliver;
                     $qqq += $quantity;
                 }
-          
+
             //   dd($totalQtyDeliver);
               if ($totalQtyDeliver < $quantity) {
 
@@ -163,7 +163,7 @@ class ReceiveOrderController extends Controller
                 $model->number = ($number->first()->perfix . $number->first()->value);
                 $model->purchase_order_id = $request->id;
                 $model->user_id = Auth::user()->id;
-                
+
                 $items = collect($request->items)->map(function ($item) {
                     if ($item['qty'] > 0) {
                         $item['purchase_order_item_id'] = $item['id'];
@@ -189,7 +189,7 @@ class ReceiveOrderController extends Controller
                     $number->update([
                         'value' => ($number->first()->value + 1)
                     ]);
-            
+
                     return $model;
 
 
@@ -236,7 +236,7 @@ class ReceiveOrderController extends Controller
                         $first->save();
                         $product = Product::where('id', $product_id)->first();
                         $product->quantity += $total_quantity;
-                        $product->selling_price = $data['unit_price'];
+                        $product->cost_price = $data['unit_price'];
                         // $product->quantity = $quantity;
                         $product->save();
                         // dd($first);
@@ -248,13 +248,12 @@ class ReceiveOrderController extends Controller
                         $abc->product_id = $product_id;
                         $abc->warehouse_id = $child['warehouse_id'];
                         $abc->qty = $child['qty_deliver'];
-                    
+
                         // $abc->price = $child['unit_price'];
                         $abc->save();
-
                         $product = Product::where('id', $product_id)->first();
                         $product->quantity = $total_quantity;
-                        $product->selling_price = $data['unit_price'];
+                        $product->cost_price = $data['unit_price'];
                         $product->save();
                     }
 

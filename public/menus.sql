@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : local
+ Source Server         : localhost_3306
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantpegasus
+ Source Schema         : tenantfulfilment1st
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 17/08/2023 14:03:55
+ Date: 26/08/2023 17:44:09
 */
 
 SET NAMES utf8mb4;
@@ -56,5 +56,6 @@ INSERT INTO `menus` VALUES (28, 'Customer', '/customer', 'view-customer', 1, 'we
 INSERT INTO `menus` VALUES (29, 'Product Category', '/product_category', 'view-product_category', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (30, 'Receive Order', '/receive_order', 'view-receive_order', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (31, 'Brand', '/brand', 'view-brand', 1, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (32, 'Place Replacement Order', '/replacement', 'view-replacement', 1, 'web', NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

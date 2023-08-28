@@ -156,6 +156,12 @@ Route::middleware([
         Route::resource('category', \App\Http\Controllers\CategoryController::class);
         Route::resource('product_category', \App\Http\Controllers\ProductCategoryController::class);
         Route::resource('brand', \App\Http\Controllers\BrandController::class);
+        Route::resource('shipped', \App\Http\Controllers\ShippedController::class);
+        Route::resource('order_type', \App\Http\Controllers\OrderTypeController::class);
+
+//        Route::get('replacement_get', \App\Http\Controllers\OrderController::class, 'replacement');
+//        Route::post('replacement_post', \App\Http\Controllers\OrderController::class, 'replacement_post');
+
 
 
     });

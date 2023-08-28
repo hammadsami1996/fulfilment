@@ -258,7 +258,7 @@
                                                class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                                placeholder="%"
                                                min="0"
-                                               
+
                                                type="number" v-model="form.discount_percent" />
                                     </div>
                                     <div>
@@ -322,6 +322,7 @@
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import moment from 'moment';
 
 
     function initialize(to) {
@@ -368,6 +369,9 @@
                     next()
                 })
         },
+        created() {
+            this.form.po_date = moment().format('YYYY-MM-DD');
+        },
 
         computed: {
             subTotal() {
@@ -411,7 +415,7 @@
 
         },
         methods: {
-           
+
             discountamt(discount) {
                 if(discount > 100){
                     this.form.discount_percent = 100;
@@ -420,7 +424,7 @@
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
                 this.form.discount_percent = Number(((this.form.discount / this.total) * 100).toFixed(2));
                 this.isLoading = false;
-              
+
             },
             discountper() {
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
@@ -446,7 +450,7 @@
                 item.product = product
                 // this.form.items[index].product = product
                 item.product_id = product.id
-                item.unit_price = product.selling_price
+                item.unit_price = product.cost_price
                 this.caltax(item, index);
             },
             caltax(item, index) {
@@ -468,7 +472,7 @@
                 this.form.supplier_id = supplier.id
             },
             setData(res) {
-                // console.log(res);
+
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
                     // console.log('ddddfdf');
@@ -481,6 +485,8 @@
                 if (!this.form.items) {
                     this.addNewLine();
                 }
+                // console.log(this.form.date);
+                this.form.po_date = moment().format('YYYY-MM-DD');
                 this.show = true
             },
 

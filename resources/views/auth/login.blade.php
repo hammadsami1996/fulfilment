@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <div id="loading-image" class="loading-image">
+        <img src="/images/inventory_2.gif" alt="Loading Image">
+    </div>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -78,3 +81,56 @@
 
   <!-- END Page Container -->
 </x-guest-layout>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loadingImage = document.getElementById("loading-image");
+        const fadeDelay = 4500; // 4 seconds
+
+        setTimeout(function () {
+            loadingImage.remove();
+        }, fadeDelay);
+    });
+</script>
+<style>
+
+    .loading-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+
+
+
+        height: 100vh;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        transition: opacity 1s ease-in-out;
+        z-index: 9999;
+        animation: slideOut 4s linear forwards;
+    }
+
+    .loading-image img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .loading-image.fade-out {
+        opacity: 0;
+    }
+
+    /* @keyframes slideOut {
+        0% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+      } */
+
+
+</style>

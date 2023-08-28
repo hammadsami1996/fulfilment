@@ -51,7 +51,7 @@
                     <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>
                 </div>
             </div>
-            <hr>
+<!--            <hr>-->
             <h2 class="mt-2 text-base font-bold">Contact Detail</h2>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">

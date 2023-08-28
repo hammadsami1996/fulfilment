@@ -224,31 +224,12 @@
                             <p class="text-red-600 text-xs italic" v-if="error.barcode">{{ error.barcode[0] }}</p>
 
                         </div>
-                        <div class="mt-6">
-                            <label class="inline-flex items-center cursor-pointer">
-                                <input
-                                    @click="toggleShow1"
-                                    class="h-5 w-5 text-indigo-500 focus:ring-indigo-300 border-gray-300 rounded"
-                                    false-value="0"
-                                    id="manage_inventory"
-                                    name="manage_inventory"
-                                    true-value="1"
-                                    type="checkbox"
-                                    v-model="form.manage_inventory"
-                                />
-                                <span class="ml-2 text-sm font-medium text-gray-700">Manage Inventory</span>
-                            </label>
-                        </div>
                         <div>
-                            <div class="ml-auto" v-show="show1">
-                                <label class="block text-sm font-medium text-gray-700">Product
-                                    Quantity</label>
-                                <input
-                                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                    type="number"
-                                    v-model="form.quantity"
-                                />
-                            </div>
+                            <label class="block text-sm font-medium text-gray-700">Product Quantity</label>
+                            <input
+                                class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                placeholder="Quantity" type="number" v-model="form.quantity"
+                            />
                         </div>
                     </div>
                 </div>
@@ -304,7 +285,6 @@
                 title: 'Add',
                 message: 'New product Added',
                 permissions: {},
-                show1: false,
                 category: '/api/product_category',
                 brands: '/api/brand',
             }
@@ -357,9 +337,6 @@
                 // console.log(e.target.files);
                 this.ImgUrl[index].img = URL.createObjectURL(e.target.files[0]);
                 this.form.product_img[index].img = e.target.files[0];
-            },
-            toggleShow1() {
-                this.show1 = !this.show1;
             },
             setData(res) {
                 // console.log(res);
