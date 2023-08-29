@@ -15,18 +15,18 @@ class Product extends Model
     protected $fillable = [
         'title', 'description',  'product_sku', 'model_no',  'barcode', 'manage_inventory',
          'product_types', 'cost_price', 'selling_price',  'start_date',
-        'end_date', 'product_category','brand_id', 'head_id'
+        'end_date', 'product_category','brand_id', 'head_id', 'supplier_id'
     ];
     protected $columns = [
         'title', 'description',  'product_sku', 'model_no', 'barcode', 'manage_inventory',
         'quantity', 'product_types', 'cost_price', 'selling_price', 'start_date',
-        'end_date', 'product_category','brand_id', 'head_id'
+        'end_date', 'product_category','brand_id', 'head_id','supplier_id'
     ];
 
     protected $search = [
         'title', 'description',  'product_sku', 'model_no', 'barcode', 'manage_inventory',
         'quantity', 'product_types', 'cost_price', 'selling_price',  'start_date',
-        'end_date', 'product_category','brand_id', 'head_id'
+        'end_date', 'product_category','brand_id', 'head_id','supplier_id'
     ];
     protected $appends = ['text'];
 
