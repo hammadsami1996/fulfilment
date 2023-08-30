@@ -162,6 +162,24 @@
                     </div>
                 </div>
             </div>
+            <div class="w-full">
+                <div class="card-block mt-4 p-4 rounded-lg shadow-lg bg-white">
+                    <h3 class="mb-4 text-xl font-semibold text-indigo-600">Product Supplier</h3>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Suppliers</label>
+                        <typeahead
+                            :initialize="form.supplier"
+                            :url="supplier"
+                            @input="onSupplier"
+                            class="w-full py-1 px-1 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            display="text"
+                        />
+                        <p class="text-red-600 text-xs italic" v-if="error.category">{{ error.category[0] }}</p>
+
+                    </div>
+                 
+                </div>
+            </div>
             <!--            Product Organization-->
             <div class="w-full">
                 <div class="card-block mt-4 p-4 rounded-lg shadow-lg bg-white">
@@ -286,6 +304,7 @@
                 message: 'New product Added',
                 permissions: {},
                 category: '/api/product_category',
+                supplier:'/api/supplier',
                 brands: '/api/brand',
             }
         },
@@ -308,6 +327,11 @@
                 const category = e.target.value
                 this.form.category = category
                 this.form.head_id = category.id
+            },
+            onSupplier(e) {
+                const supplier = e.target.value
+                this.form.supplier = supplier
+                this.form.supplier_id = supplier.id
             },
             onBrand(e) {
                 const brand = e.target.value
