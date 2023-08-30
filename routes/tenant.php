@@ -146,6 +146,14 @@ Route::middleware([
         Route::resource('supplier', \App\Http\Controllers\SupplierController::class);
         Route::resource('purchase', \App\Http\Controllers\PurchaseController::class);
         Route::resource('receive_order', \App\Http\Controllers\ReceiveOrderController::class);
+        Route::resource('accounts_class_types', \App\Http\Controllers\AccountClassTypeController::class);
+        Route::resource('accounts_class', \App\Http\Controllers\AccountClassController::class);
+        Route::resource('accounts_group', \App\Http\Controllers\AccountGroupController::class);
+        Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+
+
+
+
         Route::post('receive_order_inventory', [\App\Http\Controllers\ReceiveOrderController::class, 'inventory']);
         Route::post('remianing', [\App\Http\Controllers\OrderController::class, 'remain']);
 

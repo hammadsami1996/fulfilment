@@ -18,6 +18,8 @@ import purchase from "@/routes/purchase";
 import order from "@/routes/order";
 import customer from "@/routes/customer";
 import report from "@/routes/report";
+import ledger from "@/routes/ledger";
+
 
 // import customer from "@/routes/receive_order";
 import receive_order from '@/routes/receive_order';
@@ -63,6 +65,8 @@ const router = createRouter({
         ...brand,
         ...replacement,
         ...report,
+        ...ledger,
+
         {
             path: '/error-404',
             name: 'error-404',
