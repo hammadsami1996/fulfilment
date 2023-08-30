@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Models\DB;
 
 if (!function_exists('counter')) {
@@ -12,6 +13,17 @@ if (!function_exists('counter')) {
         return new App\Models\Counter;
     }
 }
+
+// app/Helpers/settings.php
+
+if (!function_exists('Settings')) {
+    function Settings()
+    {
+        return new \App\Support\Settings(); // Adjust the namespace according to your settings class
+    }
+}
+
+
 if (!function_exists('api')) {
     /**
      * Json response for API

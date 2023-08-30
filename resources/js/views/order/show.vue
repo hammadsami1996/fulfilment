@@ -1,23 +1,23 @@
 <template>
-  
+
     <div v-if="show">
-       
+
         <div class="p-2">
             <h1 class="text-lg font-bold mb-4">
                 {{  capital }}
             </h1>
             <div class=" flex flex-row justify-end">
-                
+
                 <h1 class="text-lg font-bold mb-4 text-left">Customer:{{ form.customer.name }}</h1>||
                 <h1 class="text-lg font-bold mb-4 text-right">Order Id:{{ form.id }}</h1>
 
-                
+
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Order Date *</label>
                     <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="date"
-                    
+
                            v-model="form.order_date"/>
                     <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
                 </div>
@@ -263,14 +263,14 @@
             <!-- :disabled="isSaveDisabled()"
                         :style="{ background: color }" -->
             <div class="flex justify-end mt-8 space-x-4">
-                <button 
+                <button
                       style="background-color: blue;"
                         @click="Order_history"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200  text-white"
                         type="button">
                     Order Status History
                 </button>
-               
+
             </div>
 
             <div v-if="history"
@@ -288,12 +288,12 @@
                             By User
                         </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Status Changed From 
+                            Status Changed From
                         </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Status Changed To 
+                            Status Changed To
                         </th>
-                        
+
                     </tr>
                     </thead>
                         <tbody>
@@ -324,7 +324,7 @@
                     type="button">
                     Cancel
                 </button>
-               
+
             </div>
                     </div>
         </div>
@@ -516,13 +516,13 @@
             setData(res) {
                 // console.log(res);
                 this.form = res.data.form;
-                console.log(this.$route.meta.mode);
-              
+                // console.log(this.$route.meta.mode);
+
                 if (this.$route.meta.mode == 'edit') {
-                    
+
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
                     this.title = 'Show';
-                    
+
                 }
                 if (!this.form.items) {
                     this.addNewLine();

@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('brand_id')->nullable();
             $table->integer('head_id')->nullable();
             $table->integer('quantity')->nullable();
+            $table->integer('weight')->nullable();
 
             $table->timestamps();
         });
