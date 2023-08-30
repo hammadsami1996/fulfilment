@@ -36,7 +36,7 @@ CREATE TABLE `delivery_status`  (
 -- Records of delivery_status
 -- ----------------------------
 INSERT INTO `delivery_status` VALUES (1, 'Pending', '2023-08-01 15:56:07', '2023-08-01 15:56:09', '#9E337F', NULL, NULL);
-INSERT INTO `delivery_status` VALUES (2, 'Confirmed', '2023-08-01 15:56:19', '2023-08-01 15:56:21', '#F1C40F', NULL, NULL);
+INSERT INTO `delivery_status` VALUES (2, 'Confirmed', '2023-08-01 15:56:19', '2023-08-01 15:56:21', '#F1C40F', 'order', NULL);
 INSERT INTO `delivery_status` VALUES (3, 'Shipped', NULL, NULL, '#1E91A6', NULL, NULL);
 INSERT INTO `delivery_status` VALUES (4, 'Delivered', NULL, NULL, '#438A1A', 'order', NULL);
 INSERT INTO `delivery_status` VALUES (5, 'Cancelled', NULL, NULL, '#D33E16', 'order', NULL);
