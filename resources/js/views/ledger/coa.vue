@@ -180,6 +180,7 @@
                 <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200 ">
                 <thead class="bg-gray-100 h-12">
+                    <th><i class="fa-solid fa-pen-fancy"></i></th>
                     <th>Code </th>
                     <th>Account Description</th>
                     <th>Balance BF</th>
@@ -191,6 +192,10 @@
                 <tbody class="bg-white divide-y divide-gray-200 ">
                     <template v-for="(item, index) in chart">
                     <tr class="bg-gray-50 text-blue-400"   @click="toggleSubSubmenu_new(index, 'Balance Sheet')" >
+                        <td  class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center align-middle text-center">
+                            <i @click="editgroupclasstype(item.id)" class="fa-regular fa-pen-to-square text-green-500 cursor-pointer"></i>
+                            <i @click="deletegroupclasstype(item.id)" class="fa-solid fa-trash text-red-500 ml-4 cursor-pointer"></i>
+                            </td>
                         <td  class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center align-middle text-center">
                                 {{ item.code }}
                             </td>
@@ -215,6 +220,10 @@
                     </tr>
                     <template :key="index1"  v-for="(items, index1) in item.classes" v-if="subMenuOpen_new[index]">
                     <tr class="bg-white-50 text-red-600" @click="toggleSubSubmenu11(index, index1, 'Balance Sheet')">
+                        <td  class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center align-middle text-center">
+                            <i @click="editgroupclass(items.id)" class="fa-regular fa-pen-to-square text-green-500 cursor-pointer"></i>
+                            <i @click="deletegroupclass(items.id)" class="fa-solid fa-trash text-red-500 ml-4 cursor-pointer"></i>
+                            </td>
                         <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
                                 
                                 {{ items.code }}
@@ -239,6 +248,11 @@
                                 </tr>
                                 <template :key="index2" v-for="(item1, index2) in items.groups" v-if="subMenuOpen11[index1]">
                                     <tr class="bg-gray-50 text-green-600"  @click="toggleSubSubmenu22(index, index1, index2,'Balance Sheet')">
+                                        <td  class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center align-middle text-center">
+                            <i @click="editgroup(item1.id)" class="fa-regular fa-pen-to-square text-green-500 cursor-pointer"></i>
+                            <i @click="deletegroup(item1.id)" class="fa-solid fa-trash text-red-500 ml-4 cursor-pointer"></i>
+                            </td>
+                                       
                                         <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
                                             {{ item1.code !=null ? item1.code :'--' }}
                                         </td>
@@ -845,7 +859,14 @@
                 one: false,
                 one1: false,
                 Balance_one:false,
-        
+                store:"/api/accounts_class_types",
+                store_new:"/api/accounts_class_types",
+
+                store1:"/api/accounts_class",
+                store11:"/api/accounts_class",
+
+                store2:"/api/accounts_group",
+
                 Supplier:'/api/supplier',
                 pdf:'pdf-content',
                 show_account_modal: false,
@@ -894,6 +915,9 @@
                 hoverdata:[],
                 active:false,
                 account_model: {},
+                // form:{},
+           
+
                 chart:[],
 
                 permissions: [],
@@ -960,6 +984,40 @@
 
                  
         methods: {
+
+            editgroup(e){
+
+                byMethod('get', `/api/accounts_group/${e}/edit`).then((res) => {
+                    console.log(res.data.form);
+                    this.form = res.data.form;
+                    this.title3 = res.data.form.groupname
+                    this.show= true;
+                this.show_account_modal2 = true;
+
+                })
+            },
+
+            editgroupclass(e){
+                byMethod('get', `/api/accounts_class/${e}/edit`).then((res) => {
+                    console.log(res.data.form);
+                    this.form = res.data.form;
+                    this.title2 = res.data.form.classname
+                    this.show= true;
+                this.show_account_modal1 = true;
+
+                })
+            },
+
+            editgroupclasstype(e){
+                byMethod('get', `/api/accounts_class_types/${e}/edit`).then((res) => {
+                    console.log(res.data.form);
+                    this.form = res.data.form;
+                    this.title1 = res.data.form.class_type
+                    this.show= true;
+                this.show_account_modal = true;
+
+                })
+            },
             subMenuOpenall1 (){
            
                 for (let i = 0; i < this.chart.length; i++){
@@ -1018,11 +1076,17 @@
                         duration: 3000
                     });
                     this.form = []
+                    this.setitems();
                     }
                 })
             },
 
             formSubmittedGroup(){
+                if (this.form.id) {
+                    
+                    this.store2 = `/api/accounts_group/${this.form.id}?_method=PUT`;
+                  
+                }
                 byMethod('post', '/api/accounts_group' , this.form).then((res) => {
                     console.log(res.data.saved)
                     if(res.data.saved = true){
@@ -1034,12 +1098,19 @@
                         duration: 3000
                     });
                     this.form = []
+                    this.setitems();
                     }
                 })
             },
 
             formSubmittedClass(){
-                byMethod('post', '/api/accounts_class' , this.form).then((res) => {
+                console.log(this.form);
+                if (this.form.id){
+                    console.log(this.form.id)
+                    this.store1 = `/api/accounts_class/${this.form.id}?_method=PUT`;
+                  
+                }
+                byMethod('post', this.store1 , this.form).then((res) => {
                     console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal1 = false;
@@ -1050,12 +1121,19 @@
                         duration: 3000
                     });
                     this.form = []
+                    this.store1 = this.store11;
+                    this.setitems();
                     }
                 })
             },
             formSubmitted(){
-
-                byMethod('post', '/api/accounts_class_types' , this.form).then((res) => {
+                if (this.form.id) {
+                    
+                    this.store = `/api/accounts_class_types/${this.form.id}?_method=PUT`;
+                  
+                }
+                console.log(this.store);
+                byMethod('post', this.store , this.form).then((res) => {
                     console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal = false;
@@ -1065,9 +1143,13 @@
                         type: 'success',
                         duration: 3000
                     });
-                    this.form = []
+
+                   
+                    this.setitems();
                     }
                 })
+                this.form = [];
+                    this.store = this.store_new;
             },
 
             Addaccounts(e , title){
@@ -1084,12 +1166,14 @@
                 this.show_account_modal2 = true;
             },
             Addaccountclassgroup(e){
+                
                 this.title1 = e;
                 this.form.main_class = e;
                 this.show= true;
                 this.show_account_modal = true;
             },
             Addaccountclass(e , title){
+              
                 this.title2 = title;
                 this.form.class_type_id = e;
                 this.show= true;
@@ -1222,6 +1306,7 @@
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
+            
             deleteRole(e) {
                 byMethod('delete', `/api/inventory/${e}`)
                     .then((res) => {
@@ -1232,6 +1317,31 @@
                         }
                     })
             },
+
+
+            deletegroupclasstype(e){
+                byMethod('delete', `/api/accounts_class_types/${e}`)
+                    .then((res) => {
+                        // console.log(res);
+                        if (res.data.deleted) {
+                            this.setitems();
+                            // this.$refs.TableData.reload();
+                            this.$toast.error( this.capital + " Deleted successfully!");
+                        }
+                    })
+            },
+
+            deletegroupclass(e){
+                byMethod('delete', `/api/accounts_class/${e}`)
+                    .then((res) => {
+                        // console.log(res);
+                        if (res.data.deleted) {
+                            this.setitems();
+                            // this.$refs.TableData.reload();
+                            this.$toast.error( this.capital + " Deleted successfully!");
+                        }
+                    })
+            }
         },
     }
 </script>

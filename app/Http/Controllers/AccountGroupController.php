@@ -54,7 +54,7 @@ class AccountGroupController extends Controller
 
     public function edit($id)
     {
-        return api([
+        return response()->json([
             'form' => Account_group::with('classes')->findOrFail($id)
         ]);
     }
@@ -71,7 +71,7 @@ class AccountGroupController extends Controller
         $group->fill($request->all());
         $group->save();
 
-        return api([
+        return response()->json([
             'saved' => true,
             'model' => $group,
             'id' => $group->id

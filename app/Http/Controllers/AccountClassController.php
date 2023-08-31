@@ -35,6 +35,7 @@ class AccountClassController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         // dd($request->class_type_id);
         $request->validate([
             'classname' => 'required|max:100',
@@ -51,7 +52,8 @@ class AccountClassController extends Controller
 
     public function edit($id)
     {
-        return api([
+        // dd('abcd');
+        return response()->json([
             'form' => AccountClass::with('class_type')->findOrFail($id)
         ]);
     }
@@ -68,7 +70,7 @@ class AccountClassController extends Controller
         $class->fill($request->all());
         $class->save();
 
-        return api([
+        return response()->json([
             'saved' => true,
             'model' => $class,
             'id' => $class->id

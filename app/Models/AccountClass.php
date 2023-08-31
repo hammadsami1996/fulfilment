@@ -26,7 +26,7 @@ class AccountClass extends Model
     }
     public function class_type()
     {
-        return $this->belongsTo(AccountClassType::class, 'class_type_id', 'id');
+        return $this->belongsTo(Account_group_class_type::class, 'class_type_id', 'id');
     }
 
     protected $appends = ['text'];
