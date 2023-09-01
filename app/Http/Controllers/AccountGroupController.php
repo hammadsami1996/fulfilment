@@ -20,6 +20,7 @@ class AccountGroupController extends Controller
 
     public function create($id)
     {
+        
         $form = [
             'code' => (Account_group::select('code')->where('class_id', $id)->orderBy('code', 'desc')->value('code') != null ? Account_group::select('code')->where('class_id', $id)->orderBy('code', 'desc')->value('code') + 1 : AccountClass::findOrfail($id)->code . '001'),
             'groupname' => null,
@@ -54,6 +55,7 @@ class AccountGroupController extends Controller
 
     public function edit($id)
     {
+       
         return response()->json([
             'form' => Account_group::with('classes')->findOrFail($id)
         ]);
@@ -61,6 +63,7 @@ class AccountGroupController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($id);
         $group = Account_group::findOrFail($id);
 
         $request->validate([

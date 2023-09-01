@@ -13,7 +13,20 @@ class AccountClassTypeController extends Controller
     public function index(Request $request)
     {
         // dd('abcd');
-       
+        $data = Account_group_class_type::with(['classes.groups.accounts'])
+        ->when(request('to') || request('from'), function ($q) {
+            if (request('to') !== null && request('from') === null) {
+                $q->whereHas('classes.groups.accounts', function ($subQ) {
+                    $subQ->where('created_at', '>=', request('to'));
+                });
+            } else {
+                $q->whereHas('classes.groups.accounts', function ($subQ) {
+                    $subQ->whereBetween('created_at', [request('to'), request('from')]);
+                });
+            }
+        })
+        ->search();
+    
         $datearry = null;
        
             $st_date = date('Y-m-d', strtotime(now()));
@@ -27,7 +40,9 @@ class AccountClassTypeController extends Controller
         // DB::statement('call calculate_account_balance(?,?)', $datearry);
         return response()->json([
             'results' => Account_group_class_type::with(['classes.groups.accounts'])->search(),
-            'data' => Account_group_class_type::with(['classes.groups.accounts'])->search(),
+            // 'data' => Account_group_class_type::with(['classes.groups.accounts'])->search(),
+            'data' => $data,
+
             'user' => User::find(Auth::id()) // with('account_period')
         ]);
 

@@ -1,5 +1,51 @@
 <template>
     <div>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                    <h2 class="text-lg leading-6 font-medium text-blue-900"> Filter By Dates</h2>
+                    
+                </div>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                    <label
+                        class="block font-medium text-sm text-blue-900 mb-2"
+                    >To Date </label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-blue-300 rounded-md"
+                        type="date"
+                        placeholder="Auto Generated"
+                       
+                        v-model="search_start_date"
+                    />
+                </div>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                    <label
+                        class="block font-medium text-sm text-blue-900 mb-2"
+                    >From Date</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-blue-300 rounded-md"
+                        type="date"
+                        v-model="search_end_date"
+                    />
+                </div>
+                <div class="w-full sm:w-1/6 mb-4 sm:mb-0 p-2 text-right">
+                    <button
+                    @click="searchByDate"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-100 bg-gradient-to-r from-blue-400 via-indigo-600 to-indigo-900 text-white mt-8 "
+                    type="button">
+                   Filter
+                </button>
+                    
+                </div>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                    <button
+                    @click="clearsearchdata"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-100 bg-gradient-to-r from-red-400 via-red-600 to-red-900 text-white mt-8 "
+                    type="button">
+                   Clear
+                </button>
+                    
+                </div>
+            </div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
           
@@ -21,26 +67,26 @@
                                         <li>
                                       <div class="bold">
                             <i :class="['arrow-icon', { 'open': one }]" @click="toggleSubMenu"></i>
-                            <i class="fa fa-plus-circle mr-4" @click="Addaccountclassgroup('Balance Sheet')"></i><span @click="toggleSubMenu">Balance Sheet</span>
+                            <i class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccountclassgroup('Balance Sheet')"></i><i class="fa-solid fa-folder ml-2 mr-2" style="color:rgb(26, 182, 174)"></i><span @click="toggleSubMenu">Balance Sheet</span>
                             <ul class="context-menu" v-if="one">
                             <li :key="index"  v-for="(item, index) in chart">
                                 <i  v-if="item.main_class == 'Balance Sheet'" :class="['arrow-icon', { 'open': subMenuOpen[index] }]" @click="right_click(index ,'Balance Sheet')"></i>
-                                <i v-if="item.main_class == 'Balance Sheet'" class="fa fa-plus-circle mr-4" @click="Addaccountclass(item.id , item.class_type)"></i><span v-if="item.main_class == 'Balance Sheet'" @click="toggleSubSubmenu(index, 'Balance Sheet')">{{ item.text }}:<a class="ml-8" style="font-weight: lighter;">{{ item.balance }}</a></span>
+                                <i v-if="item.main_class == 'Balance Sheet'" class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccountclass(item.id , item.class_type)"></i><i v-if="item.main_class == 'Balance Sheet'" class="fa-solid fa-folder-minus ml-1 mr-2" style="color:rgb(24, 125, 192)"></i><span v-if="item.main_class == 'Balance Sheet'" @click="toggleSubSubmenu(index, 'Balance Sheet')">{{ item.text }}:<a class="ml-8" style="font-weight: lighter;">{{ item.balance }}</a></span>
                                 <ul class="context-menu" v-if="subMenuOpen[index]">
                                     
                                 <li :key="index1" v-for="(items, index1) in item.classes">
                                     <i v-if="item.main_class == 'Balance Sheet'" :class="['arrow-icon', { 'open': subMenuOpen1[index1] }]" @click="right_click1(index , index1 ,'Balance Sheet')"></i>
-                                    <i  class="fa fa-plus-circle mr-4" @click="Addaccountgroup(items.id , items.classname)" ></i><span v-if="item.main_class == 'Balance Sheet' " @click="toggleSubSubmenu1(index, index1, 'Balance Sheet')">{{ items.classname }}:<a class="ml-8" style="font-weight: lighter;">{{ items.balance }}</a></span>
+                                    <i  class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccountgroup(items.id , items.classname)" ></i><i class="fa-solid fa-folder-open mr-2 ml-1" style="color:navy"></i><span v-if="item.main_class == 'Balance Sheet' " @click="toggleSubSubmenu1(index, index1, 'Balance Sheet')">{{ items.classname }}:<a class="ml-8" style="font-weight: lighter;">{{ items.balance }}</a></span>
                                 
                                 <ul class="context-menu" v-if="subMenuOpen1[index1]">
                                 <li :key="index2" v-for="(item1, index2) in items.groups">
                                       <i v-if="item.main_class == 'Balance Sheet'" :class="['arrow-icon', { 'open': subMenuOpen2[index2] }]" @click="toggleSubSubmenu2(index , index1 ,index2,'Balance Sheet')"></i>
-                                      <i  class="fa fa-plus-circle mr-4" @click="Addaccounts(item1.id , item1.groupname)"></i><span @click="toggleSubSubmenu2(index, index1, index2,'Balance Sheet')">{{ item1.groupname }}:<a class="ml-8" style="font-weight: lighter;">{{ item1.balance }}</a></span>
+                                      <i  class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccounts(item1.id , item1.groupname)"></i><i class="fa-regular fa-folder-open mr-2" style="color:rgb(184, 150, 40)"></i><span @click="toggleSubSubmenu2(index, index1, index2,'Balance Sheet')">{{ item1.groupname }}:<a class="ml-8" style="font-weight: lighter;">{{ item1.balance }}</a></span>
 
                                     <ul class="context-menu" v-if="subMenuOpen2[index2]">
                                 <li :key="index3" v-for="(item2, index3) in item1.accounts">
 
-                                    <span @mouseleave="onleave()" @mouseover="onchange(item2)">{{item2.accounttitle.length > 0 ? item2.accounttitle:'No Record' }}:<a class="ml-8" style="font-weight: lighter;">{{item2.accounttitle.length > 0 ? item2.balance:'0.00' }}</a></span>
+                                    <i class="fa-solid fa-user-tie mr-2" style="color:rgb(12, 202, 139)"></i><span @mouseleave="onleave()" @mouseover="onchange(item2)">{{item2.accounttitle.length > 0 ? item2.accounttitle:'No Record' }}:<a class="ml-8" style="font-weight: lighter;">{{item2.accounttitle.length > 0 ? item2.balance:'0.00' }}</a></span>
                                 </li>
                                 </ul>
 
@@ -58,24 +104,24 @@
                                 <li>
                                     <div class="bold">
                             <i :class="['arrow-icon', { 'open': one1 }]" @click="toggleSubMenu2"></i>
-                            <i class="fa fa-plus-circle mr-4" @click="Addaccountclassgroup('Income Statement')"></i><span @click="toggleSubMenu2">Income Statement</span>
+                            <i class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccountclassgroup('Income Statement')"></i><i class="fa-solid fa-folder ml-2 mr-2" style="color:rgb(26, 182, 174)"></i><span @click="toggleSubMenu2">Income Statement</span>
                             <ul class="context-menu" v-if="one1">
                             <li :key="index"  v-for="(item, index) in chart">
                                 <i v-if="item.main_class == 'Income Statement'" :class="['arrow-icon', { 'open': subMenuOpen[index] }]" @click="right_click(index ,'Income Statement')"></i>
-                                <i v-if="item.main_class == 'Income Statement'" class="fa fa-plus-circle mr-4" @click="Addaccountclass(item.id , item.class_type)"></i><span v-if="item.main_class == 'Income Statement'" @click="toggleSubSubmenu(index, 'Income Statement')">{{ item.text }}:<a class="ml-8" style="font-weight: lighter;">{{ item.balance }}</a></span>
+                                <i v-if="item.main_class == 'Income Statement'" class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccountclass(item.id , item.class_type)"></i><i v-if="item.main_class == 'Income Statement'" class="fa-solid fa-folder-minus ml-1 mr-2" style="color:rgb(24, 125, 192)"></i><span v-if="item.main_class == 'Income Statement'" @click="toggleSubSubmenu(index, 'Income Statement')">{{ item.text }}:<a class="ml-8" style="font-weight: lighter;">{{ item.balance }}</a></span>
                                 <ul class="context-menu" v-if="subMenuOpen[index]">
                                 <li :key="index1" v-for="(items, index1) in item.classes">
                                     <i v-if="item.main_class == 'Income Statement'" :class="['arrow-icon', { 'open': subMenuOpen1[index1] }]" @click="right_click1(index , index1 ,'Balance Sheet')"></i>
-                                    <i  class="fa fa-plus-circle mr-4" @click="Addaccountgroup(items.id , items.classname)" ></i><span v-if="item.main_class == 'Income Statement' " @click="right_click1(index, index1, 'Income Statement')">{{ items.classname }}:<a class="ml-8" style="font-weight: lighter;">{{ items.balance }}</a></span>
+                                    <i  class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccountgroup(items.id , items.classname)" ></i><i class="fa-solid fa-folder-open mr-2 ml-1" style="color:navy"></i><span v-if="item.main_class == 'Income Statement' " @click="right_click1(index, index1, 'Income Statement')">{{ items.classname }}:<a class="ml-8" style="font-weight: lighter;">{{ items.balance }}</a></span>
 
                                     <ul class="context-menu" v-if="subMenuOpen1[index1]">
                                 <li :key="index2" v-for="(item1, index2) in items.groups">
                                     <i v-if="item.main_class == 'Income Statement'" :class="['arrow-icon', { 'open': subMenuOpen2[index2] }]" @click="toggleSubSubmenu2(index , index1 ,index2,'Income Statement')"></i>
-                                    <i  class="fa fa-plus-circle mr-4" @click="Addaccounts(item1.id , item1.groupname)"></i><span @click="toggleSubSubmenu2(index, index1, index2,'Income Statement')">{{ item1.groupname }}:<a class="ml-8" style="font-weight: lighter;">{{ item1.balance }}</a></span>
+                                    <i  class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccounts(item1.id , item1.groupname)"></i><i class="fa-regular fa-folder-open mr-2" style="color:rgb(184, 150, 40)"></i><span @click="toggleSubSubmenu2(index, index1, index2,'Income Statement')">{{ item1.groupname }}:<a class="ml-8" style="font-weight: lighter;">{{ item1.balance }}</a></span>
                                     <ul class="context-menu" v-if="subMenuOpen2[index2]">
                                 <li :key="index3" v-for="(item2, index3) in item1.accounts">
 
-                                    <span >{{item2.accounttitle.length > 0 ? item2.accounttitle:'No Record' }}:<a class="ml-8" style="font-weight: lighter;">{{ item2.balance }}</a></span>
+                                    <i class="fa-solid fa-user-tie mr-2" style="color:rgb(12, 202, 139)"></i><span >{{item2.accounttitle.length > 0 ? item2.accounttitle:'No Record' }}:<a class="ml-8" style="font-weight: lighter;">{{ item2.balance }}</a></span>
                                 </li>
                                 </ul>
                                 </li>
@@ -92,7 +138,7 @@
                         </div>
                         </div>
 
-                        <transition name="bounce" class=" w-full sm:w-1/3 mb-4 sm:mb-0 p-2 col col-8" v-if="active">
+                        <transition name="bounce" class=" w-full sm:w-1/3 mb-4 sm:mb-0 p-2 col col-8" v-if="active" style="z-index:9999;">
                     <div class=" flex col col-4 mt-5 pr-2" >
                         <table class="account-table">
                             <thead class="account-thead">
@@ -143,7 +189,7 @@
 
        
 
-        <div class="py-36 px-2">
+        <div class="py-12 px-2">
             <div class="px-4 py-5  sm:px-6 flex justify-between items-center text-center">
             <h1 class="flex justify-between items-center text-xl leading-6 font-bold text-gray-900 text-center">Chart Of Accounts</h1>
           
@@ -272,6 +318,10 @@
                                     </tr>
                                     <template :key="index3" v-for="(item2, index3) in item1.accounts" v-if="subMenuOpen22[index2]">
                                     <tr class="bg-white-50 text-blue-800">
+                                        <td  class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center align-middle text-center">
+                            <i @click="editaccount(item2.id)" class="fa-regular fa-pen-to-square text-green-500 cursor-pointer"></i>
+                            <i @click="deleteaccount(item2.id)" class="fa-solid fa-trash text-red-500 ml-4 cursor-pointer"></i>
+                            </td>
                                         <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
                                             {{ item2.accountcode !=null ? item2.accountcode :'--' }}
                                         </td>
@@ -375,22 +425,22 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
 
                     <div class="alert alert-danger" v-if="total_balance != 0" style="color:red">
-                                <strong class="hvr-buzz-out"><i class="fas fa-exclamation-triangle"></i> &nbsp;
+                                <strong class="hvr-buzz-out"><i class="fas fa-exclamation-triangle" style="font-size: 1.5em;"></i> &nbsp;
                                     Difference: {{ total_balance }}</strong>
                             </div>
                 </div>
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                <!-- <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
 
 
-                    </div>
+                    </div> -->
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
 
 
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
 
-                <div >
-                            <strong class="hvr-buzz-out" style="color:green"> &nbsp;
+                <div class="text-right font-bold">
+                            <strong class="hvr-buzz-out text-right" style="color:green;"> &nbsp;
                                 Total:</strong>
                         </div>
                 </div>
@@ -866,6 +916,12 @@
                 store11:"/api/accounts_class",
 
                 store2:"/api/accounts_group",
+                store22:"/api/accounts_group",
+                store3:"/api/accounts",
+                store33:"/api/accounts",
+
+
+
 
                 Supplier:'/api/supplier',
                 pdf:'pdf-content',
@@ -985,6 +1041,21 @@
                  
         methods: {
 
+            editaccount(e){
+                byMethod('get', `/api/accounts/${e}/edit`).then((res) => {
+                    console.log(res.data.form);
+                    this.form = res.data.form;
+                    this.title4 = res.data.form.accounttitle
+                  
+             
+                this.show= true;
+                this.show_account_modal3 = true;
+                   
+
+                })
+
+            },
+
             editgroup(e){
 
                 byMethod('get', `/api/accounts_group/${e}/edit`).then((res) => {
@@ -1065,7 +1136,12 @@
                 this.active = true 
             },
             formSubmittedAccounts(){
-                byMethod('post', '/api/accounts' , this.form).then((res) => {
+                if (this.form.id) {
+                    
+                    this.store3 = `/api/accounts/${this.form.id}?_method=PUT`;
+                  
+                }
+                byMethod('post', this.store3 , this.form).then((res) => {
                     console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal3 = false;
@@ -1075,7 +1151,8 @@
                         type: 'success',
                         duration: 3000
                     });
-                    this.form = []
+                    this.form = {}
+                    this.store3 = this.store33;
                     this.setitems();
                     }
                 })
@@ -1087,7 +1164,7 @@
                     this.store2 = `/api/accounts_group/${this.form.id}?_method=PUT`;
                   
                 }
-                byMethod('post', '/api/accounts_group' , this.form).then((res) => {
+                byMethod('post', this.store2 , this.form).then((res) => {
                     console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal2 = false;
@@ -1097,8 +1174,9 @@
                         type: 'success',
                         duration: 3000
                     });
-                    this.form = []
+                    this.form = {}
                     this.setitems();
+                    this.store2 = this.store22;
                     }
                 })
             },
@@ -1120,7 +1198,7 @@
                         type: 'success',
                         duration: 3000
                     });
-                    this.form = []
+                    this.form = {}
                     this.store1 = this.store11;
                     this.setitems();
                     }
@@ -1132,7 +1210,7 @@
                     this.store = `/api/accounts_class_types/${this.form.id}?_method=PUT`;
                   
                 }
-                console.log(this.store);
+                console.log(this.form);
                 byMethod('post', this.store , this.form).then((res) => {
                     console.log(res.data.saved)
                     if(res.data.saved = true){
@@ -1148,8 +1226,8 @@
                     this.setitems();
                     }
                 })
-                this.form = [];
-                    this.store = this.store_new;
+                this.form = {};
+                this.store = this.store_new;
             },
 
             Addaccounts(e , title){
@@ -1341,6 +1419,50 @@
                             this.$toast.error( this.capital + " Deleted successfully!");
                         }
                     })
+            },
+
+            deletegroup(e){
+
+                byMethod('delete', `/api/accounts_group/${e}`)
+                    .then((res) => {
+                        // console.log(res);
+                        if (res.data.deleted) {
+                            this.setitems();
+                            // this.$refs.TableData.reload();
+                            this.$toast.error( this.capital + " Deleted successfully!");
+                        }
+                    })
+            },
+
+
+            deleteaccount(e){
+                byMethod('delete', `/api/accounts/${e}`)
+                    .then((res) => {
+                        // console.log(res);
+                        if (res.data.deleted) {
+                            this.setitems();
+                            // this.$refs.TableData.reload();
+                            this.$toast.error( this.capital + " Deleted successfully!");
+                        }
+                    })
+
+            },
+
+            searchByDate() {
+              
+                byMethod('get',
+                    `/api/accounts_class_types?to=${this.search_start_date}&from=${this.search_end_date}`
+                ).then(res => {
+                    this.chart =[];
+                  this.chart = res.data.data.data;
+                  
+                });
+            },
+
+            clearsearchdata(){
+                this.search_end_date = null,
+                this.search_start_date = null,
+                this.setitems();
             }
         },
     }
