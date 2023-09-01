@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\OrderViews;
+Use App\Models\Order_item;
 use Illuminate\Http\Request;
 
 
@@ -277,6 +278,12 @@ class OrderController extends Controller
         // dd($inventory);
         return response()->json(["data" => $inventory]);
 
+    }
+
+    public function details(){
+        // dd(request('id'));
+        $data = Order_item::where('product_id' , request('id'))->pluck('order_id')->unique();
+        return response()->json(["data" => $data]);
     }
 //    public function replacement()
 //    {

@@ -61,7 +61,7 @@ export default [
 
     {
         path: '/order/:id/show',
-        name: 'edit-order',
+        name: 'show-order',
         component: () => import('../views/order/show.vue'),
         meta: {
             mode: 'edit',

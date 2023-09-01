@@ -271,6 +271,13 @@
                     Order Status History
                 </button>
 
+                <button
+                    @click="successfull()"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                    type="button">
+                    Cancel
+                </button>
+
             </div>
 
             <div v-if="history"
@@ -360,6 +367,8 @@
                 history:false,
                 show: false,
                 resource: '/show',
+                resourcess: '/order',
+
                 store: '/api/order',
                 method: 'POST',
                 small: 'show',
@@ -582,7 +591,7 @@
                 })
             },
             successfull(res) {
-                this.$router.push({path: `${this.resource}`})
+                this.$router.push({path: `${this.resourcess}`})
             },
             // pushroute() {
             //     this.$router.push({path: `/purchase/create`})

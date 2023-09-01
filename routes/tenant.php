@@ -160,7 +160,7 @@ Route::middleware([
         Route::get('sts', [\App\Http\Controllers\DeliverystatusController::class, 'searches']);
         Route::get('required_stock', [\App\Http\Controllers\ReportController::class, 'required']);
         Route::get('download_images', [\App\Http\Controllers\ProductController::class, 'download_images']);
-        Route::get('product_details', [\App\Http\Controllers\PurchaseController::class, 'details']);
+        Route::get('product_details', [\App\Http\Controllers\OrderController::class, 'details']);
 
         // Route::get('uploads/{filename}', [\App\Http\Controllers\ProductController::class, 'showAttachment']);
 

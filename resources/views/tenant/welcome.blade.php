@@ -116,7 +116,7 @@ h1 {
   font-family: "Montserrat Medium";
   max-width: 60ch;
   text-align: center;
-  margin-top: 200px;
+  margin-top: 150px;
   /* font-size: x-large; */
   /* margin-left: 150px; */
 

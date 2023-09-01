@@ -48,7 +48,7 @@ class ProductController extends Controller
             "brand_id" => '',
             "head_id" => '',
             "weight" => 0,
-            Settings()->get('show_warranty'),
+            // Settings()->get('show_warranty'),
         ];
         return response()->json([
             'form' => $form

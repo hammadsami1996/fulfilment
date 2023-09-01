@@ -139,7 +139,7 @@
                                 :url="products"
                                 @input="onProduct(item, index, $event)"
                                 class="w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                display="name"
+                                display="title"
                             />
                             <span @click="pushroute"
                                   style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;"

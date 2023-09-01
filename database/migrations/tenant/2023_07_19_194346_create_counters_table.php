@@ -48,6 +48,13 @@ return new class extends Migration
 
        
     ]);
+
+    DB::table('counters')->insert(['key' => 'accounts',
+       
+    'perfix' => 'AC-', 'value' => 1001
+
+   
+]);
         
     }
 
