@@ -8,16 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+
 class City extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, Search;
+
     protected $table = 'cities';
     protected $fillable = [
         'country_id',
         'state_id',
-        'title',
+        'name',
         'status',
-        'state_name',
+//        'state_id',
 
     ];
     protected $appends = ['text'];
@@ -25,14 +27,15 @@ class City extends Model
 
     public function getTextAttribute()
     {
-        return $this->attributes['title'];
+        return $this->attributes['name'];
     }
+
     protected $columns = [
         "id",
-        "state_name",
+        "state_id",
     ];
     protected $search = [
-        "state_name",
+        "name",
     ];
 
 }

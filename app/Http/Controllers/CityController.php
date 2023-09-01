@@ -15,18 +15,12 @@ class CityController extends Controller
      */
     public function search()
     {
-//        $results = DB::connection('mysql')->table('cities')
-//            ->when(request('q'), function ($query) {
-//                $query->where('title', 'LIKE', '%' . request('q') . '%');
-//            })->when(request('country_id'), function ($query) {
-//                $query->where('country_id', \request('country_id'));
-//            })
-//            ->paginate(10);
-        $results = City::when(request('country_id'), function ($query) {
+        $results = City::when(request()->has('country_id') && \request('country_id'), function ($query) {
             $query->where('country_id', \request('country_id'));
-        })->search();
-        return response()
-            ->json(['data' => $results]);
+        })->when(request('q', null), function ($query) {
+            $query->where('name', 'like', '%' . request('q') . '%');
+        })->paginate(10);
+        return response()->json(['data' => $results]);
     }
 
     public function index()
