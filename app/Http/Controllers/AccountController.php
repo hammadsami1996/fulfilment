@@ -72,4 +72,53 @@ class AccountController extends Controller
 
 
     }
+
+    public function edit($id)
+    {
+        return response()->json([
+            'form' => Account::with(['group', 'user'])->findOrFail($id)
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        //return $request;
+        $model = Account::findOrFail($id);
+        $request->validate([
+            'accountcode' => 'required|max:100',
+            'accounttitle' => 'required|max:100',
+            'group_id' => 'required|integer',
+            'opening_balance' => 'nullable|numeric|min:0',
+            'op_debit' => 'nullable|numeric|min:0',
+            'op_credit' => 'nullable|numeric|min:0',
+            'op_date' => 'nullable',
+            'op_debit' => 'nullable|numeric|min:0',
+            'op_credit' => 'nullable|numeric|min:0',
+            // 'opening_type' => 'required|int|min:0|max:1'
+            'opening_type' => 'nullable|int|min:0|max:1',
+            
+            //'currency_id' => 'required|int'
+        ]);
+
+        $model->user_id = auth()->id();
+        $model->fill($request->all());
+        $model->save();
+        $financeData = Finance_transaction::where('vid', $model->id)->where('voucher_type', 'Opening Balance')->delete();
+        $this->save_finance_transaction($model);
+        return response()->json([
+            'saved' => true,
+            'model' => $model,
+            'id' => $model->id
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $account = Account::findOrFail($id);
+
+        $account->delete();
+
+        return response()
+            ->json(['deleted' => true]);
+    }
 }

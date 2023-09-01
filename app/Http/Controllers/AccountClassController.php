@@ -35,7 +35,7 @@ class AccountClassController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        
         // dd($request->class_type_id);
         $request->validate([
             'classname' => 'required|max:100',
@@ -52,7 +52,7 @@ class AccountClassController extends Controller
 
     public function edit($id)
     {
-        // dd('abcd');
+       
         return response()->json([
             'form' => AccountClass::with('class_type')->findOrFail($id)
         ]);
@@ -60,6 +60,7 @@ class AccountClassController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $class = AccountClass::findOrFail($id);
 
         $request->validate([
