@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('s_phone')->nullable();
             $table->string('s_address_1')->nullable();
             $table->string('s_address_2')->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }

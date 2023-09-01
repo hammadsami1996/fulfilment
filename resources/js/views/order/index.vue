@@ -63,7 +63,7 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">City</label>
-                    <typeahead :initialize="form.city" :url="city" @input="onCity" display="title"/>
+                    <typeahead :initialize="form.city" :url="city" @input="onCity" display="name"/>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">Order Type</label>
