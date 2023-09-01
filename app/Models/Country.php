@@ -14,7 +14,7 @@ class Country extends Model
     use HasApiTokens, HasFactory, Notifiable, HasRoles, Search;
     protected $table = 'countries';
     protected $fillable = [
-        'title',
+        'name',
         'status',
         'other_city_id',
 
@@ -24,13 +24,13 @@ class Country extends Model
 
     public function getTextAttribute()
     {
-        return $this->attributes['title'];
+        return $this->attributes['name'];
     }
     protected $columns = [
         "id",
-        "title",
+        "name",
     ];
     protected $search = [
-        "title",
+        "name",
     ];
 }
