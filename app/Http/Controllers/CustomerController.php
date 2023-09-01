@@ -44,6 +44,7 @@ class CustomerController extends Controller
             "s_phone" => '',
             "s_address_1" => '',
             "s_address_2" => '',
+            "date" => '',
         ];
         return response()->json([
             'form' => $form

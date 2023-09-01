@@ -16,7 +16,6 @@ class Settings
 
         return $output;
     }
-
     /**
      * Get value for the provided key
      *
@@ -48,7 +47,6 @@ class Settings
             $this->db()->where('key', $key)->update(['value' => $value]);
         }
     }
-
     /**
      * Update the value of key with null
      *

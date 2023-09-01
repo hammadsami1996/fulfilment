@@ -30,6 +30,7 @@ return new class extends Migration
             $table->integer('head_id')->nullable();
             $table->integer('quantity')->nullable();
             $table->integer('weight')->nullable();
+            $table->integer('supplier_id')->nullable();
 
             $table->timestamps();
         });

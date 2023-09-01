@@ -156,7 +156,7 @@
                         </td>
 
                         <td v-if="item.product" >
-                          
+
                             <div  v-if="item.product && item.product.product_img && item.product.product_img[0] " style=" max-width: 35%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;"  class="image-container">
                                 <div class="flex items-center">
                                             <img :src="`/uploads/product/img/` +  item.product.product_img[0].img" >
@@ -374,7 +374,6 @@
         created() {
             this.form.po_date = moment().format('YYYY-MM-DD');
         },
-
         computed: {
             subTotal() {
                 return this.form.items.reduce((carry, item) => {
@@ -426,7 +425,6 @@
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
                 this.form.discount_percent = Number(((this.form.discount / this.total) * 100).toFixed(2));
                 this.isLoading = false;
-
             },
             discountper() {
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
@@ -479,6 +477,7 @@
                 if (this.$route.meta.mode === 'edit') {
                     // console.log('ddddfdf');
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
+
                     // console.log(this.store);
 
                     this.title = 'Edit';

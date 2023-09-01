@@ -5,11 +5,11 @@
         </h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                <label class="block font-medium text-sm text-gray-700 mb-2">Order Date *</label>
+                <label class="block font-medium text-sm text-gray-700 mb-2">Date *</label>
                 <input
                     class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    type="date" v-model="form.order_date"/>
-                <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
+                    type="date" v-model="form.date"/>
+                <p class="text-red-600 text-xs italic" v-if="error.date">{{ error.date[0] }}</p>
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
@@ -255,6 +255,7 @@
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import moment from "moment";
 
 
     function initialize(to) {
@@ -291,6 +292,9 @@
                 }
             }
         },
+        created() {
+            this.form.date = moment().format('YYYY-MM-DD');
+        },
 
         beforeRouteEnter(to, from, next) {
             get(initialize(to))
@@ -323,6 +327,7 @@
                     this.form.s_country = '';
                     this.form.s_city = '';
                 }
+
             },
             onCities(e, key) {
                 const city = e.target.value
@@ -362,6 +367,7 @@
                     this.title = 'Edit';
                     this.message = `${this.capital} has been updated`;
                 }
+                this.form.date = moment().format('YYYY-MM-DD');
                 this.show = true
             },
             formSubmitted() {
