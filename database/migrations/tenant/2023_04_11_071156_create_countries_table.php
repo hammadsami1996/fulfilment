@@ -39,7 +39,8 @@ class CreateCountriesTable extends Migration
 //    }
     public function up()
     {
-        DB::unprepared(file_get_contents(public_path('/country_city.sql')));
+//        DB::unprepared(file_get_contents(public_path('/country_city.sql')));
+        DB::unprepared(file_get_contents(public_path('/world.sql')));
         DB::unprepared(file_get_contents(public_path('/permissions.sql')));
     }
 

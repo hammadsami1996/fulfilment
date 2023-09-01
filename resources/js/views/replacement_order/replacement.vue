@@ -65,7 +65,7 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">City:</label>
-                    <typeahead :initialize="form.city" :url="city" @input="onCity" display="title"/>
+                    <typeahead :initialize="form.city" :url="city" @input="onCity" display="name"/>
                     <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                 </div>
             </div>

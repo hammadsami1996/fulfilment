@@ -139,7 +139,7 @@
             <!--                <label-->
             <!--                    class="block font-medium text-sm text-gray-700 mb-2"-->
             <!--                >State:</label>-->
-            <!--                <typeahead :initialize="form.nationality" :url="countries" @input="onNationality" display="title"/>-->
+            <!--                <typeahead :initialize="form.nationality" :url="countries" @input="onNationality" display="name"/>-->
             <!--                &lt;!&ndash;                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>&ndash;&gt;-->
             <!--            </div>-->
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
@@ -147,7 +147,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Country:</label>
                 <typeahead :initialize="form.b_country" :url="countries" @input="onCountries($event,'b_')"
-                           display="title"/>
+                           display="name"/>
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
@@ -156,7 +156,7 @@
                 >City:</label>
                 <typeahead :initialize="form.b_city"
                            :url="form.b_country_id != null ? `/api/city?country_id=${form.b_country_id}` : cities"
-                           @input="onCities($event,'b_city')" display="title"/>
+                           @input="onCities($event,'b_city')" display="name"/>
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
             </div>
         </div>
@@ -213,14 +213,14 @@
             <!--                <label-->
             <!--                    class="block font-medium text-sm text-gray-700 mb-2"-->
             <!--                >State:</label>-->
-            <!--                <typeahead :initialize="form.nationality" :url="countries" @input="onNationality" display="title"/>-->
+            <!--                <typeahead :initialize="form.nationality" :url="countries" @input="onNationality" display="name"/>-->
             <!--                &lt;!&ndash;                    <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>&ndash;&gt;-->
             <!--            </div>-->
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Country:</label>
-                <typeahead :initialize="form.s_country" :url="countries" @input="onCountries($event,'s_')" display="title"/>
+                <typeahead :initialize="form.s_country" :url="countries" @input="onCountries($event,'s_')" display="name"/>
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{error.s_address_1[0] }}</p>-->
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
@@ -229,7 +229,7 @@
                 >City:</label>
                 <typeahead :initialize="form.s_city"
                            :url="form.s_country_id != null ? `/api/city?country_id=${form.s_country_id}` : cities"
-                           @input="onCities($event,'s_city')" display="title"/>
+                           @input="onCities($event,'s_city')" display="name"/>
                 <!--                    <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>-->
             </div>
         </div>
