@@ -22,9 +22,14 @@ class SettingsController extends Controller
     public function create()
     {
     //    dd(request()->all());
-        $model = Companysetting::where('key' , request()->key)->first();
+    $model = null;
+    if(request()->key && request()->company){
+        $model = Companysetting::where('key' , request()->key)->where('company_id' , request()->company)->first();
+
+    }
+    // dd($model);
         return response()->json([
-            "form" => json_decode($model->value)
+            "form" =>$model ?  json_decode($model->value):['company'=>[]]
         ]);
     }
 
@@ -70,21 +75,36 @@ class SettingsController extends Controller
 
     public function add_settings(Request $request){
         // dd($request->all());
-        $model = Companysetting::where('key' , $request['value'])->update([
-            'login_id'=>$request['login_id'],
-            'password'=>$request['password'],
-            'value'=>json_encode($value),
+        $model = Companysetting::where('key' , $request['value'])->first();
+        if($request['value'] == 'sms_settings'){
+            $value=[
+                'login_id'=>$request['login_id'],
+                'password'=>$request['password'],
+              
+                'mask'=>$request['mask'],
+               
+            ];
+        }
+        if($request['value'] == 'email_settings'){
+            $value=[
+                'title'=>$request['title'],
+                'host'=>$request['host'],
+                'username'=>$request['username'],
 
-            'active'=>1,
-            'mask'=>$request['mask'],
-        ]);
-        $value=[
-            'login_id'=>$request['login_id'],
-            'password'=>$request['password'],
-          
-            'mask'=>$request['mask'],
-           
-        ];
+
+                'password'=>$request['password'],
+                'port'=>$request['port'],
+                'smtp'=>$request['smtp'],
+                'form_email'=>$request['form_email'],
+
+
+
+              
+                'value'=>$request['value'],
+               
+            ];
+        }
+       
         $model->key = $request['value'];
         $model->value = json_encode($value);
         $model->active = 1;
