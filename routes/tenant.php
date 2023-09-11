@@ -125,6 +125,8 @@ Route::middleware([
         Route::post('permission_menu', [\App\Http\Controllers\PermissionController::class, 'permission_menu_post']);
 
         Route::post('update', [\App\Http\Controllers\DeliverystatusController::class, 'updatestatus']);
+        Route::post('global_settings', [\App\Http\Controllers\SettingsController::class, 'add_settings']);
+
         Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
         Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
     
@@ -150,6 +152,8 @@ Route::middleware([
         Route::resource('accounts_class', \App\Http\Controllers\AccountClassController::class);
         Route::resource('accounts_group', \App\Http\Controllers\AccountGroupController::class);
         Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+        Route::resource('settings', \App\Http\Controllers\SettingsController::class);
+
 
 
 

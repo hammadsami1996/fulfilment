@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\settings;
+use App\Models\Companysetting;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -20,7 +21,11 @@ class SettingsController extends Controller
      */
     public function create()
     {
-        //
+    //    dd(request()->all());
+        $model = Companysetting::where('key' , request()->key)->first();
+        return response()->json([
+            "form" => json_decode($model->value)
+        ]);
     }
 
     /**
@@ -61,5 +66,33 @@ class SettingsController extends Controller
     public function destroy(settings $settings)
     {
         //
+    }
+
+    public function add_settings(Request $request){
+        // dd($request->all());
+        $model = Companysetting::where('key' , $request['value'])->update([
+            'login_id'=>$request['login_id'],
+            'password'=>$request['password'],
+            'value'=>json_encode($value),
+
+            'active'=>1,
+            'mask'=>$request['mask'],
+        ]);
+        $value=[
+            'login_id'=>$request['login_id'],
+            'password'=>$request['password'],
+          
+            'mask'=>$request['mask'],
+           
+        ];
+        $model->key = $request['value'];
+        $model->value = json_encode($value);
+        $model->active = 1;
+        $model->company_id = $request['company_id'];
+
+        $model->save();
+        return response()->json(['saved' => true, 'id' => $model->id
+        ]);
+
     }
 }
