@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use App\Mail\MyMail;
+use Twilio\Rest\Client;
 use App\Models\settings;
-use App\Models\Companysetting;
+use App\Models\Mailtemplate;
 use Illuminate\Http\Request;
+use App\Models\Companysetting;
+use Illuminate\Support\Facades\Mail;
+
 
 class SettingsController extends Controller
 {
@@ -75,7 +81,10 @@ class SettingsController extends Controller
 
     public function add_settings(Request $request){
         // dd($request->all());
-        $model = Companysetting::where('key' , $request['value'])->first();
+        $model = Companysetting::where('key' , $request['value'])->where('company_id' , $request['company_id'])->first();
+        // dd($model);
+        $model ? $model : $model = new Companysetting;
+        // dd($model);
         if($request['value'] == 'sms_settings'){
             $value=[
                 'login_id'=>$request['login_id'],
@@ -111,8 +120,59 @@ class SettingsController extends Controller
         $model->company_id = $request['company_id'];
 
         $model->save();
+        $this->sendmail();
         return response()->json(['saved' => true, 'id' => $model->id
         ]);
+     
 
+    }
+    
+    public function sendmail(){
+
+        $id= 1;
+        $template = Mailtemplate::findOrFail($id);
+        $data = [
+            "template" => [
+                "subject" => $template['subject'],
+                "content" => $template['content'],
+            ],
+            "cc" => 'nazar@mimsoft.pk',
+            "email" =>'nazar@mimsoft.pk',
+        ];
+        // $data = [
+       
+        //         "subject" => 'hello world',
+        //         "content" => 'testing mail',
+           
+           
+        //     "email" => 'nazar@mimsoft.pk',
+        // ];
+           
+        Mail::to($data['email'])->send(new MyMail($data));
+        return response()->json(['Email sent successfully']);
+    }
+
+
+    public function sendSMS(Request $request)
+    {
+        $twilioSid = env('TWILIO_SID');
+        $twilioAuthToken = env('TWILIO_AUTH_TOKEN');
+        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
+
+        $client = new Client($twilioSid, $twilioAuthToken);
+
+        $to = $request->input('to'); 
+        $message = $request->input('message');
+
+        try {
+            $client->messages->create($to, [
+                'from' => $twilioPhoneNumber,
+                'body' => $message,
+            ]);
+
+            return "SMS sent successfully!";
+        } catch (Exception $e) {
+            return "Error: " . $e->getMessage();
+        }
     }
 }

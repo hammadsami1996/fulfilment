@@ -4,7 +4,7 @@
       <h1 class="sm:w-2/3" style="font-weight: bold; font-size: x-large">
         Company Settings
       </h1>
-      <div class="w-full sm:w-1/3 pl-3 sm:mb-0">
+      <!-- <div class="w-full sm:w-1/3 pl-3 sm:mb-0">
         <label class="block font-medium text-sm text-gray-700 mb-2"
           >Company</label
         >
@@ -17,8 +17,28 @@
         <p class="text-red-600 text-xs italic" v-if="error.company_id">
           {{ error.company_id[0] }}
         </p>
-      </div>
+      </div> -->
     </div>
+    <div class="card-container mb-6">
+    <div  class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(image) in com" >
+     
+      
+      <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" >
+       
+
+                        <div class="card" @click="onCompany(image)">
+                          <img :src="`/uploads/company/logo/` +  image.logo" >
+  <div class="card__content">
+    <p class="card__title">{{ image.country ?  image.country.text:'' }}</p>
+    <p class="card__description">{{image.city ?  image.city.text:'' }}</p>
+  </div>
+</div>
+<span style="color:rgba(61, 125, 179, 0.918); font-weight: bold; font-size:small;">{{ image.name }}</span>
+
+                      </div>
+    
+    </div>
+  </div>
 
     <div class="radio-inputs mb-4">
       <label>
@@ -462,6 +482,7 @@ export default {
       products: "/api/product",
       wearhouses: "/api/wearhouse",
       companys: "/api/company",
+      com:[],
     };
   },
 
@@ -475,6 +496,16 @@ export default {
       this.setData(res);
       next();
     });
+  },
+  created(){
+   
+      byMethod("get","/api/company").then(
+        (res) => {
+           
+           this.com = res.data.data.data;
+        }
+      );
+   
   },
   methods: {
     couriertabs() {
@@ -498,11 +529,21 @@ export default {
     },
 
     onCompany(e) {
-      const company = e.target.value;
+      // console.log(e)
+      const company = e;
+      console.log(company);
       this.form.company = company;
       this.form.company_id = company.id;
       this.company_id = company.id
       this.returns(this.form.company_id);
+    },
+
+    company_data() {
+      byMethod("get","/api/company").then(
+        (res) => {
+           
+        }
+      );
     },
     returns(e) {
       byMethod("get", `/api/settings/create?key=${this.key}&company=${e}`).then(
@@ -690,4 +731,81 @@ export default {
   white-space: nowrap;
   width: 1px;
 }
+.card {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  background-color: #f2f2f2;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1000px;
+  box-shadow: 0 0 0 5px #ffffff80;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card svg {
+  width: 48px;
+  fill: #333;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+.card__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover .card__content {
+  transform: rotateX(0deg);
+}
+
+.card__title {
+  margin: 0;
+  font-size: 12px;
+  color: #3985b1;
+  font-weight: 700;
+}
+
+.card:hover svg {
+  scale: 0;
+}
+
+.card__description {
+  margin: 10px 0 0;
+  font-size: 8px;
+  font-weight: bold;
+  color: #0c0c0c;
+  line-height: 1.4;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+/* .shows{
+  flex: 0 0 calc(12.5% - 20px); 
+  margin-right: 20px; 
+  margin-bottom: 20px; 
+  box-sizing: border-box;
+} */
+
+
+
 </style>
