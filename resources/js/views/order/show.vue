@@ -282,13 +282,23 @@
 
             <div v-if="history"
                 class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex justify-end mt-8 space-x-4">
+                        <i    @click="history = false" class="fa-solid fa-xmark mr-6 mb-2" style="color:red;font-size: 24px; cursor: pointer;"></i>
+                        <!-- <button
+                    @click="history = false"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                    type="button">
+                    Cancel
+                </button> -->
+
+            </div>
                 <table class="min-w-full text-sm align-middle whitespace-nowrap">
                     <thead>
                     <tr class="border-b border-gray-100 dark:border-gray-700/50">
                         <th class=" text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
                             #
                         </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             Date
                         </th>
                         <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
@@ -308,7 +318,7 @@
                                 <td class=" px-3 py-4 item-empty align-right panel-title">
                                     {{ indexs +1 }}
                                 </td>
-                                <td class="  px-3 py-4 item-empty align-right panel-title">
+                                <td class="px-3 py-4 item-empty align-right panel-title">
                                     {{ items.date }}
                                 </td>
                                 <td class="px-3 py-4 item-empty align-right panel-title">
@@ -324,15 +334,11 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="flex justify-end mt-8 space-x-4">
-                        <button
-                    @click="history = false"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
-                    type="button">
-                    Cancel
-                </button>
+                    <!-- <div class="flex justify-end mt-8 space-x-4">
+                        <i    @click="history = false" class="fa-solid fa-xmark mr-4 mb-4" style="color:red;font-size: 36px; cursor: pointer;"></i>
+                     
 
-            </div>
+            </div> -->
                     </div>
         </div>
     </div>
