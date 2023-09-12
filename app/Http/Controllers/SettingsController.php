@@ -82,6 +82,7 @@ class SettingsController extends Controller
     public function add_settings(Request $request){
         // dd($request->all());
         $model = Companysetting::where('key' , $request['value'])->where('company_id' , $request['company_id'])->first();
+        
         // dd($model);
         $model ? $model : $model = new Companysetting;
         // dd($model);
@@ -120,24 +121,29 @@ class SettingsController extends Controller
         $model->company_id = $request['company_id'];
 
         $model->save();
-        $this->sendmail();
-        return response()->json(['saved' => true, 'id' => $model->id
-        ]);
+        $this->sendmail($model->id);
+        // $this->sendSMS();
+
+        // return response()->json(['saved' => true, 'id' => $model->id
+        // ]);
      
 
     }
     
-    public function sendmail(){
+    public function sendmail($model){
 
         $id= 1;
+        $email = Companysetting::findOrFail($model);
+        $emails = json_decode($email->value);
+        // dd($emails->username);
         $template = Mailtemplate::findOrFail($id);
         $data = [
             "template" => [
                 "subject" => $template['subject'],
                 "content" => $template['content'],
             ],
-            "cc" => 'nazar@mimsoft.pk',
-            "email" =>'nazar@mimsoft.pk',
+            "from_email" => $emails->form_email,
+            "email" =>$emails->username,
         ];
         // $data = [
        
@@ -153,26 +159,51 @@ class SettingsController extends Controller
     }
 
 
-    public function sendSMS(Request $request)
+    public function sendSMS()
     {
-        $twilioSid = env('TWILIO_SID');
-        $twilioAuthToken = env('TWILIO_AUTH_TOKEN');
-        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
 
-        $client = new Client($twilioSid, $twilioAuthToken);
+        $sid    = "ACbe1685f4dd8a33984d4255bc19f9eda9";
+        // $sid    = 'welcome';
 
-        $to = $request->input('to'); 
-        $message = $request->input('message');
+        $token  = env('TWILIO_AUTH_TOKEN');
+        
 
-        try {
-            $client->messages->create($to, [
-                'from' => $twilioPhoneNumber,
-                'body' => $message,
-            ]);
+        $twilio = new Client($sid, $token);
+        $to = '+923420022843'; 
+        // $message = $twilio->messages
+        //   ->create("+923420022843", // to
+        //     array(
+        //       "from" => "+19722771946",
+        //       "body" => "testing api"
+        //     )
+        //   );
+          $message = $twilio->messages->create($to, [
+            "from" => "+19722771946",
+            "body" => "testing sms api"
+                ]);
+        //   return "SMS sent successfully!" ;
+    print($message->sid);
+        
+        // $twilioSid = env('TWILIO_SID');
+        // $twilioAuthToken = env('TWILIO_AUTH_TOKEN');
+        // $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
+        
+        // $client = new Client($twilioSid, $twilioAuthToken);
 
-            return "SMS sent successfully!";
-        } catch (Exception $e) {
-            return "Error: " . $e->getMessage();
-        }
+        // $to = '03420022843'; 
+        // $message = 'this is testing sms';
+
+        // try {
+            
+        //     $client->messages->create($to, [
+        //         'from' => $twilioPhoneNumber,
+        //         'body' => $message,
+        //     ]);
+
+        //     return response()->json(["SMS sent successfully!"]) ;
+        // } catch (Exception $e) {
+        //     dd('abcd');
+        //     return "Error: " . $e->getMessage();
+        // }
     }
 }
