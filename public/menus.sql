@@ -11,7 +11,7 @@
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 12/09/2023 11:08:20
+ Date: 12/09/2023 11:47:27
 */
 
 SET NAMES utf8mb4;
@@ -76,5 +76,6 @@ INSERT INTO `menus` VALUES (48, 'Sales', NULL, NULL, NULL, 'web', NULL, NULL, NU
 INSERT INTO `menus` VALUES (49, '', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (51, 'Suppliers', '/supplier', 'view-supplier', 48, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (52, 'Place Replacement Order', '/replacement', 'view-replacement', 45, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (53, 'Stores', '/stores', 'view-stores', 33, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
