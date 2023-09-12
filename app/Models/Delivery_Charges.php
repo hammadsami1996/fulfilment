@@ -8,34 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Company extends Model
+class Delivery_Charges extends Model
 {
     use HasFactory, Notifiable, HasRoles;
     use Search;
+    protected $table = 'delivery_charges';
     protected $fillable = [
-        'name','phone','tax_number','city_id','country_id','postal','province','address','logo','email'
+        'country_id', 'weight','charges'
     ];
     protected $columns = [
-        'name',
+        'country_id', 'weight','charges'
     ];
 
     protected $search = [
-        'name',
+        'country_id', 'weight','charges'
     ];
     protected $appends = ['text'];
 
 
     public function getTextAttribute()
     {
-        return $this->attributes['name'];
+        return $this->attributes['charges'];
     }
-    public function country()
-    {
-        return $this->belongsTo(Country::class,  'country_id', 'id');
-    }
-    public function city()
-    {
-        return $this->belongsTo(City::class,  'city_id', 'id');
-    }
-
 }

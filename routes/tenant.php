@@ -127,7 +127,7 @@ Route::middleware([
         Route::post('update', [\App\Http\Controllers\DeliverystatusController::class, 'updatestatus']);
         Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
         Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
-    
+
 
 
 
@@ -161,12 +161,10 @@ Route::middleware([
         Route::get('required_stock', [\App\Http\Controllers\ReportController::class, 'required']);
         Route::get('download_images', [\App\Http\Controllers\ProductController::class, 'download_images']);
         Route::get('product_details', [\App\Http\Controllers\OrderController::class, 'details']);
+        Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);
+
 
         // Route::get('uploads/{filename}', [\App\Http\Controllers\ProductController::class, 'showAttachment']);
-
-       
-
-
 
         Route::resource('order', \App\Http\Controllers\OrderController::class);
         Route::resource('customer', \App\Http\Controllers\CustomerController::class);

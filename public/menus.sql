@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost_3306
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilment1st
+ Source Schema         : tenantfulfilmentsixth
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 26/08/2023 17:44:09
+ Date: 12/09/2023 11:08:20
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `menus`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `sort` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
@@ -57,5 +57,24 @@ INSERT INTO `menus` VALUES (29, 'Product Category', '/product_category', 'view-p
 INSERT INTO `menus` VALUES (30, 'Receive Order', '/receive_order', 'view-receive_order', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (31, 'Brand', '/brand', 'view-brand', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (32, 'Place Replacement Order', '/replacement', 'view-replacement', 1, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (33, 'Setup', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (34, 'User', '/user', 'view-user', 33, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (35, 'Role', '/role', 'view-role', 33, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (36, 'Permission', '/permission', 'view-permission', 33, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
+INSERT INTO `menus` VALUES (37, 'User Subscription', '/user_subscription', 'view-user_subscription', 33, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (38, 'Company', '/company', 'view-company', 33, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
+INSERT INTO `menus` VALUES (39, 'Wearhouse', '/wearhouse', 'view-wearhouse', 33, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
+INSERT INTO `menus` VALUES (40, 'Purchase', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (41, 'Product', '/product', 'view-product', 40, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
+INSERT INTO `menus` VALUES (42, 'Inventory', '/inventory', 'view-inventory', 40, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
+INSERT INTO `menus` VALUES (43, 'Product Category', '/product_category', 'view-product_category', 40, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (44, 'Brand', '/brand', 'view-brand', 40, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (45, 'Orders', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (46, 'Order', '/order', 'view-order', 45, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (47, 'Receive Order', '/receive_order', 'view-receive_order', 45, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (48, 'Sales', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (49, '', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (51, 'Suppliers', '/supplier', 'view-supplier', 48, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (52, 'Place Replacement Order', '/replacement', 'view-replacement', 45, 'web', NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
