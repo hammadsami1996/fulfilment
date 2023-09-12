@@ -24,6 +24,7 @@ class StoreController extends Controller
             "name" => '',
             "location" => '',
             "company_id" => '',
+            "store_type" => '',
         ];
         return response()->json([
             'form' => $form

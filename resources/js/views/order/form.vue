@@ -65,7 +65,8 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">City:</label>
-                    <typeahead :initialize="form.city" :url="city" @input="onCity" display="name"/>
+                    <typeahead :initialize="form.city" :url="city" @input="onCity"
+                               display="name"/>
                     <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                 </div>
             </div>
@@ -336,6 +337,14 @@
         created() {
             this.form.order_date = moment().format('YYYY-MM-DD');
         },
+        // watch: {
+        //     'form.weight': function (newValue, oldValue) {
+        //         // Check if the new value is different from the old value
+        //         if (newValue !== oldValue) {
+        //             this.get_charges(newValue);
+        //         }
+        //     }
+        // },
         computed: {
 
             subTotal() {
@@ -374,6 +383,15 @@
                 // return (this.total - Number(this.form.discount));
                 return final;
             },
+            total_weight() {
+                var total = 0;
+                total = this.form.items.reduce((carry, item) => {
+                    return carry + Number(item.total_weight);
+                }, 0);
+                // this.form.weight = total;
+                this.get_charges(total);
+                return total;
+            },
         },
 
         beforeRouteEnter(to, from, next) {
@@ -390,15 +408,32 @@
                 })
         },
         methods: {
+            get_charges(i) {
+                console.log(i , this.form.city, this.form.city.id);
+                if (i && this.form.city) {
+                    console.log('j');
+                    byMethod('GET', `/api/get_delivery_charges/${this.form.city.id}?weight=${i}&country_id=${this.form.city.country_id}`)
+                }
+                this.form.weight = i;
+                console.log('i');
+                // let e = {
+                //     weight : i ,
+                //     city_id : this.form.city_id,
+                // }
+                // byMethod('GET',`/api/get_delivery_charges/weight=${i}&city_id=${this.form.city_id}`)
+                // byMethod('POST',`/api/get_delivery_charges/weight=${i}&city_id=${this.form.city_id}`)
+                // byMethod('POST',`/api/get_delivery_charges`,e)
+            },
             onOrder_type(e) {
                 const ordertype = e.target.value
                 this.form.ordertype = ordertype
                 this.form.order_type_id = ordertype.id
             },
-            onCity(e){
+            onCity(e) {
                 const city = e.target.value
                 this.form.city = city
                 this.form.city_id = city.id
+                this.get_charges(this.total_weight);
             },
             onWearhouse(e) {
                 const wearhouse = e.target.value
@@ -408,7 +443,6 @@
             isSaveDisabled() {
                 for (const item of this.form.items) {
                     if (this.count < item.qty) {
-                        // console.log(this.count)
                         // isProcess = false;
                         this.color = 'gray'
                         return true;
@@ -456,12 +490,13 @@
                 this.alert = false;
                 const product = e.target.value
                 item.product = product
-                // this.form.items[index].product = product
                 item.product_id = product.id
                 item.unit_price = product.selling_price
                 item.quantity = product.quantity
-                this.remain(item.product_id);
+                item.weight = product.weight
+                item.total_weight = (item.weight * item.qty);
                 this.caltax(item, index);
+                this.remain(item.product_id);
             },
 
             remain(e) {
@@ -498,12 +533,13 @@
                 this.form.order_date = moment().format('YYYY-MM-DD');
                 this.show = true
             },
-            caltax(item, index) {
+            caltax(item) {
                 const {qty, unit_price, tax_percent} = item;
-                // Perform the calculations here
-                // For example, to calculate value_ex_tax and tax_amount
+
+                // Calculate and assign values directly to item properties
+                // item.total_weight = item.weight * qty;
                 item.value_ex_tax = qty * unit_price;
-                item.tax_amount = (qty * unit_price * tax_percent) / 100;
+                item.tax_amount = (item.value_ex_tax * tax_percent) / 100;
                 item.value_inc_tax = item.value_ex_tax + item.tax_amount;
             },
             discountamt(discount) {

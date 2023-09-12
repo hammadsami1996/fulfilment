@@ -12,7 +12,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Company::search()]);
+        return response()->json(['data' => Company::with( 'country', 'city')->search()]);
     }
 
     /**
@@ -22,7 +22,15 @@ class CompanyController extends Controller
     {
         $form = [
             "name" => '',
-            "vaccation" => '',
+            "phone" => '',
+            "tax_number" => '',
+            "city_id" => '',
+            "country_id" => '',
+            "postal" => '',
+            "province" => '',
+            "address" => '',
+            "logo" => '',
+            "email" => '',
         ];
         return response()->json([
             'form' => $form
@@ -38,8 +46,24 @@ class CompanyController extends Controller
             'name' => 'required',
         ]);
         $model = new Company();
-        $model->fill($request->all());
+        $model->fill($request->except('imgN'));
+        if ($request->hasFile('imgN')) {
+            $file = $request->file('imgN');
+
+            $extension = $file[0]->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file[0]->move('uploads/company/logo', $filename);
+            $model->logo = $filename;
+        }
+//        dd($model);
         $model->save();
+
+//        foreach ($request->product_img as $key => $item) {
+
+
+
+
+//        }
         return response()->json(["saved" => true, "id" => $model->id]);
     }
 
@@ -72,7 +96,14 @@ class CompanyController extends Controller
             'name' => 'required',
         ]);
         $model = Company::findOrFail($id);
-        $model->fill($request->all());
+        $model->fill($request->except('imgN'));
+        if ($request->hasFile('imgN')) {
+            $file = $request->file('imgN');
+            $extension = $file[0]->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file[0]->move('uploads/company/logo', $filename);
+            $model->logo = $filename;
+        }
 //        $model->updated_by = Auth::id();
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);

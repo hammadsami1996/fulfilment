@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Counter;
 use App\Models\Customer;
+use App\Models\Delivery_Charges;
 use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\OrderViews;
@@ -285,10 +286,23 @@ class OrderController extends Controller
         $data = Order_item::where('product_id' , request('id'))->pluck('order_id')->unique();
         return response()->json(["data" => $data]);
     }
-//    public function replacement()
-//    {
-//
-//    }
+    public function get_delivery_charges($id)
+    {
+//        dd($id);
+
+        $model = Delivery_Charges::where('city_id', $id)->where('weight','<=',\request('id'))->orderBy('weight','DESC')->first();
+
+        if (!$model){
+            $model = Delivery_Charges::where('country_id', $id)->where('weight','<=',\request('id'))->orderBy('weight','DESC')->first();
+        }
+        if (!$model){
+            $model = 0;
+        }
+
+        return response()->json([
+            "form" => $model
+        ]);
+    }
 
 
 }

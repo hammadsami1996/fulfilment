@@ -13,7 +13,7 @@ class Company extends Model
     use HasFactory, Notifiable, HasRoles;
     use Search;
     protected $fillable = [
-        'name',
+        'name','phone','tax_number','city_id','country_id','postal','province','address','logo','email'
     ];
     protected $columns = [
         'name',
@@ -29,4 +29,13 @@ class Company extends Model
     {
         return $this->attributes['name'];
     }
+    public function country()
+    {
+        return $this->belongsTo(Country::class,  'country_id', 'id');
+    }
+    public function city()
+    {
+        return $this->belongsTo(City::class,  'city_id', 'id');
+    }
+
 }
