@@ -40,8 +40,8 @@ class MyMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            // $this->subject($this->data['subject'])
-            subject: 'hello',
+            subject :$this->data['from_email']
+            // subject: 'hello',
         );
     }
 
