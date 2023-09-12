@@ -122,7 +122,7 @@ class SettingsController extends Controller
 
         $model->save();
         $this->sendmail($model->id);
-        // $this->sendSMS();
+        // $this->sendSMS($model->id);
 
         // return response()->json(['saved' => true, 'id' => $model->id
         // ]);
@@ -159,13 +159,15 @@ class SettingsController extends Controller
     }
 
 
-    public function sendSMS()
+    public function sendSMS($id)
     {
-
-        $sid    = "ACbe1685f4dd8a33984d4255bc19f9eda9";
+        $sms = Companysetting::findOrFail($id);
+        $sms2 = json_decode($sms->value);
+        $sid = $sms2->login_id; 
+        // $sid    = "ACbe1685f4dd8a33984d4255bc19f9eda9";
         // $sid    = 'welcome';
-
-        $token  = env('TWILIO_AUTH_TOKEN');
+        $token = $sms2->password;
+        // $token  = env('TWILIO_AUTH_TOKEN');
         
 
         $twilio = new Client($sid, $token);
