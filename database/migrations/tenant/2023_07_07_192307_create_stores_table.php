@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('location')->nullable();
             $table->string('store_type')->nullable();
+            $table->string('plate_form')->nullable();
+            $table->string('access_token')->nullable();
+            $table->string('store_address')->nullable();
             $table->integer('company_id')->nullable();
             $table->timestamps();
         });
