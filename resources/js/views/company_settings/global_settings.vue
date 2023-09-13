@@ -326,9 +326,18 @@
 
     <div class="p-6" v-if="courier">
       <h1 class="text-lg font-bold mb-4">Courier Settings</h1>
+      <hr>
+      <div class="mt-3 w-full sm:w-1/6 mb-6 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+      <button data-text="Awesome" class="buttons">
+    <span class="actual-text" style="color: black;" ><i class="fa-solid fa-store fa-2x" style="color: #252629;"></i></span>
+    <span class="hover-text" aria-hidden="true"><i class="fa-solid fa-store fa-2x" ></i></span>
+</button>
+</div>
+<hr>
+<br>  
       <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-        <div class="w-full sm:w-1/4 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
-          <div  class=" flex flex-row w-full py-2 px-3 " @click="wordpress">
+        <div class="ml-24 mr-12 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+          <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('woocommerce')">
                     <div class="coin">
           <div class="side heads">
             <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
@@ -346,9 +355,153 @@
           
           
     </div>
+
+    <div class="ml-24 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+          <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('shopify')">
+                    <div class="coins" >
+          <div class="side heads">
+            <i class="fa-brands fa-shopify fa-xs" style="color: #bbc2ce;"></i>
+            </div>
+            <div class="side tails">
+              <i class="fa-brands fa-shopify fa-xs" style="color: #bbc2ce; font-size: smaller;"></i>
+            </div>
+            
+            </div>
+            <h1 class="ml-12 mt-4"><strong style="color:rgb(31, 119, 19)">Shopify</strong><br><span style="font-size:small">Configration</span></h1>
+          
+
+  
+          </div>
+          
+          
+    </div>
        </div>
           
     </div>
+                  <Modal :show="true" 
+
+              height="900"
+
+              v-if="show_ecommerce"
+              >
+
+              <div >
+                <h1 class="text-lg font-bold  mt-4 mb-4 text-center">Store Settings</h1>
+                <hr>
+      <div>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'woocommerce'">
+          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" >
+            <label class="block font-medium text-sm text-gray-700 mb-2"
+              >Api Key
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.api_key"
+            />
+
+            <p class="text-red-600 text-xs italic" v-if="error.api_key">
+              {{ error.api_key[0] }}
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+            <label class="block font-medium text-sm text-gray-700 mb-2"
+              >Api Secret</label
+            >
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.api_secret"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.api_secret">
+              {{ error.api_secret[0] }}
+            </p>
+          </div>
+
+          
+        </div>
+
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'shopify'">
+          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2" >
+            <label class="block font-medium text-sm text-gray-700 mb-2"
+              >Access Token
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.api_key"
+            />
+
+            <p class="text-red-600 text-xs italic" v-if="error.api_key">
+              {{ error.api_key[0] }}
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" style="display:none">
+            <label class="block font-medium text-sm text-gray-700 mb-2"
+              >Api Secret</label
+            >
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.api_secret"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.api_secret">
+              {{ error.api_secret[0] }}
+            </p>
+          </div>
+
+          
+        </div>
+
+        
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+          
+
+          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
+            <label class="block font-medium text-sm text-gray-700 mb-2">
+              Store Address
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.store_address"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.store_address">
+              {{ error.store_address[0] }}
+            </p>
+          </div>
+        </div>
+      
+      </div>
+
+              </div>
+
+
+
+
+
+              <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">
+                <button v-if="connection_button"
+              @click="wordpress"
+              class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
+              type="button">
+              Test Connecion
+              </button>
+              <button v-if="save_button"
+              @click="wordpress"
+              class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+              type="button">
+              Save
+              </button>
+
+              <button
+              @click="close"
+              class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+              type="button">
+              Cancel
+              </button>
+              </div>
+              </Modal>
   </div>
 </template>
 
@@ -356,6 +509,7 @@
 import { byMethod, get } from "@/libs/api";
 import { form } from "@/libs/mixins";
 import Typeahead from "@/Components/typeahead/typeahead.vue";
+import Modal from "@/Components/Modal.vue";
 
 function initialize(to) {
   let urls = {
@@ -369,14 +523,17 @@ function initialize(to) {
 export default {
   mixins: [form],
   components: {
-    Typeahead,
+    Typeahead, Modal
   },
   data() {
     return {
       show_company_data: false,
       email: false,
       sms: true,
+      show_ecommerce:false,
       courier: false,
+      save_button:false,
+      connection_button:true,
       error: {},
       company_id: {},
       key: "sms_settings",
@@ -389,6 +546,7 @@ export default {
       title: "Add",
       message: "New settings Added",
       permissions: {},
+      online_store_name:{},
       products: "/api/product",
       wearhouses: "/api/wearhouse",
       companys: "/api/company",
@@ -419,9 +577,51 @@ export default {
   },
   methods: {
 
+    close(){
+      this.show_ecommerce = false,
+      this.form = []
+    },
+    ecommerce(e){
+      this.online_store_name = e;
+      this.show = true
+        this.show_ecommerce = true
+    },
+
     wordpress(){
-      byMethod("get", '/api/wordpress').then(
+      byMethod("post", '/api/ecommerce' ,this.form).then(
         (res) => {
+          if(res.data.data){
+            this.$toast.open({
+            position: "top-right",
+            message:
+             "Connection Successful",
+            type: "success",
+            duration: 3000,
+          });
+          this.save_button = true,
+          this.connection_button = false
+
+          }
+          if(res.data.woocommerce_error){
+            this.$toast.open({
+            position: "top-right",
+            message: res.data.woocommerce_error,
+            type: "error",
+            duration: 7000,
+          });
+            // this.message = res.data.woocommerce_error
+          }
+
+          if(res.data.error){
+            this.$toast.open({
+            position: "top-right",
+            message: "Connection Failed",
+            type: "error",
+            duration: 3000,
+          });
+            // this.message = res.data.error
+          }
+          // console.log(res.data.error)
           
         }
       )
@@ -723,7 +923,21 @@ export default {
   margin-bottom: 20px; 
   box-sizing: border-box;
 } */
-
+.coins {
+  font-size: 80px;
+  width: 0.1em;
+  height: 1em;
+  background: linear-gradient(49deg, rgb(91, 255, 154) 0%, rgb(29, 194, 65) 31%, rgb(4, 143, 4) 71%);
+  /* margin: auto; */
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+  /* right: 0; */
+  /* bottom: 0; */
+  margin-left:10%;
+  animation: rotate_4001510 7s infinite linear;
+  transform-style: preserve-3d;
+}
 .coin {
   font-size: 80px;
   width: 0.1em;
@@ -761,8 +975,35 @@ export default {
   transform: rotateY(90deg);
 }
 
+.coins .side, .coins:before, .coins:after {
+  content: "";
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  border-radius: 50%;
+  right: -0.4em;
+  text-align: center;
+  line-height: 1;
+  transform: rotateY(-90deg);
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.coins .tails, .coins:after {
+  left: -0.4em;
+  transform: rotateY(90deg);
+}
+
+
 .coin:before, .coin:after {
   background: linear-gradient(49deg, rgba(37,40,119,1) 0%, rgba(31,31,88,1) 31%, rgba(11,37,37,1) 71%);
+  backface-visibility: hidden;
+  transform: rotateY(90deg);
+}
+.coins:before, .coins:after {
+  background: linear-gradient(49deg, rgb(91, 255, 154) 0%, rgb(29, 194, 65) 31%, rgb(4, 143, 4) 71%);
   backface-visibility: hidden;
   transform: rotateY(90deg);
 }
@@ -770,6 +1011,10 @@ export default {
 .coin:after {
   transform: rotateY(-90deg);
 }
+.coins:after {
+  transform: rotateY(-90deg);
+}
+
 
 @keyframes rotate_4001510 {
   100% {
@@ -779,6 +1024,50 @@ export default {
 
 .svg_back {
   transform: scaleX(-1);
+}
+
+
+/* === removing default button style ===*/
+.buttons {
+  margin: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* button styling */
+.buttons {
+  --border-right: 6px;
+  --text-stroke-color: rgba(255,255,255,0.6);
+  --animation-color: #37FF8B;
+  --fs-size: 1.5em;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: var(--fs-size);
+  font-family: "Arial";
+  position: relative;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+}
+/* this is the text, when you hover on button */
+.hover-text {
+  position: absolute;
+  box-sizing: border-box;
+  content: attr(data-text);
+  color: var(--animation-color);
+  width: 0%;
+  inset: 0;
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  transition: 0.5s;
+  -webkit-text-stroke: 1px var(--animation-color);
+}
+/* hover */
+.buttons:hover .hover-text {
+  width: 100%;
+  filter: drop-shadow(0 0 23px var(--animation-color))
 }
 
 
