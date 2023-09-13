@@ -81,7 +81,7 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0 mt-6"
                      v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
                     <button
                         @click="testconnection()"

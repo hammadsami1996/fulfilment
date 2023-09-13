@@ -10,9 +10,9 @@ class ShopifyController extends Controller
     public function fetchData(Request $request)
     {
 //        dd($request->all());
-        $apiUrl =$request->store_address = 'https://mykdeals.com/admin/api/2023-07/orders.json?status=any';
+        $apiUrl = $request->store_address . '/admin/api/2023-07/orders.json?status=any';
         $headers = [
-            'X-Shopify-Access-Token' => $request->access_token = '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',
+            'X-Shopify-Access-Token' => $request->access_token,
         ];
         // Make the HTTP GET request with headers using the Http facade
         $response = Http::withHeaders($headers)->get($apiUrl);
