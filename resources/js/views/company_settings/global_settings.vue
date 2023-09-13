@@ -327,117 +327,27 @@
     <div class="p-6" v-if="courier">
       <h1 class="text-lg font-bold mb-4">Courier Settings</h1>
       <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2"
-            >Title
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="text"
-            v-model="form.title"
-          />
+        <div class="w-full sm:w-1/4 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+          <div  class=" flex flex-row w-full py-2 px-3 " @click="wordpress">
+                    <div class="coin">
+          <div class="side heads">
+            <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
+            </div>
+            <div class="side tails">
+        <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
+            </div>
+            
+            </div>
+            <h1 class="ml-12 mt-4"><strong style="color:rgb(40, 40, 104)">WordPress</strong><br><span style="font-size:small">Configration</span></h1>
+          
 
-          <p class="text-red-600 text-xs italic" v-if="error.title">
-            {{ error.title[0] }}
-          </p>
-        </div>
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2"
-            >Host</label
-          >
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="text"
-            v-model="form.host"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.host">
-            {{ error.host[0] }}
-          </p>
-        </div>
-
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2"
-            >Username
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="email"
-            v-model="form.username"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.username">
-            {{ error.username[0] }}
-          </p>
-        </div>
-      </div>
-      <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2">
-            Password
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="password"
-            v-model="form.password"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.password">
-            {{ error.password[0] }}
-          </p>
-        </div>
-
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2">
-            Port
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="number"
-            v-model="form.port"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.port">
-            {{ error.port[0] }}
-          </p>
-        </div>
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2">
-            SMTPSecure
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="text"
-            v-model="form.ssl"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.ssl">
-            {{ error.ssl[0] }}
-          </p>
-        </div>
-      </div>
-
-      <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2">
-            From Email
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="email"
-            v-model="form.form_email"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.form_email">
-            {{ error.form_email[0] }}
-          </p>
-        </div>
-      </div>
-      <div class="flex justify-end mt-8 space-x-4">
-        <button
-          @click="savejson('email_settings')"
-          class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-          type="button"
-        >
-          {{
-            $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add"
-          }}
-        </button>
-      </div>
+  
+          </div>
+          
+          
+    </div>
+       </div>
+          
     </div>
   </div>
 </template>
@@ -508,6 +418,14 @@ export default {
    
   },
   methods: {
+
+    wordpress(){
+      byMethod("get", '/api/wordpress').then(
+        (res) => {
+          
+        }
+      )
+    },
     couriertabs() {
       (this.email = false), (this.sms = false), (this.courier = true);
     },
@@ -759,7 +677,7 @@ export default {
 
 .card__content {
   position: absolute;
-  top: 0;
+  
   left: 0;
   width: 100%;
   height: 100%;
@@ -805,6 +723,63 @@ export default {
   margin-bottom: 20px; 
   box-sizing: border-box;
 } */
+
+.coin {
+  font-size: 80px;
+  width: 0.1em;
+  height: 1em;
+  background: linear-gradient(49deg, rgba(37,40,119,1) 0%, rgba(31,31,88,1) 31%, rgba(11,37,37,1) 71%);
+  /* margin: auto; */
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+  /* right: 0; */
+  /* bottom: 0; */
+  margin-left:10%;
+  animation: rotate_4001510 7s infinite linear;
+  transform-style: preserve-3d;
+}
+
+.coin .side, .coin:before, .coin:after {
+  content: "";
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  border-radius: 50%;
+  right: -0.4em;
+  text-align: center;
+  line-height: 1;
+  transform: rotateY(-90deg);
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.coin .tails, .coin:after {
+  left: -0.4em;
+  transform: rotateY(90deg);
+}
+
+.coin:before, .coin:after {
+  background: linear-gradient(49deg, rgba(37,40,119,1) 0%, rgba(31,31,88,1) 31%, rgba(11,37,37,1) 71%);
+  backface-visibility: hidden;
+  transform: rotateY(90deg);
+}
+
+.coin:after {
+  transform: rotateY(-90deg);
+}
+
+@keyframes rotate_4001510 {
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.svg_back {
+  transform: scaleX(-1);
+}
 
 
 
