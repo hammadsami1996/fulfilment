@@ -29,9 +29,16 @@ class WordpressController extends Controller
 
     public function getWooCommerceOrders()
 {
-    $woocommerceApiUrl = 'https://wp.mimcart.com/wp-json/wc/v3/orders'; 
-    $apiKey = 'ck_293766b75c5a707c5fb6638475880810a3c70a5a';
-    $apiSecret = 'cs_3895987df29107dcc5cd788b46bc6705f54f5f0c';
+    // dd(request()->api_secret);
+    // $woocommerceApiUrl = 'https://wp.mimcart.com/wp-json/wc/v3/orders'; 
+    $woocommerceApiUrl = request()->store_address; 
+
+    // $apiKey = 'ck_293766b75c5a707c5fb6638475880810a3c70a5a';
+    $apiKey = request()->api_key;
+
+    // $apiSecret = 'cs_3895987df29107dcc5cd788b46bc6705f54f5f0c';
+    $apiSecret = request()->api_secret;
+
 
     try {
         $response = Http::withBasicAuth($apiKey, $apiSecret)->get($woocommerceApiUrl);
@@ -40,14 +47,16 @@ class WordpressController extends Controller
             $orders = $response->json();
             // dd($orders);
             // Process and use $orders as needed
-            return view('woocommerce.orders', compact('orders'));
+            return response()->json(['data' => true]);
+            // return view('woocommerce.orders', compact('orders'));
         } else {
             // Handle API error response
-            return view('woocommerce.error', ['message' => $response->body()]);
+            return response()->json(['error' => true]);
+            // return view('woocommerce.error', ['message' => $response->body()]);
         }
     } catch (\Exception $e) {
         // Handle any other errors here
-        return view('woocommerce.error', ['message' => $e->getMessage()]);
+        return response()->json(['woocommerce_error'=> $e->getMessage()]);
     }
 }
 }
