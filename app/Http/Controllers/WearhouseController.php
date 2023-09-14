@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 
 class WearhouseController extends Controller
 {
+
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(['data' => Wearhouse::search()]);
+        return response()->json(['data' => Wearhouse::with('child')->search()]);
     }
 
     /**
@@ -23,6 +26,7 @@ class WearhouseController extends Controller
         $form = [
             "name" => '',
             "location" => '',
+            "parent_id" => null,
         ];
         return response()->json([
             'form' => $form
@@ -58,7 +62,7 @@ class WearhouseController extends Controller
      */
     public function edit($id)
     {
-        $model = Wearhouse::findOrFail($id);
+        $model = Wearhouse::with('parent')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);

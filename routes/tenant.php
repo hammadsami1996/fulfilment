@@ -131,7 +131,7 @@ Route::middleware([
         Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
         Route::get('wordpress', [\App\Http\Controllers\WordpressController::class, 'getWooCommerceOrders']);
 
-        
+
 
 
 

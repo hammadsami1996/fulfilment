@@ -76,7 +76,8 @@
                      v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"  type="url"
+                        placeholder="https://example.com"
                         v-model="form.store_address"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
@@ -89,6 +90,7 @@
                         type="button">
                         Test Connection
                     </button>
+                    <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
                 </div>
             </div>
 
@@ -142,6 +144,8 @@
                 message: 'New stores Added',
                 permissions: {},
                 companys: '/api/company',
+                errorMessage: '',
+                buttonText: 'Test Connection',
             }
         },
 
@@ -174,37 +178,50 @@
                 }
                 this.show = true
             },
-            testconnection(){
-                byMethod('get', `/api/fetch_data?store_address=${this.form.store_address}&access_token=${this.form.access_token}` ).then((res) => {
+            testconnection() {
+                byMethod('get', `/api/fetch_data?store_address=${this.form.store_address}&access_token=${this.form.access_token}`).then((res) => {
                     console.log(res);
+                    if (res.error) {
+                        this.errorMessage = res.error;
+                    } else {
+                        this.buttonText = 'Connection Successful';
+                        setTimeout(() => {
+                            this.buttonText = 'Test Connection';
+                        }, 3000);
+                    }
                 })
-
-            },
-
-            formSubmitted() {
-                this.form.selectedPermissions = this.selectedPermissions
-                byMethod(this.method, this.store, this.form).then(res => {
-                    this.successfull(res)
-                    this.$toast.open({
-                        position: 'top-right',
-                        message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
-                        type: 'success',
-                        duration: 3000
+                    .catch((error) => {
+                        console.error(error);
                     });
-                }).catch(err => {
-                    this.error = err.response.data.errors;
-                    this.$toast.open({
-                        position: 'top-right',
-                        message: 'Error',
-                        type: 'error',
-                        duration: 3000
-                    });
-                    // console.log(err);
-                })
-            },
-            successfull(res) {
-                this.$router.push({path: `${this.resource}`})
+
+
             }
+
+        },
+
+        formSubmitted() {
+            this.form.selectedPermissions = this.selectedPermissions
+            byMethod(this.method, this.store, this.form).then(res => {
+                this.successfull(res)
+                this.$toast.open({
+                    position: 'top-right',
+                    message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
+                    type: 'success',
+                    duration: 3000
+                });
+            }).catch(err => {
+                this.error = err.response.data.errors;
+                this.$toast.open({
+                    position: 'top-right',
+                    message: 'Error',
+                    type: 'error',
+                    duration: 3000
+                });
+                // console.log(err);
+            })
+        },
+        successfull(res) {
+            this.$router.push({path: `${this.resource}`})
         },
     }
 </script>
