@@ -5,18 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class ShopifyController extends Controller
+class MimCartController extends Controller
 {
     public function fetchData(Request $request)
     {
 //        dd($request->all());
-        $apiUrl = $request->store_address . '/admin/api/2023-07/orders.json?status=any';
-        $headers = [
-            'X-Shopify-Access-Token' => $request->access_token,
-        ];
+        $apiUrl = $request->mim_store_address . '/account_services/get_orders?appkey='.$request-> mim_api_key;
+//        $headers = [
+//            'f5564407cc4ef468d1fe8a95570bcf8a' => $request-> mim_api_key,
+//        ];
         try {
+
             // Make the HTTP GET request with headers using the Http facade
-            $response = Http::withHeaders($headers)->get($apiUrl);
+            $response = Http::get($apiUrl);
             // Check if the request was successful
             if ($response->successful()) {
                 $data = $response->json(); // No need to decode JSON manually
@@ -26,7 +27,8 @@ class ShopifyController extends Controller
                 return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
             }
         } catch (Throwable $e) {
-            return response()->json(['shopify_error'=> $e->getMessage()]);
+            report($e);
+
             return false;
         }
     }
