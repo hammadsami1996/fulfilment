@@ -102,8 +102,7 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'WooCommerce'">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0" v-if="form.plate_form == 'WooCommerce'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Api Secret</label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
@@ -135,12 +134,12 @@
                     Test Connection
                 </button>
             </div>
-            <div class="flex justify-end mt-8 space-x-4" >
+            <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                     type="button">
-                    {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
+                    {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
                 </button>
                 <button
                     @click="successfull()"
