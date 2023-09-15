@@ -28,6 +28,10 @@ class StoreController extends Controller
             "access_token" => '',
             "plate_form" => '',
             "store_address" => '',
+            "api_key" => '',
+            "api_secret" => '',
+            "word_address" => '',
+
         ];
         return response()->json([
             'form' => $form

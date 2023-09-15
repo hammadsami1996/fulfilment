@@ -13,7 +13,8 @@ class Store extends Model
     use HasFactory, Notifiable, HasRoles;
     use Search;
     protected $fillable = [
-        'name', 'location', 'company_id','store_type','plate_form','access_token','store_address'
+        'name', 'location', 'company_id','store_type','plate_form','access_token','store_address',
+        'api_key','api_secret','word_address'
     ];
     protected $columns = [
         'name', 'location','company_id',

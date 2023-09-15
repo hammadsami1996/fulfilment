@@ -67,7 +67,9 @@
                 capital: "Product Category",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Name', field: 'name',},
+                    {label: 'Category', field: 'name',},
+                    {label: 'Parent' , field: 'text'},
+
                     {label: 'Action', field: 'action', action: true}
                     ]
             }

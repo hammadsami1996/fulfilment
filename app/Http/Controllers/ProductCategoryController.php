@@ -12,7 +12,7 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => ProductCategory::with('category')->search()]);
+        return response()->json(['data' => ProductCategory::with('parent')->search()]);
     }
 
     /**
@@ -22,7 +22,7 @@ class ProductCategoryController extends Controller
     {
         $form = [
             "name" => '',
-            "head_id" => '',
+            "parent_id" => '',
         ];
         return response()->json([
             'form' => $form
@@ -57,7 +57,7 @@ class ProductCategoryController extends Controller
      */
     public function edit($id)
     {
-        $model = ProductCategory::with('category')->findOrFail($id);
+        $model = ProductCategory::with('parent')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);

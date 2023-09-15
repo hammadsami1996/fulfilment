@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('plate_form')->nullable();
             $table->string('access_token')->nullable();
             $table->string('store_address')->nullable();
+            $table->string('api_key')->nullable();
+            $table->string('api_secret')->nullable();
+            $table->string('word_address')->nullable();
             $table->integer('company_id')->nullable();
             $table->timestamps();
         });

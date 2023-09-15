@@ -15,7 +15,7 @@ class WearhouseController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Wearhouse::with('child')->search()]);
+        return response()->json(['data' => Wearhouse::with('parent')->search()]);
     }
 
     /**

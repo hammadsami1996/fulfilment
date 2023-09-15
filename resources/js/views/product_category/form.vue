@@ -2,27 +2,20 @@
     <div v-if="show">
         <div class="p-6">
             <h1 class="text-lg font-bold mb-4">
-                {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
+                {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: ` New ${capital}`}}
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-<!--                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">-->
-<!--                    <label class="block font-medium text-sm text-gray-700 mb-2">Category Name</label>-->
-<!--                    <div class="relative">-->
-<!--                        <typeahead-->
-<!--                            :initialize="form.category"-->
-<!--                            :url="category"-->
-<!--                            @input="onCategory"-->
-<!--                            class="w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"-->
-<!--                            display="text"-->
-<!--                        />-->
-<!--                        <p class="text-red-600 text-xs italic absolute bottom-0">{{ error.category_id?.[0] }}</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 py-2 mt-3">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2">Parent Category</label>
+                    <typeahead :initialize="form.parent" :url="parentUrl" @input="onParent" display="text"/>
+                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.parent_id">{{ error.parent_id[0] }}</p>-->
+                </div>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 ">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Category Name</label>
                     <input
                         v-model="form.name"
-                        class="w-full py-2 px-4 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                 </div>
@@ -76,8 +69,7 @@
                 title: 'Add',
                 message: 'New product_category Added',
                 permissions: {},
-                // companys: '/api/company',
-                category: '/api/product_category',
+                parentUrl:'/api/product_category',
             }
         },
 
@@ -95,10 +87,11 @@
                 })
         },
         methods: {
-            onCategory(e) {
-                const category = e.target.value
-                this.form.category = category
-                this.form.head_id = category.id
+            onParent(e) {
+                const parent = e.target.value;
+                console.log(e);
+                this.form.parent = parent
+                this.form.parent_id = parent.id
             },
             setData(res) {
                 // console.log(res);
