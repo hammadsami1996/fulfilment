@@ -42,18 +42,18 @@ class MimCartController extends Controller
                 $response = Http::get($apiUrl);
                 if ($response->successful()) {
                     foreach ($response->json() as $rec) {
-                        $order = Order::where('external_order_no', $rec->id)->where('order_form','MimCart');
+                        $order = Order::where('external_order_no', $rec['id'])->where('order_form','MimCart');
                         if (!$order->first()) {
                             $order = new Order();
                             $order->order_form = 'MimCart';
-                            $order->external_order_no = $rec->id;
-                            $order->name = $rec->name;
-                            $order->email = $rec->email;
+                            $order->external_order_no = $rec['id'];
+                            $order->name = $rec['name'];
+                            $order->email = $rec['email'];
                             // other
                             $items = [];
-                            foreach ($rec->items as $key => $item) {
-                                $items[$key]->qty = $item->qty;
-                                $items[$key]->value_inc_tax = $item->total;
+                            foreach ($rec['items'] as $key => $item) {
+                                $items[$key]['qty'] = $item['qty'];
+                                $items[$key]['value_inc_tax'] = $item['total'];
                                 //other
                             }
                             $order->storeHasMany([
