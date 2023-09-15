@@ -31,7 +31,7 @@ class WordpressController extends Controller
 {
     // dd(request()->api_secret);
     // $woocommerceApiUrl = 'https://wp.mimcart.com/wp-json/wc/v3/orders'; 
-    $woocommerceApiUrl = request()->store_address; 
+    $woocommerceApiUrl = request()->store_address . '/wp-json/wc/v3/orders'; 
 
     // $apiKey = 'ck_293766b75c5a707c5fb6638475880810a3c70a5a';
     $apiKey = request()->api_key;
