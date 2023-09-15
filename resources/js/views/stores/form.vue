@@ -8,9 +8,9 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Name <span class="text-red-600">(Required)</span></label>
+                    >Name <span class="text-red-600">*</span></label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Name"
                         v-model="form.name"
                     />
@@ -21,7 +21,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Location</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" location"
                         v-model="form.location"
                     />
@@ -35,7 +35,7 @@
                     <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
                 </div>
             </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Type</label>
                     <div class="relative">
@@ -68,7 +68,7 @@
                      v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Access Token</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         v-model="form.access_token"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
@@ -77,7 +77,7 @@
                      v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" placeholder="https://example.com"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" placeholder="https://example.com"
                         type="url"
                         v-model="form.store_address"
                     />
@@ -104,7 +104,7 @@
                      v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         v-model="form.api_key"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
@@ -113,7 +113,7 @@
                      v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Api Secret</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         v-model="form.api_secret"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
@@ -122,7 +122,7 @@
                      v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         v-model="form.word_address"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
@@ -148,7 +148,7 @@
                      v-if="form.plate_form == 'Mimcart' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         v-model="form.api_key"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
@@ -157,7 +157,7 @@
                      v-if="form.plate_form == 'Mimcart' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         v-model="form.api_key"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
@@ -165,7 +165,7 @@
             </div>
 
 
-            <div class="flex justify-end mt-8 space-x-4">
+            <div class="flex justify-end space-x-4">
                 <button
                     @click="formSubmitted"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"

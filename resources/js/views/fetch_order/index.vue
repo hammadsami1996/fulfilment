@@ -1,0 +1,166 @@
+<template>
+    <!-- <div class="font-bold pl-5">
+        Companies
+    </div> -->
+    <div class="font-bold text-center bg-blue-500 rounded-md text-white pt-2 pb-2 mt-4 mb-4">
+        Companies
+    </div>
+    <!-- <div class="flex flex-auto flex-wrap">
+        <div class="sm:w-"></div>
+    </div> -->
+    <!-- <div class="grid grid-cols-4 gap-4 lg:gap-8" v-for="(item, index) in companies" :key="index">
+        <div class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden p-2">
+            <div class="px-4 py-2">
+                <p class="font-bold text-md text-center text-black">{{ item.name }}</p>
+                <div class="text-center pt-4 text-3xl">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div  class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(item, index) in companies" :key="index" >
+        <div class="w-full sm:w-1/8 pl-3 sm:mb-0">
+            <div class="grid grid-cols-4 gap-4 lg:gap-8">
+                <div class="relative group rounded-md shadow-sm text-white bg-gray-200 overflow-hidden p-2">
+                    <div class="px-4 py-2">
+                        <p class="font-bold text-md text-center text-black">{{ item.name }}</p>
+                        <div class="text-center pt-4 text-3xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div>
+        <div class="card-container mb-6">
+            <div  class="flex-auto flex flex-row sm:flex-nowrap sm:items-center"  v-for="(item) in companies"  >
+                <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" >
+                    <div class="card" @click="onCompany(item)">
+                          <img :src="`/uploads/company/logo/` +  item.logo" >
+                    </div>
+                    <span style="color:rgba(61, 125, 179, 0.918); font-weight: bold; font-size:small;">{{ item.name }}</span>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+
+
+</template>
+<script>
+import Panel from "@/components/panel/panel.vue";
+import {form} from "@/libs/mixins";
+import {byMethod} from "@/libs/api";
+import Typeahead from "@/Components/typeahead/typeahead.vue";
+
+export default {
+        mixins: [form],
+        // components: {
+        //     Panel, Typeahead,
+        // },
+        name: "Index",
+        data() {
+            return {
+                permissions: [],
+                companies: {}
+            }
+        },
+        created() {
+            // this.permissions = window.apex.user.permission
+            byMethod('get', `/api/company`)
+                .then((res) => {
+                    console.log(res.data.data.data)
+                    this.companies = res.data.data.data;
+                })
+        },
+        methods: {
+            
+        },
+    }
+</script>
+<style scoped>
+.card {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  background-color: #f2f2f2;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1000px;
+  box-shadow: 0 0 0 5px #ffffff80;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card svg {
+  width: 48px;
+  fill: #333333;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+.card__content {
+  position: absolute;
+  
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover .card__content {
+  transform: rotateX(0deg);
+}
+
+.card__title {
+  margin: 0;
+  font-size: 12px;
+  color: #3985b1;
+  font-weight: 700;
+}
+
+.card:hover svg {
+  scale: 0;
+}
+
+.card__description {
+  margin: 10px 0 0;
+  font-size: 8px;
+  font-weight: bold;
+  color: #0c0c0c;
+  line-height: 1.4;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+/* .shows{
+  flex: 0 0 calc(12.5% - 20px); 
+  margin-right: 20px; 
+  margin-bottom: 20px; 
+  box-sizing: border-box;
+} */
+
+
+
+@keyframes rotate_4001510 {
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+</style>
