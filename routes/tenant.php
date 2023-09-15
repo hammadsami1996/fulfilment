@@ -129,6 +129,8 @@ Route::middleware([
 
         Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
         Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
+        Route::get('stores_data', [\App\Http\Controllers\StoreController::class, 'stores_data']);
+
 
 
         Route::post('ecommerce', [\App\Http\Controllers\WordpressController::class, 'getWooCommerceOrders']);
