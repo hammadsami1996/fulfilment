@@ -19,18 +19,18 @@ class Order extends Model
         'store_id', 'order_date', 'customer_id', 'city_id', 'tax', 'balance', 'courier', 'payment_status', 'selling_Price',
         'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount_percent',
         'warehouse_id', 'so_number', 'name', 'email', 'phone', 'address', 'instraction', 's_addres_1', 'shipped_by_id', 'order_type_id'
-        , 'total', 'discount','advance','shipping_charges','delivery_charges','weight'
+        , 'total', 'discount', 'advance', 'shipping_charges', 'delivery_charges', 'weight'
     ];
     protected $columns = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier', 'payment_status', 'selling_Price',
         'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent'
-        , 'so_number', 'name', 'email', 'phone', 'address', 'instraction', 'shipped_by_id', 'order_type_id','delivery_charges','weight'
+        , 'so_number', 'name', 'email', 'phone', 'address', 'instraction', 'shipped_by_id', 'order_type_id', 'delivery_charges', 'weight'
     ];
 
     protected $search = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier', 'payment_status', '', 'selling_price',
         'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent'
-        , 'so_number', 'name', 'email', 'phone', 'address', 'instraction', 'shipped_by_id', 'order_type_id','delivery_charges','weight'
+        , 'so_number', 'name', 'email', 'phone', 'address', 'instraction', 'shipped_by_id', 'order_type_id', 'delivery_charges', 'weight'
     ];
     protected $appends = ['text', 'net_total'];
 
@@ -38,9 +38,10 @@ class Order extends Model
     {
 
     }
+
     public function getNetTotalAttribute()
     {
-        return ($this->attributes['total'] + $this->attributes['shipping_charges'] - ($this->attributes['discount'] + $this->attributes['advance'] ));
+        return ($this->attributes['total'] + $this->attributes['shipping_charges'] - ($this->attributes['discount'] + $this->attributes['advance']));
     }
 
     public function customer()
@@ -83,6 +84,7 @@ class Order extends Model
     {
         return $this->belongsTo(Order_type::class, 'order_type_id', 'id');
     }
+
     public function status_logs()
     {
         return $this->hasMany(Statuslog::class);
