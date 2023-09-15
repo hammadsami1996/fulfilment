@@ -6,7 +6,6 @@ import plan from '@/routes/plan';
 
 import permission from '@/routes/permission';
 import user_dashboard from "@/routes/user_dashboard";
-import update_profile from "@/routes/update_profile";
 import user_type from "@/routes/user_type";
 import product from "@/routes/product";
 import wearhouse from "@/routes/wearhouse";
