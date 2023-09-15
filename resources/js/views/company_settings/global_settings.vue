@@ -708,7 +708,7 @@ export default {
                     
                     connention_url = '/api/shopify_fetch_data'
                 } else if (this.online_store_name == 'woocommerce') {
-                  connention_url = '/api/ecommerce'
+                  connention_url = '/api/woocommerce_fetch_data'
 
                 } else if (this.online_store_name == 'MimCart') {
                   
