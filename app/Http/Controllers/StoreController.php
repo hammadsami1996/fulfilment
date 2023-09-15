@@ -105,4 +105,11 @@ class StoreController extends Controller
         $model->delete();
         return response()->json(["deleted" => true]);
     }
+
+
+    public function stores_data()
+    {
+        return response()->json(['data' => Store::where('company_id' , request('company_id'))->search()]);
+    }
+
 }
