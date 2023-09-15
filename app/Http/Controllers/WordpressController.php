@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 
 class WordpressController extends Controller
@@ -22,7 +20,7 @@ class WordpressController extends Controller
     //             return view('wordpress.posts', ['posts' => $posts]);
     //         }
     //     } catch (\Exception $e) {
-          
+
     //         return view('wordpress.error');
     //     }
     // }
@@ -34,11 +32,11 @@ class WordpressController extends Controller
     // $woocommerceApiUrl = 'https://wp.mimcart.com/wp-json/wc/v3/orders'; 
     $woocommerceApiUrl = request()->word_address . '/wp-json/wc/v3/orders'; 
 
-    // $apiKey = 'ck_293766b75c5a707c5fb6638475880810a3c70a5a';
-    $apiKey = request()->api_key;
+        // $apiKey = 'ck_293766b75c5a707c5fb6638475880810a3c70a5a';
+        $apiKey = request()->api_key;
 
-    // $apiSecret = 'cs_3895987df29107dcc5cd788b46bc6705f54f5f0c';
-    $apiSecret = request()->api_secret;
+        // $apiSecret = 'cs_3895987df29107dcc5cd788b46bc6705f54f5f0c';
+        $apiSecret = request()->api_secret;
 
 
     try {
@@ -58,8 +56,9 @@ class WordpressController extends Controller
             return response()->json(['error' => true]);
             // return view('woocommerce.error', ['message' => $response->body()]);
         }
-    } catch (\Exception $e) {
-        // Handle any other errors here
+    }
+    catch (\Exception $e) {
+       
         return response()->json(['woocommerce_error'=> $e->getMessage()]);
     }
 }
