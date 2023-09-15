@@ -119,7 +119,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <h1 style="color: black;text-align: center;padding-top: 0px; margin:top 0px;  margin-bottom: 10 px;">{{config('app.name')}}</h1>
+                        <h1 style="color: black;text-align: center;padding-top: 0px; margin:top 0px;  margin-bottom: 10 px;"> {!! $data['title']!!}</h1>
                         </td>
                     </tr>
                 </table>

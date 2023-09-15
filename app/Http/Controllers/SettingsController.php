@@ -10,6 +10,7 @@ use App\Models\Mailtemplate;
 use Illuminate\Http\Request;
 use App\Models\Companysetting;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Config;
 
 
 class SettingsController extends Controller
@@ -121,8 +122,8 @@ class SettingsController extends Controller
         $model->company_id = $request['company_id'];
 
         $model->save();
-        $this->sendmail($model->id);
-        // $this->sendSMS($model->id);
+        // $this->sendmail($model->id);
+        $this->sendSMS($model->id);
 
         // return response()->json(['saved' => true, 'id' => $model->id
         // ]);
@@ -135,7 +136,17 @@ class SettingsController extends Controller
         $id= 1;
         $email = Companysetting::findOrFail($model);
         $emails = json_decode($email->value);
+        $smtp_encryption = 'tls,';
         // dd($emails->username);
+        Config::set('mail.driver', 'smtp');
+        Config::set('mail.host', $emails->host);
+        Config::set('mail.port', $emails->port);
+        Config::set('mail.encryption', $smtp_encryption);
+        Config::set('mail.username', $emails->username);
+        Config::set('mail.password', $emails->password);
+        Config::set('mail.from.address', $emails->form_email);
+        // Config::set('mail.from.name', $emails->title);
+        
         $template = Mailtemplate::findOrFail($id);
         $data = [
             "template" => [
@@ -143,23 +154,16 @@ class SettingsController extends Controller
                 "content" => $template['content'],
             ],
             "from_email" => $emails->form_email,
-            "email" =>$emails->username,
+            "email" =>'nazar@mimsoft.pk',
+            "title" => $emails->title,
         ];
-        // $data = [
        
-        //         "subject" => 'hello world',
-        //         "content" => 'testing mail',
-           
-           
-        //     "email" => 'nazar@mimsoft.pk',
-        // ];
-           
         Mail::to($data['email'])->send(new MyMail($data));
         return response()->json(['Email sent successfully']);
     }
 
 
-    public function sendSMS($id)
+    public function sendSMS($id)    
     {
         $sms = Companysetting::findOrFail($id);
         $sms2 = json_decode($sms->value);

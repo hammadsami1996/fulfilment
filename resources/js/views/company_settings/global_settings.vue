@@ -326,119 +326,202 @@
 
     <div class="p-6" v-if="courier">
       <h1 class="text-lg font-bold mb-4">Courier Settings</h1>
-      <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2"
-            >Title
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="text"
-            v-model="form.title"
-          />
-
-          <p class="text-red-600 text-xs italic" v-if="error.title">
-            {{ error.title[0] }}
-          </p>
-        </div>
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2"
-            >Host</label
-          >
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="text"
-            v-model="form.host"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.host">
-            {{ error.host[0] }}
-          </p>
-        </div>
-
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2"
-            >Username
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="email"
-            v-model="form.username"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.username">
-            {{ error.username[0] }}
-          </p>
-        </div>
-      </div>
-      <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2">
-            Password
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="password"
-            v-model="form.password"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.password">
-            {{ error.password[0] }}
-          </p>
-        </div>
-
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2">
-            Port
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="number"
-            v-model="form.port"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.port">
-            {{ error.port[0] }}
-          </p>
-        </div>
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2">
-            SMTPSecure
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="text"
-            v-model="form.ssl"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.ssl">
-            {{ error.ssl[0] }}
-          </p>
-        </div>
-      </div>
-
-      <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-          <label class="block font-medium text-sm text-gray-700 mb-2">
-            From Email
-          </label>
-          <input
-            class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-            type="email"
-            v-model="form.form_email"
-          />
-          <p class="text-red-600 text-xs italic" v-if="error.form_email">
-            {{ error.form_email[0] }}
-          </p>
-        </div>
-      </div>
-      <div class="flex justify-end mt-8 space-x-4">
-        <button
-          @click="savejson('email_settings')"
-          class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-          type="button"
-        >
-          {{
-            $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add"
-          }}
-        </button>
-      </div>
+      <hr>
+      <div class="radio-inputs mb-4" >
+      <label style="background-color: rgb(86, 192, 224);">
+        <input
+          class="radio-input"
+          type="radio"
+          name="engine"
+          
+          
+        />
+        <span class="radio-tile">
+          <span class="radio-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M547.6 103.8L490.3 13.1C485.2 5 476.1 0 466.4 0H109.6C99.9 0 90.8 5 85.7 13.1L28.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM499.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H128V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"/></svg>
+          </span>
+          <span class="radio-label">Stores</span>
+        </span>
+      </label>
+     
+   
+      
     </div>
+      <!-- <div class="mt-3 w-full sm:w-1/6 mb-6 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+      <button data-text="Awesome" class="buttons">
+    <span class="actual-text" style="color: black;" ><i class="fa-solid fa-store fa-2x" style="color: #252629;"></i></span>
+    <span class="hover-text" aria-hidden="true"><i class="fa-solid fa-store fa-2x" ></i></span>
+</button>
+</div> -->
+<hr>
+<br>  
+      <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+        <div class="ml-24 mr-12 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+          <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('woocommerce')">
+                    <div class="coin">
+          <div class="side heads">
+            <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
+            </div>
+            <div class="side tails">
+        <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
+            </div>
+            
+            </div>
+            <h1 class="ml-12 mt-4"><strong style="color:rgb(40, 40, 104)">WordPress</strong><br><span style="font-size:small">Configration</span></h1>
+          
+
+  
+          </div>
+          
+          
+    </div>
+
+    <div class="ml-24 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+          <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('shopify')">
+                    <div class="coins" >
+          <div class="side heads">
+            <i class="fa-brands fa-shopify fa-xs" style="color: #bbc2ce;"></i>
+            </div>
+            <div class="side tails">
+              <i class="fa-brands fa-shopify fa-xs" style="color: #bbc2ce; font-size: smaller;"></i>
+            </div>
+            
+            </div>
+            <h1 class="ml-12 mt-4"><strong style="color:rgb(31, 119, 19)">Shopify</strong><br><span style="font-size:small">Configration</span></h1>
+          
+
+  
+          </div>
+          
+          
+    </div>
+       </div>
+          
+    </div>
+                  <Modal :show="true" 
+
+              height="900"
+
+              v-if="show_ecommerce"
+              >
+
+              <div >
+                <h1 class="text-lg font-bold  mt-4 mb-4 text-center">Store Settings</h1>
+                <hr>
+      <div>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'woocommerce'">
+          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" >
+            <label class="block font-medium text-sm text-gray-700 mb-2"
+              >Api Key
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.api_key"
+            />
+
+            <p class="text-red-600 text-xs italic" v-if="error.api_key">
+              {{ error.api_key[0] }}
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+            <label class="block font-medium text-sm text-gray-700 mb-2"
+              >Api Secret</label
+            >
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.api_secret"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.api_secret">
+              {{ error.api_secret[0] }}
+            </p>
+          </div>
+
+          
+        </div>
+
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'shopify'">
+          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2" >
+            <label class="block font-medium text-sm text-gray-700 mb-2"
+              >Access Token
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.api_key"
+            />
+
+            <p class="text-red-600 text-xs italic" v-if="error.api_key">
+              {{ error.api_key[0] }}
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" style="display:none">
+            <label class="block font-medium text-sm text-gray-700 mb-2"
+              >Api Secret</label
+            >
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.api_secret"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.api_secret">
+              {{ error.api_secret[0] }}
+            </p>
+          </div>
+
+          
+        </div>
+
+        
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+          
+
+          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
+            <label class="block font-medium text-sm text-gray-700 mb-2">
+              Store Address
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.store_address"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.store_address">
+              {{ error.store_address[0] }}
+            </p>
+          </div>
+        </div>
+      
+      </div>
+
+              </div>
+
+
+
+
+
+              <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">
+                <button v-if="connection_button"
+              @click="wordpress"
+              class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
+              type="button">
+              Test Connecion
+              </button>
+              <button v-if="save_button"
+              @click="wordpress"
+              class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+              type="button">
+              Save
+              </button>
+
+              <button
+              @click="close"
+              class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+              type="button">
+              Cancel
+              </button>
+              </div>
+              </Modal>
   </div>
 </template>
 
@@ -446,6 +529,7 @@
 import { byMethod, get } from "@/libs/api";
 import { form } from "@/libs/mixins";
 import Typeahead from "@/Components/typeahead/typeahead.vue";
+import Modal from "@/Components/Modal.vue";
 
 function initialize(to) {
   let urls = {
@@ -459,14 +543,17 @@ function initialize(to) {
 export default {
   mixins: [form],
   components: {
-    Typeahead,
+    Typeahead, Modal
   },
   data() {
     return {
       show_company_data: false,
       email: false,
       sms: true,
+      show_ecommerce:false,
       courier: false,
+      save_button:false,
+      connection_button:true,
       error: {},
       company_id: {},
       key: "sms_settings",
@@ -479,6 +566,7 @@ export default {
       title: "Add",
       message: "New settings Added",
       permissions: {},
+      online_store_name:{},
       products: "/api/product",
       wearhouses: "/api/wearhouse",
       companys: "/api/company",
@@ -508,6 +596,56 @@ export default {
    
   },
   methods: {
+
+    close(){
+      this.show_ecommerce = false,
+      this.form = []
+    },
+    ecommerce(e){
+      this.online_store_name = e;
+      this.show = true
+        this.show_ecommerce = true
+    },
+
+    wordpress(){
+      byMethod("post", '/api/ecommerce' ,this.form).then(
+        (res) => {
+          if(res.data.data){
+            this.$toast.open({
+            position: "top-right",
+            message:
+             "Connection Successful",
+            type: "success",
+            duration: 3000,
+          });
+          this.save_button = true,
+          this.connection_button = false
+
+          }
+          if(res.data.woocommerce_error){
+            this.$toast.open({
+            position: "top-right",
+            message: res.data.woocommerce_error,
+            type: "error",
+            duration: 7000,
+          });
+            // this.message = res.data.woocommerce_error
+          }
+
+          if(res.data.error){
+            this.$toast.open({
+            position: "top-right",
+            message: "Connection Failed",
+            type: "error",
+            duration: 3000,
+          });
+            // this.message = res.data.error
+          }
+          // console.log(res.data.error)
+          
+        }
+      )
+    },
     couriertabs() {
       (this.email = false), (this.sms = false), (this.courier = true);
     },
@@ -759,7 +897,7 @@ export default {
 
 .card__content {
   position: absolute;
-  top: 0;
+  
   left: 0;
   width: 100%;
   height: 100%;
@@ -805,6 +943,152 @@ export default {
   margin-bottom: 20px; 
   box-sizing: border-box;
 } */
+.coins {
+  font-size: 80px;
+  width: 0.1em;
+  height: 1em;
+  background: linear-gradient(49deg, rgb(91, 255, 154) 0%, rgb(29, 194, 65) 31%, rgb(4, 143, 4) 71%);
+  /* margin: auto; */
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+  /* right: 0; */
+  /* bottom: 0; */
+  margin-left:10%;
+  animation: rotate_4001510 7s infinite linear;
+  transform-style: preserve-3d;
+}
+.coin {
+  font-size: 80px;
+  width: 0.1em;
+  height: 1em;
+  background: linear-gradient(49deg, rgba(37,40,119,1) 0%, rgba(31,31,88,1) 31%, rgba(11,37,37,1) 71%);
+  /* margin: auto; */
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+  /* right: 0; */
+  /* bottom: 0; */
+  margin-left:10%;
+  animation: rotate_4001510 7s infinite linear;
+  transform-style: preserve-3d;
+}
+
+.coin .side, .coin:before, .coin:after {
+  content: "";
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  border-radius: 50%;
+  right: -0.4em;
+  text-align: center;
+  line-height: 1;
+  transform: rotateY(-90deg);
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.coin .tails, .coin:after {
+  left: -0.4em;
+  transform: rotateY(90deg);
+}
+
+.coins .side, .coins:before, .coins:after {
+  content: "";
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  border-radius: 50%;
+  right: -0.4em;
+  text-align: center;
+  line-height: 1;
+  transform: rotateY(-90deg);
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.coins .tails, .coins:after {
+  left: -0.4em;
+  transform: rotateY(90deg);
+}
+
+
+.coin:before, .coin:after {
+  background: linear-gradient(49deg, rgba(37,40,119,1) 0%, rgba(31,31,88,1) 31%, rgba(11,37,37,1) 71%);
+  backface-visibility: hidden;
+  transform: rotateY(90deg);
+}
+.coins:before, .coins:after {
+  background: linear-gradient(49deg, rgb(91, 255, 154) 0%, rgb(29, 194, 65) 31%, rgb(4, 143, 4) 71%);
+  backface-visibility: hidden;
+  transform: rotateY(90deg);
+}
+
+.coin:after {
+  transform: rotateY(-90deg);
+}
+.coins:after {
+  transform: rotateY(-90deg);
+}
+
+
+@keyframes rotate_4001510 {
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.svg_back {
+  transform: scaleX(-1);
+}
+
+
+/* === removing default button style ===*/
+.buttons {
+  margin: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* button styling */
+.buttons {
+  --border-right: 6px;
+  --text-stroke-color: rgba(255,255,255,0.6);
+  --animation-color: #37FF8B;
+  --fs-size: 1.5em;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: var(--fs-size);
+  font-family: "Arial";
+  position: relative;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+}
+/* this is the text, when you hover on button */
+.hover-text {
+  position: absolute;
+  box-sizing: border-box;
+  content: attr(data-text);
+  color: var(--animation-color);
+  width: 0%;
+  inset: 0;
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  transition: 0.5s;
+  -webkit-text-stroke: 1px var(--animation-color);
+}
+/* hover */
+.buttons:hover .hover-text {
+  width: 100%;
+  filter: drop-shadow(0 0 23px var(--animation-color))
+}
 
 
 

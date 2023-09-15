@@ -67,7 +67,8 @@
                 capital: "Wearhouse",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Name', field: 'name',},
+                    {label: 'Wearhouse Name', field: 'name',},
+                    {label: 'Parent' , field: 'text'},
                     {label: 'Location', field: 'location'},
                     {label: 'Action', field: 'action', action: true}
                     ]
