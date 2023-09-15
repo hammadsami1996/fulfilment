@@ -55,17 +55,17 @@
                         <select
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
                             v-model="form.plate_form">
-                            <option value="Woocommerce">Woocommerce</option>
+                            <option value="WooCommerce">WooCommerce</option>
                             <option value="Shopify">Shopify</option>
-                            <option value="Mimcart">Mimcart</option>
+                            <option value="MimCart">MimCart</option>
                         </select>
                     </div>
                     <p class="text-red-600 text-xs italic" v-if="error.plate_form">{{ error.plate_form[0] }}</p>
                 </div>
             </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4">
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4" v-if="form.store_type  == 'Online'">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
+                     v-if="form.plate_form == 'Shopify'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Access Token</label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
@@ -74,34 +74,27 @@
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
+                     v-if="form.plate_form == 'Shopify'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" placeholder="https://example.com"
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        placeholder="https://example.com"
                         type="url"
                         v-model="form.store_address"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-            </div>
-            <div class="flex justify-end mt-8 space-x-4 mb-6 mr-6 ml-4"
-                 v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
-                <button @click="wordpress"
-                        class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
-                        type="button"
-                        v-if="connection_button">
-                    Test Connecion
-                </button>
-                <button v-if="save_button"
-                        @click="wordpress"
-                        class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-                        type="button">
-                    Save
-                </button>
-            </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
+                     v-if="form.plate_form == 'WooCommerce'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.word_address"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                     v-if="form.plate_form == 'WooCommerce'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
@@ -110,7 +103,7 @@
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
+                     v-if="form.plate_form == 'WooCommerce'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Api Secret</label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
@@ -119,52 +112,29 @@
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
+                     v-if="form.plate_form == 'MimCart'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
                     <input
                         class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        v-model="form.word_address"
+                        v-model="form.api_key"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-            </div>
-            <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6"
-                 v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
-                <button @click="wordpress"
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                     v-if="form.plate_form == 'MimCart'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.api_key"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
+                </div>
+                <button @click="testConnection"
                         class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
-                        type="button"
-                        v-if="connection_button">
-                    Test Connecion
-                </button>
-                <button v-if="save_button"
-                        @click="wordpress"
-                        class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button">
-                    Save
+                    Test Connection
                 </button>
             </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'Mimcart' && form.store_type  == 'Online'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        v-model="form.api_key"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'Mimcart' && form.store_type  == 'Online'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        v-model="form.api_key"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                </div>
-            </div>
-
-
             <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted"
@@ -203,8 +173,7 @@
         },
         data() {
             return {
-                save_button:false,
-                connection_button: true,
+                save_button: false,
                 error: {},
                 show: false,
                 resource: '/stores',
@@ -250,10 +219,10 @@
                 }
                 this.show = true
             },
-            wordpress(){
-                byMethod("post", '/api/ecommerce' ,this.form).then(
+            wordpress() {
+                byMethod("post", '/api/ecommerce', this.form).then(
                     (res) => {
-                        if(res.data.data){
+                        if (res.data.data) {
                             this.$toast.open({
                                 position: "top-right",
                                 message:
@@ -265,7 +234,7 @@
                                 this.connection_button = false
 
                         }
-                        if(res.data.woocommerce_error){
+                        if (res.data.woocommerce_error) {
                             this.$toast.open({
                                 position: "top-right",
                                 message: res.data.woocommerce_error,
@@ -275,7 +244,7 @@
                             // this.message = res.data.woocommerce_error
                         }
 
-                        if(res.data.error){
+                        if (res.data.error) {
                             this.$toast.open({
                                 position: "top-right",
                                 message: "Connection Failed",
@@ -313,8 +282,32 @@
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
             },
+            testConnection() {
+                let data = {}
+                let connention_url = ''
+                if (this.form.plate_form == 'Shopify') {
+                    data = {
+                        store_address: this.form.store_address,
+                        access_token: this.form.access_token
+                    }
+                    connention_url = '/api/shopify_fetch_data'
+                } else if (this.form.plate_form == 'WooCommerce') {
 
-            testconnection() {
+                } else if (this.form.plate_form == 'MimCart') {
+                    data = {}
+                    connention_url = '/api/mimcart_fetch_data'
+                }
+                if (data && connention_url) {
+                    byMethod('post', connention_url, data).then(res => {
+
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+            },
+
+
+            shopify() {
                 byMethod('get', `/api/fetch_data?store_address=${this.form.store_address}&access_token=${this.form.access_token}`).then((res) => {
                     // console.log(res);
                     if (res.error) {
