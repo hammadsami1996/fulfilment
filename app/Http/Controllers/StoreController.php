@@ -43,6 +43,7 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'location' => 'required',
@@ -79,6 +80,7 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'location' => 'required',
