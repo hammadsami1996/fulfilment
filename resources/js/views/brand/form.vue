@@ -10,13 +10,13 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Title </label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="text"
                         v-model="form.title"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.title">{{ error.title[0] }}</p>
                 </div>
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 pl-2 pt-6">
                     <label class="flex items-center space-x-2">
                         <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600"  v-model="form.status">
                         <span class="text-gray-700">Status</span>

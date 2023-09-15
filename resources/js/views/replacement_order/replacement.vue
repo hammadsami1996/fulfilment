@@ -7,7 +7,7 @@
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Order Date *</label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="date"
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="date"
                            v-model="form.order_date"/>
                     <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
                 </div>
@@ -18,14 +18,14 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">External Order No</label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
                            v-model="form.external_order_no"/>
                     <p class="text-red-600 text-xs italic" v-if="error.external_order_no">{{ error.external_order_no[0]
                         }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Tracking ID</label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
                            v-model="form.tracking_id"/>
                     <p class="text-red-600 text-xs italic" v-if="error.tracking_id">{{ error.tracking_id[0] }}</p>
                 </div>
@@ -46,40 +46,40 @@
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> name </label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Name </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"
                            v-model="form.name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> email </label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="email"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Email </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="email"
                            v-model="form.email"/>
                     <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> phone </label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Phone </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
                            v-model="form.phone"/>
                     <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">City:</label>
                     <typeahead :initialize="form.city" :url="city" @input="onCity" display="name"/>
-                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
+                    <!--    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                 </div>
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> address </label>
-                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Address </label>
+                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
                               v-model="form.s_addres_1"/>
-                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>-->
+                    <!--    <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>-->
                 </div>
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> instructions </label>
-                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Instructions </label>
+                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="number"
                               v-model="form.instruction"/>
                     <p class="text-red-600 text-xs italic" v-if="error.instruction">{{ error.instruction[0] }}</p>
                 </div>

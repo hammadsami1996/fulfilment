@@ -7,9 +7,9 @@
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label class="block font-medium text-sm text-gray-700 mb-2"
-                    >Name <span class="text-red-600">(Required)</span></label>
+                    >Name <span class="text-red-600">*</span></label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Name"
                         v-model="form.name"
                     />
@@ -19,7 +19,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2"
                     >Email</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Email" type="email"
                         v-model="form.email"
                     />
@@ -29,7 +29,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2"
                     >Phone</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="number"
                         v-model="form.phone"
                     />
@@ -39,7 +39,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2"
                     >Tax Number</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="number"
                         v-model="form.tax_number"
                     />
@@ -69,7 +69,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2"
                     >Postal/ Zip Code</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="number"
                         v-model="form.postal"
                     />
@@ -79,7 +79,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2"
                     >Province/State</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="text"
                         v-model="form.province"
                     />
@@ -91,7 +91,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2"
                     >Address</label>
                     <textarea
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md"
                         type="text"
                         v-model="form.address"
                     />

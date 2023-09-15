@@ -14,10 +14,10 @@
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
                         for="mc-role-name"
-                    >Name <span class="text-red-600">(Required)</span></label
+                    >Name <span class="text-red-600">*</span></label
                     >
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         id="mc-role-name"
                         placeholder=" Name"
                         v-model="form.name"

@@ -7,14 +7,14 @@
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                 <label class="block font-medium text-sm text-gray-700 mb-2">Date *</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     type="date" v-model="form.date"/>
                 <p class="text-red-600 text-xs italic" v-if="error.date">{{ error.date[0] }}</p>
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     type="text" v-model="form.name"/>
                 <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
             </div>
@@ -41,7 +41,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Balance</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="number"
                     v-model="form.balance"
 
@@ -50,14 +50,14 @@
             </div>
         </div>
         <hr class="mt-6">
-        <h1 class="font-bold mt-2">Personal Contact</h1>
+        <h1 class="font-bold mt-2 mb-2">Personal Contact</h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Email</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="email"
                     v-model="form.email"
                 />
@@ -68,7 +68,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Phone</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="number"
                     v-model="form.phone"
                 />
@@ -79,7 +79,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >CNIC</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="number"
                     v-model="form.cnic"
                 />
@@ -87,14 +87,14 @@
             </div>
         </div>
         <hr class="mt-6">
-        <h1 class="font-bold mt-2">Billing Address</h1>
+        <h1 class="font-bold mt-2 mb-2">Billing Address</h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Name</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     v-model="form.b_name"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_name">{{error.b_name[0] }}</p>
@@ -104,7 +104,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Phone</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="number"
                     v-model="form.b_phone"
                 />
@@ -112,13 +112,13 @@
             </div>
         </div>
 
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Address #1</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     v-model="form.b_address_1"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>
@@ -128,13 +128,13 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Address #2</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     v-model="form.b_address_2"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>
             </div>
         </div>
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
             <!--            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">-->
             <!--                <label-->
             <!--                    class="block font-medium text-sm text-gray-700 mb-2"-->
@@ -162,13 +162,13 @@
         </div>
         <hr class="mt-6">
         <h1 class="font-bold mt-2">Shipping Address  <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" @click="showShipment" v-model="form.copyBilling"></h1>
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Name</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     v-model="form.s_name"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_name">{{error.s_name[0] }}</p>
@@ -178,7 +178,7 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Phone</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="number"
                     v-model="form.s_phone"
                 />
@@ -186,13 +186,13 @@
             </div>
         </div>
 
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Address #1</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     v-model="form.s_address_1"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{error.s_address_1[0] }}</p>
@@ -202,13 +202,13 @@
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Address #2</label>
                 <input
-                    class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md"
+                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     v-model="form.s_address_2"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>
             </div>
         </div>
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
             <!--            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">-->
             <!--                <label-->
             <!--                    class="block font-medium text-sm text-gray-700 mb-2"-->

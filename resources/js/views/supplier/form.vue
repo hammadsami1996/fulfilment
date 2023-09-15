@@ -11,7 +11,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Supplier Name <span class="text-red-600">*</span></label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Supplier Name"
                         v-model="form.name"
                     />
@@ -22,7 +22,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Company Name</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Company Name"
                         v-model="form.company_name"
                     />
@@ -33,7 +33,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Website</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Website"
                         v-model="form.website"
                     />
@@ -44,7 +44,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Address</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Address"
                         v-model="form.address"
                     />
@@ -59,7 +59,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Number 1</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Number 1"
                         type="number"
                         v-model="form.number_1"
@@ -71,7 +71,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Number 2</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Number 2"
                         type="number"
                         v-model="form.number_2"
@@ -83,7 +83,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Email Address</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Email Address"
                         type="email"
                         v-model="form.email"
@@ -95,7 +95,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Opening Balance</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Opening Balance"
                         type="number"
                         v-model="form.opening_balance"

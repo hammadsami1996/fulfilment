@@ -5,9 +5,9 @@
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 pl-3">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Order Date *</label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="date"
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="date"
                            v-model="form.order_date"/>
                     <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
                 </div>
@@ -18,14 +18,14 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">External Order No</label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
                            v-model="form.external_order_no"/>
                     <p class="text-red-600 text-xs italic" v-if="error.external_order_no">{{ error.external_order_no[0]
                         }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Tracking ID</label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
                            v-model="form.tracking_id"/>
                     <p class="text-red-600 text-xs italic" v-if="error.tracking_id">{{ error.tracking_id[0] }}</p>
                 </div>
@@ -46,20 +46,20 @@
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> name </label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Name </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"
                            v-model="form.name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> email </label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="email"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Email </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="email"
                            v-model="form.email"/>
                     <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> phone </label>
-                    <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Phone </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
                            v-model="form.phone"/>
                     <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
                 </div>
@@ -70,22 +70,22 @@
                     <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                 </div>
             </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center pt-2">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> address </label>
-                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Address </label>
+                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
                               v-model="form.s_addres_1"/>
                     <!--                    <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>-->
                 </div>
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> instructions </label>
-                    <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="number"
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Instructions </label>
+                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="number"
                               v-model="form.instruction"/>
                     <p class="text-red-600 text-xs italic" v-if="error.instruction">{{ error.instruction[0] }}</p>
                 </div>
             </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center pt-1">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store</label>
                     <typeahead :initialize="form.stores" :url="stores" @input="onStores" display="name"/>
@@ -102,8 +102,8 @@
                 </div>
             </div>
 
-            <div
-                class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+            <!-- <div
+                class="mt-4 ml-3 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                 <table class="min-w-full text-sm align-middle whitespace-nowrap">
                     <thead>
                     <tr class="border-b border-gray-100 dark:border-gray-700/50">
@@ -263,14 +263,136 @@
                         </td>
                     </tr>
                     </tfoot>
-
-                    <!--END Table Body -->
                 </table>
-                <!-- END Table -->
+            </div> -->
+
+            <div class="border border-gray-200 rounded-lg bg-gray-100 ml-3 mt-4">
+                <p class="text-center p-2 font-bold bg-gray-200">Item Details</p>
+                <div class="rounded ml-3 mt-4">
+                    <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-4 mb-4"  v-for="(item,index) in form.items">
+                        <div class="sm:col-span-2">
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Item Description</label>
+                            <!-- <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"/> -->
+                            <typeahead
+                                :initialize="item.product"
+                                :url="products"
+                                @input="onProduct(item, index, $event)"
+                                class="text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                display="title"
+                            />
+                            <span @click="pushroute"
+                                  style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;"
+                                  v-if=" count !=null && index == index? count < item.qty :''">Stock Short(Only {{ count }}:Remianing)
+                            </span>
+                            <span @click="pushroute"
+                                  style="color: #ff0000; font-weight: bold; margin-right: 120px; cursor: pointer;"
+                                  v-if="alert && ids == item.product_id &&  item.product_id !=null">No Stock Available in this Warehouse
+                            </span>
+                        </div>
+                        <div>
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Qty</label>
+                            <input @blur="caltax(item, index)" @input="caltax(item, index)"
+                                class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                                type="number"
+                                v-model="item.qty" />
+                        </div>
+                        <div>
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Price</label>
+                            <input @blur="caltax(item, index)" @input="caltax(item, index)"
+                                class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                                type="number"
+                                v-model="item.unit_price"
+                                />
+                        </div>
+                        <div>
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Value Ex.Tax</label>
+                            <input @blur="caltax(item, index)" @input="caltax(item, index)"
+                                class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                                type="number"
+                                v-model="item.value_ex_tax"/>
+                        </div>
+                        <div>
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Tax %</label>
+                            <input @blur="caltax(item, index)" @input="caltax(item, index)"
+                                class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                                type="number"
+                                v-model="item.tax_percent"/>
+                        </div>
+                        <div>
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Tax Amount</label>
+                            <input class="w-full py-2 px-3 h-8 border border-gray-300 rounded-md" 
+                                type="number"
+                                disabled 
+                                v-model="item.tax_amount"/>
+                        </div>
+                        <div>
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Value Inc. Tax</label>
+                            <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" 
+                                type="number"
+                                v-model="item.value_inc_tax"/>
+                        </div>
+                        <div class="text-center">
+                            <button @click="removeProduct(item,index)"
+                                    class="mt-7 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
+                                    type="button">
+                                <i class="fa fa-trash mr-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-4 mb-4">
+                        <div class="item-empty sm:col-span-3">
+                            <button @click="addNewLine"
+                                    class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-1 px-2 rounded-full inline-flex items-center space-x-1">
+                                <i class="fa fa-plus-circle"></i>
+                            </button>
+                            <span class="text-sm text-gray-600 pl-3">Total Units: {{ qtySum }} | Total Items: {{ form.items.length }}</span>
+                        </div>
+                        <div class="item-empty align-right panel-title">
+                            <span class="item-dark font-semibold">Sub Total</span>
+                        </div>
+                        <div class="item-empty align-right panel-title">
+                            <span class="item-dark">{{ subTotal}}</span>
+                        </div>
+                        <div class="item-empty align-right"></div>
+                        <div class="item-empty align-right panel-title">
+                            <span class="item-dark">{{ tot_tax_amt }}</span>
+                        </div>
+                        <div class="item-empty align-right panel-title sm:col-span-2">
+                            <span class="item-dark">{{ total }} </span>
+                        </div>
+                        <div class="sm:col-span-2 item-empty text-gray-100">.</div>
+                        <div class="">
+                            <p class="font-bold">Discount</p>
+                        </div>
+                        <div>
+                            <input @input="discountamt(form.discount_percent)"
+                                class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                min="0"
+                                placeholder="%"
+                                type="number" v-model="form.discount_percent"/>
+                        </div>
+                        <div>
+                            <input @input="discountper"
+                                   class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   type="number" v-model="form.discount"/>
+                        </div>
+                        <div class="font-bold sm:col-span-2 pl-12">Dilvery Charges</div>
+                        <div class="">
+                            <input @input="discountamt(form.delivery_charges)"
+                                   class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   min="0"
+                                   type="number" v-model="form.delivery_charges"/>
+                        </div>
+                        <div>
+                        </div>
+                        <div>
+                            <strong class="text-lg text-blue-600">Total</strong>
+                            <strong class="text-red-500 pl-3">{{ total_discount }}</strong>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <hr>
-            <!-- :disabled="isSaveDisabled()"
-                        :style="{ background: color }" -->
+
             <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted"

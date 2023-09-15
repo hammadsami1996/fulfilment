@@ -13,7 +13,7 @@
                     >User Name </label
                     >
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         id="mc-role-name"
                         placeholder=" Name"
                         v-model="form.name"
@@ -25,10 +25,10 @@
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
                         for="mc-role-guard_name"
-                    >Email <span class="text-red-600">(Required)</span></label
+                    >Email <span class="text-red-600">*</span></label
                     >
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         id="mc-role-email"
                         placeholder=" Email"
                         v-model="form.email"
@@ -44,9 +44,9 @@
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
                         for="mc-role-guard_name"
-                    >Password <span class="text-red-600">(Required)</span></label>
+                    >Password <span class="text-red-600">*</span></label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         name="password" placeholder="Enter your password" type="password"
                         v-model="form.password"
                     />
@@ -58,7 +58,7 @@
                         for="mc-role-guard_name"
                     >Mobile No</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         id="mc-role-guard_name"
                         placeholder=" Mobile"
                         v-model="form.mobile_no"

@@ -18,7 +18,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >PO Reference No.:</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" PO Reference No."
                         type="number"
                         v-model="form.po_reference_number"
@@ -43,7 +43,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >PO Date:</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="date"
                         v-model="form.po_date"
                     />
@@ -56,7 +56,7 @@
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Due Date:</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="date"
                         v-model="form.due_date"
                     />
