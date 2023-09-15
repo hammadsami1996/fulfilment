@@ -2,7 +2,7 @@
     <!-- <div class="font-bold pl-5">
         Companies
     </div> -->
-    <div class="font-bold text-center bg-blue-500 rounded-md text-white pt-2 pb-2 mt-4 mb-4">
+    <div class="font-bold text-center bg-gray-300 rounded-md text-black pt-2 pb-2 mt-4 mb-4">
         Companies
     </div>
     <!-- <div class="flex flex-auto flex-wrap">
@@ -37,13 +37,45 @@
             <div  class="flex-auto flex flex-row sm:flex-nowrap sm:items-center"  v-for="(item) in companies"  >
                 <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" >
                     <div class="card" @click="onCompany(item)">
-                          <img :src="`/uploads/company/logo/` +  item.logo" >
+                          <img :src="`/uploads/company/logo/` +  item.logo">
                     </div>
-                    <span style="color:rgba(61, 125, 179, 0.918); font-weight: bold; font-size:small;">{{ item.name }}</span>
+                    <span class="font-bold font-sm pl-2">{{ item.name }}</span>
                 </div>
-    
             </div>
         </div>
+    </div>
+    <div class="font-bold text-center bg-gray-300 rounded-md text-black pt-1 pb-1 mt-4 mb-4">
+        Stores
+    </div>
+    <div v-if="!this.store.length == 0">
+        <div class="card-container mb-6">
+            <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center" v-for="data in store">
+                <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" >
+                    <!-- <button class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-1 px-5 ml-3 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">{{data.name}}</button> -->
+                    <div v-if="data.plate_form == 'woocommerce'">
+                        <div class="card bg-gray-200">
+                            <img src="/images/wordpress.png"/>
+                        </div>
+                        <!-- <p class=" text-black rounded-md font-bold text-md">Woo Commerce</p> -->
+                    </div>
+                    <div v-if="data.plate_form == 'shopify'">
+                        <div class="card bg-gray-200">
+                            <img src="/images/shopify.png"/>
+                        </div>
+                        <!-- <p class="bg-gray-200 text-black rounded-md font-bold text-md">Shopify</p> -->
+                    </div>
+                    <div v-if="data.plate_form == 'MimCart'">
+                        <div class="card bg-gray-200">
+                            <img src="/images/mimcart.png"/>
+                        </div>
+                        <!-- <p class="bg-gray-200 text-black rounded-md font-bold text-md">MimCart</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-else>
+        <p class="font-bold text-black text-lg"> No Store Found</p>
     </div>
 
 
@@ -63,7 +95,8 @@ export default {
         data() {
             return {
                 permissions: [],
-                companies: {}
+                companies: {},
+                store: []
             }
         },
         created() {
@@ -75,7 +108,23 @@ export default {
                 })
         },
         methods: {
-            
+            onCompany(e) {
+                // console.log(e)
+                const company = e;
+                //   this.form.company = company;
+                this.form.company_id = company.id;
+                //   this.company_id = company.id
+                this.returns(this.form.company_id);
+            },
+            returns(e) {
+                byMethod("get", `/api/stores_data?company_id=${e}`).then(
+                    (res) => {
+                    (this.show_company_data = true);
+                    console.log(res.data.data)
+                    this.store = res.data.data.data
+                    }
+                );
+            },
         },
     }
 </script>

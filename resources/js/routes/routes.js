@@ -19,6 +19,7 @@ import customer from "@/routes/customer";
 import report from "@/routes/report";
 import ledger from "@/routes/ledger";
 import settings from "@/routes/settings";
+import fetch_order from "@/routes/fetch_order";
 // import customer from "@/routes/receive_order";
 import receive_order from '@/routes/receive_order';
 import product_category from "@/routes/product_category";
@@ -65,6 +66,7 @@ const router = createRouter({
         ...report,
         ...ledger,
         ...settings,
+        ...fetch_order,
 
         {
             path: '/error-404',
