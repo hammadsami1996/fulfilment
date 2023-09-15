@@ -48,6 +48,7 @@ return new class extends Migration
             $table->integer('delivery_charges')->nullable();
             $table->integer('shipped_by_id')->nullable();
             $table->double('weight')->default(0);
+            $table->string('order_form')->nullable();
 
 
 
