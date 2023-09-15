@@ -106,7 +106,7 @@
                             id="profile_picture"
                             name="profile_picture" type="file" v-on:change="onImageChange">
                         <img width="100" :src="ImgUrl" v-if="ImgUrl">
-                        <div class="w-full sm:w-1/2 mb-4 sm:ml-0 p-2 " v-else-if="form.logo != null">
+                        <div class="w-full sm:w-1/2 mb-4 sm:ml-0 p-2 " v-else-if="form.logo">
                             <img width="100" :src="`/uploads/company/logo/`+form.logo">
                         </div>
                     </div>

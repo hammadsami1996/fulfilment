@@ -323,12 +323,20 @@
         </div>
       </div>
     </div>
-
+   
     <div class="p-6" v-if="courier">
       <h1 class="text-lg font-bold mb-4">Courier Settings</h1>
       <hr>
-      <div class="radio-inputs mb-4" >
-      <label style="background-color: rgb(86, 192, 224);">
+      
+
+  <div class="card-container mb-6">
+    <div  class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="stores in stores_data" >
+     
+      
+      <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" @click="create_store(stores)">
+       
+        <div class="radio-inputs mb-4" >
+        <label style="background-color: rgb(86, 192, 224);">
         <input
           class="radio-input"
           type="radio"
@@ -338,25 +346,25 @@
         />
         <span class="radio-tile">
           <span class="radio-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M547.6 103.8L490.3 13.1C485.2 5 476.1 0 466.4 0H109.6C99.9 0 90.8 5 85.7 13.1L28.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM499.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H128V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"/></svg>
-          </span>
-          <span class="radio-label">Stores</span>
+            <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i>        </span>
+          <span class="radio-label">{{stores ?  stores.name:'' }}</span>
         </span>
       </label>
-     
-   
-      
     </div>
-      <!-- <div class="mt-3 w-full sm:w-1/6 mb-6 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
-      <button data-text="Awesome" class="buttons">
-    <span class="actual-text" style="color: black;" ><i class="fa-solid fa-store fa-2x" style="color: #252629;"></i></span>
-    <span class="hover-text" aria-hidden="true"><i class="fa-solid fa-store fa-2x" ></i></span>
-</button>
-</div> -->
+<!-- <span style="color:rgba(61, 125, 179, 0.918); font-weight: bold; font-size:small;">{{ image.name }}</span> -->
+
+                      </div>
+    
+    </div>
+  </div>
+
+
+      
+    
 <hr>
 <br>  
       <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-        <div class="ml-24 mr-12 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+        <div class=" mr-12 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
           <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('woocommerce')">
                     <div class="coin">
           <div class="side heads">
@@ -376,7 +384,7 @@
           
     </div>
 
-    <div class="ml-24 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+    <div class="mr-12 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
           <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('shopify')">
                     <div class="coins" >
           <div class="side heads">
@@ -388,6 +396,25 @@
             
             </div>
             <h1 class="ml-12 mt-4"><strong style="color:rgb(31, 119, 19)">Shopify</strong><br><span style="font-size:small">Configration</span></h1>
+          
+
+  
+          </div>
+          
+          
+    </div>
+    <div class=" w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
+          <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('MimCart')">
+                    <div class="coin">
+          <div class="side heads">
+            <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
+            </div>
+            <div class="side tails">
+        <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
+            </div>
+            
+            </div>
+            <h1 class="ml-12 mt-4"><strong style="color:rgb(40, 40, 104)">MimCart</strong><br><span style="font-size:small">Configration</span></h1>
           
 
   
@@ -449,7 +476,7 @@
             <input
               class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
               type="text"
-              v-model="form.api_key"
+              v-model="form.access_token"
             />
 
             <p class="text-red-600 text-xs italic" v-if="error.api_key">
@@ -473,18 +500,77 @@
           
         </div>
 
+
+
         
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'woocommerce'">
           
 
           <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
             <label class="block font-medium text-sm text-gray-700 mb-2">
-              Store Address
+              WordPress Store Address
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.word_address"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.store_address">
+              {{ error.store_address[0] }}
+            </p>
+          </div>
+        </div>
+
+        
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'shopify'">
+          
+
+          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
+            <label class="block font-medium text-sm text-gray-700 mb-2">
+              Shopify Store Address
             </label>
             <input
               class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
               type="text"
               v-model="form.store_address"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.store_address">
+              {{ error.store_address[0] }}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'MimCart'">
+          
+
+          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
+            <label class="block font-medium text-sm text-gray-700 mb-2">
+              Mimcart Api Key
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.mim_api_key"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.store_address">
+              {{ error.store_address[0] }}
+            </p>
+          </div>
+        </div>
+
+
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'MimCart'">
+          
+
+          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
+            <label class="block font-medium text-sm text-gray-700 mb-2">
+              Mimcart Store Address
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.mim_store_address"
             />
             <p class="text-red-600 text-xs italic" v-if="error.store_address">
               {{ error.store_address[0] }}
@@ -508,7 +594,7 @@
               Test Connecion
               </button>
               <button v-if="save_button"
-              @click="wordpress"
+              @click="save_store_data"
               class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
               type="button">
               Save
@@ -571,6 +657,9 @@ export default {
       wearhouses: "/api/wearhouse",
       companys: "/api/company",
       com:[],
+      stores_data:[],
+    
+     
     };
   },
 
@@ -598,19 +687,37 @@ export default {
   methods: {
 
     close(){
-      this.show_ecommerce = false,
-      this.form = []
+      this.show_ecommerce = false
+      this.connection_button = true 
+      this.save_button = false
+      // this.form = []
     },
     ecommerce(e){
+      console.log(this.form.store_address);
       this.online_store_name = e;
+      this.form.plate_form = e ;
       this.show = true
         this.show_ecommerce = true
     },
 
     wordpress(){
-      byMethod("post", '/api/ecommerce' ,this.form).then(
-        (res) => {
-          if(res.data.data){
+
+      
+                let connention_url = ''
+                if (this.online_store_name == 'shopify') {
+                    
+                    connention_url = '/api/shopify_fetch_data'
+                } else if (this.online_store_name == 'woocommerce') {
+                  connention_url = '/api/ecommerce'
+
+                } else if (this.online_store_name == 'MimCart') {
+                  
+                    connention_url = '/api/mimcart_fetch_data'
+                }
+                if (this.form && connention_url) {
+                    byMethod('post', connention_url, this.form).then(res => {
+                      // console.log(res.data.error);
+                      if(res.data.data){
             this.$toast.open({
             position: "top-right",
             message:
@@ -629,7 +736,7 @@ export default {
             type: "error",
             duration: 7000,
           });
-            // this.message = res.data.woocommerce_error
+           
           }
 
           if(res.data.error){
@@ -639,15 +746,74 @@ export default {
             type: "error",
             duration: 3000,
           });
-            // this.message = res.data.error
+            
           }
-          // console.log(res.data.error)
+
+                    }).catch(err => {
+                      this.$toast.open({
+            position: "top-right",
+            message: "Connection Failed",
+            type: "error",
+            duration: 3000,
+          });
+                        // console.log(err);
+                    })
+                }
+      // console.log(this.online_store_name);
+      // byMethod("post", '/api/ecommerce' ,this.form).then(
+      //   (res) => {
+      //     if(res.data.data){
+      //       this.$toast.open({
+      //       position: "top-right",
+      //       message:
+      //        "Connection Successful",
+      //       type: "success",
+      //       duration: 3000,
+      //     });
+      //     this.save_button = true,
+      //     this.connection_button = false
+
+      //     }
+      //     if(res.data.woocommerce_error){
+      //       this.$toast.open({
+      //       position: "top-right",
+      //       message: res.data.woocommerce_error,
+      //       type: "error",
+      //       duration: 7000,
+      //     });
+           
+      //     }
+
+      //     if(res.data.error){
+      //       this.$toast.open({
+      //       position: "top-right",
+      //       message: "Connection Failed",
+      //       type: "error",
+      //       duration: 3000,
+      //     });
+            
+      //     }
+         
           
-        }
-      )
+      //   }
+      // )
     },
     couriertabs() {
       (this.email = false), (this.sms = false), (this.courier = true);
+      console.log(this.company_id);
+      if(isNaN(this.company_id)){
+        this.$toast.open({
+            position: "top-right",
+            message:"Please Select Company First",
+             
+            type: "error",
+            duration: 3000,
+          });
+      }
+      else{
+        
+        this.storereturn(this.company_id);
+      }
     },
 
     smstabs() {
@@ -675,7 +841,30 @@ export default {
       this.company_id = company.id
       this.returns(this.form.company_id);
     },
+    save_store_data(){
+     
+      // byMethod("post", `/api/stores?store_id=${this.store_id}&company_id=${this.company_id}$name=${this.name}`  , this.data)
+      byMethod("put", `/api/stores/${this.store_id}` , this.form)
 
+        .then((res) => {
+          
+        })
+    },
+
+    create_store(stores){
+      console.log(stores);
+      this.store_id = stores.id
+      this.form.company_id = this.company_id
+      this.form.store_id = stores.id
+      this.form.name = stores.name
+      this.form.location = stores.location
+      this.form.api_key = stores.api_key
+      this.form.api_secret = stores.api_secret
+      this.form.store_address = stores.store_address
+      this.form.word_address = stores.word_address
+      this.from.access_token = stores.access_token
+      // console.log(this.from.api_key);
+    },
     company_data() {
       byMethod("get","/api/company").then(
         (res) => {
@@ -687,6 +876,15 @@ export default {
       byMethod("get", `/api/settings/create?key=${this.key}&company=${e}`).then(
         (res) => {
           (this.show_company_data = true), this.setData(res);
+        }
+      );
+    },
+
+    storereturn(e) {
+      byMethod("get", `/api/stores_data?company_id=${e}`).then(
+        (res) => {
+         console.log(res.data.data.data);
+         this.stores_data = res.data.data.data;
         }
       );
     },
@@ -886,7 +1084,7 @@ export default {
 
 .card svg {
   width: 48px;
-  fill: #333;
+  fill: #333333;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 

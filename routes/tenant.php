@@ -129,8 +129,14 @@ Route::middleware([
 
         Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
         Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
-        Route::get('wordpress', [\App\Http\Controllers\WordpressController::class, 'getWooCommerceOrders']);
+        Route::get('stores_data', [\App\Http\Controllers\StoreController::class, 'stores_data']);
+
+
+
         Route::post('ecommerce', [\App\Http\Controllers\WordpressController::class, 'getWooCommerceOrders']);
+        Route::post('/shopify_fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
+        Route::post('/mimcart_fetch_data', [\App\Http\Controllers\MimCartController::class, 'fetchData']);
+        Route::post('/mimcart_store_data', [\App\Http\Controllers\MimCartController::class, 'storeOrder']);
 
 
 

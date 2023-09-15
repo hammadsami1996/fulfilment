@@ -6,7 +6,6 @@ import plan from '@/routes/plan';
 
 import permission from '@/routes/permission';
 import user_dashboard from "@/routes/user_dashboard";
-import update_profile from "@/routes/update_profile";
 import user_type from "@/routes/user_type";
 import product from "@/routes/product";
 import wearhouse from "@/routes/wearhouse";
@@ -20,14 +19,12 @@ import customer from "@/routes/customer";
 import report from "@/routes/report";
 import ledger from "@/routes/ledger";
 import settings from "@/routes/settings";
-
-
-
 // import customer from "@/routes/receive_order";
 import receive_order from '@/routes/receive_order';
 import product_category from "@/routes/product_category";
 import brand from "@/routes/brand";
 import replacement from "@/routes/replacement";
+
 const toast = useToast(); // Initialize the toast plugin
 const user_type_id = window.apex.user.user_type_id;
 
@@ -50,7 +47,6 @@ const router = createRouter({
         ...plan,
 
         ...permission,
-        ...update_profile,
         ...user_dashboard,
         ...user_type,
         ...product,

@@ -31,6 +31,8 @@ class StoreController extends Controller
             "api_key" => '',
             "api_secret" => '',
             "word_address" => '',
+            "mim_api_key" => '',
+            "mim_store_address" => '',
 
         ];
         return response()->json([
@@ -43,6 +45,7 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'location' => 'required',
@@ -79,6 +82,7 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'location' => 'required',
@@ -103,4 +107,11 @@ class StoreController extends Controller
         $model->delete();
         return response()->json(["deleted" => true]);
     }
+
+
+    public function stores_data()
+    {
+        return response()->json(['data' => Store::where('company_id' , request('company_id'))->search()]);
+    }
+
 }
