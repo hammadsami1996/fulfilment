@@ -5,6 +5,13 @@
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Parent Wearhouse</label>
+                    <typeahead :initialize="form.parent" :url="parentUrl" @input="onParent" display="text"/>
+<!--                    <p class="text-red-600 text-xs italic" v-if="error.parent_id">{{ error.parent_id[0] }}</p>-->
+                </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -31,12 +38,14 @@
             <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted"
-                    type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                    type="button">
                     {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
                 </button>
                 <button
                     @click="successfull()"
-                    type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white">
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                    type="button">
                     Cancel
                 </button>
             </div>
@@ -47,6 +56,7 @@
 <script>
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
+    import Typeahead from "@/Components/typeahead/typeahead.vue";
 
     function initialize(to) {
         let urls = {
@@ -59,7 +69,7 @@
     export default {
         mixins: [form],
         components: {
-            // Typeahead,
+            Typeahead,
         },
         data() {
             return {
@@ -67,6 +77,7 @@
                 show: false,
                 resource: '/wearhouse',
                 store: '/api/wearhouse',
+                parentUrl:'/api/wearhouse',
                 method: 'POST',
                 small: 'wearhouse',
                 capital: 'Wearhouse',
@@ -124,7 +135,13 @@
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
-            }
+            },
+            onParent(e) {
+                const parent = e.target.value;
+                console.log(e);
+                this.form.parent = parent
+                this.form.parent_id = parent.id
+            },
         },
     }
 </script>

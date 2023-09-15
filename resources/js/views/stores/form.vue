@@ -57,10 +57,13 @@
                             v-model="form.plate_form">
                             <option value="Woocommerce">Woocommerce</option>
                             <option value="Shopify">Shopify</option>
+                            <option value="Mimcart">Mimcart</option>
                         </select>
                     </div>
                     <p class="text-red-600 text-xs italic" v-if="error.plate_form">{{ error.plate_form[0] }}</p>
                 </div>
+            </div>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Access Token</label>
@@ -70,27 +73,97 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-            </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" placeholder="https://example.com"
+                        type="url"
                         v-model="form.store_address"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0 mt-6"
-                     v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
-                    <button
-                        @click="testconnection()"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+            </div>
+            <div class="flex justify-end mt-8 space-x-4 mb-6 mr-6 ml-4"
+                 v-if="form.plate_form == 'Shopify' && form.store_type  == 'Online'">
+                <button @click="wordpress"
+                        class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
+                        type="button"
+                        v-if="connection_button">
+                    Test Connecion
+                </button>
+                <button v-if="save_button"
+                        @click="wordpress"
+                        class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button">
-                        Test Connection
-                    </button>
+                    Save
+                </button>
+            </div>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                     v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.api_key"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                     v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Secret</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.api_secret"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                     v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.word_address"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
             </div>
+            <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6"
+                 v-if="form.plate_form == 'Woocommerce' && form.store_type  == 'Online'">
+                <button @click="wordpress"
+                        class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
+                        type="button"
+                        v-if="connection_button">
+                    Test Connecion
+                </button>
+                <button v-if="save_button"
+                        @click="wordpress"
+                        class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                        type="button">
+                    Save
+                </button>
+            </div>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                     v-if="form.plate_form == 'Mimcart' && form.store_type  == 'Online'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.api_key"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                     v-if="form.plate_form == 'Mimcart' && form.store_type  == 'Online'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
+                    <input
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.api_key"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
+                </div>
+            </div>
+
 
             <div class="flex justify-end mt-8 space-x-4">
                 <button
@@ -130,7 +203,8 @@
         },
         data() {
             return {
-
+                save_button:false,
+                connection_button: true,
                 error: {},
                 show: false,
                 resource: '/stores',
@@ -142,6 +216,8 @@
                 message: 'New stores Added',
                 permissions: {},
                 companys: '/api/company',
+                errorMessage: '',
+                buttonText: 'Test Connection',
             }
         },
 
@@ -174,13 +250,45 @@
                 }
                 this.show = true
             },
-            testconnection(){
-                byMethod('get', `/api/fetch_data?store_address=${this.form.store_address}&access_token=${this.form.access_token}` ).then((res) => {
-                    console.log(res);
-                })
+            wordpress(){
+                byMethod("post", '/api/ecommerce' ,this.form).then(
+                    (res) => {
+                        if(res.data.data){
+                            this.$toast.open({
+                                position: "top-right",
+                                message:
+                                    "Connection Successful",
+                                type: "success",
+                                duration: 3000,
+                            });
+                            this.save_button = true,
+                                this.connection_button = false
 
+                        }
+                        if(res.data.woocommerce_error){
+                            this.$toast.open({
+                                position: "top-right",
+                                message: res.data.woocommerce_error,
+                                type: "error",
+                                duration: 7000,
+                            });
+                            // this.message = res.data.woocommerce_error
+                        }
+
+                        if(res.data.error){
+                            this.$toast.open({
+                                position: "top-right",
+                                message: "Connection Failed",
+                                type: "error",
+                                duration: 3000,
+                            });
+                            // this.message = res.data.error
+                        }
+                        // console.log(res.data.error)
+
+                    }
+                )
             },
-
             formSubmitted() {
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
@@ -204,8 +312,30 @@
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
+            },
+
+            testconnection() {
+                byMethod('get', `/api/fetch_data?store_address=${this.form.store_address}&access_token=${this.form.access_token}`).then((res) => {
+                    // console.log(res);
+                    if (res.error) {
+                        this.errorMessage = res.error;
+                    } else {
+                        this.buttonText = 'Connection Successful';
+                        setTimeout(() => {
+                            this.buttonText = 'Test Connection';
+                        }, 3000);
+                    }
+                })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+
+
             }
+
         },
+
+
     }
 </script>
 
