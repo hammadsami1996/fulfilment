@@ -61,11 +61,11 @@ class MimCartController extends Controller
                                     $model->b_address_1 = $rec['address'];
                                     $model->email = $rec['email'];
                                     $model->phone = $rec['mobile'];
+
                                     $model->save();
                                     $order->customer_id = $model->id;
                                 }
                             }
-                            $order->customer_id = $rec['name'];
                             $order->email = $rec['email'];
                             $order->phone = $rec['mobile'];
                             $order->s_addres_1 = $rec['address'];
