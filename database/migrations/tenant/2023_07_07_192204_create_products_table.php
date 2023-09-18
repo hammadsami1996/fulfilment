@@ -13,28 +13,29 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->string('description')->nullable();
-            $table->string('product_sku')->nullable();
-            $table->integer('model_no')->nullable();
-            $table->integer('barcode')->nullable();
-            $table->integer('manage_inventory')->nullable();
-//            $table->integer('product_qty')->nullable();
-            $table->string('product_types')->nullable();
-            $table->integer('cost_price')->nullable();
-            $table->integer('selling_price')->nullable();
+            $table->string('title', 50)->nullable();
+            $table->string('description', 255)->nullable();
+            $table->string('product_sku', 25)->nullable();
+            $table->string('model_no', 25)->nullable();
+            $table->string('barcode', 25)->nullable();
+            $table->string('manage_inventory', 25)->nullable();
+            // $table->integer('product_qty')->nullable();
+            $table->string('product_types', 25)->nullable();
+            $table->string('cost_price', 25)->nullable();
+            $table->string('selling_price', 25)->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->string('product_category')->nullable();
+            $table->string('product_category', 25)->nullable();
             $table->integer('brand_id')->nullable();
             $table->integer('head_id')->nullable();
-            $table->integer('quantity')->nullable();
+            $table->string('quantity', 25)->nullable();
             $table->integer('weight')->default(0);
             $table->integer('supplier_id')->nullable();
 
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
