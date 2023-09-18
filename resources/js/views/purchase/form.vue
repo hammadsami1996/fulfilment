@@ -89,32 +89,29 @@
                     <p class="text-red-600 text-xs italic" v-if="error.sku">{{error.sku[0] }}</p>
                 </div>
             </div> -->
-            <br>
-            <hr>
-            <div
-                class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
-                <table class="min-w-full text-sm align-middle whitespace-nowrap">
+            <div class="mt-4 ml-2 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+                <table class="min-w-full text-sm whitespace-nowrap">
                     <thead >
                     <tr class="border-b border-gray-100 dark:border-gray-700/50">
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="p-2 text-gray-900 bg-gray-100/75 font-semibold dark:text-gray-50 dark:bg-gray-700/25">
                            Sku
                         </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="pl-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             Item Description
                         </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="text-gray-900 bg-gray-100/75 font-semibold dark:text-gray-50 dark:bg-gray-700/25">
                             Image
                         </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                             Qty
                         </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                            Purchase Price
                         </th>
-                        <th class="  px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
 
                         </th>
-                        <th class="  px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                        <th class="text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
 
                         </th>
 
@@ -135,7 +132,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                     <tr class="border-b border-gray-100 dark:border-gray-700/50" v-for="(item,index) in form.items">
+                     <tr class="border-gray-100 dark:border-gray-700/50" v-for="(item,index) in form.items">
                         <td class="text-center">
                             {{ item.product ? item.product.product_sku :'0'  }}
                             <!-- {{  item.product ? item.product.product_img.lenght:'00' }} -->
@@ -150,7 +147,7 @@
                                 :initialize="item.product"
                                 :url="products"
                                 @input="onProduct(item, index, $event)"
-                                class="w-72 h-6 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                class="text-sm rounded-md ml-3 border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="title"
                             />
                         </td>
@@ -180,14 +177,14 @@
 
                         <td>
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                                   class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   class=" px-2 py-1 mr-3 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="number"
                                    v-model="item.qty"
                             >
                         </td>
                         <td>
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                                   class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                   class=" px-2 py-1 mr-3 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="number"
                                    v-model="item.unit_price"
                             >
@@ -228,11 +225,11 @@
                     <tr>
                         <td class="item-empty" colspan="2">
                             <button @click="addNewLine"
-                                    class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center space-x-2">
+                                    class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold p-2 ml-3 mt-2 rounded inline-flex items-center space-x-2">
                                 <i class="fa fa-plus-circle"></i>
                                 <span>Add Products</span>
                             </button>
-                            <span class="text-sm text-gray-600 font-semibold">Total Units: {{ qtySum }} | Total Items: {{ form.items.length }}</span>
+                            <span class="text-sm text-gray-600 font-semibold pl-3">Total Units: {{ qtySum }} | Total Items: {{ form.items.length }}</span>
                         </td>
                         <td colspan="3" class="item-empty align-right panel-title text-right">
                             <span class="item-dark font-semibold">Sub Total</span>

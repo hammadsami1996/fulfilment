@@ -130,13 +130,18 @@ Route::middleware([
         Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
         Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
         Route::get('stores_data', [\App\Http\Controllers\StoreController::class, 'stores_data']);
+        Route::get('woocommerce', [\App\Http\Controllers\WordpressController::class, 'store_order']);
 
 
+
+        Route::post('woocommerce_fetch_data', [\App\Http\Controllers\WordpressController::class, 'getWooCommerceOrders']);
 
         Route::post('ecommerce', [\App\Http\Controllers\WordpressController::class, 'getWooCommerceOrders']);
         Route::post('/shopify_fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
         Route::post('/mimcart_fetch_data', [\App\Http\Controllers\MimCartController::class, 'fetchData']);
         Route::get('/mimcart_store_data/{id}', [\App\Http\Controllers\MimCartController::class, 'storeOrder']);
+        Route::get('/woocommerce_store_data/{id}', [\App\Http\Controllers\WordpressController::class, 'storeOrder']);
+
 
 
 
@@ -176,6 +181,8 @@ Route::middleware([
         Route::get('download_images', [\App\Http\Controllers\ProductController::class, 'download_images']);
         Route::get('product_details', [\App\Http\Controllers\OrderController::class, 'details']);
         Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);
+        Route::get('/fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
+        Route::get('/company', [\App\Http\Controllers\CompanyController::class, 'index']);
 
 
 
