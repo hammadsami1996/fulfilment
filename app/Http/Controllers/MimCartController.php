@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -43,12 +44,27 @@ class MimCartController extends Controller
                 if ($response->successful()) {
                     foreach ($response->json() as $rec) {
 //                        dd($rec);
-                        $order = Order::where('external_order_no', $rec['id'])->where('order_form','MimCart');
+                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart');
                         if (!$order->first()) {
                             $order = new Order();
                             $order->order_form = 'MimCart';
                             $order->external_order_no = $rec['id'];
                             $order->name = $rec['name'];
+                            if ($rec->mobile) {
+                                $customer = Customer::where('phone', $rec->mobile)->first();
+                                if ($customer) {
+                                    $order->customer_id = $customer->id;
+                                } else {
+                                    $model = new Customer();
+                                    $model->name = $rec['name'];
+                                    $model->s_address_1 = $rec['address'];
+                                    $model->b_address_1 = $rec['address'];
+                                    $model->email = $rec['email'];
+                                    $model->phone = $rec['mobile'];
+                                    $model->save();
+                                    $order->customer_id = $model->id;
+                                }
+                            }
                             $order->customer_id = $rec['name'];
                             $order->email = $rec['email'];
                             $order->phone = $rec['mobile'];
