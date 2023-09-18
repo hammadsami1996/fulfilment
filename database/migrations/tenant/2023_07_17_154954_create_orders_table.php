@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('store_id')->nullable();
             $table->timestamp('order_date')->nullable();
             $table->string('customer_id')->nullable();
-            $table->integer('city_id')->nullable();
+            $table->string('city_id')->nullable();
             $table->integer('total')->nullable();
             $table->integer('tax')->nullable();
             $table->integer('balance')->nullable();
