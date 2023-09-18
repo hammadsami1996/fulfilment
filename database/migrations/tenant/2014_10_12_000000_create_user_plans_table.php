@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_plans', function (Blueprint $table) {
             $table->id();
-            $table->integer('plain_id');
+            $table->integer('plain_id', 6);
             $table->timestamp('expire')->nullable();
             $table->decimal('price')->nullable();
             $table->integer('user_id')->nullable();

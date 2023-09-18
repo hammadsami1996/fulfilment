@@ -26,11 +26,11 @@ return new class extends Migration
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->string('product_category', 25)->nullable();
-            $table->integer('brand_id')->nullable();
-            $table->integer('head_id')->nullable();
+            $table->integer('brand_id', 8)->nullable();
+            $table->integer('head_id', 8)->nullable();
             $table->string('quantity', 25)->nullable();
-            $table->integer('weight')->default(0);
-            $table->integer('supplier_id')->nullable();
+            $table->integer('weight', 8)->default(0);
+            $table->integer('supplier_id', 8)->nullable();
 
             $table->timestamps();
         });
