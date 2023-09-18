@@ -112,24 +112,20 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'MimCart'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Store Addres</label>
                     <input
-                        class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
-                        v-model="form.mim_api_key"
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.mim_store_address"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'MimCart'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Store Addres</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
                     <input
-                        class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
-                        v-model="form.mim_store_address"
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        v-model="form.mim_api_key"
                     />
-                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                </div>
-            </div>
-            <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted" v-if="!connectionBtn"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
