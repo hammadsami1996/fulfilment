@@ -21,7 +21,8 @@ class ShopifyController extends Controller
             // Check if the request was successful
             if ($response->successful()) {
                 $data = $response->json(); // No need to decode JSON manually
-                return response()->json($data);
+                $this->storeOrder(1);
+                // return response()->json($data);
             // return response()->json(['data' => true]);
 
             } else {
@@ -59,26 +60,30 @@ class ShopifyController extends Controller
         try {
             $response = Http::withHeaders($headers)->get($apiUrl);
             if ($response->successful()) {
-                foreach ($response->json() as $rec) {
-                    // dd($rec);
+                $shopify = $response->json();
+                // dd($shopify['orders']);
+                foreach ($shopify['orders'] as $rec) {
+                    // dd($rec['customer']['default_address']['address1']);
                     $order = Order::where('external_order_no', $rec['id'])->where('order_form','shopify');
                     if (!$order->first()) {
                         // dd('abcd');
                         $order = new Order();
                         $order->order_form = 'shopify';
                         $order->external_order_no = $rec['id'];
-                        $order->name = $rec['billing']['first_name'];
-                        $order->email = $rec['billing']['email'];
-                        $order->phone = $rec['billing']['phone'];
-                        $order->address = $rec['billing']['address_1'] . $rec['billing']['address_2'];
+                        $order->name = $rec['customer']['first_name'];
+                        $order->email = $rec['customer']['email'];
+                        $order->phone = $rec['customer']['phone'];
+                        $order->address = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
                         
 
-                        $order->shipping_charges = $rec['shipping_tax'];
-                        $order->total = $rec['total'];
-                        $order->discount = $rec['discount_total'];
-                        $order->customer_id = $rec['customer_id'];
-                        $order->tracking_id = $rec['cart_hash'];
-                        $order->payment_method = $rec['payment_method_title'];
+                        $order->shipping_charges = $rec['total_shipping_price_set']['presentment_money']['amount'];
+                        $order->total = $rec['total_price'];
+                        $order->discount = $rec['total_discounts'];
+                        $order->subTotal = $rec['total_line_items_price'];
+
+                        $order->tax = $rec['total_tax'];
+                        $order->tracking_id = $rec['cart_token'];
+                        $order->payment_method = $rec['payment_gateway_names'][0];
 
 
 
@@ -95,12 +100,12 @@ class ShopifyController extends Controller
                         foreach ($rec['line_items'] as $key => $item) {
                             // dd($item);
                             $items[$key]['qty'] = $item['quantity'];
-                            $items[$key]['value_inc_tax'] = $item['total'];
-                            $items[$key]['value_ex_tax'] = $item['subtotal'];
+                            // $items[$key]['value_inc_tax'] = $item['total'];
+                            // $items[$key]['value_ex_tax'] = $item['subtotal'];
 
-                            $items[$key]['product_id'] = $item['product_id'];
+                            // $items[$key]['product_id'] = $item['product_id'];
                             $items[$key]['unit_price'] = $item['price'];
-                            $items[$key]['tax_amount'] = $item['total_tax'];
+                            // $items[$key]['tax_amount'] = $item['total_tax'];
 
 
 
