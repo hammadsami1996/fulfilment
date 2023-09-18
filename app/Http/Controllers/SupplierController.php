@@ -11,7 +11,7 @@ class SupplierController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    
+
     {
         // dd('abcd');
         return response()->json(['data' => Supplier::search()]);
@@ -44,14 +44,14 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'company_name' => 'required',
+            'name' => 'required|max:25',
+            'company_name' => 'required|max:25',
             // 'website' => 'required',
-            'address' => 'required',
-            'number_1' => 'required',
+            'address' => 'required|max:25',
+            'number_1' => 'required|max:15',
 //            'number_2' => 'required',
-            'email' => 'required',
-            'opening_balance' => 'required',
+            'email' => 'required|max:25',
+            'opening_balance' => 'required|max:25',
         ]);
         $model = new Supplier();
         $model->fill($request->all());
@@ -85,14 +85,14 @@ class SupplierController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'company_name' => 'required',
+            'name' => 'required|max:25',
+            'company_name' => 'required|max:25',
             // 'website' => 'required',
-            'address' => 'required',
-            'number_1' => 'required',
+            'address' => 'required|max:25',
+            'number_1' => 'required|max:15',
 //            'number_2' => 'required',
-            'email' => 'required',
-            'opening_balance' => 'required',
+            'email' => 'required|max:25',
+            'opening_balance' => 'required|max:25',
         ]);
         $model = Supplier::findOrFail($id);
         $model->fill($request->all());

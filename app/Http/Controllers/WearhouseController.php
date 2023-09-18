@@ -39,8 +39,8 @@ class WearhouseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'location' => 'required',
+            'name' => 'required|max:25',
+            'location' => 'required:25',
         ]);
         $model = new Wearhouse();
         $model->fill($request->all());

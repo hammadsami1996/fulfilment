@@ -19,8 +19,6 @@ return new class extends Migration
             $table->integer('purchase_order_id')->nullable();
             $table->string('number')->nullable();
             $table->integer('status_id')->nullable();
-
-
             $table->string('document')->nullable();
             $table->string('note')->nullable();
             $table->string('reference')->nullable();
