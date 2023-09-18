@@ -66,7 +66,7 @@ class MimCartController extends Controller
                                     $order->customer_id = $customer['id'];
                                 }
                             }
-                            $order->customer_id = $rec['name'];
+//                            $order->customer_id = $rec['name'];
                             $order->email = $rec['email'];
                             $order->phone = $rec['mobile'];
                             $order->s_addres_1 = $rec['address'];
