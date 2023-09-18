@@ -59,6 +59,7 @@ Route::prefix('api')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
     //fulfilment
     Route::resource('product', \App\Http\Controllers\ProductController::class);
+    
 
 
 });

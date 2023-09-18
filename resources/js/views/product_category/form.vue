@@ -5,7 +5,7 @@
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: ` New ${capital}`}}
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0 pr-3">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2">Parent Category</label>
                     <typeahead :initialize="form.parent" :url="parentUrl" @input="onParent" display="text"/>
@@ -15,7 +15,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2">Category Name</label>
                     <input
                         v-model="form.name"
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                 </div>

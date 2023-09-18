@@ -26,36 +26,36 @@
 
                 <!-- Sign Up Form -->
                 <div class="flex flex-col rounded shadow-sm bg-white overflow-hidden">
-                    <div class="p-5 lg:p-6 grow w-full">
+                    <div class="p-3 lg:p-6 grow w-full">
                         <div class="sm:p-5 lg:px-10 lg:py-8">
-                            <form method="POST" action="{{ route('register') }}" class="space-y-6">
+                            <form method="POST" action="{{ route('register') }}" class="space-y-5">
                                 @csrf
                                 <div class="space-y-1">
                                     <label for="name" class="font-medium">Name</label>
-                                    <input required class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="text" id="name" name="name" placeholder="Enter your first name">
+                                    <input required class="block border border-gray-200 rounded h-10 px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="text" id="name" name="name" placeholder="Enter your first name">
                                     <x-input-error :messages="$errors->get('name')" class="mt-2"/>
 
                                 </div>
                                 <div class="space-y-1">
                                     <label for="email" class="font-medium">Email</label>
-                                    <input required class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="email" id="email" name="email" placeholder="Enter your email">
+                                    <input required class="block border border-gray-200 rounded px-5 py-3 h-10 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="email" id="email" name="email" placeholder="Enter your email">
                                     <x-input-error :messages="$errors->get('email')" class="mt-2"/>
 
                                 </div>
                                 <div class="space-y-1">
                                     <label for="password" class="font-medium">Password</label>
-                                    <input required class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="password" id="password" name="password" placeholder="Choose a strong password">
+                                    <input required class="block border border-gray-200 rounded px-5 py-3 h-10 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="password" id="password" name="password" placeholder="Choose a strong password">
                                     <x-input-error :messages="$errors->get('password')" class="mt-2"/>
 
                                 </div>
                                 <div class="space-y-1">
                                     <label for="password_confirm" class="font-medium">Confirm Password</label>
-                                    <input required class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="password" id="password_confirm" name="password_confirm" placeholder="Confirm your chosen password">
+                                    <input required class="block border border-gray-200 rounded px-5 py-3 h-10 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="password" id="password_confirm" name="password_confirm" placeholder="Confirm your chosen password">
                                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
                                 </div>
                                 <div class="space-y-1">
                                     <label for="mobile_no" class="font-medium">Mobile Number</label>
-                                    <input class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="number" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile Number">
+                                    <input class="block border border-gray-200 rounded px-5 py-3 h-10 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="number" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile Number">
                                     <x-input-error :messages="$errors->get('mobile_no')" class="mt-2"/>
                                 </div>
                                 <div class="flex items-center">
