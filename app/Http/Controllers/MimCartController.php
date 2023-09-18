@@ -88,7 +88,6 @@ class MimCartController extends Controller
                                     $product->save();
                                 }
                                 $items[$key]['product_id'] = $product['id'];
-                                $items[$key]['name'] = $item['title'];
                                 $items[$key]['qty'] = $item['qty'];
                                 $items[$key]['value_inc_tax'] = $item['total'];
                                 $items[$key]['unit_price'] = $item['price'];
