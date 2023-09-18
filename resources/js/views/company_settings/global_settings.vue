@@ -852,7 +852,7 @@ export default {
     },
 
     create_store(stores){
-      console.log(stores);
+      // console.log(stores);
       this.store_id = stores.id
       this.form.company_id = this.company_id
       this.form.store_id = stores.id
@@ -862,8 +862,8 @@ export default {
       this.form.api_secret = stores.api_secret
       this.form.store_address = stores.store_address
       this.form.word_address = stores.word_address
-      this.from.access_token = stores.access_token
-      // console.log(this.from.api_key);
+      this.form.access_token = stores.access_token
+      // console.log(this.from.access_token);
     },
     company_data() {
       byMethod("get","/api/company").then(
