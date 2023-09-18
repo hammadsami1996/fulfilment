@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -50,20 +51,19 @@ class MimCartController extends Controller
                             $order->order_form = 'MimCart';
                             $order->external_order_no = $rec['id'];
                             $order->name = $rec['name'];
-                            if ($rec->mobile) {
-                                $customer = Customer::where('phone', $rec->mobile)->first();
+                            if ($rec['mobile']) {
+                                $customer = Customer::where('phone', $rec['mobile'])->first();
                                 if ($customer) {
-                                    $order->customer_id = $customer->id;
+                                    $order->customer_id = $customer['id'];
                                 } else {
-                                    $model = new Customer();
-                                    $model->name = $rec['name'];
-                                    $model->s_address_1 = $rec['address'];
-                                    $model->b_address_1 = $rec['address'];
-                                    $model->email = $rec['email'];
-                                    $model->phone = $rec['mobile'];
-
-                                    $model->save();
-                                    $order->customer_id = $model->id;
+                                    $customer = new Customer();
+                                    $customer->name = $rec['name'];
+                                    $customer->s_address_1 = $rec['address'];
+                                    $customer->b_address_1 = $rec['address'];
+                                    $customer->email = $rec['email'];
+                                    $customer->phone = $rec['mobile'];
+                                    $customer->save();
+                                    $order->customer_id = $customer['id'];
                                 }
                             }
                             $order->email = $rec['email'];
@@ -77,6 +77,16 @@ class MimCartController extends Controller
                             // other
                             $items = [];
                             foreach ($rec['items'] as $key => $item) {
+                                $product = Product::where('product_sku',$item['code'])->first();
+                                if (!$product){
+                                    $product = new Product();
+                                    $product->product_sku = $item['code'];
+                                    $product->title = $item['title'];
+                                    $product->selling_price = $item['price'];
+                                    $product->cost_price = $item['price'];
+                                    $product->save();
+                                }
+                                $items[$key]['product_id'] = $product['id'];
                                 $items[$key]['name'] = $item['title'];
                                 $items[$key]['qty'] = $item['qty'];
                                 $items[$key]['value_inc_tax'] = $item['total'];
