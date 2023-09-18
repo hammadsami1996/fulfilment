@@ -12,16 +12,16 @@ class Order_item extends Model
 {
     use HasFactory, Notifiable, HasRoles;
     use Search;
+
     protected $fillable = [
-   'order_id', 'product_id','qty', 'unit_price', 'value_ex_tax','tax_percent', 'tax_amount', 'value_inc_tax' ,'warehouse_id'
+        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id'
     ];
     protected $columns = [
-        'order_id', 'product_id','qty', 'unit_price', 'value_ex_tax','tax_percent', 'tax_amount', 'value_inc_tax','warehouse_id'
-
+        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id'
     ];
 
     protected $search = [
-        'order_id', 'product_id','qty', 'unit_price', 'value_ex_tax','tax_percent', 'tax_amount', 'value_inc_tax' ,'warehouse_id'
+        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id'
 
     ];
     protected $appends = ['text'];
