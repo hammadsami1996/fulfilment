@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('companysettings', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
-            $table->string('value')->nullable();
+            $table->string('key' ,  20);
+            $table->json('value')->nullable();
             $table->integer('company_id')->nullable();
             $table->integer('active')->nullable();
 

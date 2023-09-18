@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('name' , 15)->nullable();
+            $table->string('phone' , 15)->nullable();
             $table->integer('tax_number')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('country_id')->nullable();
             $table->string('postal')->nullable();
-            $table->string('province')->nullable();
+            $table->string('province' , 15)->nullable();
             $table->string('address')->nullable();
             $table->string('logo')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email' , 30)->nullable();
             $table->timestamps();
         });
     }
