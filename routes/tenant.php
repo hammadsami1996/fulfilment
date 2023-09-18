@@ -140,6 +140,8 @@ Route::middleware([
         Route::post('/shopify_fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
         Route::post('/mimcart_fetch_data', [\App\Http\Controllers\MimCartController::class, 'fetchData']);
         Route::get('/mimcart_store_data/{id}', [\App\Http\Controllers\MimCartController::class, 'storeOrder']);
+        Route::get('/woocommerce_store_data/{id}', [\App\Http\Controllers\WordpressController::class, 'storeOrder']);
+
 
 
 

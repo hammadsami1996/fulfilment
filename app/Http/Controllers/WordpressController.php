@@ -48,9 +48,9 @@ class WordpressController extends Controller
             $orders = $response->json();
             // dd($orders);
             // Process and use $orders as needed
-            // return response()->json(['data' => true]);
-            
-            return response()->json(['data' => $orders]);
+            return response()->json(['data' => true]);
+            // $this->storeOrder(1);
+            // return response()->json(['data' => $orders]);
 
             // return view('woocommerce.orders', compact('orders'));
         } else {
@@ -66,35 +66,35 @@ class WordpressController extends Controller
 }
 
 
-public function store_order(){
-    $woocommerceApiUrl = 'https://wp.mimcart.com/wp-json/wc/v3/orders';
+// public function store_order(){
+//     $woocommerceApiUrl = 'https://wp.mimcart.com/wp-json/wc/v3/orders';
 
-    $apiKey = 'ck_293766b75c5a707c5fb6638475880810a3c70a5a';
+//     $apiKey = 'ck_293766b75c5a707c5fb6638475880810a3c70a5a';
   
 
-    $apiSecret = 'cs_3895987df29107dcc5cd788b46bc6705f54f5f0c';
-    $apiSecret = request()->api_secret;
+//     $apiSecret = 'cs_3895987df29107dcc5cd788b46bc6705f54f5f0c';
+//     $apiSecret = request()->api_secret;
 
 
-    try {
-        $response = Http::withBasicAuth($apiKey, $apiSecret)->get($woocommerceApiUrl);
+//     try {
+//         $response = Http::withBasicAuth($apiKey, $apiSecret)->get($woocommerceApiUrl);
        
        
-            $orders = $response->json();
+//             $orders = $response->json();
           
             
-            dd($orders);
+//             dd($orders);
 
             
      
             
            
       
-    } catch (\Exception $e) {
+//     } catch (\Exception $e) {
        
-        return response()->json(['woocommerce_error'=> $e->getMessage()]);
-    }
-}
+//         return response()->json(['woocommerce_error'=> $e->getMessage()]);
+//     }
+// }
 
 
 public function storeOrder($id)
@@ -111,19 +111,27 @@ public function storeOrder($id)
             $response = Http::withBasicAuth($apiKey, $apiSecret)->get($apiUrl);
             if ($response->successful()) {
                 foreach ($response->json() as $rec) {
+                    // dd($rec);
                     $order = Order::where('external_order_no', $rec['id'])->where('order_form','woocommerce');
                     if (!$order->first()) {
+                        // dd('abcd');
                         $order = new Order();
                         $order->order_form = 'woocommerce';
                         $order->external_order_no = $rec['id'];
                         $order->name = $rec['billing']['first_name'];
                         $order->email = $rec['billing']['email'];
                         $order->phone = $rec['billing']['phone'];
-                        $order->address = $rec['billing']['phone'];
-                        $order->address = $rec['shipping_total'];
+                        $order->address = $rec['billing']['address_1'] . $rec['billing']['address_2'];
+                        
+
+                        $order->shipping_charges = $rec['shipping_tax'];
                         $order->total = $rec['total'];
                         $order->discount = $rec['discount_total'];
                         $order->customer_id = $rec['customer_id'];
+                        $order->tracking_id = $rec['cart_hash'];
+                        $order->payment_method = $rec['payment_method_title'];
+
+
 
 
                         
@@ -133,9 +141,11 @@ public function storeOrder($id)
 
 
                         // other
+                        // dd($rec['line_items ']);
                         $items = [];
-                        foreach ($rec['items'] as $key => $item) {
-                            $items[$key]['qty'] = $item['qty'];
+                        foreach ($rec['line_items'] as $key => $item) {
+                            // dd($item);
+                            $items[$key]['qty'] = $item['quantity'];
                             $items[$key]['value_inc_tax'] = $item['total'];
                             $items[$key]['value_ex_tax'] = $item['subtotal'];
 
@@ -152,6 +162,8 @@ public function storeOrder($id)
                         ]);
                     }
                 }
+                return response()->json(['saved' => true]);
+
             } else {
                 return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
             }
