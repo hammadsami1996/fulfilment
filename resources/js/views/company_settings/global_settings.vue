@@ -1,249 +1,192 @@
 <template>
-  <div v-if="show">
-    <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-      <h1 class="sm:w-2/3" style="font-weight: bold; font-size: x-large">
-        Company Settings
-      </h1>
-      <!-- <div class="w-full sm:w-1/3 pl-3 sm:mb-0">
-        <label class="block font-medium text-sm text-gray-700 mb-2"
-          >Company</label
-        >
-        <typeahead
-          :initialize="form.company"
-          :url="companys"
-          @input="onCompany"
-          display="name"
-        />
-        <p class="text-red-600 text-xs italic" v-if="error.company_id">
-          {{ error.company_id[0] }}
-        </p>
-      </div> -->
-    </div>
-    <div class="card-container mb-6">
-    <div  class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(image) in com" >
-     
-      
-      <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" >
-       
-
-                        <div class="card" @click="onCompany(image)">
-                          <img :src="`/uploads/company/logo/` +  image.logo" >
-  <div class="card__content">
-    <p class="card__title">{{ image.country ?  image.country.text:'' }}</p>
-    <p class="card__description">{{image.city ?  image.city.text:'' }}</p>
-  </div>
-</div>
-<span style="color:rgba(61, 125, 179, 0.918); font-weight: bold; font-size:small;">{{ image.name }}</span>
-
-                      </div>
-    
-    </div>
-  </div>
-
-    <div class="radio-inputs mb-4">
-      <label>
-        <input
-          class="radio-input"
-          type="radio"
-          name="engine"
-          @click="smstabs"
-        />
-        <span class="radio-tile">
-          <span class="radio-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="1em"
-              viewBox="0 0 512 512"
-            >
-              <path
-                d="M256 448c141.4 0 256-93.1 256-208S397.4 32 256 32S0 125.1 0 240c0 45.1 17.7 86.8 47.7 120.9c-1.9 24.5-11.4 46.3-21.4 62.9c-5.5 9.2-11.1 16.6-15.2 21.6c-2.1 2.5-3.7 4.4-4.9 5.7c-.6 .6-1 1.1-1.3 1.4l-.3 .3 0 0 0 0 0 0 0 0c-4.6 4.6-5.9 11.4-3.4 17.4c2.5 6 8.3 9.9 14.8 9.9c28.7 0 57.6-8.9 81.6-19.3c22.9-10 42.4-21.9 54.3-30.6c31.8 11.5 67 17.9 104.1 17.9zM202.9 176.8c6.5-2.2 13.7 .1 17.9 5.6L256 229.3l35.2-46.9c4.1-5.5 11.3-7.8 17.9-5.6s10.9 8.3 10.9 15.2v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V240l-19.2 25.6c-3 4-7.8 6.4-12.8 6.4s-9.8-2.4-12.8-6.4L224 240v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-6.9 4.4-13 10.9-15.2zm173.1 38c0 .2 0 .4 0 .4c.1 .1 .6 .8 2.2 1.7c3.9 2.3 9.6 4.1 18.3 6.8l.6 .2c7.4 2.2 17.3 5.2 25.2 10.2c9.1 5.7 17.4 15.2 17.6 29.9c.2 15-7.6 26-17.8 32.3c-9.5 5.9-20.9 7.9-30.7 7.6c-12.2-.4-23.7-4.4-32.6-7.4l0 0 0 0c-1.4-.5-2.7-.9-4-1.4c-8.4-2.8-12.9-11.9-10.1-20.2s11.9-12.9 20.2-10.1c1.7 .6 3.3 1.1 4.9 1.6l0 0 0 0c9.1 3.1 15.6 5.3 22.6 5.5c5.3 .2 10-1 12.8-2.8c1.2-.8 1.8-1.5 2.1-2c.2-.4 .6-1.2 .6-2.7l0-.2c0-.7 0-1.4-2.7-3.1c-3.8-2.4-9.6-4.3-18-6.9l-1.2-.4c-7.2-2.2-16.7-5-24.3-9.6c-9-5.4-17.7-14.7-17.7-29.4c-.1-15.2 8.6-25.7 18.5-31.6c9.4-5.5 20.5-7.5 29.7-7.4c10 .2 19.7 2.3 27.9 4.4c8.5 2.3 13.6 11 11.3 19.6s-11 13.6-19.6 11.3c-7.3-1.9-14.1-3.3-20.1-3.4c-4.9-.1-9.8 1.1-12.9 2.9c-1.4 .8-2.1 1.6-2.4 2c-.2 .3-.4 .8-.4 1.9zm-272 0c0 .2 0 .4 0 .4c.1 .1 .6 .8 2.2 1.7c3.9 2.3 9.6 4.1 18.3 6.8l.6 .2c7.4 2.2 17.3 5.2 25.2 10.2c9.1 5.7 17.4 15.2 17.6 29.9c.2 15-7.6 26-17.8 32.3c-9.5 5.9-20.9 7.9-30.7 7.6c-12.3-.4-24.2-4.5-33.2-7.6l0 0 0 0c-1.3-.4-2.5-.8-3.6-1.2c-8.4-2.8-12.9-11.9-10.1-20.2s11.9-12.9 20.2-10.1c1.4 .5 2.8 .9 4.1 1.4l0 0 0 0c9.5 3.2 16.5 5.6 23.7 5.8c5.3 .2 10-1 12.8-2.8c1.2-.8 1.8-1.5 2.1-2c.2-.4 .6-1.2 .6-2.7l0-.2c0-.7 0-1.4-2.7-3.1c-3.8-2.4-9.6-4.3-18-6.9l-1.2-.4 0 0c-7.2-2.2-16.7-5-24.3-9.6C80.8 239 72.1 229.7 72 215c-.1-15.2 8.6-25.7 18.5-31.6c9.4-5.5 20.5-7.5 29.7-7.4c9.5 .1 22.2 2.1 31.1 4.4c8.5 2.3 13.6 11 11.3 19.6s-11 13.6-19.6 11.3c-6.6-1.8-16.8-3.3-23.3-3.4c-4.9-.1-9.8 1.1-12.9 2.9c-1.4 .8-2.1 1.6-2.4 2c-.2 .3-.4 .8-.4 1.9z"
-              />
-            </svg>
-          </span>
-          <span class="radio-label">SMS</span>
-        </span>
-      </label>
-      <!-- <label>
-			<input checked="" class="radio-input" type="radio" name="engine">
-			<span class="radio-tile">
-				<span class="radio-icon"  @click="smstabs">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M256 448c141.4 0 256-93.1 256-208S397.4 32 256 32S0 125.1 0 240c0 45.1 17.7 86.8 47.7 120.9c-1.9 24.5-11.4 46.3-21.4 62.9c-5.5 9.2-11.1 16.6-15.2 21.6c-2.1 2.5-3.7 4.4-4.9 5.7c-.6 .6-1 1.1-1.3 1.4l-.3 .3 0 0 0 0 0 0 0 0c-4.6 4.6-5.9 11.4-3.4 17.4c2.5 6 8.3 9.9 14.8 9.9c28.7 0 57.6-8.9 81.6-19.3c22.9-10 42.4-21.9 54.3-30.6c31.8 11.5 67 17.9 104.1 17.9zM202.9 176.8c6.5-2.2 13.7 .1 17.9 5.6L256 229.3l35.2-46.9c4.1-5.5 11.3-7.8 17.9-5.6s10.9 8.3 10.9 15.2v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V240l-19.2 25.6c-3 4-7.8 6.4-12.8 6.4s-9.8-2.4-12.8-6.4L224 240v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-6.9 4.4-13 10.9-15.2zm173.1 38c0 .2 0 .4 0 .4c.1 .1 .6 .8 2.2 1.7c3.9 2.3 9.6 4.1 18.3 6.8l.6 .2c7.4 2.2 17.3 5.2 25.2 10.2c9.1 5.7 17.4 15.2 17.6 29.9c.2 15-7.6 26-17.8 32.3c-9.5 5.9-20.9 7.9-30.7 7.6c-12.2-.4-23.7-4.4-32.6-7.4l0 0 0 0c-1.4-.5-2.7-.9-4-1.4c-8.4-2.8-12.9-11.9-10.1-20.2s11.9-12.9 20.2-10.1c1.7 .6 3.3 1.1 4.9 1.6l0 0 0 0c9.1 3.1 15.6 5.3 22.6 5.5c5.3 .2 10-1 12.8-2.8c1.2-.8 1.8-1.5 2.1-2c.2-.4 .6-1.2 .6-2.7l0-.2c0-.7 0-1.4-2.7-3.1c-3.8-2.4-9.6-4.3-18-6.9l-1.2-.4c-7.2-2.2-16.7-5-24.3-9.6c-9-5.4-17.7-14.7-17.7-29.4c-.1-15.2 8.6-25.7 18.5-31.6c9.4-5.5 20.5-7.5 29.7-7.4c10 .2 19.7 2.3 27.9 4.4c8.5 2.3 13.6 11 11.3 19.6s-11 13.6-19.6 11.3c-7.3-1.9-14.1-3.3-20.1-3.4c-4.9-.1-9.8 1.1-12.9 2.9c-1.4 .8-2.1 1.6-2.4 2c-.2 .3-.4 .8-.4 1.9zm-272 0c0 .2 0 .4 0 .4c.1 .1 .6 .8 2.2 1.7c3.9 2.3 9.6 4.1 18.3 6.8l.6 .2c7.4 2.2 17.3 5.2 25.2 10.2c9.1 5.7 17.4 15.2 17.6 29.9c.2 15-7.6 26-17.8 32.3c-9.5 5.9-20.9 7.9-30.7 7.6c-12.3-.4-24.2-4.5-33.2-7.6l0 0 0 0c-1.3-.4-2.5-.8-3.6-1.2c-8.4-2.8-12.9-11.9-10.1-20.2s11.9-12.9 20.2-10.1c1.4 .5 2.8 .9 4.1 1.4l0 0 0 0c9.5 3.2 16.5 5.6 23.7 5.8c5.3 .2 10-1 12.8-2.8c1.2-.8 1.8-1.5 2.1-2c.2-.4 .6-1.2 .6-2.7l0-.2c0-.7 0-1.4-2.7-3.1c-3.8-2.4-9.6-4.3-18-6.9l-1.2-.4 0 0c-7.2-2.2-16.7-5-24.3-9.6C80.8 239 72.1 229.7 72 215c-.1-15.2 8.6-25.7 18.5-31.6c9.4-5.5 20.5-7.5 29.7-7.4c9.5 .1 22.2 2.1 31.1 4.4c8.5 2.3 13.6 11 11.3 19.6s-11 13.6-19.6 11.3c-6.6-1.8-16.8-3.3-23.3-3.4c-4.9-.1-9.8 1.1-12.9 2.9c-1.4 .8-2.1 1.6-2.4 2c-.2 .3-.4 .8-.4 1.9z"/></svg>
-				</span>
-				<span class="radio-label">SMS</span>
-			</span>
-		</label> -->
-      <label>
-        <input
-          class="radio-input"
-          type="radio"
-          name="engine"
-          @click="emailtabs"
-        />
-        <span class="radio-tile">
-          <span class="radio-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="1em"
-              viewBox="0 0 512 512"
-            >
-              <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-              <path
-                d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
-              />
-            </svg>
-          </span>
-          <span class="radio-label">Email</span>
-        </span>
-      </label>
-      <label>
-        <input
-          class="radio-input"
-          type="radio"
-          name="engine"
-          @click="couriertabs"
-        />
-        <span class="radio-tile">
-          <span class="radio-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="1em"
-              viewBox="0 0 640 512"
-            >
-              <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-              <path
-                d="M48 0C21.5 0 0 21.5 0 48V368c0 26.5 21.5 48 48 48H64c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H48zM416 160h50.7L544 237.3V256H416V160zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"
-              />
-            </svg>
-          </span>
-          <span class="radio-label">Courier</span>
-        </span>
-      </label>
-    </div>
-
-    <hr />
-    <div class="p-6" v-if="sms">
-      <h1 class="text-lg font-bold mb-4">SMS Settings</h1>
-      <div v-if="show_company_data">
+    <div v-if="show">
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-            <label class="block font-medium text-sm text-gray-700 mb-2"
-              >Login Id
-            </label>
-            <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-              type="text"
-              v-model="form.login_id"
-            />
-
-            <p class="text-red-600 text-xs italic" v-if="error.login_id">
-              {{ error.login_id[0] }}
-            </p>
-          </div>
-          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-            <label class="block font-medium text-sm text-gray-700 mb-2"
-              >Password</label
-            >
-            <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-              type="password"
-              v-model="form.password"
-            />
-            <p class="text-red-600 text-xs italic" v-if="error.password">
-              {{ error.password[0] }}
-            </p>
-          </div>
-
-          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-            <label class="block font-medium text-sm text-gray-700 mb-2"
-              >Mask
-            </label>
-            <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-              type="text"
-              v-model="form.mask"
-            />
-            <p class="text-red-600 text-xs italic" v-if="error.mask">
-              {{ error.mask[0] }}
-            </p>
-          </div>
+            <h1 class="w-full pb-5 pt-3 text-center font-bold pl-3" style=" font-size: x-large">
+                Company Settings
+            </h1>
         </div>
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-          <!-- <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Company</label>
-                    <typeahead :initialize="form.company" :url="companys" @input="onCompany" display="name" />
-                    <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
-
-
-                </div> -->
-
-          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
-            <label class="block font-medium text-sm text-gray-700 mb-2">
-              URL
-            </label>
-            <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-              type="text"
-              v-model="form.url"
-            />
-            <p class="text-red-600 text-xs italic" v-if="error.url">
-              {{ error.url[0] }}
-            </p>
-          </div>
+        <div class="card-container mb-2">
+            <div  class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(image, index) in com" :key="index">
+                <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-5">
+                    <div class="card" @click="onCompany(image)">
+                        <img :src="`/uploads/company/logo/` +  image.logo" >
+                        <div class="card__content">
+                            <p class="card__title">{{ image.country ?  image.country.text:'' }}</p>
+                            <p class="card__description">{{image.city ?  image.city.text:'' }}</p>
+                        </div>
+                    </div>
+                    <span class="text-gray-500 font-bold text-sm pl-3">{{ image.name }}</span>
+                </div>
+            </div>
         </div>
-        <div class="flex justify-end mt-8 space-x-4">
-          <button
-            @click="savejson('sms_settings')"
-            class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-            type="button"
-          >
-            {{
-              $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add"
-            }}
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="p-6" v-if="email">
-      <h1 class="text-lg font-bold mb-4">Email Settings</h1>
-      <div v-if="show_company_data">
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-            <label class="block font-medium text-sm text-gray-700 mb-2"
-              >Title
+        <hr/>
+        <div class="w-full radio-inputs mb-4 mt-4 ml-3">
+            <label>
+                <input
+                    class="radio-input"
+                    type="radio"
+                    name="engine"
+                    @click="smstabs"
+                />
+                <span class="radio-tile">
+                    <span class="radio-icon">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            >
+                            <path
+                                d="M256 448c141.4 0 256-93.1 256-208S397.4 32 256 32S0 125.1 0 240c0 45.1 17.7 86.8 47.7 120.9c-1.9 24.5-11.4 46.3-21.4 62.9c-5.5 9.2-11.1 16.6-15.2 21.6c-2.1 2.5-3.7 4.4-4.9 5.7c-.6 .6-1 1.1-1.3 1.4l-.3 .3 0 0 0 0 0 0 0 0c-4.6 4.6-5.9 11.4-3.4 17.4c2.5 6 8.3 9.9 14.8 9.9c28.7 0 57.6-8.9 81.6-19.3c22.9-10 42.4-21.9 54.3-30.6c31.8 11.5 67 17.9 104.1 17.9zM202.9 176.8c6.5-2.2 13.7 .1 17.9 5.6L256 229.3l35.2-46.9c4.1-5.5 11.3-7.8 17.9-5.6s10.9 8.3 10.9 15.2v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V240l-19.2 25.6c-3 4-7.8 6.4-12.8 6.4s-9.8-2.4-12.8-6.4L224 240v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-6.9 4.4-13 10.9-15.2zm173.1 38c0 .2 0 .4 0 .4c.1 .1 .6 .8 2.2 1.7c3.9 2.3 9.6 4.1 18.3 6.8l.6 .2c7.4 2.2 17.3 5.2 25.2 10.2c9.1 5.7 17.4 15.2 17.6 29.9c.2 15-7.6 26-17.8 32.3c-9.5 5.9-20.9 7.9-30.7 7.6c-12.2-.4-23.7-4.4-32.6-7.4l0 0 0 0c-1.4-.5-2.7-.9-4-1.4c-8.4-2.8-12.9-11.9-10.1-20.2s11.9-12.9 20.2-10.1c1.7 .6 3.3 1.1 4.9 1.6l0 0 0 0c9.1 3.1 15.6 5.3 22.6 5.5c5.3 .2 10-1 12.8-2.8c1.2-.8 1.8-1.5 2.1-2c.2-.4 .6-1.2 .6-2.7l0-.2c0-.7 0-1.4-2.7-3.1c-3.8-2.4-9.6-4.3-18-6.9l-1.2-.4c-7.2-2.2-16.7-5-24.3-9.6c-9-5.4-17.7-14.7-17.7-29.4c-.1-15.2 8.6-25.7 18.5-31.6c9.4-5.5 20.5-7.5 29.7-7.4c10 .2 19.7 2.3 27.9 4.4c8.5 2.3 13.6 11 11.3 19.6s-11 13.6-19.6 11.3c-7.3-1.9-14.1-3.3-20.1-3.4c-4.9-.1-9.8 1.1-12.9 2.9c-1.4 .8-2.1 1.6-2.4 2c-.2 .3-.4 .8-.4 1.9zm-272 0c0 .2 0 .4 0 .4c.1 .1 .6 .8 2.2 1.7c3.9 2.3 9.6 4.1 18.3 6.8l.6 .2c7.4 2.2 17.3 5.2 25.2 10.2c9.1 5.7 17.4 15.2 17.6 29.9c.2 15-7.6 26-17.8 32.3c-9.5 5.9-20.9 7.9-30.7 7.6c-12.3-.4-24.2-4.5-33.2-7.6l0 0 0 0c-1.3-.4-2.5-.8-3.6-1.2c-8.4-2.8-12.9-11.9-10.1-20.2s11.9-12.9 20.2-10.1c1.4 .5 2.8 .9 4.1 1.4l0 0 0 0c9.5 3.2 16.5 5.6 23.7 5.8c5.3 .2 10-1 12.8-2.8c1.2-.8 1.8-1.5 2.1-2c.2-.4 .6-1.2 .6-2.7l0-.2c0-.7 0-1.4-2.7-3.1c-3.8-2.4-9.6-4.3-18-6.9l-1.2-.4 0 0c-7.2-2.2-16.7-5-24.3-9.6C80.8 239 72.1 229.7 72 215c-.1-15.2 8.6-25.7 18.5-31.6c9.4-5.5 20.5-7.5 29.7-7.4c9.5 .1 22.2 2.1 31.1 4.4c8.5 2.3 13.6 11 11.3 19.6s-11 13.6-19.6 11.3c-6.6-1.8-16.8-3.3-23.3-3.4c-4.9-.1-9.8 1.1-12.9 2.9c-1.4 .8-2.1 1.6-2.4 2c-.2 .3-.4 .8-.4 1.9z"
+                            />
+                        </svg>
+                    </span>
+                    <span class="radio-label">SMS</span>
+                </span>
             </label>
-            <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-              type="text"
-              v-model="form.title"
-            />
-
-            <p class="text-red-600 text-xs italic" v-if="error.title">
-              {{ error.title[0] }}
-            </p>
-          </div>
-          <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-            <label class="block font-medium text-sm text-gray-700 mb-2"
-              >Host</label
-            >
-            <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-              type="text"
-              v-model="form.host"
-            />
-            <p class="text-red-600 text-xs italic" v-if="error.host">
-              {{ error.host[0] }}
-            </p>
-          </div>
-
+            <label class="">
+                <input
+                    class="radio-input"
+                    type="radio"
+                    name="engine"
+                    @click="emailtabs"
+                />
+                <span class="radio-tile">
+                    <span class="radio-icon">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            >
+                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path
+                                d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                            />
+                        </svg>
+                    </span>
+                    <span class="radio-label">Email</span>
+                </span>
+            </label>
+            <label>
+                <input
+                class="radio-input"
+                type="radio"
+                name="engine"
+                @click="couriertabs"
+                />
+                <span class="radio-tile">
+                    <span class="radio-icon">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="1em"
+                            viewBox="0 0 640 512"
+                            >
+                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path
+                                d="M48 0C21.5 0 0 21.5 0 48V368c0 26.5 21.5 48 48 48H64c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H48zM416 160h50.7L544 237.3V256H416V160zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"
+                            />
+                        </svg>
+                    </span>
+                    <span class="radio-label">Courier</span>
+                </span>
+            </label>
+        </div>
+        <hr />
+        <div class="p-6" v-if="sms">
+            <h1 class="text-lg font-bold mb-4">SMS Settings</h1>
+            <div v-if="show_company_data">
+                <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                    <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Login Id</label>
+                        <input
+                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                            type="text"
+                            v-model="form.login_id"
+                        />
+                        <p class="text-red-600 text-xs italic" v-if="error.login_id">
+                        {{ error.login_id[0] }}
+                        </p>
+                    </div>
+                    <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Password</label>
+                        <input
+                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                            type="password"
+                            v-model="form.password"
+                        />
+                        <p class="text-red-600 text-xs italic" v-if="error.password">
+                        {{ error.password[0] }}
+                        </p>
+                    </div>
+                    <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Mask</label>
+                        <input
+                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                            type="text"
+                            v-model="form.mask"
+                        />
+                        <p class="text-red-600 text-xs italic" v-if="error.mask">
+                            {{ error.mask[0] }}
+                        </p>
+                    </div>
+                </div>
+                <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                    <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
+                        <label class="block font-medium text-sm text-gray-700 mb-2">URL</label>
+                        <input
+                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                            type="text"
+                            v-model="form.url"
+                        />
+                        <p class="text-red-600 text-xs italic" v-if="error.url">
+                            {{ error.url[0] }}
+                        </p>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-8 space-x-4">
+                    <button
+                        @click="savejson('sms_settings')"
+                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                        type="button"
+                    >
+                        {{
+                        $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add"
+                        }}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="p-6" v-if="email">
+            <h1 class="text-lg font-bold mb-4">Email Settings</h1>
+                <div v-if="show_company_data">
+                    <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Title</label>
+                            <input
+                                class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                                type="text"
+                                v-model="form.title"
+                            />
+                            <p class="text-red-600 text-xs italic" v-if="error.title">
+                                {{ error.title[0] }}
+                            </p>
+                        </div>
+                        <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Host</label>
+                            <input
+                                class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                                type="text"
+                                v-model="form.host"
+                            />
+                            <p class="text-red-600 text-xs italic" v-if="error.host">
+                                {{ error.host[0] }}
+                            </p>
+                        </div>
           <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
             <label class="block font-medium text-sm text-gray-700 mb-2"
               >Username
             </label>
             <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
               type="email"
               v-model="form.username"
             />
@@ -258,7 +201,7 @@
               Password
             </label>
             <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
               type="password"
               v-model="form.password"
             />
@@ -272,7 +215,7 @@
               Port
             </label>
             <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
               type="number"
               v-model="form.port"
             />
@@ -285,7 +228,7 @@
               SMTPSecure
             </label>
             <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
               type="text"
               v-model="form.smtp"
             />
@@ -301,7 +244,7 @@
               From Email
             </label>
             <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
               type="email"
               v-model="form.form_email"
             />
@@ -324,46 +267,49 @@
       </div>
     </div>
    
-    <div class="p-6" v-if="courier">
-      <h1 class="text-lg font-bold mb-4">Courier Settings</h1>
-      <hr>
-      
-
-  <div class="card-container mb-6">
-    <div  class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="stores in stores_data" >
-     
-      
-      <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" @click="create_store(stores)">
-       
-        <div class="radio-inputs mb-4" >
-        <label style="background-color: rgb(86, 192, 224);">
-        <input
-          class="radio-input"
-          type="radio"
-          name="engine"
-          
-          
-        />
-        <span class="radio-tile">
-          <span class="radio-icon">
-            <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i>        </span>
-          <span class="radio-label">{{stores ?  stores.name:'' }}</span>
-        </span>
-      </label>
-    </div>
-<!-- <span style="color:rgba(61, 125, 179, 0.918); font-weight: bold; font-size:small;">{{ image.name }}</span> -->
-
-                      </div>
-    
-    </div>
-  </div>
-
-
-      
-    
-<hr>
-<br>  
-      <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+    <div class="" v-if="courier">
+        <h1 class="text-lg font-bold text-center mb-4 mt-4">Courier Settings</h1>
+            <div class="card-container mb-6">
+                <div  class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="stores in stores_data" >
+                    <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" @click="create_store(stores)">
+                        <div class="radio-inputs">
+                            <label>
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="engine"
+                                />
+                                <span class="radio-title">
+                                    <span class="radio-icon">
+                                        <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
+                                        <img src="/images/shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'Shopify'" @click="ecommerce('shopify')"/>
+                                        <img src="/images/wordpress.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'WooCommerce'" @click="ecommerce('woocommerce')"/>
+                                        <img src="/images/mimcart.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'MimCart'" @click="ecommerce('MimCart')"/>
+                                    </span>
+                                    <span class="radio-label font-bold">{{stores ?  stores.name:'' }} Store</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <hr>
+            <br>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="bg-white p-2 rounded ">
+                    <img src="/images/wordpress.png" alt="WordPress Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
+                    <h2 class="text-lg font-semibold text-center">WordPress</h2>
+                </div>
+                <div class="bg-white p-2 rounded">
+                    <img src="/images/shopify-bag.png" alt="Shopify Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
+                    <h2 class="text-lg font-semibold text-center">Shopify</h2>
+                </div>
+                <div class="bg-white p-2 rounded">
+                    <img src="/images/mimcart.png" alt="Mim Cart Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
+                    <h2 class="text-lg font-semibold text-center">Mim Cart</h2>
+                </div>
+            </div> -->
+      <!-- <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
         <div class=" mr-12 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
           <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('woocommerce')">
                     <div class="coin">
@@ -373,17 +319,10 @@
             <div class="side tails">
         <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
             </div>
-            
             </div>
             <h1 class="ml-12 mt-4"><strong style="color:rgb(40, 40, 104)">WordPress</strong><br><span style="font-size:small">Configration</span></h1>
-          
-
-  
           </div>
-          
-          
     </div>
-
     <div class="mr-12 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
           <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('shopify')">
                     <div class="coins" >
@@ -393,15 +332,9 @@
             <div class="side tails">
               <i class="fa-brands fa-shopify fa-xs" style="color: #bbc2ce; font-size: smaller;"></i>
             </div>
-            
             </div>
             <h1 class="ml-12 mt-4"><strong style="color:rgb(31, 119, 19)">Shopify</strong><br><span style="font-size:small">Configration</span></h1>
-          
-
-  
           </div>
-          
-          
     </div>
     <div class=" w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
           <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('MimCart')">
@@ -415,19 +348,11 @@
             
             </div>
             <h1 class="ml-12 mt-4"><strong style="color:rgb(40, 40, 104)">MimCart</strong><br><span style="font-size:small">Configration</span></h1>
-          
-
-  
           </div>
-          
-          
     </div>
-       </div>
-          
+       </div> -->
     </div>
-                  <Modal :show="true" 
-
-              height="900"
+                  <Modal :show="true" height="900"
 
               v-if="show_ecommerce"
               >
@@ -468,6 +393,21 @@
           
         </div>
 
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'woocommerce'">
+          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
+            <label class="block font-medium text-sm text-gray-700 mb-2">
+              WordPress Store Address
+            </label>
+            <input
+              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
+              type="text"
+              v-model="form.word_address"
+            />
+            <p class="text-red-600 text-xs italic" v-if="error.store_address">
+              {{ error.store_address[0] }}
+            </p>
+          </div>
+        </div>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'shopify'">
           <div class="w-full sm:w-full mb-4 sm:mb-0 p-2" >
             <label class="block font-medium text-sm text-gray-700 mb-2"
@@ -494,30 +434,6 @@
             />
             <p class="text-red-600 text-xs italic" v-if="error.api_secret">
               {{ error.api_secret[0] }}
-            </p>
-          </div>
-
-          
-        </div>
-
-
-
-        
-
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'woocommerce'">
-          
-
-          <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
-            <label class="block font-medium text-sm text-gray-700 mb-2">
-              WordPress Store Address
-            </label>
-            <input
-              class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-              type="text"
-              v-model="form.word_address"
-            />
-            <p class="text-red-600 text-xs italic" v-if="error.store_address">
-              {{ error.store_address[0] }}
             </p>
           </div>
         </div>
@@ -633,33 +549,32 @@ export default {
   },
   data() {
     return {
-      show_company_data: false,
-      email: false,
-      sms: true,
-      show_ecommerce:false,
-      courier: false,
-      save_button:false,
-      connection_button:true,
-      error: {},
-      company_id: {},
-      key: "sms_settings",
-      show: false,
-      resource: "/settings",
-      store: "/api/settings",
-      method: "POST",
-      small: "settings",
-      capital: "settings",
-      title: "Add",
-      message: "New settings Added",
-      permissions: {},
-      online_store_name:{},
-      products: "/api/product",
-      wearhouses: "/api/wearhouse",
-      companys: "/api/company",
-      com:[],
-      stores_data:[],
-    
-     
+        show_company_data: false,
+        email: false,
+        sms: true,
+        show_ecommerce:false,
+        courier: false,
+        save_button:false,
+        connection_button:true,
+        error: {},
+        company_id: {},
+        key: "sms_settings",
+        show: false,
+        resource: "/settings",
+        store: "/api/settings",
+        method: "POST",
+        small: "settings",
+        capital: "settings",
+        title: "Add",
+        message: "New settings Added",
+        permissions: {},
+        online_store_name:{},
+        products: "/api/product",
+        wearhouses: "/api/wearhouse",
+        companys: "/api/company",
+        com:[],
+        stores_data:[],
+        form: {}
     };
   },
 
@@ -675,14 +590,11 @@ export default {
     });
   },
   created(){
-   
       byMethod("get","/api/company").then(
         (res) => {
-           
            this.com = res.data.data.data;
         }
       );
-   
   },
   methods: {
 
@@ -799,21 +711,20 @@ export default {
       // )
     },
     couriertabs() {
-      (this.email = false), (this.sms = false), (this.courier = true);
-      console.log(this.company_id);
-      if(isNaN(this.company_id)){
-        this.$toast.open({
-            position: "top-right",
-            message:"Please Select Company First",
-             
-            type: "error",
-            duration: 3000,
-          });
-      }
-      else{
-        
-        this.storereturn(this.company_id);
-      }
+        (this.email = false), (this.sms = false), (this.courier = true);
+        console.log(this.company_id);
+        if(isNaN(this.company_id)){
+            this.$toast.open({
+                position: "top-right",
+                message:"Please Select Company First",
+                
+                type: "error",
+                duration: 3000,
+            });
+        }
+        else{
+            this.storereturn(this.company_id);
+        }
     },
 
     smstabs() {
@@ -852,18 +763,18 @@ export default {
     },
 
     create_store(stores){
-      console.log(stores);
-      this.store_id = stores.id
-      this.form.company_id = this.company_id
-      this.form.store_id = stores.id
-      this.form.name = stores.name
-      this.form.location = stores.location
-      this.form.api_key = stores.api_key
-      this.form.api_secret = stores.api_secret
-      this.form.store_address = stores.store_address
-      this.form.word_address = stores.word_address
-      this.from.access_token = stores.access_token
-      // console.log(this.from.api_key);
+        console.log(stores, 'def');
+        this.store_id = stores.id
+        this.form.company_id = this.company_id
+        this.form.store_id = stores.id
+        this.form.name = stores.name
+        this.form.location = stores.location
+        this.form.api_key = stores.api_key
+        this.form.api_secret = stores.api_secret
+        this.form.store_address = stores.store_address
+        this.form.word_address = stores.word_address
+        this.form.access_token = stores.access_token
+        // console.log(this.from.api_key);
     },
     company_data() {
       byMethod("get","/api/company").then(
@@ -881,12 +792,12 @@ export default {
     },
 
     storereturn(e) {
-      byMethod("get", `/api/stores_data?company_id=${e}`).then(
-        (res) => {
-         console.log(res.data.data.data);
-         this.stores_data = res.data.data.data;
-        }
-      );
+        byMethod("get", `/api/stores_data?company_id=${e}`).then(
+            (res) => {
+                console.log(res.data.data.data, 'abc');
+                this.stores_data = res.data.data.data;
+            }
+        );
     },
 
     setData(res) {
@@ -959,7 +870,7 @@ export default {
 <style scoped>
 .radio-inputs {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   max-width: 350px;
   -webkit-user-select: none;
@@ -1043,7 +954,6 @@ export default {
   transform: scale(1);
   opacity: 1;
 }
-
 .radio-icon svg {
   width: 2rem;
   height: 2rem;
@@ -1104,7 +1014,6 @@ export default {
   background-color: #f2f2f2;
   transform: rotateX(-90deg);
   transform-origin: bottom;
-  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card:hover .card__content {
@@ -1135,23 +1044,11 @@ export default {
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-/* .shows{
-  flex: 0 0 calc(12.5% - 20px); 
-  margin-right: 20px; 
-  margin-bottom: 20px; 
-  box-sizing: border-box;
-} */
 .coins {
   font-size: 80px;
   width: 0.1em;
   height: 1em;
   background: linear-gradient(49deg, rgb(91, 255, 154) 0%, rgb(29, 194, 65) 31%, rgb(4, 143, 4) 71%);
-  /* margin: auto; */
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
-  /* right: 0; */
-  /* bottom: 0; */
   margin-left:10%;
   animation: rotate_4001510 7s infinite linear;
   transform-style: preserve-3d;
@@ -1161,12 +1058,6 @@ export default {
   width: 0.1em;
   height: 1em;
   background: linear-gradient(49deg, rgba(37,40,119,1) 0%, rgba(31,31,88,1) 31%, rgba(11,37,37,1) 71%);
-  /* margin: auto; */
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
-  /* right: 0; */
-  /* bottom: 0; */
   margin-left:10%;
   animation: rotate_4001510 7s infinite linear;
   transform-style: preserve-3d;
@@ -1239,10 +1130,10 @@ export default {
     transform: rotateY(360deg);
   }
 }
-
+/* 
 .svg_back {
   transform: scaleX(-1);
-}
+} */
 
 
 /* === removing default button style ===*/
