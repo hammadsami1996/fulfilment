@@ -890,8 +890,8 @@
     import Modal from "@/Components/Modal.vue";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     // import contextMenu from "vue-context-menu";
-    import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
-    import contextMenu from '@imengyu/vue3-context-menu'
+    // import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
+    // import contextMenu from '@imengyu/vue3-context-menu'
  
    
  
@@ -901,7 +901,7 @@
     export default {
         mixins: [form],
         components: {
-            Panel, Modal ,Typeahead , contextMenu
+            Panel, Modal ,Typeahead 
         },
         name: "Index",
         data() {

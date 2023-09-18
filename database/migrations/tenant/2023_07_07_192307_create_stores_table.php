@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('location')->nullable();
-            $table->string('store_type')->nullable();
-            $table->string('plate_form')->nullable();
-            $table->string('access_token')->nullable();
-            $table->string('store_address')->nullable();
-            $table->string('api_key')->nullable();
-            $table->string('api_secret')->nullable();
-            $table->string('word_address')->nullable();
+            $table->string('name', 25)->nullable();
+            $table->string('location',25)->nullable();
+            $table->string('store_type', 25)->nullable();
+            $table->string('plate_form',25)->nullable();
+            $table->string('access_token',25)->nullable();
+            $table->string('store_address',25)->nullable();
+            $table->string('api_key',25)->nullable();
+            $table->string('api_secret',25)->nullable();
+            $table->string('word_address',25)->nullable();
             $table->integer('company_id')->nullable();
-            $table->string('mim_api_key')->nullable();
-            $table->string('mim_store_address')->nullable();
+            $table->string('mim_api_key',25)->nullable();
+            $table->string('mim_store_address',25)->nullable();
             $table->timestamps();
         });
     }

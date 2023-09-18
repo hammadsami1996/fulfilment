@@ -52,8 +52,8 @@ class WordpressController extends Controller
             $orders = $response->json();
             // dd($orders);
             // Process and use $orders as needed
-            // return response()->json(['data' => true]);
-            $this->storeOrder(1);
+            return response()->json(['data' => true]);
+            // $this->storeOrder(1);
             // return response()->json(['data' => $orders]);
 
             // return view('woocommerce.orders', compact('orders'));

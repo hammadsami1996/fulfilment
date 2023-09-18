@@ -19,12 +19,10 @@ return new class extends Migration
             $table->integer('purchase_order_id')->nullable();
             $table->string('number')->nullable();
             $table->integer('status_id')->nullable();
-
-
             $table->string('document')->nullable();
             $table->string('note')->nullable();
             $table->string('reference')->nullable();
-            $table->string('po_number')->nullable();
+            $table->string('po_number' , 20)->nullable();
             $table->timestamp('po_date')->nullable();
 
 

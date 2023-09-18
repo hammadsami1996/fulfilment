@@ -16,11 +16,11 @@ return new class extends Migration
             $table->integer('purchase_id')->nullable();
             $table->integer('product_id')->nullable();
             $table->integer('qty')->nullable();
-            $table->decimal('unit_price')->nullable();
-            $table->decimal('value_ex_tax')->nullable();
-            $table->decimal('tax_percent')->nullable();
-            $table->decimal('tax_amount')->nullable();
-            $table->decimal('value_inc_tax')->nullable();
+            $table->decimal('unit_price',10)->nullable();
+            $table->decimal('value_ex_tax',10)->nullable();
+            $table->decimal('tax_percent',10)->nullable();
+            $table->decimal('tax_amount',10)->nullable();
+            $table->decimal('value_inc_tax',10)->nullable();
             $table->integer('partail_remaining')->nullable();
 
             $table->timestamps();

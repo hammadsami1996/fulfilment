@@ -763,18 +763,18 @@ export default {
     },
 
     create_store(stores){
-        console.log(stores, 'def');
-        this.store_id = stores.id
-        this.form.company_id = this.company_id
-        this.form.store_id = stores.id
-        this.form.name = stores.name
-        this.form.location = stores.location
-        this.form.api_key = stores.api_key
-        this.form.api_secret = stores.api_secret
-        this.form.store_address = stores.store_address
-        this.form.word_address = stores.word_address
-        this.form.access_token = stores.access_token
-        // console.log(this.from.api_key);
+      // console.log(stores);
+      this.store_id = stores.id
+      this.form.company_id = this.company_id
+      this.form.store_id = stores.id
+      this.form.name = stores.name
+      this.form.location = stores.location
+      this.form.api_key = stores.api_key
+      this.form.api_secret = stores.api_secret
+      this.form.store_address = stores.store_address
+      this.form.word_address = stores.word_address
+      this.form.access_token = stores.access_token
+      // console.log(this.from.access_token);
     },
     company_data() {
       byMethod("get","/api/company").then(

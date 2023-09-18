@@ -43,7 +43,7 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:25',
             'email' => 'required',
             'phone' => 'required',
             'address' => 'required',
@@ -96,7 +96,7 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:25',
             'email' => 'required',
             'phone' => 'required',
             'address' => 'required',

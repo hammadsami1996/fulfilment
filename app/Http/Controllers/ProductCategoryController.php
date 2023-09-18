@@ -35,7 +35,7 @@ class ProductCategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:25',
         ]);
         $model = new ProductCategory();
         $model->fill($request->all());
@@ -69,7 +69,7 @@ class ProductCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:25',
         ]);
         $model = ProductCategory::findOrFail($id);
         $model->fill($request->all());
