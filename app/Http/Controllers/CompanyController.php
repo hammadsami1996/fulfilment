@@ -44,6 +44,9 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
         ]);
         $model = new Company();
         $model->fill($request->except('imgN'));
@@ -94,6 +97,9 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
         ]);
         $model = Company::findOrFail($id);
         $model->fill($request->except('imgN'));

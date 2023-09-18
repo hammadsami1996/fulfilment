@@ -19,7 +19,7 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Location</label>
+                    >Location <span class="text-red-600">*</span></label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" location"
@@ -30,7 +30,7 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Company</label>
+                    >Company <span class="text-red-600">*</span></label>
                     <typeahead :initialize="form.company" :url="companys" @input="onCompany" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
                 </div>
@@ -112,27 +112,31 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'MimCart'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Store Addres</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        v-model="form.mim_store_address"
+                        class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
+                        v-model="form.mim_api_key"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'MimCart'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Store Addres</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        v-model="form.mim_api_key"
+                        class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
+                        v-model="form.mim_store_address"
                     />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
+                </div>
+            </div>
+            <div class="flex justify-end mt-8 space-x-4">
                 <button
-                    @click="formSubmitted" v-if="!connectionBtn"
+                    @click="formSubmitted" v-if="!connectionBtn || form.store_type == 'Physical'"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                     type="button">
                     {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
                 </button>
-                <button @click="testConnection" v-if="connectionBtn"
+                <button @click="testConnection" v-if="connectionBtn && form.store_type == 'Online'"
                         class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
                         type="button">
                     Test Connection
