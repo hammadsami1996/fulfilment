@@ -50,6 +50,7 @@ class StoreController extends Controller
             'name' => 'required|max:25',
             'location' => 'required|max:25',
             'company_id' => 'required',
+            'store_type' => 'required',
         ]);
         $model = new Store();
         $model->fill($request->all());
