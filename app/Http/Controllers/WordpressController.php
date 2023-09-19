@@ -146,7 +146,7 @@ public function storeOrder($id)
                                 $customer->b_address_1 = $rec['billing']['address1'];
                                 $customer->b_address_2 = $rec['billing']['address2'];
 
-                                dd('abcd');
+                                // dd('abcd');
                                 $s_city = City::where('title' , $rec['shipping']['city'])->first();
                                 $customer->s_city_id = $s_city['id'];
                                 $customer->s_country_id = $s_city['country_id'];

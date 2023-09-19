@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('key' ,  20);
             $table->json('value')->nullable();
-            $table->integer('company_id', 8)->nullable();
-            $table->integer('active', 8)->nullable();
+            $table->integer('company_id')->nullable();
+            $table->integer('active')->nullable();
 
 
             $table->timestamps();
