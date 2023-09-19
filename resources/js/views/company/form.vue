@@ -89,7 +89,7 @@
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label class="block font-medium text-sm text-gray-700 mb-2"
-                    >Address</label>
+                    >Address <span class="text-red-600">*</span></label>
                     <textarea
                         class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md"
                         type="text"

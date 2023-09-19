@@ -33,6 +33,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'customer_category' => 'required|max:25',
+        ]);
         $model = new Category();
         $model->fill($request->all());
         $model->save();
@@ -66,6 +69,9 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $model = Category::findOrFail($id);
+        $request->validate([
+            'customer_category' => 'required|max:25',
+        ]);
         $model->fill($request->all());
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
