@@ -78,8 +78,9 @@ class MimCartController extends Controller
                             // other
                             $items = [];
                             foreach ($rec['items'] as $key => $item) {
-                                $product = Product::where('product_sku',$item['code'])->first();
-                                if (!$product){
+                                $product = null;
+                                $product = Product::where('product_sku', $item['code'])->first();
+                                if (!$product) {
                                     $product = new Product();
                                     $product->product_sku = $item['code'];
                                     $product->title = $item['title'];
