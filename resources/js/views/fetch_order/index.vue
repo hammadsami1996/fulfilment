@@ -35,7 +35,7 @@
     <div>
         <div class="card-container mb-6">
             <div  class="flex-auto flex flex-row sm:flex-nowrap sm:items-center"  v-for="(item) in companies"  >
-                <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" >
+                <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows cursor-pointer" >
                     <div class="card" @click="onCompany(item)">
                           <img :src="`/uploads/company/logo/` +  item.logo">
                     </div>
@@ -53,20 +53,20 @@
                 <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" >
                     <!-- <button class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-1 px-5 ml-3 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">{{data.name}}</button> -->
                     <div v-if="data.plate_form == 'woocommerce'">
-                        <div class="card bg-gray-200" @click="woocommerce_fetch_data(data.id)">
+                        <div class="card bg-gray-200 cursor-pointer" @click="woocommerce_fetch_data(data.id)">
                             <img src="/images/woocommerce.png"/>
                         </div>
                         <!-- <p class=" text-black rounded-md font-bold text-md">Woo Commerce</p> -->
                     </div>
                     <div v-if="data.plate_form == 'shopify'">
-                        <div class="card bg-gray-200" @click="shopify_fetch_data(data.id)">
+                        <div class="card bg-gray-200 cursor-pointer" @click="shopify_fetch_data(data.id)">
                             <img src="/images/shopify-bag.png"/>
                         </div>
                         <!-- <p class="bg-gray-200 text-black rounded-md font-bold text-md">Shopify</p> -->
                     </div>
                     <div v-if="data.plate_form == 'MimCart'">
-                        <div class="card bg-gray-200">
-                            <img src="/images/mimcart.png"/>
+                        <div class="card bg-gray-200 cursor-pointer">
+                            <img src="/images/MimCart.jpg"/>
                         </div>
                         <!-- <p class="bg-gray-200 text-black rounded-md font-bold text-md">MimCart</p> -->
                     </div>
