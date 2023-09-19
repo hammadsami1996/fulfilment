@@ -5,14 +5,14 @@
         </h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                <label class="block font-medium text-sm text-gray-700 mb-2">Date *</label>
+                <label class="block font-medium text-sm text-gray-700 mb-2">Date <span class="text-red-600">*</span></label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     type="date" v-model="form.date"/>
                 <p class="text-red-600 text-xs italic" v-if="error.date">{{ error.date[0] }}</p>
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
+                <label class="block font-medium text-sm text-gray-700 mb-2">Customer <span class="text-red-600">*</span></label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     type="text" v-model="form.name"/>
@@ -55,7 +55,7 @@
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
-                >Email</label>
+                >Email <span class="text-red-600">*</span></label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="email"
@@ -66,7 +66,7 @@
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
-                >Phone</label>
+                >Phone <span class="text-red-600">*</span></label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="number"

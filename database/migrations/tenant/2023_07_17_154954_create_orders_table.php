@@ -25,14 +25,14 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('sales_rep')->nullable();
             $table->integer('selling_price')->nullable();
-            $table->integer('external_order_no')->nullable();
+            $table->integer('external_order_no', 12)->nullable();
             $table->string('tracking_id' , 50)->nullable();
-            $table->integer('product_id')->nullable();
+            $table->integer('product_id', 8)->nullable();
             $table->decimal('subTotal')->nullable();
             $table->decimal('discount')->nullable();
             $table->decimal('discount_percent')->nullable();
-            $table->integer('warehouse_id')->nullable();
-            $table->integer('status_id')->default(1);
+            $table->integer('warehouse_id', 8)->nullable();
+            $table->integer('status_id', 8)->default(1);
             $table->string('so_number' , 30)->nullable();
             $table->string('name', 30)->nullable();
             $table->string('email' , 50)->nullable();
@@ -41,12 +41,12 @@ return new class extends Migration
             $table->string('instraction', 100)->nullable();
             $table->string('phone' , 15)->nullable();
 
-            $table->integer('qunatity')->nullable();
-            $table->integer('order_type_id')->nullable();
-            $table->integer('shipping_charges')->nullable();
-            $table->integer('advance')->nullable();
-            $table->integer('delivery_charges')->nullable();
-            $table->integer('shipped_by_id')->nullable();
+            $table->integer('qunatity', 16)->nullable();
+            $table->integer('order_type_id', 12)->nullable();
+            $table->integer('shipping_charges', 14)->nullable();
+            $table->integer('advance', 14)->nullable();
+            $table->integer('delivery_charges', 8)->nullable();
+            $table->integer('shipped_by_id', 12)->nullable();
             $table->double('weight')->default(0);
             $table->string('order_form' , 30)->nullable();
             $table->string('payment_method' , 30)->nullable();

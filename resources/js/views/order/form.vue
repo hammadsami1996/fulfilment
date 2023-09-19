@@ -6,15 +6,15 @@
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 pl-3">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Order Date *</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Order Date <span class="text-red-600">*</span></label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="date"
                            v-model="form.order_date"/>
                     <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Customer</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Customer <span class="text-red-600">*</span></label>
                     <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
-                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p>-->
+                                       <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">External Order No</label>
@@ -75,7 +75,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2"> Address </label>
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
                               v-model="form.s_addres_1"/>
-                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>-->
+                    <!-- <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p> -->
                 </div>
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
@@ -87,12 +87,12 @@
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center pt-1">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Store</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Store <span class="text-red-600">*</span></label>
                     <typeahead :initialize="form.stores" :url="stores" @input="onStores" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.store_id">{{ error.store_id[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Wearhouse</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Wearhouse <span class="text-red-600">*</span></label>
                     <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>
