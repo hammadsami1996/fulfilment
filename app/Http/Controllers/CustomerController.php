@@ -69,7 +69,7 @@ class CustomerController extends Controller
 //            'state_id' => 'required',
 //            'city_id' => 'required',
 //            'number' => 'required',
-//            'cnic' => 'required',
+           'cnic' => 'required',
         ]);
         $model = new Customer();
         $model->fill($request->all());

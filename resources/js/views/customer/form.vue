@@ -83,7 +83,7 @@
                     type="number"
                     v-model="form.cnic"
                 />
-<!--                <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p>-->
+               <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p>
             </div>
         </div>
         <hr class="mt-6">
