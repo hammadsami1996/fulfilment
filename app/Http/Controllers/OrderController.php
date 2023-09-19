@@ -87,9 +87,10 @@ class OrderController extends Controller
     {
         //    dd($request->warehouse_id);
         $request->validate([
-//            'store' => 'required',
-//            'order_date' => 'required',
-//            'customer_id' => 'required',
+            'store_id' => 'required',
+            'order_date' => 'required',
+            'customer_id' => 'required',
+            'warehouse_id' => 'required',
 //            'city' => 'required',
 //            'total' => 'required',
 //            'tax' => 'required',

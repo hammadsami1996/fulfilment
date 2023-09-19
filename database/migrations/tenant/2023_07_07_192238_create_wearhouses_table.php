@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('wearhouses', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('location')->nullable();
-            $table->string('parent_id')->nullable();
+            $table->string('name', 25)->nullable();
+            $table->string('location', 25)->nullable();
+            $table->string('parent_id', 25)->nullable();
             $table->timestamps();
         });
     }

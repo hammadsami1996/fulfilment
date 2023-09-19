@@ -12,7 +12,7 @@
                     <!--                    <p class="text-red-600 text-xs italic" v-if="error.parent_id">{{ error.parent_id[0] }}</p>-->
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 ">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Category Name</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Category Name <span class="text-red-600">*</span></label>
                     <input
                         v-model="form.name"
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"

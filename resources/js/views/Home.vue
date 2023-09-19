@@ -198,16 +198,16 @@
 
 
             <!-- Course Card -->
-            <a href="#" class="relative group sm:col-span-2 flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
-                <div class="px-4 py-2">
-                    <div class="font-bold text-xl mb-1 text-black">Delivered Orders</div>
-                    <div class="flex items-center pt-4">
-                        <div id="chart">
-                            <apexchart type="line" height="250" width="700"  :options="chartOptions" :series="series"></apexchart>
+                <a href="#" class="relative group sm:col-span-2 flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
+                    <div class="px-4 py-2">
+                        <div class="font-bold text-xl mb-1 text-black">Delivered Orders</div>
+                        <div class="flex items-center pt-4">
+                            <div id="chart">
+                                <apexchart type="line" height="250" width="700"  :options="chartOptions" :series="series"></apexchart>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
             <!-- END Course Card -->
 
         </div>

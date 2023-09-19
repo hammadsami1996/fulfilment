@@ -63,15 +63,15 @@ class ProductController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'product_sku' => 'required',
-            'model_no' => 'required',
-            'barcode' => 'required',
-            'cost_price' => 'required',
-            'selling_price' => 'required',
-            'category' => 'required',
-            'brand_id' => 'required',
+            'title' => 'required|max:50',
+            'description' => 'required|max:255',
+            'product_sku' => 'required|max:25',
+            'model_no' => 'required|max:25',
+            'barcode' => 'required|max:25',
+            'cost_price' => 'required|max:25',
+            'selling_price' => 'required|max:25',
+            'category' => 'required|max:25',
+            'brand_id' => 'required|max:25',
         ]);
 
         $model = new Product();
@@ -126,16 +126,17 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'product_sku' => 'required',
-            'model_no' => 'required',
-            'barcode' => 'required',
-            'cost_price' => 'required',
-            'selling_price' => 'required',
-            'category' => 'required',
-            'brand_id' => 'required',
+            'title' => 'required|max:50',
+            'description' => 'required|max:255',
+            'product_sku' => 'required|max:25',
+            'model_no' => 'required|max:25',
+            'barcode' => 'required|max:25',
+            'cost_price' => 'required|max:25',
+            'selling_price' => 'required|max:25',
+            'category' => 'required|max:25',
+            'brand_id' => 'required|max:25',
         ]);
+
 
         // Find the existing product by ID
         $model = Product::findOrFail($id);

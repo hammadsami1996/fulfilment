@@ -61,7 +61,7 @@ class PurchaseController extends Controller
             // dd($request->items);
 
         $request->validate([
-            'supplier_id' => 'required',
+            'supplier_id' => 'required|max:15',
 //            'po_number' => 'required',
             // 'po_reference_number' => 'required',
             'po_date' => 'required',
@@ -122,7 +122,7 @@ class PurchaseController extends Controller
         // dd($request->all());
         // dd('ab');
         $request->validate([
-            'supplier_id' => 'required',
+            'supplier_id' => 'required|max:15',
 //            'po_number' => 'required',
             // 'po_reference_number' => 'required',
             'po_date' => 'required',

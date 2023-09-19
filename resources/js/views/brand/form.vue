@@ -8,7 +8,7 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Title </label>
+                    >Title <span class="text-red-600">*</span></label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="text"

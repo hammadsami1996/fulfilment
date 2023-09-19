@@ -47,8 +47,8 @@ class StoreController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'name' => 'required',
-            'location' => 'required',
+            'name' => 'required|max:25',
+            'location' => 'required|max:25',
             'company_id' => 'required',
         ]);
         $model = new Store();
@@ -84,8 +84,8 @@ class StoreController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'name' => 'required',
-            'location' => 'required',
+            'name' => 'required|max:25',
+            'location' => 'required|max:25',
             'company_id' => 'required',
         ]);
 //        dd($request);

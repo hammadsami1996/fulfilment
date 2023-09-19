@@ -31,7 +31,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:25',
         ]);
         $model = new Brand();
         $model->fill($request->all());
@@ -62,7 +62,7 @@ class BrandController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:25',
         ]);
         $model = Brand::findOrFail($id);
         $model->fill($request->all());

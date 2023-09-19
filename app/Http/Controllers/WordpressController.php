@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use App\Models\Store;
 use App\Models\Order;
+use App\Models\Customer;
+use App\Models\Product;
+use App\Models\City;
+
 
 class WordpressController extends Controller
 {
@@ -110,14 +114,53 @@ public function storeOrder($id)
         try {
             $response = Http::withBasicAuth($apiKey, $apiSecret)->get($apiUrl);
             if ($response->successful()) {
+                // dd($response->json());
                 foreach ($response->json() as $rec) {
-                    // dd($rec);
+                    // dd($rec['id']);
                     $order = Order::where('external_order_no', $rec['id'])->where('order_form','woocommerce');
                     if (!$order->first()) {
-                        // dd('abcd');
+                        // dd($rec['billing']['phone']);
                         $order = new Order();
                         $order->order_form = 'woocommerce';
                         $order->external_order_no = $rec['id'];
+                        if ($rec['billing']['phone']) {
+                            $customer = Customer::where('phone', $rec['billing']['phone'])->first();
+                            if ($customer) {
+                                $order->customer_id = $customer['id'];
+                              
+                            } 
+                            else {
+                                $customer = new Customer();
+                                $customer->name = $rec['billing ']['first_name'];
+                                $customer->address =  $rec['shipping']['address1'] . $rec['shipping']['address2'];
+                              
+                                $customer->email = $rec['billing']['email'];
+                                $customer->phone = $rec['billing']['phone'];
+                                  
+                                $b_city = City::where('title' , $rec['billing']['city'])->first();
+                                
+                                $customer->b_city_id = $b_city['id'];
+                                $customer->b_country_id = $b_city['country_id'];
+                                $customer->b_name = $rec['billing']['first_name'];
+                                $customer->b_phone = $rec['billing']['phone'];
+                                $customer->b_address_1 = $rec['billing']['address1'];
+                                $customer->b_address_2 = $rec['billing']['address2'];
+
+                                dd('abcd');
+                                $s_city = City::where('title' , $rec['shipping']['city'])->first();
+                                $customer->s_city_id = $s_city['id'];
+                                $customer->s_country_id = $s_city['country_id'];
+                                $customer->s_name = $rec['shipping']['first_name'];
+                                $customer->s_phone = $rec['shipping']['phone'];
+                                $customer->s_address_1 = $rec['shipping']['address1'];
+                                $customer->s_address_2 = $rec['shipping']['address2'];
+
+
+                                $customer->save();
+                                // dd($customer['id']);        
+                                $order->customer_id = $customer['id'];
+                            }
+                        }
                         $order->name = $rec['billing']['first_name'];
                         $order->email = $rec['billing']['email'];
                         $order->phone = $rec['billing']['phone'];
@@ -127,7 +170,7 @@ public function storeOrder($id)
                         $order->shipping_charges = $rec['shipping_tax'];
                         $order->total = $rec['total'];
                         $order->discount = $rec['discount_total'];
-                        $order->customer_id = $rec['customer_id'];
+                        // $order->customer_id = $rec['customer_id'];
                         $order->tracking_id = $rec['cart_hash'];
                         $order->payment_method = $rec['payment_method_title'];
 
@@ -145,11 +188,20 @@ public function storeOrder($id)
                         $items = [];
                         foreach ($rec['line_items'] as $key => $item) {
                             // dd($item);
+                            $product = Product::where('product_sku',$item['sku'])->first();
+                                if (!$product){
+                                    $product = new Product();
+                                    $product->product_sku = $item['sku'];
+                                    $product->title = $item['name'];
+                                    $product->selling_price = $item['price'];
+                                    $product->cost_price = $item['price'];
+                                    $product->save();
+                                }
                             $items[$key]['qty'] = $item['quantity'];
                             $items[$key]['value_inc_tax'] = $item['total'];
                             $items[$key]['value_ex_tax'] = $item['subtotal'];
 
-                            $items[$key]['product_id'] = $item['product_id'];
+                            $items[$key]['product_id'] = $product['id'];
                             $items[$key]['unit_price'] = $item['price'];
                             $items[$key]['tax_amount'] = $item['total_tax'];
 
@@ -168,7 +220,7 @@ public function storeOrder($id)
                 return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
             }
         } catch (Throwable $e) {
-            return response()->json(['mimCart_error' => $e->getMessage()]);
+            return response()->json(['woo_commerce_error' => $e->getMessage()]);
         }
     }
 }
