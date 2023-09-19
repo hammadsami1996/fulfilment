@@ -13,22 +13,22 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->integer('supplier_id', 15)->nullable();
+            $table->integer('supplier_id')->nullable();
             $table->string('po_number',25)->nullable();
-            $table->integer('po_reference_number',15)->nullable();
+            $table->integer('po_reference_number')->nullable();
             $table->date('po_date')->nullable();
             $table->date('due_date')->nullable();
-            $table->integer('discount',15)->nullable();
+            $table->integer('discount')->nullable();
             $table->string('sku',25)->nullable();
             $table->string('name',25)->nullable();
-            $table->integer('qty',15)->nullable();
-            $table->integer('purchasing_price',15)->nullable();
-            $table->integer('tax',15)->nullable();
-            $table->integer('sub_total',15)->nullable();
+            $table->integer('qty')->nullable();
+            $table->integer('purchasing_price')->nullable();
+            $table->integer('tax')->nullable();
+            $table->integer('sub_total')->nullable();
             $table->string('discount_percent',25)->nullable();
-            $table->integer('total',15)->nullable();
+            $table->integer('total')->nullable();
             $table->integer('status_id')->default(23);
-            $table->integer('partial_remaining',15)->nullable();
+            $table->integer('partial_remaining')->nullable();
 
 
 

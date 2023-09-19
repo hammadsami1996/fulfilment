@@ -18,9 +18,9 @@ return new class extends Migration
         
 
             
-            $table->integer('class_id', 8)->nullable();
-            $table->integer('active', 8)->nullable();
-            $table->integer('company_id', 8)->nullable();
+            $table->integer('class_id')->nullable();
+            $table->integer('active')->nullable();
+            $table->integer('company_id')->nullable();
            
             $table->double('debit', 15, 2)->nullable();
             $table->double('credit', 15, 2)->nullable();

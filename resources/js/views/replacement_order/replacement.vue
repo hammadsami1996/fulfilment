@@ -6,7 +6,7 @@
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Order Date *</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Order Date <span class="text-red-600">*</span></label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="date"
                            v-model="form.order_date"/>
                     <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>

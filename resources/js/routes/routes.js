@@ -20,7 +20,6 @@ import report from "@/routes/report";
 import ledger from "@/routes/ledger";
 import settings from "@/routes/settings";
 import fetch_order from "@/routes/fetch_order";
-// import customer from "@/routes/receive_order";
 import receive_order from '@/routes/receive_order';
 import product_category from "@/routes/product_category";
 import brand from "@/routes/brand";
@@ -46,7 +45,6 @@ const router = createRouter({
         ...user,
         ...role,
         ...plan,
-
         ...permission,
         ...user_dashboard,
         ...user_type,
