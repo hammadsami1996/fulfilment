@@ -14,8 +14,8 @@ return new class extends Migration
        Schema::create('user_types', function (Blueprint $table) {
            $table->id();
            $table->string('user_type')->nullable();
-           $table->int('created_by')->nullable();
-           $table->int('updated_by')->nullable();
+           $table->integer('created_by')->nullable();
+           $table->integer('updated_by')->nullable();
            $table->rememberToken();
            $table->timestamps();
        });

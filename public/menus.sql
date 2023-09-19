@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : local
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenanttester
+ Source Schema         : tenantfulfilmentfourteen
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 18/09/2023 17:41:26
+ Date: 19/09/2023 13:33:37
 */
 
 SET NAMES utf8mb4;
@@ -33,30 +33,11 @@ CREATE TABLE `menus`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `sort` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
 -- ----------------------------
-INSERT INTO `menus` VALUES (1, 'Main', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (2, 'User', '/user', 'view-user', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (3, 'Role', '/role', 'view-role', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (4, 'User Subscription', '/user_subscription', 'view-user_subscription', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (8, 'User Dashboard', '/user_dashboard', 'view-user_dashboard', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (15, 'Permission', '/permission', 'view-permission', 1, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
-INSERT INTO `menus` VALUES (20, 'Product', '/product', 'view-product', 1, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
-INSERT INTO `menus` VALUES (21, 'Wearhouse', '/wearhouse', 'view-wearhouse', 1, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
-INSERT INTO `menus` VALUES (22, 'Stores', '/stores', 'view-stores', 1, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
-INSERT INTO `menus` VALUES (23, 'Company', '/company', 'view-company', 1, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
-INSERT INTO `menus` VALUES (24, 'Inventory', '/inventory', 'view-inventory', 1, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
-INSERT INTO `menus` VALUES (25, 'Suppliers', '/supplier', 'view-supplier', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (26, 'Purchase', '/purchase', 'view-purchase', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (27, 'Order', '/order', 'view-order', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (28, 'Customer', '/customer', 'view-customer', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (29, 'Product Category', '/product_category', 'view-product_category', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (30, 'Receive Order', '/receive_order', 'view-receive_order', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (31, 'Brand', '/brand', 'view-brand', 1, 'web', NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (32, 'Place Replacement Order', '/replacement', 'view-replacement', 1, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (33, 'Setup', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (34, 'User', '/user', 'view-user', 33, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (35, 'Role', '/role', 'view-role', 33, 'web', NULL, NULL, NULL, NULL);
@@ -81,5 +62,7 @@ INSERT INTO `menus` VALUES (54, 'Settings', NULL, NULL, NULL, 'web', NULL, NULL,
 INSERT INTO `menus` VALUES (55, 'Global_settings', '/global_settings', 'view-global_settings', 54, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (56, 'Chart of Accounts', '/coa', 'view-chart_of_accounts', 49, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (57, 'Required Item Stock', '/required_item_stock', 'view-required_item_stock', 45, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (58, 'Customer', '/customer', 'view-customer', 33, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (59, 'User Dashboard', '/user_dashboard', 'view-user_dashboard', 33, 'web', NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
