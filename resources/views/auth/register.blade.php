@@ -7,6 +7,7 @@
         <!-- Page Content -->
         <main id="page-content" class="flex flex-auto flex-col max-w-full">
             <div class="min-h-screen flex flex-col bg-cover bg-bottom"
+            
                  style="background-image: url('https://cdn.tailkit.com/media/placeholders/photo-9XngoIpxcEo-1920x1200.jpg');">
                 <!-- Sign Up Section -->
                 <div class="flex grow md:w-8/12 lg:w-5/12 xl:w-4/12 bg-white shadow-xl">
@@ -33,7 +34,7 @@
 
                                 <!-- Sign Up Form -->
 
-                                <form method="POST" action="{{ route('register') }}" class="space-y-6">
+                                <form id="SubmitForm" action="{{ route('register') }}"  method="POST" class="space-y-6">
                                     @csrf
                                     <div class="space-y-1">
 {{--                                        @if(count(explode('.',request()->getHost())) > 2)--}}
@@ -44,7 +45,8 @@
                                         <x-text-input
                                             class="block border placeholder-gray-400 px-5 py-3 leading-6 w-full rounded border-gray-200 focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
                                             type="text" id="name" name="name" placeholder="Enter your first name"
-                                            :value="old('name')" required autofocus autocomplete="name"/>
+                                            :value="old('name')" required autofocus autocomplete="name"
+                                            data-error="name"/>
 
                                         <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                                     </div>
@@ -53,7 +55,8 @@
                                         <x-text-input
                                             class="block border placeholder-gray-400 px-5 py-3 leading-6 w-full rounded border-gray-200 focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
                                             type="email" id="email" name="email" placeholder="Enter your email"
-                                            :value="old('email')" required autofocus autocomplete="username"/>
+                                            :value="old('email')" required autofocus autocomplete="username"
+                                            data-error="email"/>
                                         <x-input-error :messages="$errors->get('email')" class="mt-2"/>
                                     </div>
                                     <div class="space-y-1">
@@ -61,8 +64,12 @@
                                         <x-text-input
                                             class="block border placeholder-gray-400 px-5 py-3 leading-6 w-full rounded border-gray-200 focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
                                             type="number" id="mobile_no" name="mobile_no" placeholder="Enter your mobile no"
-                                           :value="old('mobile_no')" required autocomplete="mobile_no"/>
+                                           :value="old('mobile_no')" required autocomplete="mobile_no"
+                                           data-error="mobile_no"/>
                                         <x-input-error :messages="$errors->get('mobile_no')" class="mt-2"/>
+                                      
+                                       
+
 
                                     </div>
                                     <div class="space-y-1">
@@ -72,15 +79,19 @@
                                             type="password" id="password" name="password"
                                             placeholder="Choose a strong password" required
                                             autocomplete="new-password"/>
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2"/>
+                               
+
                                     </div>
                                     <div class="space-y-1">
                                         <label for="password_confirm" class="font-medium">Confirm Password</label>
                                         <x-text-input
                                             class="block border placeholder-gray-400 px-5 py-3 leading-6 w-full rounded border-gray-200 focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
                                             type="password" id="password_confirmation" name="password_confirmation"
-                                            required autocomplete="new-password"/>
+                                            required autocomplete="new-password"
+                                            data-error="password_confirmation"/>
                                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
+                                       
+
                                     </div>
 
                                     <div class="flex items-center">
@@ -89,7 +100,7 @@
                                         <span class="ml-2"> I accept <a href="javascript:void(0)"
                                                                         class="font-medium underline text-gray-600 hover:text-gray-500">terms &amp; conditions</a></span>
                                     </div>
-                                    <x-primary-button type="submit"
+                                    <x-primary-button id="register-button" type="submit" 
                                                       class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-primary-700 bg-primary-700 text-white hover:text-white hover:bg-primary-800 hover:border-primary-800 focus:ring focus:ring-primary-500 focus:ring-opacity-50 active:bg-primary-700 active:border-primary-700">
                                         {{ __('Register') }}
                                     </x-primary-button>
@@ -119,5 +130,143 @@
         </main>
         <!-- END Page Content -->
     </div>
+    <div id="loading-indicator" class="hidden fixed top-0 left-0 right-0 bg-black bg-opacity-50 w-full h-full flex items-center justify-center text-black font-semibold text-xl">
+    <!-- Loading GIF image -->
+    <img src="/images/clock.gif" alt="Loading..." />
+
+    <!-- Text overlay at the top with increased font size -->
+    <div class="absolute top-0 left-0 right-0 text-center text-xl font-bold">
+    Please wait while we prepare your project for you ...
+    </div>
+</div>
     <!-- END Page Container -->
 </x-guest-layout>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- <script>
+    
+    
+    $(document).ready(function () {
+        $('#register-button').on('click', function (e) {
+            e.preventDefault();
+           
+            // Show the loading indicator
+            $('#loading-indicator').removeClass('hidden');
+
+            // Disable user interactions by hiding the page container
+            $('#page-container').addClass('hidden');
+
+            // Submit the form using AJAX
+            var formData = new FormData($('#SubmitForm')[0]);
+
+            $.ajax({
+                url: $('#SubmitForm').attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Handle success response
+                    // Hide the loading indicator
+                    $('#loading-indicator').addClass('hidden');
+
+                    // Redirect the user or perform any other actions here
+
+                    // Show the page container again
+                    $('#page-container').removeClass('hidden');
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.log(error);
+
+                    // Hide the loading indicator
+                    $('#loading-indicator').addClass('hidden');
+
+                    // Show the page container again
+                    $('#page-container').removeClass('hidden');
+                }
+            });
+        });
+    });
+</script> -->
+
+
+<script>
+ $(document).ready(function () {
+        $('#register-button').on('click', function (e) {
+            e.preventDefault();
+           
+            // Show the loading indicator
+            $('#loading-indicator').removeClass('hidden');
+
+            // Disable user interactions by hiding the page container
+            $('#page-container').addClass('hidden');
+
+            // Submit the form using AJAX
+            var formData = new FormData($('#SubmitForm')[0]);
+$.ajax({
+    url: $('#SubmitForm').attr('action'),
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+        console.log(response);
+        // Registration successful
+        // Hide the loading indicator
+        $('#loading-indicator').addClass('hidden');
+        // $('#page-container').removeClass('hidden');
+
+        // Redirect the user or perform any other actions here
+        // window.location.href = "YOUR_REDIRECT_URL";
+    },
+    error: function (xhr, status, error) {
+        // Handle error response, including validation errors
+        // if (xhr.status === 422) {
+           
+        //     // Unprocessable Entity (validation errors)
+        //     var errors = xhr.responseJSON.errors;
+        //     console.log(errors)
+        //     // Display validation errors to the user
+        //     $.each(errors, function (key, value) {
+        //         console.log(value);
+        //         // 'key' is the form field name, 'value' is the error message
+        //         // You can display the error message in your form, e.g., next to the input field
+        //         $('#error-' + key).text(value[0]);
+        //     });
+        // } 
+        if (xhr.status === 422) {
+    var errors = xhr.responseJSON.errors;
+
+    // Loop through each field in the errors object
+    for (var field in errors) {
+        if (errors.hasOwnProperty(field)) {
+            var errorMessage = errors[field][0];
+            var inputField = $('[data-error="' + field + '"]');
+
+            // Append the error message next to the input field
+            inputField.after('<div class="text-red-600 mt-2">' + errorMessage + '</div>');
+        }
+    }
+}
+
+        else {
+            // Handle other types of errors here
+            console.log(error);
+        }
+
+        // Hide the loading indicator
+        $('#loading-indicator').addClass('hidden');
+
+        // Show the page container again
+        $('#page-container').removeClass('hidden');
+    }
+});
+});
+    });
+
+</script>
+
+
