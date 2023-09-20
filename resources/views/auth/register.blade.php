@@ -131,23 +131,21 @@
         </main>
         <!-- END Page Content -->
     </div>
-    <div id="loading-indicator" class="hidden fixed top-0 left-0 right-0 bg-black bg-opacity-50 w-full h-full flex items-center justify-center text-black font-semibold text-xl">
-    <!-- Loading GIF image -->
+     <!-- <div id="loading-indicator" class="hidden fixed top-0 left-0 right-0 bg-black bg-opacity-50 w-full h-full flex items-center justify-center text-black font-semibold text-xl">
+
     <img src="/images/clock.gif" alt="Loading..." />
 
-    <!-- Text overlay at the top with increased font size -->
     <div class="absolute top-0 left-0 right-0 text-center text-xl font-bold">
     Please wait while we prepare your project for you ...
     </div>
 </div>
-    <!-- END Page Container -->
     <div id="loading-image" class="loading-image">
         <img src="/images/inventory_2.gif" alt="Loading Image">
-    </div>
+    </div> -->
 </x-guest-layout>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 <!-- <script>
     
@@ -197,7 +195,7 @@
 </script> -->
 
 
-<script>
+<!-- <script>
  $(document).ready(function () {
         $('#register-button').on('click', function (e) {
             e.preventDefault();
@@ -221,7 +219,7 @@ $.ajax({
         // Registration successful
         // Hide the loading indicator
         $('#loading-indicator').addClass('hidden');
-        // $('#page-container').removeClass('hidden');
+        $('#page-container').addClass('hidden');
 
         // Redirect the user or perform any other actions here
         // window.location.href = "YOUR_REDIRECT_URL";
@@ -271,6 +269,6 @@ $.ajax({
 });
     });
 
-</script>
+</script> -->
 
 
