@@ -1,5 +1,6 @@
 <x-guest-layout>
     <!-- Session Status -->
+
     <x-auth-session-status class="mb-4" :status="session('status')"/>
 
     <!-- Page Container -->
@@ -89,7 +90,7 @@
                                         <span class="ml-2"> I accept <a href="javascript:void(0)"
                                                                         class="font-medium underline text-gray-600 hover:text-gray-500">terms &amp; conditions</a></span>
                                     </div>
-                                    <x-primary-button type="submit"
+                                    <x-primary-button id="loading-image"
                                                       class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-primary-700 bg-primary-700 text-white hover:text-white hover:bg-primary-800 hover:border-primary-800 focus:ring focus:ring-primary-500 focus:ring-opacity-50 active:bg-primary-700 active:border-primary-700">
                                         {{ __('Register') }}
                                     </x-primary-button>
@@ -120,4 +121,88 @@
         <!-- END Page Content -->
     </div>
     <!-- END Page Container -->
+    <div id="loading-image" class="loading-image">
+        <img src="/images/inventory_2.gif" alt="Loading Image">
+    </div>
 </x-guest-layout>
+{{--<script>--}}
+
+{{--    document.addEventListener("DOMContentLoaded", function () {--}}
+{{--        const loadingImage = document.getElementById("loading-image");--}}
+{{--        const fadeDelay = 4500; // 4 seconds--}}
+
+{{--        setTimeout(function () {--}}
+{{--            loadingImage.remove();--}}
+{{--        }, fadeDelay);--}}
+{{--    });--}}
+
+{{--</script>--}}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loadingImage = document.getElementById("loading-image");
+        const registerButton = document.getElementById("loading-image");
+
+        registerButton.addEventListener("click", function () {
+            // Get the current image source
+            const currentSrc = loadingImage.src;
+
+            // Set the image source to an empty string to trigger a reload
+            loadingImage.src = "";
+
+            // Use a timeout to reset the image source after a short delay (e.g., 100 milliseconds)
+            setTimeout(function () {
+                loadingImage.src = currentSrc; // Reload the image with the original source
+            }, 100);
+        });
+
+        const fadeDelay = 4500; // 4 seconds
+        setTimeout(function () {
+            loadingImage.remove();
+        }, fadeDelay);
+    });
+</script>
+
+<style>
+
+    .loading-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+
+
+
+        height: 100vh;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        transition: opacity 1s ease-in-out;
+        z-index: 9999;
+        animation: slideOut 4s linear forwards;
+    }
+
+    .loading-image img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .loading-image.fade-out {
+        opacity: 0;
+    }
+
+    /* @keyframes slideOut {
+        0% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+      } */
+
+
+</style>
