@@ -7,7 +7,7 @@
         </div>
         <div class="card-container mb-2">
             <div  class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(image, index) in com" :key="index">
-                <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-5">
+                <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-5 cursor-pointer">
                     <div class="card" @click="onCompany(image)">
                         <img :src="`/uploads/company/logo/` +  image.logo" >
                         <div class="card__content">
@@ -280,7 +280,7 @@
                                     name="engine"
                                 />
                                 <span class="radio-title">
-                                    <span class="radio-icon">
+                                    <span class="radio-icon cursor-pointer">
                                         <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
                                         <img src="/images/shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'shopify'" @click="ecommerce('shopify')"/>
                                         <img src="/images/woocommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'woocommerce'" @click="ecommerce('woocommerce')"/>

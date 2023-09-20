@@ -19,23 +19,26 @@ return new class extends Migration
            $table->rememberToken();
            $table->timestamps();
        });
-        DB::unprepared(file_get_contents(public_path('/user_type.sql')));
+        // DB::unprepared(file_get_contents(public_path('/user_type.sql')));
 
         DB::table('user_types')->insert(
             [
                 'user_type' => 'Admin',
                 'created_by' => 1,
-            ],
+            ]
+        );
+        DB::table('user_types')->insert(
             [
                 'user_type' => 'Employee',
                 'created_by' => 1,
-            ],
+            ]
+        );
+        DB::table('user_types')->insert(
             [
                 'user_type' => 'Candidate',
                 'created_by' => 1,
-            ],
+            ]
         );
-
     }
 
     /**
