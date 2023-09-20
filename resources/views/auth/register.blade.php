@@ -1,5 +1,6 @@
 <x-guest-layout>
     <!-- Session Status -->
+
     <x-auth-session-status class="mb-4" :status="session('status')"/>
 
     <!-- Page Container -->
@@ -140,6 +141,9 @@
     </div>
 </div>
     <!-- END Page Container -->
+    <div id="loading-image" class="loading-image">
+        <img src="/images/inventory_2.gif" alt="Loading Image">
+    </div>
 </x-guest-layout>
 
 

@@ -40,7 +40,7 @@ class Product extends Model
     }
     public function category()
     {
-        return $this->belongsTo(ProductCategory::class, 'head_id', 'id')->with('category');
+        return $this->belongsTo(ProductCategory::class, 'head_id', 'id');
     }
     public function brand()
     {
