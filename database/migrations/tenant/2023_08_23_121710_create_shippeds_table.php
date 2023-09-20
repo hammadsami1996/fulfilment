@@ -11,11 +11,46 @@ return new class extends Migration
      */
     public function up(): void
     {
-//        Schema::create('shippeds', function (Blueprint $table) {
-//            $table->id();
-//            $table->timestamps();
-//        });
-        DB::unprepared(file_get_contents(public_path('/shippeds.sql')));
+        Schema::create('shippeds', function (Blueprint $table) {
+            $table->id();
+            $table->integer('company_id')->nullable();
+            $table->string('name');
+            $table->string('title')->nullable();
+            $table->string('value')->nullable();
+            $table->timestamps();
+        });
+        // DB::unprepared(file_get_contents(public_path('/shippeds.sql')));
+
+        DB::table('shippeds')->insert(
+            [
+                'name' => 'Leopards Overland',
+            ]
+        );
+        DB::table('shippeds')->insert(
+            [
+                'name' => 'Trax Saverplus',
+            ]
+        );
+        DB::table('shippeds')->insert(
+            [
+                'name' => 'Rider Overland',
+            ]
+        );
+        DB::table('shippeds')->insert(
+            [
+                'name' => 'Karachi Courier',
+            ]
+        );
+        DB::table('shippeds')->insert(
+            [
+                'name' => 'Trax Rush',
+            ]
+        );
+        DB::table('shippeds')->insert(
+            [
+                'name' => 'Leopards Overnight',
+            ]
+        );
     }
 
     /**
