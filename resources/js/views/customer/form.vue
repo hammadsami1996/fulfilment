@@ -236,13 +236,13 @@
         <div class="flex justify-end mt-8 space-x-4">
             <button
                 @click="formSubmitted"
-                class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600 transition duration-200 ease-in-out"
                 type="button">
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
             </button>
             <button
                 @click="successfull()"
-                class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600 transition duration-200 ease-in-out"
                 type="button">
                 Cancel
             </button>

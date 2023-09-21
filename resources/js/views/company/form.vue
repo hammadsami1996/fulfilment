@@ -117,13 +117,27 @@
             <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
                     type="button">
                     {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
                 </button>
+                <!-- <button @click="formSubmitted"
+                    class="cursor-pointer text-white font-bold shadow-md hover:scale-[1.1] shadow-blue-400 rounded-full px-4 py-1 bg-gradient-to-bl from-blue-500 to-blue-800">
+                    {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
+                </button> -->
+                <!-- <button class="px-4 py-1 bg-white cursor-pointer rounded-xl border-2 border-blue-500 shadow-[inset_0px_-2px_0px_1px_#3B82F6] group hover:bg-blue-500 transition duration-300 ease-in-out">
+                    <span class="font-medium text-[#333] group-hover:text-white">Add</span>
+                </button>
+                <button class="px-4 py-1 bg-white cursor-pointer rounded-xl border-2 border-red-600 shadow-[inset_0px_-2px_0px_1px_#DC2626] group hover:bg-red-600 transition duration-300 ease-in-out">
+                    <span class="font-medium text-[#333] group-hover:text-white">Cancel</span>
+                </button> -->
+                <!-- <button @click="successfull()"
+                    class="cursor-pointer text-white font-bold shadow-md hover:scale-[1.2] shadow-red-400 rounded-full px-4 py-1 bg-gradient-to-bl from-red-500 to-red-800">
+                    Cancel
+                </button> -->
                 <button
                     @click="successfull()"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600  transition duration-200 ease-in-out"
                     type="button">
                     Cancel
                 </button>

@@ -376,7 +376,7 @@
                                    class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="number" v-model="form.discount"/>
                         </div>
-                        <div class="font-bold sm:col-span-2 pl-12">Dilvery Charges</div>
+                        <div class="font-bold sm:col-span-2 pl-12">Delivery Charges</div>
                         <div class="">
                             <input @input="discountamt(form.delivery_charges)"
                                    class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"

@@ -56,19 +56,19 @@
                         <div class="card bg-gray-200 cursor-pointer" @click="woocommerce_fetch_data(data.id)">
                             <img src="/images/WooCommerce.png"/>
                         </div>
-                        <!-- <p class=" text-black rounded-md font-bold text-md">Woo Commerce</p> -->
+                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                     </div>
                     <div v-if="data.plate_form == 'Shopify'">
                         <div class="card bg-gray-200 cursor-pointer" @click="shopify_fetch_data(data.id)">
                             <img src="/images/Shopify-bag.png"/>
                         </div>
-                        <!-- <p class="bg-gray-200 text-black rounded-md font-bold text-md">Shopify</p> -->
+                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                     </div>
                     <div v-if="data.plate_form == 'MimCart'">
                         <div class="card bg-gray-200 cursor-pointer">
                             <img src="/images/MimCart.jpg"/>
                         </div>
-                        <!-- <p class="bg-gray-200 text-black rounded-md font-bold text-md">MimCart</p> -->
+                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,9 @@ export default {
             woocommerce_fetch_data(e){
                 byMethod("POST", `/api/woocommerce_store_data/${e}`).then(
                     (res) => {
-
+                        if(res.data.saved == true){
+                            this.$toast.success('Fetch Order Successfully');
+                        }
                     }
                 );
             },

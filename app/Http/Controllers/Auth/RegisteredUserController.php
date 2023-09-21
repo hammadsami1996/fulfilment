@@ -123,8 +123,8 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
 //        Auth::login($user);
+
         return redirect('http://' . $request->name . \env('DOMAIN'));
-        // return response()->json(['success' =>  $request->name . \env('DOMAIN')]);
         // return redirect(RouteServiceProvider::HOME);
     }
 }
