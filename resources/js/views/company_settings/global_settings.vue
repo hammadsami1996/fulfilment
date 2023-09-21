@@ -259,7 +259,7 @@
     </div>
 
     <div class="" v-if="courier">
-        <h1 class="text-lg font-bold text-center mb-4 mt-4">Courier Settings</h1>
+        <h1 class="text-lg font-bold text-center mb-4 mt-4">Store Settings</h1>
             <div class="card-container mb-6">
                 <div  class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="stores in stores_data" >
                     <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" @click="create_store(stores)">
@@ -274,7 +274,7 @@
                                     <span class="radio-icon cursor-pointer">
                                         <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
                                         <img src="/images/Shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'Shopify'" @click="ecommerce('Shopify')"/>
-                                        <img src="/images/WooCommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'woocommerce'" @click="ecommerce('WooCommerce')"/>
+                                        <img src="/images/WooCommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'WooCommerce'" @click="ecommerce('WooCommerce')"/>
                                         <img src="/images/MimCart.jpg" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'MimCart'" @click="ecommerce('MimCart')"/>
                                     </span>
                                     <span class="radio-label font-bold">{{stores ?  stores.name:'' }} Store</span>

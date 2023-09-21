@@ -74,7 +74,7 @@ class ShopifyController extends Controller
                                     $customer->b_address_1 = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
                                     $customer->email = $rec['customer']['email'];
                                     $customer->phone = $rec['customer']['phone'];
-                                    $b_city = City::where('title', $rec['billing_address']['city'])->first();
+                                    $b_city = City::where('name', $rec['billing_address']['city'])->first();
                                     $customer->b_city_id = $b_city['id'];
                                     $customer->b_country_id = $b_city['country_id'];
                                     $customer->b_name = $rec['billing_address']['first_name'];
@@ -82,7 +82,7 @@ class ShopifyController extends Controller
                                     $customer->b_address_1 = $rec['billing_address']['address1'];
                                     $customer->b_address_2 = $rec['billing_address']['address2'];
                                     if ($rec['shipping_address']) {
-                                        $s_city = City::where('title', $rec['shipping_address']['city'])->first();
+                                        $s_city = City::where('name', $rec['shipping_address']['city'])->first();
                                         if ($s_city) {
                                             $customer->s_city_id = $s_city['id'];
                                             $customer->s_country_id = $s_city['country_id'];

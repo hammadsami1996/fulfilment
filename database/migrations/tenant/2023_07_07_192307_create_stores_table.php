@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('location',25)->nullable();
             $table->string('store_type', 25)->nullable();
             $table->string('plate_form',25)->nullable();
-            $table->string('access_token',25)->nullable();
-            $table->string('store_address',25)->nullable();
-            $table->string('api_key',25)->nullable();
-            $table->string('api_secret',25)->nullable();
-            $table->string('word_address',25)->nullable();
+            $table->string('access_token',50)->nullable();
+            $table->string('store_address',50)->nullable();
+            $table->string('api_key',50)->nullable();
+            $table->string('api_secret',50)->nullable();
+            $table->string('word_address',50)->nullable();
             $table->integer('company_id')->nullable();
             $table->string('mim_api_key',25)->nullable();
             $table->string('mim_store_address',25)->nullable();

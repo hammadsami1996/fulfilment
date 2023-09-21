@@ -120,28 +120,32 @@ class WordpressController extends Controller
                                     $order->customer_id = $customer['id'];
                                 } else {
                                     $customer = new Customer();
-                                    $customer->name = $rec['billing ']['first_name'];
-                                    $customer->address = $rec['shipping']['address1'] . $rec['shipping']['address2'];
+                                    $customer->name = $rec['billing']['first_name'];
+                                    $customer->address = $rec['shipping']['address_1'] . $rec['shipping']['address_2'];
 
                                     $customer->email = $rec['billing']['email'];
                                     $customer->phone = $rec['billing']['phone'];
 
-                                    $b_city = City::where('title', $rec['billing']['city'])->first();
+                                    $b_city = City::where('name', $rec['billing']['city'])->first();
 
                                     $customer->b_city_id = $b_city['id'];
                                     $customer->b_country_id = $b_city['country_id'];
                                     $customer->b_name = $rec['billing']['first_name'];
                                     $customer->b_phone = $rec['billing']['phone'];
-                                    $customer->b_address_1 = $rec['billing']['address1'];
-                                    $customer->b_address_2 = $rec['billing']['address2'];
-
-                                    $s_city = City::where('title', $rec['shipping']['city'])->first();
-                                    $customer->s_city_id = $s_city['id'];
-                                    $customer->s_country_id = $s_city['country_id'];
+                                    $customer->b_address_1 = $rec['billing']['address_1'];
+                                    $customer->b_address_2 = $rec['billing']['address_2'];
+                                    
+                                    if ($rec['shipping']) {
+                                        $s_city = City::where('name', $rec['shipping']['city'])->first();
+                                        if ($s_city) {
+                                            $customer->s_city_id = $s_city['id'];
+                                            $customer->s_country_id = $s_city['country_id'];
+                                        }
+                                    }
                                     $customer->s_name = $rec['shipping']['first_name'];
                                     $customer->s_phone = $rec['shipping']['phone'];
-                                    $customer->s_address_1 = $rec['shipping']['address1'];
-                                    $customer->s_address_2 = $rec['shipping']['address2'];
+                                    $customer->s_address_1 = $rec['shipping']['address_1'];
+                                    $customer->s_address_2 = $rec['shipping']['address_2'];
                                     $customer->save();
                                     $order->customer_id = $customer['id'];
                                 }

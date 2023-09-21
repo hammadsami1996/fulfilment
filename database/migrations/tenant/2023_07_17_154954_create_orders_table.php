@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('sales_rep')->nullable();
             $table->integer('selling_price')->nullable();
-            $table->integer('external_order_no')->nullable();
+            $table->string('external_order_no', 50)->nullable();
             $table->string('tracking_id' , 50)->nullable();
             $table->integer('product_id')->nullable();
             $table->decimal('subTotal')->nullable();
