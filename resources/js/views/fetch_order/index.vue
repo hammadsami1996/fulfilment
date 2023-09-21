@@ -47,20 +47,20 @@
     <div class="font-bold text-center bg-gray-300 rounded-md text-black pt-1 pb-1 mt-4 mb-4">
         Stores
     </div>
-    <div v-if="!this.store.length == 0">
+    <div v-if="store.length">
         <div class="card-container mb-6">
             <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center" v-for="data in store">
                 <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" >
                     <!-- <button class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-1 px-5 ml-3 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">{{data.name}}</button> -->
-                    <div v-if="data.plate_form == 'woocommerce'">
+                    <div v-if="data.plate_form == 'WooCommerce'">
                         <div class="card bg-gray-200 cursor-pointer" @click="woocommerce_fetch_data(data.id)">
-                            <img src="/images/woocommerce.png"/>
+                            <img src="/images/WooCommerce.png"/>
                         </div>
                         <!-- <p class=" text-black rounded-md font-bold text-md">Woo Commerce</p> -->
                     </div>
-                    <div v-if="data.plate_form == 'shopify'">
+                    <div v-if="data.plate_form == 'Shopify'">
                         <div class="card bg-gray-200 cursor-pointer" @click="shopify_fetch_data(data.id)">
-                            <img src="/images/shopify-bag.png"/>
+                            <img src="/images/Shopify-bag.png"/>
                         </div>
                         <!-- <p class="bg-gray-200 text-black rounded-md font-bold text-md">Shopify</p> -->
                     </div>
@@ -171,7 +171,7 @@ export default {
 
 .card__content {
   position: absolute;
-  
+
   left: 0;
   width: 100%;
   height: 100%;
@@ -212,9 +212,9 @@ export default {
   justify-content: flex-start;
 }
 /* .shows{
-  flex: 0 0 calc(12.5% - 20px); 
-  margin-right: 20px; 
-  margin-bottom: 20px; 
+  flex: 0 0 calc(12.5% - 20px);
+  margin-right: 20px;
+  margin-bottom: 20px;
   box-sizing: border-box;
 } */
 

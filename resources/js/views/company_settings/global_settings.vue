@@ -257,7 +257,7 @@
         </div>
       </div>
     </div>
-   
+
     <div class="" v-if="courier">
         <h1 class="text-lg font-bold text-center mb-4 mt-4">Courier Settings</h1>
             <div class="card-container mb-6">
@@ -273,8 +273,8 @@
                                 <span class="radio-title">
                                     <span class="radio-icon cursor-pointer">
                                         <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
-                                        <img src="/images/shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'shopify'" @click="ecommerce('shopify')"/>
-                                        <img src="/images/woocommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'woocommerce'" @click="ecommerce('woocommerce')"/>
+                                        <img src="/images/Shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'Shopify'" @click="ecommerce('Shopify')"/>
+                                        <img src="/images/WooCommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'woocommerce'" @click="ecommerce('WooCommerce')"/>
                                         <img src="/images/MimCart.jpg" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'MimCart'" @click="ecommerce('MimCart')"/>
                                     </span>
                                     <span class="radio-label font-bold">{{stores ?  stores.name:'' }} Store</span>
@@ -292,7 +292,7 @@
                     <h2 class="text-lg font-semibold text-center">WordPress</h2>
                 </div>
                 <div class="bg-white p-2 rounded">
-                    <img src="/images/shopify-bag.png" alt="Shopify Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
+                    <img src="/images/Shopify-bag.png" alt="Shopify Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
                     <h2 class="text-lg font-semibold text-center">Shopify</h2>
                 </div>
                 <div class="bg-white p-2 rounded">
@@ -302,7 +302,7 @@
             </div> -->
       <!-- <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
         <div class=" mr-12 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
-          <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('woocommerce')">
+          <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('WooCommerce')">
                     <div class="coin">
           <div class="side heads">
             <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
@@ -315,13 +315,13 @@
           </div>
     </div>
     <div class="mr-12 w-full sm:w-1/3 mb-4 sm:mb-0 p-2 bg-gray-50 border border-gray-300 rounded-md" style="box-shadow: 0 7px 15px rgba(16, 53, 78, 0.1); cursor: pointer;">
-          <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('shopify')">
+          <div  class=" flex flex-row w-full py-2 px-3 " @click="ecommerce('Shopify')">
                     <div class="coins" >
           <div class="side heads">
-            <i class="fa-brands fa-shopify fa-xs" style="color: #bbc2ce;"></i>
+            <i class="fa-brands fa-Shopify fa-xs" style="color: #bbc2ce;"></i>
             </div>
             <div class="side tails">
-              <i class="fa-brands fa-shopify fa-xs" style="color: #bbc2ce; font-size: smaller;"></i>
+              <i class="fa-brands fa-Shopify fa-xs" style="color: #bbc2ce; font-size: smaller;"></i>
             </div>
             </div>
             <h1 class="ml-12 mt-4"><strong style="color:rgb(31, 119, 19)">Shopify</strong><br><span style="font-size:small">Configration</span></h1>
@@ -336,7 +336,7 @@
             <div class="side tails">
         <i class="fa-brands fa-wordpress" style="color: #b5bbc4;"></i>
             </div>
-            
+
             </div>
             <h1 class="ml-12 mt-4"><strong style="color:rgb(40, 40, 104)">MimCart</strong><br><span style="font-size:small">Configration</span></h1>
           </div>
@@ -352,7 +352,7 @@
                 <h1 class="text-lg font-bold  mt-4 mb-4 text-center">Store Settings</h1>
                 <hr>
       <div>
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'woocommerce'">
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'WooCommerce'">
           <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" >
             <label class="block font-medium text-sm text-gray-700 mb-2"
               >Api Key
@@ -381,10 +381,10 @@
             </p>
           </div>
 
-          
+
         </div>
 
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'woocommerce'">
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'WooCommerce'">
           <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
             <label class="block font-medium text-sm text-gray-700 mb-2">
               WordPress Store Address
@@ -399,7 +399,7 @@
             </p>
           </div>
         </div>
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'shopify'">
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'Shopify'">
           <div class="w-full sm:w-full mb-4 sm:mb-0 p-2" >
             <label class="block font-medium text-sm text-gray-700 mb-2"
               >Access Token
@@ -429,9 +429,9 @@
           </div>
         </div>
 
-        
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'shopify'">
-          
+
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'Shopify'">
+
 
           <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
             <label class="block font-medium text-sm text-gray-700 mb-2">
@@ -449,11 +449,11 @@
         </div>
 
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'MimCart'">
-          
+
 
           <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
             <label class="block font-medium text-sm text-gray-700 mb-2">
-              Mimcart Api Key
+                MimCart Api Key
             </label>
             <input
               class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
@@ -468,11 +468,11 @@
 
 
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'MimCart'">
-          
+
 
           <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
             <label class="block font-medium text-sm text-gray-700 mb-2">
-              Mimcart Store Address
+                MimCart Store Address
             </label>
             <input
               class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
@@ -484,7 +484,7 @@
             </p>
           </div>
         </div>
-      
+
       </div>
 
               </div>
@@ -591,7 +591,7 @@ export default {
 
     close(){
       this.show_ecommerce = false
-      this.connection_button = true 
+      this.connection_button = true
       this.save_button = false
       // this.form = []
     },
@@ -605,16 +605,16 @@ export default {
 
     wordpress(){
 
-      
+
                 let connention_url = ''
-                if (this.online_store_name == 'shopify') {
-                    
+                if (this.online_store_name == 'Shopify') {
+
                     connention_url = '/api/shopify_fetch_data'
-                } else if (this.online_store_name == 'woocommerce') {
+                } else if (this.online_store_name == 'WooCommerce') {
                   connention_url = '/api/woocommerce_fetch_data'
 
                 } else if (this.online_store_name == 'MimCart') {
-                  
+
                     connention_url = '/api/mimcart_fetch_data'
                 }
                 if (this.form && connention_url) {
@@ -639,7 +639,7 @@ export default {
             type: "error",
             duration: 7000,
           });
-           
+
           }
 
           if(res.data.error){
@@ -649,7 +649,7 @@ export default {
             type: "error",
             duration: 3000,
           });
-            
+
           }
 
                     }).catch(err => {
@@ -684,7 +684,7 @@ export default {
       //       type: "error",
       //       duration: 7000,
       //     });
-           
+
       //     }
 
       //     if(res.data.error){
@@ -694,10 +694,10 @@ export default {
       //       type: "error",
       //       duration: 3000,
       //     });
-            
+
       //     }
-         
-          
+
+
       //   }
       // )
     },
@@ -708,7 +708,7 @@ export default {
             this.$toast.open({
                 position: "top-right",
                 message:"Please Select Company First",
-                
+
                 type: "error",
                 duration: 3000,
             });
@@ -744,12 +744,12 @@ export default {
       this.returns(this.form.company_id);
     },
     save_store_data(){
-     
+
       // byMethod("post", `/api/stores?store_id=${this.store_id}&company_id=${this.company_id}$name=${this.name}`  , this.data)
       byMethod("put", `/api/stores/${this.store_id}` , this.form)
 
         .then((res) => {
-          
+
         })
     },
 
@@ -770,7 +770,7 @@ export default {
     company_data() {
       byMethod("get","/api/company").then(
         (res) => {
-           
+
         }
       );
     },
@@ -832,7 +832,7 @@ export default {
     savejson(e) {
       byMethod("post", `/api/global_settings?value=${e}&company_id=${this.company_id}`  , this.form)
         .then((res) => {
-          
+
           this.$toast.open({
             position: "top-right",
             message:  "Success",
@@ -996,7 +996,7 @@ export default {
 
 .card__content {
   position: absolute;
-  
+
   left: 0;
   width: 100%;
   height: 100%;
@@ -1121,7 +1121,7 @@ export default {
     transform: rotateY(360deg);
   }
 }
-/* 
+/*
 .svg_back {
   transform: scaleX(-1);
 } */
