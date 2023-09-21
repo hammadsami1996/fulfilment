@@ -20,7 +20,8 @@ class MimCartController extends Controller
             // Check if the request was successful
             if ($response->successful()) {
                 $data = $response->json(); // No need to decode JSON manually
-                return response()->json($data);
+                // return response()->json($data);
+                return response()->json(['data' => true]);
             } else {
                 // Handle the error, e.g., log it or return an error response
                 return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());

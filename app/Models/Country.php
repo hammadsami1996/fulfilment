@@ -14,7 +14,7 @@ class Country extends Model
     use HasApiTokens, HasFactory, Notifiable, HasRoles, Search;
     protected $table = 'countries';
     protected $fillable = [
-        'name',
+        'title',
         'status',
         'other_city_id',
 

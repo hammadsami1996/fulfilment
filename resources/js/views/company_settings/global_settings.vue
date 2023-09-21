@@ -765,6 +765,10 @@ export default {
       this.form.store_address = stores.store_address
       this.form.word_address = stores.word_address
       this.form.access_token = stores.access_token
+      this.form.mim_api_key = stores.mim_api_key
+      this.form.mim_store_address = stores.mim_store_address
+
+
       // console.log(this.from.access_token);
     },
     company_data() {
