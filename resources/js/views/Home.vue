@@ -366,11 +366,11 @@
 
 
 <script>
-import VueApexCharts from "vue3-apexcharts";
+// import VueApexCharts from "vue3-apexcharts";
 
 export default {
         components: {
-            apexchart: VueApexCharts,
+            // apexchart: VueApexCharts,
         },
         data() {
             return {
