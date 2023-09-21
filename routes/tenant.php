@@ -116,7 +116,7 @@ Route::middleware([
         Route::post('ecommerce', [\App\Http\Controllers\WordpressController::class, 'getWooCommerceOrders']);
         Route::post('/shopify_fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
         Route::post('/mimcart_fetch_data', [\App\Http\Controllers\MimCartController::class, 'fetchData']);
-        Route::get('/mimcart_store_data/{id}', [\App\Http\Controllers\MimCartController::class, 'storeOrder']);
+        Route::post('/mimcart_store_data/{id}', [\App\Http\Controllers\MimCartController::class, 'storeOrder']);
         Route::post('/woocommerce_store_data/{id}', [\App\Http\Controllers\WordpressController::class, 'storeOrder']);
         Route::post('/shopify_store_data/{id}', [\App\Http\Controllers\ShopifyController::class, 'storeOrder']);
         Route::post('receive_order_inventory', [\App\Http\Controllers\ReceiveOrderController::class, 'inventory']);

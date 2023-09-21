@@ -65,7 +65,7 @@
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                     </div>
                     <div v-if="data.plate_form == 'MimCart'">
-                        <div class="card bg-gray-200 cursor-pointer">
+                        <div class="card bg-gray-200 cursor-pointer" @click="mimcart_fetch_data(data.id)">
                             <img src="/images/MimCart.jpg"/>
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
@@ -137,7 +137,18 @@ export default {
             shopify_fetch_data(e){
                 byMethod("POST", `/api/shopify_store_data/${e}`).then(
                     (res) => {
-
+                        if(res.data.saved == true){
+                            this.$toast.success('Fetch Order Successfully');
+                        }
+                    }
+                );
+            },
+            mimcart_fetch_data(e){
+                byMethod("POST", `/api/mimcart_store_data/${e}`).then(
+                    (res) => {
+                        if(res.data.saved == true){
+                            this.$toast.success('Fetch Order Successfully');
+                        }
                     }
                 );
             }

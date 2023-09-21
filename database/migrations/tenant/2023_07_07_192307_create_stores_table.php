@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('api_secret',50)->nullable();
             $table->string('word_address',50)->nullable();
             $table->integer('company_id')->nullable();
-            $table->string('mim_api_key',25)->nullable();
-            $table->string('mim_store_address',25)->nullable();
+            $table->string('mim_api_key',100)->nullable();
+            $table->string('mim_store_address',100)->nullable();
             $table->timestamps();
         });
     }
