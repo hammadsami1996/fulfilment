@@ -81,11 +81,12 @@ class ShopifyController extends Controller
                                     $customer->b_phone = $rec['billing_address']['phone'];
                                     $customer->b_address_1 = $rec['billing_address']['address1'];
                                     $customer->b_address_2 = $rec['billing_address']['address2'];
-
-                                    $s_city = City::where('title', $rec['shipping_address']['city'])->first();
-                                    if ($s_city) {
-                                        $customer->s_city_id = $s_city['id'];
-                                        $customer->s_country_id = $s_city['country_id'];
+                                    if ($rec['shipping_address']) {
+                                        $s_city = City::where('title', $rec['shipping_address']['city'])->first();
+                                        if ($s_city) {
+                                            $customer->s_city_id = $s_city['id'];
+                                            $customer->s_country_id = $s_city['country_id'];
+                                        }
                                     }
                                     $customer->s_name = $rec['shipping_address']['first_name'];
                                     $customer->s_phone = $rec['shipping_address']['phone'];
@@ -131,7 +132,7 @@ class ShopifyController extends Controller
                             ]);
                         }
                     }
-                    return response()->json(['saved' => true,'new'=>$i]);
+                    return response()->json(['saved' => true, 'new' => $i]);
 
                 } else {
                     return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
