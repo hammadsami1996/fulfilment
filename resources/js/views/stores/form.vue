@@ -317,7 +317,7 @@
             },
 
 
-            shopify() {
+            Shopify() {
                 byMethod('get', `/api/fetch_data?store_address=${this.form.store_address}&access_token=${this.form.access_token}`).then((res) => {
                     // console.log(res);
                     if (res.error) {
