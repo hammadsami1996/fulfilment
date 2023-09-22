@@ -1,11 +1,14 @@
 <x-guest-layout>
     <!-- Session Status -->
+
     <x-auth-session-status class="mb-4" :status="session('status')"/>
+
     <!-- Page Container -->
     <div id="page-container" class="flex flex-col mx-auto w-full min-h-screen bg-gray-100">
         <!-- Page Content -->
         <main id="page-content" class="flex flex-auto flex-col max-w-full">
             <div class="min-h-screen flex flex-col bg-cover bg-bottom"
+
                  style="background-image: url('https://cdn.tailkit.com/media/placeholders/photo-9XngoIpxcEo-1920x1200.jpg');">
                 <!-- Sign Up Section -->
                 <div class="flex grow md:w-8/12 lg:w-5/12 xl:w-4/12 bg-white shadow-xl">
@@ -29,15 +32,17 @@
                                     </p>
                                 </div>
                                 <!-- END Header -->
+
                                 <!-- Sign Up Form -->
-                                <form id="SubmitForm" action="{{ route('register') }}" method="POST" class="space-y-6">
+
+                                <form id="SubmitForm" action="{{ route('register') }}"  method="POST" class="space-y-6">
                                     @csrf
                                     <div class="space-y-1">
-                                        {{--                                        @if(count(explode('.',request()->getHost())) > 2)--}}
-                                        {{--                                            <label for="name" class="font-medium">User Name</label>--}}
-                                        {{--                                        @else--}}
-                                        <label for="name" class="font-medium">Business Name</label>
-                                        {{--                                        @endif--}}
+{{--                                        @if(count(explode('.',request()->getHost())) > 2)--}}
+{{--                                            <label for="name" class="font-medium">User Name</label>--}}
+{{--                                        @else--}}
+                                            <label for="name" class="font-medium">Business Name</label>
+{{--                                        @endif--}}
                                         <x-text-input
                                             class="block border placeholder-gray-400 px-5 py-3 leading-6 w-full rounded border-gray-200 focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
                                             type="text" id="name" name="name" placeholder="Enter your first name"
@@ -59,11 +64,12 @@
                                         <label for="password_confirm" class="font-medium">Mobile No</label>
                                         <x-text-input
                                             class="block border placeholder-gray-400 px-5 py-3 leading-6 w-full rounded border-gray-200 focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
-                                            type="number" id="mobile_no" name="mobile_no"
-                                            placeholder="Enter your mobile no"
-                                            :value="old('mobile_no')" required autocomplete="mobile_no"
-                                            data-error="mobile_no"/>
+                                            type="number" id="mobile_no" name="mobile_no" placeholder="Enter your mobile no"
+                                           :value="old('mobile_no')" required autocomplete="mobile_no"
+                                           data-error="mobile_no"/>
                                         <x-input-error :messages="$errors->get('mobile_no')" class="mt-2"/>
+
+
 
 
                                     </div>
@@ -85,7 +91,10 @@
                                             required autocomplete="new-password"
                                             data-error="password_confirmation"/>
                                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
+
+
                                     </div>
+
                                     <div class="flex items-center">
                                         <x-text-input type="checkbox" id="remember_me" name="remember_me"
                                                       class="border border-gray-300 rounded h-4 w-4 text-primary-500 focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"/>
@@ -98,6 +107,7 @@
                                     </x-primary-button>
                                 </form>
                                 <!-- END Sign Up Form -->
+
                                 <div class="text-sm text-gray-500">
                                     <a href="{{ route('login') }}"
                                        class="font-medium text-primary-600 hover:text-primary-400">Return to Sign In</a>
@@ -107,13 +117,13 @@
                         <!-- END Sign Up Content -->
 
                         <!-- Footer -->
-                    {{--                        <div class="text-sm text-gray-500 text- pt-20">--}}
-                    {{--                            <a href="https://bawasoft.com" class="font-medium text-primary-600 hover:text-primary-400"--}}
-                    {{--                               target="_blank">MimHRMS</a> by--}}
-                    {{--                            <a href="https://bawasoft.com" class="font-medium text-primary-600 hover:text-primary-400"--}}
-                    {{--                               target="_blank">Bawasoft</a>--}}
-                    {{--                        </div>--}}
-                    <!-- END Footer -->
+{{--                        <div class="text-sm text-gray-500 text- pt-20">--}}
+{{--                            <a href="https://bawasoft.com" class="font-medium text-primary-600 hover:text-primary-400"--}}
+{{--                               target="_blank">MimHRMS</a> by--}}
+{{--                            <a href="https://bawasoft.com" class="font-medium text-primary-600 hover:text-primary-400"--}}
+{{--                               target="_blank">Bawasoft</a>--}}
+{{--                        </div>--}}
+                        <!-- END Footer -->
                     </div>
                 </div>
                 <!-- END Sign Up Section -->
@@ -121,27 +131,183 @@
         </main>
         <!-- END Page Content -->
     </div>
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary-500"></div>
-    </div>
-</x-guest-layout>
-<style>
-    /* Loading Overlay Styles */
-    #loading-overlay {
-        display: none;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-</style>
-<script>
-    document.getElementById('SubmitForm').addEventListener('submit', function () {
-        // Show the loading overlay when the form is submitted
-        // document.getElementById('loading-overlay').classList.remove('hidden');
-        document.getElementById('loading-overlay').style.display = 'flex';
-    });
+    <div id="loading-indicator" class="hidden fixed top-0 left-0 right-0 bg-black bg-opacity-50 w-full h-full flex items-center justify-center text-black font-semibold text-xl">
+        <img src="/images/clock.gif" alt="Loading..." />
 
-    // You can also hide the loading overlay when the page is fully loaded
-    window.addEventListener('load', function () {
-        document.getElementById('loading-overlay').classList.add('hidden');
+        <div class="absolute top-0 left-0 right-0 text-center text-xl font-bold">
+        Please wait while we prepare your project for you ...
+        </div>
+    </div>
+
+</x-guest-layout>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Add this JavaScript block inside your Blade view -->
+<script>
+    $(document).ready(function () {
+        console.log('Starting AJAX request...');
+        $('#SubmitForm').on('submit', function (e) {
+            e.preventDefault();
+
+            // Show the loading indicator
+            $('#loading-indicator').removeClass('hidden');
+
+            // Disable user interactions by hiding the page container
+            $('#page-container').addClass('hidden');
+
+            // Submit the form using AJAX
+            var formData = new FormData($('#SubmitForm')[0]);
+            $.ajax({
+                url: $('#SubmitForm').attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log(response);
+                    // Registration successful
+                    // Hide the loading indicator
+                    $('#loading-indicator').addClass('hidden');
+
+                    // Redirect to the URL provided by the controller
+                    window.location.href = response.redirect_url;
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response, including validation errors
+                    // ...
+
+                    // Hide the loading indicator
+                    $('#loading-indicator').addClass('hidden');
+
+                    // Show the page container again
+                    $('#page-container').removeClass('hidden');
+                }
+            });
+        });
     });
 </script>
+
+
+<!-- <script>
+
+
+    $(document).ready(function () {
+        $('#register-button').on('click', function (e) {
+            e.preventDefault();
+
+            // Show the loading indicator
+            $('#loading-indicator').removeClass('hidden');
+
+            // Disable user interactions by hiding the page container
+            $('#page-container').addClass('hidden');
+
+            // Submit the form using AJAX
+            var formData = new FormData($('#SubmitForm')[0]);
+
+            $.ajax({
+                url: $('#SubmitForm').attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Handle success response
+                    // Hide the loading indicator
+                    $('#loading-indicator').addClass('hidden');
+
+                    // Redirect the user or perform any other actions here
+
+                    // Show the page container again
+                    $('#page-container').removeClass('hidden');
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.log(error);
+
+                    // Hide the loading indicator
+                    $('#loading-indicator').addClass('hidden');
+
+                    // Show the page container again
+                    $('#page-container').removeClass('hidden');
+                }
+            });
+        });
+    });
+</script> -->
+
+
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
+{{--        $('#SubmitForm').on('submit', function (e) {--}}
+{{--            e.preventDefault();--}}
+
+{{--            // Show the loading indicator--}}
+{{--            $('#loading-indicator').removeClass('hidden');--}}
+
+{{--            // Disable user interactions by hiding the page container--}}
+{{--            $('#page-container').addClass('hidden');--}}
+
+{{--            // Submit the form using AJAX--}}
+{{--            var formData = new FormData($('#SubmitForm')[0]);--}}
+{{--            $.ajax({--}}
+{{--                url: $('#SubmitForm').attr('action'),--}}
+{{--                type: 'POST',--}}
+{{--                data: formData,--}}
+{{--                processData: false,--}}
+{{--                contentType: false,--}}
+{{--                success: function (response) {--}}
+{{--                    // Registration successful--}}
+{{--                    // Hide the loading indicator--}}
+{{--                    $('#loading-indicator').addClass('hidden');--}}
+{{--                    // Redirect to the URL provided by the controller--}}
+{{--                    window.location.href = response.redirect_url;--}}
+{{--                },--}}
+{{--                error: function (xhr, status, error) {--}}
+{{--                    console.log(xhr, 'xhr')--}}
+{{--                    // Handle error response, including validation errors--}}
+{{--                    // if (xhr.status === 422) {--}}
+
+{{--                    //     // Unprocessable Entity (validation errors)--}}
+{{--                    //     var errors = xhr.responseJSON.errors;--}}
+{{--                    //     console.log(errors)--}}
+{{--                    //     // Display validation errors to the user--}}
+{{--                    //     $.each(errors, function (key, value) {--}}
+{{--                    //         console.log(value);--}}
+{{--                    //         // 'key' is the form field name, 'value' is the error message--}}
+{{--                    //         // You can display the error message in your form, e.g., next to the input field--}}
+{{--                    //         $('#error-' + key).text(value[0]);--}}
+{{--                    //     });--}}
+{{--                    // }--}}
+{{--                    if (xhr.status === 422) {--}}
+{{--                        var errors = xhr.responseJSON.errors;--}}
+
+{{--                        // Loop through each field in the errors object--}}
+{{--                        for (var field in errors) {--}}
+{{--                            if (errors.hasOwnProperty(field)) {--}}
+{{--                                var errorMessage = errors[field][0];--}}
+{{--                                var inputField = $('[data-error="' + field + '"]');--}}
+
+{{--                                // Append the error message next to the input field--}}
+{{--                                inputField.after('<div class="text-red-600 mt-2">' + errorMessage + '</div>');--}}
+{{--                            }--}}
+{{--                        }--}}
+{{--                    }--}}
+{{--                    else {--}}
+{{--                        // Handle other types of errors here--}}
+{{--                        console.log(error);--}}
+{{--                    }--}}
+{{--                    // Hide the loading indicator--}}
+{{--                    $('#loading-indicator').addClass('hidden');--}}
+
+{{--                    // Show the page container again--}}
+{{--                    $('#page-container').removeClass('hidden');--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    });--}}
+
+{{--</script>--}}
+
+
