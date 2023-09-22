@@ -266,6 +266,7 @@
                 this.form.deliver_id = deliver.id
             },
             onShipped(e, f) {
+                console.log(e,f)
                 const shipped_by = e.target.value
                 f.shipped_by = shipped_by
                 f.shipped_by_id = shipped_by.id
