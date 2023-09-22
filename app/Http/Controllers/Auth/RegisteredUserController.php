@@ -66,6 +66,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $url = 'http://hamzanew'  . \env('DOMAIN');
+        // return view('tenant.redirect', compact('url'));
+        return redirect($url);
+
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
@@ -123,6 +128,8 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
 //        Auth::login($user);
+
+            // return view('tenant.redirect', ['url' => 'http://' . $request->name . \env('DOMAIN')]);
 
         return redirect('http://' . $request->name . \env('DOMAIN'));
         // return redirect(RouteServiceProvider::HOME);

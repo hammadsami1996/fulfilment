@@ -131,21 +131,18 @@
         </main>
         <!-- END Page Content -->
     </div>
-     <!-- <div id="loading-indicator" class="hidden fixed top-0 left-0 right-0 bg-black bg-opacity-50 w-full h-full flex items-center justify-center text-black font-semibold text-xl">
+    <div id="loading-indicator" class="hidden fixed top-0 left-0 right-0 bg-black bg-opacity-50 w-full h-full flex items-center justify-center text-black font-semibold text-xl">
+        <img src="/images/clock.gif" alt="Loading..." />
 
-    <img src="/images/clock.gif" alt="Loading..." />
-
-    <div class="absolute top-0 left-0 right-0 text-center text-xl font-bold">
-    Please wait while we prepare your project for you ...
+        <div class="absolute top-0 left-0 right-0 text-center text-xl font-bold">
+        Please wait while we prepare your project for you ...
+        </div>
     </div>
-</div>
-    <div id="loading-image" class="loading-image">
-        <img src="/images/inventory_2.gif" alt="Loading Image">
-    </div> -->
+    
 </x-guest-layout>
 
 
- <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 
 <!-- <script>
     
@@ -195,9 +192,9 @@
 </script> -->
 
 
-<!-- <script>
- $(document).ready(function () {
-        $('#register-button').on('click', function (e) {
+<script>
+    $(document).ready(function () {
+        $('#SubmitForm').on('submit', function (e) {
             e.preventDefault();
            
             // Show the loading indicator
@@ -208,67 +205,63 @@
 
             // Submit the form using AJAX
             var formData = new FormData($('#SubmitForm')[0]);
-$.ajax({
-    url: $('#SubmitForm').attr('action'),
-    type: 'POST',
-    data: formData,
-    processData: false,
-    contentType: false,
-    success: function (response) {
-        console.log(response);
-        // Registration successful
-        // Hide the loading indicator
-        $('#loading-indicator').addClass('hidden');
-        $('#page-container').addClass('hidden');
+            $.ajax({
+                url: $('#SubmitForm').attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Registration successful
+                    // Hide the loading indicator
+                    $('#loading-indicator').addClass('hidden');
+                    // Redirect to the URL provided by the controller
+                    window.location.href = response.redirect_url;
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr, 'xhr')
+                    // Handle error response, including validation errors
+                    // if (xhr.status === 422) {
+                    
+                    //     // Unprocessable Entity (validation errors)
+                    //     var errors = xhr.responseJSON.errors;
+                    //     console.log(errors)
+                    //     // Display validation errors to the user
+                    //     $.each(errors, function (key, value) {
+                    //         console.log(value);
+                    //         // 'key' is the form field name, 'value' is the error message
+                    //         // You can display the error message in your form, e.g., next to the input field
+                    //         $('#error-' + key).text(value[0]);
+                    //     });
+                    // } 
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
 
-        // Redirect the user or perform any other actions here
-        // window.location.href = "YOUR_REDIRECT_URL";
-    },
-    error: function (xhr, status, error) {
-        // Handle error response, including validation errors
-        // if (xhr.status === 422) {
-           
-        //     // Unprocessable Entity (validation errors)
-        //     var errors = xhr.responseJSON.errors;
-        //     console.log(errors)
-        //     // Display validation errors to the user
-        //     $.each(errors, function (key, value) {
-        //         console.log(value);
-        //         // 'key' is the form field name, 'value' is the error message
-        //         // You can display the error message in your form, e.g., next to the input field
-        //         $('#error-' + key).text(value[0]);
-        //     });
-        // } 
-        if (xhr.status === 422) {
-    var errors = xhr.responseJSON.errors;
+                        // Loop through each field in the errors object
+                        for (var field in errors) {
+                            if (errors.hasOwnProperty(field)) {
+                                var errorMessage = errors[field][0];
+                                var inputField = $('[data-error="' + field + '"]');
 
-    // Loop through each field in the errors object
-    for (var field in errors) {
-        if (errors.hasOwnProperty(field)) {
-            var errorMessage = errors[field][0];
-            var inputField = $('[data-error="' + field + '"]');
+                                // Append the error message next to the input field
+                                inputField.after('<div class="text-red-600 mt-2">' + errorMessage + '</div>');
+                            }
+                        }
+                    }
+                    else {
+                        // Handle other types of errors here
+                        console.log(error);
+                    }
+                    // Hide the loading indicator
+                    $('#loading-indicator').addClass('hidden');
 
-            // Append the error message next to the input field
-            inputField.after('<div class="text-red-600 mt-2">' + errorMessage + '</div>');
-        }
-    }
-}
-
-        else {
-            // Handle other types of errors here
-            console.log(error);
-        }
-
-        // Hide the loading indicator
-        $('#loading-indicator').addClass('hidden');
-
-        // Show the page container again
-        $('#page-container').removeClass('hidden');
-    }
-});
-});
+                    // Show the page container again
+                    $('#page-container').removeClass('hidden');
+                }
+            });
+        });
     });
 
-</script> -->
+</script>
 
 
