@@ -1,7 +1,7 @@
 <x-guest-layout>
-    <div id="loading-image" class="loading-image">
+    <!-- <div id="loading-image" class="loading-image">
         <img src="/images/inventory_2.gif" alt="Loading Image">
-    </div>
+    </div> -->
 <!-- Page Container -->
 <div id="page-container" class="flex flex-col mx-auto w-full min-h-screen bg-gray-100">
     <!-- Page Content -->
@@ -92,7 +92,7 @@
 </div>
 <!-- END Page Container -->
 </x-guest-layout>
-<script>
+<!-- <script>
 
     document.addEventListener("DOMContentLoaded", function () {
         const loadingImage = document.getElementById("loading-image");
@@ -103,7 +103,7 @@
         }, fadeDelay);
     });
 
-</script>
+</script> -->
 <style>
 
     .loading-image {
@@ -111,9 +111,6 @@
         top: 0;
         left: 0;
         width: 100vw;
-
-
-
         height: 100vh;
         background-color: #ffffff;
         display: flex;
@@ -144,6 +141,5 @@
             transform: translateX(100%);
         }
       } */
-
 
 </style>
