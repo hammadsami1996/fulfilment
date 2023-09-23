@@ -1,16 +1,15 @@
 <template>
     <div v-if="show">
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-            <h1 class="w-full pb-5 pt-3 text-center font-bold pl-3" style=" font-size: x-large">
-                Company Settings
-            </h1>
+            <p class="w-full pb-1 pt-1 pl-8 text-center font-bold bg-gray-300 rounded text-lg">
+                Company settings
+                <!-- <i @click="addCompany" class="fas fa-plus text-xl rounded-full bg-blue-400 text-white pl-2 pr-2 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"></i> -->
+            </p>
         </div>
-        <div class="card-container mb-2">
-            <div :key="index"
-                 class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center"
-                 v-for="(image, index) in com"
-            >
-                <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-5 cursor-pointer">
+        <div class="card-container mb-2 mt-3">
+            <div :key="index" class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center"
+                 v-for="(image, index) in com">
+                <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer">
                     <div @click="onCompany(image)" class="card">
                         <img :src="`/uploads/company/logo/` + image.logo"/>
                         <div class="card__content">
@@ -20,18 +19,24 @@
                     </div>
                     <span class="text-gray-500 font-bold text-sm pl-3">{{ image.name }}</span>
                 </div>
-                <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-4 cursor-pointer">
-                    <div @click="addCompany" class="card">
-                        <i class="fa fa-plus-circle"></i>
+            </div>
+            <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-4">
+                <div @click="addCompany" class="card">
+                    <i class="fa-regular fa-square-plus fa-2x cursor-pointer"></i>
+                    <div class="card__content">
+                        <p class="card__title">Add Company</p>
                     </div>
-                    <span class="text-gray-500 font-bold text-sm pl-3">Add new</span>
                 </div>
-                <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-4 cursor-pointer">
-                    <div @click="addStore" class="card">
-                        <i class="fa fa-plus-circle"></i>
+                <!-- <span class="text-gray-500 font-bold text-sm">Add Company</span> -->
+            </div>
+            <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-4">
+                <div @click="addStore" class="card">
+                    <i class="fa-regular fa-square-plus fa-2x cursor-pointer"></i>
+                    <div class="card__content">
+                        <p class="card__title">Add Store</p>
                     </div>
-                    <span class="text-gray-500 font-bold text-sm pl-3">Add new Store</span>
                 </div>
+                <!-- <span class="text-gray-500 font-bold text-sm">Add Store</span> -->
             </div>
         </div>
 
@@ -476,17 +481,12 @@
             </div>
         </Modal>
         <Modal :show="isOpen" closeable="true">
-            <div class="bg-gray-100">
-                <h1 class="text-lg font-bold  mt-4 mb-4 text-center">New Company</h1>
+            <div class="">
+                <h1 class="text-lg font-bold mt-4 mb-4 text-center">Add New Company</h1>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label class="block font-medium text-sm text-gray-700 mb-2"
-                        >Name <span class="text-red-600">*</span></label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            placeholder=" Name"
-                            v-model="form.name"
-                        />
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Name <span class="text-red-600">*</span></label>
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" placeholder="Name" v-model="form.name" />
                         <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
@@ -499,6 +499,8 @@
                         />
                         <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
                     </div>
+                </div>
+                <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                         <label class="block font-medium text-sm text-gray-700 mb-2"
                         >Phone <span class="text-red-600">*</span></label>
@@ -521,16 +523,15 @@
                     </div>
                 </div>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                        <label
-                            class="block font-medium text-sm text-gray-700 mb-2"
-                        >Country:</label>
+                    <div class="w-full sm:w-1/2 sm:mb-0 mr-2 pl-2">
+                        <label class="block font-medium text-sm text-gray-700 mb-2">
+                            Country:
+                        </label>
                         <typeahead :initialize="form.country" :url="countries" @input="onCountries"
-                                   display="name"/>
-                        <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
+                                display="name"/>
+                        <!--  <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
                     </div>
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <div class="w-full sm:w-1/2 sm:mb-0 mr-2 pl-1">
                         <label
                             class="block font-medium text-sm text-gray-700 mb-2"
                         >City:</label>
@@ -539,6 +540,8 @@
                                    @input="onCities($event,'city')" display="name"/>
                         <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                     </div>
+                </div>
+                <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                         <label class="block font-medium text-sm text-gray-700 mb-2"
                         >Postal/ Zip Code</label>
@@ -580,10 +583,13 @@
                                 id="profile_picture"
                                 name="profile_picture" type="file" v-on:change="onImageChange">
                             <img width="100" :src="ImgUrl" v-if="ImgUrl">
+                            <div class="w-full sm:w-1/2 mb-4 sm:ml-0 p-2 " v-else-if="form.logo">
+                                <img width="100" :src="`/uploads/company/logo/`+form.logo">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end mt-8 space-x-4">
+                <div class="flex justify-end space-x-4 m-3">
                     <button
                         @click="formSubmitted"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
@@ -601,8 +607,8 @@
             </div>
         </Modal>
         <Modal :show="isOpenStore" closeable="true">
-            <div class="bg-gray-100">
-                <h1 class="text-lg font-bold  mt-4 mb-4 text-center">New Store</h1>
+            <div class="">
+                <h1 class="text-lg font-bold  mt-4 mb-4 text-center">Add New Store</h1>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                         <label
@@ -626,11 +632,13 @@
                         />
                         <p class="text-red-600 text-xs italic" v-if="error.location">{{ error.location[0] }}</p>
                     </div>
+                </div>
+                <div class="flex-auto flex flex-col sm:flex-row sm:items-center mr-3">
                     <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                         <label
                             class="block font-medium text-sm text-gray-700 mb-2"
                         >Company <span class="text-red-600">*</span></label>
-                        <typeahead :initialize="form.company" :url="companys" @input="onCompany" display="name"/>
+                        <typeahead :initialize="form.company" :url="companys" @input="onCompanyUpdate" display="name"/>
                         <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
                     </div>
                 </div>
@@ -648,7 +656,7 @@
                         <p class="text-red-600 text-xs italic" v-if="error.store_type">{{ error.store_type[0] }}</p>
                     </div>
 
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0" v-if="form.store_type == 'Online'">
+                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0 mr-2" v-if="form.store_type == 'Online'">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Plate Form</label>
                         <div class="relative">
                             <select
@@ -672,7 +680,7 @@
                         />
                         <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                     </div>
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                    <div class="w-full sm:w-1/2 pl-3 mr-2 sm:mb-0"
                          v-if="form.plate_form == 'Shopify'">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
                         <input
@@ -701,7 +709,7 @@
                         />
                         <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                     </div>
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0" v-if="form.plate_form == 'WooCommerce'">
+                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0 mr-2" v-if="form.plate_form == 'WooCommerce'">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Api Secret</label>
                         <input
                             class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
@@ -718,7 +726,7 @@
                         />
                         <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                     </div>
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                    <div class="w-full sm:w-1/2 pl-3 mr-2 sm:mb-0"
                          v-if="form.plate_form == 'MimCart'">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Store Addres</label>
                         <input
@@ -728,21 +736,21 @@
                         <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                     </div>
                 </div>
-                <div class="flex justify-end mt-8 space-x-4">
+                <div class="flex justify-end mt-8 space-x-4 p-3">
                     <button
                         @click="savestore" v-if="!connectionBtn || form.store_type == 'Physical'"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600"
                         type="button">
                         {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
                     </button>
                     <button @click="testConnection" v-if="connectionBtn && form.store_type == 'Online'"
-                            class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
+                            class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white hover:bg-orange-500"
                             type="button">
                         Test Connection
                     </button>
                     <button
                         @click="successfull()"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600"
                         type="button">
                         Cancel
                     </button>
@@ -757,6 +765,7 @@
     import {form} from "@/libs/mixins";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import Modal from "@/Components/Modal.vue";
+    import {objectToFormData} from "@/libs/helpers";
 
     function initialize(to) {
         let urls = {
@@ -774,6 +783,7 @@
         },
         data() {
             return {
+                ImgUrl: null,
                 companys: '/api/company',
                 connectionBtn : true,
                 isOpen: false,
@@ -805,6 +815,7 @@
                 com: [],
                 stores_data: [],
                 form: {},
+                image: {},
                 cities: '/api/city',
                 countries: '/api/country',
             };
@@ -829,10 +840,29 @@
             );
         },
         methods: {
+             onImageChange(e) {
+                // console.log('test')
+                this.form.imgN = e.target.files;
+                this.ImgUrl = URL.createObjectURL(e.target.files[0]);
+            },
             onCompany(e) {
+                const company = e
+                this.form.company = company
+                this.form.company_id = company.id
+                this.company_id = company.id
+                // console.log(e)
+                // const company = e.target;
+                // this.form.company_id = company.id;
+                // this.storereturn(this.form.company_id);
+            },
+            onCompanyUpdate(e) {
                 const company = e.target.value
                 this.form.company = company
                 this.form.company_id = company.id
+                // console.log(e)
+                // const company = e.target;
+                // this.form.company_id = company.id;
+                // this.storereturn(this.form.company_id);
             },
             onCities(e) {
                 const city = e.target.value
@@ -843,10 +873,6 @@
                 const country = e.target.value
                 this.form.country = country
                 this.form.country_id = country.id
-            },
-            resetModal() {
-                this.user_data = {}
-                this.isOpen = false
             },
             addCompany() {
                 this.isOpen = true
@@ -866,14 +892,12 @@
                 // this.form = []
             },
             ecommerce(e) {
-                console.log(this.form.store_address);
                 this.online_store_name = e;
                 this.form.plate_form = e;
                 this.show = true
                 this.show_ecommerce = true
             },
             company(e){
-                console.log(this.form.company);
                 this.show = true
                 this.show_company = true
             },
@@ -935,7 +959,7 @@
             },
             couriertabs() {
                 (this.email = false), (this.sms = false), (this.courier = true);
-                console.log(this.company_id);
+                console.log(this.company_id)
                 if (isNaN(this.company_id)) {
                     this.$toast.open({
                         position: "top-right",
@@ -1005,7 +1029,6 @@
             storereturn(e) {
                 byMethod("get", `/api/stores_data?company_id=${e}`).then(
                     (res) => {
-                        console.log(res.data.data.data, 'abc');
                         this.stores_data = res.data.data.data;
                     }
                 );
@@ -1043,7 +1066,7 @@
             },
 
             formSubmitted() {
-                byMethod(this.method, '/api/company', this.form)
+                byMethod(this.method, '/api/company', objectToFormData(this.form))
                     .then((res) => {
                         this.successfull(res);
                         this.$toast.open({
@@ -1091,7 +1114,42 @@
                     });
             },
             successfull(res) {
-                this.$router.push({path: `${this.resource}`});
+                this.isOpen = false
+                this.isOpenStore = false
+                this.form = []
+                this.ImgUrl = null
+            },
+            testConnection() {
+                let data = {}
+                let connention_url = ''
+                if (this.form.plate_form == 'Shopify') {
+                    data = {
+                        store_address: this.form.store_address,
+                        access_token: this.form.access_token
+                    }
+                    connention_url = '/api/shopify_fetch_data'
+                } else if (this.form.plate_form == 'WooCommerce') {
+                    data = {
+                        api_key: this.form.api_key,
+                        word_address: this.form.word_address,
+                        api_secret: this.form.api_secret,
+                    }
+                    connention_url = '/api/ecommerce'
+
+                } else if (this.form.plate_form == 'MimCart') {
+                    data = {
+                        mim_api_key: this.form.mim_api_key,
+                        mim_store_address: this.form.mim_store_address
+                    }
+                    connention_url = '/api/mimcart_fetch_data'
+                }
+                if (data && connention_url) {
+                    byMethod('post', connention_url, data).then(res => {
+                        this.connectionBtn = false
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
             },
         },
     };

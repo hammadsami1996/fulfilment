@@ -140,6 +140,13 @@
                         <span v-else > {{'This Order Not Packable'}}</span>
                     </div>
                 </template>
+                <template v-slot:customers="props" >
+                    <div>
+                        <p>{{props.item.name}}</p>
+                        <p>{{props.item.phone}}</p>
+                        <p>{{props.item.email}}</p>
+                    </div>
+                </template>
                 <template v-slot:ship="props">
                     <typeahead :initialize="props.item.shipped_by" :url="shipped"
                                @input="onShipped($event , props.item)" display="name"/>
@@ -222,7 +229,7 @@
                     {label: 'Sales Number', field: 'so_number'},
                     {label: 'Store', field: 'name', displayText: 'stores'},
                     // {label: 'Order Date', field: 'order_date'},
-                    {label: 'Customer', field: 'text', displayText: 'customer'},
+                    {label: 'Customer', field: 'customers', slot: true},
                     {label: 'Delivery Status', field: 'statuses', slot: true},
                     {label: 'City', field: 'title', displayText: 'city'},
                     {label: 'Shipped By', field: 'ship', slot: true},

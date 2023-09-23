@@ -63,6 +63,7 @@ class ShopifyController extends Controller
                             $order = new Order();
                             $order->order_form = 'Shopify';
                             $order->external_order_no = $rec['id'];
+                            // $order->store_id = $store->id;
                             if ($rec['customer']['phone']) {
                                 $customer = Customer::where('phone', $rec['customer']['phone'])->first();
                                 if ($customer) {

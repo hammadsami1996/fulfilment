@@ -41,6 +41,7 @@ class OrderController extends Controller
             })->when(\request()->has('payment_status') && \request('payment_status'), function ($q) {
                 $q->where('payment_status', \request('payment_status'));
             })
+            ->orderBy('id', 'desc')
             ->search()]);
     }
 
