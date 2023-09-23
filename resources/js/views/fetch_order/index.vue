@@ -119,11 +119,8 @@ export default {
         },
         methods: {
             onCompany(e) {
-                // console.log(e)
                 const company = e;
-                //   this.form.company = company;
                 this.form.company_id = company.id;
-                //   this.company_id = company.id
                 this.returns(this.form.company_id);
                 this.selectedCompany = e;
             },

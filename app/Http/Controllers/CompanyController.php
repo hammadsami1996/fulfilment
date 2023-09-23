@@ -52,7 +52,6 @@ class CompanyController extends Controller
         $model->fill($request->except('imgN'));
         if ($request->hasFile('imgN')) {
             $file = $request->file('imgN');
-
             $extension = $file[0]->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $file[0]->move('uploads/company/logo', $filename);
