@@ -23,6 +23,15 @@ return new class extends Migration
 
         DB::table('delivery_status')->insert(
             [
+                'name' => 'Pending',
+                'color' => '#9E337F', 
+                'head' => 'order',
+                'head_id' => ''
+            ]
+        );
+
+        DB::table('delivery_status')->insert(
+            [
                 'name' => 'Confirmed',
                 'color' => '#F1C40F', 
                 'head' => 'order',
@@ -33,7 +42,7 @@ return new class extends Migration
             [
                 'name' => 'Shipped',
                 'color' => '#1E91A6', 
-                'head' => '',
+                'head' => 'order',
                 'head_id' => ''
             ]
         );

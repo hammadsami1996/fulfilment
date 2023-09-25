@@ -9,11 +9,20 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/tailkit.css',
+                'resources/css/app.css',
                 'resources/js/app.js'
             ],
             refresh: true,
         }),
     ],
+    css: {
+        preprocessorOptions: {
+            // Update the CSS import here to use 'tailkit.css'
+            scss: {
+                additionalData: `@import "resources/css/tailkit.css";`,
+            },
+        },
+    },
     resolve: {
         alias: {
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),

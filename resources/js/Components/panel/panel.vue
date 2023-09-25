@@ -207,14 +207,14 @@
 
             <div class="p-4">
                 <!-- Responsive Table Container -->
-                <div class="overflow-x-auto">
-                    <table class="min-w-full">
+                <div class="overflow-x-auto scrollbar-color">
+                    <table class="min-w-full text-center">
                         <!-- Table Header -->
                         <thead class="bg-gray-200">
                             <tr>
                                 <th
                                     :key="index"
-                                    class="px-3 py-2 text-xs font-bold text-gray-700 uppercase text-left"
+                                    class="px-3 py-2 text-xs uppercase nowrap"
                                     v-for="(column, index) in columns"
                                 >
                                     {{ column.label ? column.label : '' }}
@@ -513,3 +513,23 @@
         },
     }
 </script>
+<style>
+.scrollbar-color{
+    cursor: pointer;
+}
+.scrollbar-color::-webkit-scrollbar {
+  height: 9px;
+  width: 9px;
+}
+
+.scrollbar-color::-webkit-scrollbar-track {
+    background: rgb(230, 224, 224);
+}
+
+.scrollbar-color::-webkit-scrollbar-thumb {
+    background: #60A5FA;
+}
+/* .nowrap{
+    white-space: nowrap;
+} */
+</style>

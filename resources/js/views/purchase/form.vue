@@ -160,7 +160,7 @@
                                         </div>
                                     </div>
                                         <div  v-else style=" max-width: 25%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;" >
-                                            <img src="/images/no-picture-taking.png" >
+                                            <img src="~@/images/no-picture-taking.png" alt="No Picture">
                                             <span class="text-center" style="font-weight: bold;"> No Product Image</span>
                                         </div>
 
@@ -168,7 +168,7 @@
                         <td v-else >
 
                                         <div style=" max-width: 50%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
-                                            <img src="/images/packaging.png" style=" max-width: 30%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
+                                            <img src="~@/images/packaging.png" style=" max-width: 30%; height: auto;  justify-content: center; align-items: center; margin-left: 25%;">
 
                                         </div>
 

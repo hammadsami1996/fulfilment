@@ -21,7 +21,7 @@ class OrderController extends Controller
     public function index()
     {
 //        dd(\request()->all());
-        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores', 'status', 'shipped_by', 'city', 'ordertype')
+        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'shipped_by', 'city', 'ordertype')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
             })->when(\request()->has('packability'), function ($q) {
@@ -41,6 +41,7 @@ class OrderController extends Controller
             })->when(\request()->has('payment_status') && \request('payment_status'), function ($q) {
                 $q->where('payment_status', \request('payment_status'));
             })
+            ->orderBy('id', 'desc')
             ->search()]);
     }
 

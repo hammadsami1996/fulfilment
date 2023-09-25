@@ -117,7 +117,7 @@
                                    style="display: none; "><i class="fas fa-times"></i></a>
                                 <img alt="your image" class="h-24 w-24 object-cover rounded"
                                      id="picture_preview_" onclick="clickImageInput()"
-                                     onerror="imgError(this);" src="/images/products/no-image.png">
+                                     onerror="imgError(this);" src="~@/images/products/no-image.png">
                                 <input accept=".png, .jpg, .jpeg" class="block w-full mt-1 form-input" id="picture_"
                                        name="picture[]" onchange="readURL(this,);"
                                        style="margin-top: 5px; display:none;"

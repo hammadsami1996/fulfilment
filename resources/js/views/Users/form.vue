@@ -58,6 +58,7 @@
                         for="mc-role-guard_name"
                     >Mobile No <span class="text-red-600">*</span></label>
                     <input
+                        type="number"
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         id="mc-role-guard_name"
                         placeholder=" Mobile"

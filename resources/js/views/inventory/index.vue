@@ -12,21 +12,21 @@
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:images="props">
-                  
 
-                    
+
+
                   <div class="flex items-center">
                     <div  v-if="props.item.product && props.item.product.product_img && props.item.product.product_img[0]  " class="w-20 h-20 rounded object-cover image-container">
-                           
+
                                             <img :src="`/uploads/product/img/` +   props.item.product.product_img[0].img" >
-                                       
+
                                     </div>
                                         <div  v-else class="w-20 h-20 rounded object-cover image-container" >
-                                            <img src="/images/no-picture-taking.png" >
-                                         
+                                            <img src="~@/images/no-picture-taking.png" alt="No Picture">
+
                                         </div>
                                         </div>
-      
+
                </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
@@ -119,7 +119,7 @@
 </script>
 <style scoped>
 .image-container:hover {
-    transform: scale(2.6); 
+    transform: scale(2.6);
 
 }
 </style>
