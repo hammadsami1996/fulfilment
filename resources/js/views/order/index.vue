@@ -8,7 +8,7 @@
                 </a>
                 <a @click="showRecords('?status_id=1')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
-                    Pendding
+                    Pending
                 </a>
                 <a @click="showRecords('?status_id=2')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
@@ -143,10 +143,28 @@
                 <template v-slot:customers="props" >
                     <div>
                         <p>{{props.item.name}}</p>
-                        <p>{{props.item.phone}}</p>
-                        <p>{{props.item.email}}</p>
+                        <p><i v-if="props.item.phone" class="fas fa-phone text-black"></i> {{props.item.phone}}</p>
+                        <p><i v-if="props.item.email" class="fas fa-envelope text-black"></i> {{props.item.email}}</p>
                     </div>
                 </template>
+                <template v-slot:company="props" >
+                    <div>
+                        <p>{{props.item.stores.company.name}}</p>
+                    </div>
+                </template>
+
+                <template v-slot:oid >
+                    <div>
+                        <p class="bg-blue-500 rounded text-white text-sm pl-1 pr-1 tooltip-trigger"><i class="fa-regular fa-clock"></i></p>
+                        <!-- <button data-tooltip-target="tooltip-default" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Default tooltip</button>
+                        <div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-black transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Tooltip content
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div> -->
+                        <!-- <span class="">Hamza</span> -->
+                    </div>
+                </template>
+                
                 <template v-slot:ship="props">
                     <typeahead :initialize="props.item.shipped_by" :url="shipped"
                                @input="onShipped($event , props.item)" display="name"/>
@@ -226,15 +244,17 @@
                 capital: "Order",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Sales Number', field: 'so_number'},
-                    {label: 'Store', field: 'name', displayText: 'stores'},
-                    // {label: 'Order Date', field: 'order_date'},
+                    {label: 'OID', field: 'oid', slot: true},
+                    // {label: 'Sales Number', field: 'so_number'},
                     {label: 'Customer', field: 'customers', slot: true},
+                    {label: 'Company', field: 'company', slot: true},
+                    {label: 'Store', field: 'name', displayText: 'stores'},
+                    {label: 'City', field: 'name', displayText: 'city'},
+                    {label: 'Net Amount', field: 'subTotal'},
+                    {label: 'Packing Status', field: 'packability'},
+                    // {label: 'Order Date', field: 'order_date'},
                     {label: 'Delivery Status', field: 'statuses', slot: true},
-                    {label: 'City', field: 'title', displayText: 'city'},
                     {label: 'Shipped By', field: 'ship', slot: true},
-                    {label: 'Payment Status', field: 'subTotal'},
-                    {label: 'Packability', field: 'packability'},
                     {label: 'Action', field: 'action', action: true},
                 ]
             }
@@ -422,32 +442,6 @@
         transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
-    .tooltip {
-        position: absolute;
-        top: 0;
-        font-size: 14px;
-        background: #ffffff;
-        color: #ffffff;
-        padding: 5px 8px;
-        border-radius: 5px;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-        opacity: 0;
-        pointer-events: none;
-        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-
-    .tooltip::before {
-        position: absolute;
-        content: "";
-        height: 8px;
-        width: 8px;
-        background: #ffffff;
-        bottom: -3px;
-        left: 50%;
-        transform: translate(-50%) rotate(45deg);
-        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-
     .uiverse:hover .tooltip {
         top: -45px;
         opacity: 1;
@@ -467,5 +461,36 @@
         background: #fff;
         color: #ffffff;
     }
+
+/* .tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-trigger {
+    cursor: pointer;
+}
+
+.tooltip-content {
+    visibility: hidden;
+    background-color: #f3f4f6;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: -20%;
+    left: 580%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.tooltip-container:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+} */
+
 
 </style>
