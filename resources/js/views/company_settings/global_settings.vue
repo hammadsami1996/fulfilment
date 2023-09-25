@@ -940,7 +940,6 @@
                     this.$toast.open({
                         position: "top-right",
                         message: "Please Select Company First",
-
                         type: "error",
                         duration: 3000,
                     });
