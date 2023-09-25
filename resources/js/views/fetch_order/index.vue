@@ -101,9 +101,6 @@ export default {
                 companies: {},
                 store: [],
                 selectedCompany: null,
-                wooComLoader: true,
-                shopifyLoader: true,
-                mimCartLoader: true,
                 wooButton: true,
                 shopifyButton: true,
                 mimCartButton: true,
@@ -134,34 +131,34 @@ export default {
                 );
             },
             woocommerce_fetch_data(e){
-                this.wooComLoader = false 
+                this.wooButton = false 
                 byMethod("POST", `/api/woocommerce_store_data/${e.id}`).then(
                     (res) => {
                         if(res.data.saved == true){
-                            this.wooComLoader = true
+                            this.wooButton = true
                             this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }
                     }
                 );
             },
             shopify_fetch_data(e){
-                this.shopifyLoader = false 
+                this.shopifyButton = false 
                 byMethod("POST", `/api/shopify_store_data/${e}`).then(
                     (res) => {
                         if(res.data.saved == true){
-                            this.shopifyLoader = true 
+                            this.shopifyButton = true 
                             this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }
                     }
                 );
             },
             mimcart_fetch_data(e){
-                this.mimCartLoader = false 
+                this.mimCartButton = false 
                 byMethod("POST", `/api/mimcart_store_data/${e}`).then(
                     (res) => {
                         if(res.data.saved == true){
                             console.log(res)
-                            this.mimCartLoader = true 
+                            this.mimCartButton = true 
                             this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }
                     }

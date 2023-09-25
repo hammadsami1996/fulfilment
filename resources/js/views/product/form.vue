@@ -174,7 +174,7 @@
                             class="w-full py-1 px-1 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             display="text"
                         />
-                        <p class="text-red-600 text-xs italic" v-if="error.category">{{ error.category[0] }}</p>
+                        <!-- <p class="text-red-600 text-xs italic" v-if="error.category">{{ error.category[0] }}</p> -->
 
                     </div>
                  

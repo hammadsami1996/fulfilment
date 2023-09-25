@@ -519,6 +519,7 @@
 }
 .scrollbar-color::-webkit-scrollbar {
   height: 9px;
+  width: 9px;
 }
 
 .scrollbar-color::-webkit-scrollbar-track {
@@ -528,7 +529,7 @@
 .scrollbar-color::-webkit-scrollbar-thumb {
     background: #60A5FA;
 }
-.nowrap{
+/* .nowrap{
     white-space: nowrap;
-}
+} */
 </style>

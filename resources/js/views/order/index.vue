@@ -250,7 +250,7 @@
                     {label: 'Company', field: 'company', slot: true},
                     {label: 'Store', field: 'name', displayText: 'stores'},
                     {label: 'City', field: 'name', displayText: 'city'},
-                    {label: 'Net Amount', field: 'subTotal'},
+                    {label: 'Net Amount', field: 'total'},
                     {label: 'Packing Status', field: 'packability'},
                     // {label: 'Order Date', field: 'order_date'},
                     {label: 'Delivery Status', field: 'statuses', slot: true},
