@@ -118,7 +118,7 @@
 
                <div class="uiverse">
                 <span class="tooltip" style="color: black;">Confirmed</span>
-              <img src="/images/icons8-confirm-48.png" >
+              <img src="~@/images/icons8-confirm-48.png" >
 
             </div>
 

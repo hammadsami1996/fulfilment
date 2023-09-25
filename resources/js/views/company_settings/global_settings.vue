@@ -273,9 +273,9 @@
                                 <span class="radio-title">
                                     <span class="radio-icon cursor-pointer">
                                         <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
-                                        <img src="/images/Shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'Shopify'" @click="ecommerce('Shopify')"/>
-                                        <img src="/images/WooCommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'WooCommerce'" @click="ecommerce('WooCommerce')"/>
-                                        <img src="/images/MimCart.jpg" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'MimCart'" @click="ecommerce('MimCart')"/>
+                                        <img src="~@/images/Shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'Shopify'" @click="ecommerce('Shopify')"/>
+                                        <img src="~@/images/WooCommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'WooCommerce'" @click="ecommerce('WooCommerce')"/>
+                                        <img src="~@/images/MimCart.jpg" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'MimCart'" @click="ecommerce('MimCart')"/>
                                     </span>
                                     <span class="radio-label font-bold">{{stores ?  stores.name:'' }} Store</span>
                                 </span>
@@ -288,15 +288,15 @@
             <br>
             <div class="grid grid-cols-3 gap-4 mb-4">
                 <div class="bg-white p-2 rounded ">
-                    <img src="/images/wordpress.png" alt="WordPress Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
+                    <img src="~@/images/wordpress.png" alt="WordPress Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
                     <h2 class="text-lg font-semibold text-center">WordPress</h2>
                 </div>
                 <div class="bg-white p-2 rounded">
-                    <img src="/images/Shopify-bag.png" alt="Shopify Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
+                    <img src="~@/images/Shopify-bag.png" alt="Shopify Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
                     <h2 class="text-lg font-semibold text-center">Shopify</h2>
                 </div>
                 <div class="bg-white p-2 rounded">
-                    <img src="/images/mimcart.png" alt="Mim Cart Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
+                    <img src="~@/images/mimcart.png" alt="Mim Cart Logo" class="w-20 h-20 mx-auto mb-2 rounded-full">
                     <h2 class="text-lg font-semibold text-center">Mim Cart</h2>
                 </div>
             </div> -->

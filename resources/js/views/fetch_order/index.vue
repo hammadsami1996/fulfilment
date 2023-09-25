@@ -54,19 +54,19 @@
                     <!-- <button class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-1 px-5 ml-3 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">{{data.name}}</button> -->
                     <div v-if="data.plate_form == 'WooCommerce'">
                         <div class="card bg-gray-200 cursor-pointer" @click="woocommerce_fetch_data(data.id)">
-                            <img src="/images/WooCommerce.png"/>
+                            <img src="~@/images/WooCommerce.png"/>
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                     </div>
                     <div v-if="data.plate_form == 'Shopify'">
                         <div class="card bg-gray-200 cursor-pointer" @click="shopify_fetch_data(data.id)">
-                            <img src="/images/Shopify-bag.png"/>
+                            <img src="~@/images/Shopify-bag.png"/>
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                     </div>
                     <div v-if="data.plate_form == 'MimCart'">
                         <div class="card bg-gray-200 cursor-pointer" @click="mimcart_fetch_data(data.id)">
-                            <img src="/images/MimCart.jpg"/>
+                            <img src="~@/images/MimCart.jpg"/>
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                     </div>
