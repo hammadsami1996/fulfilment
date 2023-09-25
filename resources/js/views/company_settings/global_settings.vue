@@ -293,13 +293,9 @@
                                 <span class="radio-title">
                                     <span class="radio-icon cursor-pointer">
                                         <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
-                                        <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3"
-                                             src="/images/Shopify-bag.png" v-if="stores.plate_form == 'Shopify'"/>
-                                        <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3"
-                                             src="/images/WooCommerce.png"
-                                             v-if="stores.plate_form == 'WooCommerce'"/>
-                                        <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3"
-                                             src="/images/MimCart.jpg" v-if="stores.plate_form == 'MimCart'"/>
+                                        <img src="~@/images/Shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'Shopify'" @click="ecommerce('Shopify')"/>
+                                        <img src="~@/images/WooCommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'WooCommerce'" @click="ecommerce('WooCommerce')"/>
+                                        <img src="~@/images/MimCart.jpg" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'MimCart'" @click="ecommerce('MimCart')"/>
                                     </span>
                                     <span class="radio-label font-bold">{{stores ?  stores.name:'' }} Store</span>
                                 </span>

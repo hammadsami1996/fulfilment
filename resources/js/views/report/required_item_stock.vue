@@ -2,7 +2,7 @@
     <div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
-          
+
 
             <!-- <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
@@ -12,13 +12,13 @@
             </div> -->
         </div>
         <!-- <button @click="selectall">Download</button> -->
-       
+
         <div class="flex-row">
-           
+
             <div class="flex flex-row">
             <div class="flex flex-col-6 ml-6 mt-4" colspan="8">
                 <button
-                
+
                 @click="downloadImage"
                 class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                 type="button">
@@ -27,81 +27,81 @@
                 </button>
 
 
-               
+
             </div>
 
             <div  class="ml-6 col-6 mt-4" style="float:right" >
-               
+
 
 
                 <button
-                
+
                 @click="exportTableToExcel('print', 'Order Stock Report')"
                 class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                 type="button">
-               
+
                Excel
                 </button>
-                
+
             </div>
             <span class="ml-4 mt-6">Suppliers:</span>
-            
+
             <div  class="ml-2 col-6 "  >
-               
+
 
             <span style="font-size: x-small; font-weight: bold; color:red; cursor: pointer;" @click="clearsupp">clear:</span>
-                
+
                 <typeahead :initialize="form.supplier" :url="Supplier"   @input="onSupplier" display="name" title="Supplier"/>
-               
+
            </div>
         </div>
             <panel :columns="columns" :urlApi="urlApi" ref="TableData" id="print">
 
                 <template v-slot:images="props">
-                  
 
-                    
+
+
                   <div class="flex items-center">
                     <div  v-if="props.item.product_image !=null  " class="w-20 h-20 rounded object-cover image-container">
-                                
+
                                             <img :src="`/uploads/product/img/` +  props.item.product_image" >
-                                       
+
                                     </div>
                                         <div  v-else class="w-20 h-20 rounded object-cover image-container" >
-                                            <img src="/images/no-picture-taking.png" >
-                                         
+                                            <img src="~@/images/no-picture-taking.png" alt="No Picture">
+
                                         </div>
                                         </div>
-      
+
                </template>
                 <template v-slot:Po_required="props">
-                  
+
                            {{ props.item.ordered_qty - props.item.inventory_qty }}
-                           
-                   
+
+
                         </template>
 
                         <template v-slot:new_qty="props">
-                            <input 
+                            <input
                                    class=" px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="number"
                                    v-model="props.item.new_qty"
                             >
                </template>
-                <template v-slot:details="props">    
+                <template v-slot:details="props">
                     <div class="text-sm font-medium flex">
-                         
+
                         <button @click="image_model(props.item)" style="color: blue;">Details</button>
 
                         <!-- <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600"  v-model="props.item.download"> -->
 
-                        
+
                     </div>
-                  
+
                 </template>
-                <template v-slot:action="props">    
+                <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
-        <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" 
+        <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600"
                :checked="download.includes(props.item.product_id)"
                @click="isChecked(props.item, props.item.product_id)">
     </div>
@@ -112,11 +112,11 @@
 
             </panel>
 
-            
-          
+
+
         </div>
 
-         <Modal :show="true" 
+         <Modal :show="true"
 
                          height="900"
 
@@ -130,7 +130,7 @@
                          <div >
                             <div class="col-12 ">
                          <div  style=" max-width: 70%; height: 100%; justify-content: center; align-items: center; margin-left: 15%; ">
-                                
+
                                 <img :src="`/uploads/product/img/` +  modal_data.product_image" >
                             </div>
                         </div>
@@ -141,20 +141,20 @@
 
                             </ul>
 
-                           
-                            
+
+
 
                             <!-- <span>{{ modal_data.product_sku }}</span>
                             <span>{{ modal_data.title }}</span> -->
 
                         </div>
-                        
+
                     </div>
-                   
-                   
-                  
+
+
+
                     <div class="flex justify-center mt-4 space-x-4 mb-6 mr-6" style="background-color:#273746 ; color:white">
-               
+
                         <h1 class="text-lg font-bold mb-4 text-center">
                             Quantity Required in order no.
                             </h1>
@@ -162,13 +162,13 @@
 
                                 <span>{{ order }}.</span>
                             </div>
-                            
-                        
+
+
            </div>
 
-           
+
                          <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">
-               
+
                 <button
                 @click="close"
                     class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
@@ -181,9 +181,9 @@
 
 
 
-                    
+
     </div>
- 
+
 </template>
 
 
@@ -196,10 +196,10 @@
     import Modal from "@/Components/Modal.vue";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     // import VueHtml2pdf from 'vue-html2pdf'
-   
- 
-  
-    
+
+
+
+
 
     export default {
         mixins: [form],
@@ -253,31 +253,31 @@
             }
         },
 
-     
+
 
         created() {
             this.permissions = window.apex.user.permission
         },
 
 
-                 
+
         methods: {
             clearsupp(){
                 this.form.supplier = null
                 this.form.supplier_id = null
                 this.urlApi = this.urlApis
                 setTimeout(() => {
-                    
+
                     this.$refs.TableData.reload();
                 }, 100)
-                    
+
             },
             onSupplier(e) {
                 const supplier = e.target.value
                 this.form.supplier = supplier
                 this.form.supplier_id = supplier.id
                 this.filter(this.form.supplier_id)
-                
+
 
             },
             filter(e){
@@ -289,7 +289,7 @@
                     this.urlApi += '?id=' + e
                 }, 100)
                 setTimeout(() => {
-                  
+
                     this.$refs.TableData.reload();
                 }, 100)
                 // byMethod('get', '/api/required_stock?id=' +e).then((res) => {
@@ -301,7 +301,7 @@
             this.$refs.html2Pdf.generatePdf()
         },
 
-    
+
                       exportTableToExcel(tableID, filename = "") {
                         var downloadLink;
                         var dataType = "application/vnd.ms-excel";
@@ -309,13 +309,13 @@
 
 
                         tableSelect.style.borderCollapse = "collapse";
-                        
+
                         tableSelect.style.width = "100%";
                         tableSelect.style.textAlign = "center";
 
-                        
+
                         var thead = tableSelect.querySelector("thead");
-                        
+
                         var tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
                         filename = filename ? filename + ".xls" : "Pivot Report.xls";
 
@@ -340,15 +340,15 @@
 
                         },
 
-                       
+
                            close() {
                 this.show = false,
                     this.show_image_modal = false
             },
 
             image_model(e) {
-              
-               
+
+
                 console.log(e);
                 this.modal_data = e,
                 byMethod('get', '/api/product_details?id=' +e.product_id).then((res) => {
@@ -363,36 +363,36 @@
             isChecked(e , id) {
         console.log(e);
         if (this.download.includes(e)) {
-            this.download.splice(this.download.indexOf(e), 1); 
-            
+            this.download.splice(this.download.indexOf(e), 1);
+
         } else {
-            this.download.push(e); 
+            this.download.push(e);
         }
 
         if (this.ids.includes(id)) {
-            this.ids.splice(this.ids.indexOf(id), 1); 
-            
+            this.ids.splice(this.ids.indexOf(id), 1);
+
         } else {
-            this.ids.push(id); 
+            this.ids.push(id);
         }
     },
             // isChecked(e) {
             //     console.log(e);
             //     return this.download = e;
             // },
-           
+
             downloadimage(){
                 console.log(this.download);
                 console.log(this.ids);
 
-              
+
                 byMethod('get', '/api/download_images?id=' +this.download).then((res) => {
                     const zipPath = res.data.zipPath;
                         console.log(res.data.zipPath);
 
                     const downloadUrl = '/download_zip/' + encodeURIComponent(zipPath);
 
-                   
+
                     window.open(downloadUrl, '_blank');
                 })
 
@@ -443,7 +443,7 @@
                     context.font = 'bold 16px Arial';
                     context.fillText(purchasesLabel, 10, 110);
 
-                    
+
 
                     let offsetY = 140; // Initial Y-coordinate for purchase info
 
@@ -461,7 +461,7 @@
                             context.font = '14px Arial';
                             context.fillText(purchaseInfo3, 10, offsetY + 40);
 
-                          
+
 
                             offsetY += 120;
                         });
@@ -485,7 +485,7 @@
                         this.model = res.data.data.data;
                     console.log(res.data.data.data);
                     this.download.forEach((item, index) => {
-                 
+
                 const image = new Image();
                 image.src = `uploads/product/img/${item.product_image}`;
 
@@ -498,34 +498,34 @@
                     context.drawImage(image, 0, 0);
 
 
-                    const productData = this.model[index]; 
+                    const productData = this.model[index];
                 if (productData) {
                     const title = `Title: ${productData.title}`;
                     const barcode = `Barcode: ${productData.barcode}`;
                     const Purchases = ' Last 3 Purchases';
 
-                    
+
                     context.font = '18px Arial';
                     context.fillStyle = 'white';
                     context.fillText(title, 10, 30);
-                    
+
                     context.font = '18px Arial';
                     context.fillText(barcode, 10, 50);
                     context.font = '18px Arial';
                     context.fillText(Purchases, 10, 70);
 
-                  
-                        
-                            
-                     
-                  
+
+
+
+
+
 
                     if (productData.purchases && productData.purchases.length > 0) {
                         productData.purchases.forEach(purchase => {
                             const purchaseInfo = `Date: ${purchase.purchase.po_date}`; // Customize with your purchase data
                             context.font = '14px Arial';
                             context.fillText(purchaseInfo, 10, 90);
-                            
+
                             const purchaseInfo2 = `Quantity : ${purchase.qty}`; // Customize with your purchase data
                             context.font = '14px Arial';
                             context.fillText(purchaseInfo2, 10, 110);// Adjust the Y coordinate as needed
@@ -539,7 +539,7 @@
                     // const purchaseInfo = `Date: ${productData.purchases.purchase.po_date}`; // Customize with your purchase data
                             // context.font = '14px Arial';
                             // context.fillText(purchaseInfo, 10, 90);
-                            
+
                             // const purchaseInfo2 = `Quantity : ${productData.purchases.qty}`; // Customize with your purchase data
                             // context.font = '14px Arial';
                             // context.fillText(purchaseInfo2, 10, 110);// Adjust the Y coordinate as needed
@@ -551,9 +551,9 @@
                     // ...
                 }
 
-                  
+
                     //     const text = `Product ID: ${items.title}`;
-                    
+
                     // context.font = '24px Arial';
                     // context.fillStyle = 'white';
                     // context.fillText(text, 10, 30);
@@ -563,9 +563,9 @@
                     // context.font = '18px Arial';
                     // context.fillText(additionalText1, 10, 60);
                     // context.fillText(additionalText2, 10, 90);
-                  
 
-                    
+
+
 
                     const link = document.createElement('a');
                     link.href = canvas.toDataURL(`uploads/product/img/${item.product_image}`);
@@ -574,7 +574,7 @@
                 };
             });
         })
-      
+
 
     //             this.download.forEach(item => {
     //     const link = document.createElement('a');
@@ -582,8 +582,8 @@
     //     link.download = `image_${item.product_id}.png`;
     //     link.click();
     // });
-                
-    
+
+
     },
 
             edit(id) {
@@ -605,7 +605,7 @@
 
 <style scoped>
 .image-container:hover {
-    transform: scale(2.6); 
+    transform: scale(2.6);
 
 }
 </style>
