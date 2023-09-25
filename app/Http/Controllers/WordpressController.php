@@ -106,11 +106,11 @@ class WordpressController extends Controller
             try {
                 $response = Http::withBasicAuth($apiKey, $apiSecret)->get($apiUrl);
                 if ($response->successful()) {
-                    $i = 1;
+                    $i = 0;
                     foreach ($response->json() as $rec) {
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'WooCommerce');
                         if (!$order->first()) {
-                            $i++;
+                            ++$i;
                             $order = new Order();
                             $order->order_form = 'WooCommerce';
                             $order->external_order_no = $rec['id'];

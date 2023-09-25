@@ -39,11 +39,11 @@ class MimCartController extends Controller
             try {
                 $response = Http::get($apiUrl);
                 if ($response->successful()) {
-                    $i = 1;
+                    $i = 0;
                     foreach ($response->json() as $rec) {
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart');
                         if (!$order->first()) {
-                            $i++;
+                            ++$i;
                             $order = new Order();
                             $order->order_form = 'MimCart';
                             $order->external_order_no = $rec['id'];

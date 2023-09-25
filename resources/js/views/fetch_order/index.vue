@@ -34,10 +34,10 @@
 
     <div>
         <div class="card-container mb-6">
-            <div  class="flex-auto flex flex-row sm:flex-nowrap sm:items-center"  v-for="(item) in companies"  >
-                <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows cursor-pointer" >
-                    <div class="card" @click="onCompany(item)">
-                          <img :src="`/uploads/company/logo/` +  item.logo">
+            <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center" v-for="(item) in companies">
+                <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows">
+                    <div class="card cursor-pointer" :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == item }" @click="onCompany(item)">
+                        <img :src="`/uploads/company/logo/` + item.logo">
                     </div>
                     <span class="font-bold font-sm pl-2">{{ item.name }}</span>
                 </div>
@@ -57,18 +57,21 @@
                             <img src="~@/images/WooCommerce.png"/>
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
+                        <button v-if="!wooButton" @click="woocommerce_fetch_data(data)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
                     </div>
                     <div v-if="data.plate_form == 'Shopify'">
                         <div class="card bg-gray-200 cursor-pointer" @click="shopify_fetch_data(data.id)">
                             <img src="~@/images/Shopify-bag.png"/>
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
+                        <button v-if="!shopifyButton" @click="shopify_fetch_data(data.id)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
                     </div>
                     <div v-if="data.plate_form == 'MimCart'">
                         <div class="card bg-gray-200 cursor-pointer" @click="mimcart_fetch_data(data.id)">
                             <img src="~@/images/MimCart.jpg"/>
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
+                        <button v-if="!mimCartButton" @click="mimcart_fetch_data(data.id)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
                     </div>
                 </div>
             </div>
@@ -96,7 +99,14 @@ export default {
             return {
                 permissions: [],
                 companies: {},
-                store: []
+                store: [],
+                selectedCompany: null,
+                wooComLoader: true,
+                shopifyLoader: true,
+                mimCartLoader: true,
+                wooButton: true,
+                shopifyButton: true,
+                mimCartButton: true,
             }
         },
         created() {
@@ -109,12 +119,10 @@ export default {
         },
         methods: {
             onCompany(e) {
-                // console.log(e)
                 const company = e;
-                //   this.form.company = company;
                 this.form.company_id = company.id;
-                //   this.company_id = company.id
                 this.returns(this.form.company_id);
+                this.selectedCompany = e;
             },
             returns(e) {
                 byMethod("get", `/api/stores_data?company_id=${e}`).then(
@@ -126,28 +134,35 @@ export default {
                 );
             },
             woocommerce_fetch_data(e){
-                byMethod("POST", `/api/woocommerce_store_data/${e}`).then(
+                this.wooComLoader = false 
+                byMethod("POST", `/api/woocommerce_store_data/${e.id}`).then(
                     (res) => {
                         if(res.data.saved == true){
-                            this.$toast.success('Fetch Order Successfully');
+                            this.wooComLoader = true
+                            this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }
                     }
                 );
             },
             shopify_fetch_data(e){
+                this.shopifyLoader = false 
                 byMethod("POST", `/api/shopify_store_data/${e}`).then(
                     (res) => {
                         if(res.data.saved == true){
-                            this.$toast.success('Fetch Order Successfully');
+                            this.shopifyLoader = true 
+                            this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }
                     }
                 );
             },
             mimcart_fetch_data(e){
+                this.mimCartLoader = false 
                 byMethod("POST", `/api/mimcart_store_data/${e}`).then(
                     (res) => {
                         if(res.data.saved == true){
-                            this.$toast.success('Fetch Order Successfully');
+                            console.log(res)
+                            this.mimCartLoader = true 
+                            this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }
                     }
                 );
@@ -177,10 +192,10 @@ export default {
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.card:hover {
+/* .card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
-}
+} */
 
 .card__content {
   position: absolute;
@@ -230,6 +245,10 @@ export default {
   margin-bottom: 20px;
   box-sizing: border-box;
 } */
+
+.selected-card {
+    border: 2px solid blue; /* Change this to your desired border style and color */
+}
 
 
 

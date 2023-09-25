@@ -204,7 +204,7 @@ class ShippedController extends Controller
                 'remarks' => $remarks,
                 'ShipperName' => strtoupper(get_store_info('title')),
                 'ShipperCellNo' => '',
-                'ShipperArea' => 0
+                'ShipperArea' => 0,
             'ShipperCity'=>	2,
             'ShipperAddress'=>	"",
             'ShipperLandLineNo'=>	'',

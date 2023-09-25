@@ -55,14 +55,15 @@ class ShopifyController extends Controller
                 $response = Http::withHeaders($headers)->get($apiUrl);
                 if ($response->successful()) {
                     $shopify = $response->json();
-                    $i = 1;
+                    $i = 0;
                     foreach ($shopify['orders'] as $rec) {
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify');
                         if (!$order->first()) {
-                            $i++;
+                            ++$i;
                             $order = new Order();
                             $order->order_form = 'Shopify';
                             $order->external_order_no = $rec['id'];
+                            // $order->store_id = $store->id;
                             if ($rec['customer']['phone']) {
                                 $customer = Customer::where('phone', $rec['customer']['phone'])->first();
                                 if ($customer) {
@@ -75,8 +76,10 @@ class ShopifyController extends Controller
                                     $customer->email = $rec['customer']['email'];
                                     $customer->phone = $rec['customer']['phone'];
                                     $b_city = City::where('name', $rec['billing_address']['city'])->first();
-                                    $customer->b_city_id = $b_city['id'];
-                                    $customer->b_country_id = $b_city['country_id'];
+                                    if ($b_city) {
+                                        $customer->b_city_id = $b_city['id'];
+                                        $customer->b_country_id = $b_city['country_id'];
+                                    }
                                     $customer->b_name = $rec['billing_address']['first_name'];
                                     $customer->b_phone = $rec['billing_address']['phone'];
                                     $customer->b_address_1 = $rec['billing_address']['address1'];
