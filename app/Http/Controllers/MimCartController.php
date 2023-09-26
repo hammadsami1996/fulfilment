@@ -68,6 +68,7 @@ class MimCartController extends Controller
                             $order->s_addres_1 = $rec['address'];
                             $order->instraction = $rec['instructions'];
                             $order->city_id = $rec['city'];
+                            $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
                             foreach ($rec['items'] as $key => $item) {
