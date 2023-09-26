@@ -1063,6 +1063,12 @@
             formSubmitted() {
                 byMethod(this.method, '/api/company', objectToFormData(this.form))
                     .then((res) => {
+                        if(res.data.saved == true){
+                            byMethod("GET", '/api/company').then(res => {
+                                console.log(res.data.data.data)
+                                this.com = res.data.data.data
+                            })
+                        }
                         this.successfull(res);
                         this.$toast.open({
                             position: "top-right",
