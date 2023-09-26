@@ -101,171 +101,6 @@
                     <typeahead :initialize="form.ordertype" :url="ordertype" @input="onOrder_type" display="name"/>
                 </div>
             </div>
-
-            <!-- <div
-                class="mt-4 ml-3 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
-                <table class="min-w-full text-sm align-middle whitespace-nowrap">
-                    <thead>
-                    <tr class="border-b border-gray-100 dark:border-gray-700/50">
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
-                            Item Description
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Qty
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Price
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Value Ex.Tax
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Tax %
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Tax Amount
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Value Inc. Tax
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="border-b border-gray-100 dark:border-gray-700/50" v-for="(item,index) in form.items">
-                        <td class="text-center">
-                            <typeahead
-                                :initialize="item.product"
-                                :url="products"
-                                @input="onProduct(item, index, $event)"
-                                class="w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                display="title"
-                            />
-                            <span @click="pushroute"
-                                  style="color: red; font-weight: bold; margin-right: 120px; cursor: pointer;"
-                                  v-if=" count !=null && index == index? count < item.qty :''">Stock Short(Only {{ count }}:Remianing)</span>
-                            <span @click="pushroute"
-                                  style="color: #ff0000; font-weight: bold; margin-right: 120px; cursor: pointer;"
-                                  v-if="alert && ids == item.product_id &&  item.product_id !=null">No Stock Available in this Warehouse</span>
-
-                        </td>
-                        <td>
-                            <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                                   class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                   type="number"
-                                   v-model="item.qty"
-                            >
-                        </td>
-                        <td>
-                            <input @blur="caltax(item, index)" @input="caltax(item, index)"
-                                   class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                   type="number"
-                                   v-model="item.unit_price"
-                            >
-                        </td>
-                        <td>
-                            <input @blur="caltax(item,index)" @input="caltax(item, index)"
-                                   class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                   type="number"
-                                   v-model="item.value_ex_tax"
-                            >
-                        </td>
-                        <td>
-                            <input @blur="caltax(item,index)" @input="caltax(item, index)"
-                                   class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                   type="number" v-model="item.tax_percent">
-                        </td>
-                        <td>
-                            <input
-                                class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                disabled type="number" v-model="item.tax_amount">
-                        </td>
-                        <td>
-                            <input
-                                class="w-24 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                type="number" v-model="item.value_inc_tax">
-                        </td>
-                        <td class=" text-center">
-                            <button @click="removeProduct(item,index)"
-                                    class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
-                                    type="button">
-                                <i class="fa fa-trash mr-1"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td class="item-empty" colspan="2">
-                            <button @click="addNewLine"
-                                    class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-1 px-2 rounded-full inline-flex items-center space-x-1">
-                                <i class="fa fa-plus-circle"></i>
-                            </button>
-                            <span class="text-sm text-gray-600">Total Units: {{ qtySum }} | Total Items: {{ form.items.length }}</span>
-                        </td>
-                        <td class="item-empty align-right panel-title">
-                            <span class="item-dark font-semibold">Sub Total</span>
-                        </td>
-                        <td class="item-empty align-right panel-title">
-                            <span class="item-dark">{{ subTotal}}</span>
-                        </td>
-                        <td class="item-empty align-right"></td>
-                        <td class="item-empty align-right panel-title">
-                            <span class="item-dark">{{ tot_tax_amt }}</span>
-                        </td>
-                        <td class="item-empty align-right panel-title" colspan="1">
-                            <span class="item-dark">{{ total }} </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="7">
-                            <div class="flex justify-end">
-                                <div class="flex items-center space-x-4">
-                                    <div class="font-bold">Discount</div>
-                                    <div>
-                                        <input @input="discountamt(form.discount_percent)"
-                                               class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                               min="0"
-                                               placeholder="%"
-                                               type="number" v-model="form.discount_percent"/>
-                                    </div>
-                                    <div>
-                                        <input @input="discountper"
-                                               class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                               type="number" v-model="form.discount"/>
-                                    </div>
-                                </div>
-                                <div class="flex items-center space-x-4 p-2">
-                                    <div class="font-bold">Dilvery Charges</div>
-                                    <div>
-                                        <input @input="discountamt(form.delivery_charges)"
-                                               class="w-24 px-2 py-1 rounded-md rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                               min="0"
-                                               type="number" v-model="form.delivery_charges"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="7">
-                            <table>
-                                <tr>
-                                    <td class="text-right py-2 pr-4" colspan="4">
-                                        <strong class="text-lg text-blue-600">Total</strong>
-                                    </td>
-                                    <td class="text-lg font-bold py-2">
-                                        <strong class="text-red-500">{{ total_discount }}</strong>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    </tfoot>
-                </table>
-            </div> -->
-
             <div class="border border-gray-200 rounded-lg bg-gray-100 ml-3 mt-4">
                 <p class="text-center p-2 font-bold bg-gray-200">Item Details</p>
                 <div class="rounded ml-3 mt-4">
@@ -320,14 +155,14 @@
                         </div>
                         <div>
                             <label class="block font-medium text-sm text-gray-700 mb-2">Tax Amount</label>
-                            <input class="w-full py-2 px-3 h-8 border border-gray-300 rounded-md" 
+                            <input class="w-full py-2 px-3 h-8 border border-gray-300 rounded-md"
                                 type="number"
-                                disabled 
+                                disabled
                                 v-model="item.tax_amount"/>
                         </div>
                         <div>
                             <label class="block font-medium text-sm text-gray-700 mb-2">Value Inc. Tax</label>
-                            <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" 
+                            <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                                 type="number"
                                 v-model="item.value_inc_tax"/>
                         </div>
