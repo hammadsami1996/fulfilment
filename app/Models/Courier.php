@@ -12,7 +12,7 @@ class Courier extends Model
 {
     use HasFactory, Notifiable, HasRoles;
     use Search;
-    
+
     protected $fillable = [
         'name',
     ];
