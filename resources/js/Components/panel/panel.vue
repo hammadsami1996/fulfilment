@@ -208,13 +208,13 @@
             <div class="p-4">
                 <!-- Responsive Table Container -->
                 <div class="overflow-x-auto scrollbar-color">
-                    <table class="min-w-full text-center">
+                    <table class="min-w-full">
                         <!-- Table Header -->
                         <thead class="bg-gray-200">
                             <tr>
                                 <th
                                     :key="index"
-                                    class="px-3 py-2 text-xs uppercase nowrap"
+                                    class="px-3 py-2 text-xs uppercase text-left"
                                     v-for="(column, index) in columns"
                                 >
                                     {{ column.label ? column.label : '' }}

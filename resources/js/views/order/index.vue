@@ -143,26 +143,29 @@
                 <template v-slot:customers="props" >
                     <div>
                         <p>{{props.item.name}}</p>
-                        <p><i v-if="props.item.phone" class="fas fa-phone text-black"></i> {{props.item.phone}}</p>
-                        <p><i v-if="props.item.email" class="fas fa-envelope text-black"></i> {{props.item.email}}</p>
+                            <!-- <p><i v-if="props.item.phone" class="fas fa-phone text-black"></i> {{props.item.phone}}</p>
+                            <p><i v-if="props.item.email" class="fas fa-envelope text-black"></i> {{props.item.email}}</p> -->
                     </div>
                 </template>
                 <template v-slot:company="props" >
                     <div>
-                        <p>{{props.item.stores.company.name}}</p>
+                        <img :src="`/uploads/company/logo/${props.item.stores.company.logo}`" class="shadow-xl h-10 w-10 rounded-full"/>
+                        <!-- <p class="h-8 w-8">{{props.item.company.logo}}</p> -->
+                        <!-- <p>{{props.item.stores.name}}</p> -->
                     </div>
                 </template>
 
-                <template v-slot:oid >
-                    <div>
-                        <p class="bg-blue-500 rounded text-white text-sm pl-1 pr-1 tooltip-trigger"><i class="fa-regular fa-clock"></i></p>
-                        <!-- <button data-tooltip-target="tooltip-default" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Default tooltip</button>
-                        <div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-black transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                            Tooltip content
-                            <div class="tooltip-arrow" data-popper-arrow></div>
-                        </div> -->
-                        <!-- <span class="">Hamza</span> -->
+                <template v-slot:store="props" >
+                    <div v-if="props.item.stores.plate_form == 'Shopify'">
+                        <img src="/images/Shopify-bag.png" class="h-10 w-10 rounded-full shadow-xl"/>
                     </div>
+                    <div v-if="props.item.stores.plate_form == 'WooCommerce'">
+                        <img src="/images/WooCommerce.png" class="h-10 w-10 rounded-full shadow-xl"/>
+                    </div>
+                    <div v-if="props.item.stores.plate_form == 'MimCart'">
+                        <img src="/images/MimCart.jpg" class="h-10 w-10 rounded-full shadow-xl"/>
+                    </div>
+                    <!-- <p>{{props.item.stores}}</p> -->
                 </template>
                 
                 <template v-slot:ship="props">
@@ -244,16 +247,15 @@
                 capital: "Order",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'OID', field: 'oid', slot: true},
                     // {label: 'Sales Number', field: 'so_number'},
                     {label: 'Customer', field: 'customers', slot: true},
                     {label: 'Company', field: 'company', slot: true},
-                    {label: 'Store', field: 'name', displayText: 'stores'},
+                    {label: 'Store', field: 'store', slot: true},
                     {label: 'City', field: 'name', displayText: 'city'},
                     {label: 'Net Amount', field: 'total'},
                     {label: 'Packing Status', field: 'packability'},
                     // {label: 'Order Date', field: 'order_date'},
-                    {label: 'Delivery Status', field: 'statuses', slot: true},
+                    {label: 'Status', field: 'statuses', slot: true},
                     {label: 'Shipped By', field: 'ship', slot: true},
                     {label: 'Action', field: 'action', action: true},
                 ]
