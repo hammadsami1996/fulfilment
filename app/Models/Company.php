@@ -12,8 +12,9 @@ class Company extends Model
 {
     use HasFactory, Notifiable, HasRoles;
     use Search;
+
     protected $fillable = [
-        'name','phone','tax_number','city_id','country_id','postal','province','address','logo','email'
+        'name', 'phone', 'tax_number', 'city_id', 'country_id', 'postal', 'province', 'address', 'logo', 'email'
     ];
     protected $columns = [
         'name',
@@ -29,13 +30,21 @@ class Company extends Model
     {
         return $this->attributes['name'];
     }
+
     public function country()
     {
-        return $this->belongsTo(Country::class,  'country_id', 'id');
+        return $this->belongsTo(Country::class, 'country_id', 'id');
     }
+
     public function city()
     {
-        return $this->belongsTo(City::class,  'city_id', 'id');
+        return $this->belongsTo(City::class, 'city_id', 'id');
+    }
+
+    public function cities()
+    {
+        return $this->belongsToMany(City::class, 'company_city_courier')
+            ->withPivot('courier_id');
     }
 
 }

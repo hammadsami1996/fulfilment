@@ -23,13 +23,6 @@ class City extends Model
 
     ];
     protected $appends = ['text'];
-
-
-    public function getTextAttribute()
-    {
-        return $this->attributes['name'];
-    }
-
     protected $columns = [
         "id",
         "state_id",
@@ -37,5 +30,21 @@ class City extends Model
     protected $search = [
         "name",
     ];
+
+    public function getTextAttribute()
+    {
+        return $this->attributes['name'];
+    }
+
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'company_city_courier')
+            ->withPivot('courier_id');
+    }
+
+    public function courier()
+    {
+        return $this->belongsTo(Courier::class, 'courier_id');
+    }
 
 }

@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Shipped extends Model
+class Courier extends Model
 {
     use HasFactory, Notifiable, HasRoles;
     use Search;
-    protected $table = 'shippeds';
+    
     protected $fillable = [
         'name',
     ];
