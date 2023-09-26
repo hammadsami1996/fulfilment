@@ -293,9 +293,13 @@
                                 <span class="radio-title">
                                     <span class="radio-icon cursor-pointer">
                                         <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
-                                        <img src="~@/images/Shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'Shopify'" @click="ecommerce('Shopify')"/>
-                                        <img src="~@/images/WooCommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'WooCommerce'" @click="ecommerce('WooCommerce')"/>
-                                        <img src="~@/images/MimCart.jpg" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'MimCart'" @click="ecommerce('MimCart')"/>
+                                        <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3"
+                                             src="~@/images/Shopify-bag.png" v-if="stores.plate_form == 'Shopify'"/>
+                                        <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3"
+                                             src="~@/images/WooCommerce.png"
+                                             v-if="stores.plate_form == 'WooCommerce'"/>
+                                        <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3"
+                                             src="~@/images/MimCart.jpg" v-if="stores.plate_form == 'MimCart'"/>
                                     </span>
                                     <span class="radio-label font-bold">{{stores ?  stores.name:'' }} Store</span>
                                 </span>
@@ -481,8 +485,10 @@
                 <h1 class="text-lg font-bold mt-4 mb-4 text-center">Add New Company</h1>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Name <span class="text-red-600">*</span></label>
-                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" placeholder="Name" v-model="form.name" />
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Name <span
+                            class="text-red-600">*</span></label>
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                               placeholder="Name" v-model="form.name"/>
                         <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
@@ -524,7 +530,7 @@
                             Country:
                         </label>
                         <typeahead :initialize="form.country" :url="countries" @input="onCountries"
-                                display="name"/>
+                                   display="name"/>
                         <!--  <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
                     </div>
                     <div class="w-full sm:w-1/2 sm:mb-0 mr-2 pl-1">
@@ -578,9 +584,9 @@
                                 class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
                                 id="profile_picture"
                                 name="profile_picture" type="file" v-on:change="onImageChange">
-                            <img width="100" :src="ImgUrl" v-if="ImgUrl">
+                            <img :src="ImgUrl" v-if="ImgUrl" width="100">
                             <div class="w-full sm:w-1/2 mb-4 sm:ml-0 p-2 " v-else-if="form.logo">
-                                <img width="100" :src="`/uploads/company/logo/`+form.logo">
+                                <img :src="`/uploads/company/logo/`+form.logo" width="100">
                             </div>
                         </div>
                     </div>
@@ -640,7 +646,8 @@
                 </div>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
                     <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Store Type  <span class="text-red-600">*</span></label>
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Store Type <span
+                            class="text-red-600">*</span></label>
                         <div class="relative">
                             <select
                                 class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
@@ -656,8 +663,8 @@
                         <label class="block font-medium text-sm text-gray-700 mb-2">Plate Form</label>
                         <div class="relative">
                             <select
-                                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
-                                v-model="form.plate_form" @click="storeBtn">
+                                @click="storeBtn"
+                                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300" v-model="form.plate_form">
                                 <option value="WooCommerce">WooCommerce</option>
                                 <option value="Shopify">Shopify</option>
                                 <option value="MimCart">MimCart</option>
@@ -666,7 +673,8 @@
                         <p class="text-red-600 text-xs italic" v-if="error.plate_form">{{ error.plate_form[0] }}</p>
                     </div>
                 </div>
-                <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4" v-if="form.store_type  == 'Online'">
+                <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4"
+                     v-if="form.store_type  == 'Online'">
                     <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                          v-if="form.plate_form == 'Shopify'">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Access Token</label>
@@ -734,14 +742,14 @@
                 </div>
                 <div class="flex justify-end mt-8 space-x-4 p-3">
                     <button
-                        @click="savestore" v-if="!connectionBtn || form.store_type == 'Physical'"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600"
-                        type="button">
+                        @click="savestore" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600"
+                        type="button"
+                        v-if="!connectionBtn || form.store_type == 'Physical'">
                         {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
                     </button>
-                    <button @click="testConnection" v-if="connectionBtn && form.store_type == 'Online'"
-                            class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white hover:bg-orange-500"
-                            type="button">
+                    <button @click="testConnection" class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white hover:bg-orange-500"
+                            type="button"
+                            v-if="connectionBtn && form.store_type == 'Online'">
                         Test Connection
                     </button>
                     <button
@@ -781,7 +789,7 @@
             return {
                 ImgUrl: null,
                 companys: '/api/company',
-                connectionBtn : true,
+                connectionBtn: true,
                 isOpen: false,
                 isOpenStore: false,
                 show_company_data: false,
@@ -836,7 +844,7 @@
             );
         },
         methods: {
-             onImageChange(e) {
+            onImageChange(e) {
                 // console.log('test')
                 this.form.imgN = e.target.files;
                 this.ImgUrl = URL.createObjectURL(e.target.files[0]);
@@ -893,7 +901,7 @@
                 this.show = true
                 this.show_ecommerce = true
             },
-            company(e){
+            company(e) {
                 this.show = true
                 this.show_company = true
             },
@@ -1040,7 +1048,7 @@
                 }
                 this.show = true;
             },
-            savestore(){
+            savestore() {
                 byMethod(this.method, '/api/stores', this.form).then(res => {
                     this.successfull(res)
                     this.$toast.open({
