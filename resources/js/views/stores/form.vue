@@ -1,6 +1,7 @@
 <template>
     <div v-if="show">
         <div class="p-6">
+           
             <h1 class="text-lg font-bold mb-4">
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
             </h1>
@@ -34,6 +35,14 @@
                     <typeahead :initialize="form.company" :url="companys" @input="onCompany" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
                 </div>
+
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Warehouse <span class="text-red-600">*</span></label>
+                    <typeahead :initialize="form.warehouse" :url="warehouse" @input="onWarehouse" display="name"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
+                </div>
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
@@ -66,15 +75,6 @@
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4" v-if="form.store_type  == 'Online'">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'Shopify'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Access Token</label>
-                    <input
-                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                        v-model="form.access_token"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'Shopify'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
@@ -84,6 +84,16 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                     v-if="form.plate_form == 'Shopify'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Access Token</label>
+                    <input
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                        v-model="form.access_token"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
+                </div>
+               
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'WooCommerce'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
@@ -112,15 +122,6 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'MimCart'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
-                    <input
-                        class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
-                        v-model="form.mim_api_key"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                     v-if="form.plate_form == 'MimCart'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Addres</label>
                     <input
                         class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
@@ -128,10 +129,20 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
+                     v-if="form.plate_form == 'MimCart'">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
+                    <input
+                        class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
+                        v-model="form.mim_api_key"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
+                </div>
+               
             </div>
             <div class="flex justify-end mt-8 space-x-4">
                 <button
-                    @click="formSubmitted" v-if="!connectionBtn || form.store_type == 'Physical'"
+                    @click="formSubmitted()" v-if="!connectionBtn || form.store_type == 'Physical'"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                     type="button">
                     {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
@@ -142,11 +153,17 @@
                     Test Connection
                 </button>
                 <button
-                    @click="successfull()"
+                    @click="additionalProp ? successfully():successfull()"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
                     type="button">
                     Cancel
                 </button>
+                <!-- <button
+                    @click="successfull()"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
+                    type="button">
+                    Cancel
+                </button> -->
             </div>
         </div>
     </div>
@@ -170,11 +187,16 @@
         components: {
             Typeahead,
         },
+        props: {
+    show: Boolean ,
+    additionalProp: String ,
+   
+  },
         data() {
             return {
                 save_button: false,
                 error: {},
-                show: false,
+                show: Boolean,
                 resource: '/stores',
                 store: '/api/stores',
                 method: 'POST',
@@ -184,6 +206,7 @@
                 message: 'New stores Added',
                 permissions: {},
                 companys: '/api/company',
+                warehouse:'/api/wearhouse',
                 errorMessage: '',
                 buttonText: 'Test Connection',
                 connectionBtn : true
@@ -208,6 +231,11 @@
                 const company = e.target.value
                 this.form.company = company
                 this.form.company_id = company.id
+            },
+            onWarehouse(e) {
+                const warehouse = e.target.value
+                this.form.warehouse = warehouse
+                this.form.warehouse_id = warehouse.id
             },
             setData(res) {
                 // console.log(res);
@@ -262,7 +290,8 @@
             formSubmitted() {
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
-                    this.successfull(res)
+                    
+                    this.additionalProp ? this.formSubmiting():this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
                         message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
@@ -337,6 +366,22 @@
             },
             storeBtn(){
                 this.connectionBtn = true
+            },
+            successfully(res) {
+                this.$emit('cancel-stores', {
+
+                })
+                // console.log('aaaa');
+                // this.isOpen = false
+                // this.isOpenStore = false
+                // this.form = []
+                // this.ImgUrl = null
+            },
+
+            formSubmiting(){
+                this.$emit('save-stores', {
+
+            })
             }
 
         },

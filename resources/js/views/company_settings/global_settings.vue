@@ -627,7 +627,14 @@
 
             </div>
         </Modal>
+
+
         <Modal :show="isOpenStore" closeable="true">
+           
+            <Stores :show="true" additionalProp="global"  @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores>
+        </Modal>
+
+        <!-- <Modal :show="isOpenStore" closeable="true">
             <div class="">
                 <h1 class="text-lg font-bold  mt-4 mb-4 text-center">Add New Store</h1>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
@@ -663,6 +670,7 @@
                         <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
                     </div>
                 </div>
+                
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
                     <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Store Type <span
@@ -781,7 +789,7 @@
                     </button>
                 </div>
             </div>
-        </Modal>
+        </Modal> -->
     </div>
 </template>
 
@@ -790,12 +798,16 @@
     import {form} from "@/libs/mixins";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import Modal from "@/Components/Modal.vue";
+    import Stores from "../stores/form.vue";
+    
+
     import {objectToFormData} from "@/libs/helpers";
+   
 
     export default {
         mixins: [form],
         components: {
-            Typeahead, Modal
+            Typeahead, Modal , Stores
         },
         data() {
             return {
@@ -1112,6 +1124,13 @@
                 this.isOpen = false
                 this.isOpenStore = false
                 this.form = {}
+                this.ImgUrl = null
+            },
+            handleCancelStores(){
+                console.log('cancel');
+                this.isOpen = false
+                this.isOpenStore = false
+                this.form = []
                 this.ImgUrl = null
             },
             testConnection() {
