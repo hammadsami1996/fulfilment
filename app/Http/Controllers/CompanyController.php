@@ -83,7 +83,7 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        $model = Company::findOrFail($id);
+        $model = Company::with( 'country', 'city')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);

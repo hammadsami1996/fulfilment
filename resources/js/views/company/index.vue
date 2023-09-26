@@ -68,6 +68,9 @@
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Name', field: 'name',},
+                    {label: 'Email', field: 'email',},
+                    {label: 'Phone', field: 'phone',},
+                    {label: 'Address', field: 'address',},
                     {label: 'Action', field: 'action', action: true}
                     ]
             }

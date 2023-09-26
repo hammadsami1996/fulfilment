@@ -154,7 +154,7 @@ class WordpressController extends Controller
                             $order->email = $rec['billing']['email'];
                             $order->phone = $rec['billing']['phone'];
                             $order->address = $rec['billing']['address_1'] . $rec['billing']['address_2'];
-
+                            $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_tax'];
                             $order->total = $rec['total'];
                             $order->discount = $rec['discount_total'];

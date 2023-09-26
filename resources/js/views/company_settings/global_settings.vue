@@ -29,17 +29,7 @@
                 </div>
                 <!-- <span class="text-gray-500 font-bold text-sm">Add Company</span> -->
             </div>
-            <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-4">
-                <div @click="addStore" class="card">
-                    <i class="fa-regular fa-square-plus fa-2x cursor-pointer"></i>
-                    <div class="card__content">
-                        <p class="card__title">Add Store</p>
-                    </div>
-                </div>
-                <!-- <span class="text-gray-500 font-bold text-sm">Add Store</span> -->
-            </div>
         </div>
-
         <hr/>
         <div class="w-full radio-inputs mb-4 mt-4 ml-3">
             <label>
@@ -89,7 +79,7 @@
             </label>
             <label>
                 <input
-                    @click="couriertabs"
+                    @click="storetabs"
                     class="radio-input"
                     name="engine"
                     type="radio"
@@ -100,6 +90,21 @@
                           d="M547.6 103.8L490.3 13.1C485.2 5 476.1 0 466.4 0H109.6C99.9 0 90.8 5 85.7 13.1L28.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM499.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H128V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"/></svg>
                     </span>
                     <span class="radio-label">Stores</span>
+                </span>
+            </label>
+            <label>
+                <input
+                    @click="couriertabs"
+                    class="radio-input"
+                    name="engine"
+                    type="radio"
+                />
+                <span class="radio-tile">
+                    <span class="radio-icon">
+                        <svg height="1em" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+                            d="M48 0C21.5 0 0 21.5 0 48V368c0 26.5 21.5 48 48 48H64c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H48zM416 160h50.7L544 237.3V256H416V160zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+                    </span>
+                    <span class="radio-label">Courier</span>
                 </span>
             </label>
         </div>
@@ -278,7 +283,7 @@
                 </div>
             </div>
         </div>
-        <div class="" v-if="courier">
+        <div class="" v-if="stores">
             <h1 class="text-lg font-bold text-center mb-4 mt-4">Store Settings</h1>
             <div class="card-container mb-6">
                 <div class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="stores in stores_data">
@@ -293,16 +298,34 @@
                                 <span class="radio-title">
                                     <span class="radio-icon cursor-pointer">
                                         <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
-                                        <img src="~@/images/Shopify-bag.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'Shopify'" @click="ecommerce('Shopify')"/>
-                                        <img src="~@/images/WooCommerce.png" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'WooCommerce'" @click="ecommerce('WooCommerce')"/>
-                                        <img src="~@/images/MimCart.jpg" class="w-16 h-16 rounded ml-3" v-if="stores.plate_form == 'MimCart'" @click="ecommerce('MimCart')"/>
+                                        <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3"
+                                             src="~@/images/Shopify-bag.png" v-if="stores.plate_form == 'Shopify'"/>
+                                        <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3"
+                                             src="~@/images/WooCommerce.png"
+                                             v-if="stores.plate_form == 'WooCommerce'"/>
+                                        <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3"
+                                             src="~@/images/MimCart.jpg" v-if="stores.plate_form == 'MimCart'"/>
                                     </span>
-                                    <span class="radio-label font-bold">{{stores ?  stores.name:'' }} Store</span>
+                                    <span class="radio-label font-bold">{{stores ?  stores.name:'' }}</span>
                                 </span>
                             </label>
                         </div>
                     </div>
                 </div>
+                <div class="w-full sm:w-1/12 pl-3 sm:mb-0 shows pb-4">
+                    <div @click="addStore" class="card">
+                        <i class="fa-regular fa-square-plus fa-2x cursor-pointer"></i>
+                        <div class="card__content">
+                            <p class="card__title">Add Store</p>
+                        </div>
+                    </div>
+                    <!-- <span class="text-gray-500 font-bold text-sm">Add Store</span> -->
+                </div>
+            </div>
+        </div>
+        <div class="" v-if="courier">
+            <div class="card-container mb-6">
+
             </div>
         </div>
         <Modal :show="true" height="900" v-if="show_ecommerce">
@@ -481,8 +504,10 @@
                 <h1 class="text-lg font-bold mt-4 mb-4 text-center">Add New Company</h1>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Name <span class="text-red-600">*</span></label>
-                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" placeholder="Name" v-model="form.name" />
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Name <span
+                            class="text-red-600">*</span></label>
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
+                               placeholder="Name" v-model="form.name"/>
                         <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
@@ -524,7 +549,7 @@
                             Country:
                         </label>
                         <typeahead :initialize="form.country" :url="countries" @input="onCountries"
-                                display="name"/>
+                                   display="name"/>
                         <!--  <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
                     </div>
                     <div class="w-full sm:w-1/2 sm:mb-0 mr-2 pl-1">
@@ -578,9 +603,9 @@
                                 class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
                                 id="profile_picture"
                                 name="profile_picture" type="file" v-on:change="onImageChange">
-                            <img width="100" :src="ImgUrl" v-if="ImgUrl">
+                            <img :src="ImgUrl" v-if="ImgUrl" width="100">
                             <div class="w-full sm:w-1/2 mb-4 sm:ml-0 p-2 " v-else-if="form.logo">
-                                <img width="100" :src="`/uploads/company/logo/`+form.logo">
+                                <img :src="`/uploads/company/logo/`+form.logo" width="100">
                             </div>
                         </div>
                     </div>
@@ -641,14 +666,15 @@
                         <label
                             class="block font-medium text-sm text-gray-700 mb-2"
                         >Company <span class="text-red-600">*</span></label>
-                        <typeahead :initialize="form.company" :url="companys" @input="onCompanyUpdate" display="name"/>
+                        <typeahead :initialize="form.company" :url="companies" @input="onCompanyUpdate" display="name"/>
                         <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
                     </div>
                 </div>
                 
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
                     <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Store Type  <span class="text-red-600">*</span></label>
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Store Type <span
+                            class="text-red-600">*</span></label>
                         <div class="relative">
                             <select
                                 class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
@@ -665,7 +691,7 @@
                         <div class="relative">
                             <select
                                 class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
-                                v-model="form.plate_form" @click="storeBtn">
+                                v-model="form.plate_form">
                                 <option value="WooCommerce">WooCommerce</option>
                                 <option value="Shopify">Shopify</option>
                                 <option value="MimCart">MimCart</option>
@@ -674,7 +700,8 @@
                         <p class="text-red-600 text-xs italic" v-if="error.plate_form">{{ error.plate_form[0] }}</p>
                     </div>
                 </div>
-                <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4" v-if="form.store_type  == 'Online'">
+                <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4"
+                     v-if="form.store_type  == 'Online'">
                     <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                          v-if="form.plate_form == 'Shopify'">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Access Token</label>
@@ -742,14 +769,16 @@
                 </div>
                 <div class="flex justify-end mt-8 space-x-4 p-3">
                     <button
-                        @click="savestore" v-if="!connectionBtn || form.store_type == 'Physical'"
+                        @click="savestore"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600"
-                        type="button">
+                        type="button"
+                        v-if="!connectionBtn || form.store_type == 'Physical'">
                         {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
                     </button>
-                    <button @click="testConnection" v-if="connectionBtn && form.store_type == 'Online'"
+                    <button @click="testConnection"
                             class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white hover:bg-orange-500"
-                            type="button">
+                            type="button"
+                            v-if="connectionBtn && form.store_type == 'Online'">
                         Test Connection
                     </button>
                     <button
@@ -765,7 +794,7 @@
 </template>
 
 <script>
-    import {byMethod, get} from "@/libs/api";
+    import {byMethod} from "@/libs/api";
     import {form} from "@/libs/mixins";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import Modal from "@/Components/Modal.vue";
@@ -775,15 +804,6 @@
     import {objectToFormData} from "@/libs/helpers";
    
 
-    function initialize(to) {
-        let urls = {
-            add: "/api/settings/create?key=sms_settings",
-
-            edit: `/api/settings/${to.params.id}/edit`,
-        };
-        return urls[to.meta.mode] || urls.add;
-    }
-
     export default {
         mixins: [form],
         components: {
@@ -792,8 +812,8 @@
         data() {
             return {
                 ImgUrl: null,
-                companys: '/api/company',
-                connectionBtn : true,
+                companies: '/api/company',
+                connectionBtn: true,
                 isOpen: false,
                 isOpenStore: false,
                 show_company_data: false,
@@ -801,11 +821,12 @@
                 sms: true,
                 show_ecommerce: false,
                 show_company: false,
+                stores: false,
                 courier: false,
                 save_button: false,
                 connection_button: true,
                 error: {},
-                company_id: {},
+                company_id: null,
                 key: "sms_settings",
                 show: false,
                 resource: "/settings",
@@ -819,7 +840,6 @@
                 online_store_name: {},
                 products: "/api/product",
                 wearhouses: "/api/wearhouse",
-                companys: "/api/company",
                 com: [],
                 stores_data: [],
                 form: {},
@@ -828,28 +848,16 @@
                 countries: '/api/country',
             };
         },
-
-        beforeRouteEnter(to, from, next) {
-            get(initialize(to)).then((res) => {
-                next((vm) => vm.setData(res));
-            });
-        },
-        beforeRouteUpdate(to, from, next) {
-            get(initialize(to)).then((res) => {
-                this.setData(res);
-                next();
-            });
-        },
         created() {
             byMethod("get", "/api/company").then(
                 (res) => {
                     this.com = res.data.data.data;
+                    this.show = true;
                 }
             );
         },
         methods: {
-             onImageChange(e) {
-                // console.log('test')
+            onImageChange(e) {
                 this.form.imgN = e.target.files;
                 this.ImgUrl = URL.createObjectURL(e.target.files[0]);
             },
@@ -858,19 +866,11 @@
                 this.form.company = company
                 this.form.company_id = company.id
                 this.company_id = company.id
-                // console.log(e)
-                // const company = e.target;
-                // this.form.company_id = company.id;
-                // this.storereturn(this.form.company_id);
             },
             onCompanyUpdate(e) {
                 const company = e.target.value
                 this.form.company = company
                 this.form.company_id = company.id
-                // console.log(e)
-                // const company = e.target;
-                // this.form.company_id = company.id;
-                // this.storereturn(this.form.company_id);
             },
             onCities(e) {
                 const city = e.target.value
@@ -892,12 +892,6 @@
                 this.show_ecommerce = false
                 this.connection_button = true
                 this.save_button = false
-                // this.form = []
-            },
-            closecompany() {
-                this.show_company = false
-                this.save_button = false
-                // this.form = []
             },
             ecommerce(e) {
                 this.online_store_name = e;
@@ -905,26 +899,21 @@
                 this.show = true
                 this.show_ecommerce = true
             },
-            company(e){
+            company(e) {
                 this.show = true
                 this.show_company = true
             },
-
             wordpress() {
                 let connention_url = ''
                 if (this.online_store_name == 'Shopify') {
-
                     connention_url = '/api/shopify_fetch_data'
                 } else if (this.online_store_name == 'WooCommerce') {
                     connention_url = '/api/woocommerce_fetch_data'
-
                 } else if (this.online_store_name == 'MimCart') {
-
                     connention_url = '/api/mimcart_fetch_data'
                 }
                 if (this.form && connention_url) {
                     byMethod('post', connention_url, this.form).then(res => {
-                        // console.log(res.data.error);
                         if (res.data.data) {
                             this.$toast.open({
                                 position: "top-right",
@@ -935,7 +924,6 @@
                             });
                             this.save_button = true,
                                 this.connection_button = false
-
                         }
                         if (res.data.woocommerce_error) {
                             this.$toast.open({
@@ -953,7 +941,6 @@
                                 duration: 3000,
                             });
                         }
-
                     }).catch(err => {
                         this.$toast.open({
                             position: "top-right",
@@ -961,13 +948,12 @@
                             type: "error",
                             duration: 3000,
                         });
-                        // console.log(err);
                     })
                 }
             },
-            couriertabs() {
-                (this.email = false), (this.sms = false), (this.courier = true);
-                console.log(this.company_id)
+            storetabs() {
+                this.email = this.sms = this.courier = false;
+                this.stores = true;
                 if (isNaN(this.company_id)) {
                     this.$toast.open({
                         position: "top-right",
@@ -979,23 +965,32 @@
                     this.storereturn(this.company_id);
                 }
             },
-
+            couriertabs() {
+                this.email = this.sms = this.stores = false;
+                this.courier = true;
+                if (isNaN(this.company_id)) {
+                    this.$toast.open({
+                        position: "top-right",
+                        message: "Please Select Company First",
+                        type: "error",
+                        duration: 3000,
+                    });
+                } else {
+                    this.storereturn(this.company_id);
+                }
+            },
             smstabs() {
-                (this.email = false),
-                    (this.courier = false),
-                    (this.sms = true),
-                    (this.key = "sms_settings");
+                this.email = this.courier = this.stores = false;
+                this.sms = true;
+                (this.key = "sms_settings");
                 this.returns(this.company_id);
             },
-
             emailtabs() {
-                (this.sms = false),
-                    (this.courier = false),
-                    (this.email = true),
-                    (this.key = "email_settings");
+                this.sms = this.courier = this.stores = false;
+                this.email = true;
+                (this.key = "email_settings");
                 this.returns(this.company_id);
             },
-
             save_store_data() {
                 // byMethod("post", `/api/stores?store_id=${this.store_id}&company_id=${this.company_id}$name=${this.name}`  , this.data)
                 byMethod("put", `/api/stores/${this.store_id}`, this.form)
@@ -1003,7 +998,6 @@
                     })
             },
             create_store(stores) {
-                // console.log(stores);
                 this.store_id = stores.id
                 this.form.company_id = this.company_id
                 this.form.store_id = stores.id
@@ -1016,7 +1010,6 @@
                 this.form.access_token = stores.access_token
                 this.form.mim_api_key = stores.mim_api_key
                 this.form.mim_store_address = stores.mim_store_address
-                // console.log(this.from.access_token);
             },
             company_data() {
                 byMethod("get", "/api/company").then(
@@ -1044,16 +1037,17 @@
             setData(res) {
                 // console.log(res);
                 this.form = res.data.form;
-                if (this.$route.meta.mode === "edit") {
-                    this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
-                    this.title = "Edit";
-                    this.message = `${this.capital} has been updated`;
-                }
                 this.show = true;
             },
-            savestore(){
+            savestore() {
                 byMethod(this.method, '/api/stores', this.form).then(res => {
                     this.successfull(res)
+                    if (res.data.saved == true) {
+                        byMethod("GET", '/api/stores').then(res => {
+                            console.log(res.data.data.data)
+                            this.stores_data = res.data.data.data
+                        })
+                    }
                     this.$toast.open({
                         position: 'top-right',
                         message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
@@ -1075,7 +1069,7 @@
             formSubmitted() {
                 byMethod(this.method, '/api/company', objectToFormData(this.form))
                     .then((res) => {
-                        if(res.data.saved == true){
+                        if (res.data.saved == true) {
                             byMethod("GET", '/api/company').then(res => {
                                 console.log(res.data.data.data)
                                 this.com = res.data.data.data
@@ -1129,7 +1123,7 @@
             successfull(res) {
                 this.isOpen = false
                 this.isOpenStore = false
-                this.form = []
+                this.form = {}
                 this.ImgUrl = null
             },
             handleCancelStores(){
