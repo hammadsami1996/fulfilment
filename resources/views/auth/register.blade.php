@@ -123,7 +123,7 @@
     </div>
     <!-- Loading Overlay -->
     <div id="loading-overlay" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary-500"></div>
+        <div class="loader"></div>
     </div>
 </x-guest-layout>
 <style>
@@ -145,3 +145,20 @@
         document.getElementById('loading-overlay').classList.add('hidden');
     });
 </script>
+<style>
+.loader {
+    border: 4px solid cyan;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-right-color: transparent;
+    animation: rot 1s linear infinite;
+    box-shadow: 0px 0px 20px blue inset;
+}
+
+@keyframes rot {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+</style>

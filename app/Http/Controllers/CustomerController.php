@@ -69,7 +69,7 @@ class CustomerController extends Controller
 //            'state_id' => 'required',
 //            'city_id' => 'required',
 //            'number' => 'required',
-           'cnic' => 'required',
+        //    'cnic' => 'required',
         ]);
         $model = new Customer();
         $model->fill($request->all());
@@ -117,7 +117,7 @@ class CustomerController extends Controller
 //            'state_id' => 'required',
 //            'city_id' => 'required',
 //            'number' => 'required',
-            'cnic' => 'required',
+            // 'cnic' => 'required',
         ]);
         $model = Customer::with('type', 'category', 's_city','b_city', 's_country','b_country')->findOrFail($id);
         $model->fill($request->all());

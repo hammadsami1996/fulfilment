@@ -77,13 +77,13 @@
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
-                >CNIC <span class="text-red-600">*</span></label>
+                >CNIC </label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="number"
                     v-model="form.cnic"
                 />
-               <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p>
+               <!-- <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p> -->
             </div>
         </div>
         <hr class="mt-6">
