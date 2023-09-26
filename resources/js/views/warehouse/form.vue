@@ -60,8 +60,8 @@
 
     function initialize(to) {
         let urls = {
-            add: `/api/wearhouse/create`,
-            edit: `/api/wearhouse/${to.params.id}/edit`,
+            add: `/api/warehouse/create`,
+            edit: `/api/warehouse/${to.params.id}/edit`,
         }
         return urls[to.meta.mode] || urls.add
     }
@@ -75,14 +75,14 @@
             return {
                 error: {},
                 show: false,
-                resource: '/wearhouse',
-                store: '/api/wearhouse',
-                parentUrl:'/api/wearhouse',
+                resource: '/warehouse',
+                store: '/api/warehouse',
+                parentUrl:'/api/warehouse',
                 method: 'POST',
-                small: 'wearhouse',
-                capital: 'Wearhouse',
+                small: 'warehouse',
+                capital: 'Warehouse',
                 title: 'Add',
-                message: 'New wearhouse Added',
+                message: 'New warehouse Added',
                 permissions: {},
             }
         },

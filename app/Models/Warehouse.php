@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use App\Support\Search;
-use App\Warehouse;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Wearhouse extends Model
+class Warehouse extends Model
 {
     use HasFactory, Notifiable, HasRoles;
     use Search;
@@ -29,7 +28,7 @@ class Wearhouse extends Model
 
     public function getTextAttribute()
     {
-        $data = Wearhouse::with('parent')->where('id', $this->attributes['parent_id'])->first();
+        $data = Warehouse::with('parent')->where('id', $this->attributes['parent_id'])->first();
         if ($data != null) {
             $path = $this->getParent($data);
             $path .= ' -> ' . $this->attributes['name'];
@@ -42,7 +41,7 @@ class Wearhouse extends Model
 
     public function getPathAttribute()
     {
-        $data = Wearhouse::with('parent')->where('id', $this->attributes['parent_id'])->first();
+        $data = Warehouse::with('parent')->where('id', $this->attributes['parent_id'])->first();
         if ($data != null) {
             $path = $this->getParent($data);
         } else {
@@ -65,12 +64,12 @@ class Wearhouse extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Wearhouse::class, 'parent_id')->with('parent')->where('name', '<>', 'Main Wearhouse');
+        return $this->belongsTo(Warehouse::class, 'parent_id')->with('parent')->where('name', '<>', 'Main Warehouse');
     }
 
     public function child()
     {
-        return $this->hasMany(Wearhouse::class, 'parent_id', 'id')->with('child');
+        return $this->hasMany(Warehouse::class, 'parent_id', 'id')->with('child');
     }
 
 }

@@ -173,7 +173,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $model = Order::with('customer', 'items.product', 'stores', 'wearhouse')->findOrFail($id);
+        $model = Order::with('customer', 'items.product', 'stores', 'warehouse')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -182,7 +182,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $model = Order::with('city', 'customer', 'items.product', 'stores', 'wearhouse', 'status_logs.status', 'status_logs.user')->findOrFail($id);
+        $model = Order::with('city', 'customer', 'items.product', 'stores', 'warehouse', 'status_logs.status', 'status_logs.user')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);

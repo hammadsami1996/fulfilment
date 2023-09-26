@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Wearhouse;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
-class WearhouseController extends Controller
+class WarehouseController extends Controller
 {
 
 
@@ -15,7 +15,7 @@ class WearhouseController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Wearhouse::with('parent')->search()]);
+        return response()->json(['data' => Warehouse::with('parent')->search()]);
     }
 
     /**
@@ -42,7 +42,7 @@ class WearhouseController extends Controller
             'name' => 'required|max:25',
             'location' => 'required:25',
         ]);
-        $model = new Wearhouse();
+        $model = new Warehouse();
         $model->fill($request->all());
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
@@ -53,7 +53,7 @@ class WearhouseController extends Controller
      */
     public function show($id)
     {
-        $model = Wearhouse::findOrFail($id);
+        $model = Warehouse::findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -62,7 +62,7 @@ class WearhouseController extends Controller
      */
     public function edit($id)
     {
-        $model = Wearhouse::with('parent')->findOrFail($id);
+        $model = Warehouse::with('parent')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -77,7 +77,7 @@ class WearhouseController extends Controller
             'name' => 'required',
             'location' => 'required',
         ]);
-        $model = Wearhouse::findOrFail($id);
+        $model = Warehouse::findOrFail($id);
         $model->fill($request->all());
 //        $model->updated_by = Auth::id();
         $model->save();
@@ -89,7 +89,7 @@ class WearhouseController extends Controller
      */
     public function destroy($id)
     {
-        $model = Wearhouse::findOrFail($id);
+        $model = Warehouse::findOrFail($id);
 //        $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
