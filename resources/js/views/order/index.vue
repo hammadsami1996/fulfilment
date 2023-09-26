@@ -130,7 +130,7 @@
                     <div v-if="sts && props.item.id == ids">
                         <div>
                             <button
-                                @click="Cancel() "
+                                @click="Cancel()"
                                 style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197,13,13)); font-weight: bold;">
                                 Hide
                             </button>
