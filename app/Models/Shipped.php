@@ -12,7 +12,7 @@ class Shipped extends Model
 {
     use HasFactory, Notifiable, HasRoles;
     use Search;
-    protected $table = 'shippeds';
+    protected $table = 'couriers';
     protected $fillable = [
         'name',
     ];
