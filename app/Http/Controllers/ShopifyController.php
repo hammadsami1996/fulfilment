@@ -103,7 +103,7 @@ class ShopifyController extends Controller
                             $order->email = $rec['customer']['email'];
                             $order->phone = $rec['customer']['phone'];
                             $order->address = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
-
+                            $order->store_id = $id;
                             $order->shipping_charges = $rec['total_shipping_price_set']['presentment_money']['amount'];
                             $order->total = $rec['total_price'];
                             $order->discount = $rec['total_discounts'];
