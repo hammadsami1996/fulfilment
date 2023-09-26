@@ -40,7 +40,7 @@ class ProductCategory extends Model
     }
     public function getPathAttribute()
     {
-        $data = Wearhouse::with('parent')->where('id', $this->attributes['parent_id'])->first();
+        $data = Warehouse::with('parent')->where('id', $this->attributes['parent_id'])->first();
         if ($data != null) {
             $path = $this->getParent($data);
         } else {

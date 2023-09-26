@@ -77,13 +77,11 @@ Route::middleware([
         Route::resource('plan', \App\Http\Controllers\PlanController::class);
         Route::resource('user_plan', \App\Http\Controllers\UserPlanController::class);
         Route::post('change_password', [\App\Http\Controllers\UserController::class, 'changePassword']);
-        Route::get('basic_info/{id}', [\App\Http\Controllers\UserController::class, 'basic_info_get']);
-        Route::post('basic_info/{id}', [\App\Http\Controllers\UserController::class, 'basic_info_save']);
         Route::get('permission_menu', [\App\Http\Controllers\PermissionController::class, 'permission_menu']);
         Route::post('permission_menu', [\App\Http\Controllers\PermissionController::class, 'permission_menu_post']);
         //fulfilment
         Route::resource('product', \App\Http\Controllers\ProductController::class);
-        Route::resource('wearhouse', \App\Http\Controllers\WearhouseController::class);
+        Route::resource('warehouse', \App\Http\Controllers\WarehouseController::class);
         Route::resource('stores', \App\Http\Controllers\StoreController::class);
         Route::resource('company', \App\Http\Controllers\CompanyController::class);
         Route::resource('inventory', \App\Http\Controllers\InventoryController::class);

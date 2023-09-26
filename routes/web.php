@@ -45,8 +45,6 @@ Route::prefix('api')->middleware(['auth', 'verified'])->group(function () {
     Route::get('menus', [\App\Http\Controllers\MenuController::class, 'index']);
     Route::resource('user', \App\Http\Controllers\UserController::class);
     Route::post('assign_user_role', [\App\Http\Controllers\UserController::class, 'assign_user_role']);
-    Route::get('basic_info', [\App\Http\Controllers\UserController::class, 'basic_info_get']);
-    Route::post('basic_info', [\App\Http\Controllers\UserController::class, 'basic_info_save']);
     Route::post('change_password', [\App\Http\Controllers\UserController::class, 'changePassword']);
     Route::resource('role', \App\Http\Controllers\RoleController::class);
     Route::resource('permission', \App\Http\Controllers\PermissionController::class);
@@ -59,7 +57,7 @@ Route::prefix('api')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
     //fulfilment
     Route::resource('product', \App\Http\Controllers\ProductController::class);
-    
+
 
 
 });

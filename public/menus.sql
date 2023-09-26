@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilmenteighteen
+ Source Schema         : tenantfulfilmenta
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 20/09/2023 13:00:01
+ Date: 26/09/2023 12:13:54
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `menus`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `sort` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
@@ -44,7 +44,7 @@ INSERT INTO `menus` VALUES (35, 'Role', '/role', 'view-role', 33, 'web', NULL, N
 INSERT INTO `menus` VALUES (36, 'Permission', '/permission', 'view-permission', 33, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
 INSERT INTO `menus` VALUES (37, 'User Subscription', '/user_subscription', 'view-user_subscription', 33, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (38, 'Company', '/company', 'view-company', 33, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
-INSERT INTO `menus` VALUES (39, 'Wearhouse', '/wearhouse', 'view-wearhouse', 33, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
+INSERT INTO `menus` VALUES (39, 'Warehouse', '/warehouse', 'view-warehouse', 33, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
 INSERT INTO `menus` VALUES (40, 'Purchase', NULL, NULL, NULL, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (41, 'Product', '/product', 'view-product', 40, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
 INSERT INTO `menus` VALUES (42, 'Inventory', '/inventory', 'view-inventory', 40, 'web', '', '2023-05-25 11:23:56', NULL, NULL);
@@ -67,4 +67,3 @@ INSERT INTO `menus` VALUES (59, 'User Dashboard', '/user_dashboard', 'view-user_
 INSERT INTO `menus` VALUES (60, 'Purchase', '/purchase', 'view-purchase', 40, 'web', NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
-

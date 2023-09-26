@@ -1,33 +1,33 @@
 export default [
     {
-        path: '/wearhouse',
-        name: 'view-wearhouse',
-        component: () => import('../views/wearhouse/index.vue'),
+        path: '/warehouse',
+        name: 'view-warehouse',
+        component: () => import('../views/warehouse/index.vue'),
         meta: {
-            pageTitle: 'wearhouse',
+            pageTitle: 'warehouse',
             breadcrumb: [
                 {
                     text: 'Home'
                 },
                 {
-                    text: 'wearhouse',
+                    text: 'warehouse',
                     active: true,
                 },
             ],
         },
     },
     {
-        path: '/wearhouse/create',
-        name: 'create-wearhouse',
-        component: () => import('../views/wearhouse/form.vue'),
+        path: '/warehouse/create',
+        name: 'create-warehouse',
+        component: () => import('../views/warehouse/form.vue'),
         meta: {
-            pageTitle: 'wearhouse',
+            pageTitle: 'warehouse',
             breadcrumb: [
                 {
                     text: 'Home'
                 },
                 {
-                    text: 'wearhouse',
+                    text: 'warehouse',
                 },
                 {
                     text: 'Create',
@@ -37,22 +37,22 @@ export default [
         },
     },
     {
-        path: '/wearhouse/:id/edit',
-        name: 'edit-wearhouse',
-        component: () => import('../views/wearhouse/form.vue'),
+        path: '/warehouse/:id/edit',
+        name: 'edit-warehouse',
+        component: () => import('../views/warehouse/form.vue'),
         meta: {
             mode: 'edit',
-            pageTitle: 'wearhouse',
+            pageTitle: 'warehouse',
             breadcrumb: [
                 {
                     text: 'Home'
                 },
                 {
-                    text: 'wearhouse',
-                    link: '/wearhouse'
+                    text: 'warehouse',
+                    link: '/warehouse'
                 },
                 {
-                    text: 'wearhouse Edit',
+                    text: 'warehouse Edit',
                     active: true,
                 },
             ],

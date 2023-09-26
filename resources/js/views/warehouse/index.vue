@@ -61,13 +61,13 @@
         data() {
             return {
                 permissions: [],
-                urlApi: "/api/wearhouse",
-                resource: "/wearhouse",
-                small: "wearhouse",
-                capital: "Wearhouse",
+                urlApi: "/api/warehouse",
+                resource: "/warehouse",
+                small: "warehouse",
+                capital: "Warehouse",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Wearhouse Name', field: 'name',},
+                    {label: 'Warehouse Name', field: 'name',},
                     {label: 'Parent' , field: 'text'},
                     {label: 'Location', field: 'location'},
                     {label: 'Action', field: 'action', action: true}
@@ -82,7 +82,7 @@
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
             deleteRole(e) {
-                byMethod('delete', `/api/wearhouse/${e}`)
+                byMethod('delete', `/api/warehouse/${e}`)
                     .then((res) => {
                         // console.log(res);
                         if (res.data.deleted) {

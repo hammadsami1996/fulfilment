@@ -54,7 +54,7 @@ class OrderViews extends Model
 
     public function wearhouse()
     {
-        return $this->belongsTo(Wearhouse::class, 'warehouse_id', 'id');
+        return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
 
     }
 

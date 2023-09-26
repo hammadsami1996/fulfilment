@@ -33,8 +33,8 @@ class Inventory extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
-    public function wearhouse()
+    public function warehouse()
     {
-        return $this->belongsTo(Wearhouse::class, 'warehouse_id', 'id');
+        return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
     }
 }

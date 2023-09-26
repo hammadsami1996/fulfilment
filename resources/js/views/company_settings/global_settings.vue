@@ -828,7 +828,7 @@
                 permissions: {},
                 online_store_name: {},
                 products: "/api/product",
-                wearhouses: "/api/wearhouse",
+                wearhouses: "/api/warehouse",
                 companys: "/api/company",
                 com: [],
                 stores_data: [],
