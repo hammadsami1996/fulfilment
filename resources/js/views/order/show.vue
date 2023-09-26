@@ -8,7 +8,7 @@
             </h1>
             <div class=" flex flex-row justify-end">
 
-                <h1 class="text-lg font-bold mb-4 text-left">Customer:{{ form.customer.name }}</h1>||
+                <h1 class="text-lg font-bold mb-4 text-left">Customer:{{ form.customer ? form.customer.name : form.name }}</h1>||
                 <h1 class="text-lg font-bold mb-4 text-right">Order Id:{{ form.id }}</h1>
 
 
@@ -78,7 +78,7 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2"> address </label>
                     <textarea class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text"
-                              v-model="form.s_addres_1"/>
+                              v-model="form.address"/>
 <!--                    <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>-->
                 </div>
 

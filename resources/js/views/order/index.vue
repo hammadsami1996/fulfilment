@@ -8,7 +8,7 @@
                 </a>
                 <a @click="showRecords('?status_id=1')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
-                    Pendding
+                    Pending
                 </a>
                 <a @click="showRecords('?status_id=2')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
@@ -143,10 +143,31 @@
                 <template v-slot:customers="props" >
                     <div>
                         <p>{{props.item.name}}</p>
-                        <p>{{props.item.phone}}</p>
-                        <p>{{props.item.email}}</p>
+                            <!-- <p><i v-if="props.item.phone" class="fas fa-phone text-black"></i> {{props.item.phone}}</p>
+                            <p><i v-if="props.item.email" class="fas fa-envelope text-black"></i> {{props.item.email}}</p> -->
                     </div>
                 </template>
+                <template v-slot:company="props" >
+                    <div>
+                        <img :src="`/uploads/company/logo/${props.item.stores.company.logo}`" class="shadow-xl h-10 w-10 rounded-full"/>
+                        <!-- <p class="h-8 w-8">{{props.item.company.logo}}</p> -->
+                        <!-- <p>{{props.item.stores.name}}</p> -->
+                    </div>
+                </template>
+
+                <template v-slot:store="props" >
+                    <div v-if="props.item.stores.plate_form == 'Shopify'">
+                        <img src="/images/Shopify-bag.png" class="h-10 w-10 rounded-full shadow-xl"/>
+                    </div>
+                    <div v-if="props.item.stores.plate_form == 'WooCommerce'">
+                        <img src="/images/WooCommerce.png" class="h-10 w-10 rounded-full shadow-xl"/>
+                    </div>
+                    <div v-if="props.item.stores.plate_form == 'MimCart'">
+                        <img src="/images/MimCart.jpg" class="h-10 w-10 rounded-full shadow-xl"/>
+                    </div>
+                    <!-- <p>{{props.item.stores}}</p> -->
+                </template>
+                
                 <template v-slot:ship="props">
                     <typeahead :initialize="props.item.shipped_by" :url="shipped"
                                @input="onShipped($event , props.item)" display="name"/>
@@ -226,15 +247,16 @@
                 capital: "Order",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Sales Number', field: 'so_number'},
-                    {label: 'Store', field: 'name', displayText: 'stores'},
-                    // {label: 'Order Date', field: 'order_date'},
+                    // {label: 'Sales Number', field: 'so_number'},
                     {label: 'Customer', field: 'customers', slot: true},
-                    {label: 'Delivery Status', field: 'statuses', slot: true},
-                    {label: 'City', field: 'title', displayText: 'city'},
+                    {label: 'Company', field: 'company', slot: true},
+                    {label: 'Store', field: 'store', slot: true},
+                    {label: 'City', field: 'name', displayText: 'city'},
+                    {label: 'Net Amount', field: 'total'},
+                    {label: 'Packing Status', field: 'packability'},
+                    // {label: 'Order Date', field: 'order_date'},
+                    {label: 'Status', field: 'statuses', slot: true},
                     {label: 'Shipped By', field: 'ship', slot: true},
-                    {label: 'Payment Status', field: 'subTotal'},
-                    {label: 'Packability', field: 'packability'},
                     {label: 'Action', field: 'action', action: true},
                 ]
             }
@@ -422,32 +444,6 @@
         transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
-    .tooltip {
-        position: absolute;
-        top: 0;
-        font-size: 14px;
-        background: #ffffff;
-        color: #ffffff;
-        padding: 5px 8px;
-        border-radius: 5px;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-        opacity: 0;
-        pointer-events: none;
-        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-
-    .tooltip::before {
-        position: absolute;
-        content: "";
-        height: 8px;
-        width: 8px;
-        background: #ffffff;
-        bottom: -3px;
-        left: 50%;
-        transform: translate(-50%) rotate(45deg);
-        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-
     .uiverse:hover .tooltip {
         top: -45px;
         opacity: 1;
@@ -467,5 +463,36 @@
         background: #fff;
         color: #ffffff;
     }
+
+/* .tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-trigger {
+    cursor: pointer;
+}
+
+.tooltip-content {
+    visibility: hidden;
+    background-color: #f3f4f6;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: -20%;
+    left: 580%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.tooltip-container:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+} */
+
 
 </style>
