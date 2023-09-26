@@ -7,7 +7,7 @@
     import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
     const userData = window.apex.user
     const mobileSidebarOpen = ref(false);
-    const desktopSidebarOpen = ref(true);
+    const desktopSidebarOpen = ref(false);
 </script>
 
 <template>

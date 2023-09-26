@@ -206,7 +206,7 @@
                 message: 'New stores Added',
                 permissions: {},
                 companys: '/api/company',
-                warehouse:'/api/wearhouse',
+                warehouse:'/api/warehouse',
                 errorMessage: '',
                 buttonText: 'Test Connection',
                 connectionBtn : true
