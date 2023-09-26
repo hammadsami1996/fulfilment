@@ -65,7 +65,7 @@ class OrderViews extends Model
 
     public function shipped_by()
     {
-        return $this->belongsTo(Shipped::class, 'shipped_by_id', 'id');
+        return $this->belongsTo(Courier::class, 'shipped_by_id', 'id');
     }
 
     public function city()

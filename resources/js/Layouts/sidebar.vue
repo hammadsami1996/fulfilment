@@ -47,7 +47,7 @@
       'lg:translate-x-0': desktopSidebarOpen,
     }"
         aria-label="Main Sidebar Navigation"
-        class="flex flex-col fixed top-0 left-0 bottom-0 w-full lg:w-64 h-full bg-white border-r border-gray-200 z-50 transition-transform duration-500 ease-out dark:bg-gray-800 dark:text-gray-200 dark:border-gray-800"
+        class="flex flex-col fixed top-0 left-0 bottom-0 w-full lg:w-56 h-full bg-white border-r border-gray-200 z-50 transition-transform duration-500 ease-out dark:bg-gray-800 dark:text-gray-200 dark:border-gray-800"
         id="page-sidebar"
     >
         <!-- Sidebar Header -->

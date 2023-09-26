@@ -102,7 +102,7 @@ Route::middleware([
         Route::resource('category', \App\Http\Controllers\CategoryController::class);
         Route::resource('product_category', \App\Http\Controllers\ProductCategoryController::class);
         Route::resource('brand', \App\Http\Controllers\BrandController::class);
-        Route::resource('shipped', \App\Http\Controllers\ShippedController::class);
+        Route::resource('courier', \App\Http\Controllers\CourierController::class);
         Route::resource('order_type', \App\Http\Controllers\OrderTypeController::class);
         Route::resource('candidate', \App\Http\Controllers\CandidateController::class);
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);

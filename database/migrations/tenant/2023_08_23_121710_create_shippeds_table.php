@@ -21,32 +21,32 @@ return new class extends Migration
         });
         // DB::unprepared(file_get_contents(public_path('/shippeds.sql')));
 
-        DB::table('shippeds')->insert(
+        DB::table('couriers')->insert(
             [
                 'name' => 'Leopards Overland',
             ]
         );
-        DB::table('shippeds')->insert(
+        DB::table('couriers')->insert(
             [
                 'name' => 'Trax Saverplus',
             ]
         );
-        DB::table('shippeds')->insert(
+        DB::table('couriers')->insert(
             [
                 'name' => 'Rider Overland',
             ]
         );
-        DB::table('shippeds')->insert(
+        DB::table('couriers')->insert(
             [
                 'name' => 'Karachi Courier',
             ]
         );
-        DB::table('shippeds')->insert(
+        DB::table('couriers')->insert(
             [
                 'name' => 'Trax Rush',
             ]
         );
-        DB::table('shippeds')->insert(
+        DB::table('couriers')->insert(
             [
                 'name' => 'Leopards Overnight',
             ]

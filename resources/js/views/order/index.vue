@@ -168,8 +168,8 @@
                     <!-- <p>{{props.item.stores}}</p> -->
                 </template>
                 
-                <template v-slot:ship="props">
-                    <typeahead :initialize="props.item.shipped_by" :url="shipped"
+                <template v-slot:courier="props">
+                    <typeahead :initialize="props.item.shipped_by" :url="courier"
                                @input="onShipped($event , props.item)" display="name"/>
                 </template>
                 <template v-slot:action="props">
@@ -239,7 +239,7 @@
                 urlApi1: "/api/order",
                 resource: "/order",
                 delivery: '/api/status',
-                shipped: '/api/shipped',
+                courier: '/api/courier',
                 customers: '/api/customer',
                 ordertype: '/api/order_type',
                 city: '/api/city',
@@ -256,7 +256,7 @@
                     {label: 'Packing Status', field: 'packability'},
                     // {label: 'Order Date', field: 'order_date'},
                     {label: 'Status', field: 'statuses', slot: true},
-                    {label: 'Shipped By', field: 'ship', slot: true},
+                    {label: 'Courier By', field: 'courier', slot: true},
                     {label: 'Action', field: 'action', action: true},
                 ]
             }
