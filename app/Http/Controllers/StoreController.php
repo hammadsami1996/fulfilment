@@ -12,7 +12,7 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Store::with('company')->search()]);
+        return response()->json(['data' => Store::with('company' , 'warehouse')->search()]);
     }
 
     /**
@@ -72,7 +72,7 @@ class StoreController extends Controller
      */
     public function edit($id)
     {
-        $model = Store::with('company')->findOrFail($id);
+        $model = Store::with('company' ,'warehouse')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
