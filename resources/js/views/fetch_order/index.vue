@@ -67,7 +67,7 @@
                         <button v-if="!shopifyButton" @click="shopify_fetch_data(data.id)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
                     </div>
                     <div v-if="data.plate_form == 'MimCart'">
-                        <div class="card bg-gray-200 cursor-pointer">
+                        <div class="card bg-gray-200 cursor-pointer" @click="mimCartButton = !mimCartButton">
                             <img src="~@/images/MimCart.jpg"/>
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
