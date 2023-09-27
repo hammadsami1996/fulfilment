@@ -13,6 +13,7 @@ class City extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, Search;
 
+    protected $connection = 'mysql';
     protected $table = 'cities';
     protected $fillable = [
         'country_id',
