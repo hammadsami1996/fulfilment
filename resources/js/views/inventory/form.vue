@@ -95,7 +95,7 @@
                 message: 'New inventory Added',
                 permissions: {},
                 products: '/api/product',
-                wearhouses: '/api/wearhouse',
+                wearhouses: '/api/warehouse',
             }
         },
 

@@ -310,14 +310,14 @@
                         </div>
                         <div>
                             <label class="block font-medium text-sm text-gray-700 mb-2">Tax Amount</label>
-                            <input class="w-full py-2 px-3 h-8 border border-gray-300 rounded-md" 
+                            <input class="w-full py-2 px-3 h-8 border border-gray-300 rounded-md"
                                 type="number"
-                                disabled 
+                                disabled
                                 v-model="item.tax_amount"/>
                         </div>
                         <div>
                             <label class="block font-medium text-sm text-gray-700 mb-2">Value Inc. Tax</label>
-                            <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" 
+                            <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                                 type="number"
                                 v-model="item.value_inc_tax"/>
                         </div>
@@ -441,7 +441,7 @@
                 customers: '/api/customer',
                 products: '/api/product',
                 stores: '/api/stores',
-                wearhouses: '/api/wearhouse',
+                wearhouses: '/api/warehouse',
                 city: '/api/city',
                 ordertype: '/api/order_type',
             }

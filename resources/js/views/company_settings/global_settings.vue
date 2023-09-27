@@ -10,7 +10,7 @@
             <div :key="index" class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center"
                  v-for="(image, index) in com">
                 <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer">
-                    <div @click="onCompany(image)" class="card">
+                    <div :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == image }" @click="onCompany(image)" class="card">
                         <img :src="`/uploads/company/logo/` + image.logo"/>
                         <div class="card__content">
                             <p class="card__title">{{ image.country ? image.country.text : '' }}</p>
@@ -839,13 +839,14 @@
                 permissions: {},
                 online_store_name: {},
                 products: "/api/product",
-                wearhouses: "/api/wearhouse",
+                // wearhouses: "/api/warehouse",
                 com: [],
                 stores_data: [],
                 form: {},
                 image: {},
                 cities: '/api/city',
                 countries: '/api/country',
+                selectedCompany: null
             };
         },
         created() {
@@ -866,6 +867,7 @@
                 this.form.company = company
                 this.form.company_id = company.id
                 this.company_id = company.id
+                this.selectedCompany = e;
             },
             onCompanyUpdate(e) {
                 const company = e.target.value

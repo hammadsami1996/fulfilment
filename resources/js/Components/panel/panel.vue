@@ -233,7 +233,7 @@
                             >
                                 <td
                                     :key="columnIndex"
-                                    class="px-3 py-2 whitespace-nowrap"
+                                    class="px-3 py-2 text-sm"
                                     v-for="(column, columnIndex) in columns"
                                 >
                                     <template v-if="column.action">

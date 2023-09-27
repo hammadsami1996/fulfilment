@@ -62,33 +62,7 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.due_date">{{error.due_date[0] }}</p>
                 </div>
-
-
             </div>
-            <!-- <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Due Date:</label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        type="date"
-                        v-model="form.due_date"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.due_date">{{error.due_date[0] }}</p>
-                </div>
-
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Sku</label>
-                    <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                        v-model="form.sku"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.sku">{{error.sku[0] }}</p>
-                </div>
-            </div> -->
             <div class="mt-4 ml-2 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                 <table class="min-w-full text-sm whitespace-nowrap">
                     <thead >
@@ -114,21 +88,6 @@
                         <th class="text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
 
                         </th>
-
-                        <!-- <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Value Ex.Tax
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Tax %
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Tax Amount
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
-                            Value Inc. Tax
-                        </th>
-                        <th class="px-3 py-4 text-gray-900 bg-gray-100/75 font-semibold text-center dark:text-gray-50 dark:bg-gray-700/25">
-                        </th> -->
                     </tr>
                     </thead>
                     <tbody>

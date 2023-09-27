@@ -12,7 +12,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Inventory::with('product.product_img', 'wearhouse')->search()]);
+        return response()->json(['data' => Inventory::with('product.product_img', 'warehouse')->search()]);
     }
 
     /**
@@ -53,7 +53,7 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
-        $model = Inventory::with('product', 'wearhouse')->findOrFail($id);
+        $model = Inventory::with('product', 'warehouse')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -62,7 +62,7 @@ class InventoryController extends Controller
      */
     public function edit($id)
     {
-        $model = Inventory::with('product', 'wearhouse')->findOrFail($id);
+        $model = Inventory::with('product', 'warehouse')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -79,7 +79,7 @@ class InventoryController extends Controller
             'qty' => 'required',
             'price' => 'required',
         ]);
-        $model = Inventory::with('product', 'wearhouse')->findOrFail($id);
+        $model = Inventory::with('product', 'warehouse')->findOrFail($id);
         $model->fill($request->all());
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
@@ -90,7 +90,7 @@ class InventoryController extends Controller
      */
     public function destroy($id)
     {
-        $model = Inventory::with('product', 'wearhouse')->findOrFail($id);
+        $model = Inventory::with('product', 'warehouse')->findOrFail($id);
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

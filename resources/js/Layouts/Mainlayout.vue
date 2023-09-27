@@ -7,7 +7,7 @@
     import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
     const userData = window.apex.user
     const mobileSidebarOpen = ref(false);
-    const desktopSidebarOpen = ref(true);
+    const desktopSidebarOpen = ref(false);
 </script>
 
 <template>
@@ -16,7 +16,7 @@
         id="page-container"
         class="flex flex-col mx-auto w-full min-h-screen min-w-[320px] bg-gray-100 dark:text-gray-100 dark:bg-gray-900"
         :class="{
-      'lg:pl-64': desktopSidebarOpen
+      'lg:pl-56': desktopSidebarOpen
     }"
     >
         <!-- Page Sidebar -->

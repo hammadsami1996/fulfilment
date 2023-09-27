@@ -286,7 +286,7 @@
                 customers: '/api/customer',
                 products: '/api/product',
                 stores: '/api/stores',
-                wearhouses: '/api/wearhouse',
+                wearhouses: '/api/warehouse',
                 city: '/api/city',
                 ordertype: '/api/order_type',
             }
