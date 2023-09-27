@@ -1,7 +1,7 @@
 <template>
     <div v-if="show">
         <div class="p-6">
-           
+
             <h1 class="text-lg font-bold mb-4">
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
             </h1>
@@ -93,7 +93,7 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-               
+
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'WooCommerce'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
@@ -138,7 +138,7 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-               
+
             </div>
             <div class="flex justify-end mt-8 space-x-4">
                 <button
@@ -190,7 +190,7 @@
         props: {
     show: Boolean ,
     additionalProp: String ,
-   
+
   },
         data() {
             return {
@@ -290,7 +290,7 @@
             formSubmitted() {
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
-                    
+
                     this.additionalProp ? this.formSubmiting():this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
