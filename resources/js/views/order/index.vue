@@ -129,7 +129,7 @@
                     </button>
                     <div v-if="sts && props.item.id == ids">
                         <div>
-                            <button
+                            <button class="buttonHide"
                                 @click="Cancel()"
                                 style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197,13,13)); font-weight: bold;">
                                 Hide
@@ -417,6 +417,33 @@
     }
 
     .button:hover {
+        cursor: pointer;
+        transition: all .3s ease-in;
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
+    .buttonHide {
+        font-weight: bold !important;
+        border-radius: .25rem;
+        text-transform: uppercase;
+        font-style: normal;
+        font-weight: 400;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #fff;
+        -webkit-clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%);
+        clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%);
+        height: 30px;
+        font-size: 0.7rem;
+        line-height: 14px;
+        letter-spacing: 1.2px;
+        transition: .2s .1s;
+        border: 0 solid;
+        overflow: hidden;
+    }
+
+    .buttonHide:hover {
         cursor: pointer;
         transition: all .3s ease-in;
         padding-right: 30px;
