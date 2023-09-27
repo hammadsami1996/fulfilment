@@ -41,7 +41,7 @@
                     Create Order
                 </router-link>
                 <button @click='toggle = !toggle'
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                        class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button">
                     Advaced Search
                 </button>
@@ -124,13 +124,13 @@
         <div class="flex-col ">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData" >
                 <template v-slot:statuses="props" >
-                    <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) ">
+                    <button class="button" :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) ">
                         {{ props.item.status ? props.item.status.name :''}}
                     </button>
                     <div v-if="sts && props.item.id == ids">
                         <div>
                             <button
-                                @click="Cancel() "
+                                @click="Cancel()"
                                 style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197,13,13)); font-weight: bold;">
                                 Hide
                             </button>
@@ -396,7 +396,34 @@
 </script>
 <style scoped>
 
-    button {
+    .button {
+        font-weight: bold !important;
+        border-radius: .25rem;
+        text-transform: uppercase;
+        font-style: normal;
+        font-weight: 400;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #fff;
+        /* -webkit-clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%); */
+        /* clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%); */
+        height: 30px;
+        font-size: 0.7rem;
+        line-height: 14px;
+        letter-spacing: 1.2px;
+        transition: .2s .1s;
+        border: 0 solid;
+        overflow: hidden;
+    }
+
+    .button:hover {
+        cursor: pointer;
+        transition: all .3s ease-in;
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
+    .buttonn {
         font-weight: bold !important;
         border-radius: .25rem;
         text-transform: uppercase;
@@ -405,20 +432,18 @@
         padding-left: 25px;
         padding-right: 25px;
         color: #fff;
-        -webkit-clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%);
-        clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%);
+        /* -webkit-clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%); */
+        /* clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%); */
         height: 40px;
         font-size: 0.7rem;
         line-height: 14px;
         letter-spacing: 1.2px;
         transition: .2s .1s;
-        /* background-image: linear-gradient(90deg,#1c1c1c,#6220fb); */
-        /* background-color: blue; */
         border: 0 solid;
         overflow: hidden;
     }
 
-    button:hover {
+    .buttonn:hover {
         cursor: pointer;
         transition: all .3s ease-in;
         padding-right: 30px;
