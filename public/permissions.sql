@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost_3306
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilment1st
+ Source Schema         : tenantfulfilmente
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 26/08/2023 17:57:56
+ Date: 27/09/2023 12:00:56
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `permissions`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 189 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 207 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permissions
@@ -98,12 +98,6 @@ INSERT INTO `permissions` VALUES (125, 'edit-product', 'web', NULL, NULL, 123, N
 INSERT INTO `permissions` VALUES (126, 'create-product', 'web', NULL, NULL, 123, NULL, '2023-07-07 00:06:57', '2023-07-07 00:06:57');
 INSERT INTO `permissions` VALUES (127, 'delete-product', 'web', NULL, NULL, 123, NULL, '2023-07-07 00:06:57', '2023-07-07 00:06:57');
 INSERT INTO `permissions` VALUES (128, 'export-product', 'web', NULL, NULL, 123, NULL, '2023-07-07 00:06:57', '2023-07-07 00:06:57');
-INSERT INTO `permissions` VALUES (129, NULL, 'web', 'Wearhouse', NULL, NULL, 56, '2023-07-07 01:26:29', '2023-07-07 01:26:29');
-INSERT INTO `permissions` VALUES (130, 'view-wearhouse', 'web', NULL, NULL, 129, NULL, '2023-07-07 01:26:29', '2023-07-07 01:26:29');
-INSERT INTO `permissions` VALUES (131, 'edit-wearhouse', 'web', NULL, NULL, 129, NULL, '2023-07-07 01:26:29', '2023-07-07 01:26:29');
-INSERT INTO `permissions` VALUES (132, 'create-wearhouse', 'web', NULL, NULL, 129, NULL, '2023-07-07 01:26:29', '2023-07-07 01:26:29');
-INSERT INTO `permissions` VALUES (133, 'delete-wearhouse', 'web', NULL, NULL, 129, NULL, '2023-07-07 01:26:29', '2023-07-07 01:26:29');
-INSERT INTO `permissions` VALUES (134, 'export-wearhouse', 'web', NULL, NULL, 129, NULL, '2023-07-07 01:26:29', '2023-07-07 01:26:29');
 INSERT INTO `permissions` VALUES (135, NULL, 'web', 'Stores', NULL, NULL, 56, '2023-07-07 01:51:03', '2023-07-07 01:51:03');
 INSERT INTO `permissions` VALUES (136, 'view-stores', 'web', NULL, NULL, 135, NULL, '2023-07-07 01:51:03', '2023-07-07 01:51:03');
 INSERT INTO `permissions` VALUES (137, 'edit-stores', 'web', NULL, NULL, 135, NULL, '2023-07-07 01:51:03', '2023-07-07 01:51:03');
@@ -164,6 +158,12 @@ INSERT INTO `permissions` VALUES (191, 'edit-replacement', 'web', NULL, NULL, 18
 INSERT INTO `permissions` VALUES (192, 'create-replacement', 'web', NULL, NULL, 189, NULL, '2023-08-26 12:46:56', '2023-08-26 12:46:56');
 INSERT INTO `permissions` VALUES (193, 'delete-replacement', 'web', NULL, NULL, 189, NULL, '2023-08-26 12:46:56', '2023-08-26 12:46:56');
 INSERT INTO `permissions` VALUES (194, 'export-replacement', 'web', NULL, NULL, 189, NULL, '2023-08-26 12:46:56', '2023-08-26 12:46:56');
+INSERT INTO `permissions` VALUES (201, NULL, 'web', 'Warehouse', NULL, NULL, 56, '2023-09-26 07:21:37', '2023-09-26 07:21:37');
+INSERT INTO `permissions` VALUES (202, 'view-warehouse', 'web', NULL, NULL, 201, NULL, '2023-09-26 07:21:37', '2023-09-26 07:21:37');
+INSERT INTO `permissions` VALUES (203, 'edit-warehouse', 'web', NULL, NULL, 201, NULL, '2023-09-26 07:21:37', '2023-09-26 07:21:37');
+INSERT INTO `permissions` VALUES (204, 'create-warehouse', 'web', NULL, NULL, 201, NULL, '2023-09-26 07:21:37', '2023-09-26 07:21:37');
+INSERT INTO `permissions` VALUES (205, 'delete-warehouse', 'web', NULL, NULL, 201, NULL, '2023-09-26 07:21:37', '2023-09-26 07:21:37');
+INSERT INTO `permissions` VALUES (206, 'export-warehouse', 'web', NULL, NULL, 201, NULL, '2023-09-26 07:21:37', '2023-09-26 07:21:37');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -225,17 +225,11 @@ INSERT INTO `role_has_permissions` VALUES (118, 1);
 INSERT INTO `role_has_permissions` VALUES (119, 1);
 INSERT INTO `role_has_permissions` VALUES (120, 1);
 INSERT INTO `role_has_permissions` VALUES (121, 1);
-INSERT INTO `role_has_permissions` VALUES (122, 1);
 INSERT INTO `role_has_permissions` VALUES (124, 1);
 INSERT INTO `role_has_permissions` VALUES (125, 1);
 INSERT INTO `role_has_permissions` VALUES (126, 1);
 INSERT INTO `role_has_permissions` VALUES (127, 1);
 INSERT INTO `role_has_permissions` VALUES (128, 1);
-INSERT INTO `role_has_permissions` VALUES (130, 1);
-INSERT INTO `role_has_permissions` VALUES (131, 1);
-INSERT INTO `role_has_permissions` VALUES (132, 1);
-INSERT INTO `role_has_permissions` VALUES (133, 1);
-INSERT INTO `role_has_permissions` VALUES (134, 1);
 INSERT INTO `role_has_permissions` VALUES (136, 1);
 INSERT INTO `role_has_permissions` VALUES (137, 1);
 INSERT INTO `role_has_permissions` VALUES (138, 1);
@@ -286,6 +280,11 @@ INSERT INTO `role_has_permissions` VALUES (191, 1);
 INSERT INTO `role_has_permissions` VALUES (192, 1);
 INSERT INTO `role_has_permissions` VALUES (193, 1);
 INSERT INTO `role_has_permissions` VALUES (194, 1);
+INSERT INTO `role_has_permissions` VALUES (202, 1);
+INSERT INTO `role_has_permissions` VALUES (203, 1);
+INSERT INTO `role_has_permissions` VALUES (204, 1);
+INSERT INTO `role_has_permissions` VALUES (205, 1);
+INSERT INTO `role_has_permissions` VALUES (206, 1);
 INSERT INTO `role_has_permissions` VALUES (64, 3);
 INSERT INTO `role_has_permissions` VALUES (118, 3);
 INSERT INTO `role_has_permissions` VALUES (119, 3);

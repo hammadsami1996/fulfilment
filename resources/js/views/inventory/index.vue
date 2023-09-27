@@ -90,7 +90,7 @@
                     {label: 'Images', field: 'images' , slot:true},
                     {label: 'Product id', field: 'title',  displayText: 'product'},
 
-                    {label: 'Wearhouse id', field: 'name',  displayText: 'wearhouse'},
+                    {label: 'Warehouse id', field: 'name',  displayText: 'warehouse'},
                     {label: 'Qty', field: 'qty',},
                     // {label: 'Price', field: 'price',},
                     {label: 'Action', field: 'action', action: true}

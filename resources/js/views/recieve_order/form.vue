@@ -162,7 +162,7 @@
                             <label
                                 class="block font-bold text-sm text-gray-700 mb-2 " style=" margin-right: 35%;"
                             >Wearhouse </label>
-                            <!-- <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/> -->
+                            <!-- <typeahead :initialize="form.warehouse" :url="wearhouses" @input="onWearhouse" display="name"/> -->
                             <typeahead
                                 :initialize="child.warehouse"
                                 :url="wearhouses"
@@ -300,7 +300,7 @@
                             <td class="text-center">
                             <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Wearhouse </label>
+                    >Warehouse </label>
 
                             <typeahead
                                 :initialize="child.warehouse"
@@ -422,7 +422,7 @@
                 permissions: {},
                 suppliers: '/api/supplier',
                 products: '/api/product',
-                wearhouses: '/api/wearhouse',
+                wearhouses: '/api/warehouse',
             }
         },
 

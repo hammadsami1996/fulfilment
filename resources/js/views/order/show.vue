@@ -336,7 +336,7 @@
                     </table>
                     <!-- <div class="flex justify-end mt-8 space-x-4">
                         <i    @click="history = false" class="fa-solid fa-xmark mr-4 mb-4" style="color:red;font-size: 36px; cursor: pointer;"></i>
-                     
+
 
             </div> -->
                     </div>
@@ -385,7 +385,7 @@
                 customers: '/api/customer',
                 products: '/api/product',
                 stores: '/api/stores',
-                wearhouses: '/api/wearhouse',
+                wearhouses: '/api/warehouse',
             }
         },
         computed: {
