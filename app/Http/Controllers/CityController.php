@@ -25,7 +25,14 @@ class CityController extends Controller
 
     public function index()
     {
-        //
+        
+        // dd(request()->all());
+        return response()->json(['data' => City::when(\request()->has('country_id') && \request('country_id'), function ($q) {
+            $q->where('country_id', \request('country_id'))->when(request('city', null), function ($query) {
+                $query->where('name', 'like', '%' . request('city') . '%');
+            });
+        })
+        ->search()]);
     }
 
     /**

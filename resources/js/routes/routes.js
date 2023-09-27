@@ -24,6 +24,8 @@ import receive_order from '@/routes/receive_order';
 import product_category from "@/routes/product_category";
 import brand from "@/routes/brand";
 import replacement from "@/routes/replacement";
+import cities from "@/routes/cities";
+
 
 const toast = useToast(); // Initialize the toast plugin
 const user_type_id = window.apex.user.user_type_id;
@@ -65,6 +67,7 @@ const router = createRouter({
         ...ledger,
         ...settings,
         ...fetch_order,
+        ...cities,
 
         {
             path: '/error-404',

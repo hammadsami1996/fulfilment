@@ -82,6 +82,8 @@ Route::middleware([
         Route::get('permission_menu', [\App\Http\Controllers\PermissionController::class, 'permission_menu']);
         Route::post('permission_menu', [\App\Http\Controllers\PermissionController::class, 'permission_menu_post']);
         //fulfilment
+        Route::resource('cities', \App\Http\Controllers\CityController::class);
+
         Route::resource('product', \App\Http\Controllers\ProductController::class);
         Route::resource('wearhouse', \App\Http\Controllers\WearhouseController::class);
         Route::resource('stores', \App\Http\Controllers\StoreController::class);
