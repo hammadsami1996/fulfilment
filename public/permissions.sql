@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilmenta
+ Source Schema         : tenantfulfilmente
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 26/09/2023 12:42:17
+ Date: 27/09/2023 12:00:56
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `permissions`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 195 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 207 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permissions
@@ -225,7 +225,6 @@ INSERT INTO `role_has_permissions` VALUES (118, 1);
 INSERT INTO `role_has_permissions` VALUES (119, 1);
 INSERT INTO `role_has_permissions` VALUES (120, 1);
 INSERT INTO `role_has_permissions` VALUES (121, 1);
-INSERT INTO `role_has_permissions` VALUES (122, 1);
 INSERT INTO `role_has_permissions` VALUES (124, 1);
 INSERT INTO `role_has_permissions` VALUES (125, 1);
 INSERT INTO `role_has_permissions` VALUES (126, 1);
@@ -281,6 +280,11 @@ INSERT INTO `role_has_permissions` VALUES (191, 1);
 INSERT INTO `role_has_permissions` VALUES (192, 1);
 INSERT INTO `role_has_permissions` VALUES (193, 1);
 INSERT INTO `role_has_permissions` VALUES (194, 1);
+INSERT INTO `role_has_permissions` VALUES (202, 1);
+INSERT INTO `role_has_permissions` VALUES (203, 1);
+INSERT INTO `role_has_permissions` VALUES (204, 1);
+INSERT INTO `role_has_permissions` VALUES (205, 1);
+INSERT INTO `role_has_permissions` VALUES (206, 1);
 INSERT INTO `role_has_permissions` VALUES (64, 3);
 INSERT INTO `role_has_permissions` VALUES (118, 3);
 INSERT INTO `role_has_permissions` VALUES (119, 3);
