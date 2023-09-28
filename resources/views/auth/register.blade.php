@@ -123,16 +123,7 @@
     </div>
     <!-- Loading Overlay -->
     <div id="loading-overlay" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-        <div class="spinner">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary-500"></div>
     </div>
 </x-guest-layout>
 <style>

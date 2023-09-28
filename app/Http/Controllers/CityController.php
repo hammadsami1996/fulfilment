@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\CityPivot;
+use App\Models\City_Courier;
+
 use Illuminate\Http\Request;
 
 
@@ -25,7 +28,14 @@ class CityController extends Controller
 
     public function index()
     {
-        //
+        
+        // dd(request()->all());
+        return response()->json(['data' => City::with('couriers')->when(\request()->has('country_id') && \request('country_id'), function ($q) {
+            $q->where('country_id', \request('country_id'))->when(request('city', null), function ($query) {
+                $query->where('name', 'like', '%' . request('city') . '%');
+            });
+        })
+        ->search()]);
     }
 
     /**
@@ -92,5 +102,39 @@ class CityController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function storebulk(Request $request){
+
+        // dd($request->all());
+        if($request->city_id){
+            
+
+            $city = City::where('id' , $request->city_id)->pluck('id');
+            // dd('abcd');
+
+
+        }
+        else{
+            $city = City::where('country_id' , $request->country_id)->pluck('id');
+        }
+            // dd($city);
+            foreach($city as $city_id){
+                $deleted = City_Courier::where('city_id' , $city_id)->first();
+                // dd($deleted);
+                if($deleted){
+                    $deleted->delete();
+                }
+                
+                $pivot = new City_Courier;
+                $pivot->city_id = $city_id;
+                $pivot->courier_id = $request->courier_id;
+                $pivot->delivery_charges = $request->shipping_charges;
+                $pivot->save();
+
+            }
+            return response()->json(['saved' => true]);
+       
     }
 }

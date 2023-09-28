@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('country_id')->nullable();
             $table->string('postal',25)->nullable();
             $table->string('province',25)->nullable();
-            $table->string('address',25)->nullable();
+            $table->string('address')->nullable();
             $table->string('logo',25)->nullable();
             $table->string('email',25)->nullable();
             $table->timestamps();

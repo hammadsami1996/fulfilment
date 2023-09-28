@@ -5,78 +5,47 @@
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-
-                <div class="w-full sm:w-1/2 sm:ml-4 p-2">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                        for="mc-role-guard_name"
-                    >User Name <span class="text-red-600">*</span></label
-                    >
+                    >Parent Wearhouse</label>
+                    <typeahead :initialize="form.parent" :url="parentUrl" @input="onParent" display="text"/>
+<!--                    <p class="text-red-600 text-xs italic" v-if="error.parent_id">{{ error.parent_id[0] }}</p>-->
+                </div>
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Name <span class="text-red-600">*</span></label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                        id="mc-role-name"
                         placeholder=" Name"
                         v-model="form.name"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
-
                 </div>
-                <div class="w-full sm:w-1/2 sm:ml-4 p-2">
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                        for="mc-role-guard_name"
-                    >Email <span class="text-red-600">*</span></label
-                    >
+                    >Location <span class="text-red-600">*</span></label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                        id="mc-role-email"
-                        placeholder=" Email"
-                        v-model="form.email"
-                        :disabled="$route.meta.mode && $route.meta.mode == 'edit'"
-
+                        placeholder=" location"
+                        v-model="form.location"
                     />
-                    <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
-                </div>
-
-            </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                <div class="w-full sm:w-1/2 sm:ml-4 p-2" v-if="!$route.meta.mode && $route.meta.mode !== 'edit'">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                        for="mc-role-guard_name"
-                    >Password <span class="text-red-600">*</span></label>
-                    <input
-                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                        name="password" placeholder="Enter your password" type="password"
-                        v-model="form.password"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.password">{{ error.password[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 sm:ml-4 p-2">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                        for="mc-role-guard_name"
-                    >Mobile No <span class="text-red-600">*</span></label>
-                    <input
-                        type="text"
-                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                        id="mc-role-guard_name"
-                        placeholder=" Mobile"
-                        v-model="form.mobile_no"
-                    />
-                    <p class="text-red-600 text-xs italic" v-if="error.mobile_no">{{ error.mobile_no[0] }}</p>
-
+                    <p class="text-red-600 text-xs italic" v-if="error.location">{{ error.location[0] }}</p>
                 </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted"
-                    type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600 transition duration-200 ease-in-out"
+                    type="button">
                     {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
                 </button>
                 <button
                     @click="successfull()"
-                    type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white">
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600 transition duration-200 ease-in-out"
+                    type="button">
                     Cancel
                 </button>
             </div>
@@ -91,8 +60,8 @@
 
     function initialize(to) {
         let urls = {
-            add: `/api/user/create`,
-            edit: `/api/user/${to.params.id}/edit`,
+            add: `/api/wearhouse/create`,
+            edit: `/api/wearhouse/${to.params.id}/edit`,
         }
         return urls[to.meta.mode] || urls.add
     }
@@ -104,18 +73,17 @@
         },
         data() {
             return {
-                // isEmailDisabled: false,
                 error: {},
                 show: false,
-                resource: '/user',
-                store: '/api/user',
+                resource: '/wearhouse',
+                store: '/api/wearhouse',
+                parentUrl:'/api/wearhouse',
                 method: 'POST',
-                small: 'user',
-                capital: 'User',
+                small: 'wearhouse',
+                capital: 'Wearhouse',
                 title: 'Add',
-                message: 'New User Added',
+                message: 'New wearhouse Added',
                 permissions: {},
-
             }
         },
 
@@ -132,14 +100,9 @@
                     next()
                 })
         },
-
         methods: {
-            // onUser_type(e) {
-            //     const usertype = e.target.value
-            //     this.form.usertype = usertype
-            //     this.form.user_type_id = usertype.id
-            // },
             setData(res) {
+                // console.log(res);
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -148,6 +111,7 @@
                 }
                 this.show = true
             },
+
             formSubmitted() {
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
@@ -171,7 +135,13 @@
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
-            }
+            },
+            onParent(e) {
+                const parent = e.target.value;
+                console.log(e);
+                this.form.parent = parent
+                this.form.parent_id = parent.id
+            },
         },
     }
 </script>
