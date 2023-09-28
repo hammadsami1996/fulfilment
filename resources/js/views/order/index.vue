@@ -157,17 +157,17 @@
 
                 <template v-slot:store="props" >
                     <div v-if="props.item.stores.plate_form == 'Shopify'">
-                        <img src="/images/Shopify-bag.png" class="h-10 w-10 rounded-full shadow-xl"/>
+                        <img src="~@/images/Shopify-bag.png" class="h-10 w-10 rounded-full shadow-xl"/>
                     </div>
                     <div v-if="props.item.stores.plate_form == 'WooCommerce'">
-                        <img src="/images/WooCommerce.png" class="h-10 w-10 rounded-full shadow-xl"/>
+                        <img src="~@/images/WooCommerce.png" class="h-10 w-10 rounded-full shadow-xl"/>
                     </div>
                     <div v-if="props.item.stores.plate_form == 'MimCart'">
-                        <img src="/images/MimCart.jpg" class="h-10 w-10 rounded-full shadow-xl"/>
+                        <img src="~@/images/MimCart.jpg" class="h-10 w-10 rounded-full shadow-xl"/>
                     </div>
                     <!-- <p>{{props.item.stores}}</p> -->
                 </template>
-                
+
                 <template v-slot:courier="props">
                     <typeahead :initialize="props.item.shipped_by" :url="courier"
                                @input="onShipped($event , props.item)" display="name"/>

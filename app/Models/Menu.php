@@ -9,6 +9,8 @@ class Menu extends Model
 {
     use HasFactory;
 
+//    protected $connection = 'mysql';
+
     public function children()
     {
         $permissionsData = collect(auth()->user()->getAllPermissions());
