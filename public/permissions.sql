@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilmente
+ Source Schema         : tenantfulfilmentf
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 27/09/2023 12:00:56
+ Date: 27/09/2023 18:27:20
 */
 
 SET NAMES utf8mb4;
@@ -164,6 +164,12 @@ INSERT INTO `permissions` VALUES (203, 'edit-warehouse', 'web', NULL, NULL, 201,
 INSERT INTO `permissions` VALUES (204, 'create-warehouse', 'web', NULL, NULL, 201, NULL, '2023-09-26 07:21:37', '2023-09-26 07:21:37');
 INSERT INTO `permissions` VALUES (205, 'delete-warehouse', 'web', NULL, NULL, 201, NULL, '2023-09-26 07:21:37', '2023-09-26 07:21:37');
 INSERT INTO `permissions` VALUES (206, 'export-warehouse', 'web', NULL, NULL, 201, NULL, '2023-09-26 07:21:37', '2023-09-26 07:21:37');
+INSERT INTO `permissions` VALUES (207, NULL, 'web', 'Fetch_order', NULL, NULL, 56, '2023-09-27 13:22:24', '2023-09-27 13:22:24');
+INSERT INTO `permissions` VALUES (208, 'view-fetch_order', 'web', NULL, NULL, 207, NULL, '2023-09-27 13:22:25', '2023-09-27 13:22:25');
+INSERT INTO `permissions` VALUES (209, 'edit-fetch_order', 'web', NULL, NULL, 207, NULL, '2023-09-27 13:22:25', '2023-09-27 13:22:25');
+INSERT INTO `permissions` VALUES (210, 'create-fetch_order', 'web', NULL, NULL, 207, NULL, '2023-09-27 13:22:25', '2023-09-27 13:22:25');
+INSERT INTO `permissions` VALUES (211, 'delete-fetch_order', 'web', NULL, NULL, 207, NULL, '2023-09-27 13:22:25', '2023-09-27 13:22:25');
+INSERT INTO `permissions` VALUES (212, 'export-fetch_order', 'web', NULL, NULL, 207, NULL, '2023-09-27 13:22:25', '2023-09-27 13:22:25');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -285,6 +291,7 @@ INSERT INTO `role_has_permissions` VALUES (203, 1);
 INSERT INTO `role_has_permissions` VALUES (204, 1);
 INSERT INTO `role_has_permissions` VALUES (205, 1);
 INSERT INTO `role_has_permissions` VALUES (206, 1);
+INSERT INTO `role_has_permissions` VALUES (208, 1);
 INSERT INTO `role_has_permissions` VALUES (64, 3);
 INSERT INTO `role_has_permissions` VALUES (118, 3);
 INSERT INTO `role_has_permissions` VALUES (119, 3);
