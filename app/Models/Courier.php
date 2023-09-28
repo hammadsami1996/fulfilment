@@ -10,6 +10,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Courier extends Model
 {
+    protected $connection = 'mysql';
+
     use HasFactory, Notifiable, HasRoles;
     use Search;
 
@@ -29,5 +31,13 @@ class Courier extends Model
     public function getTextAttribute()
     {
         return $this->attributes['name'];
+    }
+    // public function cities()
+    // {
+    //     return $this->belongsToMany(City::class);
+    // }
+    public function cities()
+    {
+        return $this->belongsToMany(City::class, 'tenant_database.city_courier');
     }
 }

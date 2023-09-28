@@ -107,6 +107,8 @@ Route::middleware([
         Route::resource('candidate', \App\Http\Controllers\CandidateController::class);
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
         Route::post('update', [\App\Http\Controllers\DeliverystatusController::class, 'updatestatus']);
+        Route::post('store_cities', [\App\Http\Controllers\CityController::class, 'storebulk']);
+
         Route::post('global_settings', [\App\Http\Controllers\SettingsController::class, 'add_settings']);
         Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
         Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);

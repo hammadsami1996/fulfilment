@@ -20,7 +20,7 @@ class City extends Model
         'state_id',
         'title',
         'status',
-//        'state_id',
+        //        'state_id',
 
     ];
     protected $appends = ['text'];
@@ -47,5 +47,13 @@ class City extends Model
     {
         return $this->belongsTo(Courier::class, 'courier_id');
     }
-
+    // public function couriers()
+    // {
+    //     return $this->belongsToMany(Courier::class);
+    // }
+    public function couriers()
+    {
+        return $this->belongsToMany(Courier::class, tenancy()->tenant->tenancy_db_name.'.city_courier')
+            ->withPivot('courier_id','delivery_charges');
+    }
 }
