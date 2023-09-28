@@ -7,7 +7,7 @@
                     All
                 </a>
                 <a @click="showRecords('?status_id=1')"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
                     Pending
                 </a>
                 <a @click="showRecords('?status_id=2')"
@@ -23,12 +23,12 @@
                     Fake
                 </a>
                 <a @click="showRecords('?packability=packable')"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
-                    packable
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
+                    Packable
                 </a>
                 <a @click="showRecords('?packability=unpackable')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-                    unpackable
+                    Unpackable
                 </a>
             </nav>
         </div>
@@ -127,6 +127,11 @@
                     <button class="button" :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) ">
                         {{ props.item.status ? props.item.status.name :''}}
                     </button>
+                    <div v-if="props.item.status.id == 9">
+                        <button class="button bg-gray-400 mt-2" @click="generateCN">
+                            Generate CN
+                        </button>
+                    </div>
                     <div v-if="sts && props.item.id == ids">
                         <div>
                             <button class="buttonHide"
@@ -208,6 +213,9 @@
                         >
                         <svg class="h-5 w-5 "  xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/></svg>
                         </a>
+                        <!-- <a>
+                            <i class="fas fa-file-export pl-1"></i>
+                        </a> -->
                     </div>
                 </template>
             </panel>
@@ -249,13 +257,13 @@
                     {label: 'S.No', field: 'id', format: 'index'},
                     // {label: 'Sales Number', field: 'so_number'},
                     {label: 'Customer', field: 'customers', slot: true},
+                    {label: 'Status', field: 'statuses', slot: true},
                     {label: 'Company', field: 'company', slot: true},
                     {label: 'Store', field: 'store', slot: true},
                     {label: 'City', field: 'name', displayText: 'city'},
                     {label: 'Net Amount', field: 'total'},
                     {label: 'Packing Status', field: 'packability'},
                     // {label: 'Order Date', field: 'order_date'},
-                    {label: 'Status', field: 'statuses', slot: true},
                     {label: 'Courier By', field: 'courier', slot: true},
                     {label: 'Action', field: 'action', action: true},
                 ]
@@ -389,6 +397,9 @@
                     this.$refs.TableData.reload();
                 }, 500)
 
+            },
+            generateCN(){
+                console.log('cn print')
             }
 
         },
