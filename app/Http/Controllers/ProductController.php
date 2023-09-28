@@ -112,7 +112,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $model = Product::with('product_img', 'brand', 'category')->findOrFail($id);
+        $model = Product::with('product_img', 'brand', 'category', 'supplier')->findOrFail($id);
 //        $model->Settings()->get('company_name');
 
         return response()->json([
