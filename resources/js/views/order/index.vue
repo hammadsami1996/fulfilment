@@ -148,8 +148,14 @@
                 <template v-slot:customers="props" >
                     <div>
                         <p>{{props.item.name}}</p>
-                            <!-- <p><i v-if="props.item.phone" class="fas fa-phone text-black"></i> {{props.item.phone}}</p>
-                            <p><i v-if="props.item.email" class="fas fa-envelope text-black"></i> {{props.item.email}}</p> -->
+                            <p>
+                                <i v-if="props.item.phone" class="fas fa-phone text-black"></i>
+                                {{props.item.phone}}
+                            </p>
+                            <p>
+                                <i v-if="props.item.email" class="fas fa-envelope text-black"></i>
+                                {{props.item.email}}
+                            </p>
                     </div>
                 </template>
                 <template v-slot:company="props" >
