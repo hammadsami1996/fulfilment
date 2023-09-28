@@ -308,7 +308,7 @@
                     {label: 'Customer', field: 'customers', slot: true},
                     {label: 'Status', field: 'statuses', slot: true},
                     {label: 'Company', field: 'company', slot: true},
-                    {label: 'Store', field: 'store', slot: true},
+                    {label: 'Store', field: 'name', displayText: 'stores'},
                     {label: 'City', field: 'name', displayText: 'city'},
                     {label: 'Net Amount', field: 'total'},
                     {label: 'Packing Status', field: 'packability'},

@@ -131,7 +131,7 @@ export default {
                 );
             },
             woocommerce_fetch_data(e){
-                this.wooButton = false 
+                this.wooButton = false
                 byMethod("POST", `/api/woocommerce_store_data/${e.id}`).then(
                     (res) => {
                         if(res.data.saved == true){
@@ -142,23 +142,23 @@ export default {
                 );
             },
             shopify_fetch_data(e){
-                this.shopifyButton = false 
+                this.shopifyButton = false
                 byMethod("POST", `/api/shopify_store_data/${e}`).then(
                     (res) => {
                         if(res.data.saved == true){
-                            this.shopifyButton = true 
+                            this.shopifyButton = true
                             this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }
                     }
                 );
             },
             mimcart_fetch_data(e){
-                this.mimCartButton = false 
+                this.mimCartButton = false
                 byMethod("POST", `/api/mimcart_store_data/${e}`).then(
                     (res) => {
                         if(res.data.saved == true){
                             console.log(res)
-                            this.mimCartButton = true 
+                            this.mimCartButton = true
                             this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }
                     }

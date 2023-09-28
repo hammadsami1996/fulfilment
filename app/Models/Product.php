@@ -15,7 +15,7 @@ class Product extends Model
     protected $fillable = [
         'title', 'description',  'product_sku', 'model_no',  'barcode', 'manage_inventory',
          'product_types', 'cost_price', 'selling_price',  'start_date',
-        'end_date', 'product_category','brand_id', 'head_id', 'supplier_id', 'weight'
+        'end_date', 'product_category','brand_id', 'head_id', 'supplier_id', 'weight','quantity'
     ];
     protected $columns = [
         'title', 'description',  'product_sku', 'model_no', 'barcode', 'manage_inventory',
@@ -45,6 +45,10 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id', 'id');
+    }
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
     public function purchases()
     {
