@@ -278,7 +278,7 @@
 
          
             },
-            filter(e){
+        filter(e){
 
                 setTimeout(() => {
                     this.urlApi = this.urlApis
@@ -293,7 +293,15 @@
             },
             edit(id , courier_id , charges) {
                 byMethod('post', `/api/store_cities?city_id=${id}&courier_id=${courier_id}&shipping_charges=${charges}` ).then((res) => {
-
+                    if(res.data.saved){
+                        this.$toast.open({
+                                position: "top-right",
+                                message:
+                                    "Successful",
+                                type: "success",
+                                duration: 3000,
+                            });
+                    }
                 })
             },
             deleteRole(e) {
