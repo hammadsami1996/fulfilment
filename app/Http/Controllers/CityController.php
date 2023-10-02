@@ -29,11 +29,13 @@ class CityController extends Controller
     public function index()
     {
         
-        // dd(request()->all());
+        // dd(request('city'));
         return response()->json(['data' => City::with('couriers')->when(\request()->has('country_id') && \request('country_id'), function ($q) {
-            $q->where('country_id', \request('country_id'))->when(request('city', null), function ($query) {
-                $query->where('name', 'like', '%' . request('city') . '%');
-            });
+            $q->where('country_id', \request('country_id'));})->when(request()->has('city') && request('city'), function ($q) {
+
+                // dd('abcd');
+                $q->where('name', 'like', '%' . request('city') . '%');
+           
         })
         ->search()]);
     }

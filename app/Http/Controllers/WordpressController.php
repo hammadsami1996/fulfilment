@@ -111,6 +111,7 @@ class WordpressController extends Controller
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'WooCommerce');
                         if (!$order->first()) {
                             ++$i;
+                         
                             $order = new Order();
                             $order->order_form = 'WooCommerce';
                             $order->external_order_no = $rec['id'];
@@ -158,7 +159,8 @@ class WordpressController extends Controller
                             $order->shipping_charges = $rec['shipping_tax'];
                             $order->total = $rec['total'];
                             $order->discount = $rec['discount_total'];
-                            // $order->customer_id = $rec['customer_id'];
+                            $cities = City::where('name', $rec['billing']['city'])->first();
+                            $order->city_id = $cities->id;
                             $order->tracking_id = $rec['cart_hash'];
                             $order->payment_method = $rec['payment_method_title'];
 
