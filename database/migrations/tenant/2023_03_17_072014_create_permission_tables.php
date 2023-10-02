@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\PermissionRegistrar;
 
 class CreatePermissionTables extends Migration
@@ -61,7 +61,7 @@ class CreatePermissionTables extends Migration
 
             $table->foreign(PermissionRegistrar::$pivotPermission)
                 ->references('id') // permission id
-                ->on($tableNames['permissions'])
+                ->on('fulfilment.permissions')
                 ->onDelete('cascade');
             if ($teams) {
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
@@ -105,7 +105,7 @@ class CreatePermissionTables extends Migration
 
             $table->foreign(PermissionRegistrar::$pivotPermission)
                 ->references('id') // permission id
-                ->on($tableNames['permissions'])
+                ->on('fulfilment.permissions')
                 ->onDelete('cascade');
 
             $table->foreign(PermissionRegistrar::$pivotRole)

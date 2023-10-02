@@ -22,7 +22,7 @@ return new class extends Migration
 //            $table->integer('sort')->nullable();
 //            $table->timestamps();
 //        });
-        DB::unprepared(file_get_contents(public_path('/menus.sql')));
+//        DB::unprepared(file_get_contents(public_path('/menus.sql')));
     }
 
     /**
