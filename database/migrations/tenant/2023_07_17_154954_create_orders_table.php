@@ -34,13 +34,15 @@ return new class extends Migration
             $table->integer('warehouse_id')->nullable();
             $table->integer('status_id')->default(1);
             $table->string('so_number' , 30)->nullable();
-            $table->string('name', 30)->nullable();
-            $table->string('email' , 50)->nullable();
-            $table->string('address')->nullable();
+            $table->string('s_name', 50)->nullable();
+            $table->string('s_email' , 50)->nullable();
             $table->string('s_addres_1')->nullable();
+            $table->string('s_phone' , 15)->nullable();
+            $table->string('b_name', 30)->nullable();
+            $table->string('b_email' , 50)->nullable();
+            $table->string('b_addres_1')->nullable();
+            $table->string('b_phone' , 15)->nullable();
             $table->string('instraction', 100)->nullable();
-            $table->string('phone' , 15)->nullable();
-
             $table->integer('qunatity')->nullable();
             $table->integer('order_type_id')->nullable();
             $table->integer('shipping_charges')->nullable();

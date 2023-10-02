@@ -43,49 +43,12 @@
                 </div>
             </div>
 
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> Name </label>
-                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"
-                           v-model="form.name"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> Email </label>
-                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="email"
-                           v-model="form.email"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
-                </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> Phone </label>
-                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
-                           v-model="form.phone"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
-                </div>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center pt-1">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">City:</label>
                     <typeahead :initialize="form.city" :url="city" @input="onCity"
                                display="name"/>
-                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                 </div>
-            </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center pt-2">
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> Address </label>
-                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
-                              v-model="form.s_addres_1"/>
-                    <!-- <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p> -->
-                </div>
-
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> Instructions </label>
-                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="number"
-                              v-model="form.instruction"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.instruction">{{ error.instruction[0] }}</p>
-                </div>
-            </div>
-            <div class="flex-auto flex flex-col sm:flex-row sm:items-center pt-1">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store <span class="text-red-600">*</span></label>
                     <typeahead :initialize="form.stores" :url="stores" @input="onStores" display="name"/>
@@ -99,6 +62,70 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">Order Type</label>
                     <typeahead :initialize="form.ordertype" :url="ordertype" @input="onOrder_type" display="name"/>
+                </div>
+            </div>
+            <hr class="mt-6">
+            <h1 class="font-bold mt-2 mb-2">Shipping</h1>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Shiping Name </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"
+                           v-model="form.name"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Shiping Email </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="email"
+                           v-model="form.email"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Shiping Phone </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
+                           v-model="form.phone"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Shipping Address </label>
+                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
+                              v-model="form.s_addres_1"/>
+                    <!-- <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p> -->
+                </div>
+            </div>
+            <hr class="mt-6">
+            <h1 class="font-bold mt-2 mb-2">Billing</h1>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Billing Name </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"
+                           v-model="form.b_name"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Billing Email </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="email"
+                           v-model="form.b_email"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Billing Phone </label>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
+                           v-model="form.b_phone"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Billing Address </label>
+                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
+                              v-model="form.b_addres_1"/>
+                    <!-- <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p> -->
+                </div>
+            </div>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center pt-2">
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Instructions </label>
+                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="number"
+                              v-model="form.instruction"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.instruction">{{ error.instruction[0] }}</p>
                 </div>
             </div>
             <div class="border border-gray-200 rounded-lg bg-gray-100 ml-3 mt-4">
@@ -436,6 +463,7 @@
                 this.form.email = customer.email
                 this.form.phone = customer.phone
                 this.form.s_addres_1 = customer.s_address_1
+                this.form.b_addres_1 = customer.b_address_1
                 this.form.customer_id = customer.id
             },
             onStores(e) {

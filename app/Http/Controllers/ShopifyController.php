@@ -99,6 +99,7 @@ class ShopifyController extends Controller
                                     $order->customer_id = $customer['id'];
                                 }
                             }
+                            $s_city = City::where('name', $rec['shipping_address']['city'])->first();
                             $order->name = $rec['customer']['first_name'];
                             $order->email = $rec['customer']['email'];
                             $order->phone = $rec['customer']['phone'];
