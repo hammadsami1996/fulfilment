@@ -187,8 +187,8 @@
                     </div>
                     <div v-else>
                         <!-- <p>{{props.item}}</p> -->
-                       <!-- <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
-                            @input="onShipped($event , props.item.city , props.item)" display="name"/> -->
+                       <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
+                            @input="onShipped($event , props.item.city , props.item)" display="name"/>
                     </div>
                 </template>
 

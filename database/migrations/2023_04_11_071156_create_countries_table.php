@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('countries', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->integer('status');
-            $table->integer('other_city_id');
-            $table->timestamps();
-        });
+        // Schema::create('countries', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('title');
+        //     $table->integer('status');
+        //     $table->integer('other_city_id');
+        //     $table->timestamps();
+        // });
+
+        DB::unprepared(file_get_contents(public_path('/countries.sql')));
     }
 
     /**
