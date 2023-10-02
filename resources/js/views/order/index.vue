@@ -176,18 +176,20 @@
                     <div v-if="props.item.stores.plate_form == 'MimCart'">
                         <img src="~@/images/MimCart.jpg" class="h-10 w-10 rounded-full shadow-xl"/>
                     </div>
-               
+
                 </template>
 
                 <template v-slot:courier="props">
-                    <div v-if="props.item.shipped_by_id"> 
-                    <typeahead  :initialize="props.item.shipped_by" :url="courier"
-                               @input="onShippeds($event  , props.item)" display="name"/>
-                            </div>
-                            <div v-else>
-                               <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
-                               @input="onShipped($event , props.item.city , props.item)" display="name"/>
-                               </div>
+                    <div v-if="props.item.shipped_by_id">
+                        <typeahead  :initialize="props.item.shipped_by" :url="courier"
+                            @input="onShippeds($event  , props.item)" display="name"/>
+                        <!-- <p>{{props.item}}</p> -->
+                    </div>
+                    <div v-else>
+                        <!-- <p>{{props.item}}</p> -->
+                       <!-- <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
+                            @input="onShipped($event , props.item.city , props.item)" display="name"/> -->
+                    </div>
                 </template>
 
                 <template v-slot:action="props">
