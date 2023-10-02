@@ -35,6 +35,7 @@ class CreatePermissionTables extends Migration
             $table->integer('menu_id')->nullable();
             $table->timestamps();
         });
+        DB::unprepared(file_get_contents(public_path('/permissions.sql')));
 
         Schema::create($tableNames['roles'], function (Blueprint $table) use ($teams, $columnNames) {
             $table->bigIncrements('id'); // role id
