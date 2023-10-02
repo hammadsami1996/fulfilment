@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permission as PermissionCustom;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Role;
-
 use App\Models\Role as RoleCustom;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -43,12 +41,18 @@ class RoleController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
-        $model = new Role();
+//        $model = new Role();
+        // for tenant DB
+        $model = new \App\Models\Role();
         $model->fill($request->except('permissions'));
         $model->guard_name = 'web';
         $model->save();
 
-        $model->syncPermissions($request->selectedPermissions);
+//        $model->syncPermissions($request->selectedPermissions);
+
+        // for tenant DB
+        $permission = Permission::whereIn('name', $request->selectedPermissions)->pluck('id')->toArray();
+        $model->permissionss()->sync($permission);
 
         // assign selected permissions to the role
 //        $permissions = $request->input('selectedPermissions', []);
@@ -66,8 +70,14 @@ class RoleController extends Controller
 
     public function edit($id)
     {
-        $model = Role::findOrFail($id);
-        $model['permissions'] = $model->permissions()->pluck('name')->toArray();
+
+
+//        $model = Role::findOrFail($id);
+//        $model['permissions'] = $model->permissions()->pluck('name')->toArray();
+//        $permissions = PermissionCustom::with('menus')->whereNotNull('menu')->get();
+
+        $model = \App\Models\Role::findOrFail($id);
+        $model['permissions'] = $model->permission()->pluck('name')->toArray();
         $permissions = PermissionCustom::with('menus')->whereNotNull('menu')->get();
         return response()->json([
             "form" => $model, 'permissions' => $permissions
@@ -79,11 +89,18 @@ class RoleController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
-        $model = Role::findOrFail($id);
-        $model->fill($request->all());
+//        $model = Role::findOrFail($id);
+        // for tenant DB
+        $model = \App\Models\Role::findOrFail($id);
+        $model->fill($request->except('permissions'));
+        $model->guard_name = 'web';
         $model->save();
 
-        $model->syncPermissions($request->selectedPermissions);
+//        $model->syncPermissions($request->selectedPermissions);
+
+        // for tenant DB
+        $permission = Permission::whereIn('name', $request->selectedPermissions)->pluck('id')->toArray();
+        $model->permissionss()->sync($permission);
 
         return response()->json(["saved" => true, "id" => $model->id]);
     }

@@ -12,6 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 class Permission extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, Search;
+
     protected $connection = 'mysql';
 
     protected $fillable = [
@@ -35,10 +36,5 @@ class Permission extends Model
     public function menus()
     {
         return $this->hasMany(Permission::class, 'menu_id')->with('groups');
-    }
-    public function centralPermissions()
-    {
-        // Retrieve permissions from the central database
-        return Permission::on('mysql')->get();
     }
 }
