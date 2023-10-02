@@ -12,6 +12,8 @@ use Spatie\Permission\Traits\HasRoles;
 class Country extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, Search;
+
+    protected $connection = 'mysql';
     protected $table = 'countries';
     protected $fillable = [
         'title',
@@ -20,12 +22,6 @@ class Country extends Model
 
     ];
     protected $appends = ['text'];
-
-
-    public function getTextAttribute()
-    {
-        return $this->attributes['name'];
-    }
     protected $columns = [
         "id",
         "name",
@@ -33,4 +29,9 @@ class Country extends Model
     protected $search = [
         "name",
     ];
+
+    public function getTextAttribute()
+    {
+        return $this->attributes['name'];
+    }
 }

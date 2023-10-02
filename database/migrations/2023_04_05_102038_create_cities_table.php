@@ -9,8 +9,8 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-//    public function up(): void
-//    {
+   public function up(): void
+   {
 //        Schema::create('cities', function (Blueprint $table) {
 //            $table->id();
 //            $table->string('title');
@@ -21,7 +21,8 @@ return new class extends Migration
 //            $table->timestamps();
 //
 //        });
-//    }
+        DB::unprepared(file_get_contents(public_path('/cities.sql')));
+   }
 
     /**
      * Reverse the migrations.

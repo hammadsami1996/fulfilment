@@ -13,7 +13,7 @@ class Permission extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, Search;
 
-//    protected $connection = 'mysql';
+    protected $connection = 'mysql';
 
     protected $fillable = [
         'name',

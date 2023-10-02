@@ -9,7 +9,7 @@ class Menu extends Model
 {
     use HasFactory;
 
-//    protected $connection = 'mysql';
+    protected $connection = 'mysql';
 
     public function children()
     {
