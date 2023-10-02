@@ -170,13 +170,20 @@
                     <div v-if="props.item.stores.plate_form == 'MimCart'">
                         <img src="/images/MimCart.jpg" class="h-10 w-10 rounded-full shadow-xl"/>
                     </div>
-                    <!-- <p>{{props.item.stores}}</p> -->
+               
                 </template>
                 
                 <template v-slot:courier="props">
-                    <typeahead :initialize="props.item.shipped_by" :url="courier"
-                               @input="onShipped($event , props.item)" display="name"/>
+                    <div v-if="props.item.shipped_by_id"> 
+                    <typeahead  :initialize="props.item.shipped_by" :url="courier"
+                               @input="onShippeds($event  , props.item)" display="name"/>
+                            </div>
+                            <div v-else>
+                               <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
+                               @input="onShipped($event , props.item.city , props.item)" display="name"/>
+                               </div>
                 </template>
+
                 <template v-slot:action="props">
 
                     <div class="text-sm font-medium flex">
@@ -302,11 +309,18 @@
                 this.form.deliver = deliver
                 this.form.deliver_id = deliver.id
             },
-            onShipped(e, f) {
+            onShipped(e, f , ids) {
+                console.log(e,f)
+                const shipped_by = e.target.value
+                f.couriers[0] = shipped_by
+                ids.couriers_id = shipped_by.id
+                byMethod('POST', `/api/order/${ids.id}?_method=PUT`, ids)
+            },
+            onShippeds(e, f ) {
                 console.log(e,f)
                 const shipped_by = e.target.value
                 f.shipped_by = shipped_by
-                f.shipped_by_id = shipped_by.id
+                f.couriers_id = shipped_by.id
                 byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
             },
             onCustomer(e) {

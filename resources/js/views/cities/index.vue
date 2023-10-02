@@ -135,7 +135,7 @@
                             @click.prevent="edit(props.item.id , props.item.couriers[0].id , props.item.couriers[0].pivot ? props.item.couriers[0].pivot.delivery_charges:delivery_charges)"
                             href="#"
                         >
-                           <i class="fa-solid fa-check-double text-xl text-blue-400"></i>
+                           <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
 
                         
                         <!-- <i data-tooltip-target="tooltip-default" class="fa-solid fa-check-double text-xl text-blue-400"></i>
@@ -152,7 +152,7 @@
                             </svg> -->
                         </a>
                          </span>
-                        <span >
+                        <!-- <span >
                         <a
                             @click.prevent="deleteRole(props.item.id)"
                             href="#"
@@ -164,7 +164,7 @@
                                     d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                             </svg>
                         </a>
-                        </span>
+                        </span> -->
                     </div>
                 </template>
             </panel>
@@ -232,17 +232,17 @@
 
                 })
             },
-            handleEnterKey() {
+            handleEnterKey(e) {
                 setTimeout(() => {
                     this.urlApi = this.urlApis
                 }, 100)
                 setTimeout(() => {
-                    this.urlApi += '?country_id=' + this.form.country_id + '&city=' + this.form.city_name;
+                    this.urlApi +='?city=' + e;
                 }, 100)
                 setTimeout(() => {
 
                     this.$refs.TableData.reload();
-                }, 100)
+                }, 200)
         },
             onCountries(e) {
                 const country = e.target.value
@@ -258,7 +258,7 @@
                 this.form.city_id = city.id
                 this.form.city_name = city.name
 
-                this.handleEnterKey();
+                this.handleEnterKey(this.form.city_name);
                 // this.filter(this.form.city_id)
             },
 
