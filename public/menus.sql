@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilmenta
+ Source Schema         : tenantfulfilmentf
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 26/09/2023 12:13:54
+ Date: 27/09/2023 18:18:26
 */
 
 SET NAMES utf8mb4;
@@ -65,5 +65,6 @@ INSERT INTO `menus` VALUES (57, 'Required Item Stock', '/required_item_stock', '
 INSERT INTO `menus` VALUES (58, 'Customer', '/customer', 'view-customer', 33, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (59, 'User Dashboard', '/user_dashboard', 'view-user_dashboard', 33, 'web', NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (60, 'Purchase', '/purchase', 'view-purchase', 40, 'web', NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (61, 'Fetch Order', '/fetch_order', 'view-fetch_order', 45, 'web', NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

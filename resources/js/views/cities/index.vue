@@ -8,21 +8,15 @@
                     Create
                 </router-link>
             </div> -->
-             
                 </div>
-
          <div class="flex flex-row mb-4">
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-            
-                <label
-                        class="block  font-medium text-sm text-gray-700 mb-2"
-                    >Country:</label>
-                    <typeahead :initialize="form.country" :url="countries" @input="onCountries"
-                               display="name"/>
-
-
+                <label class="block  font-medium text-sm text-gray-700 mb-2"
+                    >Country: <button class="text-red-400 text-sm hover:text-red-600" @click="clear">Clear</button>
+                </label>
+                <typeahead :initialize="form.country" :url="countries" @input="onCountries"
+                    display="name"/>
             </div>
-
             <!-- <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label class="block font-medium text-sm text-gray-700 mb-2"
                     >City</label>
@@ -32,34 +26,21 @@
                         v-model="form.city"
                         @keyup.enter="handleEnterKey"
                     />
-                  
                 </div> -->
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-            
-            <label
-                    class="block  font-medium text-sm text-gray-700 mb-2"
-                >Cities:</label>
-                <typeahead :initialize="form.city" :url="city" @input="onCity"
-                           display="name"/>
-
-
-        </div>
-
-
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-            
-            <label
-                    class="block  font-medium text-sm text-gray-700 mb-2"
-                >Courier:</label>
+                <label class="block  font-medium text-sm text-gray-700 mb-2"
+                    >Cities: <button class="text-red-400 text-sm hover:text-red-600" @click="clear">Clear</button>
+                </label>
+                <typeahead :initialize="form.city" :url="city" @input="onCity"
+                    display="name"/>
+            </div>
+            <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+                <label class="block  font-medium text-sm text-gray-700 mb-2">
+                    Courier: <button class="text-red-400 text-sm hover:text-red-600" @click="clear">Clear</button>
+                </label>
                 <typeahead :initialize="form.courier" :url="courier" @input="onCourier"
-                           display="name"/>
-
-
-        </div>
-
-           
-           
-
+                    display="name"/>
+            </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label class="block font-medium text-sm text-gray-700 mb-2"
                     >Shipping Charges</label>
@@ -70,14 +51,14 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.tax_number">{{ error.tax_number[0] }}</p>
                 </div>
-                
-           
-           
 
-            
+
+
+
+
         </div>
 
-       
+
         <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
             <button
                     @click="formSubmitted"
@@ -87,8 +68,8 @@
                 </button>
             </div>
 
-                
-           
+
+
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:couriersss="props">
@@ -101,31 +82,31 @@
 
                     <img v-if="props.item.couriers[0].id === 6 || props.item.couriers[0].id === 1" src="/images/leopard.jpeg" style="height: 50px; width: 50px; border-radius:50%">
                 </div>
-                   
+
                 </template>
 
 
                 <template v-slot:courierss="props">
                     <!-- <img src="/images/leopard.jpeg" style="height: 50px; width: 50px; border-radius:50%"> -->
-                 
+
                     <typeahead :initialize="props.item.couriers[0]" :url="courier" @input="onCourierss($event , props.item)"
                            display="name"/>
                 </template>
 
                 <template v-slot:charges="props">
-                 
+
                     <input v-if="props.item.couriers[0] && props.item.couriers[0].pivot"
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="text"
-                       
+
                         v-model=" props.item.couriers[0].pivot.delivery_charges"
-                      
+
                     />
                     <input v-else
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         type="number"
                         v-model="delivery_charges"
-                       
+
                     />
              </template>
                 <template v-slot:action="props">
@@ -137,7 +118,7 @@
                         >
                            <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
 
-                        
+
                         <!-- <i data-tooltip-target="tooltip-default" class="fa-solid fa-check-double text-xl text-blue-400"></i>
                         <div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Tooltip content
@@ -193,8 +174,6 @@
                 countries: '/api/country',
                 courier: '/api/courier',
                 city: '/api/cities',
-
-
                 urlApi: "/api/cities",
                 urlApis:"/api/cities",
                 resource: "/cities",
@@ -205,28 +184,23 @@
                     {label: 'Cities', field: 'name',},
                     {label: '', field: 'couriersss' , slot:true },
                     {label: 'Courier', field: 'courierss' , slot:true },
-
-
                     {label: 'leopard' , field: ''},
                     {label: 'trax', field: ''},
                     {label: 'rider', field: ''},
                     {label: 'Shiping Charges', field: 'charges' , slot:true},
-
-
                     {label: 'Action', field: 'action', action: true}
-                    ]
+                ]
             }
         },
         created() {
             // console.log();
             this.permissions = window.apex.user.permission
         },
-       
+
         methods: {
             // pivots(e){
             //     this.props.item.delivery_charges = e;
             // },
-
             formSubmitted(){
                 byMethod('post', '/api/store_cities' , this.form).then((res) => {
 
@@ -251,7 +225,6 @@
                 this.filter(this.form.country_id)
             },
 
-
             onCity(e) {
                 const city = e.target.value
                 this.form.city = city
@@ -262,21 +235,16 @@
                 // this.filter(this.form.city_id)
             },
 
-
             onCourier(e) {
                 const courier = e.target.value
                 this.form.courier = courier
                 this.form.courier_id = courier.id
-         
             },
             onCourierss(e , f) {
                 // console.log(e)
                 const courier = e.target.value
-           
                 f.couriers[0] = courier
                 f.courier_id = courier.id
-
-         
             },
         filter(e){
 
@@ -314,6 +282,16 @@
                         }
                     })
             },
+            clear(){
+                this.form.country = null
+                this.form.city = null
+                this.form.courier = null
+                console.log(this.$refs)
+                this.urlApi = this.urlApis
+                setTimeout(() => {
+                    this.$refs.TableData.reload();
+                }, 100)
+            }
         },
     }
 </script>

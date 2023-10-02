@@ -58,27 +58,6 @@ class User extends Authenticatable
         return $this->belongsTo(City::class, 'city_id', 'id');
     }
 
-    public function eligibility()
-    {
-        return $this->belongsTo(EligibilityToWork::class, 'id', 'user_id');
-    }
-
-    public function reference()
-    {
-        return $this->belongsTo(Reference::class, 'id', 'user_id');
-    }
-    public function emergency()
-    {
-        return $this->belongsTo(Emergency::class, 'id', 'user_id');
-    }
-    public function bank()
-    {
-        return $this->belongsTo(Bank::class, 'id', 'user_id');
-    }
-    public function medical()
-    {
-        return $this->belongsTo(Medical::class, 'id', 'user_id');
-    }
 
     public function country()
     {
@@ -89,21 +68,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
-
-    public function applyjob()
-    {
-        return $this->hasMany(Apply_job::class, 'user', 'id');
-    }
-
     public function tent()
     {
         return $this->belongsTo(Tenant::class, 'name', 'id');
     }
 
-    public function jobs()
-    {
-        return $this->hasMany(Job::class, 'job', 'id');
-    }
 
     protected $columns = [
         "id",

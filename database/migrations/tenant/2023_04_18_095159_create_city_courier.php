@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('delivery_charges')->default(0);
        
 
-           
-           
             $table->timestamps();
         });
     }
