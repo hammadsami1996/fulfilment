@@ -11,11 +11,11 @@
                     Pending
                 </a>
                 <a @click="showRecords('?status_id=2')"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
                     Confirmed
                 </a>
                 <a @click="showRecords('?status_id=6')"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
                     On Hold
                 </a>
                 <a @click="showRecords('?status_id=14')"
@@ -127,11 +127,11 @@
                     <button class="button" :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) ">
                         {{ props.item.status ? props.item.status.name :''}}
                     </button>
-                    <div v-if="props.item.status.id == 9">
+                    <!-- <div v-if="props.item.status.id == 9">
                         <button class="button bg-gray-400 mt-2" @click="generateCN">
                             Generate CN
                         </button>
-                    </div>
+                    </div> -->
                     <div v-if="sts && props.item.id == ids">
                         <div>
                             <button class="buttonHide"
@@ -148,8 +148,14 @@
                 <template v-slot:customers="props" >
                     <div>
                         <p>{{props.item.name}}</p>
-                            <!-- <p><i v-if="props.item.phone" class="fas fa-phone text-black"></i> {{props.item.phone}}</p>
-                            <p><i v-if="props.item.email" class="fas fa-envelope text-black"></i> {{props.item.email}}</p> -->
+                            <p>
+                                <i v-if="props.item.phone" class="fas fa-phone text-black"></i>
+                                {{props.item.phone}}
+                            </p>
+                            <p>
+                                <i v-if="props.item.email" class="fas fa-envelope text-black"></i>
+                                {{props.item.email}}
+                            </p>
                     </div>
                 </template>
                 <template v-slot:company="props" >
@@ -170,13 +176,20 @@
                     <div v-if="props.item.stores.plate_form == 'MimCart'">
                         <img src="~@/images/MimCart.jpg" class="h-10 w-10 rounded-full shadow-xl"/>
                     </div>
-                    <!-- <p>{{props.item.stores}}</p> -->
+               
                 </template>
 
                 <template v-slot:courier="props">
-                    <typeahead :initialize="props.item.shipped_by" :url="courier"
-                               @input="onShipped($event , props.item)" display="name"/>
+                    <div v-if="props.item.shipped_by_id"> 
+                    <typeahead  :initialize="props.item.shipped_by" :url="courier"
+                               @input="onShippeds($event  , props.item)" display="name"/>
+                            </div>
+                            <div v-else>
+                               <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
+                               @input="onShipped($event , props.item.city , props.item)" display="name"/>
+                               </div>
                 </template>
+
                 <template v-slot:action="props">
 
                     <div class="text-sm font-medium flex">
@@ -193,7 +206,7 @@
                                 <line x1="16" x2="19" y1="5" y2="8"/>
                             </svg>
                         </a>
-                         </span>
+                        </span>
                         <span v-if="permissions.includes(`delete-${small}`)">
                         <a
                             @click.prevent="deleteRole(props.item.id)"
@@ -207,20 +220,61 @@
                             </svg>
                         </a>
                         </span>
-                        <a
-                            @click.prevent="showss(props.item.id)"
-                            href="#"
-                        >
-                        <svg class="h-5 w-5 "  xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/></svg>
+                        <a @click.prevent="showss(props.item.id)" href="#">
+                            <svg class="h-5 w-5 "
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="1em"
+                                viewBox="0 0 576 512">
+                                    <path
+                                        d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
+                            </svg>
                         </a>
-                        <!-- <a>
-                            <i class="fas fa-file-export pl-1"></i>
-                        </a> -->
+                        <a @click="show_msg_modal">
+                            <i class="fas fa-message pl-1 pt-1 text-md"></i>
+                        </a>
                     </div>
                 </template>
             </panel>
         </div>
     </div>
+    <Modal :show="show_msg" closeable="true">
+            <div class="">
+                <h1 class="text-lg font-bold mt-4 mb-4 text-center">Send SMS</h1>
+                <!-- <i class="fas fa-cancel" @click="sendMsg"></i> -->
+                <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                    <div class="w-full mb-4 sm:mb-0 p-2">
+                        <label class="block font-medium text-sm text-gray-700 mb-2"
+                        >Push SMS</label>
+                        <textarea
+                            class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md"
+                            type="text"
+                            v-model="form.address"
+                        />
+                        <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-4 m-3">
+                    <!-- <button
+                        @click="formSubmitted"
+                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
+                        type="button">
+                        {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
+                    </button> -->
+                    <button
+                        @click="sendMsg"
+                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600  transition duration-200 ease-in-out"
+                        type="button">
+                        Cancel
+                    </button>
+                    <button
+                        @click="sendMsg"
+                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
+                        type="button">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </Modal>
 </template>
 
 
@@ -229,16 +283,18 @@
     import {form} from "@/libs/mixins";
     import {byMethod} from "@/libs/api";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import Modal from "@/Components/Modal.vue";
 
     export default {
         mixins: [form],
         components: {
-            Panel, Typeahead,
+            Panel, Typeahead,Modal
         },
         name: "Index",
         data() {
             return {
                 toggle: false,
+                show_msg: false,
                 sts: false,
                 id: null,
                 ids: null,
@@ -259,7 +315,7 @@
                     {label: 'Customer', field: 'customers', slot: true},
                     {label: 'Status', field: 'statuses', slot: true},
                     {label: 'Company', field: 'company', slot: true},
-                    {label: 'Store', field: 'store', slot: true},
+                    {label: 'Store', field: 'name', displayText: 'stores'},
                     {label: 'City', field: 'name', displayText: 'city'},
                     {label: 'Net Amount', field: 'total'},
                     {label: 'Packing Status', field: 'packability'},
@@ -302,11 +358,18 @@
                 this.form.deliver = deliver
                 this.form.deliver_id = deliver.id
             },
-            onShipped(e, f) {
+            onShipped(e, f , ids) {
+                console.log(e,f)
+                const shipped_by = e.target.value
+                f.couriers[0] = shipped_by
+                ids.couriers_id = shipped_by.id
+                byMethod('POST', `/api/order/${ids.id}?_method=PUT`, ids)
+            },
+            onShippeds(e, f ) {
                 console.log(e,f)
                 const shipped_by = e.target.value
                 f.shipped_by = shipped_by
-                f.shipped_by_id = shipped_by.id
+                f.couriers_id = shipped_by.id
                 byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
             },
             onCustomer(e) {
@@ -400,8 +463,13 @@
             },
             generateCN(){
                 console.log('cn print')
+            },
+            show_msg_modal(){
+                this.show_msg = true
+            },
+            sendMsg(){
+                this.show_msg = false
             }
-
         },
     }
 </script>

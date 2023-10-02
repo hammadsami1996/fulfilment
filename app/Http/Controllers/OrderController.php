@@ -21,7 +21,7 @@ class OrderController extends Controller
     public function index()
     {
 //        dd(\request()->all());
-        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'shipped_by', 'city', 'ordertype')
+        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'shipped_by', 'city', 'ordertype','stores')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
             })->when(\request()->has('packability'), function ($q) {
@@ -129,11 +129,6 @@ class OrderController extends Controller
 
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;
-//        $model->so_number = ($number->first()->perfix . $number->first()->value);
-
-        // $model->storeHasMany([
-        //     'items' => $request->items
-        // ]);
         $model->storeHasMany([
             'items' => collect($request->items)->map(function ($item) use ($request) {
                 $item['warehouse_id'] = $request->warehouse_id; // Add warehouse_id to each item
@@ -144,28 +139,7 @@ class OrderController extends Controller
         $number->update([
             'value' => ($number->first()->value + 1)
         ]);
-//        $number->update([
-//            'value' => ($number->first()->value + 1)
-//        ]);
-//        $wearhouses = $request->warehouse_id;
-//        // dd($request->warehouse_id);
-//        foreach ($request->items as $number) {
-//            // dd($number['product_id']);
-//            $inventory = Inventory::where('product_id', $number['product_id'])->where('warehouse_id', $wearhouses);
-//            $inventory->update([
-//                'qty' => ($inventory->first()->qty - $number['qty'])
-//            ]);
-//            $product = Product::where('id', $number['product_id']);
-//            $product->update([
-//                'quantity' => ($product->first()->quantity - $number['qty'])
-//            ]);
-//            // dd($number['qty']);
-//        }
-
-        // $inventory = Inventory::where('product_id' , );
-//        $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
-
     }
 
     /**
@@ -182,46 +156,15 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $model = Order::with('city', 'customer', 'items.product', 'stores', 'warehouse', 'status_logs.status', 'status_logs.user')->findOrFail($id);
+        $model = Order::with('city', 'customer', 'items.product', 'stores', 'warehouse', 'status_logs.status', 'status_logs.user', 'ordertype')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
     }
-
-
-
-
     /**
      * Update the specified resource in storage.
      */
-//    public function update(Request $request, $id)
-//    {
-//        $request->validate([
-//            'order_date' => 'required',
-//            'customer_id' => 'required',
-//            'selling_price' => 'required',
-//        ]);
-//        $c = Customer::where('phone', $request->phone)->first();
-//        if (!$c) {
-//            $Customer = new Customer();
-//            $Customer->name = $request->name;
-//            $Customer->email = $request->email;
-//            $Customer->phone = $request->phone;
-//            $Customer->s_address_1 = $request->address;
-//            $Customer->b_address_1 = $request->address;
-//            $Customer->save();
-//        }
-//        $model = Order::findOrFail($id);
-//        $model->fill($request->except('items'));
-//        if (!$c && $Customer['id']) {
-//            $model->customer_id = $Customer['id'];
-//        }
-//        $model->updateHasMany([
-//            'items' => $request->items
-//        ]);
-////        $model->save();
-//        return response()->json(["saved" => true, "id" => $model->id]);
-//    }
+
 
     public function update(Request $request, $id)
     {
@@ -230,21 +173,10 @@ class OrderController extends Controller
 //            'customer_id' => 'required',
 //            'selling_price' => 'required',
         ]);
-
         $customer = Customer::where('phone', $request->phone)->first();
-
-//        if (!$customer) {
-//            $customer = new Customer();
-//            $customer->name = $request->name;
-//            $customer->email = $request->email;
-//            $customer->phone = $request->phone;
-//            $customer->s_address_1 = $request->address;
-//            $customer->b_address_1 = $request->address;
-//            $customer->save();
-//        }
-
         $order = Order::findOrFail($id);
         $order->fill($request->except('items'));
+        $order->shipped_by_id = $request->couriers_id;
 
         // Update the customer ID for the order if a customer with the provided phone exists
         if ($customer) {
@@ -255,7 +187,6 @@ class OrderController extends Controller
         $order->updateHasMany([
             'items' => $request->items
         ]);
-
         $order->save(); // Save the changes to the order
 
         return response()->json(["saved" => true, "id" => $order->id]);
@@ -281,7 +212,6 @@ class OrderController extends Controller
         $inventory = Inventory::where('product_id', $product_id)->where('warehouse_id', $warehouse)->value('qty');
         // dd($inventory);
         return response()->json(["data" => $inventory]);
-
     }
 
     public function details()
@@ -302,7 +232,6 @@ class OrderController extends Controller
         if (!$model) {
             $model = 0;
         }
-
         return response()->json([
             "form" => $model
         ]);

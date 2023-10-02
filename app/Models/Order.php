@@ -90,5 +90,10 @@ class Order extends Model
         return $this->hasMany(Statuslog::class);
     }
 
+    public function courier()
+    {
+        return $this->belongsToMany(Courier::class,'shipped_by_id', 'id');
+    }
+
 
 }

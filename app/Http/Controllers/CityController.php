@@ -29,11 +29,13 @@ class CityController extends Controller
     public function index()
     {
         
-        // dd(request()->all());
+        // dd(request('city'));
         return response()->json(['data' => City::with('couriers')->when(\request()->has('country_id') && \request('country_id'), function ($q) {
-            $q->where('country_id', \request('country_id'))->when(request('city', null), function ($query) {
-                $query->where('name', 'like', '%' . request('city') . '%');
-            });
+            $q->where('country_id', \request('country_id'));})->when(request()->has('city') && request('city'), function ($q) {
+
+                // dd('abcd');
+                $q->where('name', 'like', '%' . request('city') . '%');
+           
         })
         ->search()]);
     }
@@ -106,35 +108,27 @@ class CityController extends Controller
 
 
     public function storebulk(Request $request){
-
-        // dd($request->all());
         if($request->city_id){
-            
-
             $city = City::where('id' , $request->city_id)->pluck('id');
-            // dd('abcd');
-
-
         }
         else{
             $city = City::where('country_id' , $request->country_id)->pluck('id');
         }
-            // dd($city);
             foreach($city as $city_id){
                 $deleted = City_Courier::where('city_id' , $city_id)->first();
-                // dd($deleted);
                 if($deleted){
                     $deleted->delete();
                 }
-                
                 $pivot = new City_Courier;
                 $pivot->city_id = $city_id;
-                $pivot->courier_id = $request->courier_id;
-                $pivot->delivery_charges = $request->shipping_charges;
+                if(isset($request->courier_id)){
+                    $pivot->courier_id = $request->courier_id;
+                }
+                if(isset($request->shipping_charges)){
+                    $pivot->delivery_charges = $request->shipping_charges;
+                }
                 $pivot->save();
-
             }
             return response()->json(['saved' => true]);
-       
     }
 }

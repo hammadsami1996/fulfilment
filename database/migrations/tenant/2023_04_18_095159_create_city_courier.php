@@ -16,11 +16,9 @@ return new class extends Migration
             $table->integer('city_id')->nullable();
             $table->integer('courier_id')->nullable();
 
-            $table->string('delivery_charges');
+            $table->string('delivery_charges')->default(0);
        
 
-           
-           
             $table->timestamps();
         });
     }
