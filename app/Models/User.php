@@ -75,8 +75,8 @@ class User extends Authenticatable
 
     public function getAllPermissions()
     {
-        return DB::connection('mysql')->table('permissions')->get();
-
+//dd(DB::connection('mysql')->table('permissions')->whereIn('id',DB::table('role_has_permissions')->whereIn('role_id',auth()->user()->roles->pluck('id')->toArray())->pluck('permission_id')->toArray())->get());
+        return DB::connection('mysql')->table('permissions')->whereIn('id', DB::table('role_has_permissions')->whereIn('role_id', auth()->user()->roles->pluck('id')->toArray())->pluck('permission_id')->toArray())->get();
     }
 
     public function getTextAttribute()
@@ -99,11 +99,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
+
     public function tent()
     {
         return $this->belongsTo(Tenant::class, 'name', 'id');
     }
-
 
 
 }
