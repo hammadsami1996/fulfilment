@@ -149,7 +149,8 @@
                         <label class="block text-sm font-medium text-gray-700">Cost Price</label>
                         <input
                             class="w-full py-1 px-2 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            type="number" v-model="form.cost_price">
+                            type="text" v-model="form.cost_price"
+                            @input="form.cost_price = form.cost_price.replace(/[^0-9]/g, '')" >
                         <p class="text-red-600 text-xs italic" v-if="error.cost_price">{{ error.cost_price[0] }}</p>
 
                     </div>
@@ -157,7 +158,8 @@
                         <label class="block text-sm font-medium text-gray-700">Selling Price</label>
                         <input
                             class="w-full py-1 px-2 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            type="number" v-model="form.selling_price" >
+                            type="text" v-model="form.selling_price" 
+                            @input="form.selling_price = form.selling_price.replace(/[^0-9]/g, '')">
                         <p class="text-red-600 text-xs italic" v-if="error.selling_price">{{ error.selling_price[0] }}</p>
                     </div>
                 </div>
@@ -229,7 +231,8 @@
                             <label class="block text-sm font-medium text-gray-700">Model No</label>
                             <input
                                 class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                placeholder="Model No" type="number" v-model="form.model_no"
+                                placeholder="Model No" type="text" v-model="form.model_no"
+                                @input="form.model_no = form.model_no.replace(/[^0-9]/g, '')"
                             />
                             <p class="text-red-600 text-xs italic" v-if="error.model_no">{{ error.model_no[0] }}</p>
                         </div>
@@ -237,7 +240,8 @@
                             <label class="block text-sm font-medium text-gray-700">Barcode</label>
                             <input
                                 class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                placeholder="Barcode" type="number" v-model="form.barcode"
+                                placeholder="Barcode" type="text" v-model="form.barcode"
+                                @input="form.barcode = form.barcode.replace(/[^0-9]/g, '')"
                             />
                             <p class="text-red-600 text-xs italic" v-if="error.barcode">{{ error.barcode[0] }}</p>
 
@@ -246,14 +250,16 @@
                             <label class="block text-sm font-medium text-gray-700">Product Quantity</label>
                             <input
                                 class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                placeholder="Quantity" type="number" v-model="form.quantity"
+                                placeholder="Quantity" type="text" v-model="form.quantity"
+                                @input="form.quantity = form.quantity.replace(/[^0-9]/g, '')"
                             />
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Weight</label>
                             <input
                                 class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                 type="number" v-model="form.weight"
+                                 type="text" v-model="form.weight"
+                                 @input="form.weight = form.weight.replace(/[^0-9]/g, '')"
                             />
                         </div>
                     </div>
