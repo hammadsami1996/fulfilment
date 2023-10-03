@@ -25,16 +25,16 @@ class CreatePermissionTables extends Migration
             throw new \Exception('Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear] and try again.');
         }
 
-        Schema::create($tableNames['permissions'], function (Blueprint $table) {
-            $table->bigIncrements('id'); // permission id
-            $table->string('name')->nullable();       // For MySQL 8.0 use string('name', 125);
-            $table->string('guard_name')->default('web'); // For MySQL 8.0 use string('guard_name', 125);
-            $table->string('group')->nullable();
-            $table->string('menu')->nullable();
-            $table->integer('group_id')->nullable();
-            $table->integer('menu_id')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create($tableNames['permissions'], function (Blueprint $table) {
+        //     $table->bigIncrements('id'); // permission id
+        //     $table->string('name')->nullable();       // For MySQL 8.0 use string('name', 125);
+        //     $table->string('guard_name')->default('web'); // For MySQL 8.0 use string('guard_name', 125);
+        //     $table->string('group')->nullable();
+        //     $table->string('menu')->nullable();
+        //     $table->integer('group_id')->nullable();
+        //     $table->integer('menu_id')->nullable();
+        //     $table->timestamps();
+        // });
 
         Schema::create($tableNames['roles'], function (Blueprint $table) use ($teams, $columnNames) {
             $table->bigIncrements('id'); // role id
@@ -51,6 +51,25 @@ class CreatePermissionTables extends Migration
                 $table->unique(['name', 'guard_name']);
             }
         });
+
+        DB::table('roles')->insert(
+            [
+                'name' => 'Admin',
+                'guard_name' => 'web',
+            ]
+        );
+        DB::table('roles')->insert(
+            [
+                'name' => 'Employee',
+                'guard_name' => 'web',
+            ]
+        );
+        DB::table('roles')->insert(
+            [
+                'name' => 'Candidate',
+                'guard_name' => 'web',
+            ]
+        );
 
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
             $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);

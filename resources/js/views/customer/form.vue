@@ -69,8 +69,9 @@
                 >Phone <span class="text-red-600">*</span></label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    type="number"
+                    type="text"
                     v-model="form.phone"
+                    @input="form.phone = form.phone.replace(/[^0-9]/g, '')"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.phone">{{error.phone[0] }}</p>
             </div>
@@ -80,8 +81,9 @@
                 >CNIC </label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    type="number"
+                    type="text"
                     v-model="form.cnic"
+                    @input="form.cnic = form.cnic.replace(/[^0-9]/g, '')"
                 />
                <!-- <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p> -->
             </div>
@@ -105,8 +107,9 @@
                 >Phone</label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    type="number"
+                    type="text"
                     v-model="form.b_phone"
+                    @input="form.b_phone = form.b_phone.replace(/[^0-9]/g, '')"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_phone">{{error.b_phone[0] }}</p>
             </div>
@@ -170,8 +173,9 @@
                 >Phone</label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    type="number"
+                    type="text"
                     v-model="form.s_phone"
+                    @input="form.s_phone = form.s_phone.replace(/[^0-9]/g, '')"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_phone">{{error.s_phone[0] }}</p>
             </div>

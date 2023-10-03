@@ -16,10 +16,10 @@ class Menu extends Model
         $permissionsData = collect(auth()->user()->getAllPermissions());
         $permissions = $permissionsData->pluck('name');
         return $this->hasMany(Menu::class, 'head_id', 'id')->with('children')
-//            ->where(function ($q) use ($permissions) {
-//                $q->whereIn('route', $permissions)
-//                    ->orWhere('route', '=', null);
-//            })
+            ->where(function ($q) use ($permissions) {
+                $q->whereIn('route', $permissions)
+                    ->orWhere('route', '=', null);
+            })
             ;
     }
 }

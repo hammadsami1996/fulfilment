@@ -186,9 +186,9 @@
                         <!-- <p>{{props.item}}</p> -->
                     </div>
                     <div v-else>
-                        <!-- <p>{{props.item}}</p> -->
-                       <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
-                            @input="onShipped($event , props.item.city , props.item)" display="name"/>
+                        <!-- <p>{{props.item.city}}</p> -->
+                       <!-- <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
+                            @input="onShipped($event , props.item.city , props.item)" display="name"/> -->
                     </div>
                 </template>
 
