@@ -18,6 +18,13 @@ return new class extends Migration
             $table->dateTime('active')->nullable();
             $table->timestamps();
         });
+        
+        DB::table('brands')->insert(
+            [
+                'title' => 'General Brand',
+               
+            ]
+        );
     }
 
     /**

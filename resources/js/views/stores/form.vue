@@ -99,7 +99,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
                     <input
                         class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
-                        v-model="form.word_address"
+                        v-model="form.word_address" placeholder="https://example.com"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
@@ -122,10 +122,10 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
                      v-if="form.plate_form == 'MimCart'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Store Addres</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
                     <input
                         class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
-                        v-model="form.mim_store_address"
+                        v-model="form.mim_store_address" placeholder="https://example.com"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>

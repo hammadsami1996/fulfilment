@@ -34,7 +34,7 @@
                     >Website</label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                        placeholder=" Website"
+                        placeholder=" Website" type="url"
                         v-model="form.website"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.website">{{ error.website[0] }}</p>
