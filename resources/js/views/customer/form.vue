@@ -69,7 +69,7 @@
                 >Phone <span class="text-red-600">*</span></label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    type="number"
+                    type="text"
                     v-model="form.phone"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.phone">{{error.phone[0] }}</p>
@@ -105,7 +105,7 @@
                 >Phone</label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    type="number"
+                    type="text"
                     v-model="form.b_phone"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_phone">{{error.b_phone[0] }}</p>
@@ -170,7 +170,7 @@
                 >Phone</label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    type="number"
+                    type="text"
                     v-model="form.s_phone"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_phone">{{error.s_phone[0] }}</p>
