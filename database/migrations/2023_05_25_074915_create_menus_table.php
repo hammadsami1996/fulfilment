@@ -96,9 +96,46 @@ return new class extends Migration
         );
         DB::table('menus')->insert(
             [
+                'title' => 'Product Category',
+                'url' => '/product_category',
+                'route' => 'view-product_category',
+                'head_id' => 8,
+                'guard' => 'web',
+            ]
+        );
+          
+        DB::table('menus')->insert(
+            [
+                'title' => 'Brand',
+                'url' => '/brand',
+                'route' => 'view-brand',
+                'head_id' => 8,
+                'guard' => 'web',
+            ]
+        );
+        DB::table('menus')->insert(
+            [
+                'title' => 'Suppliers',
+                'url' => '/supplier',
+                'route' => 'view-supplier',
+                'head_id' => 8,
+                'guard' => 'web',
+            ]
+        );
+        DB::table('menus')->insert(
+            [
                 'title' => 'Product',
                 'url' => '/product',
                 'route' => 'view-product',
+                'head_id' => 8,
+                'guard' => 'web',
+            ]
+        );
+        DB::table('menus')->insert(
+            [
+                'title' => 'Purchase',
+                'url' => '/purchase',
+                'route' => 'view-purchase',
                 'head_id' => 8,
                 'guard' => 'web',
             ]
@@ -112,24 +149,7 @@ return new class extends Migration
                 'guard' => 'web',
             ]
         );
-        DB::table('menus')->insert(
-            [
-                'title' => 'Product Category',
-                'url' => '/product_category',
-                'route' => 'view-product_category',
-                'head_id' => 8,
-                'guard' => 'web',
-            ]
-        );
-        DB::table('menus')->insert(
-            [
-                'title' => 'Brand',
-                'url' => '/brand',
-                'route' => 'view-brand',
-                'head_id' => 8,
-                'guard' => 'web',
-            ]
-        );
+    
         DB::table('menus')->insert(
             [
                 'title' => 'Orders Management',
@@ -172,15 +192,7 @@ return new class extends Migration
                 'guard' => 'web',
             ]
         );
-        DB::table('menus')->insert(
-            [
-                'title' => 'Suppliers',
-                'url' => '/supplier',
-                'route' => 'view-supplier',
-                'head_id' => 16,
-                'guard' => 'web',
-            ]
-        );
+     
         DB::table('menus')->insert(
             [
                 'title' => 'Place Replacement Order',
@@ -252,15 +264,7 @@ return new class extends Migration
                 'guard' => 'web',
             ]
         );
-        DB::table('menus')->insert(
-            [
-                'title' => 'Purchase',
-                'url' => '/purchase',
-                'route' => 'view-purchase',
-                'head_id' => 8,
-                'guard' => 'web',
-            ]
-        );
+      
         DB::table('menus')->insert(
             [
                 'title' => 'Fetch Order',
