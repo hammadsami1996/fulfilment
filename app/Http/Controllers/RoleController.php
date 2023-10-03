@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Permission as PermissionCustom;
 use App\Models\Role as RoleCustom;
 use Illuminate\Http\Request;
