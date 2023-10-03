@@ -25,6 +25,7 @@ class CreatePermissionsTables extends Migration
             throw new \Exception('Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear] and try again.');
         }
         DB::unprepared(file_get_contents(public_path('/permissions.sql')));
+        DB::unprepared(file_get_contents(public_path('/role_has_permissions.sql')));
 
 //        Schema::create($tableNames['permissions'], function (Blueprint $table) {
 //            $table->bigIncrements('id'); // permission id
