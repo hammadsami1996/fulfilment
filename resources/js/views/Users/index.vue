@@ -55,8 +55,8 @@
         </div>
 
         <Modal :show="isOpen" closeable="true">
-            <div class="bg-gray-100">
-                <div class="p-5 grow">
+            <div class="bg-gray-100" >
+                <div class="p-5 grow" style="height: 250px">
                     <label class="flex items-center text-gray-700 text-lg font-bold ml-2">Roles</label>
                     <typeahead :initialize="user_data.roles" @input="onRoles"
                                display="name" url="/api/role"/>
