@@ -57,6 +57,7 @@ class ShopifyController extends Controller
                     $shopify = $response->json();
                     $i = 0;
                     foreach ($shopify['orders'] as $rec) {
+                        // dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify');
                         if (!$order->first()) {
                             ++$i;
@@ -70,9 +71,9 @@ class ShopifyController extends Controller
                                     $order->customer_id = $customer['id'];
                                 } else {
                                     $customer = new Customer();
-                                    $customer->name = $rec['customer']['first_name'];
-                                    $customer->s_address_1 = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
-                                    $customer->b_address_1 = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
+                                    $customer->name = $rec['customer']['default_address']['name'];
+                                    // $customer->s_address_1 = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
+                                    // $customer->b_address_1 = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
                                     $customer->email = $rec['customer']['email'];
                                     $customer->phone = $rec['customer']['phone'];
                                     $b_city = City::where('name', $rec['billing_address']['city'])->first();
@@ -80,7 +81,7 @@ class ShopifyController extends Controller
                                         $customer->b_city_id = $b_city['id'];
                                         $customer->b_country_id = $b_city['country_id'];
                                     }
-                                    $customer->b_name = $rec['billing_address']['first_name'];
+                                    $customer->b_name = $rec['billing_address']['name'];
                                     $customer->b_phone = $rec['billing_address']['phone'];
                                     $customer->b_address_1 = $rec['billing_address']['address1'];
                                     $customer->b_address_2 = $rec['billing_address']['address2'];
@@ -91,7 +92,7 @@ class ShopifyController extends Controller
                                             $customer->s_country_id = $s_city['country_id'];
                                         }
                                     }
-                                    $customer->s_name = $rec['shipping_address']['first_name'];
+                                    $customer->s_name = $rec['shipping_address']['name'];
                                     $customer->s_phone = $rec['shipping_address']['phone'];
                                     $customer->s_address_1 = $rec['shipping_address']['address1'];
                                     $customer->s_address_2 = $rec['shipping_address']['address2'];
@@ -100,10 +101,14 @@ class ShopifyController extends Controller
                                 }
                             }
                             $s_city = City::where('name', $rec['shipping_address']['city'])->first();
-                            $order->name = $rec['customer']['first_name'];
-                            $order->email = $rec['customer']['email'];
-                            $order->phone = $rec['customer']['phone'];
-                            $order->address = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
+                            $order->b_name = $rec['billing_address']['name'];
+                            $order->b_phone = $rec['billing_address']['phone'];
+                            $order->b_address_1 = $rec['billing_address']['address1'];
+
+                            $order->s_name = $rec['shipping_address']['name'];
+                            $order->s_phone = $rec['shipping_address']['phone'];
+                            $order->s_address_1 = $rec['shipping_address']['address1'];
+                            
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['total_shipping_price_set']['presentment_money']['amount'];
                             $order->total = $rec['total_price'];
