@@ -108,6 +108,7 @@ class WordpressController extends Controller
                 if ($response->successful()) {
                     $i = 0;
                     foreach ($response->json() as $rec) {
+                        dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'WooCommerce');
                         if (!$order->first()) {
                             ++$i;

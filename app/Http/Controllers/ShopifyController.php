@@ -57,7 +57,7 @@ class ShopifyController extends Controller
                     $shopify = $response->json();
                     $i = 0;
                     foreach ($shopify['orders'] as $rec) {
-                        // dd($rec);
+                        dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify');
                         if (!$order->first()) {
                             ++$i;

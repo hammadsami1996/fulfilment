@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('s_email' , 50)->nullable();
             $table->string('s_address_1')->nullable();
             $table->string('s_phone' , 20)->nullable();
-            $table->string('b_name', 30)->nullable();
+            $table->string('b_name', 50)->nullable();
             $table->string('b_email' , 50)->nullable();
             $table->string('b_address_1')->nullable();
             $table->string('b_phone' , 20)->nullable();

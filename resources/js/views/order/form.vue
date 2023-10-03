@@ -64,8 +64,8 @@
                     <typeahead :initialize="form.ordertype" :url="ordertype" @input="onOrder_type" display="name"/>
                 </div>
             </div>
-            <hr class="mt-6">
-            <h1 class="font-bold mt-2 mb-2">Shipping</h1>
+            <hr class="mt-4">
+            <h1 class="font-bold mt-1">Shipping</h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Shiping Name </label>
@@ -92,8 +92,8 @@
                     <!-- <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p> -->
                 </div>
             </div>
-            <hr class="mt-6">
-            <h1 class="font-bold mt-2 mb-2">Billing</h1>
+            <hr class="mt-4">
+            <h1 class="font-bold mt-1">Billing</h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Billing Name </label>
