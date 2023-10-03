@@ -33,6 +33,11 @@
                         <tr>
                             <th class="px-2 py-2 items-center flex">{{permission.menu}}</th>
                         </tr>
+<!--                        <tr>-->
+<!--                            <th class="px-2 py-2 items-center flex">View</th>-->
+<!--                            <th class="px-2 py-2 items-center flex">Edit</th>-->
+<!--                            <th class="px-2 py-2 items-center flex">Create</th>-->
+<!--                        </tr>-->
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200 mt-6">
                         <tr :key="menu.id" v-for="menu in permission.menus">
@@ -42,8 +47,7 @@
                                 :value="item.name"
                                 class="form-checkbox h-4 w-4 text-indigo-600" type="checkbox"
                                 v-model="selectedPermissions"
-                            ><span
-                                class="ml-2 text-gray-700">{{item.name}}</span></td>
+                            ><span class="ml-2 text-gray-700">{{item.name}}</span></td>
                         </tr>
                         </tbody>
                     </template>

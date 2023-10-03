@@ -58,11 +58,12 @@
                         for="mc-role-guard_name"
                     >Mobile No <span class="text-red-600">*</span></label>
                     <input
-                        type="number"
+                        type="text"
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         id="mc-role-guard_name"
                         placeholder=" Mobile"
                         v-model="form.mobile_no"
+                        @input="form.mobile_no = form.mobile_no.replace(/[^0-9]/g, '')"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.mobile_no">{{ error.mobile_no[0] }}</p>
 

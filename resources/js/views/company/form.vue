@@ -30,8 +30,9 @@
                     >Phone <span class="text-red-600">*</span></label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                        type="number"
+                        type="text"
                         v-model="form.phone"
+                        @input="form.phone = form.phone.replace(/[^0-9]/g, '')"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
                 </div>
@@ -40,8 +41,9 @@
                     >Tax Number</label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                        type="number"
+                        type="text"
                         v-model="form.tax_number"
+                        @input="form.tax_number = form.tax_number.replace(/[^0-9]/g, '')"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.tax_number">{{ error.tax_number[0] }}</p>
                 </div>
@@ -70,8 +72,9 @@
                     >Postal/ Zip Code</label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                        type="number"
+                        type="text"
                         v-model="form.postal"
+                        @input="form.postal = form.postal.replace(/[^0-9]/g, '')"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.postal">{{ error.postal[0] }}</p>
                 </div>

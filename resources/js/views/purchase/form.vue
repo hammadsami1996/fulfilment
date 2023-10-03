@@ -20,8 +20,9 @@
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" PO Reference No."
-                        type="number"
+                        type="text"
                         v-model="form.po_reference_number"
+                        @input="form.po_reference_number = form.po_reference_number.replace(/[^0-9]/g, '')"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.po_reference_number">
                         {{error.po_reference_number[0] }}</p>
@@ -144,7 +145,7 @@
                         <td>
                             <input @blur="caltax(item, index)" @input="caltax(item, index)"
                                    class=" px-2 py-1 mr-3 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                   type="number"
+                                   type="text"
                                    v-model="item.unit_price"
                             >
                         </td>
