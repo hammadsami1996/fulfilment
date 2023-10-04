@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->decimal('price')->nullable();
+            $table->timestamp('deleted_at');
             $table->timestamps();
         });
     }

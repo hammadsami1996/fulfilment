@@ -18,7 +18,11 @@
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 pl-2 pt-6">
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600"  v-model="form.status">
+                        <!-- <input type="checkbox"  class="form-checkbox h-6 w-6 text-indigo-600" checked  v-model="if (form.status && form.status == 1) { 
+                            
+                        } "> -->
+                        <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" :checked="form.status === 1" @change="form.status = (form.status === 1) ? '' : 1">
+                        <!-- <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" checked v-model="form.status"> -->
                         <span class="text-gray-700">Status</span>
                     </label>
 <!--                    <label-->
@@ -102,6 +106,7 @@
                 if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
                     this.title = 'Edit';
+                   
                     this.message = `${this.capital} has been updated`;
                 }
                 this.show = true
