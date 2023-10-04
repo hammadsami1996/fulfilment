@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\City_Courier;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
@@ -57,6 +58,7 @@ class ShopifyController extends Controller
                     $shopify = $response->json();
                     $i = 0;
                     foreach ($shopify['orders'] as $rec) {
+
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify');
                         if (!$order->first()) {
                             ++$i;
@@ -99,11 +101,19 @@ class ShopifyController extends Controller
                                     $order->customer_id = $customer['id'];
                                 }
                             }
-                            $s_city = City::where('name', $rec['shipping_address']['city'])->first();
                             $order->b_name = $rec['billing_address']['name'];
                             $order->b_phone = $rec['billing_address']['phone'];
                             $order->b_address_1 = $rec['billing_address']['address1'];
 
+                            $s_city = City::where('name', $rec['shipping_address']['city'])->first();
+                            if ($s_city) {
+                                $order->city_id = $s_city->id;
+                                $cityCourier = City_Courier::where('city_id', $s_city->id)->first();
+                                if ($cityCourier) {
+                                    $order->shipped_by_id = $cityCourier->courier_id;
+//                                    $order->delivery_charges = $cityCourier->delivery_charges;
+                                }
+                            }
                             $order->s_name = $rec['shipping_address']['name'];
                             $order->s_phone = $rec['shipping_address']['phone'];
                             $order->s_address_1 = $rec['shipping_address']['address1'];
