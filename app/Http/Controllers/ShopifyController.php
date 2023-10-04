@@ -57,7 +57,6 @@ class ShopifyController extends Controller
                     $shopify = $response->json();
                     $i = 0;
                     foreach ($shopify['orders'] as $rec) {
-                        dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify');
                         if (!$order->first()) {
                             ++$i;
@@ -108,7 +107,7 @@ class ShopifyController extends Controller
                             $order->s_name = $rec['shipping_address']['name'];
                             $order->s_phone = $rec['shipping_address']['phone'];
                             $order->s_address_1 = $rec['shipping_address']['address1'];
-                            
+
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['total_shipping_price_set']['presentment_money']['amount'];
                             $order->total = $rec['total_price'];
