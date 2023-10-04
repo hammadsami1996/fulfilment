@@ -10,5 +10,9 @@ class City_Courier extends Model
     use HasFactory;
 
     protected $table = 'city_courier';
-    
+    protected $fillable = [
+        'city_id',
+        'courier_id',
+        'delivery_charges',
+    ];
 }

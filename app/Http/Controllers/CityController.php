@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
-use App\Models\CityPivot;
 use App\Models\City_Courier;
-
 use Illuminate\Http\Request;
 
 
@@ -28,16 +26,14 @@ class CityController extends Controller
 
     public function index()
     {
-        
-        // dd(request('city'));
-        return response()->json(['data' => City::with('couriers')->when(\request()->has('country_id') && \request('country_id'), function ($q) {
-            $q->where('country_id', \request('country_id'));})->when(request()->has('city') && request('city'), function ($q) {
-
-                // dd('abcd');
-                $q->where('name', 'like', '%' . request('city') . '%');
-           
-        })
-        ->search()]);
+        return response()->json(['data' => City::with('couriers')
+            ->when(\request()->has('country_id') && \request('country_id'), function ($q) {
+            $q->where('country_id', \request('country_id'));
+        })->when(\request()->has('city_id') && \request('city_id'), function ($q) {
+            $q->where('id', \request('city_id'));
+        })->when(request()->has('city') && request('city'), function ($q) {
+            $q->where('name', 'like', '%' . request('city') . '%');
+        })->search()]);
     }
 
     /**
@@ -105,30 +101,60 @@ class CityController extends Controller
     {
         //
     }
+    public function storebulk(Request $request)
+    {
+        $cityIds = [];
 
+        if ($request->city_id) {
+            $cityIds = [$request->city_id];
+        } elseif ($request->country_id) {
+            $cityIds = City::where('country_id', $request->country_id)->pluck('id')->toArray();
+        }
 
-    public function storebulk(Request $request){
-        if($request->city_id){
-            $city = City::where('id' , $request->city_id)->pluck('id');
-        }
-        else{
-            $city = City::where('country_id' , $request->country_id)->pluck('id');
-        }
-            foreach($city as $city_id){
-                $deleted = City_Courier::where('city_id' , $city_id)->first();
-                if($deleted){
-                    $deleted->delete();
-                }
-                $pivot = new City_Courier;
-                $pivot->city_id = $city_id;
-                if(isset($request->courier_id)){
-                    $pivot->courier_id = $request->courier_id;
-                }
-                if(isset($request->shipping_charges)){
-                    $pivot->delivery_charges = $request->shipping_charges;
-                }
-                $pivot->save();
+        if (!empty($cityIds)) {
+            City_Courier::whereIn('city_id', $cityIds)->delete();
+
+            $pivotData = [];
+
+            if (isset($request->courier_id)) {
+                $pivotData['courier_id'] = $request->courier_id;
             }
-            return response()->json(['saved' => true]);
+            if (isset($request->shipping_charges)) {
+                $pivotData['delivery_charges'] = $request->shipping_charges;
+            }
+
+            foreach ($cityIds as $cityId) {
+                $pivotData['city_id'] = $cityId;
+                City_Courier::create($pivotData);
+            }
+        }
+
+        return response()->json(['saved' => true]);
     }
+
+
+//    public function storebulk(Request $request)
+//    {
+//        if ($request->city_id) {
+//            $city = City::where('id', $request->city_id)->pluck('id');
+//        } else {
+//            $city = City::where('country_id', $request->country_id)->pluck('id');
+//        }
+//        foreach ($city as $city_id) {
+//            $deleted = City_Courier::where('city_id', $city_id)->first();
+//            if ($deleted) {
+//                $deleted->delete();
+//            }
+//            $pivot = new City_Courier;
+//            $pivot->city_id = $city_id;
+//            if (isset($request->courier_id)) {
+//                $pivot->courier_id = $request->courier_id;
+//            }
+//            if (isset($request->shipping_charges)) {
+//                $pivot->delivery_charges = $request->shipping_charges;
+//            }
+//            $pivot->save();
+//        }
+//        return response()->json(['saved' => true]);
+//    }
 }

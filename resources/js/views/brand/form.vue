@@ -18,20 +18,21 @@
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 pl-2 pt-6">
                     <label class="flex items-center space-x-2">
-                        <!-- <input type="checkbox"  class="form-checkbox h-6 w-6 text-indigo-600" checked  v-model="if (form.status && form.status == 1) { 
-                            
+                        <!-- <input type="checkbox"  class="form-checkbox h-6 w-6 text-indigo-600" checked  v-model="if (form.status && form.status == 1) {
+
                         } "> -->
-                        <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" :checked="form.status === 1" @change="form.status = (form.status === 1) ? '' : 1">
+                        <input :checked="form.status === 1" @change="form.status = (form.status === 1) ? '' : 1"
+                               class="form-checkbox h-6 w-6 text-indigo-600" type="checkbox">
                         <!-- <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" checked v-model="form.status"> -->
                         <span class="text-gray-700">Status</span>
                     </label>
-<!--                    <label-->
-<!--                        class="block font-medium text-sm text-gray-700 mb-2"-->
-<!--                    >Status </label>-->
-<!--                    <input-->
-<!--                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"-->
-<!--                        v-model="form.status"-->
-<!--                    /><p class="text-red-600 text-xs italic" v-if="error.status">{{ error.status[0] }}</p>-->
+                    <!--                    <label-->
+                    <!--                        class="block font-medium text-sm text-gray-700 mb-2"-->
+                    <!--                    >Status </label>-->
+                    <!--                    <input-->
+                    <!--                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"-->
+                    <!--                        v-model="form.status"-->
+                    <!--                    /><p class="text-red-600 text-xs italic" v-if="error.status">{{ error.status[0] }}</p>-->
                 </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">
@@ -106,7 +107,7 @@
                 if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
                     this.title = 'Edit';
-                   
+
                     this.message = `${this.capital} has been updated`;
                 }
                 this.show = true
