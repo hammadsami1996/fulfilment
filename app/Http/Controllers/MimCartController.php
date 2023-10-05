@@ -41,13 +41,14 @@ class MimCartController extends Controller
                 if ($response->successful()) {
                     $i = 0;
                     foreach ($response->json() as $rec) {
+                        // dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart');
                         if (!$order->first()) {
                             ++$i;
                             $order = new Order();
                             $order->order_form = 'MimCart';
                             $order->external_order_no = $rec['id'];
-                            $order->name = $rec['name'];
+                            // $order->name = $rec['name'];
                             if ($rec['mobile']) {
                                 $customer = Customer::where('phone', $rec['mobile'])->first();
                                 if ($customer) {
@@ -55,17 +56,31 @@ class MimCartController extends Controller
                                 } else {
                                     $customer = new Customer();
                                     $customer->name = $rec['name'];
-                                    $customer->s_address_1 = $rec['address'];
-                                    $customer->b_address_1 = $rec['address'];
                                     $customer->email = $rec['email'];
                                     $customer->phone = $rec['mobile'];
+                                    $customer->address = $rec['address'];
+
+                                    $customer->b_name = $rec['name'];
+                                    $customer->b_phone = $rec['mobile'];
+                                    $customer->b_address_1 = $rec['address'];
+
+                                    $customer->s_name = $rec['name'];
+                                    $customer->s_phone = $rec['mobile'];
+                                    $customer->s_address_1 = $rec['address'];
+
                                     $customer->save();
                                     $order->customer_id = $customer['id'];
                                 }
                             }
-                            $order->email = $rec['email'];
-                            $order->phone = $rec['mobile'];
-                            $order->s_addres_1 = $rec['address'];
+
+                            $order->b_name = $rec['name'];
+                            $order->b_phone = $rec['mobile'];
+                            $order->b_address_1 = $rec['address'];
+
+                            $order->s_name = $rec['name'];
+                            $order->s_phone = $rec['mobile'];
+                            $order->s_address_1 = $rec['address'];
+
                             $order->instraction = $rec['instructions'];
                             $order->city_id = $rec['city'];
                             $order->store_id = $id;

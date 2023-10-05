@@ -317,7 +317,7 @@
                         <!-- END Table Body -->
 
                         <!-- Start Table Footer -->
-                        
+
                         <!-- END Table Footer -->
                     </table>
                 </div>
@@ -327,9 +327,9 @@
                                     Show Records
                                     <select @change="page(1)" @input="(value) => perPageUpdate(value)"
                                             class="text-center border border-gray-300 rounded pt-0.5 pb-0.5" v-model="pageLength">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
                                         <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="500">500</option>
                                     </select>
                                     From {{ model.from }} To {{ model.to }} of {{ model.total }} entries -
                                     Page {{ model.current_page }} of {{ model.last_page }}

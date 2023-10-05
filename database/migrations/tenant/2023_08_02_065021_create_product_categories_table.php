@@ -17,6 +17,13 @@ return new class extends Migration
             $table->integer('parent_id')->nullable();
             $table->timestamps();
         });
+        
+        DB::table('product_categories')->insert(
+            [
+                'name' => 'General Category',
+              
+            ]
+        );
     }
 
     /**

@@ -110,7 +110,7 @@ class WordpressController extends Controller
                     $i = 0;
 
                     foreach ($response->json() as $rec) {
-//                        dd($rec);
+                        // dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'WooCommerce');
                         if (!$order->first()) {
                             ++$i;
@@ -124,17 +124,19 @@ class WordpressController extends Controller
                                     $order->customer_id = $customer['id'];
                                 } else {
                                     $customer = new Customer();
-                                    $customer->name = $rec['billing']['first_name'];
-                                    $customer->address = $rec['shipping']['address_1'] . $rec['shipping']['address_2'];
-
+                                    $customer->name = $rec['billing']['first_name'] . $rec['billing']['last_name'];
+                                    $customer->address = $rec['billing']['address_1'] . $rec['billing']['address_2'];
                                     $customer->email = $rec['billing']['email'];
                                     $customer->phone = $rec['billing']['phone'];
 
                                     $b_city = City::where('name', $rec['billing']['city'])->first();
 
-                                    $customer->b_city_id = $b_city['id'];
-                                    $customer->b_country_id = $b_city['country_id'];
-                                    $customer->b_name = $rec['billing']['first_name'];
+                                    if ($b_city) {
+                                        $customer->b_city_id = $b_city['id'];
+                                        $customer->b_country_id = $b_city['country_id'];
+                                    }
+
+                                    $customer->b_name = $rec['billing']['first_name'] . $rec['billing']['last_name'];
                                     $customer->b_phone = $rec['billing']['phone'];
                                     $customer->b_address_1 = $rec['billing']['address_1'];
                                     $customer->b_address_2 = $rec['billing']['address_2'];
@@ -146,7 +148,7 @@ class WordpressController extends Controller
                                             $customer->s_country_id = $s_city['country_id'];
                                         }
                                     }
-                                    $customer->s_name = $rec['shipping']['first_name'];
+                                    $customer->s_name = $rec['shipping']['first_name'] . $rec['shipping']['last_name'];
                                     $customer->s_phone = $rec['shipping']['phone'];
                                     $customer->s_address_1 = $rec['shipping']['address_1'];
                                     $customer->s_address_2 = $rec['shipping']['address_2'];
@@ -154,10 +156,19 @@ class WordpressController extends Controller
                                     $order->customer_id = $customer['id'];
                                 }
                             }
-                            $order->name = $rec['billing']['first_name'];
-                            $order->email = $rec['billing']['email'];
-                            $order->phone = $rec['billing']['phone'];
-                            $order->address = $rec['billing']['address_1'] . $rec['billing']['address_2'];
+                            // $order->name = $rec['billing']['first_name'];
+                            // $order->email = $rec['billing']['email'];
+                            // $order->phone = $rec['billing']['phone'];
+                            // $order->address = $rec['billing']['address_1'] . $rec['billing']['address_2'];
+
+                            $order->b_name = $rec['billing']['first_name'] . $rec['billing']['last_name'];
+                            $order->b_phone = $rec['billing']['phone'];
+                            $order->b_address_1 = $rec['billing']['address_1'] . $rec['billing']['address_2'];
+
+                            $order->s_name = $rec['shipping']['first_name'] . $rec['shipping']['last_name'];
+                            $order->s_phone = $rec['shipping']['phone'];
+                            $order->s_address_1 = $rec['shipping']['address_1'] . $rec['shipping']['address_2'];
+
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_tax'];
                             $order->total = $rec['total'];

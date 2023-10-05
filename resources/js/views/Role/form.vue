@@ -29,25 +29,33 @@
                 <h3 class="text-xl font-bold mb-2">Permissions</h3>
                 <table class="min-w-full table-auto">
                     <template :key="permission.id" v-for="permission in permissions">
-                        <thead>
+                        <thead >
                         <tr>
                             <th class="px-2 py-2 items-center flex">{{permission.menu}}</th>
+                            <th class="px-2 py-2 items-center text-start">View</th>
+                            <th class="px-2 py-2 items-center text-start">Edit</th>
+                            <th class="px-2 py-2 items-center text-start">Create</th>
+                            <th class="px-2 py-2 items-center text-start">Delete</th>
+                            <th class="px-2 py-2 items-center text-start">Export</th>
                         </tr>
-<!--                        <tr>-->
-<!--                            <th class="px-2 py-2 items-center flex">View</th>-->
-<!--                            <th class="px-2 py-2 items-center flex">Edit</th>-->
-<!--                            <th class="px-2 py-2 items-center flex">Create</th>-->
-<!--                        </tr>-->
+<!--                    <tr>-->
+<!--                        <th class="px-2 py-2 items-center flex">View</th>-->
+<!--                        <th class="px-2 py-2 items-center flex">Edit</th>-->
+<!--                        <th class="px-2 py-2 items-center flex">Create</th>-->
+<!--                    </tr>-->
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200 mt-6">
                         <tr :key="menu.id" v-for="menu in permission.menus">
                             <td class="px-4 py-2 flex items-center">
-                                <span class="font-semibold">{{menu.group}}</span></td>
+                                <span class="font-semibold">{{menu.group}}</span>
+                            </td>
                             <td :key="item.name" class="px-4 py-2 " v-for="item in menu.groups"><input
                                 :value="item.name"
                                 class="form-checkbox h-4 w-4 text-indigo-600" type="checkbox"
                                 v-model="selectedPermissions"
-                            ><span class="ml-2 text-gray-700">{{item.name}}</span></td>
+                            >
+                            <!-- <span class="ml-2 text-gray-700">{{item.name}}</span> -->
+                        </td>
                         </tr>
                         </tbody>
                     </template>

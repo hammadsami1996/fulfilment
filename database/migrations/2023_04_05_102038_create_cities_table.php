@@ -11,17 +11,7 @@ return new class extends Migration
      */
    public function up(): void
    {
-//        Schema::create('cities', function (Blueprint $table) {
-//            $table->id();
-//            $table->string('title');
-//            $table->string('state_name');
-//            $table->integer('country_id');
-//            $table->integer('state_id');
-//            $table->integer('status');
-//            $table->timestamps();
-//
-//        });
-        DB::unprepared(file_get_contents(public_path('/cities.sql')));
+         DB::unprepared(file_get_contents(public_path('/cities.sql')));
    }
 
     /**
