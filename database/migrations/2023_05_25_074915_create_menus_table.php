@@ -155,6 +155,15 @@ return new class extends Migration
         );
         DB::table('menus')->insert(
             [
+                'title' => 'Cities',
+                'url' => '/cities',
+                'route' => 'view-cities',
+                'head_id' => 1,
+                'guard' => 'web',
+            ]
+        );
+        DB::table('menus')->insert(
+            [
                 'title' => 'Product Category',
                 'url' => '/product_category',
                 'route' => 'view-product_category',
