@@ -298,14 +298,33 @@
                                 <span class="radio-title">
                                     <span class="radio-icon cursor-pointer">
                                         <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
-                                        <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3"
-                                             src="~@/images/Shopify-bag.png" v-if="stores.plate_form == 'Shopify'"/>
-                                        <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3"
+                                        <div v-if="stores.plate_form == 'Shopify'">
+
+                                            <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3"
+                                            src="~@/images/Shopify-bag.png" v-if="!stores.img"/>
+                                            <!-- <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3"
+                                            src="~@/images/Shopify-bag.png" v-if="stores.plate_form == 'Shopify' && !stores.img"/> -->
+                                             <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3" :src="`/uploads/store/img/` + stores.img" v-else />
+                                        </div>
+                                        <div  v-if="stores.plate_form == 'WooCommerce'">
+
+                                            <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3"
+                                            src="~@/images/WooCommerce.png"
+                                            v-if="!stores.img"/>
+                                            <!-- <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3"
                                              src="~@/images/WooCommerce.png"
-                                             v-if="stores.plate_form == 'WooCommerce'"/>
-                                        <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3"
-                                             src="~@/images/MimCart.jpg" v-if="stores.plate_form == 'MimCart'"/>
-                                    </span>
+                                             v-if="stores.plate_form == 'WooCommerce' && !stores.img"/> -->
+                                             <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3" :src="`/uploads/store/img/` + stores.img" v-else />
+                                            </div>
+                                            <div v-if="stores.plate_form == 'MimCart'">
+
+                                                <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3"
+                                                src="~@/images/MimCart.jpg" v-if="!stores.img"/>
+                                                <!-- <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3"
+                                                src="~@/images/MimCart.jpg" v-if="stores.plate_form == 'MimCart' && !stores.img"/> -->
+                                             <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3" :src="`/uploads/store/img/` + stores.img" v-else />
+                                            </div>
+                                            </span>
                                     <span class="radio-label font-bold">{{stores ?  stores.name:'' }}</span>
                                 </span>
                             </label>

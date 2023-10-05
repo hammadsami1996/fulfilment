@@ -32,6 +32,7 @@ class StoreController extends Controller
             "api_secret" => '',
             "word_address" => '',
             "mim_api_key" => '',
+            "img" => '',
             "mim_store_address" => '',
 
         ];
@@ -53,7 +54,16 @@ class StoreController extends Controller
             'store_type' => 'required',
         ]);
         $model = new Store();
-        $model->fill($request->all());
+        $model->fill($request->except('imgN'));
+        if ($request->hasFile('imgN')) {
+            $file = $request->file('imgN');
+            $extension = $file[0]->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+           
+            $file[0]->move('uploads/store/img', $filename);
+            $model->img = $filename;
+        }
+        // $model->fill($request->all());
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
     }
@@ -91,7 +101,15 @@ class StoreController extends Controller
         ]);
 //        dd($request);
         $model = Store::with('company')->findOrFail($id);
-        $model->fill($request->all());
+        $model->fill($request->except('imgN'));
+        if ($request->hasFile('imgN')) {
+            $file = $request->file('imgN');
+            $extension = $file[0]->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file[0]->move('uploads/store/img', $filename);
+            $model->img = $filename;
+        }
+        // $model->fill($request->all());
 //        $model->updated_by = Auth::id();
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);

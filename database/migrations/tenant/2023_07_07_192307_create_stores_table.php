@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('location',25)->nullable();
             $table->string('store_type', 25)->nullable();
             $table->string('plate_form',25)->nullable();
+            $table->string('img')->nullable();
             $table->string('access_token',50)->nullable();
             $table->string('store_address',50)->nullable();
             $table->string('api_key',50)->nullable();
