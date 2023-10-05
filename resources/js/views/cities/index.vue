@@ -57,22 +57,22 @@
                     <div v-if="props.item.couriers[0]">
                         <img
                             v-if="props.item.couriers[0].id === 4"
-                            src="/images/karachi.png"
+                            src="~@/images/karachi.png"
                             style="height: 50px; width: 50px; border-radius: 50%"
                         />
                         <img
                             v-if="props.item.couriers[0].id === 3"
-                            src="/images/rider.png"
+                            src="~@/images/rider.png"
                             style="height: 50px; width: 50px; border-radius: 50%"
                         />
                         <img
                             v-if="props.item.couriers[0].id === 2 || props.item.couriers[0].id === 5"
-                            src="/images/trax.png"
+                            src="~@/images/trax.png"
                             style="height: 50px; width: 50px; border-radius: 50%"
                         />
                         <img
                             v-if="props.item.couriers[0].id === 6 || props.item.couriers[0].id === 1"
-                            src="/images/leopard.jpeg"
+                            src="~@/images/leopard.jpeg"
                             style="height: 50px; width: 50px; border-radius: 50%"
                         />
                     </div>
@@ -297,16 +297,16 @@
 <!--            <panel :columns="columns" :urlApi="urlApi" ref="TableData">-->
 <!--                <template v-slot:couriersss="props">-->
 <!--                    <div v-if="props.item.couriers[0]  ">-->
-<!--                        <img src="/images/karachi.png" style="height: 50px; width: 50px; border-radius:50%"-->
+<!--                        <img src="~@/images/karachi.png" style="height: 50px; width: 50px; border-radius:50%"-->
 <!--                             v-if="props.item.couriers[0].id === 4 ">-->
 
-<!--                        <img src="/images/rider.png" style="height: 50px; width: 50px; border-radius:50%"-->
+<!--                        <img src="~@/images/rider.png" style="height: 50px; width: 50px; border-radius:50%"-->
 <!--                             v-if="props.item.couriers[0].id === 3 ">-->
 
-<!--                        <img src="/images/trax.png"-->
+<!--                        <img src="~@/images/trax.png"-->
 <!--                             style="height: 50px; width: 50px; border-radius:50%" v-if="props.item.couriers[0].id === 2 || props.item.couriers[0].id === 5">-->
 
-<!--                        <img src="/images/leopard.jpeg"-->
+<!--                        <img src="~@/images/leopard.jpeg"-->
 <!--                             style="height: 50px; width: 50px; border-radius:50%" v-if="props.item.couriers[0].id === 6 || props.item.couriers[0].id === 1">-->
 <!--                    </div>-->
 
@@ -314,7 +314,7 @@
 
 
 <!--                <template v-slot:courierss="props">-->
-<!--                    &lt;!&ndash; <img src="/images/leopard.jpeg" style="height: 50px; width: 50px; border-radius:50%"> &ndash;&gt;-->
+<!--                    &lt;!&ndash; <img src="~@/images/leopard.jpeg" style="height: 50px; width: 50px; border-radius:50%"> &ndash;&gt;-->
 
 <!--                    <typeahead :initialize="props.item.couriers[0]" :url="courier"-->
 <!--                               @input="onCourierss($event , props.item)"-->
