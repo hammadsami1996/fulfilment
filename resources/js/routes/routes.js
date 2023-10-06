@@ -98,7 +98,6 @@ router.beforeEach(async (to, from, next) => {
     if (pageContent) {
         pageContent.classList.add('zoom-out-enter-active');
     }
-    console.log(document.getElementById('page-content'))
     next()
     // try {
     //     // const response = await axios.get('/check-auth');
@@ -146,8 +145,6 @@ router.afterEach((to, from) => {
     if (pageContent) {
         setTimeout(() => {
             pageContent.classList.remove('zoom-out-enter-active');
-            console.log(document.getElementById('page-content'),2)
-
         }, 500); // Adjust the duration to match your transition duration
     }
     // Perform actions after each route navigation
