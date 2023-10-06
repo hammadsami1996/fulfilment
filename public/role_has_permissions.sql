@@ -26,7 +26,7 @@ CREATE TABLE `role_has_permissions`  (
   `role_id` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`permission_id`, `role_id`) USING BTREE,
   INDEX `role_has_permissions_role_id_foreign`(`role_id`) USING BTREE,
-  CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `fulfilment`.`permissions` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
