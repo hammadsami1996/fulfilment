@@ -91,51 +91,64 @@ const router = createRouter({
         // },
     ],
 });
-// router.beforeEach(async (to, from, next) => {
-//     try {
-//         // const response = await axios.get('/check-auth');
-//         // const isAuthenticated = response.data.authenticated;
-//         // console.log(window.apex.user.permissions)
-//
-//         // if (isAuthenticated) {
-//         if (
-//             to.name === 'error-404' ||
-//             to.name === 'not-authorized' ||
-//             to.name === 'view-home'
-//         ) {
-//             next();
-//         } else {
-//             let isAuthorized = false;
-//             const permissions = window.apex.user.permissions;
-//
-//             for (const entry of permissions) {
-//                 if (to.name === entry.name) {
-//                     isAuthorized = true;
-//                     break;
-//                 }
-//             }
-//
-//             if (isAuthorized) {
-//                 next();
-//             } else {
-//                 toast.error('Not authorized!', {position: 'top-right'}); // Show toast notification
-//                 next({name: 'not-authorized'});
-//             }
-//         }
-//         // } else {
-//         //     toast.error('Not authorized!', {position: 'top-right'}); // Show toast notification
-//         //     next({name: 'not-authorized'});
-//         // }
-//     } catch (error) {
-//         // toast.error('Not authorized!', {position: 'top-right'}); // Show toast notification
-//         next({name: 'not-authorized'});
-//     }
-// });
-//
-// router.afterEach((to, from) => {
-//
-//     // Perform actions after each route navigation
-// });
+router.beforeEach(async (to, from, next) => {
+
+    const pageContent = document.getElementById('page-content');
+
+    if (pageContent) {
+        pageContent.classList.add('zoom-out-enter-active');
+    }
+    next()
+    // try {
+    //     // const response = await axios.get('/check-auth');
+    //     // const isAuthenticated = response.data.authenticated;
+    //     // console.log(window.apex.user.permissions)
+    //
+    //     // if (isAuthenticated) {
+    //     if (
+    //         to.name === 'error-404' ||
+    //         to.name === 'not-authorized' ||
+    //         to.name === 'view-home'
+    //     ) {
+    //         next();
+    //     } else {
+    //         let isAuthorized = false;
+    //         const permissions = window.apex.user.permissions;
+    //
+    //         for (const entry of permissions) {
+    //             if (to.name === entry.name) {
+    //                 isAuthorized = true;
+    //                 break;
+    //             }
+    //         }
+    //
+    //         if (isAuthorized) {
+    //             next();
+    //         } else {
+    //             toast.error('Not authorized!', {position: 'top-right'}); // Show toast notification
+    //             next({name: 'not-authorized'});
+    //         }
+    //     }
+    //     // } else {
+    //     //     toast.error('Not authorized!', {position: 'top-right'}); // Show toast notification
+    //     //     next({name: 'not-authorized'});
+    //     // }
+    // } catch (error) {
+    //     // toast.error('Not authorized!', {position: 'top-right'}); // Show toast notification
+    //     next({name: 'not-authorized'});
+    // }
+});
+
+router.afterEach((to, from) => {
+    const pageContent = document.getElementById('page-content');
+
+    if (pageContent) {
+        setTimeout(() => {
+            pageContent.classList.remove('zoom-out-enter-active');
+        }, 500); // Adjust the duration to match your transition duration
+    }
+    // Perform actions after each route navigation
+});
 
 export default router;
 

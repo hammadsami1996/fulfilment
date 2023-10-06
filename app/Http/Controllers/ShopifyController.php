@@ -64,6 +64,7 @@ class ShopifyController extends Controller
                             ++$i;
                             $order = new Order();
                             $order->order_form = 'Shopify';
+                            $order->warehouse_id = $store->warehouse_id;
                             $order->external_order_no = $rec['id'];
                             // $order->store_id = $store->id;
                             if ($rec['customer']['phone']) {

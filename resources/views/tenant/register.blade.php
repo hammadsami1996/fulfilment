@@ -1,6 +1,6 @@
 <x-guest-layout>
     <!-- <div id="loading-image" class="loading-image">
-        <img src="/images/inventory_2.gif" alt="Loading Image">
+        <img src="~@/images/inventory_2.gif" alt="Loading Image">
     </div> -->
 <!-- Page Container -->
 <div id="page-container" class="flex flex-col mx-auto w-full min-h-screen bg-gray-100">

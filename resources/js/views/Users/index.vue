@@ -54,7 +54,7 @@
             </panel>
         </div>
 
-        <Modal :show="isOpen" closeable="true">
+        <Modal :show="isOpen" closeable=1>
             <div class="bg-gray-100" >
                 <div class="p-5 grow" style="height: 250px">
                     <label class="flex items-center text-gray-700 text-lg font-bold ml-2">Roles</label>

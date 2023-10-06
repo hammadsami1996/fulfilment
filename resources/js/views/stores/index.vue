@@ -69,7 +69,7 @@
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Name', field: 'name',},
                     {label: 'Location', field: 'location'},
-                    {label: 'Company id', field: 'name', displayText: 'company'},
+                    {label: 'Company', field: 'name', displayText: 'company'},
                     {label: 'Action', field: 'action', action: true}
                     ]
             }

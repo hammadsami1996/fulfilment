@@ -6,6 +6,7 @@
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -57,9 +58,10 @@
                     </div>
                     <p class="text-red-600 text-xs italic" v-if="error.store_type">{{ error.store_type[0] }}</p>
                 </div>
+               
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0" v-if="form.store_type == 'Online'">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Plate Form</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Platform</label>
                     <div class="relative">
                         <select
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
@@ -138,8 +140,32 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-
+                
             </div>
+            <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
+            <label class="block font-medium text-sm text-gray-700 mb-2"
+            >Store Image</label>
+            <div class="flex items-center">
+                <input
+                    class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
+                    id="store_image"
+                    name="store_image" type="file"
+                    v-on:change="onImageChange"
+                     >
+                <img width="100" :src="ImgUrl" v-if="ImgUrl">
+                <div class="w-full sm:w-1/2 mb-4 sm:ml-0 p-2 " v-else-if="form.img">
+                    <img width="100" :src="`/uploads/store/img/`+form.img">
+                </div>
+                <!-- <div class="w-full sm:w-1/2 mb-4 sm:ml-0 p-2 " v-if="form.img == null && form.store_type == 'online' ">
+                    <div v-if="form.plate_form == 'WooCommerce'">
+                        <img width="100" :src="`/images/woocommerce.png`">
+                    </div>
+                </div> -->
+            </div>
+
+            <p class="text-red-600 text-xs italic" v-if="error.img">{{ error.img[0] }}</p>
+        </div>
+           
             <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted()" v-if="!connectionBtn || form.store_type == 'Physical'"
@@ -173,6 +199,7 @@
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import {objectToFormData} from "@/libs/helpers";
 
     function initialize(to) {
         let urls = {
@@ -188,12 +215,13 @@
             Typeahead,
         },
         props: {
-    show: Boolean ,
+    show: Boolean,
     additionalProp: String ,
 
   },
         data() {
             return {
+                ImgUrl: null, 
                 save_button: false,
                 error: {},
                 show: Boolean,
@@ -227,6 +255,13 @@
                 })
         },
         methods: {
+            onImageChange(e) {
+                // console.log('test')
+                this.form.imgN = e.target.files;
+                // console.log(e.target.files);
+                this.ImgUrl = URL.createObjectURL(e.target.files[0]);
+              
+            },
             onCompany(e) {
                 const company = e.target.value
                 this.form.company = company
@@ -289,8 +324,8 @@
             },
             formSubmitted() {
                 this.form.selectedPermissions = this.selectedPermissions
-                byMethod(this.method, this.store, this.form).then(res => {
 
+                byMethod(this.method, this.store, objectToFormData(this.form)).then(res => {
                     this.additionalProp ? this.formSubmiting():this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
