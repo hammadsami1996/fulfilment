@@ -18,7 +18,7 @@ class Order extends Model
     protected $fillable = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'tax', 'balance', 'courier', 'payment_status', 'selling_Price',
         'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount_percent',
-        'warehouse_id', 'so_number', 'name', 'email', 'phone','address', 's_addres_1', 'b_name', 'b_email', 'b_phone', 'b_addres_1','instraction','shipped_by_id', 'order_type_id'
+        'warehouse_id', 'so_number', 's_name', 's_email', 's_phone','address', 's_address_1', 'b_name', 'b_email', 'b_phone', 'b_addres_1','instraction','shipped_by_id', 'order_type_id'
         , 'total', 'discount', 'advance', 'shipping_charges', 'delivery_charges', 'weight'
     ];
     protected $columns = [

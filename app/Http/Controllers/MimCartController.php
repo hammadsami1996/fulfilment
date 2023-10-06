@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\City_Courier;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
@@ -41,7 +43,7 @@ class MimCartController extends Controller
                 if ($response->successful()) {
                     $i = 0;
                     foreach ($response->json() as $rec) {
-                        // dd($rec);
+//                         dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart');
                         if (!$order->first()) {
                             ++$i;
@@ -63,11 +65,17 @@ class MimCartController extends Controller
                                     $customer->b_name = $rec['name'];
                                     $customer->b_phone = $rec['mobile'];
                                     $customer->b_address_1 = $rec['address'];
+                                    $b_city = City::where('name', $rec['city'])->first();
+                                    if ($b_city) {
 
+                                        $customer->b_city_id = $b_city['id'];
+                                        $customer->b_country_id = $b_city['country_id'];
+                                        $customer->s_city_id = $b_city['id'];
+                                        $customer->s_country_id = $b_city['country_id'];
+                                    }
                                     $customer->s_name = $rec['name'];
                                     $customer->s_phone = $rec['mobile'];
                                     $customer->s_address_1 = $rec['address'];
-
                                     $customer->save();
                                     $order->customer_id = $customer['id'];
                                 }
@@ -81,8 +89,17 @@ class MimCartController extends Controller
                             $order->s_phone = $rec['mobile'];
                             $order->s_address_1 = $rec['address'];
 
+                            $s_city = City::where('name', $rec['city'])->first();
+                            if ($s_city) {
+                                $order->city_id = $s_city->id;
+                                $cityCourier = City_Courier::where('city_id', $s_city->id)->first();
+                                if ($cityCourier) {
+                                    $order->shipped_by_id = $cityCourier->courier_id;
+//                                    $order->delivery_charges = $cityCourier->delivery_charges;
+                                }
+                            }
+
                             $order->instraction = $rec['instructions'];
-                            $order->city_id = $rec['city'];
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
