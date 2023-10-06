@@ -48,35 +48,40 @@
         Stores
     </div>
     <div v-if="store.length">
-        <div class="card-container mb-6">
-            <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center" v-for="data in store">
-                <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows" >
-                    <!-- <button class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-1 px-5 ml-3 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">{{data.name}}</button> -->
+        
+        <div class="card-container mb-6"  >
+                    
+            <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center"  v-for="data in store">
+               
                     <div v-if="data.plate_form == 'WooCommerce'">
                         <div :class="wooButton == false ? 'border-4 border-blue-500 rounded-full' : ''" class="card bg-gray-200 cursor-pointer" @click="wooButton = !wooButton">
-                            <img src="~@/images/WooCommerce.png"/>
+                            <img src="~@/images/WooCommerce.png" v-if="!data.img"/>
+
+                            <img :src="`/uploads/store/img/` + data.img" v-else />
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                         <button v-if="!wooButton" @click="woocommerce_fetch_data(data)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
                     </div>
                     <div v-if="data.plate_form == 'Shopify'">
                         <div :class="shopifyButton == false ? 'border-4 border-blue-500 rounded-full' : ''" class="card bg-gray-200 cursor-pointer" @click="shopifyButton = !shopifyButton">
-                            <img src="~@/images/Shopify-bag.png"/>
+                            <img src="~@/images/Shopify-bag.png" v-if="!data.img"/>
+                            <img :src="`/uploads/store/img/` + data.img" v-else />
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                         <button v-if="!shopifyButton" @click="shopify_fetch_data(data.id)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
                     </div>
                     <div v-if="data.plate_form == 'MimCart'">
                         <div :class="mimCartButton == false ? 'border-4 border-blue-500 rounded-full' : ''" class="card bg-gray-200 cursor-pointer" @click="mimCartButton = !mimCartButton">
-                            <img src="~@/images/MimCart.jpg"/>
+                            <img src="~@/images/MimCart.jpg" v-if="!data.img" />
+                            <img :src="`/uploads/store/img/` + data.img" v-else />
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
                         <button v-if="!mimCartButton" @click="mimcart_fetch_data(data.id)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
-    </div>
+
     <div v-else>
         <p class="font-bold text-black text-lg"> No Store Found</p>
     </div>
@@ -110,13 +115,14 @@ export default {
             // this.permissions = window.apex.user.permission
             byMethod('get', `/api/company`)
                 .then((res) => {
-                    console.log(res.data.data.data)
+                    console.log(res.data.data.data);
                     this.companies = res.data.data.data;
                 })
         },
         methods: {
             onCompany(e) {
                 const company = e;
+                
                 this.form.company_id = company.id;
                 this.returns(this.form.company_id);
                 this.selectedCompany = e;
@@ -125,8 +131,9 @@ export default {
                 byMethod("get", `/api/stores_data?company_id=${e}`).then(
                     (res) => {
                     (this.show_company_data = true);
-                    console.log(res.data.data)
-                    this.store = res.data.data.data
+                    // console.log(res.data.data);
+                    this.store = res.data.data.data;
+                    // console.log('nband');
                     }
                 );
             },
@@ -157,7 +164,7 @@ export default {
                 byMethod("POST", `/api/mimcart_store_data/${e}`).then(
                     (res) => {
                         if(res.data.saved == true){
-                            console.log(res)
+                            // console.log(res)
                             this.mimCartButton = true
                             this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }
