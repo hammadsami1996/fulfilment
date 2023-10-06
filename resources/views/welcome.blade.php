@@ -49,12 +49,12 @@
                     <span>Register</span>
                   </a>
               </nav>
-              <div class="flex items-center justify-center space-x-2">
-                <a  href="{{ URL::route('login')}}" class="inline-flex justify-center items-center space-x-1 border font-semibold focus:outline-none rounded px-3 py-2 leading-5 text-sm border-gray-300 bg-white text-gray-800 shadow-sm hover:text-gray-800 hover:bg-gray-100 hover:border-gray-300 hover:shadow focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:bg-white active:border-white active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:border-gray-600 dark:focus:ring-gray-600/50 dark:active:border-gray-700">
-                  <span>Sign In</span>
-                  <svg class="opacity-50 hi-mini hi-arrow-right inline-block w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>
-                </a>
-              </div>
+{{--              <div class="flex items-center justify-center space-x-2">--}}
+{{--                <a  href="{{ URL::route('login')}}" class="inline-flex justify-center items-center space-x-1 border font-semibold focus:outline-none rounded px-3 py-2 leading-5 text-sm border-gray-300 bg-white text-gray-800 shadow-sm hover:text-gray-800 hover:bg-gray-100 hover:border-gray-300 hover:shadow focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:bg-white active:border-white active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:border-gray-600 dark:focus:ring-gray-600/50 dark:active:border-gray-700">--}}
+{{--                  <span>Sign In</span>--}}
+{{--                  <svg class="opacity-50 hi-mini hi-arrow-right inline-block w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>--}}
+{{--                </a>--}}
+{{--              </div>--}}
             </div>
           </div>
         </header>
