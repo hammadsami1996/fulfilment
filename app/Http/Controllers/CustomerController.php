@@ -39,11 +39,9 @@ class CustomerController extends Controller
             "b_name" => '',
             "b_phone" => '',
             "b_address_1" => '',
-            "b_address_2" => '',
             "s_name" => '',
             "s_phone" => '',
             "s_address_1" => '',
-            "s_address_2" => '',
             "date" => '',
         ];
         return response()->json([
