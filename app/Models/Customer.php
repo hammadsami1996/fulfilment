@@ -14,18 +14,24 @@ class Customer extends Model
     use Search;
 
     protected $fillable = [
-        'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
+        'name', 'email', 'phone',
+        //  'balance', 'type_id',
+          'discount', 'address', 'b_country_id',
         'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
         's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id','qunatity','date'
     ];
     protected $columns = [
-        'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
+        'name', 'email', 'phone', 
+        // 'balance', 'type_id', 
+        'discount', 'address', 'b_country_id',
         'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
         's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id','qunatity','date'
     ];
 
     protected $search = [
-        'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
+        'name', 'email', 'phone', 
+        // 'balance', 'type_id',
+         'discount', 'address', 'b_country_id',
         'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
         's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id','qunatity','date'
     ];
@@ -40,10 +46,10 @@ class Customer extends Model
     }
 
 
-    public function type()
-    {
-        return $this->belongsTo(Type::class, 'type_id', 'id');
-    }
+    // public function type()
+    // {
+    //     return $this->belongsTo(Type::class, 'type_id', 'id');
+    // }
 
     public function category()
     {

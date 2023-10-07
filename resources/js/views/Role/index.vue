@@ -60,7 +60,7 @@
                 capital: "Role",
                 columns: [
                     {
-                        label: '',
+                        label: 'S.No',
                         field: 'S.No',
                         format: 'index'
                     },
