@@ -16,33 +16,39 @@ class Order extends Model
     use HasManyRelation;
 
     protected $fillable = [
-        'store_id', 'order_date', 'customer_id', 'city_id', 'tax', 'balance', 'courier', 'payment_status', 'selling_Price',
-        'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount_percent',
-        'warehouse_id', 'so_number', 's_name', 's_email', 's_phone','address', 's_address_1', 'b_name', 'b_email', 'b_phone', 'b_addres_1','instraction','shipped_by_id', 'order_type_id'
-        , 'total', 'discount', 'advance', 'shipping_charges', 'delivery_charges', 'weight'
+        'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier_id', 'payment_status', 'location', 'sales_rep', 'selling_price',
+        'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent', 'warehouse_id', 'status_id', 'so_number', 's_name', 's_email', 's_address_1',
+        's_phone', 'b_name', 'b_email', 'b_address_1', 'b_phone', 'instraction', 'qunatity', 'order_type_id', 'shipping_charges', 'advance', 'delivery_charges', 'shipped_by_id',
+        'weight', 'order_form', 'payment_method', 'item_summary', 'item_summary_mannual', 'coupons', 'coupons_discount', 'redeem_amount', 'net_total', 'comments', 'shipment_services',
+        'shipped_ref', 'shipper_slip_link', 'city_name', 'payment_description', 'currency_id', 'currency_symbol', 'currency_value', 'replacement_item_summary', 'replacement_qty'
     ];
     protected $columns = [
-        'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier', 'payment_status', 'selling_Price',
-        'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent'
-        , 'so_number', 'name', 'email', 'phone', 's_addres_1', 'b_name', 'b_email', 'b_phone', 'b_addres_1', 'instraction', 'shipped_by_id', 'order_type_id', 'delivery_charges', 'weight'
+        'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier_id', 'payment_status', 'location', 'sales_rep', 'selling_price',
+        'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent', 'warehouse_id', 'status_id', 'so_number', 's_name', 's_email', 's_address_1',
+        's_phone', 'b_name', 'b_email', 'b_address_1', 'b_phone', 'instraction', 'qunatity', 'order_type_id', 'shipping_charges', 'advance', 'delivery_charges', 'shipped_by_id',
+        'weight', 'order_form', 'payment_method', 'item_summary', 'item_summary_mannual', 'coupons', 'coupons_discount', 'redeem_amount', 'net_total', 'comments', 'shipment_services',
+        'shipped_ref', 'shipper_slip_link', 'city_name', 'payment_description', 'currency_id', 'currency_symbol', 'currency_value', 'replacement_item_summary', 'replacement_qty'
     ];
 
     protected $search = [
-        'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier', 'payment_status', '', 'selling_price',
-        'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent'
-        , 'so_number', 'name', 'email', 'phone', 'instraction', 'shipped_by_id', 'order_type_id', 'delivery_charges', 'weight'
+        'order_date', 'total', 'tax', 'balance', 'payment_status', 'location', 'sales_rep', 'selling_price', 'external_order_no', 'subTotal', 'discount', 'discount_percent',
+        'so_number', 's_name', 's_email', 's_address_1', 's_phone', 'b_name', 'b_email', 'b_address_1', 'b_phone', 'instraction', 'qunatity', 'shipping_charges', 'advance',
+        'delivery_charges', 'weight', 'order_form', 'payment_method', 'item_summary', 'item_summary_mannual', 'coupons', 'coupons_discount', 'redeem_amount', 'net_total', 'comments',
+        'shipment_services', 'shipped_ref', 'shipper_slip_link', 'city_name', 'payment_description', 'currency_symbol', 'currency_value', 'replacement_item_summary', 'replacement_qty'
     ];
-    protected $appends = ['text', 'net_total'];
+    protected $appends = ['text'];
+
+//    protected $appends = ['text', 'net_total'];
 
     public function getTextAttribute()
     {
 
     }
 
-    public function getNetTotalAttribute()
-    {
-        return ($this->attributes['total'] + $this->attributes['shipping_charges'] - ($this->attributes['discount'] + $this->attributes['advance']));
-    }
+//    public function getNetTotalAttribute()
+//    {
+//        return ($this->attributes['total'] + $this->attributes['shipping_charges'] - ($this->attributes['discount'] + $this->attributes['advance']));
+//    }
 
     public function customer()
     {
@@ -92,7 +98,7 @@ class Order extends Model
 
     public function courier()
     {
-        return $this->belongsToMany(Courier::class,'shipped_by_id', 'id');
+        return $this->belongsToMany(Courier::class, 'shipped_by_id', 'id');
     }
 
 

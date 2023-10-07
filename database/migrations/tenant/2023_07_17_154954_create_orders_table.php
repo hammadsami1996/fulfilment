@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('total')->nullable();
             $table->integer('tax')->nullable();
             $table->integer('balance')->nullable();
-            $table->string('courier')->nullable();
             $table->integer('payment_status')->nullable();
             $table->string('location')->nullable();
             $table->string('sales_rep')->nullable();
@@ -42,8 +41,8 @@ return new class extends Migration
             $table->string('b_email' , 50)->nullable();
             $table->string('b_address_1')->nullable();
             $table->string('b_phone' , 20)->nullable();
-            $table->string('instraction', 100)->nullable();
-            $table->integer('qunatity')->nullable();
+            $table->string('instruction', 100)->nullable();
+            $table->integer('quantity')->nullable();
             $table->integer('order_type_id')->nullable();
             $table->integer('shipping_charges')->nullable();
             $table->integer('advance')->nullable();
