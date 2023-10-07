@@ -37,13 +37,17 @@
                     Create
                 </router-link>
                 <button
-
-                    @click="exportTableToExcel('print', 'products')"
+                    @click="Product_excel('Excel')"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                     type="button">
-
                     Excel
                 </button>
+<!--                <button-->
+<!--                    @click="exportTableToExcel('print', 'products')"-->
+<!--                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"-->
+<!--                    type="button">-->
+<!--                    Excel-->
+<!--                </button>-->
             </div>
         </div>
 
@@ -117,38 +121,9 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
-
-            exportTableToExcel(tableID, filename = "") {
-                        var downloadLink;
-                        var dataType = "application/vnd.ms-excel";
-                        var tableSelect = document.getElementById(tableID);
-
-
-                        tableSelect.style.borderCollapse = "collapse";
-
-                        tableSelect.style.width = "100%";
-                        tableSelect.style.textAlign = "center";
-
-
-                        var thead = tableSelect.querySelector("thead");
-
-                        var tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
-                        filename = filename ? filename + ".xls" : "Pivot Report.xls";
-
-                        downloadLink = document.createElement("a");
-                        document.body.appendChild(downloadLink);
-
-                        if (navigator.msSaveOrOpenBlob) {
-                            var blob = new Blob(["\ufeff", tableHTML], {
-                                type: dataType,
-                            });
-                            navigator.msSaveOrOpenBlob(blob, filename);
-                        } else {
-                            downloadLink.href = "data:" + dataType + ", " + tableHTML;
-                            downloadLink.download = filename;
-                            downloadLink.click();
-                        }
-                        },
+            Product_excel(){
+                window.open('/docs/product_excel' , '_blank')
+            },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
