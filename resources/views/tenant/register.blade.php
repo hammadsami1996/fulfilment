@@ -1,6 +1,6 @@
 <x-guest-layout>
     <!-- <div id="loading-image" class="loading-image">
-        <img src="/images/inventory_2.gif" alt="Loading Image">
+        <img src="~@/images/inventory_2.gif" alt="Loading Image">
     </div> -->
 <!-- Page Container -->
 <div id="page-container" class="flex flex-col mx-auto w-full min-h-screen bg-gray-100">
@@ -72,17 +72,17 @@
                     </div>
                     <div class="py-4 px-5 lg:px-6 w-full text-sm text-center bg-gray-50">
                         <a class="font-medium text-primary-600 hover:text-primary-400" href="{{ route('login') }}">Return to Sign In</a>
-{{--                        <a class="font-medium text-primary-600 hover:text-primary-400" href="{{ route('login') }}">Return to Sign In</a>--}}
-{{--                        <a  href="{{ route('/login')}}" class="inline-flex justify-center items-center space-x-1 border font-semibold focus:outline-none rounded px-3 py-2 leading-5 text-sm border-gray-300 bg-white text-gray-800 shadow-sm hover:text-gray-800 hover:bg-gray-100 hover:border-gray-300 hover:shadow focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:bg-white active:border-white active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:border-gray-600 dark:focus:ring-gray-600/50 dark:active:border-gray-700">Return to Sign In</a>--}}
-                        {{--<a class="font-medium text-primary-600 hover:text-primary-400" href="javascript:void(0)">Return to Sign In</a>--}}
+                        <a class="font-medium text-primary-600 hover:text-primary-400" href="{{ route('login') }}">Return to Sign In</a>
+                        <a  href="{{ route('/login')}}" class="inline-flex justify-center items-center space-x-1 border font-semibold focus:outline-none rounded px-3 py-2 leading-5 text-sm border-gray-300 bg-white text-gray-800 shadow-sm hover:text-gray-800 hover:bg-gray-100 hover:border-gray-300 hover:shadow focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:bg-white active:border-white active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:border-gray-600 dark:focus:ring-gray-600/50 dark:active:border-gray-700">Return to Sign In</a>
+                        <a class="font-medium text-primary-600 hover:text-primary-400" href="javascript:void(0)">Return to Sign In</a>
                     </div>
                 </div>
                 <!-- END Sign Up Form -->
 
                 <!-- Footer -->
-{{--                <div class="text-sm text-gray-500 text-center mt-6">--}}
-{{--                    <a class="font-medium text-primary-600 hover:text-primary-400" href="https://tailkit.com" target="_blank">Mimsoft</a> by <a class="font-medium text-primary-600 hover:text-primary-400" href="https://pixelcave.com" target="_blank">pixelcave</a>--}}
-{{--                </div>--}}
+                <div class="text-sm text-gray-500 text-center mt-6">
+                    <a class="font-medium text-primary-600 hover:text-primary-400" href="https://tailkit.com" target="_blank">Mimsoft</a> by <a class="font-medium text-primary-600 hover:text-primary-400" href="https://pixelcave.com" target="_blank">pixelcave</a>
+                </div>
                 <!-- END Footer -->
             </div>
             <!-- END Sign Up Section -->

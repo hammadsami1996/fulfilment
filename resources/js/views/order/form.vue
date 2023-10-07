@@ -72,25 +72,25 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Shiping Name </label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"
-                           v-model="form.name"/>
+                           v-model="form.s_name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Shiping Email </label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="email"
-                           v-model="form.email"/>
+                           v-model="form.s_email"/>
                     <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2"> Shiping Phone </label>
-                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
-                           v-model="form.phone"/>
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="tel"
+                           v-model="form.s_phone"/>
                     <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Shipping Address </label>
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
-                              v-model="form.s_addres_1"/>
+                              v-model="form.s_address_1"/>
                     <!-- <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p> -->
                 </div>
             </div>
@@ -111,14 +111,14 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Billing Phone </label>
-                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number"
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="tel"
                            v-model="form.b_phone"/>
                     <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Billing Address </label>
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
-                              v-model="form.b_addres_1"/>
+                              v-model="form.b_address_1"/>
                     <!-- <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p> -->
                 </div>
             </div>
@@ -461,11 +461,15 @@
             onCustomer(e) {
                 const customer = e.target.value
                 this.form.customer = customer
-                this.form.name = customer.name
-                this.form.email = customer.email
-                this.form.phone = customer.phone
-                this.form.s_addres_1 = customer.s_address_1
-                this.form.b_addres_1 = customer.b_address_1
+                this.form.s_name = customer.s_name
+
+                this.form.s_email = customer.s_email
+                this.form.b_name = customer.b_name
+                this.form.b_email = customer.b_email
+                this.form.b_phone = customer.b_phone
+                this.form.s_phone = customer.s_phone
+                this.form.s_address_1 = customer.s_address_1
+                this.form.b_address_1 = customer.b_address_1
                 this.form.customer_id = customer.id
             },
             onStores(e) {

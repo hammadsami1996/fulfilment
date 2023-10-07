@@ -57,10 +57,10 @@
                             </form>
                         </div>
                     </div>
-                    <div class="py-4 px-5 lg:px-6 w-full text-sm text-center bg-gray-50">
-                        Don’t have an account yet?
-                        <a class="font-medium text-primary-600 hover:text-primary-400" href="{{ URL::route('register')}}">Register</a>
-                    </div>
+{{--                    <div class="py-4 px-5 lg:px-6 w-full text-sm text-center bg-gray-50">--}}
+{{--                        Don’t have an account yet?--}}
+{{--                        <a class="font-medium text-primary-600 hover:text-primary-400" href="{{ URL::route('register')}}">Register</a>--}}
+{{--                    </div>--}}
                 </div>
                 <!-- END Sign In Form -->
 

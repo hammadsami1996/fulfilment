@@ -29,11 +29,9 @@ return new class extends Migration
             $table->string('b_name' , 50)->nullable();
             $table->string('b_phone' , 15)->nullable();
             $table->string('b_address_1')->nullable();
-            $table->string('b_address_2')->nullable();
             $table->string('s_name' , 50)->nullable();
             $table->string('s_phone' , 15)->nullable();
             $table->string('s_address_1')->nullable();
-            $table->string('s_address_2')->nullable();
             $table->date('date')->nullable();
             $table->timestamps();
         });

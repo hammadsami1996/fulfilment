@@ -58,12 +58,13 @@ class ShopifyController extends Controller
                     $shopify = $response->json();
                     $i = 0;
                     foreach ($shopify['orders'] as $rec) {
-
+//                        dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify');
                         if (!$order->first()) {
                             ++$i;
                             $order = new Order();
                             $order->order_form = 'Shopify';
+                            $order->warehouse_id = $store->warehouse_id;
                             $order->external_order_no = $rec['id'];
                             // $order->store_id = $store->id;
                             if ($rec['customer']['phone']) {
@@ -73,8 +74,6 @@ class ShopifyController extends Controller
                                 } else {
                                     $customer = new Customer();
                                     $customer->name = $rec['customer']['default_address']['name'];
-                                    // $customer->s_address_1 = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
-                                    // $customer->b_address_1 = $rec['customer']['default_address']['address1'] . $rec['customer']['default_address']['address2'];
                                     $customer->email = $rec['customer']['email'];
                                     $customer->phone = $rec['customer']['phone'];
                                     $b_city = City::where('name', $rec['billing_address']['city'])->first();
@@ -130,7 +129,7 @@ class ShopifyController extends Controller
 
                             $order->status_id = 1;
 
-                            $items = [];
+                            $items = [  ];
                             foreach ($rec['line_items'] as $key => $item) {
                                 $product = Product::where('product_sku', $item['sku'])->first();
                                 if (!$product) {

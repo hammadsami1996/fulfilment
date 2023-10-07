@@ -19,7 +19,7 @@ class Menu extends Model
             ->where(function ($q) use ($permissions) {
                 $q->whereIn('route', $permissions)
                     ->orWhere('route', '=', null);
-            })
+            })->orderBy('sort')
             ;
     }
 }

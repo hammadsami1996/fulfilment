@@ -43,9 +43,9 @@
 {{--                  <strong>Jobs</strong>--}}
 {{--                </a>--}}
 
-                <a href="{{ URL::route('register')}}" class="text-sm font-semibold text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-500">
-                    <strong>Register</strong>
-                </a>
+{{--                <a href="{{ URL::route('register')}}" class="text-sm font-semibold text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-500">--}}
+{{--                    <strong>Register</strong>--}}
+{{--                </a>--}}
               </nav>
               <div class="flex items-center justify-center space-x-2">
                 <a  href="{{ URL::route('login')}}" class="inline-flex justify-center items-center space-x-1 border font-semibold focus:outline-none rounded px-3 py-2 leading-5 text-sm border-gray-300 bg-white text-gray-800 shadow-sm hover:text-gray-800 hover:bg-gray-100 hover:border-gray-300 hover:shadow focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:bg-white active:border-white active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:border-gray-600 dark:focus:ring-gray-600/50 dark:active:border-gray-700">
@@ -68,12 +68,12 @@
   <span>Fuffilment</span>
   <span>by</span>
   <span>Mimsoft</span>
- 
+
   <br>
   <span ><h1 >Powered</h1></span>
   <span><h1 >By:</h1></span>
   <span><h1 >MIMSOFT</h1></span>
-  
+
 
 
 
@@ -81,7 +81,7 @@
 </h1>
     </div>
     </main>
-  
+
     <!-- END Page Content -->
   </div>
   <!-- END Page Container -->
