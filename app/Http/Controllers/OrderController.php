@@ -91,7 +91,7 @@ class OrderController extends Controller
             'store_id' => 'required',
             'order_date' => 'required',
             'customer_id' => 'required',
-            'warehouse_id' => 'required',
+            // 'warehouse_id' => 'required',
 //            'city' => 'required',
 //            'total' => 'required',
 //            'tax' => 'required',

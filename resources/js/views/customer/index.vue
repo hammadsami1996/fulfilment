@@ -75,7 +75,7 @@
                     {label: 'Email', field: 'email'},
                     {label: 'Phone', field: 'phone'},
                     {label: 'Category', field: 'customer_category', displayText: 'category'},
-                    {label: 'Balance', field: 'balance'},
+                    // {label: 'Balance', field: 'balance'},
                     {label: 'Action', field: 'action', action: true},
                     {label: 'Extra', field: 'extra', slot: true}
                     ]

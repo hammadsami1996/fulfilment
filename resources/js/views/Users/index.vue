@@ -98,7 +98,7 @@
                 capital: "User",
                 columns: [
                     {
-                        label: '',
+                        label: 'S.No',
                         field: 'S.No',
                         format: 'index'
                     },
@@ -109,6 +109,10 @@
                     {
                         label: 'Email',
                         field: 'email',
+                    },
+                    {
+                        label: 'Phone',
+                        field: 'mobile_no',
                     },
                     {
                         label: 'Action',

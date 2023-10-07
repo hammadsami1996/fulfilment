@@ -5,13 +5,7 @@
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Parent Wearhouse</label>
-                    <typeahead :initialize="form.parent" :url="parentUrl" @input="onParent" display="text"/>
-<!--                    <p class="text-red-600 text-xs italic" v-if="error.parent_id">{{ error.parent_id[0] }}</p>-->
-                </div>
+
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -33,6 +27,13 @@
                         v-model="form.location"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.location">{{ error.location[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Parent Wearhouse</label>
+                    <typeahead :initialize="form.parent" :url="parentUrl" @input="onParent" display="text"/>
+                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.parent_id">{{ error.parent_id[0] }}</p>-->
                 </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">

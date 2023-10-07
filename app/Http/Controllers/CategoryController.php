@@ -56,7 +56,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $model = Category::with('type', 'category')->findOrFail($id);
+        // $model = Category::with('type', 'category')->findOrFail($id);
+        $model = Category::findOrFail($id);
         return response()->json([
             "form" => $model
         ]);

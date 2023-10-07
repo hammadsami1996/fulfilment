@@ -55,7 +55,9 @@
                     <p class="text-red-600 text-xs italic" v-if="error.store_id">{{ error.store_id[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Wearhouse <span class="text-red-600">*</span></label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Wearhouse
+                         <!-- <span class="text-red-600">*</span> -->
+                        </label>
                     <typeahead :initialize="form.warehouse" :url="warehouses" @input="onWarehouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>

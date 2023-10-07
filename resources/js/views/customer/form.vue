@@ -29,14 +29,14 @@
                            display="customer_category"/>
                 <p class="text-red-600 text-xs italic" v-if="error.category_id">{{error.category_id[0] }}</p>
             </div>
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+            <!-- <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Type</label>
                 <typeahead :initialize="form.type" :url="typess" @input="onType" display="name"/>
                 <p class="text-red-600 text-xs italic" v-if="error.type_id">{{error.type_id[0] }}</p>
-            </div>
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+            </div> -->
+            <!-- <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Balance</label>
@@ -47,7 +47,7 @@
 
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.balance">{{error.balance[0] }}</p>
-            </div>
+            </div> -->
         </div>
         <hr class="mt-6">
         <h1 class="font-bold mt-2 mb-2">Personal Contact</h1>
@@ -143,16 +143,6 @@
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>
             </div>
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Address #2</label>
-                <input
-                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    v-model="form.b_address_2"
-                />
-                <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>
-            </div>
         </div>
         <hr class="mt-6">
         <h1 class="font-bold mt-2">Shipping Address  <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" @click="showShipment" v-model="form.copyBilling"></h1>
@@ -207,16 +197,6 @@
                     v-model="form.s_address_1"
                 />
                 <p class="text-red-600 text-xs italic" v-if="error.s_address_1">{{error.s_address_1[0] }}</p>
-            </div>
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Address #2</label>
-                <input
-                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    v-model="form.s_address_2"
-                />
-                <p class="text-red-600 text-xs italic" v-if="error.s_address_2">{{error.s_address_2[0] }}</p>
             </div>
         </div>
         <div class="flex justify-end mt-8 space-x-4">
