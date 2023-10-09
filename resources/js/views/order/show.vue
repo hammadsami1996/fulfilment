@@ -489,7 +489,7 @@
                 this.form.name = customer.name
                 this.form.email = customer.email
                 this.form.phone = customer.phone
-                this.form.s_addres_1 = customer.s_address_1
+                this.form.s_address_1 = customer.s_address_1
                 this.form.customer_id = customer.id
             },
             onStores(e) {

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\City_Courier;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductVariation;
 use App\Models\Store;
+use App\Models\variation;
 use Illuminate\Support\Facades\Http;
 
 
@@ -110,12 +113,14 @@ class WordpressController extends Controller
                     $i = 0;
 
                     foreach ($response->json() as $rec) {
-//                         dd($rec);
-                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'WooCommerce');
-                        if (!$order->first()) {
+//                        dd($rec);
+                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'WooCommerce')->where('store_id', $store->id)->first();
+                        if (!$order) {
                             ++$i;
 
                             $order = new Order();
+                            $order->store_id = $id;
+                            $order->warehouse_id = $store['warehouse_id'];
                             $order->order_form = 'WooCommerce';
                             $order->external_order_no = $rec['id'];
                             if ($rec['billing']['phone']) {
@@ -124,79 +129,108 @@ class WordpressController extends Controller
                                     $order->customer_id = $customer['id'];
                                 } else {
                                     $customer = new Customer();
-                                    $customer->name = $rec['billing']['first_name'] . $rec['billing']['last_name'];
-                                    $customer->address = $rec['billing']['address_1'] . $rec['billing']['address_2'];
-                                    $customer->email = $rec['billing']['email'];
-                                    $customer->phone = $rec['billing']['phone'];
-
-                                    $b_city = City::where('name', $rec['billing']['city'])->first();
-
-                                    if ($b_city) {
-                                        $customer->b_city_id = $b_city['id'];
-                                        $customer->b_country_id = $b_city['country_id'];
+                                    if ($rec['billing']) {
+                                        $b_city = City::where('name', $rec['billing']['city'])->first();
+                                        if ($b_city) {
+                                            $customer->b_city_id = $b_city['id'];
+                                            $customer->b_country_id = $b_city['country_id'];
+                                        }
+                                        $order->b_name = $rec['billing']['first_name'] . ' ' . $rec['billing']['last_name'];
+                                        $order->b_phone = $rec['billing']['phone'];
+                                        $order->b_address_1 = $rec['billing']['address_1'] . ' ' . $rec['billing']['address_2'];
                                     }
-
                                     $customer->b_name = $rec['billing']['first_name'] . $rec['billing']['last_name'];
                                     $customer->b_phone = $rec['billing']['phone'];
-                                    $customer->b_address_1 = $rec['billing']['address_1'];
-                                    $customer->b_address_2 = $rec['billing']['address_2'];
-
+                                    $customer->b_address_1 = $rec['billing']['address_1'] . ' ' . $rec['billing']['address_2'];
                                     if ($rec['shipping']) {
                                         $s_city = City::where('name', $rec['shipping']['city'])->first();
                                         if ($s_city) {
                                             $customer->s_city_id = $s_city['id'];
                                             $customer->s_country_id = $s_city['country_id'];
                                         }
+                                        $customer->s_name = $rec['shipping']['first_name'] . ' ' . $rec['shipping']['last_name'];
+                                        $customer->s_phone = $rec['shipping']['phone'];
+                                        $customer->s_address_1 = $rec['shipping']['address_1'] . ' ' . $rec['shipping']['address_2'];
                                     }
-                                    $customer->s_name = $rec['shipping']['first_name'] . $rec['shipping']['last_name'];
-                                    $customer->s_phone = $rec['shipping']['phone'];
-                                    $customer->s_address_1 = $rec['shipping']['address_1'];
-                                    $customer->s_address_2 = $rec['shipping']['address_2'];
                                     $customer->save();
                                     $order->customer_id = $customer['id'];
                                 }
                             }
-                            // $order->name = $rec['billing']['first_name'];
-                            // $order->email = $rec['billing']['email'];
-                            // $order->phone = $rec['billing']['phone'];
-                            // $order->address = $rec['billing']['address_1'] . $rec['billing']['address_2'];
 
-                            $order->b_name = $rec['billing']['first_name'] . $rec['billing']['last_name'];
+                            $order->b_name = $rec['billing']['first_name'] . ' ' . $rec['billing']['last_name'];
                             $order->b_phone = $rec['billing']['phone'];
-                            $order->b_address_1 = $rec['billing']['address_1'] . $rec['billing']['address_2'];
+                            $order->b_address_1 = $rec['billing']['address_1'] . ' ' . $rec['billing']['address_2'];
 
-                            $order->s_name = $rec['shipping']['first_name'] . $rec['shipping']['last_name'];
+                            $order->s_name = $rec['shipping']['first_name'] . ' ' . $rec['shipping']['last_name'];
                             $order->s_phone = $rec['shipping']['phone'];
-                            $order->s_address_1 = $rec['shipping']['address_1'] . $rec['shipping']['address_2'];
+                            $order->s_address_1 = $rec['shipping']['address_1'] . ' ' . $rec['shipping']['address_2'];
 
-                            $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_tax'];
                             $order->total = $rec['total'];
                             $order->discount = $rec['discount_total'];
+
                             $cities = City::where('name', $rec['billing']['city'])->first();
-                            $order->city_id = $cities->id;
-                            $order->shipped_by_id = $cities['warehouse_id'];
+                            if ($cities) {
+                                $order->city_id = $cities->id;
+                                $cityCourier = City_Courier::where('city_id', $cities->id)->first();
+                                if ($cityCourier) {
+                                    $order->shipped_by_id = $cityCourier->courier_id;
+//                                    $order->delivery_charges = $cityCourier->delivery_charges;
+                                }
+                            }
                             $order->tracking_id = $rec['cart_hash'];
                             $order->payment_method = $rec['payment_method_title'];
 
                             $order->status_id = 1;
 
                             $items = [];
+//                            dd($rec['line_items']);
                             foreach ($rec['line_items'] as $key => $item) {
-                                // dd($item);
-                                $product = Product::where('product_sku', $item['sku'])->first();
+                                $parent_product = Product::where('title', $item['parent_name'])->whereNull('head_id')->first();
+                                if (!$parent_product) {
+                                    $parent_product = new Product();
+                                    $parent_product->title = $item['parent_name'];
+                                    $parent_product->selling_price = $item['price'];
+                                    $parent_product->cost_price = $item['price'];
+                                    $parent_product->save();
+                                }
+                                $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
+
                                 if (!$product) {
                                     $product = new Product();
-                                    $product->product_sku = $item['sku'];
+                                    $product->description = $item['name'];
+                                    $product->head_id = $parent_product['id'];
+                                    $product->product_sku = $item['sku'] ? $item['sku'] : $item['product_id'];
                                     $product->title = $item['name'];
                                     $product->selling_price = $item['price'];
                                     $product->cost_price = $item['price'];
                                     $product->save();
                                 }
+//                                $itemVariations = [];
+                                foreach ($item['meta_data'] as $key1 => $itemV) {
+                                    $variation = Variation::where('name', $itemV['display_key'])->first();
+                                    if (!$variation) {
+                                        $variation = new Variation();
+                                        $variation->name = $itemV['display_key'];
+                                        $variation->save();
+                                    }
+
+                                    $product_variation = ProductVariation::where('product_id', $product->id)->where('variation_id', $variation->id)
+                                        ->where('value', $itemV['display_value'])->first();
+
+                                    if (!$product_variation) {
+                                        $product_variation = new ProductVariation();
+                                        $product_variation->product_id = $product->id;
+                                        $product_variation->variation_id = $variation->id;
+                                        $product_variation->parent_product_id = $parent_product->id;
+                                        $product_variation->value = $itemV['display_value'];
+                                        $product_variation->save();
+                                    }
+//                                    $itemVariations[] = $product_variation->id;
+                                }
                                 $items[$key]['qty'] = $item['quantity'];
                                 $items[$key]['value_inc_tax'] = $item['total'];
                                 $items[$key]['value_ex_tax'] = $item['subtotal'];
-
                                 $items[$key]['product_id'] = $product['id'];
                                 $items[$key]['unit_price'] = $item['price'];
                                 $items[$key]['tax_amount'] = $item['total_tax'];
@@ -206,7 +240,7 @@ class WordpressController extends Controller
                             ]);
                         }
                     }
-                    return response()->json(['saved' => true,'new'=>$i]);
+                    return response()->json(['saved' => true, 'new' => $i]);
                 } else {
                     return response()->json(['error' => 'Failed to fetch data from the API'], $response->status());
                 }

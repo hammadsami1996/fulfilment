@@ -73,7 +73,7 @@ class OrderController extends Controller
             'discount_percent' => 0,
             'selling_price' => 0,
             'shipped_by_id' => '',
-            'qunatity' => '',
+            'quantity' => '',
             'order_type_id' => '',
             'payment_status' => '',
             'delivery_charges' => '',

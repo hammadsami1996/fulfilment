@@ -7,7 +7,9 @@ use App\Models\City_Courier;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductVariation;
 use App\Models\Store;
+use App\Models\Variation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -59,14 +61,14 @@ class ShopifyController extends Controller
                     $i = 0;
                     foreach ($shopify['orders'] as $rec) {
 //                        dd($rec);
-                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify');
-                        if (!$order->first()) {
+                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify')->where('store_id', $store->id)->first();
+                        if (!$order) {
                             ++$i;
                             $order = new Order();
                             $order->order_form = 'Shopify';
                             $order->warehouse_id = $store->warehouse_id;
                             $order->external_order_no = $rec['id'];
-                            // $order->store_id = $store->id;
+                            $order->store_id = $store->id;
                             if ($rec['customer']['phone']) {
                                 $customer = Customer::where('phone', $rec['customer']['phone'])->first();
                                 if ($customer) {
@@ -83,8 +85,7 @@ class ShopifyController extends Controller
                                     }
                                     $customer->b_name = $rec['billing_address']['name'];
                                     $customer->b_phone = $rec['billing_address']['phone'];
-                                    $customer->b_address_1 = $rec['billing_address']['address1'];
-                                    $customer->b_address_2 = $rec['billing_address']['address2'];
+                                    $customer->b_address_1 = $rec['billing_address']['address1'] . ' ' . $rec['billing_address']['address2'];
                                     if ($rec['shipping_address']) {
                                         $s_city = City::where('name', $rec['shipping_address']['city'])->first();
                                         if ($s_city) {
@@ -94,15 +95,14 @@ class ShopifyController extends Controller
                                     }
                                     $customer->s_name = $rec['shipping_address']['name'];
                                     $customer->s_phone = $rec['shipping_address']['phone'];
-                                    $customer->s_address_1 = $rec['shipping_address']['address1'];
-                                    $customer->s_address_2 = $rec['shipping_address']['address2'];
+                                    $customer->s_address_1 = $rec['shipping_address']['address1'] . ' ' . $rec['shipping_address']['address2'];
                                     $customer->save();
                                     $order->customer_id = $customer['id'];
                                 }
                             }
                             $order->b_name = $rec['billing_address']['name'];
                             $order->b_phone = $rec['billing_address']['phone'];
-                            $order->b_address_1 = $rec['billing_address']['address1'];
+                            $order->b_address_1 = $rec['billing_address']['address1'] . ' ' . $rec['billing_address']['address2'];
 
                             $s_city = City::where('name', $rec['shipping_address']['city'])->first();
                             if ($s_city) {
@@ -115,7 +115,7 @@ class ShopifyController extends Controller
                             }
                             $order->s_name = $rec['shipping_address']['name'];
                             $order->s_phone = $rec['shipping_address']['phone'];
-                            $order->s_address_1 = $rec['shipping_address']['address1'];
+                            $order->s_address_1 = $rec['shipping_address']['address1'] . ' ' . $rec['shipping_address']['address2'];
 
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['total_shipping_price_set']['presentment_money']['amount'];
@@ -129,16 +129,45 @@ class ShopifyController extends Controller
 
                             $order->status_id = 1;
 
-                            $items = [  ];
+                            $items = [];
                             foreach ($rec['line_items'] as $key => $item) {
-                                $product = Product::where('product_sku', $item['sku'])->first();
+                                $parent_product = Product::where('title', $item['title'])->whereNull('head_id')->first();
+                                if (!$parent_product) {
+                                    $parent_product = new Product();
+                                    $parent_product->title = $item['title'];
+                                    $parent_product->selling_price = $item['price'];
+                                    $parent_product->cost_price = $item['price'];
+                                    $parent_product->save();
+                                }
+                                $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
+
                                 if (!$product) {
                                     $product = new Product();
-                                    $product->product_sku = $item['sku'];
+                                    $product->head_id = $parent_product['id'];
+                                    $product->product_sku = $item['sku'] ? $item['sku'] : $item['product_id'];
                                     $product->title = $item['title'];
+                                    $product->description = $item['name'];
                                     $product->selling_price = $item['price'];
                                     $product->cost_price = $item['price'];
                                     $product->save();
+                                }
+                                if ($item['variant_title']) {
+                                    $variation = Variation::where('name', $item['variant_title'])->first();
+                                    if (!$variation) {
+                                        $variation = new Variation();
+                                        $variation->name = $item['variant_title'];
+                                        $variation->save();
+                                    }
+                                    $product_variation = ProductVariation::where('product_id', $product->id)->where('variation_id', $variation->id)
+                                        ->where('value', $item['variant_title'])->first();
+                                    if (!$product_variation) {
+                                        $product_variation = new ProductVariation();
+                                        $product_variation->product_id = $product->id;
+                                        $product_variation->variation_id = $variation->id;
+                                        $product_variation->parent_product_id = $parent_product->id;
+                                        $product_variation->value = $item['variant_title'];
+                                        $product_variation->save();
+                                    }
                                 }
                                 $items[$key]['qty'] = $item['quantity'];
                                 $items[$key]['product_id'] = $product['id'];
