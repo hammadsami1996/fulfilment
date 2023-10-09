@@ -73,7 +73,7 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2"> Address </label>
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
-                              v-model="form.s_addres_1"/>
+                              v-model="form.s_address_1"/>
                     <!--    <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>-->
                 </div>
 
@@ -556,7 +556,7 @@
                 this.form.name = customer.name
                 this.form.email = customer.email
                 this.form.phone = customer.phone
-                this.form.s_addres_1 = customer.s_address_1
+                this.form.s_address_1 = customer.s_address_1
                 this.form.customer_id = customer.id
             },
             onStores(e) {

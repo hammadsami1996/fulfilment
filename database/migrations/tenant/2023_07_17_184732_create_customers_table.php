@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email' , 50)->nullable();
             $table->string('phone' , 15)->nullable();
             $table->integer('category_id')->nullable();
-            $table->integer('balance')->nullable();
-            $table->string('type_id', 15)->nullable();
+            // $table->integer('balance')->nullable();
+            // $table->string('type_id', 15)->nullable();
             $table->string('address')->nullable();
             $table->integer('b_country_id')->nullable();
             $table->integer('s_country_id')->nullable();

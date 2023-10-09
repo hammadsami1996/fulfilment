@@ -44,8 +44,8 @@ class MimCartController extends Controller
                     $i = 0;
                     foreach ($response->json() as $rec) {
 //                         dd($rec);
-                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart');
-                        if (!$order->first()) {
+                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart')->where('store_id',$store->id)->first();
+                        if (!$order) {
                             ++$i;
                             $order = new Order();
                             $order->order_form = 'MimCart';
@@ -99,12 +99,11 @@ class MimCartController extends Controller
                                 }
                             }
 
-                            $order->instraction = $rec['instructions'];
+                            $order->instruction = $rec['instructions'];
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
                             foreach ($rec['items'] as $key => $item) {
-                                $product = null;
                                 $product = Product::where('product_sku', $item['code'])->first();
                                 if (!$product) {
                                     $product = new Product();

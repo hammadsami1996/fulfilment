@@ -7,24 +7,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles , SoftDeletes;
     use Search;
 
     protected $fillable = [
-        'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
-        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 's_name',
-        's_phone', 's_address_1', 'category_id', 's_country_id', 's_city_id','qunatity','date'
+        'name', 'email', 'phone',
+        //  'balance', 'type_id',
+          'discount', 'address', 'b_country_id',
+        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
+        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id','quantity','date'
     ];
     protected $columns = [
-        'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
-        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 's_name',
-        's_phone', 's_address_1', 'category_id', 's_country_id', 's_city_id','qunatity','date'
+        'name', 'email', 'phone', 
+        // 'balance', 'type_id', 
+        'discount', 'address', 'b_country_id',
+        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
+        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id','quantity','date'
     ];
 
     protected $search = [
+        'name', 'email', 'phone', 
+        // 'balance', 'type_id',
+         'discount', 'address', 'b_country_id',
+        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 'b_address_2', 's_name',
+        's_phone', 's_address_1', 's_address_2', 'category_id', 's_country_id', 's_city_id','qunatity','date',
         'name', 'email', 'phone', 'balance', 'type_id', 'discount', 'address', 'b_country_id',
         'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 's_name',
         's_phone', 's_address_1', 'category_id', 's_country_id', 's_city_id','qunatity','date'
@@ -40,10 +50,10 @@ class Customer extends Model
     }
 
 
-    public function type()
-    {
-        return $this->belongsTo(Type::class, 'type_id', 'id');
-    }
+    // public function type()
+    // {
+    //     return $this->belongsTo(Type::class, 'type_id', 'id');
+    // }
 
     public function category()
     {

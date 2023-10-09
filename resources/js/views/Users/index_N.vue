@@ -72,7 +72,7 @@
                 panel_sort_enabled: true,
                 columns: [
                     {
-                        label: '',
+                        label: 'S.No',
                         field: 'S.No',
                         format: 'index'
                     },
@@ -80,6 +80,10 @@
                         label: 'Name',
                         field: 'name',
                     },
+                    // {
+                    //     label: 'Phone',
+                    //     field: 'mobile_no',
+                    // },
                     {
                         label: 'Action',
                         field: 'action',

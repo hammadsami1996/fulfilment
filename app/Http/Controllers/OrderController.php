@@ -11,6 +11,8 @@ use App\Models\Order_item;
 use App\Models\OrderViews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class OrderController extends Controller
@@ -71,7 +73,7 @@ class OrderController extends Controller
             'discount_percent' => 0,
             'selling_price' => 0,
             'shipped_by_id' => '',
-            'qunatity' => '',
+            'quantity' => '',
             'order_type_id' => '',
             'payment_status' => '',
             'delivery_charges' => '',
@@ -91,7 +93,7 @@ class OrderController extends Controller
             'store_id' => 'required',
             'order_date' => 'required',
             'customer_id' => 'required',
-            'warehouse_id' => 'required',
+            // 'warehouse_id' => 'required',
 //            'city' => 'required',
 //            'total' => 'required',
 //            'tax' => 'required',
@@ -198,7 +200,8 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $model = Order::with('customer', 'items', 'stores')->findOrFail($id);
-        // $model->save();
+        $model->deleted_by = Auth::id();
+        $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);
     }

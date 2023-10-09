@@ -9,23 +9,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use function Symfony\Component\Console\Style\text;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderViews extends Model
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles,SoftDeletes;
     use Search;
     use HasManyRelation;
 
     protected $columns = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier', 'payment_status', 'selling_Price',
         'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent',
-        'shipped_by', 'qunatity', 'order_type_id','delivery_charges'
+        'shipped_by', 'quantity', 'order_type_id','delivery_charges'
     ];
 
     protected $search = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier', 'payment_status', '', 'selling_price',
         'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent',
-        'shipped_by', 'qunatity', 'order_type_id','delivery_charges'
+        'shipped_by', 'quantity', 'order_type_id','delivery_charges'
     ];
     protected $appends = ['net_total','text'];
     public function getNetTotalAttribute()

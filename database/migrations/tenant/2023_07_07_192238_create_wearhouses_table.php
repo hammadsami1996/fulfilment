@@ -18,6 +18,14 @@ return new class extends Migration
             $table->string('parent_id', 25)->nullable();
             $table->timestamps();
         });
+
+        DB::table('warehouses')->insert(
+            [
+                'name' => 'General warehouse',
+                'location' => 'karachi',
+               
+            ]
+        );
     }
 
     /**
