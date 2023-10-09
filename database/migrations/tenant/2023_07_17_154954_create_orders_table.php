@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('external_order_no', 50)->nullable();
             $table->string('tracking_id' , 50)->nullable();
             $table->integer('product_id')->nullable();
-            $table->decimal('subTotal')->nullable();
+            $table->decimal('sub_total')->nullable();
             $table->decimal('discount')->nullable();
             $table->decimal('discount_percent')->nullable();
             $table->integer('warehouse_id')->nullable();
@@ -47,7 +47,7 @@ return new class extends Migration
             $table->integer('shipping_charges')->nullable();
             $table->integer('advance')->nullable();
             $table->integer('delivery_charges')->nullable();
-            $table->integer('shipped_by_id')->nullable();
+            $table->integer('courier_id')->nullable();
             $table->double('weight')->default(0);
             $table->string('order_form' , 30)->nullable();
             $table->string('payment_method' , 30)->nullable();

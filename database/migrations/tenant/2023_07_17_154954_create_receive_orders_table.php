@@ -39,7 +39,7 @@ return new class extends Migration
             // $table->integer('external_order_no')->nullable();
             // $table->integer('tracking_id')->nullable();
             // $table->integer('product_id')->nullable();
-            // $table->decimal('subTotal')->nullable();
+            // $table->decimal('sub_total')->nullable();
             // $table->decimal('discount')->nullable();
             // $table->decimal('discount_percent')->nullable();
             // $table->integer('warehouse_id')->nullable();

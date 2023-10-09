@@ -18,13 +18,13 @@ class OrderViews extends Model
 
     protected $columns = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier', 'payment_status', 'selling_Price',
-        'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent',
+        'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'sub_total', 'discount', 'discount_percent',
         'shipped_by', 'quantity', 'order_type_id','delivery_charges'
     ];
 
     protected $search = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier', 'payment_status', '', 'selling_price',
-        'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent',
+        'location', 'sales_rep', 'selling_price', 'external_order_no', 'tracking_id', 'product_id', 'sub_total', 'discount', 'discount_percent',
         'shipped_by', 'quantity', 'order_type_id','delivery_charges'
     ];
     protected $appends = ['net_total','text'];
@@ -65,7 +65,7 @@ class OrderViews extends Model
 
     public function shipped_by()
     {
-        return $this->belongsTo(Courier::class, 'shipped_by_id', 'id');
+        return $this->belongsTo(Courier::class, 'courier_id', 'id');
     }
 
     public function city()
