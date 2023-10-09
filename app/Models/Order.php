@@ -18,21 +18,21 @@ class Order extends Model
 
     protected $fillable = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier_id', 'payment_status', 'location', 'sales_rep', 'selling_price',
-        'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent', 'warehouse_id', 'status_id', 'so_number', 's_name', 's_email', 's_address_1',
-        's_phone', 'b_name', 'b_email', 'b_address_1', 'b_phone', 'instraction', 'qunatity', 'order_type_id', 'shipping_charges', 'advance', 'delivery_charges', 'shipped_by_id',
+        'external_order_no', 'tracking_id', 'product_id', 'sub_total', 'discount', 'discount_percent', 'warehouse_id', 'status_id', 'so_number', 's_name', 's_email', 's_address_1',
+        's_phone', 'b_name', 'b_email', 'b_address_1', 'b_phone', 'instraction', 'qunatity', 'order_type_id', 'shipping_charges', 'advance', 'delivery_charges', 'courier_id',
         'weight', 'order_form', 'payment_method', 'item_summary', 'item_summary_mannual', 'coupons', 'coupons_discount', 'redeem_amount', 'net_total', 'comments', 'shipment_services',
         'shipped_ref', 'shipper_slip_link', 'city_name', 'payment_description', 'currency_id', 'currency_symbol', 'currency_value', 'replacement_item_summary', 'replacement_qty'
     ];
     protected $columns = [
-        'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier_id', 'payment_status', 'location', 'sales_rep', 'selling_price',
-        'external_order_no', 'tracking_id', 'product_id', 'subTotal', 'discount', 'discount_percent', 'warehouse_id', 'status_id', 'so_number', 's_name', 's_email', 's_address_1',
-        's_phone', 'b_name', 'b_email', 'b_address_1', 'b_phone', 'instraction', 'qunatity', 'order_type_id', 'shipping_charges', 'advance', 'delivery_charges', 'shipped_by_id',
-        'weight', 'order_form', 'payment_method', 'item_summary', 'item_summary_mannual', 'coupons', 'coupons_discount', 'redeem_amount', 'net_total', 'comments', 'shipment_services',
+        'store_id', 'order_date', 'customer_id', 'city_id', 'tax', 'balance', 'courier_id', 'payment_status', 'location', 'sales_rep', 'selling_price',
+        'external_order_no', 'tracking_id', 'product_id', 'sub_total', 'discount', 'discount_percent', 'warehouse_id', 'status_id', 'so_number', 's_name', 's_email', 's_address_1',
+        's_phone', 'b_name', 'b_email', 'b_address_1', 'b_phone', 'instruction', 'quantity', 'order_type_id', 'shipping_charges', 'advance', 'delivery_charges', 'courier_id',
+        'weight', 'order_form', 'payment_method', 'item_summary', 'item_summary_manual', 'coupons', 'coupons_discount', 'redeem_amount', 'net_total', 'comments', 'shipment_services',
         'shipped_ref', 'shipper_slip_link', 'city_name', 'payment_description', 'currency_id', 'currency_symbol', 'currency_value', 'replacement_item_summary', 'replacement_qty'
     ];
 
     protected $search = [
-        'order_date', 'total', 'tax', 'balance', 'payment_status', 'location', 'sales_rep', 'selling_price', 'external_order_no', 'subTotal', 'discount', 'discount_percent',
+        'order_date', 'total', 'tax', 'balance', 'payment_status', 'location', 'sales_rep', 'selling_price', 'external_order_no', 'sub_total', 'discount', 'discount_percent',
         'so_number', 's_name', 's_email', 's_address_1', 's_phone', 'b_name', 'b_email', 'b_address_1', 'b_phone', 'instraction', 'qunatity', 'shipping_charges', 'advance',
         'delivery_charges', 'weight', 'order_form', 'payment_method', 'item_summary', 'item_summary_mannual', 'coupons', 'coupons_discount', 'redeem_amount', 'net_total', 'comments',
         'shipment_services', 'shipped_ref', 'shipper_slip_link', 'city_name', 'payment_description', 'currency_symbol', 'currency_value', 'replacement_item_summary', 'replacement_qty'
@@ -79,7 +79,7 @@ class Order extends Model
 
     public function shipped()
     {
-        return $this->belongsTo(Shipped::class, 'shipped_by_id', 'id');
+        return $this->belongsTo(Shipped::class, 'courier_id', 'id');
     }
 
     public function city()
@@ -99,7 +99,7 @@ class Order extends Model
 
     public function courier()
     {
-        return $this->belongsToMany(Courier::class, 'shipped_by_id', 'id');
+        return $this->belongsToMany(Courier::class, 'courier_id', 'id');
     }
 
 

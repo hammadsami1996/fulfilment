@@ -32,8 +32,8 @@ class OrderController extends Controller
                 $q->where('city_id', \request('city_id'));
             })->when(\request()->has('customer_id') && \request('customer_id'), function ($q) {
                 $q->where('customer_id', \request('customer_id'));
-            })->when(\request()->has('shipped_by_id') && \request('shipped_by_id'), function ($q) {
-                $q->where('shipped_by_id', \request('shipped_by_id'));
+            })->when(\request()->has('courier_id') && \request('courier_id'), function ($q) {
+                $q->where('courier_id', \request('courier_id'));
             })->when(\request()->has('quantity') && \request('quantity'), function ($q) {
                 $q->where('quantity', \request('quantity'));
             })->when(\request()->has('order_type_id') && \request('order_type_id'), function ($q) {
@@ -68,11 +68,11 @@ class OrderController extends Controller
             "external_order_no" => '',
             "tracking_id" => '',
             "product_id" => '',
-            "subTotal" => '',
+            "sub_total" => '',
             "discount" => '',
             'discount_percent' => 0,
             'selling_price' => 0,
-            'shipped_by_id' => '',
+            'courier_id' => '',
             'quantity' => '',
             'order_type_id' => '',
             'payment_status' => '',
@@ -125,7 +125,7 @@ class OrderController extends Controller
         }
         $model->so_number = ($number->first()->perfix . $number->first()->value);
 
-        $model->subTotal = collect($request->items)->sum(function ($item) {
+        $model->sub_total = collect($request->items)->sum(function ($item) {
             return $item['qty'] * $item['unit_price'];
         });
 
@@ -178,7 +178,7 @@ class OrderController extends Controller
         $customer = Customer::where('phone', $request->phone)->first();
         $order = Order::findOrFail($id);
         $order->fill($request->except('items'));
-        $order->shipped_by_id = $request->couriers_id;
+        $order->courier_id = $request->couriers_id;
 
         // Update the customer ID for the order if a customer with the provided phone exists
         if ($customer) {

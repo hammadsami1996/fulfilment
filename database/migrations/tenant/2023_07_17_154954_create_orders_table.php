@@ -49,7 +49,7 @@ return new class extends Migration
             $table->decimal('shipping_charges',10,2)->nullable();
             $table->decimal('advance',10,2)->nullable();
             $table->decimal('delivery_charges',10,2)->nullable();
-            $table->integer('shipped_by_id')->nullable();
+            $table->integer('courier_id')->nullable();
             $table->decimal('weight',10,2)->default(0);
             $table->string('order_form' , 30)->nullable();
             $table->string('payment_method' , 30)->nullable();

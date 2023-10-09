@@ -174,7 +174,7 @@ class WordpressController extends Controller
                                 $order->city_id = $cities->id;
                                 $cityCourier = City_Courier::where('city_id', $cities->id)->first();
                                 if ($cityCourier) {
-                                    $order->shipped_by_id = $cityCourier->courier_id;
+                                    $order->courier_id = $cityCourier->courier_id;
 //                                    $order->delivery_charges = $cityCourier->delivery_charges;
                                 }
                             }
