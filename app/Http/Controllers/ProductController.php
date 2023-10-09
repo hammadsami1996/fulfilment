@@ -10,7 +10,7 @@ use App\Models\Purchase_item;
 use File;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
-use Maatwebsite\Excel\Facades\Excel;
+//use Maatwebsite\Excel\Facades\Excel;
 use Response;
 
 // use Spatie\Backtrace\File;
