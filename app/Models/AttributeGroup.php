@@ -5,28 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-    class ProductAttributeValue extends Model
+class AttributeGroup extends Model
 {
     use HasFactory;
+//    protected $table='products_attributes_groups';
     protected $fillable =[
-        'groups',
         'title',
-        'image',
-        'choose_lenses',
-        'color_code',
+        'sets',
+        'show_filter',
+        'show_on_front',
         'sort',
         'status',
-        'active',
-        'deleted',
-        'add_by',
-        'edit_by',
-        'deleted_by',
-        'createdon',
-        'updatedon',
+        'active'
+
     ];
     protected $appends = ['text'];
     public function getTextAttribute()
     {
         return $this->attributes['title'];
+    }
+    public function productattribute_value(){
+        return $this->hasmany(ProductAttributeValue::class,'groups','id');
     }
 }

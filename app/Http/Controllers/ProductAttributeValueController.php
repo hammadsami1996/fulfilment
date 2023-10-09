@@ -28,9 +28,47 @@ class ProductAttributeValueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $colour = json_decode(request()->test1);
+        $size = json_decode(request()->test2);
+        $res = $this->getCombinations($colour, $size);
+        dd($res);
+    }
+    function getCombinations(...$arrays)
+    {
+        $result = [[]];
+
+        foreach ($arrays as $property => $property_values) {
+            $tmp = [];
+            foreach ($result as $result_item) {
+                foreach ($property_values as $property_value) {
+                    $tmp[] = array_merge($result_item, [$property => $property_value]);
+                }
+            }
+            $result = $tmp;
+        }
+        return $result;
     }
 
+    public function prod_attr_value(Request $request)
+    {
+//        dd(request()->all());
+        $request->validate([
+//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'value' => 'required',
+
+        ]);
+//        if(isset(request()->value)){
+
+        $data = new ProductAttributeValue();
+        $data->groups = $request->group;
+        $data->title = $request->value;
+        $data->add_by = now();
+        $data->createdon = now();
+        $data->updatedon = now();
+        $data->save();
+        return response()->json(['saved' => true, 'id' => $data->id]);
+
+    }
     /**
      * Display the specified resource.
      */
