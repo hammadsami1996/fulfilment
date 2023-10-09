@@ -56,4 +56,20 @@ class Product extends Model
         // return $this->hasMany(Purchase_item::class)->orderBy('id' , 'desc')->limit(3);
     }
 
+    //mimcart
+    public function prod_grp()
+    {
+        return $this->hasMany(ProductAttribute::class, 'products', 'id');
+    }
+    public function test()
+    {
+        return $this->hasMany(ProductAttribute::class, 'products', 'id');
+    }
+    public function attribute_sets()
+    {
+        return $this->belongsTo(AttributeSet::class, 'attribute_set', 'id');
+    }
+
+
+
 }

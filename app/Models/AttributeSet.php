@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-    class ProductAttributeValue extends Model
+class AttributeSet extends Model
 {
     use HasFactory;
     protected $fillable =[
         'groups',
         'title',
-        'image',
-        'choose_lenses',
-        'color_code',
         'sort',
         'status',
         'active',
@@ -21,12 +18,17 @@ use Illuminate\Database\Eloquent\Model;
         'add_by',
         'edit_by',
         'deleted_by',
-        'createdon',
-        'updatedon',
+        'active',
+        'edit_by',
     ];
     protected $appends = ['text'];
     public function getTextAttribute()
     {
         return $this->attributes['title'];
     }
+    public function attribute_set(){
+
+        return $this->hasmany(AssignSet::class,'sets','id');
+    }
+
 }
