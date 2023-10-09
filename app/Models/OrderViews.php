@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use function Symfony\Component\Console\Style\text;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderViews extends Model
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles,SoftDeletes;
     use Search;
     use HasManyRelation;
 

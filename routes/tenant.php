@@ -132,6 +132,9 @@ Route::middleware([
         Route::get('/company', [\App\Http\Controllers\CompanyController::class, 'index']);
     });
 
+    Route::prefix('docs')->middleware(['auth', 'verified'])->group(function () {
+        Route::get('product_excel', [\App\Http\Controllers\ProductController::class, 'product_excel']);
+    });
 
     Route::middleware('verified')->group(function () {
         Route::get('/dashboard', function () {
