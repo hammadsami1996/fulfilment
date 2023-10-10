@@ -185,6 +185,8 @@ class ShopifyController extends Controller
                                 $items[$key]['qty'] = $item['quantity'];
                                 $totalQuantity = $item['quantity'];
                                 $items[$key]['product_id'] = $product['id'] ?? null;
+                                $items[$key]['product_name'] = $product['name'] ?? null;
+                                $items[$key]['product_sku'] = $product['sku'] ?? null;
                                 $items[$key]['unit_price'] = $item['price'];
                             }
                             $order->quantity = $totalQuantity;
