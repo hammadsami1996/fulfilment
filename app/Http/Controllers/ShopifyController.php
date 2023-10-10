@@ -142,45 +142,45 @@ class ShopifyController extends Controller
                             $items = [];
                             $totalQuantity = 0;
                             foreach ($rec['line_items'] as $key => $item) {
-                                $parent_product = Product::where('title', $item['title'])->whereNull('head_id')->first();
-                                if (!$parent_product) {
-                                    $parent_product = new Product();
-                                    $parent_product->title = $item['title'];
-                                    $parent_product->selling_price = $item['price'];
-                                    $parent_product->cost_price = $item['price'];
-                                    $parent_product->save();
-                                }
-                                $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
-
-                                if (!$product) {
-                                    $product = new Product();
-                                    $product->head_id = $parent_product['id'];
-                                    $product->product_sku = $item['sku'] ? $item['sku'] : $item['product_id'];
-                                    $product->title = $item['title'];
-                                    $product->description = $item['name'];
-                                    $product->selling_price = $item['price'];
-                                    $product->cost_price = $item['price'];
-                                    $product->save();
-                                }
-                                if ($item['variant_title']) {
-                                    $variation = Variation::where('name', $item['variant_title'])->first();
-                                    if (!$variation) {
-                                        $variation = new Variation();
-                                        $variation->name = $item['variant_title'];
-                                        $variation->save();
-                                    }
-                                    $product_variation = ProductVariation::where('product_id', $product->id)->where('variation_id', $variation->id)
-                                        ->where('value', $item['variant_title'])->first();
-                                    if (!$product_variation) {
-                                        $product_variation = new ProductVariation();
-                                        $product_variation->product_id = $product->id;
-                                        $product_variation->variation_id = $variation->id;
-                                        $product_variation->parent_product_id = $parent_product->id;
-                                        $product_variation->value = $item['variant_title'];
-                                        $product_variation->save();
-                                    }
-                                }
+//                                $parent_product = Product::where('title', $item['title'])->whereNull('head_id')->first();
+//                                if (!$parent_product) {
+//                                    $parent_product = new Product();
+//                                    $parent_product->title = $item['title'];
+//                                    $parent_product->selling_price = $item['price'];
+//                                    $parent_product->cost_price = $item['price'];
+//                                    $parent_product->save();
+//                                }
 //                                $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
+//
+//                                if (!$product) {
+//                                    $product = new Product();
+//                                    $product->head_id = $parent_product['id'];
+//                                    $product->product_sku = $item['sku'] ? $item['sku'] : $item['product_id'];
+//                                    $product->title = $item['title'];
+//                                    $product->description = $item['name'];
+//                                    $product->selling_price = $item['price'];
+//                                    $product->cost_price = $item['price'];
+//                                    $product->save();
+//                                }
+//                                if ($item['variant_title']) {
+//                                    $variation = Variation::where('name', $item['variant_title'])->first();
+//                                    if (!$variation) {
+//                                        $variation = new Variation();
+//                                        $variation->name = $item['variant_title'];
+//                                        $variation->save();
+//                                    }
+//                                    $product_variation = ProductVariation::where('product_id', $product->id)->where('variation_id', $variation->id)
+//                                        ->where('value', $item['variant_title'])->first();
+//                                    if (!$product_variation) {
+//                                        $product_variation = new ProductVariation();
+//                                        $product_variation->product_id = $product->id;
+//                                        $product_variation->variation_id = $variation->id;
+//                                        $product_variation->parent_product_id = $parent_product->id;
+//                                        $product_variation->value = $item['variant_title'];
+//                                        $product_variation->save();
+//                                    }
+//                                }
+                                $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
 
                                 $items[$key]['qty'] = $item['quantity'];
                                 $totalQuantity = $item['quantity'];

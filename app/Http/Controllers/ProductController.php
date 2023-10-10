@@ -209,7 +209,7 @@ class ProductController extends Controller
     public function product_excel(Request $request)
     {
 //        dd($request);
-        $data = Product::with('category', 'brand', 'product_img')->get();
+        $data = Product::get();
         return Excel::download(new \App\Exports\product_excel($data), 'Product.xls');
     }
 
