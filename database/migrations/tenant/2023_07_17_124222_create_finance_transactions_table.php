@@ -33,16 +33,18 @@ return new class extends Migration
             $table->integer('account_id')->nullable();
             $table->integer('group_id')->nullable();
             $table->integer('subledger_id')->nullable();
-            $table->double('rate', 13, 2)->nullable();
-            $table->double('fc_debit', 0, 0)->nullable();
-            $table->double('fc_credit', 0, 0)->nullable();
-            $table->double('debit', 13, 2)->nullable();
-            $table->double('credit', 13, 2)->nullable();
+            $table->decimal('rate', 10, 2)->default(0);
+            $table->decimal('fc_debit', 10, 2)->default(0);
+            $table->decimal('fc_credit', 10, 2)->default(0);
+            $table->decimal('debit', 10, 2)->default(0);
+            $table->decimal('credit', 10, 2)->default(0);
             $table->bigInteger('serial')->nullable();
             $table->integer('cost_center_id')->nullable();
 
             $table->integer('currency_id')->nullable();
             $table->string('cost_center_name')->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
 
 
             $table->timestamps();

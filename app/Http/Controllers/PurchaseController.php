@@ -7,6 +7,8 @@ use App\Models\Purchase;
 use App\Models\Product;
 use App\Models\Purchase_item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class PurchaseController extends Controller
 {
@@ -159,7 +161,7 @@ class PurchaseController extends Controller
     public function destroy($id)
     {
         $model = Purchase::with('supplier')->findOrFail($id);
-//        $model->deleted_by = Auth::id();
+       $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

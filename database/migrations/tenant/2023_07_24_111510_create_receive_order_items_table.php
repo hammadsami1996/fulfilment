@@ -17,12 +17,14 @@ return new class extends Migration
             $table->integer('purchase_order_item_id')->nullable();
 
             $table->integer('product_id')->nullable();
-            $table->integer('qty')->nullable();
-            $table->decimal('unit_price')->nullable();
-            $table->decimal('value_ex_tax')->nullable();
-            $table->decimal('tax_percent')->nullable();
-            $table->decimal('tax_amount')->nullable();
-            $table->decimal('value_inc_tax')->nullable();
+            $table->decimal('qty',10,2)->default(0);
+            $table->decimal('unit_price',10,2)->default(0);
+            $table->decimal('value_ex_tax',10,2)->default(0);
+            $table->decimal('tax_percent',10,2)->default(0);
+            $table->decimal('tax_amount',10,2)->default(0);
+            $table->decimal('value_inc_tax',10,2)->default(0);
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

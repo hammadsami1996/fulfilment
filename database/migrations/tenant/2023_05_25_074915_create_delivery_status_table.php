@@ -17,6 +17,8 @@ return new class extends Migration
            $table->string('color');
            $table->string('head')->nullable();
            $table->string('head_id')->nullable();
+           $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
            $table->timestamps();
        });
         // DB::unprepared(file_get_contents(public_path('/delivery_status.sql')));

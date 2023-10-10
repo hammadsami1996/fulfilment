@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Models\Companysetting;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class SettingsController extends Controller

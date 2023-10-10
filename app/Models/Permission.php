@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Permission extends Model
+class Permission extends Model implements Auditable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, Search;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Search,SoftDeletes, \OwenIt\Auditing\Auditable;
 
     protected $connection = 'mysql';
 

@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Customer extends Model
+class Customer extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles , SoftDeletes;
-    use Search;
+    use HasFactory, Notifiable, HasRoles , SoftDeletes, Search,\OwenIt\Auditing\Auditable;
+   
 
     protected $fillable = [
         'name', 'email', 'phone',

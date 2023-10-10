@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class BrandController extends Controller
 {
@@ -76,7 +78,7 @@ class BrandController extends Controller
     public function destroy($id)
     {
         $model = Brand::findOrFail($id);
-//        $model->deleted_by = Auth::id();
+       $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

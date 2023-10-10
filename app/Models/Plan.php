@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Plan extends Model
+class Plan extends Model implements Auditable
 {
-    use HasFactory, Search, SoftDeletes;
+    use HasFactory, Search, SoftDeletes, \OwenIt\Auditing\Auditable;
     protected $table = 'plans';
 
     protected $fillable = [

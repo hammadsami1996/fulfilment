@@ -33,6 +33,8 @@ return new class extends Migration
             $table->string('s_phone' , 15)->nullable();
             $table->string('s_address_1')->nullable();
             $table->date('date')->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

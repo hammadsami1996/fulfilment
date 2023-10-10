@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Support\Search;
+use OwenIt\Auditing\Contracts\Auditable;   
 
-class Account_group_class_type extends Model
+class Account_group_class_type extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles;
-    use Search;
+    use HasFactory, Notifiable, HasRoles ,\OwenIt\Auditing\Auditable ,SoftDeletes, Search;
+   
 
     protected $table = 'account_group_class_types';
     protected $search = [

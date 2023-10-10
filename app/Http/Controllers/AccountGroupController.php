@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Account_group;
 use App\Models\AccountClass;
+use Illuminate\Support\Facades\Auth;
+
 
 class AccountGroupController extends Controller
 {
@@ -84,6 +86,9 @@ class AccountGroupController extends Controller
     public function destroy($id)
     {
         $group = Account_group::findOrFail($id);
+        $group->deleted_by = Auth::id();
+        $group->save();
+        // $group->delete();
 
         $group->delete();
 

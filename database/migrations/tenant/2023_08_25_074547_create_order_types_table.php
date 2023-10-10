@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('order_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
         // DB::unprepared(file_get_contents(public_path('/order_types.sql')));

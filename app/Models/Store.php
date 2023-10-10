@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Store extends Model
+class Store extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles;
-    use Search;
+    use HasFactory, Search, Notifiable, HasRoles,SoftDeletes,  \OwenIt\Auditing\Auditable;
+    
     protected $fillable = [
         'name', 'location', 'company_id','store_type','plate_form','access_token','store_address','img',
         'api_key','api_secret','word_address','mim_api_key','mim_store_address' , 'warehouse_id'

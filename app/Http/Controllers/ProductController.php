@@ -11,6 +11,8 @@ use File;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Response;
+use Illuminate\Support\Facades\Auth;
+
 
 // use Spatie\Backtrace\File;
 // use Symfony\Component\HttpFoundation\Response;
@@ -200,6 +202,8 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $model = Product::findOrFail($id);
+        $model->deleted_by = Auth::id();
+    
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

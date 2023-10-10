@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class SupplierController extends Controller
 {
@@ -107,7 +109,7 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         $model = Supplier::findOrFail($id);
-//        $model->deleted_by = Auth::id();
+       $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

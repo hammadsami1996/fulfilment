@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class StoreController extends Controller
 {
@@ -121,7 +123,7 @@ class StoreController extends Controller
     public function destroy($id)
     {
         $model = Store::with('company')->findOrFail($id);
-//        $model->deleted_by = Auth::id();
+       $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

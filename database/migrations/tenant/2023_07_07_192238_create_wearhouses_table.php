@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name', 25)->nullable();
             $table->string('location', 25)->nullable();
             $table->string('parent_id', 25)->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
 
@@ -27,6 +29,7 @@ return new class extends Migration
             ]
         );
     }
+    
 
     /**
      * Reverse the migrations.

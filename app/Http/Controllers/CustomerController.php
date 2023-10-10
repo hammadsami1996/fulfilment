@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class CustomerController extends Controller
 {
@@ -140,7 +142,7 @@ class CustomerController extends Controller
         $model = Customer::with(
             // 'type',
              'category', 's_city','b_city', 's_country','b_country')->findOrFail($id);
-        //        $model->deleted_by = Auth::id();
+               $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

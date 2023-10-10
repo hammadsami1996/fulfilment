@@ -28,9 +28,11 @@ return new class extends Migration
             $table->string('product_category', 25)->nullable();
             $table->integer('brand_id')->nullable();
             $table->integer('head_id')->nullable();
-            $table->string('quantity', 25)->nullable();
-            $table->integer('weight')->default(0);
+            $table->decimal('quantity', 10,2)->default(0);
+            $table->decimal('weight',10,2)->default(0);
             $table->integer('supplier_id')->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
 
             $table->timestamps();
         });

@@ -7,16 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class ProductImg extends Model
+class ProductImg extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles;
-    use Search;
+    use HasFactory, Notifiable, HasRoles,SoftDeletes,\OwenIt\Auditing\Auditable,Search;
+    
     protected $fillable = [
-        'img', 'product_id'
+        'img','imgurl', 'product_id'
     ];
     protected $columns = [
-        'img', 'product_id'
+        'img','imgurl', 'product_id'
     ];
 
     protected $search = [

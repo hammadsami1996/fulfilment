@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Counter;
 use App\Models\Finance_transaction;
+use Illuminate\Support\Facades\Auth;
+
 
 class AccountController extends Controller
 {
@@ -115,8 +117,11 @@ class AccountController extends Controller
     public function destroy($id)
     {
         $account = Account::findOrFail($id);
-
+        $account->deleted_by = Auth::id();
+        $account->save();
         $account->delete();
+
+        // $account->delete();
 
         return response()
             ->json(['deleted' => true]);

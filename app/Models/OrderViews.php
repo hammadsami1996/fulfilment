@@ -10,12 +10,12 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use function Symfony\Component\Console\Style\text;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class OrderViews extends Model
+class OrderViews extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles,SoftDeletes;
-    use Search;
-    use HasManyRelation;
+    use HasFactory, Notifiable,HasManyRelation, HasRoles,SoftDeletes,Search, \OwenIt\Auditing\Auditable;
+   
 
     protected $columns = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier', 'payment_status', 'selling_Price',

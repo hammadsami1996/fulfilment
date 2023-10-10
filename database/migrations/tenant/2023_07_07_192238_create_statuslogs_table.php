@@ -17,9 +17,10 @@ return new class extends Migration
             $table->integer('order_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->date('date')->nullable();
-            $table->integer('previous_sts')->nullable();
+            $table->decimal('previous_sts',10,2)->default(0);
             $table->string('updated_sts')->nullable();
-
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

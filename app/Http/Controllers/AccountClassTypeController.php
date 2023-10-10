@@ -99,8 +99,11 @@ class AccountClassTypeController extends Controller
     public function destroy($id)
     {
         $class = Account_group_class_type::findOrFail($id);
-
+        $class->deleted_by = Auth::id();
+        $class->save();
         $class->delete();
+
+        // $class->delete();
 
         return response()
             ->json(['deleted' => true]);

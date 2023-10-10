@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Role extends Model
+class Role extends Model implements Auditable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasPermissions, RefreshesPermissionCache, Search;
+    use HasApiTokens, HasFactory, Notifiable, HasPermissions, RefreshesPermissionCache, Search,SoftDeletes, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'name',
