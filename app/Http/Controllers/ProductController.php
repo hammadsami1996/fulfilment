@@ -10,6 +10,7 @@ use App\Models\Purchase_item;
 use File;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+//use Maatwebsite\Excel\Facades\Excel;
 use Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -207,6 +208,13 @@ class ProductController extends Controller
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);
+    }
+
+    public function product_excel(Request $request)
+    {
+//        dd($request);
+        $data = Product::get();
+        return Excel::download(new \App\Exports\product_excel($data), 'Product.xls');
     }
 
 

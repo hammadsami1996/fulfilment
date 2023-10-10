@@ -106,7 +106,7 @@ class CourierController extends Controller
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization:' 
+            'Authorization:'
         ));
         curl_setopt($ch, CURLOPT_POSTFIELDS,
             http_build_query($options));
@@ -121,7 +121,7 @@ class CourierController extends Controller
             $output = $result->message;
         } else {
             $output = (string)$result->tracking_number;
-      
+
         }
     }
 
@@ -137,7 +137,7 @@ class CourierController extends Controller
             $remarkstcs = !empty($order->instructions) ? $order->instructions : 'Please Deliver Urgently';
             $mobile = '0' . ltrim(preg_replace('/\D+/', '', $order->mobile), 0);
             $city = get_specific_field("cities", "tcs", $order->city);
-            $codamount = $order->total + $order->shipping_charges - ($order->discount + $order->redeem_amount + $order->coupons_discount + $order->advance);
+            $codamount = $order->net_total + $order->shipping_charges - ($order->discount + $order->redeem_amount + $order->coupons_discount + $order->advance);
 
             if ($order->item_summary) $details = $order->item_summary; else $details = "Record Not found";
 
@@ -186,7 +186,7 @@ function send_postex($id)
     $output = 0;
     $order = get_data_of('orders', '*', " AND id=$id", 1);
     if ($order) {
-        $codamount = $order->total + $order->shipping_charges - ($order->discount + $order->redeem_amount + $order->coupons_discount + $order->advance);
+        $codamount = $order->net_total + $order->shipping_charges - ($order->discount + $order->redeem_amount + $order->coupons_discount + $order->advance);
         $mobile = '0' . ltrim(preg_replace('/\D+/', '', $order->mobile), 0);
         $remarks = "Handle With Care - Please Call Before Delivery / B.O id: " . $order->confirmed_by . " - " . $order->instructions;
         $url = "https://www.day2daycourier.com/software/api/shipment/book";
@@ -239,7 +239,7 @@ function send_call_courier($id,$ServiceTypeId=7)
     $order = get_data_of('orders', '*', " AND id=$id", 1);
     if ($order){
         $remarks = "Handle With Care - Please Call Before Delivery / B.O id: " . $order->confirmed_by . " - " . $order->instructions;
-        $codamount = $order->total + $order->shipping_charges - ($order->discount + $order->redeem_amount + $order->coupons_discount + $order->advance);
+        $codamount = $order->net_total + $order->shipping_charges - ($order->discount + $order->redeem_amount + $order->coupons_discount + $order->advance);
         $city = get_specific_field("cities", "call_courier", $order->city);
         $array = [
             'loginId'=>	'',

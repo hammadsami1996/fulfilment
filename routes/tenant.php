@@ -130,8 +130,23 @@ Route::middleware([
         Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);
         Route::get('/fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
         Route::get('/company', [\App\Http\Controllers\CompanyController::class, 'index']);
+
+
+        // Products work
+        Route::post('/prod_attr',[\App\Http\Controllers\ProductAttributeValueController::class,'store']);
+        Route::post('/prod_attr_value',[\App\Http\Controllers\ProductAttributeValueController::class,'prod_attr_value']);
+
+        Route::resource('attribute_group',\App\Http\Controllers\AttributeGroupController::class);
+        Route::resource('attribute_sets',\App\Http\Controllers\AttributeSetController::class);
+        Route::resource('assign_set',\App\Http\Controllers\AssignSetController::class);
+
+
+
     });
 
+    Route::prefix('docs')->middleware(['auth', 'verified'])->group(function () {
+        Route::get('product_excel', [\App\Http\Controllers\ProductController::class, 'product_excel']);
+    });
 
     Route::middleware('verified')->group(function () {
         Route::get('/dashboard', function () {

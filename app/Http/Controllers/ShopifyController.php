@@ -50,7 +50,7 @@ class ShopifyController extends Controller
     {
         $store = Store::findOrFail($id);
         if (isset($store) && $store->plate_form == 'Shopify') {
-            $apiUrl = $store->store_address . '/admin/api/2023-07/orders.json?status=any';
+            $apiUrl = $store->store_address . '/admin/api/2023-07/orders.json?status=any&limit=250';
             $headers = [
                 'X-Shopify-Access-Token' => $store->access_token,
             ];
@@ -60,24 +60,27 @@ class ShopifyController extends Controller
                     $shopify = $response->json();
                     $i = 0;
                     foreach ($shopify['orders'] as $rec) {
-//                        dd($rec);
-                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify')->where('store_id', $store->id)->first();
+                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify')
+                            ->where('store_id', $store->id)->first();
                         if (!$order) {
                             ++$i;
                             $order = new Order();
-                            $order->order_form = 'Shopify';
-                            $order->warehouse_id = $store->warehouse_id;
-                            $order->external_order_no = $rec['id'];
                             $order->store_id = $store->id;
-                            if ($rec['customer']['phone']) {
-                                $customer = Customer::where('phone', $rec['customer']['phone'])->first();
+                            $order->company_id = $store->company_id;
+                            $order->order_date = $store->created_at;
+                            $order->warehouse_id = $store->warehouse_id;
+                            $order->order_form = 'Shopify';
+                            $order->external_order_no = $rec['id'];
+                            $order->tracking_id = $rec['confirmation_number'];
+                            if ($rec['customer']['phone'] || $rec['billing_address']['phone']) {
+                                $customer = Customer::where('phone', $rec['customer']['phone'] ?? $rec['billing_address']['phone'])->first();
                                 if ($customer) {
                                     $order->customer_id = $customer['id'];
                                 } else {
                                     $customer = new Customer();
-                                    $customer->name = $rec['customer']['default_address']['name'];
+                                    $customer->name = $rec['customer']['first_name'] . ' ' .$rec['customer']['last_name'];
                                     $customer->email = $rec['customer']['email'];
-                                    $customer->phone = $rec['customer']['phone'];
+                                    $customer->phone = $rec['customer']['phone'] ?? $rec['billing_address']['phone'];
                                     $b_city = City::where('name', $rec['billing_address']['city'])->first();
                                     if ($b_city) {
                                         $customer->b_city_id = $b_city['id'];
@@ -100,79 +103,93 @@ class ShopifyController extends Controller
                                     $order->customer_id = $customer['id'];
                                 }
                             }
+
+                            $order->city_name = $rec['shipping_address']['city'];
+
                             $order->b_name = $rec['billing_address']['name'];
                             $order->b_phone = $rec['billing_address']['phone'];
-                            $order->b_address_1 = $rec['billing_address']['address1'] . ' ' . $rec['billing_address']['address2'];
+                            $order->b_address_1 = $rec['billing_address']['address1'] . ' ' . $rec['billing_address']['address2'] . ' ' . $rec['billing_address']['city'];
 
                             $s_city = City::where('name', $rec['shipping_address']['city'])->first();
                             if ($s_city) {
                                 $order->city_id = $s_city->id;
                                 $cityCourier = City_Courier::where('city_id', $s_city->id)->first();
                                 if ($cityCourier) {
-                                    $order->shipped_by_id = $cityCourier->courier_id;
+                                    $order->courier_id = $cityCourier->courier_id;
 //                                    $order->delivery_charges = $cityCourier->delivery_charges;
                                 }
                             }
                             $order->s_name = $rec['shipping_address']['name'];
                             $order->s_phone = $rec['shipping_address']['phone'];
-                            $order->s_address_1 = $rec['shipping_address']['address1'] . ' ' . $rec['shipping_address']['address2'];
+                            $order->s_address_1 = $rec['shipping_address']['address1'] . ' ' . $rec['shipping_address']['address2'] . ' ' . $rec['shipping_address']['city'];
 
-                            $order->store_id = $id;
-                            $order->shipping_charges = $rec['total_shipping_price_set']['presentment_money']['amount'];
-                            $order->total = $rec['total_price'];
-                            $order->discount = $rec['total_discounts'];
-                            $order->subTotal = $rec['total_line_items_price'];
-
+                            $order->sub_total = $rec['subtotal_price'];
                             $order->tax = $rec['total_tax'];
-                            $order->tracking_id = $rec['cart_token'];
+                            $order->shipping_charges = $rec['total_shipping_price_set']['presentment_money']['amount'];
+                            $order->discount = $rec['total_discounts'];
+                            $order->net_total = $rec['total_price'];
+
+                            if ($order->net_total > 0) {
+                                $order->discount_percent = ($order->discount / $order->net_total) * 100;
+                            } else {
+                                $order->discount_percent = 0;
+                            }
+
                             $order->payment_method = $rec['payment_gateway_names'][0];
 
                             $order->status_id = 1;
 
                             $items = [];
+                            $totalQuantity = 0;
                             foreach ($rec['line_items'] as $key => $item) {
-                                $parent_product = Product::where('title', $item['title'])->whereNull('head_id')->first();
-                                if (!$parent_product) {
-                                    $parent_product = new Product();
-                                    $parent_product->title = $item['title'];
-                                    $parent_product->selling_price = $item['price'];
-                                    $parent_product->cost_price = $item['price'];
-                                    $parent_product->save();
-                                }
+//                                $parent_product = Product::where('title', $item['title'])->whereNull('head_id')->first();
+//                                if (!$parent_product) {
+//                                    $parent_product = new Product();
+//                                    $parent_product->title = $item['title'];
+//                                    $parent_product->selling_price = $item['price'];
+//                                    $parent_product->cost_price = $item['price'];
+//                                    $parent_product->save();
+//                                }
+//                                $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
+//
+//                                if (!$product) {
+//                                    $product = new Product();
+//                                    $product->head_id = $parent_product['id'];
+//                                    $product->product_sku = $item['sku'] ? $item['sku'] : $item['product_id'];
+//                                    $product->title = $item['title'];
+//                                    $product->description = $item['name'];
+//                                    $product->selling_price = $item['price'];
+//                                    $product->cost_price = $item['price'];
+//                                    $product->save();
+//                                }
+//                                if ($item['variant_title']) {
+//                                    $variation = Variation::where('name', $item['variant_title'])->first();
+//                                    if (!$variation) {
+//                                        $variation = new Variation();
+//                                        $variation->name = $item['variant_title'];
+//                                        $variation->save();
+//                                    }
+//                                    $product_variation = ProductVariation::where('product_id', $product->id)->where('variation_id', $variation->id)
+//                                        ->where('value', $item['variant_title'])->first();
+//                                    if (!$product_variation) {
+//                                        $product_variation = new ProductVariation();
+//                                        $product_variation->product_id = $product->id;
+//                                        $product_variation->variation_id = $variation->id;
+//                                        $product_variation->parent_product_id = $parent_product->id;
+//                                        $product_variation->value = $item['variant_title'];
+//                                        $product_variation->save();
+//                                    }
+//                                }
                                 $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
 
-                                if (!$product) {
-                                    $product = new Product();
-                                    $product->head_id = $parent_product['id'];
-                                    $product->product_sku = $item['sku'] ? $item['sku'] : $item['product_id'];
-                                    $product->title = $item['title'];
-                                    $product->description = $item['name'];
-                                    $product->selling_price = $item['price'];
-                                    $product->cost_price = $item['price'];
-                                    $product->save();
-                                }
-                                if ($item['variant_title']) {
-                                    $variation = Variation::where('name', $item['variant_title'])->first();
-                                    if (!$variation) {
-                                        $variation = new Variation();
-                                        $variation->name = $item['variant_title'];
-                                        $variation->save();
-                                    }
-                                    $product_variation = ProductVariation::where('product_id', $product->id)->where('variation_id', $variation->id)
-                                        ->where('value', $item['variant_title'])->first();
-                                    if (!$product_variation) {
-                                        $product_variation = new ProductVariation();
-                                        $product_variation->product_id = $product->id;
-                                        $product_variation->variation_id = $variation->id;
-                                        $product_variation->parent_product_id = $parent_product->id;
-                                        $product_variation->value = $item['variant_title'];
-                                        $product_variation->save();
-                                    }
-                                }
                                 $items[$key]['qty'] = $item['quantity'];
-                                $items[$key]['product_id'] = $product['id'];
+                                $totalQuantity = $item['quantity'];
+                                $items[$key]['product_id'] = $product['id'] ?? null;
+                                $items[$key]['product_name'] = $product['name'] ?? null;
+                                $items[$key]['product_sku'] = $product['sku'] ?? null;
                                 $items[$key]['unit_price'] = $item['price'];
                             }
+                            $order->quantity = $totalQuantity;
                             $order->storeHasMany([
                                 'items' => $items
                             ]);

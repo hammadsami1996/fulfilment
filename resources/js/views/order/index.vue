@@ -183,7 +183,7 @@
                 </template>
 
                 <template v-slot:courier="props">
-                    <div v-if="props.item.shipped_by_id">
+                    <div v-if="props.item.courier_id">
                         <typeahead  :initialize="props.item.shipped_by" :url="courier"
                             @input="onShippeds($event  , props.item)" display="name"/>
                         <!-- <p>{{props.item}}</p> -->
@@ -389,7 +389,7 @@
             onshippedby(e) {
                 const shipped_by = e.target.value
                 this.form.shipped_by = shipped_by
-                this.form.shipped_by_id = shipped_by.id
+                this.form.courier_id = shipped_by.id
             },
             onOrder_type(e) {
                 const ordertype = e.target.value
@@ -446,7 +446,7 @@
                         param += `&order_type_id=${this.form.order_type_id}`;
                     }
                     if (this.form.shipped_by != null) {
-                        param += `&shipped_by_id=${this.form.shipped_by_id}`;
+                        param += `&courier_id=${this.form.courier_id}`;
                     }
                     if (this.form.discount != null) {
                         param += `&discount=${this.form.discount}`;

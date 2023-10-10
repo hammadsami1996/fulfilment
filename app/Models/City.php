@@ -37,6 +37,19 @@ class City extends Model implements Auditable
     {
         return $this->attributes['name'];
     }
+    public function getTraxAttribute()
+    {
+        return json_decode($this->attributes['trax']);
+    }
+    public function getLeopardsAttribute()
+    {
+        return json_decode($this->attributes['leopards']);
+    }
+    public function getTcsAttribute()
+    {
+        return json_decode($this->attributes['tcs']);
+    }
+
 
     public function companies()
     {
