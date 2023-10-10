@@ -89,7 +89,6 @@ class AccountGroupController extends Controller
         $group->deleted_by = Auth::id();
         $group->save();
         // $group->delete();
-
         $group->delete();
 
         return response()

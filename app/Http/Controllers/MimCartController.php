@@ -43,7 +43,7 @@ class MimCartController extends Controller
                 if ($response->successful()) {
                     $i = 0;
                     foreach ($response->json() as $rec) {
-//                         dd($rec);
+                        dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart')->where('store_id',$store->id)->first();
                         if (!$order) {
                             ++$i;
@@ -57,9 +57,9 @@ class MimCartController extends Controller
                                     $order->customer_id = $customer['id'];
                                 } else {
                                     $customer = new Customer();
-                                    $customer->name = $rec['name'];
-                                    $customer->email = $rec['email'];
-                                    $customer->phone = $rec['mobile'];
+                                    // $customer->name = $rec['name'];
+                                    // $customer->email = $rec['email'];
+                                    // $customer->phone = $rec['mobile'];
                                     $customer->address = $rec['address'];
 
                                     $customer->b_name = $rec['name'];
@@ -100,6 +100,16 @@ class MimCartController extends Controller
                             }
 
                             $order->instruction = $rec['instructions'];
+                            $order->comments = $rec['comments'];
+                            $order->payment_method = $rec['payment_method'];
+                            $order->total = $rec['total'];
+                            $order->discount = $rec['discount'];
+                            $order->advance = $rec['advance'];
+                            $order->redeem_amount = $rec['redeem_amount'];
+                            $order->coupons_discount = $rec['coupons_discount'];
+                            $order->coupons = $rec['coupons'];
+                            $order->net_total = $rec['net_total'];
+                            $order->shipment_services = $rec['shipment_services'];  
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
@@ -114,12 +124,20 @@ class MimCartController extends Controller
                                     $product->save();
                                 }
                                 $items[$key]['product_id'] = $product['id'];
-                                $items[$key]['title'] = $item['title'];
+                                // $items[$key]['title'] = $item['title'];
+                                $items[$key]['product_name'] = $item['product_name'];
+                                $items[$key]['product_sku'] = $item['sku'];
+                                $items[$key]['order_id'] = $item['order_id'];
                                 $items[$key]['qty'] = $item['qty'];
-                                $items[$key]['value_inc_tax'] = $item['total'];
-                                $items[$key]['unit_price'] = $item['price'];
+                                $items[$key]['value_inc_tax'] = $item['value_inc_tax'];
+                                $items[$key]['warehouse_id'] = $item['warehouse_id'];
+                                $items[$key]['tax_amount'] = $item['tax_amount'];
+                                $items[$key]['tax_percent'] = $item['tax_percent'];
+                                $items[$key]['unit_price'] = $item['unit_price'];
                                 $items[$key]['coupon_discount'] = $item['coupon_discount'];
-                                $items[$key]['discount'] = $item['discount'];
+                                $items[$key]['discount'] = $item['discount'];   
+                                $items[$key]['cost'] = $item['cost'];   
+                                $items[$key]['total'] = $item['total'];   
                             }
                             $order->storeHasMany([
                                 'items' => $items

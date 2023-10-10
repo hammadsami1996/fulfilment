@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('external_order_no', 50)->nullable();
             $table->string('tracking_id' , 50)->nullable();
             $table->integer('product_id')->nullable();
-            $table->decimal('subTotal',10,2)->nullable()->default(0);
+            $table->decimal('sub_total',10,2)->nullable()->default(0);
             $table->decimal('discount',10,2)->nullable()->default(0);
             $table->decimal('discount_percent',10,2)->nullable()->default(0);
             $table->integer('warehouse_id')->nullable();
@@ -45,17 +45,14 @@ return new class extends Migration
             $table->string('b_address_1')->nullable();
             $table->string('b_phone' , 20)->nullable();
             $table->string('instraction', 100)->nullable();
-            $table->decimal('quantity',10,2)->default(0);
+            $table->integer('quantity')->nullable();
             $table->integer('order_type_id')->nullable();
             $table->decimal('shipping_charges',10,2)->nullable();
             $table->decimal('advance',10,2)->nullable();
             $table->decimal('delivery_charges',10,2)->nullable();
-            $table->integer('courier_id')->nullable();
             $table->decimal('weight',10,2)->default(0);
             $table->string('order_form' , 30)->nullable();
             $table->string('payment_method' , 30)->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
             $table->string('item_summary')->nullable();
             $table->string('item_summary_mannual')->nullable();
             $table->string('coupons')->nullable();
@@ -73,12 +70,9 @@ return new class extends Migration
             $table->decimal('currency_value',10,2)->nullable()->default(0);
             $table->string('replacement_item_summary')->nullable();
             $table->decimal('replacement_qty',10,2)->nullable()->default(0);
-            // $table->timestamp('created_at')->nullable();
-            // $table->timestamp('updated_at')->nullable();
+     
             $table->integer('deleted_by')->nullable();
            $table->timestamp('deleted_at')->nullable();
-
-
             $table->timestamps();
         });
     }
