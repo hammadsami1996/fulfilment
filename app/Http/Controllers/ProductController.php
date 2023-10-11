@@ -37,7 +37,7 @@ class ProductController extends Controller
         $form = [
             "title" => '',
             "description" => '',
-            "product_sku" => '',
+            "sku" => '',
             "model_no" => '',
             "barcode" => '',
             "manage_inventory" => '',
@@ -68,7 +68,7 @@ class ProductController extends Controller
         $request->validate([
             'title' => 'required|max:50',
             'description' => 'required|max:255',
-            'product_sku' => 'required|max:25',
+            'sku' => 'required|max:25',
             'model_no' => 'required|max:25',
             'barcode' => 'required|max:25',
             'cost_price' => 'required|max:25',
@@ -131,7 +131,7 @@ class ProductController extends Controller
         $request->validate([
             'title' => 'required|max:50',
             'description' => 'required|max:255',
-            'product_sku' => 'required|max:25',
+            'sku' => 'required|max:25',
             'model_no' => 'required|max:25',
             'barcode' => 'required|max:25',
             'cost_price' => 'required|max:25',

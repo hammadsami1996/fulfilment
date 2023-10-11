@@ -16,14 +16,14 @@ class Order_item extends Model implements Auditable
     
 
     protected $fillable = [
-        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id','product_sku','product_name','cost','discount_percent','discount_amount'
+        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id','sku','product_name','cost','discount_percent','discount_amount'
     ];
     protected $columns = [
-        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id','product_sku','product_name','cost','discount_percent','discount_amount'
+        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id','sku','product_name','cost','discount_percent','discount_amount'
     ];
 
     protected $search = [
-        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id','product_sku','product_name','cost','discount_percent','discount_amount'
+        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id','sku','product_name','cost','discount_percent','discount_amount'
 
     ];
     protected $appends = ['text'];

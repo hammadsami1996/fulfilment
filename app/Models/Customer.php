@@ -16,26 +16,47 @@ class Customer extends Model implements Auditable
    
 
     protected $fillable = [
-        // 'name', 'email', 'phone',
+        'name', 'email', 'phone',
         //  'balance', 'type_id',
-          'discount', 'address', 'b_country_id',
-        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1', 's_name',
-        's_phone', 's_address_1',  'category_id', 's_country_id', 's_city_id','quantity','date'
+          'discount',
+        //    'address',
+            'b_country_id',
+        'b_city_id',
+        //  'number',
+          'cnic', 'b_name', 'b_phone', 'b_address_1', 's_name',
+        's_phone', 's_address_1',  'category_id',
+         's_country_id',
+          's_city_id','quantity',
+        //   'date'
     ];
     protected $columns = [
-        // 'name', 'email', 'phone', 
+        'name', 'email', 'phone',
         // 'balance', 'type_id', 
-        'discount', 'address', 'b_country_id',
-        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1','s_name',
-        's_phone', 's_address_1', 'category_id', 's_country_id', 's_city_id','quantity','date'
+        'discount',
+        //  'address',
+          'b_country_id',
+        'b_city_id',
+        //  'number',
+         'cnic', 'b_name', 'b_phone', 'b_address_1','s_name',
+        's_phone', 's_address_1', 'category_id',
+         's_country_id',
+          's_city_id','quantity',
+        //   'date'
     ];
 
     protected $search = [
-        // 'name', 'email', 'phone', 
+        'name', 'email', 'phone','cnic',
         // 'balance', 'type_id',
-         'discount', 'address', 'b_country_id',
-        'b_city_id', 'number', 'cnic', 'b_name', 'b_phone', 'b_address_1',  's_name',
-        's_phone', 's_address_1', 'category_id', 's_country_id', 's_city_id','quantity','date',
+         'discount',
+        //   'address',
+           'b_country_id',
+        'b_city_id',
+        //  'number',
+          'cnic', 'b_name', 'b_phone', 'b_address_1',  's_name',
+        's_phone', 's_address_1', 'category_id',
+         's_country_id', 
+         's_city_id','quantity',
+        //  'date',
        
        
     ];

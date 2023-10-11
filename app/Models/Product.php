@@ -15,18 +15,18 @@ class Product extends Model implements Auditable
     use HasFactory, Notifiable, HasRoles,SoftDeletes,Search,\OwenIt\Auditing\Auditable;
    
     protected $fillable = [
-        'title', 'description',  'product_sku', 'model_no',  'barcode', 'manage_inventory',
+        'title', 'description',  'sku', 'model_no',  'barcode', 'manage_inventory',
          'product_types', 'cost_price', 'selling_price',  'start_date',
         'end_date', 'product_category','brand_id', 'head_id', 'supplier_id', 'weight','quantity'
     ];
     protected $columns = [
-        'title', 'description',  'product_sku', 'model_no', 'barcode', 'manage_inventory',
+        'title', 'description',  'sku', 'model_no', 'barcode', 'manage_inventory',
         'quantity', 'product_types', 'cost_price', 'selling_price', 'start_date',
         'end_date', 'product_category','brand_id', 'head_id','supplier_id','weight'
     ];
 
     protected $search = [
-        'title', 'description',  'product_sku', 'model_no', 'barcode', 'manage_inventory',
+        'title', 'description',  'sku', 'model_no', 'barcode', 'manage_inventory',
         'quantity', 'product_types', 'cost_price', 'selling_price',  'start_date',
         'end_date', 'product_category','brand_id', 'head_id','supplier_id','weight'
     ];

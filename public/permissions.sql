@@ -200,6 +200,12 @@ INSERT INTO `permissions` VALUES (239, 'edit-required_item_stock', 'web', NULL, 
 INSERT INTO `permissions` VALUES (240, 'create-required_item_stock', 'web', NULL, NULL, 237, NULL, '2023-10-03 13:10:11', '2023-10-03 13:10:11');
 INSERT INTO `permissions` VALUES (241, 'delete-required_item_stock', 'web', NULL, NULL, 237, NULL, '2023-10-03 13:10:11', '2023-10-03 13:10:11');
 INSERT INTO `permissions` VALUES (242, 'export-required_item_stock', 'web', NULL, NULL, 237, NULL, '2023-10-03 13:10:11', '2023-10-03 13:10:11');
+INSERT INTO `permissions` VALUES (243, NULL, 'web', 'Customer_category', NULL, NULL, 56, '2023-10-03 13:10:11', '2023-10-03 13:10:11');
+INSERT INTO `permissions` VALUES (244, 'view-customer_category', 'web', NULL, NULL, 243, NULL, '2023-10-03 13:10:11', '2023-10-03 13:10:11');
+INSERT INTO `permissions` VALUES (245, 'edit-customer_category', 'web', NULL, NULL, 243, NULL, '2023-10-03 13:10:11', '2023-10-03 13:10:11');
+INSERT INTO `permissions` VALUES (246, 'create-customer_category', 'web', NULL, NULL, 243, NULL, '2023-10-03 13:10:11', '2023-10-03 13:10:11');
+INSERT INTO `permissions` VALUES (247, 'delete-customer_category', 'web', NULL, NULL, 243, NULL, '2023-10-03 13:10:11', '2023-10-03 13:10:11');
+INSERT INTO `permissions` VALUES (248, 'export-customer_category', 'web', NULL, NULL, 243, NULL, '2023-10-03 13:10:11', '2023-10-03 13:10:11');
 
 -- ----------------------------
 -- Table structure for roles
