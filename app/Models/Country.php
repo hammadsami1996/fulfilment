@@ -13,7 +13,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Country extends Model implements Auditable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, Search,SoftDeletes,\OwenIt\Auditing\Auditable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Search,\OwenIt\Auditing\Auditable;
 
     protected $connection = 'mysql';
     protected $table = 'countries';

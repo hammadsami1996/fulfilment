@@ -76,11 +76,11 @@ class ShopifyController extends Controller
                                 $customer = Customer::where('phone', $rec['customer']['phone'] ?? $rec['billing_address']['phone'])->first();
                                 if ($customer) {
                                     $order->customer_id = $customer['id'];
-                                } else {    
+                                } else {
                                     $customer = new Customer();
-                                    $customer->name = $rec['customer']['first_name'] . ' ' .$rec['customer']['last_name'];
-                                    $customer->email = $rec['customer']['email'];
-                                    $customer->phone = $rec['customer']['phone'] ?? $rec['billing_address']['phone'];
+//                                    $customer->name = $rec['customer']['first_name'] . ' ' .$rec['customer']['last_name'];
+//                                    $customer->email = $rec['customer']['email'];
+//                                    $customer->phone = $rec['customer']['phone'] ?? $rec['billing_address']['phone'];
                                     $b_city = City::where('name', $rec['billing_address']['city'])->first();
                                     if ($b_city) {
                                         $customer->b_city_id = $b_city['id'];

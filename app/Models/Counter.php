@@ -11,7 +11,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Counter extends Model implements Auditable
 {
-    use HasFactory, SoftDeletes,\OwenIt\Auditing\Auditable;
+    use HasFactory,\OwenIt\Auditing\Auditable;
 
     public function next($key)
     {
