@@ -42,10 +42,10 @@ return new class extends Migration {
         });
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
+            $table->integer('parent_product_id')->nullable();
             $table->integer('product_id')->nullable();
             $table->integer('group_id')->nullable();
             $table->integer('value_id')->nullable();
-            $table->string('title', 100)->nullable();
             $table->timestamps();
         });
     }
