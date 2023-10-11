@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->string('selling_price', 25)->nullable();
             $table->string('barcode', 25)->nullable();
             $table->decimal('quantity', 10, 2)->default(0);
-            $table->string('product_types', 25)->nullable();
+            $table->tinyInteger('product_types')->default(0);
             $table->tinyInteger('manage_inventory')->nullable();
             $table->decimal('weight', 10, 2)->default(0);
             $table->integer('deleted_by')->nullable();
