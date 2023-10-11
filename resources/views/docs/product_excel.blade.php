@@ -26,7 +26,7 @@
                 <tr>
                     <td>{{$key+1}}</td>
                     <td>{{$item->title}}</td>
-                    <td>{{$item->product_sku}}</td>
+                    <td>{{$item->sku}}</td>
                     <td>{{$item->cost_price}}</td>
                     <td>{{$item->selling_price}}</td>
                 </tr>

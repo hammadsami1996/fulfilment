@@ -109,15 +109,15 @@ class MimCartController extends Controller
                             $order->coupons_discount = $rec['coupons_discount'];
                             $order->coupons = $rec['coupons'];
                             $order->net_total = $rec['net_total'];
-                            $order->shipment_services = $rec['shipment_services'];  
+                            $order->shipment_services = $rec['shipment_services'];
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
                             foreach ($rec['items'] as $key => $item) {
-                                $product = Product::where('product_sku', $item['code'])->first();
+                                $product = Product::where('sku', $item['code'])->first();
                                 if (!$product) {
                                     $product = new Product();
-                                    $product->product_sku = $item['code'];
+                                    $product->sku = $item['code'];
                                     $product->title = $item['title'];
                                     $product->selling_price = $item['price'];
                                     $product->cost_price = $item['price'];
@@ -126,7 +126,7 @@ class MimCartController extends Controller
                                 $items[$key]['product_id'] = $product['id'];
                                 // $items[$key]['title'] = $item['title'];
                                 $items[$key]['product_name'] = $item['product_name'];
-                                $items[$key]['product_sku'] = $item['sku'];
+                                $items[$key]['sku'] = $item['sku'];
                                 $items[$key]['order_id'] = $item['order_id'];
                                 $items[$key]['qty'] = $item['qty'];
                                 $items[$key]['value_inc_tax'] = $item['value_inc_tax'];
@@ -135,9 +135,9 @@ class MimCartController extends Controller
                                 $items[$key]['tax_percent'] = $item['tax_percent'];
                                 $items[$key]['unit_price'] = $item['unit_price'];
                                 $items[$key]['coupon_discount'] = $item['coupon_discount'];
-                                $items[$key]['discount'] = $item['discount'];   
-                                $items[$key]['cost'] = $item['cost'];   
-                                $items[$key]['total'] = $item['total'];   
+                                $items[$key]['discount'] = $item['discount'];
+                                $items[$key]['cost'] = $item['cost'];
+                                $items[$key]['total'] = $item['total'];
                             }
                             $order->storeHasMany([
                                 'items' => $items

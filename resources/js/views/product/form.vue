@@ -158,7 +158,7 @@
                         <label class="block text-sm font-medium text-gray-700">Selling Price</label>
                         <input
                             class="w-full py-1 px-2 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            type="text" v-model="form.selling_price" 
+                            type="text" v-model="form.selling_price"
                             @input="form.selling_price = form.selling_price.replace(/[^0-9]/g, '')">
                         <p class="text-red-600 text-xs italic" v-if="error.selling_price">{{ error.selling_price[0] }}</p>
                     </div>
@@ -179,7 +179,7 @@
                         <!-- <p class="text-red-600 text-xs italic" v-if="error.category">{{ error.category[0] }}</p> -->
 
                     </div>
-                 
+
                 </div>
             </div>
             <!--            Product Organization-->
@@ -222,9 +222,9 @@
                             <label class="block text-sm font-medium text-gray-700">Product Sku</label>
                             <input
                                 class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                type="text" v-model="form.product_sku"
+                                type="text" v-model="form.sku"
                             />
-                            <p class="text-red-600 text-xs italic" v-if="error.product_sku">{{ error.product_sku[0] }}</p>
+                            <p class="text-red-600 text-xs italic" v-if="error.sku">{{ error.sku[0] }}</p>
 
                         </div>
                         <div>

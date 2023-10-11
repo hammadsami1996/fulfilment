@@ -84,7 +84,7 @@
                 capital: "Inventory",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Product Sku', field: 'product_sku',  displayText: 'product'},
+                    {label: 'Product Sku', field: 'sku',  displayText: 'product'},
                     {label: 'Barcode', field: 'barcode',  displayText: 'product'},
 
                     {label: 'Images', field: 'images' , slot:true},
