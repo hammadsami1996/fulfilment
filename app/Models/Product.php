@@ -13,7 +13,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 class Product extends Model implements Auditable
 {
     use HasFactory, Notifiable, HasRoles,SoftDeletes,Search,\OwenIt\Auditing\Auditable;
-   
+
     protected $fillable = [
         'title', 'description',  'sku', 'model_no',  'barcode', 'manage_inventory',
          'product_types', 'cost_price', 'selling_price',  'start_date',

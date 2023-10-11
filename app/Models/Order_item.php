@@ -13,7 +13,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 class Order_item extends Model implements Auditable
 {
     use HasFactory,Search, Notifiable, HasRoles,SoftDeletes,\OwenIt\Auditing\Auditable;
-    
+
 
     protected $fillable = [
         'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id','sku','product_name','cost','discount_percent','discount_amount'

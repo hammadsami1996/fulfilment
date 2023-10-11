@@ -94,12 +94,12 @@
                     <tbody>
                      <tr class="border-gray-100 dark:border-gray-700/50" v-for="(item,index) in form.items">
                         <td class="text-center">
-                            {{ item.product ? item.product.product_sku :'0'  }}
+                            {{ item.product ? item.product.sku :'0'  }}
                             <!-- {{  item.product ? item.product.product_img.lenght:'00' }} -->
                             <!-- <input
                                    class="w-12 px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                    type="text"
-                                   v-model="item.product.product_sku"
+                                   v-model="item.product.sku"
                             > -->
                         </td>
                         <td >

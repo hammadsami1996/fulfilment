@@ -204,7 +204,7 @@ class ProductController extends Controller
     {
         $model = Product::findOrFail($id);
         $model->deleted_by = Auth::id();
-    
+
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

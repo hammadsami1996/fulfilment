@@ -111,7 +111,7 @@ class MimCartController extends Controller
                             $order->coupons_discount = $rec['coupons_discount'];
                             $order->coupons = $rec['coupons'];
                             $order->net_total = $rec['net_total'];
-                            $order->shipment_services = $rec['shipment_services'];  
+                            $order->shipment_services = $rec['shipment_services'];
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
@@ -137,9 +137,9 @@ class MimCartController extends Controller
                                 $items[$key]['tax_percent'] = $item['tax_percent'];
                                 $items[$key]['unit_price'] = $item['unit_price'];
                                 $items[$key]['coupon_discount'] = $item['coupon_discount'];
-                                $items[$key]['discount'] = $item['discount'];   
-                                $items[$key]['cost'] = $item['cost'];   
-                                $items[$key]['total'] = $item['total'];   
+                                $items[$key]['discount'] = $item['discount'];
+                                $items[$key]['cost'] = $item['cost'];
+                                $items[$key]['total'] = $item['total'];
                             }
                             $order->storeHasMany([
                                 'items' => $items

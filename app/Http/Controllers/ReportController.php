@@ -16,7 +16,7 @@ class ReportController extends Controller
         $data = DB::select("
     SELECT
         p.title,
-        p.product_sku,
+        p.sku,
         p.barcode,
         i.product_id,
         i.warehouse_id,
@@ -37,7 +37,7 @@ class ReportController extends Controller
     WHERE
         p.supplier_id = :supplier_id
     GROUP BY
-        p.title, p.product_sku, p.barcode, i.product_id, i.warehouse_id, i.qty, pi.img
+        p.title, p.sku, p.barcode, i.product_id, i.warehouse_id, i.qty, pi.img
     HAVING
         SUM(oi.qty) > i.qty
 ", ['supplier_id' => request('id')]);
@@ -47,7 +47,7 @@ class ReportController extends Controller
     else{
     $data = DB::select("SELECT
     p.title,
-    p.product_sku,
+    p.sku,
     p.barcode,
     i.product_id,
     i.warehouse_id,
@@ -66,15 +66,15 @@ LEFT JOIN
 LEFT JOIN
     product_imgs pi ON img_min.min_id = pi.id
 GROUP BY
-    p.title, p.product_sku, p.barcode, i.product_id, i.warehouse_id, i.qty, pi.img
+    p.title, p.sku, p.barcode, i.product_id, i.warehouse_id, i.qty, pi.img
 		HAVING
     SUM(oi.qty) > i.qty;
-	
+
 
 ");
 }
 
         return response()->json(['data' => ['data' => $data]]);
 
-   } 
+   }
 }

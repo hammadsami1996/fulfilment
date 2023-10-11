@@ -136,7 +136,7 @@
                         </div>
                         <div class="col-6 text-center flex justify-center">
                             <ul style="margin-left: 50px;  font-weight: bold; font-size: large;">
-                                <li>SKU:{{ modal_data.product_sku }}</li>
+                                <li>SKU:{{ modal_data.sku }}</li>
                                 <li>Title:{{ modal_data.title }}</li>
 
                             </ul>
@@ -144,7 +144,7 @@
 
 
 
-                            <!-- <span>{{ modal_data.product_sku }}</span>
+                            <!-- <span>{{ modal_data.sku }}</span>
                             <span>{{ modal_data.title }}</span> -->
 
                         </div>
@@ -230,7 +230,7 @@
                 capital: "Required Items Stock",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Sku ', field: 'product_sku'},
+                    {label: 'Sku ', field: 'sku'},
                     {label: 'barcode', field: 'barcode',},
                     {label: 'Product', field: 'title'},
                     {label: 'Product Images', field: 'images' , slot:true},
