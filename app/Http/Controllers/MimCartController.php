@@ -40,10 +40,12 @@ class MimCartController extends Controller
             $apiUrl = $store->mim_store_address . '/account_services/get_orders?appkey=' . $store->mim_api_key;
             try {
                 $response = Http::get($apiUrl);
+                // dd($response);
                 if ($response->successful()) {
                     $i = 0;
+                    // dd($response->json());
                     foreach ($response->json() as $rec) {
-                        dd($rec);
+                        // dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart')->where('store_id',$store->id)->first();
                         if (!$order) {
                             ++$i;
@@ -57,10 +59,10 @@ class MimCartController extends Controller
                                     $order->customer_id = $customer['id'];
                                 } else {
                                     $customer = new Customer();
-                                    // $customer->name = $rec['name'];
-                                    // $customer->email = $rec['email'];
-                                    // $customer->phone = $rec['mobile'];
-                                    $customer->address = $rec['address'];
+                                    $customer->name = $rec['name'];
+                                    $customer->email = $rec['email'];
+                                    $customer->phone = $rec['mobile'];
+                                    // $customer->address = $rec['address'];
 
                                     $customer->b_name = $rec['name'];
                                     $customer->b_phone = $rec['mobile'];
@@ -99,7 +101,7 @@ class MimCartController extends Controller
                                 }
                             }
 
-                            $order->instruction = $rec['instructions'];
+                            $order->instructions = $rec['instructions'];
                             $order->comments = $rec['comments'];
                             $order->payment_method = $rec['payment_method'];
                             $order->total = $rec['total'];
@@ -114,19 +116,19 @@ class MimCartController extends Controller
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
                             foreach ($rec['items'] as $key => $item) {
-                                $product = Product::where('product_sku', $item['code'])->first();
-                                if (!$product) {
-                                    $product = new Product();
-                                    $product->product_sku = $item['code'];
-                                    $product->title = $item['title'];
-                                    $product->selling_price = $item['price'];
-                                    $product->cost_price = $item['price'];
-                                    $product->save();
-                                }
-                                $items[$key]['product_id'] = $product['id'];
+                                $product = Product::where('sku', $item['sku'])->first();
+                                // if (!$product) {
+                                //     $product = new Product();
+                                //     $product->product_sku = $item['sku'];
+                                //     $product->title = $item['title'];
+                                //     $product->selling_price = $item['price'];
+                                //     $product->cost_price = $item['price'];
+                                //     $product->save();
+                                // }
+                                $items[$key]['product_id'] = $product['id'] ?? null;
                                 // $items[$key]['title'] = $item['title'];
-                                $items[$key]['product_name'] = $item['product_name'];
-                                $items[$key]['product_sku'] = $item['sku'];
+                                $items[$key]['product_name'] = $item['product_name'] ?? null;
+                                $items[$key]['sku'] = $item['sku'];
                                 $items[$key]['order_id'] = $item['order_id'];
                                 $items[$key]['qty'] = $item['qty'];
                                 $items[$key]['value_inc_tax'] = $item['value_inc_tax'];
