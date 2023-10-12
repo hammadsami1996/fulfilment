@@ -7,7 +7,7 @@ use App\Models\Permission as PermissionCustom;
 use App\Models\Role as RoleCustom;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 
 
 class RoleController extends Controller
@@ -114,8 +114,8 @@ class RoleController extends Controller
 
         // Detach all permissions
         $model->permissions()->detach();
-        $model->deleted_by = Auth::id();
-        $model->save();
+        // $model->deleted_by = Auth::id();
+        // $model->save();
         // $model->delete();
 
         // Detach all users

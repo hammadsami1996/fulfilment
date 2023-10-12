@@ -16,7 +16,9 @@ class CustomerController extends Controller
     {
         return response()->json(['data' => Customer::with(
             // 'type',
-         'category', 's_city','b_city', 's_country','b_country')
+         'category', 's_city','b_city',
+        //   's_country',
+          'b_country')
             ->search()]);
     }
 
@@ -34,7 +36,7 @@ class CustomerController extends Controller
             // "type_id" => '',
             "address" => '',
             "b_country_id" => '',
-            "s_country_id" => '',
+            // "s_country_id" => '',
             "state_id" => '',
             "b_city_id" => '',
             "s_city_id" => '',
@@ -59,9 +61,9 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
+            // 'name' => 'required',
+            // 'email' => 'required',
+            // 'phone' => 'required',
 //            'cateogory' => 'required',
 //            'balance' => 'required',
 //            'type_id' => 'required',
@@ -84,9 +86,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $model = Customer::with(
-            // 'type',
-             'category','s_city','b_city', 's_country','b_country')->findOrFail($id);
+        $model = Customer::with( 'category','s_city','b_city', 's_country','b_country')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -97,8 +97,9 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $model = Customer::with(
-            // 'type',
-             'category','s_city','b_city', 's_country','b_country')->findOrFail($id);
+             'category','s_city','b_city',
+              's_country',
+              'b_country')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -111,9 +112,9 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
+            // 'name' => 'required',
+            // 'email' => 'required',
+            // 'phone' => 'required',
 //            'cateogory' => 'required',
 //            'balance' => 'required',
 //            'type_id' => 'required',
@@ -127,7 +128,9 @@ class CustomerController extends Controller
         ]);
         $model = Customer::with(
             // 'type',
-             'category', 's_city','b_city', 's_country','b_country')->findOrFail($id);
+             'category', 's_city','b_city',
+            //   's_country',
+              'b_country')->findOrFail($id);
         $model->fill($request->all());
         //        $model->updated_by = Auth::id();
         $model->save();
@@ -141,7 +144,9 @@ class CustomerController extends Controller
     {
         $model = Customer::with(
             // 'type',
-             'category', 's_city','b_city', 's_country','b_country')->findOrFail($id);
+             'category', 's_city','b_city',
+            //   's_country',
+              'b_country')->findOrFail($id);
                $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();

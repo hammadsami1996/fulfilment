@@ -22,3 +22,5 @@ Homestead.json
 .phpunit.result.cache
 public/build/assets
 public/tenancy/assets/build/assets
+*.png
+*.jpg

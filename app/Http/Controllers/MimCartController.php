@@ -44,8 +44,10 @@ class MimCartController extends Controller
             $apiUrl = $store->mim_store_address . '/account_services/get_orders?appkey=' . $store->mim_api_key;
             try {
                 $response = Http::get($apiUrl);
+                // dd($response);
                 if ($response->successful()) {
                     $i = 0;
+                    // dd($response->json());
                     foreach ($response->json() as $rec) {
 //                        dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart')->where('store_id', $store->id)->first();
@@ -107,7 +109,7 @@ class MimCartController extends Controller
                                 }
                             }
 
-                            $order->instruction = $rec['instructions'];
+                            $order->instructions = $rec['instructions'];
                             $order->comments = $rec['comments'];
                             $order->payment_method = $rec['payment_method'];
                             $order->total = $rec['total'];
@@ -171,7 +173,7 @@ class MimCartController extends Controller
 
                                 $items[$key]['product_id'] = $product['id'];
                                 // $items[$key]['title'] = $item['title'];
-                                $items[$key]['product_name'] = $item['product_name'];
+                                $items[$key]['product_name'] = $item['product_name'] ?? null;
                                 $items[$key]['sku'] = $item['sku'];
                                 $items[$key]['order_id'] = $item['order_id'];
                                 $items[$key]['qty'] = $item['qty'];
