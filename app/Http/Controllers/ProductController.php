@@ -19,7 +19,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Intervention\Image\Facades\Image;
 use Response;
+use Illuminate\Support\Facades\Auth;
+
 
 // use Spatie\Backtrace\File;
 // use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +46,7 @@ class ProductController extends Controller
         $form = [
             "title" => '',
             "description" => '',
-            "product_sku" => '',
+            "sku" => '',
             "model_no" => '',
             "barcode" => '',
             "manage_inventory" => '',
@@ -291,7 +294,7 @@ class ProductController extends Controller
         $request->validate([
             'title' => 'required|max:50',
             'description' => 'required|max:255',
-            'product_sku' => 'required|max:25',
+            'sku' => 'required|max:25',
             'model_no' => 'required|max:25',
             'barcode' => 'required|max:25',
             'cost_price' => 'required|max:25',
@@ -462,7 +465,7 @@ class ProductController extends Controller
         $request->validate([
             'title' => 'required|max:50',
             'description' => 'required|max:255',
-            'product_sku' => 'required|max:25',
+            'sku' => 'required|max:25',
             'model_no' => 'required|max:25',
             'barcode' => 'required|max:25',
             'cost_price' => 'required|max:25',
@@ -534,6 +537,8 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $model = Product::findOrFail($id);
+        $model->deleted_by = Auth::id();
+
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);
@@ -542,7 +547,7 @@ class ProductController extends Controller
     public function product_excel(Request $request)
     {
 //        dd($request);
-        $data = Product::with('category', 'brand', 'product_img')->get();
+        $data = Product::get();
         return Excel::download(new \App\Exports\product_excel($data), 'Product.xls');
     }
 

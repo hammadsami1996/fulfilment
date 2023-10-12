@@ -16,6 +16,8 @@ return new class extends Migration
            $table->string('user_type')->nullable();
            $table->integer('created_by')->nullable();
            $table->integer('updated_by')->nullable();
+           $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
            $table->rememberToken();
            $table->timestamps();
        });

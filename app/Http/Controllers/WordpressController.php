@@ -194,13 +194,13 @@ class WordpressController extends Controller
                                     $parent_product->cost_price = $item['price'];
                                     $parent_product->save();
                                 }
-                                $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
+                                $product = Product::where('sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
 
                                 if (!$product) {
                                     $product = new Product();
                                     $product->description = $item['name'];
                                     $product->head_id = $parent_product['id'];
-                                    $product->product_sku = $item['sku'] ? $item['sku'] : $item['product_id'];
+                                    $product->sku = $item['sku'] ? $item['sku'] : $item['product_id'];
                                     $product->title = $item['name'];
                                     $product->selling_price = $item['price'];
                                     $product->cost_price = $item['price'];

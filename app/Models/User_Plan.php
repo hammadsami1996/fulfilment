@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use App\Support\Search;
 
-class User_Plan extends Model
+class User_Plan extends Model implements Auditable
 {
-    use HasFactory, Search, SoftDeletes;
+    use HasFactory, Search, SoftDeletes, \OwenIt\Auditing\Auditable;
+
     protected $table = 'user_plans';
 
     protected $fillable = [

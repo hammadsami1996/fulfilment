@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Inventory extends Model
+class Inventory extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles;
-    use Search;
+    use HasFactory, Notifiable, HasRoles,SoftDeletes,Search,\OwenIt\Auditing\Auditable;
+    
     protected $fillable = [
         'product_id', 'warehouse_id', 'qty', 'price'
     ];

@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Support\Search;
 
 
-class Account extends Model
+class Account extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles;
-    use Search;
+   
+    use HasFactory, Notifiable, HasRoles , SoftDeletes,Search, \OwenIt\Auditing\Auditable;
+   
 
     protected $fillable = [
         'accounttitle', 'accountcode', 'active', 'user_id', 'opening_balance', 'opening_type',

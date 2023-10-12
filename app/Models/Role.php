@@ -11,9 +11,11 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
 
+
 class Role extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasPermissions, RefreshesPermissionCache, Search;
+    
 
     protected $fillable = [
         'name',

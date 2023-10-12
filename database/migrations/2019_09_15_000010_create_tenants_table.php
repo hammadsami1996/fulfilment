@@ -12,14 +12,15 @@ class CreateTenantsTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ 
     public function up(): void
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->string('id')->primary();
 
             // your custom columns may go here
-
+            $table->integer('deleted_by')->nullable();
+             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
             $table->json('data')->nullable();
         });

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class WarehouseController extends Controller
 {
@@ -90,7 +92,7 @@ class WarehouseController extends Controller
     public function destroy($id)
     {
         $model = Warehouse::findOrFail($id);
-//        $model->deleted_by = Auth::id();
+       $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

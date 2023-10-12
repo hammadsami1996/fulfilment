@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('product_imgs', function (Blueprint $table) {
             $table->id();
             $table->string('img')->nullable();
+            $table->string('imgurl')->nullable();
          
             $table->integer('product_id')->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
           
 
             $table->timestamps();

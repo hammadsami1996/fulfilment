@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('title')->nullable();
             $table->string('value')->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
         // DB::unprepared(file_get_contents(public_path('/delivery_status.sql')));

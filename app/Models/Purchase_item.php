@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Purchase_item extends Model
+class Purchase_item extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles,SoftDeletes,\OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'purchase_id', 'product_id','qty', 'unit_price', 'value_ex_tax','tax_percent', 'tax_amount', 'value_inc_tax'

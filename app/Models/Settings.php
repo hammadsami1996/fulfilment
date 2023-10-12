@@ -6,11 +6,13 @@ use App\Support\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Settings extends Model
+class Settings extends Model implements Auditable
 {
-    use HasFactory;
-    use HasFactory, Search, SoftDeletes;
+  
+    use HasFactory, Search, SoftDeletes, \OwenIt\Auditing\Auditable;
+
     protected $table = 'settings';
 
     protected $fillable = [

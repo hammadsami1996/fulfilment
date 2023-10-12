@@ -19,13 +19,15 @@ return new class extends Migration
 
             
             $table->integer('class_id')->nullable();
-            $table->integer('active')->nullable();
+            $table->tinyInteger('active')->default(0);
             $table->integer('company_id')->nullable();
            
-            $table->double('debit', 15, 2)->nullable();
-            $table->double('credit', 15, 2)->nullable();
-            $table->double('balance', 15, 2)->nullable();
-            $table->double('account_period_opening', 15, 2)->nullable();
+            $table->decimal('debit', 10, 2)->default(0);
+            $table->decimal('credit', 10, 2)->default(0);
+            $table->decimal('balance', 10, 2)->default(0);
+            $table->decimal('account_period_opening', 10, 2)->default(0);
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
           
 
             $table->timestamps();

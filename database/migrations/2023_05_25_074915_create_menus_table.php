@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('guard');
             $table->integer('icon')->nullable();
             $table->integer('sort')->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
+
             $table->timestamps();
         });
 
@@ -168,6 +171,15 @@ return new class extends Migration
                 'url' => '/product_category',
                 'route' => 'view-product_category',
                 'head_id' => 2,
+                'guard' => 'web',
+            ]
+        );
+        DB::table('menus')->insert(
+            [
+                'title' => 'Customer Category',
+                'url' => '/customer_category',
+                'route' => 'view-customer_category',
+                'head_id' => 1,
                 'guard' => 'web',
             ]
         );

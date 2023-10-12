@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class CategoryController extends Controller
 {
@@ -84,6 +86,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $model = Category::findOrFail($id);
+        $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('number_2' , 15)->nullable();
             $table->string('email',  30 )->nullable();
             $table->string('opening_balance' , 15)->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

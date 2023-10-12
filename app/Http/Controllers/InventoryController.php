@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Inventory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class InventoryController extends Controller
 {
@@ -91,6 +93,8 @@ class InventoryController extends Controller
     public function destroy($id)
     {
         $model = Inventory::with('product', 'warehouse')->findOrFail($id);
+        $model->deleted_by = Auth::id();
+        
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('product_id')->nullable();
             $table->integer('warehouse_id')->nullable();
-            $table->integer('qty')->nullable();
-            $table->integer('price')->nullable();
+            $table->decimal('qty',10,2)->default(0);
+            $table->decimal('price',10,2)->default(0);
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

@@ -110,7 +110,7 @@
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Name', field: 'title'},
-                    {label: 'SKU', field: 'product_sku'},
+                    {label: 'SKU', field: 'sku'},
                     {label: 'Cost Price', field: 'cost_price'},
                     {label: 'Selling Price', field: 'selling_price'},
                     {label: 'Action', field: 'action', action: true},

@@ -10,6 +10,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -73,34 +74,31 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'mobile_no' => ['required', 'numeric', 'digits:11'],
         ]);
-
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'mobile_no' => $request->mobile_no,
-        ]);
-
-        $tenant = Tenant::create(['id' => $request->name]);
-        $tenant->domains()->create(['domain' => $request->name . env('DOMAIN')]);
-        $query = "insert into users (name,email,password) values('" . $request->name . "','" . $request->email . "','" . Hash::make($request->password) . "')";
-        tenancy()->initialize($tenant);
-
-        //Create the same user in tenant DB
-        Settings::create([
-            'key' => 'company_name',
-            'value' => $request->name,
-        ]);
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'user_type_id' => 1,
-            'phase' => 0,
-            'mobile_no' => $request->mobile_no,
-            'password' => Hash::make($request->password),
-        ]);
-        $user->assignRole('Admin');
-        //Create the same user in tenant DB
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'mobile_no' => $request->mobile_no,
+            ]);
+            $tenant = Tenant::create(['id' => $request->name]);
+            $tenant->domains()->create(['domain' => $request->name . env('DOMAIN')]);
+            $query = "insert into users (name,email,password) values('" . $request->name . "','" . $request->email . "','" . Hash::make($request->password) . "')";
+            tenancy()->initialize($tenant);
+            //Create the same user in tenant DB
+            Settings::create([
+                'key' => 'company_name',
+                'value' => $request->name,
+            ]);
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'user_type_id' => 1,
+                'phase' => 0,
+                'mobile_no' => $request->mobile_no,
+                'password' => Hash::make($request->password),
+            ]);
+            $user->assignRole('Admin');
+            //Create the same user in tenant DB
 //        $user = Settings::create([
 //            'key' => 'company_name',
 //            'value' => $request->name,
@@ -112,18 +110,18 @@ class RegisteredUserController extends Controller
 //
 //        $model->save();
 
-        // $tenant->run(function($query) {
-        //     DB::insert($query);
-        //     // User::create([
-        //     //     'name' => $form->name,
-        //     //     'email' => $form->email,
-        //     //     'password' => Hash::make($form->password),
-        //     // ]);
-        // });
+            // $tenant->run(function($query) {
+            //     DB::insert($query);
+            //     // User::create([
+            //     //     'name' => $form->name,
+            //     //     'email' => $form->email,
+            //     //     'password' => Hash::make($form->password),
+            //     // ]);
+            // });
 
-        event(new Registered($user));
+            event(new Registered($user));
 
-//        Auth::login($user);
+//            Auth::login($user);
 
         return redirect('http://' . $request->name . \env('DOMAIN'));
         // return redirect(RouteServiceProvider::HOME);

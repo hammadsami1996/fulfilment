@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AccountClass;
 use App\Models\Account_group_class_type;
+use Illuminate\Support\Facades\Auth;
 
 class AccountClassController extends Controller
 {
@@ -81,7 +82,9 @@ class AccountClassController extends Controller
     public function destroy($id)
     {
         $class = AccountClass::findOrFail($id);
-
+        $class->deleted_by = Auth::id();
+        $class->save();
+    
         $class->delete();
 
         return response()

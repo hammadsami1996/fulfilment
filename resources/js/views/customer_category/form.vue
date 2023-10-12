@@ -1,5 +1,8 @@
 <template>
     <div v-if="show" class="p-4">
+        <h1 class="text-lg font-bold mb-4">
+            {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
+        </h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                 <label class="block font-medium text-sm text-gray-700 mb-2">Customer Category</label>
@@ -27,7 +30,7 @@
 <script>
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
-    // import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import Typeahead from "@/Components/typeahead/typeahead.vue";
 
 
     function initialize(to) {
@@ -41,13 +44,13 @@
     export default {
         mixins: [form],
         components: {
-            // Typeahead,
+            Typeahead,
         },
         data() {
             return {
                 error: {},
                 show: false,
-                resource: '/customer',
+                resource: '/customer_category',
                 store: '/api/category',
                 method: 'POST',
                 small: 'category',

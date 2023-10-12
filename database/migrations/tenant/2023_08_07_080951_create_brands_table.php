@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('title', 30)->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('status')->default(0);
             $table->dateTime('active')->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
         

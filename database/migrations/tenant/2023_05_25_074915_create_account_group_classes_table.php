@@ -16,11 +16,13 @@ return new class extends Migration
             $table->integer('code')->nullable();
             $table->string('classname');
             $table->integer('class_type_id')->nullable();
-            $table->integer('active');
-            $table->integer('debit')->nullable();
-            $table->integer('credit')->nullable();
-            $table->integer('balance')->nullable();
-            $table->integer('account_period_opening')->nullable();
+            $table->tinyInteger('active')->default(0);
+            $table->decimal('debit',10,2)->default(0);
+            $table->decimal('credit',10,2)->default(0);
+            $table->decimal('balance',10,2)->default(0);
+            $table->decimal('account_period_opening',10,2)->default(0);
+            $table->integer('deleted_by')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
         // DB::unprepared(file_get_contents(public_path('/account_group_classes.sql')));

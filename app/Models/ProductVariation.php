@@ -7,14 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class City_Courier extends Model implements Auditable
+class ProductVariation extends Model implements Auditable
 {
     use HasFactory,SoftDeletes,\OwenIt\Auditing\Auditable;
-
-    protected $table = 'city_courier';
-    protected $fillable = [
-        'city_id',
-        'courier_id',
-        'delivery_charges',
-    ];
 }

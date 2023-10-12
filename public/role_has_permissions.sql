@@ -23,11 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `role_has_permissions`;
 CREATE TABLE `role_has_permissions`  (
   `permission_id` bigint UNSIGNED NOT NULL,
-  `role_id` bigint UNSIGNED NOT NULL,
-  PRIMARY KEY (`permission_id`, `role_id`) USING BTREE,
-  INDEX `role_has_permissions_role_id_foreign`(`role_id`) USING BTREE,
-  CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  `role_id` bigint UNSIGNED NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -173,5 +169,11 @@ INSERT INTO `role_has_permissions` VALUES (239, 1);
 INSERT INTO `role_has_permissions` VALUES (240, 1);
 INSERT INTO `role_has_permissions` VALUES (241, 1);
 INSERT INTO `role_has_permissions` VALUES (242, 1);
+INSERT INTO `role_has_permissions` VALUES (243, 1);
+INSERT INTO `role_has_permissions` VALUES (244, 1);
+INSERT INTO `role_has_permissions` VALUES (245, 1);
+INSERT INTO `role_has_permissions` VALUES (246, 1);
+INSERT INTO `role_has_permissions` VALUES (247, 1);
+INSERT INTO `role_has_permissions` VALUES (248, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('key');
             $table->string('perfix');
             $table->string('value');
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
 

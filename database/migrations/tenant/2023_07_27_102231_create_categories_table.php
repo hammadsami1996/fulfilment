@@ -14,8 +14,16 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('customer_category',25)->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
+        DB::table('categories')->insert(
+            [
+                'customer_category' => 'General  Category',
+              
+            ]
+        );
     }
 
     /**

@@ -1,36 +1,23 @@
 <template>
     <div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3> 
             <!-- <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
                              type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
+                     + New Customer
+                </router-link> -->
+                <router-link :to="{name:`create-customer_category`}"
+                             type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
                     Create
                 </router-link>
-            </div> -->
+            </div>
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
-                <template v-slot:images="props">
-
-
-
-                  <div class="flex items-center">
-                    <div  v-if="props.item.product && props.item.product.product_img && props.item.product.product_img[0]  " class="w-20 h-20 rounded object-cover image-container">
-
-                                            <img :src="`/uploads/product/img/` +   props.item.product.product_img[0].img" >
-
-                                    </div>
-                                        <div  v-else class="w-20 h-20 rounded object-cover image-container" >
-                                            <img src="~@/images/no-picture-taking.png" alt="No Picture">
-
-                                        </div>
-                                        </div>
-
-               </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
-                         <!-- <span v-if="permissions.includes(`edit-${small}`)">
+                         <span v-if="permissions.includes(`edit-${small}`)"> 
                         <a
                             @click.prevent="edit(props.item.id)"
                             href="#"
@@ -43,7 +30,7 @@
                                 <line x1="16" x2="19" y1="5" y2="8"/>
                             </svg>
                         </a>
-                         </span> -->
+                         </span>
                         <span v-if="permissions.includes(`delete-${small}`)">
                         <a
                             @click.prevent="deleteRole(props.item.id)"
@@ -60,11 +47,11 @@
                     </div>
                 </template>
             </panel>
-        </div>
-    </div>
+        </div> 
+    <!-- </div> -->
 </template>
 
-<script>
+ <script>
     import Panel from "@/components/panel/panel.vue";
     import {form} from "@/libs/mixins";
     import {byMethod} from "@/libs/api";
@@ -78,34 +65,28 @@
         data() {
             return {
                 permissions: [],
-                urlApi: "/api/inventory",
-                resource: "/inventory",
-                small: "inventory",
-                capital: "Inventory",
+                urlApi: "/api/category",
+                resource: "/category",
+                small: "customer_category",
+                capital: "Customer Category",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
-                    {label: 'Product Sku', field: 'sku',  displayText: 'product'},
-                    {label: 'Barcode', field: 'barcode',  displayText: 'product'},
-
-                    {label: 'Images', field: 'images' , slot:true},
-                    {label: 'Product id', field: 'title',  displayText: 'product'},
-
-                    {label: 'Warehouse id', field: 'name',  displayText: 'warehouse'},
-                    {label: 'Qty', field: 'qty',},
-                    // {label: 'Price', field: 'price',},
-                    {label: 'Action', field: 'action', action: true}
+                    {label: 'Name', field: 'customer_category',}, 
+                    
+                     {label: 'Action', field: 'action', action: true}, 
+                   
                     ]
             }
         },
         created() {
             this.permissions = window.apex.user.permission
         },
-        methods: {
-            edit(id) {
+        methods: { 
+             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
             deleteRole(e) {
-                byMethod('delete', `/api/inventory/${e}`)
+                byMethod('delete', `/api/category/${e}`)
                     .then((res) => {
                         // console.log(res);
                         if (res.data.deleted) {
@@ -116,10 +97,4 @@
             },
         },
     }
-</script>
-<style scoped>
-.image-container:hover {
-    transform: scale(2.6);
-
-}
-</style>
+</script> 

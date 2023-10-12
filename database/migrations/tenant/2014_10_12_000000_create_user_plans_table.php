@@ -3,6 +3,10 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+// use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+
+
 
 return new class extends Migration
 {
@@ -15,7 +19,7 @@ return new class extends Migration
             $table->id();
             $table->integer('plain_id');
             $table->timestamp('expire')->nullable();
-            $table->decimal('price')->nullable();
+            $table->decimal('price',10,2)->default(0);
             $table->integer('user_id')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

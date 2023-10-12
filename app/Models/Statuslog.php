@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Support\HasManyRelation;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Statuslog extends Model
+class Statuslog extends Model implements Auditable
 {
-    use HasFactory ,Notifiable, HasRoles;
-    use HasManyRelation;
+    use HasFactory ,Notifiable, HasRoles,SoftDeletes, HasManyRelation, \OwenIt\Auditing\Auditable;
+   
 
 
     protected $fillable = [

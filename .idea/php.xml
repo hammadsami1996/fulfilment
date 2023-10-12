@@ -135,6 +135,7 @@
       <path value="$PROJECT_DIR$/vendor/twilio/sdk" />
       <path value="$PROJECT_DIR$/vendor/laravel/prompts" />
       <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/vendor/owen-it/laravel-auditing" />
     </include_path>
   </component>
 </project>

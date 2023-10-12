@@ -12,9 +12,11 @@
                     <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Customer <span class="text-red-600">*</span></label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Customer
+                         <!-- <span class="text-red-600">*</span> -->
+                        </label>
                     <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
-                                       <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p>
+                                       <!-- <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p> -->
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">External Order No</label>

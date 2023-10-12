@@ -23,7 +23,6 @@ class Permission extends Model
         "name",
     ];
 
-
     protected $search = [
         "name",
     ];

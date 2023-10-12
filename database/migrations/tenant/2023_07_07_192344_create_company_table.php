@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name',25)->nullable();
             $table->string('net_total',20)->nullable();
+            $table->string('phone',20)->nullable();
             $table->integer('tax_number')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('country_id')->nullable();
@@ -23,6 +24,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('logo',25)->nullable();
             $table->string('email',25)->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

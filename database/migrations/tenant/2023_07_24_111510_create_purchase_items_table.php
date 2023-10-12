@@ -15,13 +15,15 @@ return new class extends Migration
             $table->id();
             $table->integer('purchase_id')->nullable();
             $table->integer('product_id')->nullable();
-            $table->integer('qty')->nullable();
-            $table->decimal('unit_price',10)->nullable();
-            $table->decimal('value_ex_tax',10)->nullable();
-            $table->decimal('tax_percent',10)->nullable();
-            $table->decimal('tax_amount',10)->nullable();
-            $table->decimal('value_inc_tax',10)->nullable();
+            $table->decimal('qty',10,2)->default(0);
+            $table->decimal('unit_price',10,2)->default(0);
+            $table->decimal('value_ex_tax',10,2)->default(0);
+            $table->decimal('tax_percent',10,2)->default(0);
+            $table->decimal('tax_amount',10,2)->default(0);
+            $table->decimal('value_inc_tax',10,2)->default(0);
             $table->integer('partail_remaining')->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
 
             $table->timestamps();
         });

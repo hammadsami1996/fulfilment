@@ -96,8 +96,8 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         $model = Permission::findOrFail($id);
-//        $model->deleted_by = Auth::id();
-//        $model->save();
+       $model->deleted_by = Auth::id();
+       $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);
     }

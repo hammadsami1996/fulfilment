@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('mim_api_key',100)->nullable();
             $table->string('mim_store_address',100)->nullable();
             $table->integer('warehouse_id')->nullable();
+            $table->integer('deleted_by')->nullable();
+           $table->timestamp('deleted_at')->nullable();
 
             $table->timestamps();
         });
