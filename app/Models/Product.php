@@ -15,7 +15,8 @@ class Product extends Model
     protected $fillable = [
         'title', 'description',  'product_sku', 'model_no',  'barcode', 'manage_inventory',
          'product_types', 'cost_price', 'selling_price',  'start_date',
-        'end_date', 'product_category','brand_id', 'head_id', 'supplier_id', 'weight','quantity'
+        'end_date', 'product_category','brand_id', 'head_id', 'supplier_id', 'weight','quantity',
+
     ];
     protected $columns = [
         'title', 'description',  'product_sku', 'model_no', 'barcode', 'manage_inventory',
@@ -68,6 +69,10 @@ class Product extends Model
     public function attribute_sets()
     {
         return $this->belongsTo(AttributeSet::class, 'attribute_set', 'id');
+    }
+    public function product_type()
+    {
+        return $this->belongsTo(ProductType::class, 'product_types', 'id');
     }
 
 
