@@ -36,6 +36,5 @@ CREATE TABLE `user_types`  (
 -- ----------------------------
 INSERT INTO `user_types` VALUES (1, 'Admin', '2023-05-29 08:00:47', '2023-05-29 08:00:47', 1, NULL);
 INSERT INTO `user_types` VALUES (2, 'Employee', '2023-05-29 08:01:28', '2023-05-29 08:01:28', 1, NULL);
-INSERT INTO `user_types` VALUES (3, 'Candidate', '2023-05-29 08:01:41', '2023-05-29 08:01:41', 1, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
