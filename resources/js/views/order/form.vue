@@ -128,8 +128,8 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2"> Instructions </label>
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="number"
-                              v-model="form.instruction"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.instruction">{{ error.instruction[0] }}</p>
+                              v-model="form.instructions"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.instructions">{{ error.instructions[0] }}</p>
                 </div>
             </div>
             <div class="border border-gray-200 rounded-lg bg-gray-100 ml-3 mt-4">
