@@ -7,9 +7,10 @@ use App\Models\City_Courier;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\ProductVariation;
+use App\Models\ProductAttribute;
+use App\Models\ProductAttributeGroup;
+use App\Models\ProductAttributeValue;
 use App\Models\Store;
-use App\Models\Variation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -78,7 +79,7 @@ class ShopifyController extends Controller
                                     $order->customer_id = $customer['id'];
                                 } else {
                                     $customer = new Customer();
-                                    $customer->name = $rec['customer']['first_name'] . ' ' .$rec['customer']['last_name'];
+                                    $customer->name = $rec['customer']['first_name'] . ' ' . $rec['customer']['last_name'];
                                     $customer->email = $rec['customer']['email'];
                                     $customer->phone = $rec['customer']['phone'] ?? $rec['billing_address']['phone'];
                                     $b_city = City::where('name', $rec['billing_address']['city'])->first();
@@ -142,51 +143,59 @@ class ShopifyController extends Controller
                             $items = [];
                             $totalQuantity = 0;
                             foreach ($rec['line_items'] as $key => $item) {
-//                                $parent_product = Product::where('title', $item['title'])->whereNull('head_id')->first();
-//                                if (!$parent_product) {
-//                                    $parent_product = new Product();
-//                                    $parent_product->title = $item['title'];
-//                                    $parent_product->selling_price = $item['price'];
-//                                    $parent_product->cost_price = $item['price'];
-//                                    $parent_product->save();
-//                                }
-//                                $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
-//
-//                                if (!$product) {
-//                                    $product = new Product();
-//                                    $product->head_id = $parent_product['id'];
-//                                    $product->product_sku = $item['sku'] ? $item['sku'] : $item['product_id'];
-//                                    $product->title = $item['title'];
-//                                    $product->description = $item['name'];
-//                                    $product->selling_price = $item['price'];
-//                                    $product->cost_price = $item['price'];
-//                                    $product->save();
-//                                }
-//                                if ($item['variant_title']) {
-//                                    $variation = Variation::where('name', $item['variant_title'])->first();
-//                                    if (!$variation) {
-//                                        $variation = new Variation();
-//                                        $variation->name = $item['variant_title'];
-//                                        $variation->save();
-//                                    }
-//                                    $product_variation = ProductVariation::where('product_id', $product->id)->where('variation_id', $variation->id)
-//                                        ->where('value', $item['variant_title'])->first();
-//                                    if (!$product_variation) {
-//                                        $product_variation = new ProductVariation();
-//                                        $product_variation->product_id = $product->id;
-//                                        $product_variation->variation_id = $variation->id;
-//                                        $product_variation->parent_product_id = $parent_product->id;
-//                                        $product_variation->value = $item['variant_title'];
-//                                        $product_variation->save();
-//                                    }
-//                                }
-                                $product = Product::where('product_sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
+                                $parent_product = Product::where('title', $item['title'])->whereNull('head_id')->first();
+                                if (!$parent_product) {
+                                    $parent_product = new Product();
+                                    $parent_product->title = $item['title'];
+                                    $parent_product->selling_price = $item['price'];
+                                    $parent_product->cost_price = $item['price'];
+                                    $parent_product->save();
+                                }
+                                $product = Product::where('sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
+
+                                if (!$product) {
+                                    $product = new Product();
+                                    $product->head_id = $parent_product['id'];
+                                    $product->sku = $item['sku'] ? $item['sku'] : $item['product_id'];
+                                    $product->title = $item['title'];
+                                    $product->selling_price = $item['price'];
+                                    $product->cost_price = $item['price'];
+                                    $product->save();
+                                }
+                                if ($item['variant_title']) {
+                                    $ProductAttributeGroup = ProductAttributeGroup::where('title', $item['variant_title'])->first();
+                                    if (!$ProductAttributeGroup) {
+                                        $ProductAttributeGroup = new ProductAttributeGroup();
+                                        $ProductAttributeGroup->title = $item['variant_title'];
+                                        $ProductAttributeGroup->save();
+                                    }
+                                    $ProductAttributeValues = ProductAttributeValue::where('title', $item['variant_title'])
+                                        ->where('group_id', $ProductAttributeGroup['id'])->first();
+                                    if (!$ProductAttributeValues) {
+                                        $ProductAttributeValues = new ProductAttributeValue();
+                                        $ProductAttributeValues->title = $item['variant_title'];
+                                        $ProductAttributeValues->group_id = $ProductAttributeGroup['id'];
+                                        $ProductAttributeValues->save();
+                                    }
+                                    $product_variation = ProductAttribute::where('product_id', $product->id)
+                                        ->where('group_id', $ProductAttributeGroup->id)
+                                        ->where('value_id', $ProductAttributeValues->id)->first();
+                                    if (!$product_variation) {
+                                        $product_variation = new ProductAttribute();
+                                        $product_variation->parent_product_id = $parent_product->id;
+                                        $product_variation->product_id = $product->id;
+                                        $product_variation->group_id = $ProductAttributeGroup->id;
+                                        $product_variation->value_id = $ProductAttributeValues->id;
+                                        $product_variation->save();
+                                    }
+                                }
+//                                $product = Product::where('sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
 
                                 $items[$key]['qty'] = $item['quantity'];
                                 $totalQuantity = $item['quantity'];
                                 $items[$key]['product_id'] = $product['id'] ?? null;
                                 $items[$key]['product_name'] = $product['name'] ?? null;
-                                $items[$key]['product_sku'] = $product['sku'] ?? null;
+                                $items[$key]['sku'] = $product['sku'] ?? null;
                                 $items[$key]['unit_price'] = $item['price'];
                             }
                             $order->quantity = $totalQuantity;

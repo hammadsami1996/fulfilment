@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('b_email' , 50)->nullable();
             $table->string('b_address_1')->nullable();
             $table->string('b_phone' , 20)->nullable();
-            $table->string('instraction', 100)->nullable();
+            $table->string('instruction', 100)->nullable();
             $table->integer('quantity')->nullable();
             $table->integer('order_type_id')->nullable();
             $table->decimal('shipping_charges',10,2)->nullable();
@@ -70,7 +70,7 @@ return new class extends Migration
             $table->decimal('currency_value',10,2)->nullable()->default(0);
             $table->string('replacement_item_summary')->nullable();
             $table->decimal('replacement_qty',10,2)->nullable()->default(0);
-     
+
             $table->integer('deleted_by')->nullable();
            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();

@@ -7,9 +7,10 @@ use App\Models\City_Courier;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\ProductVariation;
+use App\Models\ProductAttribute;
+use App\Models\ProductAttributeGroup;
+use App\Models\ProductAttributeValue;
 use App\Models\Store;
-use App\Models\variation;
 use Illuminate\Support\Facades\Http;
 
 
@@ -113,11 +114,9 @@ class WordpressController extends Controller
                     $i = 0;
 
                     foreach ($response->json() as $rec) {
-//                        dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'WooCommerce')->where('store_id', $store->id)->first();
                         if (!$order) {
                             ++$i;
-
                             $order = new Order();
                             $order->store_id = $id;
                             $order->warehouse_id = $store['warehouse_id'];
@@ -184,7 +183,6 @@ class WordpressController extends Controller
                             $order->status_id = 1;
 
                             $items = [];
-//                            dd($rec['line_items']);
                             foreach ($rec['line_items'] as $key => $item) {
                                 $parent_product = Product::where('title', $item['parent_name'])->whereNull('head_id')->first();
                                 if (!$parent_product) {
@@ -198,7 +196,6 @@ class WordpressController extends Controller
 
                                 if (!$product) {
                                     $product = new Product();
-                                    $product->description = $item['name'];
                                     $product->head_id = $parent_product['id'];
                                     $product->sku = $item['sku'] ? $item['sku'] : $item['product_id'];
                                     $product->title = $item['name'];
@@ -208,25 +205,31 @@ class WordpressController extends Controller
                                 }
 //                                $itemVariations = [];
                                 foreach ($item['meta_data'] as $key1 => $itemV) {
-                                    $variation = Variation::where('name', $itemV['display_key'])->first();
-                                    if (!$variation) {
-                                        $variation = new Variation();
-                                        $variation->name = $itemV['display_key'];
-                                        $variation->save();
+                                    $ProductAttributeGroup = ProductAttributeGroup::where('title', $itemV['display_key'])->first();
+                                    if (!$ProductAttributeGroup) {
+                                        $ProductAttributeGroup = new ProductAttributeGroup();
+                                        $ProductAttributeGroup->title = $itemV['display_key'];
+                                        $ProductAttributeGroup->save();
                                     }
-
-                                    $product_variation = ProductVariation::where('product_id', $product->id)->where('variation_id', $variation->id)
-                                        ->where('value', $itemV['display_value'])->first();
-
+                                    $ProductAttributeValues = ProductAttributeValue::where('title', $itemV['display_value'])
+                                        ->where('group_id', $ProductAttributeGroup['id'])->first();
+                                    if (!$ProductAttributeValues) {
+                                        $ProductAttributeValues = new ProductAttributeValue();
+                                        $ProductAttributeValues->title = $itemV['display_value'];
+                                        $ProductAttributeValues->group_id = $ProductAttributeGroup['id'];
+                                        $ProductAttributeValues->save();
+                                    }
+                                    $product_variation = ProductAttribute::where('product_id', $product->id)
+                                        ->where('group_id', $ProductAttributeGroup->id)
+                                        ->where('value_id', $ProductAttributeValues->id)->first();
                                     if (!$product_variation) {
-                                        $product_variation = new ProductVariation();
-                                        $product_variation->product_id = $product->id;
-                                        $product_variation->variation_id = $variation->id;
+                                        $product_variation = new ProductAttribute();
                                         $product_variation->parent_product_id = $parent_product->id;
-                                        $product_variation->value = $itemV['display_value'];
+                                        $product_variation->product_id = $product->id;
+                                        $product_variation->group_id = $ProductAttributeGroup->id;
+                                        $product_variation->value_id = $ProductAttributeValues->id;
                                         $product_variation->save();
                                     }
-//                                    $itemVariations[] = $product_variation->id;
                                 }
                                 $items[$key]['qty'] = $item['quantity'];
                                 $items[$key]['value_inc_tax'] = $item['total'];
