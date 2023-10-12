@@ -133,16 +133,28 @@ Route::middleware([
 
 
         // Products work
-        Route::post('/prod_attr',[\App\Http\Controllers\ProductAttributeValueController::class,'store']);
-        Route::post('/prod_attr_value',[\App\Http\Controllers\ProductAttributeValueController::class,'prod_attr_value']);
+//        Route::post('/prod_attr',[\App\Http\Controllers\ProductAttributeValueController::class,'store']);
+//        Route::post('/prod_attr_value',[\App\Http\Controllers\ProductAttributeValueController::class,'prod_attr_value']);
+//
+//        Route::resource('attribute_group',\App\Http\Controllers\AttributeGroupController::class);
+//        Route::resource('attribute_sets',\App\Http\Controllers\AttributeSetController::class);
+//        Route::resource('assign_set',\App\Http\Controllers\AssignSetController::class);
 
-        Route::resource('attribute_group',\App\Http\Controllers\AttributeGroupController::class);
-        Route::resource('attribute_sets',\App\Http\Controllers\AttributeSetController::class);
-        Route::resource('assign_set',\App\Http\Controllers\AssignSetController::class);
+        Route::group(['prefix'=>'search'], function(){
+            Route::get('product_type',[\App\Http\Controllers\ProductTypeController::class,'search']);
+//            Route::get('attribute_set',[\App\Http\Controllers\AttributeSetController::class,'search']);
+//            Route::get('assign_sets',[\App\Http\Controllers\AssignSetController::class,'search']);
+//            Route::get('prod_att',[\App\Http\Controllers\ProductAttributeValueController::class,'search']);
+//            Route::get('attribute_group',[\App\Http\Controllers\AttributeGroupController::class,'search']);
+//            Route::PUT('prod/child_update/{id}', [\App\Http\Controllers\ProductController::class, 'child_update']);
 
 
+
+        });
 
     });
+
+
 
     Route::prefix('docs')->middleware(['auth', 'verified'])->group(function () {
         Route::get('product_excel', [\App\Http\Controllers\ProductController::class, 'product_excel']);

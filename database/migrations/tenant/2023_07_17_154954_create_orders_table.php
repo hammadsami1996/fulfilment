@@ -70,7 +70,6 @@ return new class extends Migration
             $table->decimal('currency_value',10,2)->nullable()->default(0.00);
             $table->string('replacement_item_summary')->nullable();
             $table->decimal('replacement_qty',10,2)->nullable()->default(0.00);
-     
             $table->integer('deleted_by')->nullable();
            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();

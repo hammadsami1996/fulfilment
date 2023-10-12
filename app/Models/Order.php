@@ -6,15 +6,15 @@ use App\Support\HasManyRelation;
 use App\Support\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Order extends Model implements Auditable
 {
-    use HasFactory,HasManyRelation,Search, Notifiable, HasRoles,SoftDeletes,\OwenIt\Auditing\Auditable;
- 
+    use HasFactory, HasManyRelation, Search, Notifiable, HasRoles, SoftDeletes, \OwenIt\Auditing\Auditable;
+
 
     protected $fillable = [
         'store_id', 'order_date', 'customer_id', 'city_id', 'total', 'tax', 'balance', 'courier_id', 'payment_status', 'location', 'sales_rep', 'selling_price',

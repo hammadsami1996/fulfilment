@@ -7,6 +7,9 @@ use App\Models\City_Courier;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductAttribute;
+use App\Models\ProductAttributeGroup;
+use App\Models\ProductAttributeValue;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -37,6 +40,7 @@ class MimCartController extends Controller
     {
         $store = Store::findOrFail($id);
         if (isset($store) && $store->plate_form == 'MimCart') {
+//            $apiUrl = $store->mim_store_address . '/account_services/get_orders?appkey=' . $store->mim_api_key.'&id=94144';
             $apiUrl = $store->mim_store_address . '/account_services/get_orders?appkey=' . $store->mim_api_key;
             try {
                 $response = Http::get($apiUrl);
@@ -45,13 +49,18 @@ class MimCartController extends Controller
                     $i = 0;
                     // dd($response->json());
                     foreach ($response->json() as $rec) {
-                        // dd($rec);
-                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart')->where('store_id',$store->id)->first();
+//                        dd($rec);
+                        $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart')->where('store_id', $store->id)->first();
                         if (!$order) {
                             ++$i;
                             $order = new Order();
+                            $order->store_id = $store->id;
+                            $order->company_id = $store->company_id;
+                            $order->order_date = $store->createdon;
+                            $order->warehouse_id = $store->warehouse_id;
                             $order->order_form = 'MimCart';
                             $order->external_order_no = $rec['id'];
+                            $order->tracking_id = $rec['rend_order_id'];
                             // $order->name = $rec['name'];
                             if ($rec['mobile']) {
                                 $customer = Customer::where('phone', $rec['mobile'])->first();
@@ -62,14 +71,12 @@ class MimCartController extends Controller
                                     $customer->name = $rec['name'];
                                     $customer->email = $rec['email'];
                                     $customer->phone = $rec['mobile'];
-                                    // $customer->address = $rec['address'];
 
                                     $customer->b_name = $rec['name'];
                                     $customer->b_phone = $rec['mobile'];
                                     $customer->b_address_1 = $rec['address'];
                                     $b_city = City::where('name', $rec['city'])->first();
                                     if ($b_city) {
-
                                         $customer->b_city_id = $b_city['id'];
                                         $customer->b_country_id = $b_city['country_id'];
                                         $customer->s_city_id = $b_city['id'];
@@ -85,10 +92,12 @@ class MimCartController extends Controller
 
                             $order->b_name = $rec['name'];
                             $order->b_phone = $rec['mobile'];
+                            $order->b_email = $rec['email'];
                             $order->b_address_1 = $rec['address'];
 
                             $order->s_name = $rec['name'];
                             $order->s_phone = $rec['mobile'];
+                            $order->s_email = $rec['email'];
                             $order->s_address_1 = $rec['address'];
 
                             $s_city = City::where('name', $rec['city'])->first();
@@ -97,7 +106,6 @@ class MimCartController extends Controller
                                 $cityCourier = City_Courier::where('city_id', $s_city->id)->first();
                                 if ($cityCourier) {
                                     $order->courier_id = $cityCourier->courier_id;
-//                                    $order->delivery_charges = $cityCourier->delivery_charges;
                                 }
                             }
 
@@ -111,34 +119,72 @@ class MimCartController extends Controller
                             $order->coupons_discount = $rec['coupons_discount'];
                             $order->coupons = $rec['coupons'];
                             $order->net_total = $rec['net_total'];
-                            $order->shipment_services = $rec['shipment_services'];
+                            $order->shipment_services = $rec['shipment_services'] || null;
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
                             foreach ($rec['items'] as $key => $item) {
-                                $product = Product::where('sku', $item['sku'])->first();
-                                // if (!$product) {
-                                //     $product = new Product();
-                                //     $product->product_sku = $item['sku'];
-                                //     $product->title = $item['title'];
-                                //     $product->selling_price = $item['price'];
-                                //     $product->cost_price = $item['price'];
-                                //     $product->save();
-                                // }
-                                $items[$key]['product_id'] = $product['id'] ?? null;
+                                $parent_product = Product::where('title', $item['product_name'])->whereNull('head_id')->first();
+                                if (!$parent_product) {
+                                    $parent_product = new Product();
+                                    $parent_product->title = $item['product_name'];
+                                    $parent_product->selling_price = $item['unit_price'];
+                                    $parent_product->cost_price = $item['cost'];
+                                    $parent_product->save();
+                                }
+                                $product = Product::where('sku', $item['sku'] ? $item['sku'] : $item['product_id'])->whereNotNull('head_id')->first();
+
+                                if (!$product) {
+                                    $product = new Product();
+                                    $product->head_id = $parent_product['id'];
+                                    $product->sku = $item['sku'] ? $item['sku'] : $item['product_id'];
+                                    $product->title = $item['product_name'];
+                                    $product->selling_price = $item['unit_price'];
+                                    $product->cost_price = $item['cost'];
+                                    $product->save();
+                                }
+                                foreach ($item['options'] as $key1 => $itemV) {
+                                    $ProductAttributeGroup = ProductAttributeGroup::where('title', $itemV['groups_title'])->first();
+                                    if (!$ProductAttributeGroup) {
+                                        $ProductAttributeGroup = new ProductAttributeGroup();
+                                        $ProductAttributeGroup->title = $itemV['groups_title'];
+                                        $ProductAttributeGroup->save();
+                                    }
+                                    $ProductAttributeValues = ProductAttributeValue::where('title', $itemV['value_title'])
+                                        ->where('group_id', $ProductAttributeGroup['id'])->first();
+                                    if (!$ProductAttributeValues) {
+                                        $ProductAttributeValues = new ProductAttributeValue();
+                                        $ProductAttributeValues->title = $itemV['value_title'];
+                                        $ProductAttributeValues->group_id = $ProductAttributeGroup['id'];
+                                        $ProductAttributeValues->save();
+                                    }
+                                    $product_variation = ProductAttribute::where('product_id', $product->id)
+                                        ->where('group_id', $ProductAttributeGroup->id)
+                                        ->where('value_id', $ProductAttributeValues->id)->first();
+                                    if (!$product_variation) {
+                                        $product_variation = new ProductAttribute();
+                                        $product_variation->parent_product_id = $parent_product->id;
+                                        $product_variation->product_id = $product->id;
+                                        $product_variation->group_id = $ProductAttributeGroup->id;
+                                        $product_variation->value_id = $ProductAttributeValues->id;
+                                        $product_variation->save();
+                                    }
+                                }
+
+                                $items[$key]['product_id'] = $product['id'];
                                 // $items[$key]['title'] = $item['title'];
                                 $items[$key]['product_name'] = $item['product_name'] ?? null;
                                 $items[$key]['sku'] = $item['sku'];
                                 $items[$key]['order_id'] = $item['order_id'];
                                 $items[$key]['qty'] = $item['qty'];
-                                $items[$key]['value_inc_tax'] = $item['value_inc_tax'];
+                                $items[$key]['value_inc_tax'] = $item['value_inc_tax'] || null;
                                 $items[$key]['warehouse_id'] = $item['warehouse_id'];
-                                $items[$key]['tax_amount'] = $item['tax_amount'];
-                                $items[$key]['tax_percent'] = $item['tax_percent'];
+                                $items[$key]['tax_amount'] = $item['tax_amount'] || null;
+                                $items[$key]['tax_percent'] = $item['tax_percent'] || null;
                                 $items[$key]['unit_price'] = $item['unit_price'];
                                 $items[$key]['coupon_discount'] = $item['coupon_discount'];
                                 $items[$key]['discount'] = $item['discount'];
-                                $items[$key]['cost'] = $item['cost'];
+                                $items[$key]['cost'] = $item['cost'] || 0;
                                 $items[$key]['total'] = $item['total'];
                             }
                             $order->storeHasMany([
