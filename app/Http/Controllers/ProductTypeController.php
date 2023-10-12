@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductAttribute;
+use App\Models\ProductType;
+use App\Models\ProductTypes;
 use Illuminate\Http\Request;
 
-class ProductAttributeController extends Controller
+class ProductTypeController extends Controller
 {
+
+    public function search()
+    {
+        return response()->json(['data' => ProductType::search()]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,7 +40,7 @@ class ProductAttributeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ProductAttribute $productAttribute)
+    public function show(ProductType $productType)
     {
         //
     }
@@ -42,7 +48,7 @@ class ProductAttributeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductAttribute $productAttribute)
+    public function edit(ProductType $productType)
     {
         //
     }
@@ -50,7 +56,7 @@ class ProductAttributeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProductAttribute $productAttribute)
+    public function update(Request $request, ProductType $productType)
     {
         //
     }
@@ -58,7 +64,7 @@ class ProductAttributeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductAttribute $productAttribute)
+    public function destroy(ProductType $productType)
     {
         //
     }
