@@ -132,6 +132,12 @@ Route::middleware([
         Route::get('/company', [\App\Http\Controllers\CompanyController::class, 'index']);
 
 
+
+        //product
+        Route::resource('product_attribute_group',\App\Http\Controllers\ProductAttributeGroupController::class);
+        Route::resource('product_attribute_value',\App\Http\Controllers\ProductAttributeValueController::class);
+
+
         // Products work
 //        Route::post('/prod_attr',[\App\Http\Controllers\ProductAttributeValueController::class,'store']);
 //        Route::post('/prod_attr_value',[\App\Http\Controllers\ProductAttributeValueController::class,'prod_attr_value']);

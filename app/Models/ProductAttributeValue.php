@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
+use App\Support\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class ProductAttributeValue extends Model implements Auditable
 {
-    use HasFactory,\OwenIt\Auditing\Auditable;
+    use HasFactory, Search;
 
     protected $fillable = [
-        'title', 'group_id'
+        "title"
     ];
     protected $columns = [
-        'title','group_id'
+        "title"
     ];
+
     protected $search = [
-        'title'
+        "title"
     ];
 }

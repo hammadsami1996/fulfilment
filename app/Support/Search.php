@@ -56,7 +56,7 @@ trait Search
                 }
             });
         }
-        if (in_array("created_at", $this->columns)) {
+        if (in_array("created_at", $this->columns ?? $this->search)) {
             $query->orderBy(
                 request('sort_column', 'created_at'),
                 request('sort_direction', 'desc')
