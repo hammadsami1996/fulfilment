@@ -126,7 +126,38 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        $form = Product::with('product_img', 'brand', 'category', 'supplier','sub_products')->findOrFail($product->head_id ?? $id);
+
+        $form = Product::with('product_img', 'brand', 'category', 'supplier', 'sub_products', 'attributes.group', 'attributes.value')->findOrFail($product->head_id ?? $id);
+        $groupedProducts = [];
+        foreach ($form->attributes as $attribute) {
+            $group = $attribute->group;
+            if (!isset($groupedProducts[$group->id])) {
+                $groupedProducts[$group->id] = [
+                    'group' => [
+                        'id' => $group->id,
+                        'title' => $group->title,
+                        'created_at' => $group->created_at,
+                        'updated_at' => $group->updated_at,
+                    ],
+                    'group_id' => $group->id,
+                    'values' => [],
+                ];
+            }
+            $value = $attribute->value;
+            if (!in_array($value->title, array_column($groupedProducts[$group->id]['values'], 'title'))) {
+                $groupedProducts[$group->id]['values'][] = [
+                    'id' => $value->id,
+                    'title' => $value->title,
+                    'group_id' => $value->group_id,
+                    'created_at' => $value->created_at,
+                    'updated_at' => $value->updated_at,
+                ];
+            }
+        }
+
+        $groupedProducts = array_values($groupedProducts); // Reset array keys to start from 0
+        $form['product_attribute'] = (object)$groupedProducts;
+        unset($form['attributes']);
         return response()->json([
             "form" => $form,
         ]);
@@ -137,6 +168,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request->all());
+
         $category = null;
         if (isset($request->categoryies)) {
             foreach ($request->categoryies as $categorie) {

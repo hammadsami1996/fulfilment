@@ -10,11 +10,16 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class ProductAttribute extends Model implements Auditable
 {
-    use HasFactory,Search,  \OwenIt\Auditing\Auditable;
+    use HasFactory, Search, \OwenIt\Auditing\Auditable;
 
-    public function groups()
+    public function group()
     {
-        return $this->hasMany(ProductAttributeGroup::class, 'product_id', 'id');
+        return $this->belongsTo(ProductAttributeGroup::class);
+    }
+
+    public function value()
+    {
+        return $this->belongsTo(ProductAttributeValue::class);
     }
 }
 
