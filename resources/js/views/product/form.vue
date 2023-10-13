@@ -90,11 +90,64 @@
                             <p class="text-red-600 text-xs italic" v-if="error.product_types">{{ error.product_types[0]
                                 }}</p>
                         </div>
-                        <div class="relative mt-4"
-                             v-if="form.product_types == 1">
+<!--                        <div class="relative mt-4"-->
+<!--                             v-if="form.product_types == 1">-->
+<!--                            <div class="bg-white shadow rounded-lg mt-4 p-4">-->
+<!--                                <div-->
+<!--                                    class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">-->
+<!--                                    <table class="min-w-full text-sm align-middle whitespace-nowrap">-->
+<!--                                        <thead>-->
+<!--                                        <tr>-->
+<!--                                            <th class="px-4 py-2">Group</th>-->
+<!--                                            <th class="px-4 py-2">Value</th>-->
+<!--                                            <th class="px-4 py-2"></th>-->
+<!--                                        </tr>-->
+<!--                                        </thead>-->
+<!--                                        <tbody>-->
+<!--                                        <tr class="border-b border-gray-100 dark:border-gray-700/50"-->
+<!--                                            v-for="(item,index) in form.product_attribute">-->
+<!--                                            <td>-->
+<!--                                                <div class="mb-4">-->
+<!--                                                    <typeahead :initialize="item.group" @input="onGroup($event,item)"-->
+<!--                                                               display="title" url="/api/product_attribute_group"/>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <div class="mb-4">-->
+<!--                                                    <typeahead :initialize="item.values"-->
+<!--                                                               :url="item.group_id != null ? '/api/product_attribute_value?group_id='+item.group_id :'/api/product_attribute_value'"-->
+<!--                                                               @input="onValue($event,item)"-->
+<!--                                                               display="title"-->
+<!--                                                               multi-select="true"/>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                            <td class=" text-center">-->
+<!--                                                <button @click="removeProductAttribute(item,index)"-->
+<!--                                                        class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"-->
+<!--                                                        type="button">-->
+<!--                                                    <i class="fa fa-trash mr-1"></i>-->
+<!--                                                </button>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        </tbody>-->
+<!--                                        <tfoot>-->
+<!--                                        <tr>-->
+<!--                                            <td class="item-empty" colspan="2">-->
+<!--                                                <button @click="addNewProductAttribute"-->
+<!--                                                        class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center space-x-2">-->
+<!--                                                    <i class="fa fa-plus-circle"></i>-->
+<!--                                                    <span>Add Variants</span>-->
+<!--                                                </button>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        </tfoot>-->
+<!--                                    </table>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="relative mt-4" v-if="form.product_types == 1">
                             <div class="bg-white shadow rounded-lg mt-4 p-4">
-                                <div
-                                    class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+                                <div class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                                     <table class="min-w-full text-sm align-middle whitespace-nowrap">
                                         <thead>
                                         <tr>
@@ -104,27 +157,19 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="border-b border-gray-100 dark:border-gray-700/50"
-                                            v-for="(item,index) in form.product_attribute">
+                                        <tr class="border-b border-gray-100 dark:border-gray-700/50" v-for="(item, index) in form.product_attribute">
                                             <td>
                                                 <div class="mb-4">
-                                                    <typeahead :initialize="item.group" @input="onGroup($event,item)"
-                                                               display="title" url="/api/product_attribute_group"/>
+                                                    <typeahead :initialize="item.group" @input="onGroup($event, item)" display="title" url="/api/product_attribute_group"/>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-4">
-                                                    <typeahead :initialize="item.values"
-                                                               :url="item.group_id != null ? '/api/product_attribute_value?group_id='+item.group_id :'/api/product_attribute_value'"
-                                                               @input="onValue($event,item)"
-                                                               display="title"
-                                                               multi-select="true"/>
+                                                    <typeahead :initialize="item.values" @input="onValue($event, item)" display="title" url="/api/product_attribute_value" :multi-select="true" :group-id="item.group_id" />
                                                 </div>
                                             </td>
                                             <td class=" text-center">
-                                                <button @click="removeProductAttribute(item,index)"
-                                                        class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
-                                                        type="button">
+                                                <button @click="removeProductAttribute(item, index)" class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75" type="button">
                                                     <i class="fa fa-trash mr-1"></i>
                                                 </button>
                                             </td>
@@ -133,8 +178,49 @@
                                         <tfoot>
                                         <tr>
                                             <td class="item-empty" colspan="2">
-                                                <button @click="addNewProductAttribute"
-                                                        class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center space-x-2">
+                                                <button @click="addNewProductAttribute" class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center space-x-2">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                    <span>Add Variants</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="bg-white shadow rounded-lg mt-4 p-4" v-if="form.sub_products">
+                                <div class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+                                    <table class="min-w-full text-sm align-middle whitespace-nowrap">
+                                        <thead>
+                                        <tr>
+                                            <th class="px-4 py-2" v-for="(sub_item) in form.sub_products[0].sub_attributes">{{sub_item.group.title}}</th>
+                                            <th class="px-4 py-2">Value</th>
+                                            <th class="px-4 py-2"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="border-b border-gray-100 dark:border-gray-700/50" v-for="(item, index) in form.sub_products">
+                                            <td>
+                                                <div class="mb-4">
+                                                    <typeahead :initialize="item.group" @input="onGroup($event, item)" display="title" url="/api/product_attribute_group"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-4">
+                                                    <typeahead :initialize="item.values" @input="onValue($event, item)" display="title" url="/api/product_attribute_value" :multi-select="true" :group-id="item.group_id" />
+                                                </div>
+                                            </td>
+                                            <td class=" text-center">
+                                                <button @click="removeProductAttribute(item, index)" class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75" type="button">
+                                                    <i class="fa fa-trash mr-1"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td class="item-empty" colspan="2">
+                                                <button @click="addNewProductAttribute" class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center space-x-2">
                                                     <i class="fa fa-plus-circle"></i>
                                                     <span>Add Variants</span>
                                                 </button>

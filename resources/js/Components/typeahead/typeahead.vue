@@ -59,7 +59,7 @@
                      @keydown="onKey"
                      ref="toggle">
                     <div :key="selectedOption.id" class="selected-option-tag bg-gray-200 rounded-full px-2 py-1 m-1"
-                         v-for="selectedOption in selectedOptions" v-if="multiSelect && selectedOptions != []">
+                         v-for="selectedOption in selectedOptions" v-if="multiSelect && selectedOptions.length">
                         {{ selectedOption[display] }}
                         <span @click="removeSelectedOption(selectedOption)"
                               class="cursor-pointer ml-1 text-red-500 font-bold">×</span>
@@ -149,9 +149,14 @@
         },
         computed: {
             selectedText() {
-                return this.initialize && this.initialize[this.display]
-                    ? this.initialize[this.display]
-                    : this.placehold
+                if (this.multiSelect) {
+                    this.selectedOptions = this.initialize
+                    console.log(this.initialize);
+                } else {
+                    return this.initialize && this.initialize[this.display]
+                        ? this.initialize[this.display]
+                        : this.placehold
+                }
             }
         },
         methods: {
