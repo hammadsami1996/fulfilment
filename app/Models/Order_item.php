@@ -23,7 +23,8 @@ class Order_item extends Model implements Auditable
     ];
 
     protected $search = [
-        'order_id', 'product_id', 'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax', 'warehouse_id','sku','product_name','cost','discount_percent','discount_amount'
+        
+         'qty', 'unit_price', 'value_ex_tax', 'tax_percent', 'tax_amount', 'value_inc_tax','sku','product_name','cost','discount_percent','discount_amount'
 
     ];
     protected $appends = ['text'];
