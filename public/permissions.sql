@@ -226,6 +226,5 @@ CREATE TABLE `roles`  (
 -- ----------------------------
 INSERT INTO `roles` VALUES (1, 'Admin', 'web', '2023-05-16 10:17:48', '2023-05-16 10:17:48');
 INSERT INTO `roles` VALUES (2, 'Employee', 'web', '2023-05-16 11:50:42', '2023-05-16 11:50:42');
-INSERT INTO `roles` VALUES (3, 'Candidate', 'web', '2023-05-16 11:50:57', '2023-05-16 11:50:57');
 
 SET FOREIGN_KEY_CHECKS = 1;

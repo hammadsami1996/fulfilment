@@ -2,32 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Addon_master;
-use App\Models\Category_master;
-use App\Models\ProdductImg;
 use App\Models\Product;
-use App\Models\Product_Gallery;
-use App\Models\Product_Image;
 use App\Models\ProductAttribute;
-use App\Models\ProductAttributeValue;
 use App\Models\ProductImg;
 use App\Models\Purchase;
 use App\Models\Purchase_item;
-use App\Models\Related_product_master;
-use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use Intervention\Image\Facades\Image;
-use Response;
-use Illuminate\Support\Facades\Auth;
-
 
 // use Spatie\Backtrace\File;
 // use Symfony\Component\HttpFoundation\Response;
 class ProductController extends Controller
 {
+    protected $combinations = [];
+
     /**
      * Display a listing of the resource.
      */
@@ -44,302 +34,81 @@ class ProductController extends Controller
     {
 //        dd(Settings()->get('show_warranty'));
         $form = [
-            "title" => '',
-            "description" => '',
-            "sku" => '',
-            "model_no" => '',
-            "barcode" => '',
-            "manage_inventory" => '',
-            "quantity" => '',
-            "product_types" => '',
-            "cost_price" => '',
-            "selling_price" => '',
-            "start_date" => '',
-            "end_date" => '',
-            "product_category" => '',
-            "brand_id" => '',
-            "head_id" => '',
+            "head_id" => "",
+            "title" => "",
+            "brand_id" => "",
+            "supplier_id" => "",
+            "category_id" => "",
+            "sku" => "",
+            "cost_price" => "",
+            "selling_price" => "",
+            "barcode" => "",
+            "quantity" => "",
+            "product_types" => 0,
+            "manage_inventory" => 0,
             "weight" => 0,
-
-            'group' => [
-                'attribute_value' => [],
-            ],
-            'attribute_value' => [],
-            'ghi' => [],
-            'test' => [],
-            'variation' => [],
-            // Settings()->get('show_warranty'),
-
-
         ];
         return response()->json([
             'form' => $form
         ]);
     }
+    function cartesian($input) {
+        $result = array();
+        $arrays = array_values($input);
+        $size = count($arrays);
+        $indices = array_fill(0, $size, 0);
 
-    /**
-     * Store a newly created resource in storage.
-     */
+        while (true) {
+            $combination = array();
+
+            for ($i = 0; $i < $size; $i++) {
+                $combination[] = $arrays[$i][$indices[$i]];
+            }
+
+            $result[] = $combination;
+
+            for ($i = $size - 1; $i >= 0; $i--) {
+                if ($indices[$i] + 1 < count($arrays[$i])) {
+                    $indices[$i]++;
+                    break;
+                } else {
+                    $indices[$i] = 0;
+                    if ($i == 0) {
+                        return $result;
+                    }
+                }
+            }
+        }
+    }
 
     public function store(Request $request)
     {
-        $category = null;
-        $category1 = null;
-        $meta_key = null;
-        $addo_product = [];
-        $relado_product = [];
-        $categories = [];
-        $variation_product = null;
-        if (isset($request->categoryies)) {
-            foreach ($request->categoryies as $categorie) {
-                $categories[] = $categorie['id'];
-//                $categories1[] = $categorie['title'];
-            }
-        }
-        if (isset($request->addon_product)) {
-            foreach ($request->addon_product as $addon_produc) {
-                $addo_product[] = $addon_produc['id'];
-            }
-        }
-        if (isset($request->related_product)) {
-            foreach ($request->related_product as $related_produc) {
-                $relado_product[] = $related_produc['id'];
-            }
-        }
-        if (isset($request->meta)) {
-            $meta_key = implode(",", $request->meta);
-        }
-
-        $un_vari = null;
-
-        if (isset($request->variation)) {
-            foreach ($request->variation as $key => $val) {
-                $un_vari[$key] = $val;
-            }
-        }
-        if (isset($request->variation)) {
-            foreach ($request->test as $key => $val) {
-                $prd[] = $val;
-                $prd[$key]['variation'] = $un_vari[$key];
-            }
-        }
-        if (isset($request->variation)) {
-            foreach ($prd as $product_values) {
-                if ($product_values['variation'] == '1') {
-                    $variation_product[] = $product_values;
-                } else {
-                    $non_variation_product[] = $product_values;
-                }
-            }
-        }
-
-        if (isset($variation_product)) {
-            $elements = count($variation_product);
-            for ($i = 0; $i < $elements; $i++) {
-                if (array_key_exists('variation', $variation_product[$i])) {
-                    if ($variation_product[$i]['variation'] == "1") {
-                        unset($variation_product[$i]['variation']);
-                    }
-                }
-            }
-        }
-        if (isset($non_variation_product)) {
-            $elements = count($non_variation_product);
-            for ($i = 0; $i < $elements; $i++) {
-                if (array_key_exists('variation', $non_variation_product[$i])) {
-                    if ($non_variation_product[$i]['variation'] == "0") {
-                        unset($non_variation_product[$i]['variation']);
-                    }
-                }
-            }
-        }
-        if (isset($variation_product)) {
-            $colour = $variation_product[0];
-            $size = $variation_product[1];
-//            $print = $variation_product[2];
-            $res = $this->getCombinations($colour, $size);
-            $count = count($variation_product);
-//dd($res);
-        }
-        if (isset($res)) {
-            foreach ($res as $item) {
-                $arr = $item;
-            }
-        }
-
-        $vari_id = ProductAttributeValue::where('id', 3)->first();
-        $addon_pro = implode(",", $addo_product);
-        $related_pro = implode(",", $relado_product);
-        $category = implode(",", $categories);
-//        $category1 = implode(",", $categories1);
-
-        $product = new Product;
-        $product->fill($request->all());
-
-        if ($request->hasfile('SizeImgs')) {
-
-            $file = $request->file('SizeImgs');
-            $destinationPath = public_path('uploads/product/product_gallery');
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0777, true);
-            }
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $imgFile = \Intervention\Image\Facades\Image::make($file->getRealPath());
-            $imgFile->resize(800, 800, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath . '/' . $fileName);
-
-            $fileNameM = 'md_' . $fileName;
-            $imgFile = \Intervention\Image\Facades\Image::make($file->getRealPath());
-            $imgFile->resize(300, 300, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath . '/' . $fileNameM);
-
-            $fileNameS = 'sm_' . $fileName;
-            $imgFile = \Intervention\Image\Facades\Image::make($file->getRealPath());
-            $imgFile->resize(100, 100, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath . '/' . $fileNameS);
-        }
-        DB::transaction(function () use ($request, $product, $category, $addon_pro, $related_pro) {
-            //multi img work
-            if ($request->uploads != null) {
-                $file = $request->file('uploads');
-
-                foreach ($file as $img) {
-                    $file = $img;
-                    $destinationPath = public_path('uploads/product/product_gallery');
-                    if (!file_exists($destinationPath)) {
-                        mkdir($destinationPath, 0777, true);
-                    }
-
-                    $fileName = time() . '_' . $file->getClientOriginalName();
-                    $imgFile = \Intervention\Image\Facades\Image::make($file->getRealPath());
-                    $imgFile->resize(800, 800, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($destinationPath . '/' . $fileName);
-
-                    $fileNameM = 'md_' . $fileName;
-                    $imgFile = \Intervention\Image\Facades\Image::make($file->getRealPath());
-                    $imgFile->resize(300, 300, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($destinationPath . '/' . $fileNameM);
-
-                    $fileNameS = 'sm_' . $fileName;
-                    $imgFile = \Intervention\Image\Facades\Image::make($file->getRealPath());
-                    $imgFile->resize(100, 100, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($destinationPath . '/' . $fileNameS);
-
-//    Product_Image add
-                    $product_image = new Product_Image();
-                    $product_image->products = $product->id;
-                    $product_image->images = $fileName;
-                    $product_image->md_images = $fileNameM;
-                    $product_image->sm_images = $fileNameS;
-                    $product_image->save();
-
-//    Product_Gallery add
-                    $product_gallery = new Product_Gallery();
-                    $product_gallery->create_date = now();
-                    $product_gallery->added_by = Auth::user()->name;
-                    $product_gallery->product_img = $fileName;
-                    $product_gallery->save();
-
-                }
-
-//                          foreach ($file as $image) {
-//                    $building_image = new Product_Image();
-//                    $name = str::random(10) . '.' . $image->extension();
-//                    $building_image->products = $product->id;
-//                    $building_image->title = $image->getClientOriginalName();
-//                    $building_image->images = $name;
-////                  $building_image->size = $image->getSize();
-////                  $building_image->type = $image->extension();
-//                    $image->move($path, $name);
-//                    $building_image->save();
-//                }
-            }
-
-//            $separate_tags1 = explode(',', $category1);
-            $product_category = explode(',', $category);
-            foreach ($product_category as $separate_tag) {
-                $product_category_master = new Category_master;
-                $product_category_master->product_id = $product->id;
-
-                $product_category_master->category_id = $separate_tag;
-                $product_category_master->save();
-            }
-
-            $addon = explode(',', $addon_pro);
-            foreach ($addon as $separate_tag1) {
-                $addon_master = new Addon_master();
-                $addon_master->product_id = $product->id;
-                $addon_master->addon_id = $separate_tag1;
-                $addon_master->save();
-            }
-            $related_product = explode(',', $related_pro);
-            foreach ($related_product as $separate_tag2) {
-                $related_product_master = new Related_product_master();
-                $related_product_master->product_id = $product->id;
-                $related_product_master->related_product_id = $separate_tag2;
-                $related_product_master->save();
-            }
-
-
-        });
-
-
-        // dd($request->all());
-        $request->validate([
-            'title' => 'required|max:50',
-            'description' => 'required|max:255',
-            'sku' => 'required|max:25',
-            'model_no' => 'required|max:25',
-            'barcode' => 'required|max:25',
-            'cost_price' => 'required|max:25',
-            'selling_price' => 'required|max:25',
-            'category' => 'required|max:25',
-            'brand_id' => 'required|max:25',
-        ]);
-
         $model = new Product();
-        $model->fill($request->all());
-//        dd($model);
+        $model->fill(\request()->except('product_attribute'));
+        $model->supplier_id = 1;
         $model->save();
 
-        foreach ($request->product_img as $key => $item) {
+        $groupsAndValues = collect($request->product_attribute);
 
-            if (isset($item['img'])) {
-                $file = $item['img'];
-                $extension = $file->getClientOriginalExtension();
-                $filename = time() . '.' . $extension;
-                $file->move('uploads/product/img', $filename);
-                $data = new ProductImg();
-                $data->img = $filename;
-                $data->product_id = $model->id;
-                $data->save();
+        $combinations = $this->cartesian($groupsAndValues->pluck('values')->toArray());
+        foreach ($combinations as $combination) {
+            $modelChild = new Product();
+            $modelChild->fill(\request()->except('product_attribute'));
+            $modelChild->head_id = $model->id;
+            $modelChild->supplier_id = 1;
+            $modelChild->save();
+
+            foreach ($combination as $groupValue) {
+                $NProductAttribute = new ProductAttribute();
+                $NProductAttribute->parent_product_id = $model->id;
+                $NProductAttribute->product_id = $modelChild->id;
+                $NProductAttribute->group_id = $groupValue['group_id'];
+                $NProductAttribute->value_id = $groupValue['id'];
+                $NProductAttribute->save();
             }
-
         }
-
 
         return response()->json(["saved" => true, "id" => $model->id]);
-    }
-
-    function getCombinations(...$arrays)
-    {
-        $result = [[]];
-        foreach ($arrays as $property => $property_values) {
-            $tmp = [];
-            foreach ($result as $result_item) {
-                foreach ($property_values as $property_value) {
-                    $tmp[] = array_merge($result_item, [$property => $property_value]);
-                }
-            }
-            $result = $tmp;
-        }
-        return $result;
     }
 
     /**

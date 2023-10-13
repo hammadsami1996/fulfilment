@@ -58,9 +58,18 @@
                      @click="onToggle"
                      @keydown="onKey"
                      ref="toggle">
-                    <span>{{selectedText}}</span>
+                    <div :key="selectedOption.id" class="selected-option-tag bg-gray-200 rounded-full px-2 py-1 m-1"
+                         v-for="selectedOption in selectedOptions" v-if="multiSelect && selectedOptions != []">
+                        {{ selectedOption[display] }}
+                        <span @click="removeSelectedOption(selectedOption)"
+                              class="cursor-pointer ml-1 text-red-500 font-bold">×</span>
+                    </div>
+
+                    <span v-else>{{selectedText}}</span>
                 </div>
-                <div @click="removeValue()" class="cursor-pointer font-bold text-red-500 absolute right-8 top-2 bg-white" v-if="clearable">X</div>
+                <div @click="removeValue()"
+                     class="cursor-pointer font-bold text-red-500 absolute right-8 top-2 bg-white" v-if="clearable">X
+                </div>
             </div>
             <transition mode="out-in" name="fade">
                 <div class="typeahead-dropdown" v-if="isOpen">
@@ -87,8 +96,6 @@
         </div>
     </div>
 </template>
-
-
 <script>
     import './typeahead.scss'
     import {byMethod} from '@/libs/api'
@@ -96,6 +103,10 @@
     export default {
         name: 'typeahead',
         props: {
+            multiSelect: {
+                default: false,
+                required: false
+            },
             indexBD: {
                 Type: String,
                 required: false
@@ -132,7 +143,8 @@
                 selectIndex: -1,
                 isOpen: false,
                 search: '',
-                results: []
+                results: [],
+                selectedOptions: []
             }
         },
         computed: {
@@ -260,23 +272,47 @@
                 if (found) {
                     this.select(found)
                 }
-            }
-            ,
+            },
             select(result) {
+                if (this.multiSelect) {
+                    // Add the selected option to the selectedOptions array
+                    this.selectedOptions.push(result)
+                } else {
+                    this.selectedOptions = result // Single select
+                }
+
+                // Emit the selected options
                 this.$emit('input', {
                     target: {
-                        value: result
+                        value: this.selectedOptions
                     }
                 })
+                // this.$emit('input', this.selectedOptions)
+
+                // Close the dropdown
                 this.close()
-            }
-            ,
+            },
             removeValue() {
-                this.$emit('remove')
-            }
-            ,
+                if (this.multiSelect) {
+                    // Remove the last selected option
+                    this.selectedOptions.pop()
+                    // Emit the updated selected options
+                    this.$emit('remove', this.selectedOptions)
+                } else {
+                    this.$emit('remove')
+                }
+            },
             onMouse(index) {
                 this.selectIndex = index
+            },
+            removeSelectedOption(option) {
+                // Remove the selected option from the selectedOptions array
+                const index = this.selectedOptions.indexOf(option)
+                if (index !== -1) {
+                    this.selectedOptions.splice(index, 1)
+                    // Emit the updated selected options
+                    this.$emit('input', this.selectedOptions)
+                }
             }
         }
     }

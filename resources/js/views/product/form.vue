@@ -11,16 +11,6 @@
                             required type="text" v-model="form.title"
                         />
                         <p class="text-red-600 text-xs italic" v-if="error.title">{{ error.title[0] }}</p>
-
-                    </div>
-                </div>
-                <div class="col-span-12 mt-4">
-                    <div class="mb-2">
-                        <label class="block font-medium text-gray-700">Description</label>
-                        <div id="description">
-                            <Editor editorStyle="height: 240px" v-model="form.description"/>
-                        </div>
-                        <p class="text-red-600 text-xs italic" v-if="error.description">{{ error.description[0] }}</p>
                     </div>
                 </div>
             </div>
@@ -85,331 +75,70 @@
             <!--            Variantions-->
             <div class="bg-white shadow rounded-lg mt-2 p-4">
                 <h3 class="text-xl font-semibold mb-2 text-indigo-600">Variants</h3>
-                <div
-                    class="border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex items-center space-x-2 py-2 px-3">
-                        <div class="flex-grow">
-                            <div class="flex items-center space-x-2">
-                                <label class="block font-medium text-gray-700">Product Type</label>
-                            </div>
-                            <div class="mt-2">
-                                <div class="relative">
-                                    <div class="relative">
-                                        <typeahead
-                                            :initialize="form.product_type"
-                                            :url="product_types"
-                                            @input="onproducttypes"
-                                            class="w-full py-1 px-1 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                            display="title"
-                                        />
-                                    </div>
-                                    <div class="relative mt-4" v-if="this.prod_type === 1">
-                                        <typeahead
-                                            :initialize="form.attribute_sets"
-                                            :url="attributeset"
-                                            @input="onattribute"
-                                            class="w-full py-1 px-1 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                            display="title"
-                                        />
-                                    </div>
-                                    <div class="relative mt-4"
-                                         v-if="this.$route.meta.mode === 'edit' && form.attribute_sets != null">
-                                        <typeahead
-                                            :initialize="form.attribute_sets"
-                                            :url="attributeset"
-                                            @input="onattribute"
-                                            class="w-full py-1 px-1 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                            display="title"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--                        <button-->
-                        <!--                            class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"-->
-                        <!--                            type="button">-->
-                        <!--                            <i class="fa fa-trash mr-1"></i>-->
-                        <!--                        </button>-->
-                    </div>
-                    <div class="flex items-center space-x-2 py-2 px-3">
-                        <div class="flex-grow">
-                            <div class="flex items-center space-x-2">
-                                <label class="block font-medium text-gray-700">Option Values</label>
-                            </div>
-                            <div class="mt-2">
-                                <b-card class="mt-2" v-if="$route.meta.mode === 'edit'">
-                                    <table class="w-full" v-if="attr.length > 0">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Group</th>
-                                            <th scope="col">Value</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="flex">
-                                                <h5>{{ attr[0].title }}</h5> <br>
-                                            </td>
-                                            <td>
-                                                <div class="flex flex-wrap">
-                        <span :key="index" class="bg-green-500 text-white px-2 py-1 m-1 rounded-lg"
-                              v-for="(item1, index) in attr">
-                            {{ item1.value_title }}
-                        </span>
-                                                </div>
-<!--                                                <multiselect-->
-<!--                                                    :multiple="true"-->
-<!--                                                    :options="attrs"-->
-<!--                                                    :taggable="true"-->
-<!--                                                    @onchange="on_variation(i)"-->
-<!--                                                    label="text"-->
-<!--                                                    tag-placeholder="Add this as a new tag"-->
-<!--                                                    tag-position="bottom"-->
-<!--                                                    track-by="id"-->
-<!--                                                    v-model="form.test1"-->
-<!--                                                />-->
-                                                <b-button @click="$bvModal.show('bv-modal-example')"
-                                                          class="bg-blue-500 text-white px-2 py-1 mt-2"
-                                                          id="show-btn">
-                                                    Add New Color
-                                                </b-button>
-                                                <b-modal hide-footer id="bv-modal-example">
-                                                    <template #modal-title>
-                                                        Add Values
-                                                    </template>
-                                                    <div class="col-md-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Value: </label>
-                                                            <input class="form-input" type="text" v-model="form.value">
-                                                            <small class="text-red-500" v-if="errors.value">
-                                                                {{ errors.value[0] }}
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <b-button @click="SavedValue(form.value, attr[0].groups)" block
-                                                                  class="mt-3 bg-blue-500 text-white">
-                                                            Save
-                                                        </b-button>
-                                                    </div>
-                                                    <div class="alert alert-success my-2" role="alert"
-                                                         v-if="SavedValueSuccess">
-                                                        Value Saved
-                                                    </div>
-                                                </b-modal>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="flex">
-                                                <h5>{{ attr1[0].title }}</h5> <br>
-                                            </td>
-                                            <td>
-                                                <div class="flex flex-wrap">
-                        <span :key="index" class="bg-green-500 text-white px-2 py-1 m-1 rounded-lg"
-                              v-for="(item1, index) in attr1">
-                            {{ item1.value_title }}
-                        </span>
-                                                </div>
-                                                <multiselect
-                                                    :multiple="true"
-                                                    :options="attrs1"
-                                                    :taggable="true"
-                                                    @onchange="on_variation(i)"
-                                                    label="text"
-                                                    tag-placeholder="Add this as a new tag"
-                                                    tag-position="bottom"
-                                                    track-by="id"
-                                                    v-model="form.test2"
-                                                />
-                                                <b-button @click="$bvModal.show('bv-modal-example1')"
-                                                          class="bg-blue-500 text-white px-2 py-1 mt-2"
-                                                          id="show-btn">
-                                                    Add New Size
-                                                </b-button>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <button @click="AddAttribute"
-                                                        class="bg-blue-500 text-white px-2 py-1 float-right">
-                                                    Add Attribute
-                                                </button>
-                                                <b-modal hide-footer id="bv-modal-example1">
-                                                    <template #modal-title>
-                                                        Add Values
-                                                    </template>
-                                                    <div class="col-md-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Value: </label>
-                                                            <input class="form-input" type="text" v-model="form.value">
-                                                            <small class="text-red-500" v-if="errors.value">
-                                                                {{ errors.value[0] }}
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <b-button @click="SavedValue(form.value, attr1[0].groups)" block
-                                                                  class="mt-3 bg-blue-500 text-white">
-                                                            Save
-                                                        </b-button>
-                                                    </div>
-                                                    <div class="alert alert-success my-2" role="alert"
-                                                         v-if="SavedValueSuccess">
-                                                        Value Saved
-                                                    </div>
-                                                </b-modal>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <!-- tbal -->
-                                    <table class="w-full" v-if="detail.length > 0">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Active</th>
-                                            <th scope="col">Color Size</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Discounted</th>
-                                            <th scope="col">Product Qty</th>
-                                            <th scope="col">Product Sku</th>
-                                            <th scope="col">Model No</th>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Action</th>
-                                            <th scope="col"></th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr :key="index" v-for="(item, index) in detail">
-                                            <td>
-                                                {{ item.p_id }}
-                                                <input :checked="item.status === 1" :value="item.status" class="form-checkbox"
-                                                       type="checkbox" v-model="item.status">
-                                            </td>
-                                            <td> {{ item.value_title }}</td>
-                                            <td>
-                                                <input class="form-input form-input-sm" placeholder="Model No"
-                                                       type="number"
-                                                       v-model="item.price">
-                                            </td>
-                                            <td>
-                                                <input class="form-input form-input-sm" type="number"
-                                                       v-model="item.discounted">
-                                            </td>
-                                            <td>
-                                                <input class="form-input form-input-sm" type="number"
-                                                       v-model="item.product_qty">
-                                            </td>
-                                            <td>
-                                                <input class="form-input form-input-sm" type="text" v-model="item.sku">
-                                            </td>
-                                            <td>
-                                                <input class="form-input form-input-sm" type="text"
-                                                       v-model="item.model_no">
-                                            </td>
-                                            <td>
-                                                <!-- multi image -->
-                                                <div class="form-group">
-                                                    <input @change="onFileChange($event, item)" accept="image/jpeg"
-                                                           class="hidden"
-                                                           multiple style="width: 96px" type="file">
-                                                    <small class="text-red-500" v-if="errors.images">
-                                                        {{ errors.images[0] }}
-                                                    </small>
-                                                    <div :key="key" v-for="(image1, key) in item.img">
-                                                        <div>
-                                                            <img :src="image1['url']" class="mb-1"
-                                                                 style="width: 120px" v-if="image1['url']">
-                                                            <i @click="aaa(key, image1)"
-                                                               class="fa fa-trash text-red-600 cursor-pointer"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div v-for="(qw, index) in item.imgs">
-                                                        <img :src="`../../uploads/product/product_gallery/${qw.images}`"
-                                                             class="img-responsive img-thumbnail" width="120px"/>
-                                                        <i @click="DeleteRowImg(qw.id)"
-                                                           class="fa fa-trash text-red-600 cursor-pointer"></i>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <i @click="SaveRowData(item.id, item.price, item.discounted, item.product_qty, item.sku, item.model_no, item.active, item.status)"
-                                                   class="fa fa-save text-green-600 cursor-pointer"></i>
-                                                <i @click="DeleteRowData(item.id)"
-                                                   class="fa fa-trash text-red-600 cursor-pointer"></i>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <!-- tbal -->
-                                </b-card>
-
-                                <b-card class="mt-2" v-if="this.mode !== 'edit'">
-                                    <div class="overflow-x-auto">
-                                        <table class="w-full">
-                                            <thead>
-                                            <tr>
-                                                <th class="px-4 py-2">Sets</th>
-                                                <th class="px-4 py-2">Group</th>
-                                                <th class="px-4 py-2">Value</th>
-                                                <th class="px-4 py-2">Use for Variation</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr v-for="(item, index) in this.ghi">
-                                                <td class="px-4 py-2">{{ form.attribute_title }}</td>
-                                                <td class="px-4 py-2">{{ item.title }}</td>
-                                                <td class="px-4 py-2">
-                                                    <div class="relative">
-                                                        <select
-                                                            class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                                                            multiple
-                                                            v-model="form.test[index]"
-                                                        >
-                                                            <option
-                                                                :key="optionIndex"
-                                                                :value="option" v-for="(option, optionIndex) in item.productattribute_value">
-                                                                {{ option.text }}
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                                <td class="px-4 py-2">
-                                                    <select
-                                                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                                                        v-model="form.variation[index]"
-                                                    >
-                                                        <option value="1">YES</option>
-                                                        <option value="0">No</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </b-card>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!--                    <div class="p-2">-->
-                    <!--                        <button-->
-                    <!--                            class="text-sm bg-indigo-600 text-white py-1 px-2 rounded hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200"-->
-                    <!--                            type="button">-->
-                    <!--                            Done-->
-                    <!--                        </button>-->
-                    <!--                    </div>-->
-                    <hr class="border-t border-gray-300 ">
-                    <!--                    <div class="p-2">-->
-                    <!--                        <button-->
-                    <!--                            class="underline text text-blue-600 py-1 px-2 rounded hover:text-blue-700 focus:outline-none focus:ring focus:ring-blue-200"-->
-                    <!--                            type="button">-->
-                    <!--                            + Add another option-->
-                    <!--                        </button>-->
-                    <!--                    </div>-->
+                <div class="relative">
+                    <select
+                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
+                        v-model="form.product_types">
+                        <option value="0">Simple</option>
+                        <option value="1">Variation</option>
+                    </select>
                 </div>
+                <div class="relative mt-4"
+                     v-if="form.product_types == 1">
+                    <div class="bg-white shadow rounded-lg mt-4 p-4" >
+                        <div
+                            class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+                            <table class="min-w-full text-sm align-middle whitespace-nowrap">
+                                <thead>
+                                <tr>
+                                    <th class="px-4 py-2">Group</th>
+                                    <th class="px-4 py-2">Value</th>
+                                    <th class="px-4 py-2"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="border-b border-gray-100 dark:border-gray-700/50"
+                                    v-for="(item,index) in form.product_attribute">
+                                    <td>
+                                        <div class="mb-4">
+                                            <typeahead :initialize="item.group" @input="onGroup($event,item)"
+                                                       display="title" url="/api/product_attribute_group"/>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="mb-4">
+                                            <typeahead :initialize="item.values" :url="item.group_id != null ? '/api/product_attribute_value?group_id='+item.group_id :'/api/product_attribute_value'" @input="onValue($event,item)"
+                                                       display="title"
+                                                       multi-select="true"/>
+                                        </div>
+                                    </td>
+                                    <td class=" text-center">
+                                        <button @click="removeProductAttribute(item,index)"
+                                                class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
+                                                type="button">
+                                            <i class="fa fa-trash mr-1"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td class="item-empty" colspan="2">
+                                        <button @click="addNewProductAttribute"
+                                                class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center space-x-2">
+                                            <i class="fa fa-plus-circle"></i>
+                                            <span>Add Image</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-red-600 text-xs italic" v-if="error.product_types">{{ error.product_types[0] }}</p>
             </div>
         </div>
-        <!--          Second div -->
         <div class="w-4/12  mx-4">
             <div class="col-span-12">
                 <div class="bg-white shadow-md rounded-lg p-6">
@@ -418,7 +147,8 @@
                         <label class="block text-sm font-medium text-gray-700">Cost Price</label>
                         <input
                             @input="form.cost_price = form.cost_price.replace(/[^0-9]/g, '')"
-                            class="w-full py-1 px-2 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" type="text"
+                            class="w-full py-1 px-2 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            type="text"
                             v-model="form.cost_price">
                         <p class="text-red-600 text-xs italic" v-if="error.cost_price">{{ error.cost_price[0] }}</p>
 
@@ -426,10 +156,12 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Selling Price</label>
                         <input
+                            @input="form.selling_price = form.selling_price.replace(/[^0-9]/g, '')"
                             class="w-full py-1 px-2 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            type="text" v-model="form.selling_price"
-                            @input="form.selling_price = form.selling_price.replace(/[^0-9]/g, '')">
-                        <p class="text-red-600 text-xs italic" v-if="error.selling_price">{{ error.selling_price[0] }}</p>
+                            type="text"
+                            v-model="form.selling_price">
+                        <p class="text-red-600 text-xs italic" v-if="error.selling_price">{{ error.selling_price[0]
+                            }}</p>
                     </div>
                 </div>
             </div>
@@ -497,19 +229,11 @@
 
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Model No</label>
-                            <input
-                                @input="form.model_no = form.model_no.replace(/[^0-9]/g, '')"
-                                class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Model No" type="text"
-                                v-model="form.model_no"
-                            />
-                            <p class="text-red-600 text-xs italic" v-if="error.model_no">{{ error.model_no[0] }}</p>
-                        </div>
-                        <div>
                             <label class="block text-sm font-medium text-gray-700">Barcode</label>
                             <input
                                 @input="form.barcode = form.barcode.replace(/[^0-9]/g, '')"
-                                class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Barcode" type="text"
+                                class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                placeholder="Barcode" type="text"
                                 v-model="form.barcode"
                             />
                             <p class="text-red-600 text-xs italic" v-if="error.barcode">{{ error.barcode[0] }}</p>
@@ -519,7 +243,8 @@
                             <label class="block text-sm font-medium text-gray-700">Product Quantity</label>
                             <input
                                 @input="form.quantity = form.quantity.replace(/[^0-9]/g, '')"
-                                class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Quantity" type="text"
+                                class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                placeholder="Quantity" type="text"
                                 v-model="form.quantity"
                             />
                         </div>
@@ -527,7 +252,8 @@
                             <label class="block text-sm font-medium text-gray-700">Weight</label>
                             <input
                                 @input="form.weight = form.weight.replace(/[^0-9]/g, '')"
-                                class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" type="text"
+                                class="w-full py-1 px-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                type="text"
                                 v-model="form.weight"
                             />
                         </div>
@@ -601,7 +327,6 @@
                 detail: {},
 
 
-
             }
         },
 
@@ -619,6 +344,14 @@
                 })
         },
         methods: {
+            onGroup(e, i) {
+                const group = e.target.value
+                i.group = group
+                i.group_id = group.id
+            }, onValue(e, i) {
+                const value = e.target.value
+                i.values = value
+            },
             onproducttypes(e) {
                 const product_type = e.target.value
                 // console.log(product_type,product_type.id);
@@ -717,10 +450,24 @@
                     img: null,
                 });
             },
+            addNewProductAttribute() {
+                if (!this.form.product_attribute) {
+                    this.form.product_attribute = [];
+                }
+                this.form.product_attribute.push({
+                    group: [],
+                    values: [],
+                });
+            },
             removeImg(item, index) {
                 if (this.form.product_img.length > 1) {
                     this.form.product_img.splice(index, 1);
                     this.ImgUrl.splice(index, 1);
+                }
+            },
+            removeProductAttribute(item, index) {
+                if (this.form.product_attribute.length > 1) {
+                    this.form.product_attribute.splice(index, 1);
                 }
             },
             onImageChange(e, index) {
@@ -767,7 +514,6 @@
             },
 
             formSubmitted() {
-                this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, objectToFormData(this.form)).then(res => {
                     this.successfull(res)
                     this.$toast.open({
