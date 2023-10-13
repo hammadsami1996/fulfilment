@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\HasManyRelation;
 use App\Support\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Product extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles, SoftDeletes, Search, \OwenIt\Auditing\Auditable;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes, Search, \OwenIt\Auditing\Auditable,HasManyRelation;
 
     protected $fillable = [
         "head_id", "title", "brand_id", "supplier_id", "category_id", "sku", "cost_price", "selling_price", "barcode",
@@ -52,33 +53,37 @@ class Product extends Model implements Auditable
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
-
-    public function purchases()
+    public function product_attribute()
     {
-        return $this->hasMany(Purchase_item::class)->orderBy('id', 'desc')->limit(3);
-        // return $this->hasMany(Purchase_item::class)->orderBy('id' , 'desc')->limit(3);
+        return $this->hasMany(ProductAttribute::class, 'product_id', 'id');
     }
 
-    //mimcart
-    public function prod_grp()
-    {
-        return $this->hasMany(ProductAttribute::class, 'products', 'id');
-    }
-
-    public function test()
-    {
-        return $this->hasMany(ProductAttribute::class, 'products', 'id');
-    }
-
-    public function attribute_sets()
-    {
-        return $this->belongsTo(AttributeSet::class, 'attribute_set', 'id');
-    }
-
-    public function product_type()
-    {
-        return $this->belongsTo(ProductType::class, 'product_types', 'id');
-    }
+//    public function purchases()
+//    {
+//        return $this->hasMany(Purchase_item::class)->orderBy('id', 'desc')->limit(3);
+//        // return $this->hasMany(Purchase_item::class)->orderBy('id' , 'desc')->limit(3);
+//    }
+//
+//    //mimcart
+//    public function prod_grp()
+//    {
+//        return $this->hasMany(ProductAttribute::class, 'products', 'id');
+//    }
+//
+//    public function product_attribute()
+//    {
+//        return $this->hasMany(ProductAttribute::class, 'product_id', 'id');
+//    }
+//
+//    public function attribute_sets()
+//    {
+//        return $this->belongsTo(AttributeSet::class, 'attribute_set', 'id');
+//    }
+//
+//    public function product_type()
+//    {
+//        return $this->belongsTo(ProductType::class, 'product_types', 'id');
+//    }
 
 
 }
