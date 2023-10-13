@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Product::with('category', 'brand', 'product_img', 'product_type')->search()]);
+        return response()->json(['data' => Product::with('category', 'brand', 'product_img', 'supplier')->search()]);
 
     }
 
@@ -32,18 +32,16 @@ class ProductController extends Controller
      */
     public function create()
     {
-//        dd(Settings()->get('show_warranty'));
         $form = [
-            "head_id" => "",
             "title" => "",
             "brand_id" => "",
             "supplier_id" => "",
             "category_id" => "",
             "sku" => "",
-            "cost_price" => "",
-            "selling_price" => "",
+            "cost_price" => 0,
+            "selling_price" => 0,
             "barcode" => "",
-            "quantity" => "",
+            "quantity" => 0,
             "product_types" => 0,
             "manage_inventory" => 0,
             "weight" => 0,
@@ -52,7 +50,39 @@ class ProductController extends Controller
             'form' => $form
         ]);
     }
-    function cartesian($input) {
+
+    public function store(Request $request)
+    {
+        $model = new Product();
+        $model->fill(\request()->except('product_attribute'));
+        $model->supplier_id = 1;
+        $model->save();
+        if ($request->product_types) {
+            $groupsAndValues = collect($request->product_attribute);
+
+            $combinations = $this->cartesian($groupsAndValues->pluck('values')->toArray());
+            foreach ($combinations as $combination) {
+                $modelChild = new Product();
+                $modelChild->fill(\request()->except('product_attribute'));
+                $modelChild->head_id = $model->id;
+                $modelChild->supplier_id = 1;
+                $modelChild->save();
+
+                foreach ($combination as $groupValue) {
+                    $NProductAttribute = new ProductAttribute();
+                    $NProductAttribute->parent_product_id = $model->id;
+                    $NProductAttribute->product_id = $modelChild->id;
+                    $NProductAttribute->group_id = $groupValue['group_id'];
+                    $NProductAttribute->value_id = $groupValue['id'];
+                    $NProductAttribute->save();
+                }
+            }
+        }
+        return response()->json(["saved" => true, "id" => $model->id]);
+    }
+
+    function cartesian($input)
+    {
         $result = array();
         $arrays = array_values($input);
         $size = count($arrays);
@@ -81,36 +111,6 @@ class ProductController extends Controller
         }
     }
 
-    public function store(Request $request)
-    {
-        $model = new Product();
-        $model->fill(\request()->except('product_attribute'));
-        $model->supplier_id = 1;
-        $model->save();
-
-        $groupsAndValues = collect($request->product_attribute);
-
-        $combinations = $this->cartesian($groupsAndValues->pluck('values')->toArray());
-        foreach ($combinations as $combination) {
-            $modelChild = new Product();
-            $modelChild->fill(\request()->except('product_attribute'));
-            $modelChild->head_id = $model->id;
-            $modelChild->supplier_id = 1;
-            $modelChild->save();
-
-            foreach ($combination as $groupValue) {
-                $NProductAttribute = new ProductAttribute();
-                $NProductAttribute->parent_product_id = $model->id;
-                $NProductAttribute->product_id = $modelChild->id;
-                $NProductAttribute->group_id = $groupValue['group_id'];
-                $NProductAttribute->value_id = $groupValue['id'];
-                $NProductAttribute->save();
-            }
-        }
-
-        return response()->json(["saved" => true, "id" => $model->id]);
-    }
-
     /**
      * Display the specified resource.
      */
@@ -125,69 +125,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-//        $model = Product::with('product_img', 'brand', 'category', 'supplier')->findOrFail($id);
-//        $model->Settings()->get('company_name');
-
-        if (isset($check)) {
-            $product_attributes = ProductAttribute::where('products', $id)->get();
-            $Attibutes = [];
-            foreach ($product_attributes as $item) {
-                $grp = $item->groups;
-
-                \DB::statement("SET SQL_MODE=''");
-                $Attibutes[] = DB::select("SELECT * FROM products_attributes as pa
-            LEFT JOIN products_attributes_groups as pg ON pa.groups = pg.id
-            where products in (select pd.id from products as pd where pd.parent_id = $id) and pa.groups = $grp  group by pa.value ");
-            }
-            //            query work
-
-            $form = Product::with('childs_Product_Image', 'test', 'attribute_sets', 'product_type', 'related_product', 'addon_product', 'categoryies', 'product_behaves', 'brand', 'warrantys', 'delivery_times', 'returns_note', 'bumps_sales', 'upsellings')->findOrFail($id);
-            $details = [];
-            $details = DB::select("SELECT p.*,group_concat(pa.group_title) as group_title,group_concat(pa.value_title separator '   ') as value_title,pa.products as p_id,p.sort as sort_attribute,pa.sku as sku ,pa.status as status FROM `products` p
-                inner join products_attributes pa on pa.products = p.id
-                where  p.parent_id = $id and p.deleted =0 and pa.variation =1 group by pa.products");
-            foreach ($details as $key => $items) {
-                $details[$key]->imgs = DB::select("SELECT * from products_images pi where pi.products = " . $items->id . "");
-            }
-//            foreach ($details as $item) {
-//                $vaule_title = explode(',',$item->value_title);
-//                $a= $vaule_title[0];
-//                $b= $vaule_title[1];
-//
-//            }
-
-
-        } else {
-            \DB::statement("SET SQL_MODE=''");
-            $a = Product::findorFail($id);
-//            dd($a->parent_id);
-            $id = $a->parent_id;
-            $product_attributes = ProductAttribute::where('products', $id)->get();
-            $Attibutes = [];
-            foreach ($product_attributes as $item) {
-                $grp = $item->groups;
-
-                \DB::statement("SET SQL_MODE=''");
-                $Attibutes[] = DB::select("SELECT * FROM products_attributes as pa
-            LEFT JOIN products_attributes_groups as pg ON pa.groups = pg.id
-            where products in (select pd.id from products as pd where pd.parent_id = $id) and pa.groups = $grp  group by pa.value ");
-            }
-
-            $form = Product::with('childs_Product_Image', 'test', 'attribute_sets', 'product_type', 'related_product', 'addon_product', 'categoryies', 'product_behaves', 'brand', 'warrantys', 'delivery_times', 'returns_note', 'bumps_sales', 'upsellings')->findOrFail($id);
-
-            $details = [];
-            $details = DB::select("SELECT p.*,group_concat(pa.group_title) as group_title,group_concat(pa.value_title separator '   ') as value_title,pa.products as p_id,p.sort as sort_attribute,pa.sku as sku ,pa.status as status FROM `products` p
-    inner join products_attributes pa on pa.products = p.id
-    where  p.parent_id = $id and p.deleted =0 and pa.variation =1 group by pa.products");
-            foreach ($details as $key => $items) {
-                $details[$key]->imgs = DB::select("SELECT * from products_images pi where pi.products = " . $items->id . "");
-            }
-        }
-
+        $product = Product::findOrFail($id);
+        $form = Product::with('product_img', 'brand', 'category', 'supplier','sub_products')->findOrFail($product->head_id ?? $id);
         return response()->json([
             "form" => $form,
-            'Attibutes' => $Attibutes,
-            'details' => $details,
         ]);
     }
 
