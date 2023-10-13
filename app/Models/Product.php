@@ -41,7 +41,7 @@ class Product extends Model implements Auditable
 
     public function category()
     {
-        return $this->belongsTo(ProductCategory::class, 'head_id', 'id');
+        return $this->belongsTo(ProductCategory::class, 'category_id', 'id');
     }
 
     public function brand()
@@ -55,7 +55,11 @@ class Product extends Model implements Auditable
     }
     public function product_attribute()
     {
-        return $this->hasMany(ProductAttribute::class, 'product_id', 'id');
+        return $this->hasMany(ProductAttribute::class, 'product_id', 'id')->groupBy();
+    }
+    public function sub_products()
+    {
+        return $this->hasMany(Product::class, 'head_id');
     }
 
 //    public function purchases()
