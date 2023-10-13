@@ -136,6 +136,7 @@ Route::middleware([
         //product
         Route::resource('product_attribute_group',\App\Http\Controllers\ProductAttributeGroupController::class);
         Route::resource('product_attribute_value',\App\Http\Controllers\ProductAttributeValueController::class);
+        Route::post('product_single/{id}',[\App\Http\Controllers\ProductController::class,'product_single']);
 
 
         // Products work
