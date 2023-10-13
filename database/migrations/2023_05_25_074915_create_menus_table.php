@@ -77,6 +77,14 @@ return new class extends Migration
         );
         DB::table('menus')->insert(
             [
+                'title' => 'Inventory',
+                'url' => '',
+                'route' => '',
+                'guard' => 'web',
+            ]
+        );
+        DB::table('menus')->insert(
+            [
                 'title' => 'User',
                 'url' => '/user',
                 'route' => 'view-user',
@@ -183,7 +191,7 @@ return new class extends Migration
                 'guard' => 'web',
             ]
         );
-          
+
         DB::table('menus')->insert(
             [
                 'title' => 'Brand',
@@ -247,7 +255,7 @@ return new class extends Migration
                 'guard' => 'web',
             ]
         );
-     
+
         DB::table('menus')->insert(
             [
                 'title' => 'Place Replacement Order',
