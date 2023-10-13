@@ -11,7 +11,7 @@
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 13/10/2023 12:52:01
+ Date: 13/10/2023 15:17:15
 */
 
 SET NAMES utf8mb4;
@@ -47,23 +47,23 @@ INSERT INTO `menus` VALUES (4, 'Sales', '', '', NULL, 'web', NULL, 6, NULL, NULL
 INSERT INTO `menus` VALUES (5, 'Ledgers', '', '', NULL, 'web', NULL, 5, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (6, 'Settings', '', '', NULL, 'web', NULL, 7, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (7, 'Inventory', '', '', NULL, 'web', NULL, 3, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (8, 'User', '/user', 'view-user', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (9, 'Role', '/role', 'view-role', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (10, 'Permission', '/permission', 'view-permission', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (11, 'Company', '/company', 'view-company', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (12, 'Stores', '/stores', 'view-stores', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (13, 'Warehouse', '/warehouse', 'view-warehouse', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (14, 'Customer', '/customer', 'view-customer', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (8, 'User', '/user', 'view-user', 1, 'web', NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (9, 'Role', '/role', 'view-role', 1, 'web', NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (10, 'Permission', '/permission', 'view-permission', 1, 'web', NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (11, 'Company', '/company', 'view-company', 1, 'web', NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (12, 'Stores', '/stores', 'view-stores', 1, 'web', NULL, 6, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (13, 'Warehouse', '/warehouse', 'view-warehouse', 1, 'web', NULL, 5, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (14, 'Customer', '/customer', 'view-customer', 1, 'web', NULL, 7, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (15, 'User Subscription', '/user_subscription', 'view-user_subscription', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (16, 'User Dashboard', '/user_dashboard', 'view-user_dashboard', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (16, 'User Dashboard', '/user_dashboard', 'view-user_dashboard', 1, 'web', NULL, 9, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (17, 'Cities', '/cities', 'view-cities', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (18, 'Product Category', '/product_category', 'view-product_category', 7, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (19, 'Customer Category', '/customer_category', 'view-customer_category', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (20, 'Brand', '/brand', 'view-brand', 7, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (18, 'Product Category', '/product_category', 'view-product_category', 7, 'web', NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (19, 'Customer Category', '/customer_category', 'view-customer_category', 1, 'web', NULL, 8, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (20, 'Brand', '/brand', 'view-brand', 7, 'web', NULL, 4, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (21, 'Suppliers', '/supplier', 'view-supplier', 2, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (22, 'Product', '/product', 'view-product', 7, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (22, 'Product', '/product', 'view-product', 7, 'web', NULL, 1, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (23, 'Purchase', '/purchase', 'view-purchase', 2, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (24, 'Inventory', '/inventory', 'view-inventory', 7, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (24, 'Inventory', '/inventory', 'view-inventory', 7, 'web', NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (25, 'Order', '/order', 'view-order', 3, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (26, 'Receive Order', '/receive_order', 'view-receive_order', 3, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (27, 'Place Replacement Order', '/replacement', 'view-replacement', 3, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
