@@ -10,7 +10,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class ProductAttribute extends Model implements Auditable
 {
-    use HasFactory,Search;
+    use HasFactory,Search,  \OwenIt\Auditing\Auditable;
 
     public function groups()
     {
