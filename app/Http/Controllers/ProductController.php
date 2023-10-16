@@ -273,6 +273,17 @@ class ProductController extends Controller
         return response()->json(["updated" => true, "id" => $model->id]);
     }
 
+    public function product_single(Request $request, $id)
+    {
+        $model = Product::findOrFail($id);
+        $model->quantity = $request->quantity;
+        $model->sku = $request->sku;
+        $model->barcode = $request->barcode;
+        $model->save();
+        return response()->json(["saved" => true, "id" => $model->id]);
+
+    }
+
 
     /**
      * Remove the specified resource from storage.
