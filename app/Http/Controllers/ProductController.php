@@ -43,6 +43,7 @@ class ProductController extends Controller
             "product_types" => 0,
             "manage_inventory" => 0,
             "weight" => 0,
+            "product_attribute" => [],
         ];
         return response()->json([
             'form' => $form
@@ -154,7 +155,7 @@ class ProductController extends Controller
         }
 
         $groupedProducts = array_values($groupedProducts); // Reset array keys to start from 0
-        $form['product_attribute'] = (object)$groupedProducts;
+        $form['product_attribute'] = $groupedProducts;
         unset($form['attributes']);
         return response()->json([
             "form" => $form,
@@ -206,13 +207,18 @@ class ProductController extends Controller
     private function findExistingVariation($product, $combination)
     {
         // Check if a variation with the same combination already exists
-        $variationAttributes = collect();
+//        $variationAttributes = collect();
+        $variationAttributes = [];
 
         foreach ($combination as $groupValue) {
-            $variationAttributes->push([
+//            $variationAttributes->push([
+//                'group_id' => $groupValue['group_id'],
+//                'value_id' => $groupValue['id'],
+//            ]);
+            $variationAttributes[] = [
                 'group_id' => $groupValue['group_id'],
                 'value_id' => $groupValue['id'],
-            ]);
+            ];
         }
         foreach ($product->sub_products as $subProduct) {
             $existingVariationAttributes = $subProduct->sub_attributes->map(function ($attribute) {
@@ -220,8 +226,8 @@ class ProductController extends Controller
                     'group_id' => $attribute->group_id,
                     'value_id' => $attribute->value_id,
                 ];
-            });
-            if ($variationAttributes->diff($existingVariationAttributes)->isEmpty()) {
+            })->toArray();
+            if ($variationAttributes == $existingVariationAttributes) {
                 return $subProduct;
             }
         }
