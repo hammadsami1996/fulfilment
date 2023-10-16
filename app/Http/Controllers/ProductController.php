@@ -54,7 +54,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $model = new Product();
-        $model->fill(\request()->except('product_attribute', 'imgN'));
+        $model->fill(\request()->except('product_attribute', 'product_img'));
         $model->supplier_id = 1;
         $model->save();
 
@@ -180,20 +180,21 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $model = Product::findOrFail($id);
-        $model->fill($request->except('imgN'));
-        foreach ($request->product_img as $imgN) {
-            $file = $imgN['img'];
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/product/img', $filename);
-            $parent_img = new ProductImg();
-            $parent_img->img = $filename;
-            $parent_img->parent_product_id = $model->id;
-            $parent_img->save();
-        }
-        $model->fill($request->except('product_attribute'));
+        $model->fill($request->except('product_attribute', 'product_img'));
         $model->supplier_id = 1;
         $model->save();
+        foreach ($request->product_img as $imgN) {
+            if (is_file($imgN['img'])){
+                $file = $imgN['img'];
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/product/img', $filename);
+                $parent_img = new ProductImg();
+                $parent_img->img = $filename;
+                $parent_img->parent_product_id = $model->id;
+                $parent_img->save();
+            }
+        }
 
         // Handle product attributes (variations)
         if ($request->product_types) {
@@ -275,6 +276,17 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $model = Product::findOrFail($id);
+        // Fetch associated images
+//        $productImages = ProductImg::where('parent_product_id', $id)->get();
+//
+//        // Delete associated images from storage
+//        foreach ($productImages as $image) {
+//            $imagePath = public_path('uploads/product/img/' . $image->img);
+//            if (file_exists($imagePath)) {
+//                unlink($imagePath); // Delete the file
+//            }
+//            $image->delete(); // Delete the image record from the database
+//        }
         if (!$model->head_id) {
             ProductAttribute::where('parent_product_id', $id)->delete();
             Product::where('head_id', $id)->delete();
@@ -288,6 +300,16 @@ class ProductController extends Controller
             $model->delete();
         }
 
+        return response()->json(["deleted" => true]);
+    }
+    public function destroy_product_image($id)
+    {
+        $model = ProductImg::findOrFail($id);
+            $imagePath = public_path('uploads/product/img/' . $model->img);
+            if (file_exists($imagePath)) {
+                unlink($imagePath); // Delete the file
+            }
+        $model->delete(); // Delete the image record from the database
         return response()->json(["deleted" => true]);
     }
 

@@ -414,10 +414,34 @@
                 this.form.product_img[index].img = e.target.files[0];
             },
             removeImg(item, index) {
-                if (this.form.product_img.length > 1) {
-                    this.form.product_img.splice(index, 1);
-                    this.ImgUrl.splice(index, 1);
-                }
+                byMethod('DELETE', '/api/destroy_product_image/' + item.id)
+                    .then(res => {
+                        // Image deleted from the database, now update local data
+                        if (this.form.product_img.length > 1) {
+                            this.form.product_img.splice(index, 1);
+                            this.ImgUrl.splice(index, 1);
+                        }
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: 'Delete Image Successfully',
+                            type: 'success',
+                            duration: 3000
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error deleting image:', error);
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: 'Failed to delete image',
+                            type: 'error',
+                            duration: 3000
+                        });
+                    });
+
+                // if (this.form.product_img.length > 1) {
+                //     this.form.product_img.splice(index, 1);
+                //     this.ImgUrl.splice(index, 1);
+                // }
             },
             addNewLine() {
                 if (!this.form.product_img) {

@@ -138,6 +138,7 @@ Route::middleware([
         Route::resource('product_attribute_group', \App\Http\Controllers\ProductAttributeGroupController::class);
         Route::resource('product_attribute_value', \App\Http\Controllers\ProductAttributeValueController::class);
         Route::post('/product_single', [\App\Http\Controllers\ProductController::class, 'product_single']);
+        Route::delete('/destroy_product_image/{id}', [\App\Http\Controllers\ProductController::class, 'destroy_product_image']);
 
 
         // Products work
