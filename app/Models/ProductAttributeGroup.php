@@ -9,7 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class ProductAttributeGroup extends Model implements Auditable
 {
-    use HasFactory, Search, \OwenIt\Auditing\Auditable;
+    use HasFactory, Search,  \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         "title"

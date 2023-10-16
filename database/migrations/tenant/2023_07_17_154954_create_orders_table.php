@@ -46,7 +46,7 @@ return new class extends Migration
             $table->string('b_phone' , 20)->nullable();
             $table->string('instructions', 100)->nullable();
             $table->integer('quantity')->nullable();
-            $table->integer('order_type_id')->nullable();
+            // $table->integer('order_type_id')->nullable();
             $table->decimal('shipping_charges',10,2)->nullable()->default(0.00);
             $table->decimal('advance',10,2)->nullable()->default(0.00);
             $table->decimal('delivery_charges',10,2)->nullable()->default(0.00);

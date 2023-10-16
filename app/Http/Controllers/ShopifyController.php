@@ -59,7 +59,9 @@ class ShopifyController extends Controller
                 $response = Http::withHeaders($headers)->get($apiUrl);
                 if ($response->successful()) {
                     $shopify = $response->json();
+//                    dd($shopify);
                     $i = 0;
+
                     foreach ($shopify['orders'] as $rec) {
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'Shopify')
                             ->where('store_id', $store->id)->first();
