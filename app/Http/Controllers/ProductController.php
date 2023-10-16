@@ -176,7 +176,9 @@ class ProductController extends Controller
             $groupsAndValues = collect($request->product_attribute);
 
             $combinations = $this->cartesian($groupsAndValues->pluck('values')->toArray());
+
             foreach ($combinations as $combination) {
+                // Check if a variation with the same combination already exists
                 $existingVariation = $this->findExistingVariation($model, $combination);
 
                 if (!$existingVariation) {
@@ -204,24 +206,27 @@ class ProductController extends Controller
     private function findExistingVariation($product, $combination)
     {
         // Check if a variation with the same combination already exists
-        foreach ($product->sub_products as $subProduct) {
-            $existingVariation = $subProduct->attributes;
+        $variationAttributes = collect();
 
-            if ($this->variationsMatch($existingVariation, $combination)) {
+        foreach ($combination as $groupValue) {
+            $variationAttributes->push([
+                'group_id' => $groupValue['group_id'],
+                'value_id' => $groupValue['id'],
+            ]);
+        }
+        foreach ($product->sub_products as $subProduct) {
+            $existingVariationAttributes = $subProduct->sub_attributes->map(function ($attribute) {
+                return [
+                    'group_id' => $attribute->group_id,
+                    'value_id' => $attribute->value_id,
+                ];
+            });
+            if ($variationAttributes->diff($existingVariationAttributes)->isEmpty()) {
                 return $subProduct;
             }
         }
 
         return null;
-    }
-
-    private function variationsMatch($existingVariation, $combination)
-    {
-        // Check if the existing variation matches the given combination
-        $existingValues = $existingVariation->pluck('value_id')->sort()->toArray();
-        $combinationValues = collect($combination)->pluck('id')->sort()->toArray();
-
-        return count($existingValues) === count($combinationValues) && empty(array_diff($existingValues, $combinationValues));
     }
 
     public function product_single(Request $request)

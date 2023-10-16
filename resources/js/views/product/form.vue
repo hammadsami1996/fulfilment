@@ -142,7 +142,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="bg-white shadow rounded-lg mt-4 p-4" v-if="form.sub_products.length">
+                            <div class="bg-white shadow rounded-lg mt-4 p-4" v-if="$route.meta.mode && form.sub_products.length">
                                 <div
                                     class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                                     <table class="min-w-full text-sm align-middle ">
