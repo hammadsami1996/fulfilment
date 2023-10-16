@@ -18,9 +18,7 @@
                     type="text" v-model="form.name"/>
                 <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
             </div>
-        </div>
 
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
@@ -29,25 +27,6 @@
                            display="customer_category"/>
                 <p class="text-red-600 text-xs italic" v-if="error.category_id">{{error.category_id[0] }}</p>
             </div>
-            <!-- <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Type</label>
-                <typeahead :initialize="form.type" :url="typess" @input="onType" display="name"/>
-                <p class="text-red-600 text-xs italic" v-if="error.type_id">{{error.type_id[0] }}</p>
-            </div> -->
-            <!-- <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Balance</label>
-                <input
-                    class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
-                    type="number"
-                    v-model="form.balance"
-
-                />
-                <p class="text-red-600 text-xs italic" v-if="error.balance">{{error.balance[0] }}</p>
-            </div> -->
         </div>
         <hr class="mt-6">
         <h1 class="font-bold mt-2 mb-2">Personal Contact</h1>
