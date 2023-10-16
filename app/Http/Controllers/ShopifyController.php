@@ -52,6 +52,7 @@ class ShopifyController extends Controller
         $store = Store::findOrFail($id);
         if (isset($store) && $store->plate_form == 'Shopify') {
             $apiUrl = $store->store_address . '/admin/api/2023-07/orders.json?status=any&limit=250';
+//            dd($apiUrl);
             $headers = [
                 'X-Shopify-Access-Token' => $store->access_token,
             ];
