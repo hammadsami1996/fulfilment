@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Product::with('category', 'brand', 'product_img', 'product_type')->search()]);
+        return response()->json(['data' => Product::with('category', 'brand', 'product_img')->search()]);
 
     }
 

@@ -47,10 +47,24 @@
 
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center pt-1">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">City:</label>
-                    <typeahead :initialize="form.city" :url="city" @input="onCity"
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >Country:</label>
+                    <typeahead :initialize="form.country" :url="countries" @input="onCountries"
                                display="name"/>
+                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
                 </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label
+                        class="block font-medium text-sm text-gray-700 mb-2"
+                    >City:</label>
+                    <typeahead :initialize="form.city"
+                               :url="form.country_id != null ? `/api/city?country_id=${form.country_id}` : cities"
+                               @input="onCities($event,'city')" display="name"/>
+                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
+                </div>
+                
+              
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store <span class="text-red-600">*</span></label>
                     <typeahead :initialize="form.stores" :url="stores" @input="onStores" display="name"/>
@@ -63,10 +77,10 @@
                     <typeahead :initialize="form.warehouse" :url="warehouses" @input="onWarehouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>
-                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-1">Order Type</label>
-                    <typeahead :initialize="form.ordertype" :url="ordertype" @input="onOrder_type" display="name"/>
-                </div>
+                <!-- <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Order Type </label>
+                    <typeahead :initialize="form.ordertype" :url="ordertype" @input="onOrder_type"  display="name"/>
+                </div> -->
             </div>
             <hr class="mt-4">
             <h1 class="font-bold mt-1">Shipping</h1>
@@ -318,8 +332,9 @@
                 products: '/api/product',
                 stores: '/api/stores',
                 warehouses: '/api/warehouse',
-                city: '/api/city',
-                ordertype: '/api/order_type',
+                cities: '/api/city',
+                countries: '/api/country',
+                // ordertype: '/api/order_type',
             }
         },
         created() {
@@ -412,17 +427,23 @@
                 // byMethod('POST',`/api/get_delivery_charges/weight=${i}&city_id=${this.form.city_id}`)
                 // byMethod('POST',`/api/get_delivery_charges`,e)
             },
-            onOrder_type(e) {
-                const ordertype = e.target.value
-                this.form.ordertype = ordertype
-                this.form.order_type_id = ordertype.id
+            // onOrder_type(e) {
+            //     const ordertype = e.target.value
+            //     this.form.ordertype = ordertype
+            //     this.form.order_type_id = ordertype.id == 1
+            // },
+            onCountries(e) {
+                const country = e.target.value
+                this.form.country = country
+                this.form.country_id = country.id
             },
-            onCity(e) {
+            onCities(e) {
                 const city = e.target.value
                 this.form.city = city
                 this.form.city_id = city.id
                 this.get_charges(this.total_weight);
             },
+      
             onWarehouse(e) {
                 const warehouse = e.target.value
                 this.form.wearhouse = wearhouse

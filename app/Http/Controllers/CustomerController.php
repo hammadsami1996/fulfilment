@@ -34,7 +34,7 @@ class CustomerController extends Controller
             "category_id" => '',
             // "balance" => '',
             // "type_id" => '',
-            "address" => '',
+            // "address" => '',
             "b_country_id" => '',
             // "s_country_id" => '',
             "state_id" => '',

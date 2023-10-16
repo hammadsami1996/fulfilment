@@ -23,7 +23,7 @@ class OrderController extends Controller
     public function index()
     {
 //        dd(\request()->all());
-        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'shipped_by', 'city', 'ordertype','stores')
+        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'shipped_by', 'city','stores')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
             })->when(\request()->has('packability'), function ($q) {
@@ -36,9 +36,10 @@ class OrderController extends Controller
                 $q->where('courier_id', \request('courier_id'));
             })->when(\request()->has('quantity') && \request('quantity'), function ($q) {
                 $q->where('quantity', \request('quantity'));
-            })->when(\request()->has('order_type_id') && \request('order_type_id'), function ($q) {
-                $q->where('order_type_id', \request('order_type_id'));
-            })->when(\request()->has('discount') && \request('discount'), function ($q) {
+            })
+            // ->when(\request()->has('order_type_id') && \request('order_type_id'), function ($q) {
+            //     $q->where('order_type_id', \request('order_type_id'));
+            ->when(\request()->has('discount') && \request('discount'), function ($q) {
                 $q->where('discount_status', \request('discount'));
             })->when(\request()->has('payment_status') && \request('payment_status'), function ($q) {
                 $q->where('payment_status', \request('payment_status'));
@@ -74,7 +75,7 @@ class OrderController extends Controller
             'selling_price' => 0,
             'courier_id' => '',
             'quantity' => '',
-            'order_type_id' => '',
+            // 'order_type_id' => '',
             'payment_status' => '',
             'delivery_charges' => '',
         ];
@@ -158,7 +159,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $model = Order::with('city', 'customer', 'items.product', 'stores', 'warehouse', 'status_logs.status', 'status_logs.user', 'ordertype')->findOrFail($id);
+        $model = Order::with('city', 'customer', 'items.product', 'stores', 'warehouse', 'status_logs.status', 'status_logs.user')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
