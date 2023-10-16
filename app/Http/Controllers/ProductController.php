@@ -53,6 +53,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $model = new Product();
+        $model->fill($request->except('imgN'));
+        if ($request->hasFile('imgN')) {
+            $file = $request->file('imgN');
+            $extension = $file[0]->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+
+            $file[0]->move('uploads/product/img', $filename);
+            $model->img = $filename;
+        }
         $model->fill(\request()->except('product_attribute'));
         $model->supplier_id = 1;
         $model->save();
@@ -168,6 +177,14 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $model = Product::findOrFail($id);
+        $model->fill($request->except('imgN'));
+        if ($request->hasFile('imgN')) {
+            $file = $request->file('imgN');
+            $extension = $file[0]->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file[0]->move('uploads/store/img', $filename);
+            $model->img = $filename;
+        }
         $model->fill($request->except('product_attribute'));
         $model->supplier_id = 1;
         $model->save();
