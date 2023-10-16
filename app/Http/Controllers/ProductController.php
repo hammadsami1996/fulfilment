@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use App\Models\ProductImg;
 use App\Models\Purchase;
 use App\Models\Purchase_item;
 use Illuminate\Http\Request;
@@ -53,18 +54,20 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $model = new Product();
-        $model->fill($request->except('imgN'));
-        if ($request->hasFile('imgN')) {
-            $file = $request->file('imgN');
-            $extension = $file[0]->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-
-            $file[0]->move('uploads/product/img', $filename);
-            $model->img = $filename;
-        }
-        $model->fill(\request()->except('product_attribute'));
+        $model->fill(\request()->except('product_attribute', 'imgN'));
         $model->supplier_id = 1;
         $model->save();
+
+        foreach ($request->product_img as $imgN) {
+            $file = $imgN['img'];
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/product/img', $filename);
+            $parent_img = new ProductImg();
+            $parent_img->img = $filename;
+            $parent_img->parent_product_id = $model->id;
+            $parent_img->save();
+        }
         if ($request->product_types) {
             $groupsAndValues = collect($request->product_attribute);
 
@@ -178,12 +181,15 @@ class ProductController extends Controller
     {
         $model = Product::findOrFail($id);
         $model->fill($request->except('imgN'));
-        if ($request->hasFile('imgN')) {
-            $file = $request->file('imgN');
-            $extension = $file[0]->getClientOriginalExtension();
+        foreach ($request->product_img as $imgN) {
+            $file = $imgN['img'];
+            $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
-            $file[0]->move('uploads/store/img', $filename);
-            $model->img = $filename;
+            $file->move('uploads/product/img', $filename);
+            $parent_img = new ProductImg();
+            $parent_img->img = $filename;
+            $parent_img->parent_product_id = $model->id;
+            $parent_img->save();
         }
         $model->fill($request->except('product_attribute'));
         $model->supplier_id = 1;

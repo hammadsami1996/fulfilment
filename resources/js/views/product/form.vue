@@ -360,6 +360,7 @@
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import {objectToFormData} from "@/libs/helpers";
 
     function initialize(to) {
         let urls = {
@@ -510,7 +511,7 @@
 
             formSubmitted() {
                 this.form.sub_products = []
-                byMethod(this.method, this.store, this.form).then(res => {
+                byMethod(this.method, this.store, objectToFormData(this.form)).then(res => {
                     this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
