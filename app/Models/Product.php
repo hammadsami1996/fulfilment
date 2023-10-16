@@ -37,7 +37,7 @@ class Product extends Model implements Auditable
 
     public function product_img()
     {
-        return $this->hasMany(ProductImg::class);
+        return $this->hasMany(ProductImg::class,$this->head_id ? 'product_id' : 'parent_product_id');
     }
 
     public function category()

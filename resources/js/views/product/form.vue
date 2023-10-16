@@ -470,17 +470,6 @@
                     values: [],
                 });
             },
-
-            // addNewProductAttribute() {
-            //     console.log(this.form.product_attribute);
-            //     if (!this.form.product_attribute) {
-            //         this.form.product_attribute = [];
-            //     }
-            //     this.form.product_attribute.push({
-            //         group: [],
-            //         values: [],
-            //     });
-            // },
             onCategory(e) {
                 const category = e.target.value
                 this.form.category = category
