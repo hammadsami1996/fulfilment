@@ -223,15 +223,9 @@ class ProductController extends Controller
 
     private function findExistingVariation($product, $combination)
     {
-        // Check if a variation with the same combination already exists
-//        $variationAttributes = collect();
         $variationAttributes = [];
 
         foreach ($combination as $groupValue) {
-//            $variationAttributes->push([
-//                'group_id' => $groupValue['group_id'],
-//                'value_id' => $groupValue['id'],
-//            ]);
             $variationAttributes[] = [
                 'group_id' => $groupValue['group_id'],
                 'value_id' => $groupValue['id'],
