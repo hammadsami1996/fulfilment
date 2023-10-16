@@ -142,7 +142,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="bg-white shadow rounded-lg mt-4 p-4" v-if="form.sub_products">
+                            <div class="bg-white shadow rounded-lg mt-4 p-4" v-if="$route.meta.mode && form.sub_products.length">
                                 <div
                                     class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                                     <table class="min-w-full text-sm align-middle ">
@@ -451,7 +451,7 @@
                 })
             },
             saveProductAttribute(item, index) {
-                byMethod(this.method, '/api/product_single/' + item.id, item).then(res => {
+                byMethod(this.method, '/api/product_single', [item]).then(res => {
                     // this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',

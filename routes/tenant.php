@@ -40,7 +40,9 @@ Route::middleware([
             return redirect('/login');
     });
     Route::middleware('guest')->group(function () {
-        Route::get('task', function () {return view('tenant.task');})->name('task');
+        Route::get('task', function () {
+            return view('tenant.task');
+        })->name('task');
         Route::get('personal_information', [RegisteredUserController::class, 'personal_informationcreate'])->name('register');
         Route::get('register', [RegisteredUserController::class, 'tenantcreate'])->name('register');
         Route::post('register', [RegisteredUserController::class, 'tenantstore']);
@@ -132,11 +134,10 @@ Route::middleware([
         Route::get('/company', [\App\Http\Controllers\CompanyController::class, 'index']);
 
 
-
         //product
-        Route::resource('product_attribute_group',\App\Http\Controllers\ProductAttributeGroupController::class);
-        Route::resource('product_attribute_value',\App\Http\Controllers\ProductAttributeValueController::class);
-        Route::post('product_single/{id}',[\App\Http\Controllers\ProductController::class,'product_single']);
+        Route::resource('product_attribute_group', \App\Http\Controllers\ProductAttributeGroupController::class);
+        Route::resource('product_attribute_value', \App\Http\Controllers\ProductAttributeValueController::class);
+        Route::post('/product_single', [\App\Http\Controllers\ProductController::class, 'product_single']);
 
 
         // Products work
@@ -147,8 +148,8 @@ Route::middleware([
 //        Route::resource('attribute_sets',\App\Http\Controllers\AttributeSetController::class);
 //        Route::resource('assign_set',\App\Http\Controllers\AssignSetController::class);
 
-        Route::group(['prefix'=>'search'], function(){
-            Route::get('product_type',[\App\Http\Controllers\ProductTypeController::class,'search']);
+        Route::group(['prefix' => 'search'], function () {
+            Route::get('product_type', [\App\Http\Controllers\ProductTypeController::class, 'search']);
 //            Route::get('attribute_set',[\App\Http\Controllers\AttributeSetController::class,'search']);
 //            Route::get('assign_sets',[\App\Http\Controllers\AssignSetController::class,'search']);
 //            Route::get('prod_att',[\App\Http\Controllers\ProductAttributeValueController::class,'search']);
@@ -156,11 +157,9 @@ Route::middleware([
 //            Route::PUT('prod/child_update/{id}', [\App\Http\Controllers\ProductController::class, 'child_update']);
 
 
-
         });
 
     });
-
 
 
     Route::prefix('docs')->middleware(['auth', 'verified'])->group(function () {

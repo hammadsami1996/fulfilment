@@ -47,6 +47,7 @@ return new class extends Migration {
             $table->integer('group_id')->nullable();
             $table->integer('value_id')->nullable();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
