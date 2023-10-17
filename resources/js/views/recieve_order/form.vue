@@ -99,7 +99,7 @@
 
                             <div
                                 style=" max-width: 25%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
-                                <img src="~@/images/no-picture-taking.png" alt="No Picture">
+                                <img alt="No Picture" src="~@/images/no-picture-taking.png">
                                 <span class="text-center" style="font-weight: bold;"> No Product Image</span>
 
                             </div>
@@ -108,7 +108,7 @@
                         <td>
 
 
-                            <input
+                            <input v-if="item.product"
                                 class=" w-64 px-2 py-1  rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 disabled
                                 type="text"
