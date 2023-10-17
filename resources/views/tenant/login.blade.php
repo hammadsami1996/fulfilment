@@ -36,10 +36,22 @@
                                     <label for="email" class="font-medium">Email</label>
                                     <input class="block border border-gray-200 rounded px-5 py-3 h-10 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="email" id="email" name="email" placeholder="Enter your email">
                                 </div>
+                                <span class="text-red-700">
+
+                                    @error('email')
+                                    {{ $message }}
+                                    @enderror
+                                </span>
                                 <div class="space-y-1">
                                     <label for="password" class="font-medium">Password</label>
                                     <input class="block border border-gray-200 rounded px-5 py-3 h-10 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50" type="password" id="password" name="password" placeholder="Enter your password">
                                 </div>
+                                <span class="text-red-700">
+
+                    @error('password')
+                    {{ $message }}
+                    @enderror
+                    </span>
                                 <div>
                                     <button  type="submit" class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-gray-200 bg-gray-800 text-white hover:text-white hover:bg-gray-900 hover:border-gray-300 focus:ring focus:ring-primary-500 focus:ring-opacity-50 active:bg-gray-900 active:border-white">
                                         Sign In

@@ -212,12 +212,14 @@
         transform: scale(0.8);
     }
     #page-content {
-        transition: 0.6s ease;
+        transition: 0.6s;
     }
     .zoom-out-enter-active {
         transition: 0.6s ease;
-        transform: scale(0.3);
+        transform: scale(0.9);
+        /* animation: fadeIn 2s ease-in-out; */
     }
+  
 </style>
 
 
