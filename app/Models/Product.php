@@ -17,18 +17,15 @@ class Product extends Model implements Auditable
 
     protected $fillable = [
         "head_id", "title", "brand_id", "supplier_id", "category_id", "sku", "cost_price", "selling_price", "barcode",
-        "quantity", "manage_inventory", "weight"
-        // "product_types"
+        "quantity", "product_types", "manage_inventory", "weight"
     ];
     protected $columns = [
         "head_id", "title", "brand_id", "supplier_id", "category_id", "sku", "cost_price", "selling_price", "barcode",
-        "quantity", "manage_inventory", "weight"
-        // "product_types"
+        "quantity", "product_types", "manage_inventory", "weight",'created_at'
     ];
 
     protected $search = [
-        "title", "sku", "cost_price", "selling_price", "barcode", "quantity", "weight"
-        // "product_types"
+        "title", "sku", "cost_price", "selling_price", "barcode", "quantity", "product_types", "weight"
     ];
     protected $appends = ['text'];
 
@@ -40,7 +37,7 @@ class Product extends Model implements Auditable
 
     public function product_img()
     {
-        return $this->hasMany(ProductImg::class);
+        return $this->hasMany(ProductImg::class,$this->head_id ? 'product_id' : 'parent_product_id');
     }
 
     public function category()

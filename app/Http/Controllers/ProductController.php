@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use App\Models\ProductImg;
 use App\Models\Purchase;
 use App\Models\Purchase_item;
 use Illuminate\Http\Request;
@@ -43,6 +44,7 @@ class ProductController extends Controller
             "product_types" => 0,
             "manage_inventory" => 0,
             "weight" => 0,
+            "product_attribute" => [],
         ];
         return response()->json([
             'form' => $form
@@ -52,9 +54,20 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $model = new Product();
-        $model->fill(\request()->except('product_attribute'));
+        $model->fill(\request()->except('product_attribute', 'product_img'));
         $model->supplier_id = 1;
         $model->save();
+
+        foreach ($request->product_img as $imgN) {
+            $file = $imgN['img'];
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/product/img', $filename);
+            $parent_img = new ProductImg();
+            $parent_img->img = $filename;
+            $parent_img->parent_product_id = $model->id;
+            $parent_img->save();
+        }
         if ($request->product_types) {
             $groupsAndValues = collect($request->product_attribute);
 
@@ -154,7 +167,7 @@ class ProductController extends Controller
         }
 
         $groupedProducts = array_values($groupedProducts); // Reset array keys to start from 0
-        $form['product_attribute'] = (object)$groupedProducts;
+        $form['product_attribute'] = $groupedProducts;
         unset($form['attributes']);
         return response()->json([
             "form" => $form,
@@ -167,16 +180,31 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $model = Product::findOrFail($id);
-        $model->fill($request->except('product_attribute'));
+        $model->fill($request->except('product_attribute', 'product_img'));
         $model->supplier_id = 1;
         $model->save();
-
+        if ($request->has('product_img')) {
+            foreach ($request['product_img'] as $imgN) {
+                if (is_file($imgN['img'])) {
+                    $file = $imgN['img'];
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time() . '.' . $extension;
+                    $file->move('uploads/product/img', $filename);
+                    $parent_img = new ProductImg();
+                    $parent_img->img = $filename;
+                    $parent_img->parent_product_id = $model->id;
+                    $parent_img->save();
+                }
+            }
+        }
         // Handle product attributes (variations)
         if ($request->product_types) {
             $groupsAndValues = collect($request->product_attribute);
 
             $combinations = $this->cartesian($groupsAndValues->pluck('values')->toArray());
+
             foreach ($combinations as $combination) {
+                // Check if a variation with the same combination already exists
                 $existingVariation = $this->findExistingVariation($model, $combination);
 
                 if (!$existingVariation) {
@@ -203,11 +231,22 @@ class ProductController extends Controller
 
     private function findExistingVariation($product, $combination)
     {
-        // Check if a variation with the same combination already exists
-        foreach ($product->sub_products as $subProduct) {
-            $existingVariation = $subProduct->attributes;
+        $variationAttributes = [];
 
-            if ($this->variationsMatch($existingVariation, $combination)) {
+        foreach ($combination as $groupValue) {
+            $variationAttributes[] = [
+                'group_id' => $groupValue['group_id'],
+                'value_id' => $groupValue['id'],
+            ];
+        }
+        foreach ($product->sub_products as $subProduct) {
+            $existingVariationAttributes = $subProduct->sub_attributes->map(function ($attribute) {
+                return [
+                    'group_id' => $attribute->group_id,
+                    'value_id' => $attribute->value_id,
+                ];
+            })->toArray();
+            if ($variationAttributes == $existingVariationAttributes) {
                 return $subProduct;
             }
         }
@@ -215,23 +254,25 @@ class ProductController extends Controller
         return null;
     }
 
-    private function variationsMatch($existingVariation, $combination)
-    {
-        // Check if the existing variation matches the given combination
-        $existingValues = $existingVariation->pluck('value_id')->sort()->toArray();
-        $combinationValues = collect($combination)->pluck('id')->sort()->toArray();
-
-        return count($existingValues) === count($combinationValues) && empty(array_diff($existingValues, $combinationValues));
-    }
-
     public function product_single(Request $request)
     {
         foreach ($request->all() as $product) {
-            $model = Product::findOrFail($product->id);
-            $model->quantity = $product->quantity;
-            $model->sku = $product->sku;
-            $model->barcode = $product->barcode;
+            $model = Product::findOrFail($product['id']);
+            $model->quantity = $product['quantity'];
+            $model->sku = $product['sku'];
+            $model->barcode = $product['barcode'];
             $model->save();
+            if (isset($product['product_img'])) {
+                $imgN = $product['product_img'];
+                $extension = $imgN->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $imgN->move('uploads/product/img', $filename);
+                $parent_img = new ProductImg();
+                $parent_img->img = $filename;
+                $parent_img->product_id = $model->id;
+                $parent_img->parent_product_id = $model->head_id;
+                $parent_img->save();
+            }
 
         }
         return response()->json(["saved" => true, "id" => $model->id]);
@@ -247,6 +288,17 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $model = Product::findOrFail($id);
+        // Fetch associated images
+//        $productImages = ProductImg::where('parent_product_id', $id)->get();
+//
+//        // Delete associated images from storage
+//        foreach ($productImages as $image) {
+//            $imagePath = public_path('uploads/product/img/' . $image->img);
+//            if (file_exists($imagePath)) {
+//                unlink($imagePath); // Delete the file
+//            }
+//            $image->delete(); // Delete the image record from the database
+//        }
         if (!$model->head_id) {
             ProductAttribute::where('parent_product_id', $id)->delete();
             Product::where('head_id', $id)->delete();
@@ -260,6 +312,17 @@ class ProductController extends Controller
             $model->delete();
         }
 
+        return response()->json(["deleted" => true]);
+    }
+
+    public function destroy_product_image($id)
+    {
+        $model = ProductImg::findOrFail($id);
+        $imagePath = public_path('uploads/product/img/' . $model->img);
+        if (file_exists($imagePath)) {
+            unlink($imagePath); // Delete the file
+        }
+        $model->delete(); // Delete the image record from the database
         return response()->json(["deleted" => true]);
     }
 

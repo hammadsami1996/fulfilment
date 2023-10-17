@@ -119,6 +119,7 @@
                                                                multi-select="true"/>
                                                 </div>
                                             </td>
+
                                             <td class=" text-center">
                                                 <button @click="removeProductAttribute(item, index)"
                                                         class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
@@ -142,7 +143,8 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="bg-white shadow rounded-lg mt-4 p-4" v-if="form.sub_products.length">
+                            <div class="bg-white shadow rounded-lg mt-4 p-4"
+                                 v-if="$route.meta.mode && form.sub_products.length">
                                 <div
                                     class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                                     <table class="min-w-full text-sm align-middle ">
@@ -153,7 +155,7 @@
                                                 {{sub_prod.group.title}}
                                             </th>
                                             <th class="px-4 py-2">Value</th>
-                                            <th class="px-4 py-2"></th>
+                                            <th class="px-4 py-2">Image</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -187,6 +189,20 @@
                                                         type="text" v-model="item.barcode"/>
                                                 </div>
 
+                                            </td>
+                                            <td>
+                                                <div class="mb-4 w-full">
+                                                    <input
+                                                        class="flex-grow border border-gray-200 rounded w-50 mr-2"
+                                                        type="file"
+                                                        v-on:change="onChildImageChange($event,item)"
+                                                    >
+                                                    <img :src="ImgUrl[item].img" class="w-20 h-20 rounded object-cover"
+                                                         v-if="ImgUrl[item] && ImgUrl[item].img">
+                                                    <div class="w-10 h-10 rounded object-cover" v-else-if="item.product_img">
+                                                        <img :src="`/uploads/product/img/` + item.img">
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td class=" text-center">
                                                 <button @click="saveProductAttribute(item, index)"
@@ -360,6 +376,7 @@
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import {objectToFormData} from "@/libs/helpers";
 
     function initialize(to) {
         let urls = {
@@ -412,11 +429,40 @@
                 this.ImgUrl[index].img = URL.createObjectURL(e.target.files[0]);
                 this.form.product_img[index].img = e.target.files[0];
             },
+            onChildImageChange(e, item) {
+                // this.ImgUrl[index].img = URL.createObjectURL(e.target.files[0]);
+                item.product_img = e.target.files[0]
+
+            },
             removeImg(item, index) {
-                if (this.form.product_img.length > 1) {
-                    this.form.product_img.splice(index, 1);
-                    this.ImgUrl.splice(index, 1);
-                }
+                byMethod('DELETE', '/api/destroy_product_image/' + item.id)
+                    .then(res => {
+                        // Image deleted from the database, now update local data
+                        if (this.form.product_img.length > 1) {
+                            this.form.product_img.splice(index, 1);
+                            this.ImgUrl.splice(index, 1);
+                        }
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: 'Delete Image Successfully',
+                            type: 'success',
+                            duration: 3000
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error deleting image:', error);
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: 'Failed to delete image',
+                            type: 'error',
+                            duration: 3000
+                        });
+                    });
+
+                // if (this.form.product_img.length > 1) {
+                //     this.form.product_img.splice(index, 1);
+                //     this.ImgUrl.splice(index, 1);
+                // }
             },
             addNewLine() {
                 if (!this.form.product_img) {
@@ -451,7 +497,7 @@
                 })
             },
             saveProductAttribute(item, index) {
-                byMethod(this.method, '/api/product_single', [item]).then(res => {
+                byMethod(this.method, '/api/product_single',  objectToFormData([item])).then(res => {
                     // this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
@@ -462,8 +508,8 @@
                 })
             },
             addNewProductAttribute() {
-                if (!this.form.product_attribute) {
-                    this.form.product_attribute = [];
+                if (Array.isArray(this.form.product_attribute)) {
+                    this.form.product_attribute = this.form.product_attribute ? this.form.product_attribute : [];
                 }
                 this.form.product_attribute.push({
                     group: [],
@@ -499,7 +545,7 @@
 
             formSubmitted() {
                 this.form.sub_products = []
-                byMethod(this.method, this.store, this.form).then(res => {
+                byMethod(this.method, this.store, objectToFormData(this.form)).then(res => {
                     this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
