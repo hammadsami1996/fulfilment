@@ -262,17 +262,7 @@ class ProductController extends Controller
             $model->sku = $product['sku'];
             $model->barcode = $product['barcode'];
             $model->save();
-            if (isset($product['product_img'])) {
-                $imgN = $product['product_img'];
-                $extension = $imgN->getClientOriginalExtension();
-                $filename = time() . '.' . $extension;
-                $imgN->move('uploads/product/img', $filename);
-                $parent_img = new ProductImg();
-                $parent_img->img = $filename;
-                $parent_img->product_id = $model->id;
-                $parent_img->parent_product_id = $model->head_id;
-                $parent_img->save();
-            }
+     
 
         }
         return response()->json(["saved" => true, "id" => $model->id]);
