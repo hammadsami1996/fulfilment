@@ -183,19 +183,20 @@ class ProductController extends Controller
         $model->fill($request->except('product_attribute', 'product_img'));
         $model->supplier_id = 1;
         $model->save();
-        foreach ($request->product_img as $imgN) {
-            if (is_file($imgN['img'])){
-                $file = $imgN['img'];
-                $extension = $file->getClientOriginalExtension();
-                $filename = time() . '.' . $extension;
-                $file->move('uploads/product/img', $filename);
-                $parent_img = new ProductImg();
-                $parent_img->img = $filename;
-                $parent_img->parent_product_id = $model->id;
-                $parent_img->save();
+        if ($request->has('product_img')) {
+            foreach ($request['product_img'] as $imgN) {
+                if (is_file($imgN['img'])) {
+                    $file = $imgN['img'];
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time() . '.' . $extension;
+                    $file->move('uploads/product/img', $filename);
+                    $parent_img = new ProductImg();
+                    $parent_img->img = $filename;
+                    $parent_img->parent_product_id = $model->id;
+                    $parent_img->save();
+                }
             }
         }
-
         // Handle product attributes (variations)
         if ($request->product_types) {
             $groupsAndValues = collect($request->product_attribute);
@@ -256,11 +257,22 @@ class ProductController extends Controller
     public function product_single(Request $request)
     {
         foreach ($request->all() as $product) {
-            $model = Product::findOrFail($product->id);
-            $model->quantity = $product->quantity;
-            $model->sku = $product->sku;
-            $model->barcode = $product->barcode;
+            $model = Product::findOrFail($product['id']);
+            $model->quantity = $product['quantity'];
+            $model->sku = $product['sku'];
+            $model->barcode = $product['barcode'];
             $model->save();
+            if (isset($product['product_img'])) {
+                $imgN = $product['product_img'];
+                $extension = $imgN->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $imgN->move('uploads/product/img', $filename);
+                $parent_img = new ProductImg();
+                $parent_img->img = $filename;
+                $parent_img->product_id = $model->id;
+                $parent_img->parent_product_id = $model->head_id;
+                $parent_img->save();
+            }
 
         }
         return response()->json(["saved" => true, "id" => $model->id]);
@@ -302,13 +314,14 @@ class ProductController extends Controller
 
         return response()->json(["deleted" => true]);
     }
+
     public function destroy_product_image($id)
     {
         $model = ProductImg::findOrFail($id);
-            $imagePath = public_path('uploads/product/img/' . $model->img);
-            if (file_exists($imagePath)) {
-                unlink($imagePath); // Delete the file
-            }
+        $imagePath = public_path('uploads/product/img/' . $model->img);
+        if (file_exists($imagePath)) {
+            unlink($imagePath); // Delete the file
+        }
         $model->delete(); // Delete the image record from the database
         return response()->json(["deleted" => true]);
     }
