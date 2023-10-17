@@ -430,7 +430,8 @@
                 this.form.product_img[index].img = e.target.files[0];
             },
             onChildImageChange(e, item) {
-                // this.ImgUrl[index].img = URL.createObjectURL(e.target.files[0]);
+                console.log(item.product_img);
+                // this.ImgUrl[item].img = URL.createObjectURL(e.target.files[0]);
                 item.product_img = e.target.files[0]
 
             },

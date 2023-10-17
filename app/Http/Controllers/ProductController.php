@@ -263,6 +263,7 @@ class ProductController extends Controller
             $model->barcode = $product['barcode'];
             $model->save();
             if (isset($product['product_img'])) {
+//                dd($product_img);
                 $imgN = $product['product_img'];
                 $extension = $imgN->getClientOriginalExtension();
                 $filename = time() . '.' . $extension;
