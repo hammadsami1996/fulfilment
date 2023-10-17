@@ -13,12 +13,12 @@ use OwenIt\Auditing\Contracts\Auditable;
 class ProductImg extends Model implements Auditable
 {
     use HasFactory, Notifiable, HasRoles,SoftDeletes,\OwenIt\Auditing\Auditable,Search;
-    
+
     protected $fillable = [
-        'img','imgurl', 'product_id'
+        'img','img_url', 'product_id'
     ];
     protected $columns = [
-        'img','imgurl', 'product_id'
+        'img','img_url', 'product_id'
     ];
 
     protected $search = [
