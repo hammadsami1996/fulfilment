@@ -69,6 +69,8 @@
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Name', field: 'name',},
                     {label: 'Location', field: 'location'},
+                    {label: 'Store type', field: 'store_type'},
+                    {label: 'platform', field: 'plate_form'},
                     {label: 'Company', field: 'name', displayText: 'company'},
                     {label: 'Action', field: 'action', action: true}
                     ]
