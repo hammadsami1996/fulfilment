@@ -166,7 +166,7 @@ class ReceiveOrderController extends Controller
                 // dd($data['total_qty_deliver']);
                 $product_id = $data['product_id'];
                 $quantity = $data['qty'];
-                $total_quantity = $data['total_qty_deliver'];
+                $total_quantity = $data['total_qty_deliver'] ?? 0;
                 // dd($total_quantity);
                 // foreach($data['child'] as $child){
                 //     // dd($totalQtyDeliver +=$child['qty_deliver']);
@@ -301,7 +301,7 @@ class ReceiveOrderController extends Controller
                     $abc->qty = $child['qty_deliver'];
                     $abc->price = $child['unit_price'];
                     $abc->save();
-                
+
                     $product = Product::where('id', $product_id)->first();
                     $product->quantity = $quantity;
                     $product->save();
