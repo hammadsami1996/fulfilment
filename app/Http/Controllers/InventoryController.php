@@ -94,7 +94,7 @@ class InventoryController extends Controller
     {
         $model = Inventory::with('product', 'warehouse')->findOrFail($id);
         $model->deleted_by = Auth::id();
-        
+
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

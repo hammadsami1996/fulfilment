@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('img')->nullable();
             $table->string('img_url')->nullable();
-            $table->string('parent_product_id')->nullable();
+            $table->integer('parent_product_id')->nullable();
             $table->integer('product_id')->nullable();
             $table->integer('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();

@@ -132,7 +132,7 @@
                 urlApis: "/api/cities",
                 resource: "/cities",
                 small: "cities",
-                capital: "Cities",
+                capital: "Countries",
                 columns: [
                     { label: "S.No", field: "id", format: "index" },
                     { label: "Cities", field: "name" },

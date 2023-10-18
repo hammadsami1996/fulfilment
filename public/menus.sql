@@ -11,7 +11,7 @@
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 16/10/2023 11:11:46
+ Date: 17/10/2023 16:14:20
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `menus`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
@@ -56,7 +56,7 @@ INSERT INTO `menus` VALUES (13, 'Warehouse', '/warehouse', 'view-warehouse', 1, 
 INSERT INTO `menus` VALUES (14, 'Customer', '/customer', 'view-customer', 1, 'web', NULL, 7, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (15, 'User Subscription', '/user_subscription', 'view-user_subscription', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (16, 'User Dashboard', '/user_dashboard', 'view-user_dashboard', 1, 'web', NULL, 9, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (17, 'Cities', '/cities', 'view-cities', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (17, 'Cities', '/cities', 'view-cities', 1, 'web', NULL, 10, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (18, 'Product Category', '/product_category', 'view-product_category', 7, 'web', NULL, 2, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (19, 'Customer Category', '/customer_category', 'view-customer_category', 1, 'web', NULL, 8, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (20, 'Brand', '/brand', 'view-brand', 7, 'web', NULL, 4, NULL, NULL, NULL, NULL);

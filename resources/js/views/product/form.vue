@@ -205,7 +205,7 @@
                                                 </div>
                                             </td>
                                             <td class=" text-center">
-                                                <button @click="saveProductAttribute(item, index)"
+                                                <button @click="saveProductAttribute([item])"
                                                         class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
                                                         type="button">
                                                     <i class="fa fa-save mr-1"></i>
@@ -430,7 +430,8 @@
                 this.form.product_img[index].img = e.target.files[0];
             },
             onChildImageChange(e, item) {
-                // this.ImgUrl[index].img = URL.createObjectURL(e.target.files[0]);
+                console.log(item.product_img);
+                // this.ImgUrl[item].img = URL.createObjectURL(e.target.files[0]);
                 item.product_img = e.target.files[0]
 
             },
@@ -496,8 +497,8 @@
                     });
                 })
             },
-            saveProductAttribute(item, index) {
-                byMethod(this.method, '/api/product_single',  objectToFormData([item])).then(res => {
+            saveProductAttribute(item) {
+                byMethod(this.method, '/api/product_single',  objectToFormData(item)).then(res => {
                     // this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
