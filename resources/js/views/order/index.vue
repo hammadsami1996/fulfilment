@@ -2,38 +2,52 @@
     <div>
         <div class="bg-gray-100 py-4">
             <nav class="container mx-auto flex justify-center">
-                <a @click="showRecords('?status_id=0')"
+                <a @click="showRecords('0')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-blue-500 focus:text-gray-700 focus:border-blue-300">
                     All
                 </a>
-                <a @click="showRecords('?status_id=1')"
+                <a @click="showRecords('1')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
                     Pending
                 </a>
-                <a @click="showRecords('?status_id=2')"
+                <a @click="showRecords('2')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
                     Confirmed
                 </a>
-                <a @click="showRecords('?status_id=6')"
+                <a @click="showRecords('6')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
                     On Hold
                 </a>
-                <a @click="showRecords('?status_id=14')"
+                <a @click="showRecords('14')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-rose-500 focus:text-gray-700 focus:border-rose-300">
                     Fake
                 </a>
-                <a @click="showRecords('?packability=packable')"
+            </nav>
+                <!-- <a @click="showRecords('?packability=packable')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
                     Packable
                 </a>
                 <a @click="showRecords('?packability=unpackable')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
                     Unpackable
-                </a>
-            </nav>
+                </a> -->
         </div>
-        <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
+        <div class="container px-4 py-5  sm:px-6 flex justify-between items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
+          
+                <div class="" style="display: contents" >
+
+                <a @click="showpackable('packable',pack)"
+                class="w-1/6 sm:mx-auto    py-4 px-6  text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
+                Packable
+            </a>
+            <a @click="showpackable('unpackable',pack)"
+            class="w-1/6 sm:mx-auto  py-4 px-6 text-center border-b-2 font-medium md:mx-auto lg:ml-[-10pc]   text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
+            Unpackable
+        </a>
+    </div>
+    
+        
             <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
                              class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
@@ -303,6 +317,7 @@
                 sts: false,
                 id: null,
                 ids: null,
+                pack: null,
                 permissions: [],
                 urlApi: "/api/order",
                 urlApi1: "/api/order",
@@ -418,12 +433,32 @@
                     })
             },
             showRecords(e) {
+                // console.log(e)
+                this.pack = e
                 setTimeout(() => {
                     this.urlApi = this.urlApi1
                 }, 500)
                 setTimeout(() => {
-                    this.urlApi += e
+                 
+                    this.urlApi += `?status_id=${this.pack}`;
+                    
                     // this.urlApi += '?status_id=' + e
+                }, 500)
+                setTimeout(() => {
+                    // console.log(this.$refs);
+                    this.$refs.TableData.reload();
+                }, 500)
+            },
+            showpackable(packability,e) {      
+              
+                setTimeout(() => {
+                    this.urlApi = this.urlApi1
+                  
+                }, 500)
+                setTimeout(() => {
+                    
+                    this.urlApi += `?status_id=${e}&packability=${packability}`
+                    // this.urlApi += '?status_id=' + e.status_id;
                 }, 500)
                 setTimeout(() => {
                     // console.log(this.$refs);
