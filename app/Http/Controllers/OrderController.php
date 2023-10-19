@@ -90,6 +90,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
         //    dd($request->warehouse_id);
         $request->validate([
             'store_id' => 'required',
@@ -130,6 +131,7 @@ class OrderController extends Controller
         $model->sub_total = collect($request->items)->sum(function ($item) {
             return $item['qty'] * $item['unit_price'];
         });
+       ;
 
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;

@@ -91,8 +91,8 @@
                     <p class="text-red-600 text-xs italic" v-if="error.store_id">{{ error.store_id[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Wearhouse</label>
-                    <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Warehouse</label>
+                    <typeahead :initialize="form.warehouse" :url="warehouses" @input="onWearhouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
@@ -441,7 +441,7 @@
                 customers: '/api/customer',
                 products: '/api/product',
                 stores: '/api/stores',
-                wearhouses: '/api/warehouse',
+                warehouses: '/api/warehouse',
                 city: '/api/city',
                 ordertype: '/api/order_type',
             }
@@ -513,9 +513,9 @@
                 this.form.city_id = city.id
             },
             onWearhouse(e) {
-                const wearhouse = e.target.value
-                this.form.wearhouse = wearhouse
-                this.form.warehouse_id = wearhouse.id
+                const warehouse = e.target.value
+                this.form.warehouse = warehouse
+                this.form.warehouse_id = warehouse.id
             },
             isSaveDisabled() {
                 for (const item of this.form.items) {

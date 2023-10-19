@@ -8,7 +8,7 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Parent Wearhouse</label>
+                    >Parent Warehouse</label>
                     <typeahead :initialize="form.parent" :url="parentUrl" @input="onParent" display="text"/>
 <!--                    <p class="text-red-600 text-xs italic" v-if="error.parent_id">{{ error.parent_id[0] }}</p>-->
                 </div>
@@ -60,8 +60,8 @@
 
     function initialize(to) {
         let urls = {
-            add: `/api/wearhouse/create`,
-            edit: `/api/wearhouse/${to.params.id}/edit`,
+            add: `/api/warehouse/create`,
+            edit: `/api/warehouse/${to.params.id}/edit`,
         }
         return urls[to.meta.mode] || urls.add
     }
@@ -75,14 +75,14 @@
             return {
                 error: {},
                 show: false,
-                resource: '/wearhouse',
-                store: '/api/wearhouse',
-                parentUrl:'/api/wearhouse',
+                resource: '/warehouse',
+                store: '/api/warehouse',
+                parentUrl:'/api/warehouse',
                 method: 'POST',
-                small: 'wearhouse',
-                capital: 'Wearhouse',
+                small: 'warehouse',
+                capital: 'Warehouse',
                 title: 'Add',
-                message: 'New wearhouse Added',
+                message: 'New warehouse Added',
                 permissions: {},
             }
         },

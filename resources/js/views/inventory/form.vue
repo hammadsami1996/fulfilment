@@ -16,8 +16,8 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Wearhouse Id </label>
-                    <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWearhouse" display="name"/>
+                    >Warehouse Id </label>
+                    <typeahead :initialize="form.warehouse" :url="warehouses" @input="onWearhouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                 message: 'New inventory Added',
                 permissions: {},
                 products: '/api/product',
-                wearhouses: '/api/warehouse',
+                warehouses: '/api/warehouse',
             }
         },
 
@@ -114,9 +114,9 @@
         },
         methods: {
             onWearhouse(e) {
-                const wearhouse = e.target.value
-                this.form.wearhouse = wearhouse
-                this.form.warehouse_id = wearhouse.id
+                const warehouse = e.target.value
+                this.form.warehouse = warehouse
+                this.form.warehouse_id = warehouse.id
             },
             onProduct(e) {
                 const product = e.target.value
