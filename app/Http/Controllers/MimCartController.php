@@ -128,6 +128,7 @@ class MimCartController extends Controller
                                 if (!$parent_product) {
                                     $parent_product = new Product();
                                     $parent_product->title = $item['product_name'];
+                                    $parent_product->product_types = 1;
                                     $parent_product->selling_price = $item['unit_price'];
                                     $parent_product->cost_price = $item['cost'];
                                     $parent_product->save();
