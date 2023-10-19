@@ -8,7 +8,7 @@ import permission from '@/routes/permission';
 import user_dashboard from "@/routes/user_dashboard";
 import user_type from "@/routes/user_type";
 import product from "@/routes/product";
-import wearhouse from "@/routes/warehouse";
+import warehouse from "@/routes/warehouse";
 import stores from "@/routes/stores";
 import company from "@/routes/company";
 import inventory from "@/routes/inventory";
@@ -52,7 +52,7 @@ const router = createRouter({
         ...user_dashboard,
         ...user_type,
         ...product,
-        ...wearhouse,
+        ...warehouse,
         ...stores,
         ...company,
         ...inventory,

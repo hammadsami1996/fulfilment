@@ -161,11 +161,11 @@
                         <td>
                             <label
                                 class="block font-bold text-sm text-gray-700 mb-2 " style=" margin-right: 35%;"
-                            >Wearhouse </label>
-                            <!-- <typeahead :initialize="form.warehouse" :url="wearhouses" @input="onWearhouse" display="name"/> -->
+                            >Warehouse </label>
+                            <!-- <typeahead :initialize="form.warehouse" :url="warehouses" @input="onWearhouse" display="name"/> -->
                             <typeahead
                                 :initialize="child.warehouse"
-                                :url="wearhouses"
+                                :url="warehouses"
                                 @input="onWearhouse(childIndex, index, $event ,child)"
                                 class=" h-8 w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="name"
@@ -304,7 +304,7 @@
 
                             <typeahead
                                 :initialize="child.warehouse"
-                                :url="wearhouses"
+                                :url="warehouses"
                                 @input="onWearhouse(childIndex, index, $event ,child)"
                                 class="  text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="name"
@@ -422,7 +422,7 @@
                 permissions: {},
                 suppliers: '/api/supplier',
                 products: '/api/product',
-                wearhouses: '/api/warehouse',
+                warehouses: '/api/warehouse',
             }
         },
 
