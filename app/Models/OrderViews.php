@@ -38,7 +38,7 @@ class OrderViews extends Model
         return $this->hasMany(Order_item::class, 'id', 'order_id');
     }
 
-    public function wearhouse()
+    public function warehouse()
     {
         return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
 

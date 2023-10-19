@@ -158,10 +158,10 @@ class ReceiveOrderController extends Controller
             $purchase = Purchase::where('id', $request->id)->first();
             $purchase->partial_remaining -= $rrr;
             $purchase->save();
-            // dd($rrr);
+//             dd($rrr);
         } else {
             foreach ($request->items as $data) {
-                // dd($data['total_qty_deliver']);
+//                 dd($data['total_qty_deliver']);
                 $totalQtyDeliver = 0;
                 // dd($data['total_qty_deliver']);
                 $product_id = $data['product_id'];
@@ -172,7 +172,8 @@ class ReceiveOrderController extends Controller
                 //     // dd($totalQtyDeliver +=$child['qty_deliver']);
                 //     $totalQtyDeliver += $child['qty_deliver'];
                 // }
-                // dd($totalQtyDeliver);
+//                 dd($totalQtyDeliver);
+//                 dd($request->$child);
                 foreach ($data['child'] as $child) {
                     // dd($child);
                     // dd($totalQtyDeliver +=$child['qty_deliver']);

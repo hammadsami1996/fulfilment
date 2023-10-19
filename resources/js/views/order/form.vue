@@ -63,8 +63,8 @@
                                @input="onCities($event,'city')" display="name"/>
                     <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                 </div>
-                
-              
+
+
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store <span class="text-red-600">*</span></label>
                     <typeahead :initialize="form.stores" :url="stores" @input="onStores" display="name"/>
@@ -74,8 +74,8 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2">Wearhouse
                          <!-- <span class="text-red-600">*</span> -->
                         </label>
-                    <typeahead :initialize="form.warehouse" :url="warehouses" @input="onWarehouse" display="name"/>
-                    <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
+                    <typeahead :initialize="form.wearhouse" :url="wearhouses" @input="onWarehouse" display="name"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.wearhouse_id">{{ error.wearhouse_id[0] }}</p>
                 </div>
                 <!-- <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">Order Type </label>
@@ -331,7 +331,7 @@
                 customers: '/api/customer',
                 products: '/api/product',
                 stores: '/api/stores',
-                warehouses: '/api/warehouse',
+                wearhouses: '/api/warehouse',
                 cities: '/api/city',
                 countries: '/api/country',
                 // ordertype: '/api/order_type',
@@ -443,11 +443,11 @@
                 this.form.city_id = city.id
                 this.get_charges(this.total_weight);
             },
-      
+
             onWarehouse(e) {
-                const warehouse = e.target.value
+                const wearhouse = e.target.value
                 this.form.wearhouse = wearhouse
-                this.form.warehouse_id = wearhouse.id
+                this.form.wearhouse_id = wearhouse.id
             },
             isSaveDisabled() {
                 for (const item of this.form.items) {
