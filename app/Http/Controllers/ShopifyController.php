@@ -151,6 +151,7 @@ class ShopifyController extends Controller
                                     $parent_product = new Product();
                                     $parent_product->title = $item['title'];
                                     $parent_product->selling_price = $item['price'];
+                                    $parent_product->product_types = 1;
                                     $parent_product->cost_price = $item['price'];
                                     $parent_product->save();
                                 }

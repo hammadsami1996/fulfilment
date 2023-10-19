@@ -188,6 +188,7 @@ class WordpressController extends Controller
                                 if (!$parent_product) {
                                     $parent_product = new Product();
                                     $parent_product->title = $item['parent_name'];
+                                    $parent_product->product_types = 1;
                                     $parent_product->selling_price = $item['price'];
                                     $parent_product->cost_price = $item['price'];
                                     $parent_product->save();
