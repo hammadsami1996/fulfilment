@@ -34,13 +34,13 @@ class AccountController extends Controller
         $account->nature = 1;
         $account->currency_id = 1;
         $number = Counter::where('key', 'accounts');
-        $account->accountcode = ($number->first()->perfix . $number->first()->value);
+        $account->accountcode = ($number->first()->prefix . $number->first()->value);
         $number->update([
             'value' => ($number->first()->value + 1)
         ]);
 
         $account->save();
-       
+
         $this->save_finance_transaction($account);
         return response()->json(['saved' => true, 'model' => $account, 'accountcode' => $account]);
     }
@@ -98,7 +98,7 @@ class AccountController extends Controller
             'op_credit' => 'nullable|numeric|min:0',
             // 'opening_type' => 'required|int|min:0|max:1'
             'opening_type' => 'nullable|int|min:0|max:1',
-            
+
             //'currency_id' => 'required|int'
         ]);
 

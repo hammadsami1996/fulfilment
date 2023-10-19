@@ -22,7 +22,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Product::with('category', 'brand', 'product_img', 'supplier')->search()]);
+        return response()->json(['data' => Product::with('category', 'brand', 'product_img', 'supplier')
+            ->when(\request()->has('head_id'),function ($q){
+                $q->whereNull('head_id');
+            })->search()]);
 
     }
 

@@ -126,7 +126,7 @@ class OrderController extends Controller
         if (!$c && $Customer['id']) {
             $model->customer_id = $Customer['id'];
         }
-        $model->so_number = ($number->first()->perfix . $number->first()->value);
+        $model->so_number = ($number->first()->prefix . $number->first()->value);
 
         $model->sub_total = collect($request->items)->sum(function ($item) {
             return $item['qty'] * $item['unit_price'];

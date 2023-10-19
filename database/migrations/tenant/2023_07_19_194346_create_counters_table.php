@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('counters', function (Blueprint $table) {
             $table->id();
             $table->string('key');
-            $table->string('perfix');
+            $table->string('prefix');
             $table->string('value');
             $table->integer('deleted_by')->nullable();
            $table->timestamp('deleted_at')->nullable();
@@ -23,41 +23,41 @@ return new class extends Migration
 
         // Insert a new record into the table
         DB::table('counters')->insert(['key' => 'purchase_order',
-            'perfix' => 'PO-', 'value' => 100734,
-            // 'perfix' => 'RO-', 'value' => 100100
+            'prefix' => 'PO-', 'value' => 100734,
+            // 'prefix' => 'RO-', 'value' => 100100
 
             // [
             //     'key' => 'purchase_order',
-            //     'perfix' => 'PO-',
+            //     'prefix' => 'PO-',
             //     'value' => 100734,
             // ],
             // [
             //     'key' => 'receivable_order',
-            //     'perfix' => 'RO-',
+            //     'prefix' => 'RO-',
             //     'value' => 100100,
             // ],
         ]);
         DB::table('counters')->insert(['key' => 'receivable_order',
-       
-        'perfix' => 'RO-', 'value' => 100100
 
-       
+        'prefix' => 'RO-', 'value' => 100100
+
+
     ]);
 
     DB::table('counters')->insert(['key' => 'sales_order',
-       
-        'perfix' => 'SO-', 'value' => 100001
 
-       
+        'prefix' => 'SO-', 'value' => 100001
+
+
     ]);
 
     DB::table('counters')->insert(['key' => 'accounts',
-       
-    'perfix' => 'AC-', 'value' => 1001
 
-   
+    'prefix' => 'AC-', 'value' => 1001
+
+
 ]);
-        
+
     }
 
 

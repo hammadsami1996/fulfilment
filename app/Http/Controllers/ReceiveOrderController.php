@@ -37,7 +37,6 @@ class ReceiveOrderController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'supplier_id' => 'required',
             'date' => 'required',
@@ -46,19 +45,15 @@ class ReceiveOrderController extends Controller
         $rrr = 0;
         $qqq = 0;
         if ($request->status_id == 29) {
-            // dd('abcd');
             foreach ($request->items as $data) {
-                    // dd($data['unit_price']);
                 $totalQtyDeliver = 0;
                 $product_id = $data['product_id'];
                 $quantity = $data['partail_remaining'];
-
                 if (isset($data['total_qty_deliver'])) {
                     $total_quantity = $data['total_qty_deliver'];
                 }
                 if (isset($data['child'])) {
                     foreach ($data['child'] as $child) {
-                        // dd($quantity);
                         $totalQtyDeliver += $child['qty_deliver'];
                         $first = Inventory::where('product_id', $product_id)->where('warehouse_id', $child['warehouse_id'])->first();
                         if ($first != null) {
@@ -73,63 +68,33 @@ class ReceiveOrderController extends Controller
                             $abc->product_id = $product_id;
                             $abc->warehouse_id = $child['warehouse_id'];
                             $abc->qty = $child['qty_deliver'];
-                            // $abc->price = $child['unit_price'];
                             $abc->save();
                             $product = Product::where('id', $product_id)->first();
                             $product->quantity += $total_quantity;
                             $product->save();
                         }
-                        // }
                     }
-                    // }
-                        // dd($quantity);
-                        // dd($quantity);
-                    // if ($totalQtyDeliver < $quantity) {
-                    //     // dd($child['qty_deliver']);
-                    //     $status = Purchase::where('id', $request->id)->first();
-                    //     $status->status_id = 29;
-                    //     $status->save();
-                    //     $abcd = 1;
-                    // } // dd($abcd);
-                    // elseif ($abcd != 1) {
-                    //     // dd($totalQtyDeliver);
-                    //     $status = Purchase::where('id', $request->id)->first();
-                    //     $status->status_id = 27;
-                    //     $status->save();
-                    // }
-                    // dd($totalQtyDeliver);
                     $purchases = Purchase_item::where('purchase_id', $request->id)->where('product_id', $data['product_id'])->first();
                     $purchases->partail_remaining = $quantity - $totalQtyDeliver;
                     $purchases->save();
-                    // dd($totalQtyDeliver);
                     $rrr += $totalQtyDeliver;
                     $qqq += $quantity;
                 }
-            //   dd($totalQtyDeliver);
-              if ($totalQtyDeliver < $quantity) {
-                // dd($child['qty_deliver']);
-                $status = Purchase::where('id', $request->id)->first();
-                $status->status_id = 29;
-                $status->save();
-                $abcd = 1;
-            } // dd($abcd);
-            elseif ($abcd != 1) {
-                // dd($totalQtyDeliver);
-                $status = Purchase::where('id', $request->id)->first();
-
-                $status->status_id = 27;
-                $status->save();
-            }
-                // $save = $qqq - $rrr;
-                // // dd($save);
-                // $purchase = Purchase::where('id', $request->id)->first();
-                // $purchase->partial_remaining -= $save;
-                // $purchase->save();
-                // dd($purchase);
+                if ($totalQtyDeliver < $quantity) {
+                    $status = Purchase::where('id', $request->id)->first();
+                    $status->status_id = 29;
+                    $status->save();
+                    $abcd = 1;
+                }
+                elseif ($abcd != 1) {
+                    $status = Purchase::where('id', $request->id)->first();
+                    $status->status_id = 27;
+                    $status->save();
+                }
                 $number = Counter::where('key', 'receivable_order');
                 $model = new Receive_order();
                 $model->fill($request->all());
-                $model->number = ($number->first()->perfix . $number->first()->value);
+                $model->number = ($number->first()->prefix . $number->first()->value);
                 $model->purchase_order_id = $request->id;
                 $model->user_id = Auth::user()->id;
                 $items = collect($request->items)->map(function ($item) {
@@ -145,7 +110,6 @@ class ReceiveOrderController extends Controller
                 $model = DB::transaction(function () use ($model, $items, $number, $request) {
                     $model->storeHasMany([
                         'items' => $items,
-                        // 'purchase_order_item_id' => $request->items->id,
                     ]);
                     $number->update([
                         'value' => ($number->first()->value + 1)
@@ -153,99 +117,67 @@ class ReceiveOrderController extends Controller
                     return $model;
                 });
             }
-            // $save = $qqq - $rrr;
-            // dd($qqq);
             $purchase = Purchase::where('id', $request->id)->first();
             $purchase->partial_remaining -= $rrr;
             $purchase->save();
-//             dd($rrr);
         } else {
             foreach ($request->items as $data) {
-//                 dd($data['total_qty_deliver']);
                 $totalQtyDeliver = 0;
-                // dd($data['total_qty_deliver']);
                 $product_id = $data['product_id'];
                 $quantity = $data['qty'];
                 $total_quantity = $data['total_qty_deliver'] ?? 0;
-                // dd($total_quantity);
-                // foreach($data['child'] as $child){
-                //     // dd($totalQtyDeliver +=$child['qty_deliver']);
-                //     $totalQtyDeliver += $child['qty_deliver'];
-                // }
-//                 dd($totalQtyDeliver);
-//                 dd($request->$child);
-                foreach ($data['child'] as $child) {
-                    // dd($child);
-                    // dd($totalQtyDeliver +=$child['qty_deliver']);
-                    $totalQtyDeliver += $child['qty_deliver'];
-                    // if($quantity < $totalQtyDeliver){
-                    //     return response()->json(["error" => true]);
-                    // }
-                    // else{
-                    $first = Inventory::where('product_id', $product_id)->where('warehouse_id', $child['warehouse_id'])->first();
-                    if ($first != null) {
+                if (isset($data['child'])) {
+                    foreach ($data['child'] as $child) {
+
+                        $totalQtyDeliver += $child['qty_deliver'];
                         $first = Inventory::where('product_id', $product_id)->where('warehouse_id', $child['warehouse_id'])->first();
-                        $first->qty += $child['qty_deliver'];
-                        $first->save();
-                        $product = Product::where('id', $product_id)->first();
-                        $product->quantity += $total_quantity;
-                        $product->cost_price = $data['unit_price'];
-                        // $product->quantity = $quantity;
-                        $product->save();
-                        // dd($first);
-                    } // dd($child['warehouse_id']);
-                    else {
-                        $abc = new Inventory();
-                        $abc->product_id = $product_id;
-                        $abc->warehouse_id = $child['warehouse_id'];
-                        $abc->qty = $child['qty_deliver'];
-                        // $abc->price = $child['unit_price'];
-                        $abc->save();
-                        $product = Product::where('id', $product_id)->first();
-                        $product->quantity = $total_quantity;
-                        $product->cost_price = $data['unit_price'];
-                        $product->save();
+                        if ($first != null) {
+                            $first = Inventory::where('product_id', $product_id)->where('warehouse_id', $child['warehouse_id'])->first();
+                            $first->qty += $child['qty_deliver'];
+                            $first->save();
+                            $product = Product::where('id', $product_id)->first();
+                            $product->quantity += $total_quantity;
+                            $product->cost_price = $data['unit_price'];
+                            $product->save();
+                        } else {
+                            $abc = new Inventory();
+                            $abc->product_id = $product_id;
+                            $abc->warehouse_id = $child['warehouse_id'];
+                            $abc->qty = $child['qty_deliver'];
+                            $abc->save();
+                            $product = Product::where('id', $product_id)->first();
+                            $product->quantity = $total_quantity;
+                            $product->cost_price = $data['unit_price'];
+                            $product->save();
+                        }
                     }
-                    // }
                 }
                 if ($totalQtyDeliver < $quantity) {
-                    // dd($child['qty_deliver']);
                     $status = Purchase::where('id', $request->id)->first();
                     $status->status_id = 29;
                     $status->save();
                     $abcd = 1;
-                } // dd($abcd);
-                elseif ($abcd != 1) {
-                    // dd($totalQtyDeliver);
+                } elseif ($abcd != 1) {
                     $status = Purchase::where('id', $request->id)->first();
                     $status->status_id = 27;
                     $status->save();
                 }
-                // dd('abcd');
-                // dd($totalQtyDeliver);
                 $purchases = Purchase_item::where('purchase_id', $request->id)->where('product_id', $data['product_id'])->first();
                 $purchases->partail_remaining = $quantity - $totalQtyDeliver;
                 $purchases->save();
-                // dd($totalQtyDeliver);
                 $rrr += $totalQtyDeliver;
                 $qqq += $quantity;
             }
-            // dd($qqq);
             $purchase = Purchase::where('id', $request->id)->first();
             $purchase->partial_remaining = $qqq - $rrr;
             $purchase->save();
-            // dd($purchase);
             $number = Counter::where('key', 'receivable_order');
 
             $model = new Receive_order();
             $model->fill($request->all());
-            $model->number = ($number->first()->perfix . $number->first()->value);
+            $model->number = ($number->first()->prefix . $number->first()->value);
             $model->purchase_order_id = $request->id;
             $model->user_id = Auth::user()->id;
-            //   $model->save();
-            // $model->tax = $request->mtax_amount;
-            // $model->total = $request->finaltotal;
-            // $model->sub_total = $request->tvalue_ex_tax;
             $items = collect($request->items)->map(function ($item) {
                 if ($item['qty'] > 0) {
                     $item['purchase_order_item_id'] = $item['id'];
@@ -257,27 +189,12 @@ class ReceiveOrderController extends Controller
                 }
             });
             $model = DB::transaction(function () use ($model, $items, $number, $request) {
-                // foreach($items as $itm){
-                //     // dd($itm['qty']);
-                //     // dd($itm['product']['id']);
-                //     $id = $itm['product']['id'];
-                //     $product = Product::findOrFail($id);
-                //     $product->quantity = $itm['qty'];
-                //     $product->save();
-                // };
-                // dd($product);
-                // dd($items);
                 $model->storeHasMany([
                     'items' => $items,
-                    // 'purchase_order_item_id' => $request->items->id,
                 ]);
                 $number->update([
                     'value' => ($number->first()->value + 1)
                 ]);
-                // $status = Purchase::where('id' , $request->id)->first();
-                // // dd($status);
-                // $status->status_id = 27;
-                // $status->save();
                 return $model;
             });
         }

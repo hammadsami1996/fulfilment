@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('supplier_id')->nullable();
             $table->string('po_number',25)->nullable();
-            $table->decimal('po_reference_number',10,2)->default(0);
+            $table->string('po_reference_number',15)->nullable();
             $table->date('po_date')->nullable();
             $table->date('due_date')->nullable();
             $table->decimal('discount',10,2)->default(0);

@@ -23,16 +23,16 @@ class Counter extends Model implements Auditable
         return $found->prefix . $found->value;
     }
 
-//    public function increment($key)
-//    {
-//        $result = $this->db()->where('key', $key)->increment('value');
-//
-//        if (!$result) {
-//            throw new Exception('Counter could not increment');
-//        }
-//
-//        return $result;
-//    }
+    public function increase($key)
+    {
+        $result = $this->db()->where('key', $key)->increment('value');
+
+        if (!$result) {
+            throw new Exception('Counter could not increment');
+        }
+
+        return $result;
+    }
 
     protected function db()
     {

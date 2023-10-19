@@ -311,7 +311,7 @@
                 message: 'New purchase Added',
                 permissions: {},
                 suppliers: '/api/supplier',
-                products: '/api/product',
+                products: '/api/product?head_id=!null',
             }
         },
 

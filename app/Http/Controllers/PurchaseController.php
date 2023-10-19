@@ -37,17 +37,17 @@ class PurchaseController extends Controller
         $form = [
             "supplier_id" => '',
             "po_number" => '',
-            "po_reference_number" => '',
+            "po_reference_number" => Counter()->next('purchase_order'),
             "po_date" => '',
             "due_date" => '',
-            "discount" => '',
+            "discount" => 0,
             "sku" => '',
             "name" => '',
             "qty" => '',
-            "purchasing_price" => '',
             "tax" => '',
             "sub_total" => '',
             "total" => '',
+            "discount_percent" => 0,
 
         ];
         return response()->json([
@@ -72,25 +72,21 @@ class PurchaseController extends Controller
             'items.*.product_id' => 'required|integer|exists:products,id',
             'items.*.unit_price' => 'required|numeric|min:0',
         ]);
-
-        $number = Counter::where('key', 'purchase_order');
-        // dd($number->first()->perfix);
-
+//        $number = Counter::where('key', 'purchase_order');
         $model = new Purchase();
         $model->fill($request->all());
         $model->po_date = date('Y-m-d');
-        $model->po_number = ($number->first()->perfix . $number->first()->value);
-        // $model->save();
+        $model->po_reference_number = Counter()->next('purchase_order');
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;
         $model->sub_total = $request->tvalue_ex_tax;
         $model->storeHasMany([
             'items' => $request->items
         ]);
-
-        $number->update([
-            'value' => ($number->first()->value + 1)
-        ]);
+        Counter()->increase('purchase_order');
+//        $number->update([
+//            'value' => ($number->first()->value + 1)
+//        ]);
 
         return response()->json(["saved" => true, "id" => $model->id]);
     }
