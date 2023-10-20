@@ -28,10 +28,10 @@ class DeliverystatusController extends Controller
         // dd(request('id'));
     //    if(request('status') == 1){
         $id = request('id');
-       
+
 
             // $data = Order::where('id',$id)->value('status_id');
-        
+
         // dd($data);
         $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $id)->orderBy('id')
           ->search();
@@ -44,7 +44,7 @@ class DeliverystatusController extends Controller
         //         $results = Delivery_status::orderBy('id')->where('id' , 4)->orwhere('id' , 5)
         //           ->search();
         //         }
-     
+
         return response()->json(['data' => $results]);
     }
 
@@ -99,7 +99,6 @@ class DeliverystatusController extends Controller
 
     public function updatestatus(Request $request  )
     {
-                // dd($request->all());
             $data = Order::where('id' , $request->ids)->first();
             $logs = new Statuslog();
             $logs->order_id = $request->ids;
@@ -109,11 +108,9 @@ class DeliverystatusController extends Controller
             $logs->date = Carbon::now();
             $logs->save();
 
-
-
             $data->status_id = $request->id;
             $data->save();
-            
+
 
 
             return response()->json(["saved" => true, "id" => $data->id]);
@@ -131,16 +128,16 @@ class DeliverystatusController extends Controller
     {
         // dd(request('id'));
         $id = request('id');
-  
+
 
             // $data = Purchase::where('id',$id)->value('status_id');
             $datas = Delivery_status::where('id',$id)->value('head_id');
             $datasArray = explode(',', $datas);
-           
+
         $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $id)->whereIn('id' , $datasArray)->orderBy('id')
           ->search();
-       
-     
+
+
         return response()->json(['data' => $results]);
     }
 }
