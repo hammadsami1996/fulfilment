@@ -20,7 +20,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-//        dd(\request()->all());
         return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'shipped_by', 'city','stores', 'warehouse')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
@@ -197,7 +196,6 @@ class OrderController extends Controller
         $order->updateHasMany([
             'items' => $request->items
         ]);
-        $order->save(); // Save the changes to the order
 
         return response()->json(["saved" => true, "id" => $order->id]);
     }
