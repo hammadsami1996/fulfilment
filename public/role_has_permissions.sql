@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `role_has_permissions`;
 CREATE TABLE `role_has_permissions`  (
   `permission_id` bigint UNSIGNED NOT NULL,
   `role_id` bigint UNSIGNED NOT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of role_has_permissions
@@ -44,11 +44,6 @@ INSERT INTO `role_has_permissions` VALUES (65, 1);
 INSERT INTO `role_has_permissions` VALUES (66, 1);
 INSERT INTO `role_has_permissions` VALUES (67, 1);
 INSERT INTO `role_has_permissions` VALUES (68, 1);
-INSERT INTO `role_has_permissions` VALUES (70, 1);
-INSERT INTO `role_has_permissions` VALUES (71, 1);
-INSERT INTO `role_has_permissions` VALUES (72, 1);
-INSERT INTO `role_has_permissions` VALUES (73, 1);
-INSERT INTO `role_has_permissions` VALUES (74, 1);
 INSERT INTO `role_has_permissions` VALUES (76, 1);
 INSERT INTO `role_has_permissions` VALUES (77, 1);
 INSERT INTO `role_has_permissions` VALUES (78, 1);
@@ -139,41 +134,39 @@ INSERT INTO `role_has_permissions` VALUES (209, 1);
 INSERT INTO `role_has_permissions` VALUES (210, 1);
 INSERT INTO `role_has_permissions` VALUES (211, 1);
 INSERT INTO `role_has_permissions` VALUES (212, 1);
-INSERT INTO `role_has_permissions` VALUES (213, 1);
 INSERT INTO `role_has_permissions` VALUES (214, 1);
 INSERT INTO `role_has_permissions` VALUES (215, 1);
 INSERT INTO `role_has_permissions` VALUES (216, 1);
 INSERT INTO `role_has_permissions` VALUES (217, 1);
 INSERT INTO `role_has_permissions` VALUES (218, 1);
-INSERT INTO `role_has_permissions` VALUES (219, 1);
 INSERT INTO `role_has_permissions` VALUES (220, 1);
 INSERT INTO `role_has_permissions` VALUES (221, 1);
 INSERT INTO `role_has_permissions` VALUES (222, 1);
 INSERT INTO `role_has_permissions` VALUES (223, 1);
 INSERT INTO `role_has_permissions` VALUES (224, 1);
-INSERT INTO `role_has_permissions` VALUES (225, 1);
 INSERT INTO `role_has_permissions` VALUES (226, 1);
 INSERT INTO `role_has_permissions` VALUES (227, 1);
 INSERT INTO `role_has_permissions` VALUES (228, 1);
 INSERT INTO `role_has_permissions` VALUES (229, 1);
 INSERT INTO `role_has_permissions` VALUES (230, 1);
-INSERT INTO `role_has_permissions` VALUES (231, 1);
 INSERT INTO `role_has_permissions` VALUES (232, 1);
 INSERT INTO `role_has_permissions` VALUES (233, 1);
 INSERT INTO `role_has_permissions` VALUES (234, 1);
 INSERT INTO `role_has_permissions` VALUES (235, 1);
 INSERT INTO `role_has_permissions` VALUES (236, 1);
-INSERT INTO `role_has_permissions` VALUES (237, 1);
 INSERT INTO `role_has_permissions` VALUES (238, 1);
 INSERT INTO `role_has_permissions` VALUES (239, 1);
 INSERT INTO `role_has_permissions` VALUES (240, 1);
 INSERT INTO `role_has_permissions` VALUES (241, 1);
 INSERT INTO `role_has_permissions` VALUES (242, 1);
-INSERT INTO `role_has_permissions` VALUES (243, 1);
 INSERT INTO `role_has_permissions` VALUES (244, 1);
 INSERT INTO `role_has_permissions` VALUES (245, 1);
 INSERT INTO `role_has_permissions` VALUES (246, 1);
 INSERT INTO `role_has_permissions` VALUES (247, 1);
 INSERT INTO `role_has_permissions` VALUES (248, 1);
+INSERT INTO `role_has_permissions` VALUES (250, 1);
+INSERT INTO `role_has_permissions` VALUES (251, 1);
+INSERT INTO `role_has_permissions` VALUES (252, 1);
+INSERT INTO `role_has_permissions` VALUES (253, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

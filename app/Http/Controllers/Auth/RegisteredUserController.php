@@ -123,7 +123,7 @@ class RegisteredUserController extends Controller
 
 //            Auth::login($user);
 
-        return redirect('http://' . $request->name . \env('DOMAIN'));
+        return redirect('http://' . $request->name . \env('DOMAIN').'/login');
         // return redirect(RouteServiceProvider::HOME);
     }
 }

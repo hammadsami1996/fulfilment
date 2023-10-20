@@ -91,7 +91,7 @@ class CourierController extends Controller
             'consignee_email_address' => $order->email ? $order->email : get_store_info('email'),
             'order_id' => $order->rend_order_id,
             'item_product_type_id' => '22',
-            'item_description' => empty($order->item_summary_mannual) ? $order->item_summary : $order->item_summary_mannual,
+            'item_description' => empty($order->item_summary_manual) ? $order->item_summary : $order->item_summary_manual,
             'item_quantity' => $order->qty,
             'item_insurance' => '0',
             'item_price' => $order->net_total,

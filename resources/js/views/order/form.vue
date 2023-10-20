@@ -13,10 +13,8 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Customer
-                         <!-- <span class="text-red-600">*</span> -->
                         </label>
                     <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
-                                       <!-- <p class="text-red-600 text-xs italic" v-if="error.customer_id">{{ error.customer_id[0] }}</p> -->
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">External Order No</label>
@@ -63,8 +61,6 @@
                                @input="onCities($event,'city')" display="name"/>
                     <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                 </div>
-
-
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store <span class="text-red-600">*</span></label>
                     <typeahead :initialize="form.stores" :url="stores" @input="onStores" display="name"/>
@@ -77,10 +73,11 @@
                     <typeahead :initialize="form.warehouse" :url="warehouses" @input="onWarehouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>
-                <!-- <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-1">Order Type </label>
-                    <typeahead :initialize="form.ordertype" :url="ordertype" @input="onOrder_type"  display="name"/>
-                </div> -->
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Courier
+                    </label>
+                    <typeahead :initialize="form.courier" :url="couriers" @input="onCourier" display="name"/>
+                </div>
             </div>
             <hr class="mt-4">
             <h1 class="font-bold mt-1">Shipping</h1>
@@ -144,6 +141,18 @@
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="number"
                               v-model="form.instructions"/>
                     <p class="text-red-600 text-xs italic" v-if="error.instructions">{{ error.instructions[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Item Summary </label>
+                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="number"
+                              v-model="form.item_summary"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.item_summary">{{ error.item_summary[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Item Summary Mannual </label>
+                    <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="number"
+                              v-model="form.item_summary_mannual"/>
+                    <p class="text-red-600 text-xs italic" v-if="error.item_summary_mannual">{{ error.item_summary_mannual[0] }}</p>
                 </div>
             </div>
             <div class="border border-gray-200 rounded-lg bg-gray-100 ml-3 mt-4">
@@ -334,6 +343,7 @@
                 warehouses: '/api/warehouse',
                 cities: '/api/city',
                 countries: '/api/country',
+                couriers: "/api/courier",
                 // ordertype: '/api/order_type',
             }
         },
@@ -436,6 +446,11 @@
                 const country = e.target.value
                 this.form.country = country
                 this.form.country_id = country.id
+            },
+            onCourier(e) {
+                const courier = e.target.value;
+                this.form.courier = courier;
+                this.form.courier_id = courier.id;
             },
             onCities(e) {
                 const city = e.target.value
