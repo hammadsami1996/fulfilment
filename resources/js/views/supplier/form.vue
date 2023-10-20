@@ -42,7 +42,9 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Address <span class="text-red-600">*</span></label>
+                    >Address
+                     <!-- <span class="text-red-600">*</span> -->
+                    </label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Address"
@@ -57,7 +59,9 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Number 1 <span class="text-red-600">*</span></label>
+                    >Number 1 
+                    <span class="text-red-600">*</span>
+                </label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Number 1"
@@ -76,12 +80,14 @@
                         type="number"
                         v-model="form.number_2"
                     />
-<!--                    <p class="text-red-600 text-xs italic" v-if="error.number_2">{{ error.number_2[0] }}</p>-->
+                   <p class="text-red-600 text-xs italic" v-if="error.number_2">{{ error.number_2[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Email Address <span class="text-red-600">*</span></label>
+                    >Email Address 
+                    <!-- <span class="text-red-600">*</span> -->
+                </label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Email Address"
@@ -93,13 +99,14 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Opening Balance <span class="text-red-600">*</span></label>
+                    >Opening Balance </label>
                     <input
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Opening Balance"
                         type="number"
+                        
                         v-model="form.opening_balance"
-                    />
+                        />
                     <p class="text-red-600 text-xs italic" v-if="error.opening_balance">{{ error.opening_balance[0] }}</p>
                 </div>
             </div>

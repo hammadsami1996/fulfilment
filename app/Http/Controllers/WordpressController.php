@@ -114,12 +114,15 @@ class WordpressController extends Controller
                     $i = 0;
 
                     foreach ($response->json() as $rec) {
+                        // dd($rec);
+                        
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'WooCommerce')->where('store_id', $store->id)->first();
                         if (!$order) {
                             ++$i;
                             $order = new Order();
                             $order->store_id = $id;
                             $order->warehouse_id = $store['warehouse_id'];
+                            $order->company_id = $store['company_id'];
                             $order->order_form = 'WooCommerce';
                             $order->external_order_no = $rec['id'];
                             if ($rec['billing']['phone']) {
@@ -128,6 +131,11 @@ class WordpressController extends Controller
                                     $order->customer_id = $customer['id'];
                                 } else {
                                     $customer = new Customer();
+                                    $customer->name = $rec['billing']['first_name'] . ' ' . $rec['billing']['last_name'];
+                                    $customer->email = $rec['billing']['email'];
+                                    $customer->phone = $rec['billing']['phone'];
+
+                                   
                                     if ($rec['billing']) {
                                         $b_city = City::where('name', $rec['billing']['city'])->first();
                                         if ($b_city) {
@@ -182,7 +190,9 @@ class WordpressController extends Controller
 
                             $order->status_id = 1;
 
-                            $items = [];
+                            $items = []; 
+                            $sum = '';
+
                             foreach ($rec['line_items'] as $key => $item) {
                                 $parent_product = Product::where('title', $item['parent_name'])->whereNull('head_id')->first();
                                 if (!$parent_product) {
@@ -238,7 +248,9 @@ class WordpressController extends Controller
                                 $items[$key]['product_id'] = $product['id'];
                                 $items[$key]['unit_price'] = $item['price'];
                                 $items[$key]['tax_amount'] = $item['total_tax'];
+                                $sum .= $item['name'] . " (Qty:" . $item['quantity'] . ")\n";
                             }
+                            $order['item_summary'] = $sum;
                             $order->storeHasMany([
                                 'items' => $items
                             ]);
