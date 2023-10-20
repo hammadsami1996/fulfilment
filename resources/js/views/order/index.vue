@@ -69,7 +69,7 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">Shipper</label>
-                    <typeahead :initialize="form.courier" :url="shipped" @input="onshippedby" display="name"/>
+                    <typeahead :initialize="form.courier" :url="courier" @input="onshippedby" display="name"/>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">Status</label>
@@ -192,13 +192,8 @@
                 <template v-slot:courier="props">
                     <div v-if="props.item.courier_id">
                         <typeahead :initialize="props.item.courier" :url="courier"
-                                   @input="onShippeds($event  , props.item)" display="name"/>
+                                   @input="onShippeds($event, props.item)" display="name"/>
                         <!-- <p>{{props.item}}</p> -->
-                    </div>
-                    <div v-else>
-                        <!-- <p>{{props.item.city}}</p> -->
-                        <!-- <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
-                             @input="onShipped($event , props.item.city , props.item)" display="name"/> -->
                     </div>
                 </template>
 
@@ -232,7 +227,7 @@
                             </svg>
                         </a>
                         </span>
-                        <a @click.prevent="showss(props.item.id)" href="#" v-if="props.item.status_id == 2">
+                        <a @click.prevent="showss(props.item.id)" href="#" v-if="props.item.status_id == 2 && props.item.courier_id">
                             <svg class="h-5 w-5 "
                                  height="1em"
                                  viewBox="0 0 576 512"
