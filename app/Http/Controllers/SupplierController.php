@@ -33,7 +33,7 @@ class SupplierController extends Controller
             "number_1" => '',
             "number_2" => '',
             "email" => '',
-            "opening_balance" => '',
+            "opening_balance" => '0',
         ];
         return response()->json([
             'form' => $form
@@ -49,11 +49,11 @@ class SupplierController extends Controller
             'name' => 'required|max:25',
             'company_name' => 'required|max:25',
             // 'website' => 'required',
-            'address' => 'required|max:25',
+            // 'address' => 'required|max:25',
             'number_1' => 'required|max:15',
 //            'number_2' => 'required',
-            'email' => 'required|max:25',
-            'opening_balance' => 'required|max:25',
+            // 'email' => 'required|max:25',
+            // 'opening_balance' => 'required|max:25',
         ]);
         $model = new Supplier();
         $model->fill($request->all());
@@ -90,11 +90,11 @@ class SupplierController extends Controller
             'name' => 'required|max:25',
             'company_name' => 'required|max:25',
             // 'website' => 'required',
-            'address' => 'required|max:25',
+            // 'address' => 'required|max:25',
             'number_1' => 'required|max:15',
 //            'number_2' => 'required',
-            'email' => 'required|max:25',
-            'opening_balance' => 'required|max:25',
+            // 'email' => 'required|max:25',
+            // 'opening_balance' => 'required|max:25',
         ]);
         $model = Supplier::findOrFail($id);
         $model->fill($request->all());

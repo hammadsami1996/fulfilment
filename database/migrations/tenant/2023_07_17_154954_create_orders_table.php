@@ -53,7 +53,7 @@ return new class extends Migration
             $table->decimal('weight',10,2)->default(0.00)->nullable();
             $table->string('order_form' , 30)->nullable();
             $table->string('payment_method' , 30)->nullable();
-            $table->string('item_summary')->nullable();
+            $table->string('item_summary',500)->nullable();
             $table->string('item_summary_mannual')->nullable();
             $table->string('coupons')->nullable();
             $table->decimal('coupons_discount')->nullable()->default(0.00);

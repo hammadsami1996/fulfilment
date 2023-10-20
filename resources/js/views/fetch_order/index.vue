@@ -54,29 +54,39 @@
             <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center"  v-for="data in store">
                
                     <div v-if="data.plate_form == 'WooCommerce'">
-                        <div :class="wooButton == false ? 'border-4 border-blue-500 rounded-full' : ''" class="card bg-gray-200 cursor-pointer" @click="wooButton = !wooButton">
-                            <img src="~@/images/WooCommerce.png" v-if="!data.img"/>
-
-                            <img :src="`/uploads/store/img/` + data.img" v-else />
-                        </div>
-                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
-                        <button v-if="!wooButton" @click="woocommerce_fetch_data(data)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
+                    
+                            <div :class="activePlatform == data.id  ? 'border-4 border-blue-500 rounded-full'  : ''" class="card bg-gray-200 cursor-pointer"   @click="setActivePlatform(data.id)" >
+                                <img src="~@/images/WooCommerce.png" v-if="!data.img"/>
+                                
+                                <img :src="`/uploads/store/img/` + data.img" v-else />
+                            </div>
+                            <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
+                            <button   v-if="activePlatform === data.id"
+                            @click="woocommerce_fetch_data(data)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
+                           
+                        
                     </div>
                     <div v-if="data.plate_form == 'Shopify'">
-                        <div :class="shopifyButton == false ? 'border-4 border-blue-500 rounded-full' : ''" class="card bg-gray-200 cursor-pointer" @click="shopifyButton = !shopifyButton">
+                        <div :class="activePlatform === data.id  ? 'border-4 border-blue-500 rounded-full' : ''" class="card bg-gray-200 cursor-pointer" @click="setActivePlatform(data.id)" >
                             <img src="~@/images/Shopify-bag.png" v-if="!data.img"/>
                             <img :src="`/uploads/store/img/` + data.img" v-else />
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
-                        <button v-if="!shopifyButton" @click="shopify_fetch_data(data.id)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
+                        <button  v-if="activePlatform === data.id"
+                        @click="shopify_fetch_data(data.id)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
+                       
                     </div>
                     <div v-if="data.plate_form == 'MimCart'">
-                        <div :class="mimCartButton == false ? 'border-4 border-blue-500 rounded-full' : ''" class="card bg-gray-200 cursor-pointer" @click="mimCartButton = !mimCartButton">
+                        <div :class="activePlatform === data.id  ? 'border-4 border-blue-500 rounded-full' || shopifyButton === true || wooButton === true : ''" class="card bg-gray-200 cursor-pointer"  @click="setActivePlatform(data.id)" >
                             <img src="~@/images/MimCart.jpg" v-if="!data.img" />
                             <img :src="`/uploads/store/img/` + data.img" v-else />
                         </div>
                         <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
-                        <button v-if="!mimCartButton" @click="mimcart_fetch_data(data.id)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white">Fetch</button>
+                        <button v-if="activePlatform === data.id"
+                        @click="mimcart_fetch_data(data.id)" class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white" >Fetch</button>
+                      
+                        
+
                     </div>
                 </div>
                 </div>
@@ -109,6 +119,8 @@ export default {
                 wooButton: true,
                 shopifyButton: true,
                 mimCartButton: true,
+                activePlatform: '',
+                
             }
         },
         created() {
@@ -127,6 +139,9 @@ export default {
                 this.returns(this.form.company_id);
                 this.selectedCompany = e;
             },
+            setActivePlatform(platform) {
+      this.activePlatform = platform;
+    },
             returns(e) {
                 byMethod("get", `/api/stores_data?company_id=${e}`).then(
                     (res) => {
