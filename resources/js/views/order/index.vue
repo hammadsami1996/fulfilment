@@ -193,7 +193,6 @@
                     <div v-if="props.item.courier_id">
                         <typeahead :initialize="props.item.courier" :url="courier"
                                    @input="onShippeds($event, props.item)" display="name"/>
-                        <!-- <p>{{props.item}}</p> -->
                     </div>
                 </template>
 
@@ -270,12 +269,6 @@
                 </div>
             </div>
             <div class="flex justify-end space-x-4 m-3">
-                <!-- <button
-                    @click="formSubmitted"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
-                    type="button">
-                    {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
-                </button> -->
                 <button
                     @click="sendMsg"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600  transition duration-200 ease-in-out"
@@ -337,7 +330,7 @@
                     {label: 'Net Amount', field: 'total'},
                     {label: 'Packing Status', field: 'packability'},
                     // {label: 'Order Date', field: 'order_date'},
-                    {label: 'Courier By', field: 'courier', slot: true},
+                    {label: 'Courier', field: 'courier', slot: true},
                     {label: 'Action', field: 'action', action: true},
                 ]
             }
