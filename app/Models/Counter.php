@@ -19,7 +19,7 @@ class Counter extends Model implements Auditable
         if (!$found) {
             throw new Exception('No record for counter found');
         }
-
+//        var_dump($found);
         return $found->prefix . $found->value;
     }
 

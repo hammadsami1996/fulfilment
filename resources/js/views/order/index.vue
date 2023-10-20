@@ -23,29 +23,29 @@
                     Fake
                 </a>
             </nav>
-                <!-- <a @click="showRecords('?packability=packable')"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
-                    Packable
-                </a>
-                <a @click="showRecords('?packability=unpackable')"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-                    Unpackable
-                </a> -->
+            <!-- <a @click="showRecords('?packability=packable')"
+               class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
+                Packable
+            </a>
+            <a @click="showRecords('?packability=unpackable')"
+               class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
+                Unpackable
+            </a> -->
         </div>
         <div class="container px-4 py-5  sm:px-6 flex justify-between items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
 
-                <div class="" style="display: contents" >
+            <div class="" style="display: contents">
 
                 <a @click="showpackable('packable',pack)"
-                class="w-1/6 sm:mx-auto    py-4 px-6  text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
-                Packable
-            </a>
-            <a @click="showpackable('unpackable',pack)"
-            class="w-1/6 sm:mx-auto  py-4 px-6 text-center border-b-2 font-medium md:mx-auto lg:ml-[-10pc]   text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-            Unpackable
-        </a>
-    </div>
+                   class="w-1/6 sm:mx-auto    py-4 px-6  text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
+                    Packable
+                </a>
+                <a @click="showpackable('unpackable',pack)"
+                   class="w-1/6 sm:mx-auto  py-4 px-6 text-center border-b-2 font-medium md:mx-auto lg:ml-[-10pc]   text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
+                    Unpackable
+                </a>
+            </div>
 
 
             <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
@@ -88,8 +88,9 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">Discount</label>
                     <div class="relative">
-                        <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
-                                v-model="form.discount">
+                        <select
+                            class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
+                            v-model="form.discount">
                             <option value="Applied">Applied</option>
                             <option value="NotApplied">Not Applied</option>
                         </select>
@@ -106,8 +107,9 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">Shipping Charges</label>
-                    <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
-                            v-model="form.discount">
+                    <select
+                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
+                        v-model="form.discount">
                         <option value="Applied">Applied</option>
                         <option value="NotApplied">Not Applied</option>
                     </select>
@@ -124,7 +126,8 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1 capitalize">Quantity</label>
                     <input
-                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Quantity" type="number" v-model="form.quantity"/>
+                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Quantity" type="number" v-model="form.quantity"/>
                 </div>
             </div>
             <button
@@ -136,9 +139,10 @@
         </div>
 
         <div class="flex-col ">
-            <panel :columns="columns" :urlApi="urlApi" ref="TableData" >
-                <template v-slot:statuses="props" >
-                    <button class="button" :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) ">
+            <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+                <template v-slot:statuses="props">
+                    <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) "
+                            class="button">
                         {{ props.item.status ? props.item.status.name :''}}
                     </button>
                     <!-- <div v-if="props.item.status.id == 9">
@@ -148,64 +152,70 @@
                     </div> -->
                     <div v-if="sts && props.item.id == ids">
                         <div>
-                            <button class="buttonHide"
-                                @click="Cancel()"
-                                style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197,13,13)); font-weight: bold;">
+                            <button @click="Cancel()"
+                                    class="buttonHide"
+                                    style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197,13,13)); font-weight: bold;">
                                 Hide
                             </button>
                         </div>
                         <typeahead :initialize="form.deliver" :url="delivery+'?head=order&id='+ props.item.status.id"
-                                   @input="onDelivery($event ,props.item.id)" display="name" v-if="props.item.packability == 'packable' " />
-                        <span v-else > {{'This Order Not Packable'}}</span>
+                                   @input="onDelivery($event ,props.item.id)" display="name"
+                                   v-if="props.item.packability == 'packable' "/>
+                        <span v-else> {{'This Order Not Packable'}}</span>
                     </div>
                 </template>
-                <template v-slot:customers="props" >
+                <template v-slot:customers="props">
                     <div>
                         <p v-if="props.item.customer">{{props.item.customer.name}}</p>
                         <p v-else>-</p>
-                            <p v-if="props.item.customer && props.item.customer.phone" >
-                                <i  class="fas fa-phone text-black"></i>
-                                {{props.item.customer.phone}}
-                            </p>
-                            <p v-else>-</p>
-                            <p v-if="props.item.customer && props.item.customer.email">
-                                <i class="fas fa-envelope text-black"></i>
-                                {{props.item.customer.email}}
-                            </p>
-                            <p v-else>-</p>
+                        <p v-if="props.item.customer && props.item.customer.phone">
+                            <i class="fas fa-phone text-black"></i>
+                            {{props.item.customer.phone}}
+                        </p>
+                        <p v-else>-</p>
+                        <p v-if="props.item.customer && props.item.customer.email">
+                            <i class="fas fa-envelope text-black"></i>
+                            {{props.item.customer.email}}
+                        </p>
+                        <p v-if="props.item.customer && props.item.customer.b_address_1">
+                            <i class="fas fa-envelope text-black"></i>
+                            {{props.item.customer.b_address_1}}
+                        </p>
+                        <p v-else>-</p>
                     </div>
                 </template>
-                <template v-slot:company="props" >
+                <template v-slot:company="props">
                     <div>
-                        <img :src="`/uploads/company/logo/${props.item.stores.company.logo}`" class="shadow-xl h-10 w-10 rounded-full"/>
+                        <img :src="`/uploads/company/logo/${props.item.stores.company.logo}`"
+                             class="shadow-xl h-10 w-10 rounded-full"/>
                         <!-- <p class="h-8 w-8">{{props.item.company.logo}}</p> -->
                         <!-- <p>{{props.item.stores.name}}</p> -->
                     </div>
                 </template>
 
-                <template v-slot:store="props" >
+                <template v-slot:store="props">
                     <div v-if="props.item.stores.plate_form == 'Shopify'">
-                        <img src="~@/images/Shopify-bag.png" class="h-10 w-10 rounded-full shadow-xl"/>
+                        <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/Shopify-bag.png"/>
                     </div>
                     <div v-if="props.item.stores.plate_form == 'WooCommerce'">
-                        <img src="~@/images/WooCommerce.png" class="h-10 w-10 rounded-full shadow-xl"/>
+                        <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/WooCommerce.png"/>
                     </div>
                     <div v-if="props.item.stores.plate_form == 'MimCart'">
-                        <img src="~@/images/MimCart.jpg" class="h-10 w-10 rounded-full shadow-xl"/>
+                        <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/MimCart.jpg"/>
                     </div>
 
                 </template>
 
                 <template v-slot:courier="props">
                     <div v-if="props.item.courier_id">
-                        <typeahead  :initialize="props.item.shipped_by" :url="courier"
-                            @input="onShippeds($event  , props.item)" display="name"/>
+                        <typeahead :initialize="props.item.shipped_by" :url="courier"
+                                   @input="onShippeds($event  , props.item)" display="name"/>
                         <!-- <p>{{props.item}}</p> -->
                     </div>
                     <div v-else>
                         <!-- <p>{{props.item.city}}</p> -->
-                       <!-- <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
-                            @input="onShipped($event , props.item.city , props.item)" display="name"/> -->
+                        <!-- <typeahead  :initialize="props.item.city.couriers[0]" :url="courier"
+                             @input="onShipped($event , props.item.city , props.item)" display="name"/> -->
                     </div>
                 </template>
 
@@ -241,20 +251,20 @@
                         </span>
                         <a @click.prevent="showss(props.item.id)" href="#" v-if="props.item.status_id == 2">
                             <svg class="h-5 w-5 "
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="1em"
-                                viewBox="0 0 576 512">
-                                    <path
-                                        d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
+                                 height="1em"
+                                 viewBox="0 0 576 512"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
                             </svg>
                         </a>
                         <a @click.prevent="showss(props.item.id)" href="#">
                             <svg class="h-5 w-5 "
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="1em"
-                                viewBox="0 0 576 512">
-                                    <path
-                                        d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
+                                 height="1em"
+                                 viewBox="0 0 576 512"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
                             </svg>
                         </a>
                         <a @click="show_msg_modal">
@@ -266,43 +276,43 @@
         </div>
     </div>
     <Modal :show="show_msg" closeable="true">
-            <div class="">
-                <h1 class="text-lg font-bold mt-4 mb-4 text-center">Send SMS</h1>
-                <!-- <i class="fas fa-cancel" @click="sendMsg"></i> -->
-                <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                    <div class="w-full mb-4 sm:mb-0 p-2">
-                        <label class="block font-medium text-sm text-gray-700 mb-2"
-                        >Push SMS</label>
-                        <textarea
-                            class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md"
-                            type="text"
-                            v-model="form.address"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-4 m-3">
-                    <!-- <button
-                        @click="formSubmitted"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
-                        type="button">
-                        {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
-                    </button> -->
-                    <button
-                        @click="sendMsg"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600  transition duration-200 ease-in-out"
-                        type="button">
-                        Cancel
-                    </button>
-                    <button
-                        @click="sendMsg"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
-                        type="button">
-                        Send
-                    </button>
+        <div class="">
+            <h1 class="text-lg font-bold mt-4 mb-4 text-center">Send SMS</h1>
+            <!-- <i class="fas fa-cancel" @click="sendMsg"></i> -->
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                <div class="w-full mb-4 sm:mb-0 p-2">
+                    <label class="block font-medium text-sm text-gray-700 mb-2"
+                    >Push SMS</label>
+                    <textarea
+                        class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md"
+                        type="text"
+                        v-model="form.address"
+                    />
+                    <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>
                 </div>
             </div>
-        </Modal>
+            <div class="flex justify-end space-x-4 m-3">
+                <!-- <button
+                    @click="formSubmitted"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
+                    type="button">
+                    {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
+                </button> -->
+                <button
+                    @click="sendMsg"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600  transition duration-200 ease-in-out"
+                    type="button">
+                    Cancel
+                </button>
+                <button
+                    @click="sendMsg"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
+                    type="button">
+                    Send
+                </button>
+            </div>
+        </div>
+    </Modal>
 </template>
 
 
@@ -316,7 +326,7 @@
     export default {
         mixins: [form],
         components: {
-            Panel, Typeahead,Modal
+            Panel, Typeahead, Modal
         },
         name: "Index",
         data() {
@@ -387,15 +397,15 @@
                 this.form.deliver = deliver
                 this.form.deliver_id = deliver.id
             },
-            onShipped(e, f , ids) {
-                console.log(e,f)
+            onShipped(e, f, ids) {
+                console.log(e, f)
                 const shipped_by = e.target.value
                 f.couriers[0] = shipped_by
                 ids.couriers_id = shipped_by.id
                 byMethod('POST', `/api/order/${ids.id}?_method=PUT`, ids)
             },
-            onShippeds(e, f ) {
-                console.log(e,f)
+            onShippeds(e, f) {
+                console.log(e, f)
                 const shipped_by = e.target.value
                 f.shipped_by = shipped_by
                 f.couriers_id = shipped_by.id
@@ -407,7 +417,7 @@
                 this.form.name = customer.name
                 this.form.email = customer.email
                 this.form.phone = customer.phone
-                this.form.s_address_1 = customer.s_address_1
+                this.form.b_address_1 = customer.b_address_1
                 this.form.customer_id = customer.id
             },
             onshippedby(e) {
@@ -458,7 +468,7 @@
                     this.$refs.TableData.reload();
                 }, 500)
             },
-            showpackable(packability,e) {
+            showpackable(packability, e) {
 
                 setTimeout(() => {
                     this.urlApi = this.urlApi1
@@ -510,13 +520,13 @@
                 }, 500)
 
             },
-            generateCN(){
+            generateCN() {
                 console.log('cn print')
             },
-            show_msg_modal(){
+            show_msg_modal() {
                 this.show_msg = true
             },
-            sendMsg(){
+            sendMsg() {
                 this.show_msg = false
             }
         },
@@ -644,35 +654,35 @@
         color: #ffffff;
     }
 
-/* .tooltip-container {
-    position: relative;
-    display: inline-block;
-}
+    /* .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
 
-.tooltip-trigger {
-    cursor: pointer;
-}
+    .tooltip-trigger {
+        cursor: pointer;
+    }
 
-.tooltip-content {
-    visibility: hidden;
-    background-color: #f3f4f6;
-    color: #fff;
-    text-align: center;
-    border-radius: 4px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: -20%;
-    left: 580%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s, visibility 0.3s;
-}
+    .tooltip-content {
+        visibility: hidden;
+        background-color: #f3f4f6;
+        color: #fff;
+        text-align: center;
+        border-radius: 4px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: -20%;
+        left: 580%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+    }
 
-.tooltip-container:hover .tooltip-content {
-    visibility: visible;
-    opacity: 1;
-} */
+    .tooltip-container:hover .tooltip-content {
+        visibility: visible;
+        opacity: 1;
+    } */
 
 
 </style>

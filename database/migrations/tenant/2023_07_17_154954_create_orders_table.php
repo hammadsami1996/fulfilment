@@ -50,7 +50,7 @@ return new class extends Migration
             $table->decimal('shipping_charges',10,2)->nullable()->default(0.00);
             $table->decimal('advance',10,2)->nullable()->default(0.00);
             $table->decimal('delivery_charges',10,2)->nullable()->default(0.00);
-            $table->decimal('weight',10,2)->default(0.00);
+            $table->decimal('weight',10,2)->default(0.00)->nullable();
             $table->string('order_form' , 30)->nullable();
             $table->string('payment_method' , 30)->nullable();
             $table->string('item_summary')->nullable();
