@@ -21,7 +21,6 @@ return new class extends Migration
             $table->decimal('total',10,2)->default(0.00);
             $table->decimal('tax',10,2)->default(0.00);
             $table->decimal('balance',10,2)->nullable()->default(0.00);
-            $table->string('courier')->nullable();
             $table->integer('courier_id')->nullable();
             $table->integer('payment_status')->nullable();
             $table->string('location')->nullable();
@@ -53,8 +52,8 @@ return new class extends Migration
             $table->decimal('weight',10,2)->default(0.00)->nullable();
             $table->string('order_form' , 30)->nullable();
             $table->string('payment_method' , 30)->nullable();
-            $table->string('item_summary')->nullable();
-            $table->string('item_summary_mannual')->nullable();
+            $table->string('item_summary',510)->nullable();
+            $table->string('item_summary_manual')->nullable();
             $table->string('coupons')->nullable();
             $table->decimal('coupons_discount')->nullable()->default(0.00);
             $table->decimal('redeem_amount',10,2)->nullable()->default(0.00);
