@@ -37,19 +37,16 @@ class Order extends Model implements Auditable
         'delivery_charges', 'weight', 'order_form', 'payment_method', 'item_summary', 'item_summary_manual', 'coupons', 'coupons_discount', 'redeem_amount', 'net_total', 'comments',
         'shipment_services', 'shipped_ref', 'shipper_slip_link', 'city_name', 'payment_description', 'currency_symbol', 'currency_value', 'replacement_item_summary', 'replacement_qty'
     ];
-    protected $appends = ['text'];
 
-//    protected $appends = ['text', 'net_total'];
-
-    public function getTextAttribute()
+    public function country()
     {
-
+        return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 
-//    public function getNetTotalAttribute()
-//    {
-//        return ($this->attributes['total'] + $this->attributes['shipping_charges'] - ($this->attributes['discount'] + $this->attributes['advance']));
-//    }
+    public function status_logs()
+    {
+        return $this->hasMany(Statuslog::class);
+    }
 
     public function customer()
     {
@@ -63,7 +60,7 @@ class Order extends Model implements Auditable
 
     public function items()
     {
-        return $this->hasMany(Order_item::class);
+        return $this->hasMany(Order_item::class, 'id', 'order_id');
     }
 
     public function warehouse()
@@ -77,34 +74,14 @@ class Order extends Model implements Auditable
         return $this->belongsTo(Delivery_status::class, 'status_id', 'id');
     }
 
-    public function shipped()
+    public function courier()
     {
-        return $this->belongsTo(Shipped::class, 'courier_id', 'id');
-    }
-    public function country()
-    {
-        return $this->belongsTo(Country::class, 'country_id', 'id');
+        return $this->belongsTo(Courier::class, 'courier_id', 'id');
     }
 
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id', 'id');
     }
-
-    // public function ordertype()
-    // {
-    //     return $this->belongsTo(Order_type::class, 'order_type_id', 'id');
-    // }
-
-    public function status_logs()
-    {
-        return $this->hasMany(Statuslog::class);
-    }
-
-    public function courier()
-    {
-        return $this->belongsToMany(Courier::class, 'courier_id', 'id');
-    }
-
 
 }
