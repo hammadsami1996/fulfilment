@@ -10,9 +10,7 @@ use App\Models\Order;
 use App\Models\Order_item;
 use App\Models\OrderViews;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
-
 
 
 class OrderController extends Controller
@@ -109,7 +107,10 @@ class OrderController extends Controller
             // 'external_order_no' => 'required',
             // 'tracking_id' => 'required',
         ]);
-        $c = Customer::where('phone', $request->phone)->first();
+        $c = Customer::where(function ($query) use ($request) {
+            $query->where('phone', $request->b_phone)
+                ->orWhere('phone', $request->s_phone);
+        })->first();
         if (!$c) {
             $Customer = new Customer();
             $Customer->name = $request->name;
@@ -179,7 +180,11 @@ class OrderController extends Controller
 //            'customer_id' => 'required',
 //            'selling_price' => 'required',
         ]);
-        $customer = Customer::where('phone', $request->phone)->first();
+        $customer = Customer::where(function ($query) use ($request) {
+            $query->where('phone', $request->b_phone)
+                ->orWhere('phone', $request->s_phone);
+        })->first();
+
         $order = Order::findOrFail($id);
         $order->fill($request->except('items'));
         $order->courier_id = $request->couriers_id;
@@ -188,7 +193,6 @@ class OrderController extends Controller
         if ($customer) {
             $order->customer_id = $customer->id;
         }
-
         // Assuming you have a method named 'updateHasMany' in your Order model to update related items
         $order->updateHasMany([
             'items' => $request->items
@@ -203,7 +207,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $model = Order::with('customer', 'items', 'stores')->findOrFail($id);
+        $model = Order::findOrFail($id);
         $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();

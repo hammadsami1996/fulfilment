@@ -14,20 +14,7 @@ return new class extends Migration
 //            $table->id();
 //            $table->timestamps();
 //        });
-        $sql = "
-        CREATE VIEW order_views AS
-        SELECT o.*,
-               CASE
-                   WHEN EXISTS (
-                       SELECT 1
-                       FROM order_items oi
-                       LEFT JOIN inventories i ON oi.product_id = i.product_id AND o.warehouse_id = i.warehouse_id
-                       WHERE oi.order_id = o.id AND oi.qty > COALESCE(i.qty, 0)
-                   ) THEN 'unpackable'
-                   ELSE 'packable'
-               END AS packability
-        FROM orders o;
-        ";
+        $sql = "select `o`.*,(case when (`p`.`manage_inventory` = 0) then 'packable' when exists(select 1 from (`order_items` `oi` left join `inventories` `i` on(((`oi`.`product_id` = `i`.`product_id`) and (`o`.`warehouse_id` = `i`.`warehouse_id`)))) where ((`oi`.`order_id` = `o`.`id`) and (`oi`.`qty` > coalesce(`i`.`qty`,0)))) then 'unpackable' else 'packable' end) AS `packability` from ((`orders` `o` left join `order_items` `oi` on((`o`.`id` = `oi`.`order_id`))) left join `products` `p` on((`oi`.`product_id` = `p`.`id`))) where (`o`.`deleted_at` is null)"
 
         DB::statement($sql);
     }
