@@ -123,6 +123,7 @@ class MimCartController extends Controller
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
+                            $sum = '';
                             foreach ($rec['items'] as $key => $item) {
                                 $parent_product = Product::where('title', $item['product_name'])->whereNull('head_id')->first();
                                 if (!$parent_product) {
@@ -187,7 +188,9 @@ class MimCartController extends Controller
                                 $items[$key]['discount'] = $item['discount'];
                                 $items[$key]['cost'] = $item['cost'] || 0;
                                 $items[$key]['total'] = $item['total'];
+                                $sum .= $item['product_name'] . " (Qty:" . $item['qty'] . ")\n";
                             }
+                            $order['item_summary'] = $sum;
                             $order->storeHasMany([
                                 'items' => $items
                             ]);
