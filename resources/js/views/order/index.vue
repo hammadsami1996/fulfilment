@@ -69,7 +69,7 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">Shipper</label>
-                    <typeahead :initialize="form.shipped_by" :url="shipped" @input="onshippedby" display="name"/>
+                    <typeahead :initialize="form.courier" :url="shipped" @input="onshippedby" display="name"/>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-1">Status</label>
@@ -141,25 +141,11 @@
         <div class="flex-col ">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:statuses="props">
-                    <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) "
-                            class="button">
-                        {{ props.item.status ? props.item.status.name :''}}
-                    </button>
-                    <!-- <div v-if="props.item.status.id == 9">
-                        <button class="button bg-gray-400 mt-2" @click="generateCN">
-                            Generate CN
-                        </button>
-                    </div> -->
-                    <div v-if="sts && props.item.id == ids">
-                        <div>
-                            <button @click="Cancel()"
-                                    class="buttonHide"
-                                    style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197,13,13)); font-weight: bold;">
-                                Hide
-                            </button>
-                        </div>
-                        <typeahead :initialize="form.deliver" :url="delivery+'?head=order&id='+ props.item.status.id"
-                                   @input="onDelivery($event ,props.item.id)" display="name"
+<!--                    <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) "-->
+<!--                            class="button">-->
+                    <div>
+                        <typeahead :initialize="props.item.status" :url="delivery+'?head=order&id='+ props.item.status.id"
+                                   @input="onStatus($event ,props.item)" display="name"
                                    v-if="props.item.packability == 'packable' "/>
                         <span v-else> {{'This Order Not Packable'}}</span>
                     </div>
@@ -192,7 +178,6 @@
                         <!-- <p>{{props.item.stores.name}}</p> -->
                     </div>
                 </template>
-
                 <template v-slot:store="props">
                     <div v-if="props.item.stores.plate_form == 'Shopify'">
                         <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/Shopify-bag.png"/>
@@ -203,12 +188,10 @@
                     <div v-if="props.item.stores.plate_form == 'MimCart'">
                         <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/MimCart.jpg"/>
                     </div>
-
                 </template>
-
                 <template v-slot:courier="props">
                     <div v-if="props.item.courier_id">
-                        <typeahead :initialize="props.item.shipped_by" :url="courier"
+                        <typeahead :initialize="props.item.courier" :url="courier"
                                    @input="onShippeds($event  , props.item)" display="name"/>
                         <!-- <p>{{props.item}}</p> -->
                     </div>
@@ -222,7 +205,7 @@
                 <template v-slot:action="props">
 
                     <div class="text-sm font-medium flex">
-                         <span v-if="permissions.includes(`edit-${small}`)">
+                        <span v-if="permissions.includes(`edit-${small}`)">
                         <a
                             @click.prevent="edit(props.item.id)"
                             href="#"
@@ -386,11 +369,11 @@
                     }
                 })
             },
-            onDelivery(e, id) {
-                const deliver = e.target.value
-                this.form.deliver = deliver
-                this.form.deliver_id = deliver.id
-                this.Update(this.form.deliver, id);
+            onStatus(e, value) {
+                const status = e.target.value
+                e.status = status
+                e.status_id = status.id
+                this.Update(status, value.id);
             },
             onDeliverySearch(e, id) {
                 const deliver = e.target.value
@@ -399,16 +382,15 @@
             },
             onShipped(e, f, ids) {
                 console.log(e, f)
-                const shipped_by = e.target.value
-                f.couriers[0] = shipped_by
-                ids.couriers_id = shipped_by.id
+                const courier = e.target.value
+                f.couriers[0] = courier
+                ids.courier_id = courier.id
                 byMethod('POST', `/api/order/${ids.id}?_method=PUT`, ids)
             },
             onShippeds(e, f) {
-                console.log(e, f)
-                const shipped_by = e.target.value
-                f.shipped_by = shipped_by
-                f.couriers_id = shipped_by.id
+                const courier = e.target.value
+                f.courier = courier
+                f.courier_id = courier.id
                 byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
             },
             onCustomer(e) {
@@ -421,9 +403,9 @@
                 this.form.customer_id = customer.id
             },
             onshippedby(e) {
-                const shipped_by = e.target.value
-                this.form.shipped_by = shipped_by
-                this.form.courier_id = shipped_by.id
+                const courier = e.target.value
+                this.form.courier = courier
+                this.form.courier_id = courier.id
             },
             onOrder_type(e) {
                 const ordertype = e.target.value
@@ -499,7 +481,7 @@
                     if (this.form.ordertype != null) {
                         param += `&order_type_id=${this.form.order_type_id}`;
                     }
-                    if (this.form.shipped_by != null) {
+                    if (this.form.courier != null) {
                         param += `&courier_id=${this.form.courier_id}`;
                     }
                     if (this.form.discount != null) {

@@ -20,7 +20,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'shipped_by', 'city','stores', 'warehouse')
+        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'courier', 'city','stores', 'warehouse')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
             })->when(\request()->has('packability'), function ($q) {
@@ -186,8 +186,6 @@ class OrderController extends Controller
 
         $order = Order::findOrFail($id);
         $order->fill($request->except('items'));
-        $order->courier_id = $request->couriers_id;
-
         // Update the customer ID for the order if a customer with the provided phone exists
         if ($customer) {
             $order->customer_id = $customer->id;
@@ -232,7 +230,6 @@ class OrderController extends Controller
 
     public function get_delivery_charges($id)
     {
-//        dd($id);
         $model = Delivery_Charges::where('city_id', $id)->where('weight', '<=', \request('id'))->orderBy('weight', 'DESC')->first();
 
         if (!$model) {
@@ -245,8 +242,4 @@ class OrderController extends Controller
             "form" => $model
         ]);
     }
-
-
-
-
 }
