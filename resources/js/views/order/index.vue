@@ -177,8 +177,8 @@
                             <i class="fas fa-envelope text-black"></i>
                             {{props.item.customer.email}}
                         </p>
+                        <p v-else>-</p>
                         <p v-if="props.item.customer && props.item.customer.b_address_1">
-                            <i class="fas fa-envelope text-black"></i>
                             {{props.item.customer.b_address_1}}
                         </p>
                         <p v-else>-</p>

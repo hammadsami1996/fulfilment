@@ -21,7 +21,7 @@ class OrderController extends Controller
     public function index()
     {
 //        dd(\request()->all());
-        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'shipped_by', 'city','stores', 'warehouse')
+        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'shipped_by', 'city','stores', 'warehouse','courier')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
             })->when(\request()->has('packability'), function ($q) {
@@ -154,7 +154,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $model = Order::with('customer', 'items.product', 'stores', 'warehouse')->findOrFail($id);
+        $model = Order::with('customer', 'items.product', 'stores', 'warehouse','courier')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -163,7 +163,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $model = Order::with('city', 'customer', 'items.product', 'stores', 'warehouse', 'status_logs.status', 'status_logs.user')->findOrFail($id);
+        $model = Order::with('city', 'customer', 'items.product', 'stores', 'warehouse', 'status_logs.status', 'status_logs.user', 'courier')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
