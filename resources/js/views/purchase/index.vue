@@ -51,29 +51,40 @@
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
-                <template v-slot:statuses="props">
-                    <button   :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) " >
+                <template v-slot:statuses="props" >
+                    <div>
+                        <typeahead 
+                        :initialize="props.item.status"
+                        :url="delivery+'?head=purchase&id='+ props.item.status.id"
+                        @input="onDelivery($event ,props.item.id)" display="name"
+                      
+                        v-if="props.item.status"
+                        />
+                    </div>
+                        <!-- <span v-else> {{'This Order Not Packable'}}</span> -->
+                        <!-- :initialize="props.item.status.name" -->
+                    <!-- <button   :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) " >
                            {{ props.item.status ? props.item.status.name :'' }}
-                                </button>
+                                </button> -->
                                 <!-- <button @click="shows(1 ,props.item.id) ">Draft</button> -->
 
 
-                                <div v-if="sts && props.item.id == ids">
-                                    <div>
+                                <!-- <div v-if="sts && props.item.id == ids"> -->
+                                    <!-- <div> -->
                                         <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
                                     Update
                                 </button> -->
-                                <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;" @click="Cancel() ">
+                                <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;" @click="Cancel() ">
                                     Hide
-                                </button>
+                                </button> -->
 
 
-                                    </div>
-                                    <typeahead :initialize="form.deliver" :url="delivery+'?head=purchase&id='+ props.item.status.id"   @input="onDelivery($event ,props.item.id)" display="name"/>
+                                    <!-- </div> -->
+                                    <!-- <typeahead :initialize="form.deliver" :url="delivery+'?head=purchase&id='+ props.item.status.id"   @input="onDelivery($event ,props.item.id)" display="name" class="z-99"/> -->
 
 
-                         </div>
-                        </template>
+                         <!-- </div> -->
+                </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
                          <span v-if="permissions.includes(`edit-${small}`) && props.item.status_id < 25">
@@ -253,5 +264,6 @@ button:hover {
   padding-right: 30px;
   padding-left: 30px;
 }
+
 
 </style>

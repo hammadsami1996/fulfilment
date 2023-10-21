@@ -93,7 +93,7 @@
 
                         <div class="relative mt-4" v-if="form.product_types == 1">
                             <div class="bg-white shadow rounded-lg mt-2 ">
-                                <div class="mt-4 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+                                <div class="mt-4 border border-gray-200 rounded  min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                                     <table class="min-w-full text-sm align-middle whitespace-nowrap">
                                         <thead>
                                         <tr class="bg-gray-200 dark:bg-gray-600">

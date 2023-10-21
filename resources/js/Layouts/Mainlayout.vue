@@ -5,10 +5,9 @@
 
     // Headless UI, for more info and examples you can check out https://github.com/tailwindlabs/headlessui
     import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-    const showDropdown = false
     const userData = window.apex.user
     const mobileSidebarOpen = ref(false);
-    const desktopSidebarOpen = ref(false);
+    const desktopSidebarOpen = ref(true);
 </script>
 
 <template>
@@ -202,6 +201,19 @@
     <!-- END Page Container -->
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      showDropdown: false,
+
+
+    };
+  }
+};
+</script>
+
+
 <style>
     /* Define a zoom-out transition in your CSS */
     .zoom-out-enter-active,
@@ -221,7 +233,5 @@
     }
   
 </style>
-
-
 
 
