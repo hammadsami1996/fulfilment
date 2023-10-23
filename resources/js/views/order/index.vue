@@ -57,7 +57,7 @@
                 <button @click='toggle = !toggle'
                         class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button">
-                    Advaced Search
+                    Advanced Search
                 </button>
             </div>
         </div>
@@ -189,15 +189,12 @@
                         <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/MimCart.jpg"/>
                     </div>
                 </template>
-                <template v-slot:courier="props">
-                    <div v-if="props.item.courier_id">
-                        <typeahead :initialize="props.item.courier" :url="courier"
-                                   @input="onShippeds($event, props.item)" display="name"/>
-                    </div>
+                <template v-slot:couriers="props">
+                    <typeahead :initialize="props.item.courier" :url="courier"
+                               @input="onShippeds($event ,props.item)" display="name"
+                               v-if="props.item.courier_id"/>
                 </template>
-
                 <template v-slot:action="props">
-
                     <div class="text-sm font-medium flex">
                         <span v-if="permissions.includes(`edit-${small}`)">
                         <a
@@ -330,7 +327,7 @@
                     {label: 'Net Amount', field: 'total'},
                     {label: 'Packing Status', field: 'packability'},
                     // {label: 'Order Date', field: 'order_date'},
-                    {label: 'Courier', field: 'courier', slot: true},
+                    {label: 'Courier', field: 'couriers', slot: true},
                     {label: 'Action', field: 'action', action: true},
                 ]
             }
@@ -351,8 +348,8 @@
             Update(e, id) {
                 byMethod('POST', '/api/update?ids=' + id, e).then(res => {
                     if (res.data.saved) {
-                        this.sts = false,
-                            this.form.deliver = null;
+                        this.sts = false;
+                        this.form.deliver = null;
                         this.$refs.TableData.reload();
                     }
                 })
