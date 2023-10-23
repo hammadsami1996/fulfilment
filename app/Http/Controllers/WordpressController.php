@@ -115,7 +115,7 @@ class WordpressController extends Controller
 
                     foreach ($response->json() as $rec) {
                         // dd($rec);
-                        
+
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'WooCommerce')->where('store_id', $store->id)->first();
                         if (!$order) {
                             ++$i;
@@ -135,7 +135,7 @@ class WordpressController extends Controller
                                     $customer->email = $rec['billing']['email'];
                                     $customer->phone = $rec['billing']['phone'];
 
-                                   
+
                                     if ($rec['billing']) {
                                         $b_city = City::where('name', $rec['billing']['city'])->first();
                                         if ($b_city) {
@@ -194,7 +194,7 @@ class WordpressController extends Controller
 
                             $order->status_id = 1;
 
-                            $items = []; 
+                            $items = [];
                             $sum = '';
 
                             foreach ($rec['line_items'] as $key => $item) {
