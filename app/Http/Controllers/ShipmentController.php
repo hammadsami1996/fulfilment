@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourierResponse;
 use App\Models\OrderViews;
 use Illuminate\Support\Facades\Http;
 
@@ -26,7 +27,29 @@ class ShipmentController extends Controller
         $output = 0;
 
         $url = "https://sonic.pk/api/shipment/book";
-        $response = Http::withHeaders(['Authorization' => 'TUVEZkRzaHdCYkpIWEtWTGxyNG44UFhOMGhFenk4T1pUWjI5V3VkQ0FYV08xajVXYXlid1dvZ1lRUVlD608fd2e735113'])->post($url, [
+        $fieldNames = [
+            'service_type_id',
+            'pickup_address_id',
+            'information_display',
+            'consignee_city_id',
+            'consignee_name',
+            'consignee_address',
+            'consignee_phone_number_1',
+            'consignee_email_address',
+            'order_id',
+            'item_product_type_id',
+            'item_description',
+            'item_quantity',
+            'item_insurance',
+            'item_price',
+            'pickup_date',
+            'special_instructions',
+            'estimated_weight',
+            'shipping_mode_id',
+            'amount',
+            'payment_mode_id',
+        ];
+        $data = [
             'service_type_id' => $service,
             'pickup_address_id' => 31816,
             'information_display' => '1',
@@ -34,7 +57,7 @@ class ShipmentController extends Controller
             'consignee_name' => $order->s_name,
             'consignee_address' => $order->s_address_1,
             'consignee_phone_number_1' => $order->s_phone,
-            'consignee_email_address' => $order->s_email,
+            'consignee_email_address' => $order->s_email ?? '',
             'order_id' => $order->id,
             'item_product_type_id' => '22',
             'item_description' => empty($order->item_summary_mannual) ? $order->item_summary : $order->item_summary_mannual,
@@ -47,7 +70,10 @@ class ShipmentController extends Controller
             'shipping_mode_id' => '1',
             'amount' => $order->net_total,
             'payment_mode_id' => '1',
-        ]);
+        ];
+        $requestData = $this->buildRequestArray($fieldNames, $data);
+        dd($requestData);
+        $response = Http::withHeaders(['Authorization' => 'TUVEZkRzaHdCYkpIWEtWTGxyNG44UFhOMGhFenk4T1pUWjI5V3VkQ0FYV08xajVXYXlid1dvZ1lRUVlD608fd2e735113'])->post($url,$requestData);
 
         $result = $response->json();
         if (isset($result['errors'])) {
@@ -57,9 +83,27 @@ class ShipmentController extends Controller
 //                $output = $result['message'];
 //            }
         else {
+            if (isset($result['message'])){
+                $c = CourierResponse::where('')->first();
+
+            }
             $output = $response->json();
         }
 
         return $output;
+    }
+
+    function buildRequestArray($fieldNames, $data)
+    {
+        $requestData = [];
+
+        foreach ($fieldNames as $fieldName) {
+            // Check if the field exists and is not empty or null
+            if (isset($data[$fieldName]) && !empty($data[$fieldName])) {
+                $requestData[$fieldName] = $data[$fieldName];
+            }
+        }
+
+        return $requestData;
     }
 }
