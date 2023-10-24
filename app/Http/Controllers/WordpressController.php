@@ -166,10 +166,12 @@ class WordpressController extends Controller
 
                             $order->b_name = $rec['billing']['first_name'] . ' ' . $rec['billing']['last_name'];
                             $order->b_phone = $rec['billing']['phone'];
+                            $order->b_email = $rec['billing']['email'];
                             $order->b_address_1 = $rec['billing']['address_1'] . ' ' . $rec['billing']['address_2'];
 
                             $order->s_name = $rec['shipping']['first_name'] . ' ' . $rec['shipping']['last_name'];
                             $order->s_phone = $rec['shipping']['phone'];
+                            $order->s_email = $rec['billing']['email'];
                             $order->s_address_1 = $rec['shipping']['address_1'] . ' ' . $rec['shipping']['address_2'];
 
                             $order->shipping_charges = $rec['shipping_tax'];
@@ -187,11 +189,18 @@ class WordpressController extends Controller
                             }
                             $order->tracking_id = $rec['cart_hash'];
                             $order->payment_method = $rec['payment_method_title'];
+                            $order->so_number = $rec['number'];
+                            $order->comments = $rec['customer_note'];
+                            $order->currency_symbol = $rec['currency'];
+                            $order->city_name = $rec['billing']['city'];
+                            $order->location = $rec['billing']['address_1']. ' ' . $rec['billing']['last_name'];
+                           
 
                             $order->status_id = 1;
 
                             $items = [];
                             $sum = '';
+                            $quantity = 0;
 
                             foreach ($rec['line_items'] as $key => $item) {
                                 $parent_product = Product::where('title', $item['parent_name'])->whereNull('head_id')->first();
@@ -249,8 +258,10 @@ class WordpressController extends Controller
                                 $items[$key]['unit_price'] = $item['price'];
                                 $items[$key]['tax_amount'] = $item['total_tax'];
                                 $sum .= $item['name'] . " (Qty:" . $item['quantity'] . ")\n";
+                                $quantity = $quantity + (int)$item['quantity'];
                             }
                             $order['item_summary'] = $sum;
+                            $order['quantity'] = $quantity;
                             $order->storeHasMany([
                                 'items' => $items
                             ]);

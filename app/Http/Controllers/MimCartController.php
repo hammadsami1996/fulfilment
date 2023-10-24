@@ -49,7 +49,7 @@ class MimCartController extends Controller
                     $i = 0;
                     // dd($response->json());
                     foreach ($response->json() as $rec) {
-//                        dd($rec);
+                    //    dd($rec);
                         $order = Order::where('external_order_no', $rec['id'])->where('order_form', 'MimCart')->where('store_id', $store->id)->first();
                         if (!$order) {
                             ++$i;
@@ -119,11 +119,14 @@ class MimCartController extends Controller
                             $order->coupons_discount = $rec['coupons_discount'];
                             $order->coupons = $rec['coupons'];
                             $order->net_total = $rec['net_total'];
+                            $order->location = $rec['address'];
+                            $order->city_name = $rec['city'];
                             $order->shipment_services = $rec['shipment_services'] || null;
                             $order->store_id = $id;
                             $order->shipping_charges = $rec['shipping_charges'];
                             $items = [];
                             $sum = '';
+                            $quantity = 0;
                             foreach ($rec['items'] as $key => $item) {
                                 $parent_product = Product::where('title', $item['product_name'])->whereNull('head_id')->first();
                                 if (!$parent_product) {
@@ -189,8 +192,10 @@ class MimCartController extends Controller
                                 $items[$key]['cost'] = $item['cost'] || 0;
                                 $items[$key]['total'] = $item['total'];
                                 $sum .= $item['product_name'] . " (Qty:" . $item['qty'] . ")\n";
+                                $quantity = $quantity + (int)$item['qty'];
                             }
                             $order['item_summary'] = $sum;
+                            $order['quantity'] = $quantity;
                             $order->storeHasMany([
                                 'items' => $items
                             ]);

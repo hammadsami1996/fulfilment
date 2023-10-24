@@ -9,16 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
-   {
-        //  DB::unprepared(file_get_contents(public_path('/cities.sql')));
-   }
+    public function up(): void
+    {
+        Schema::create('courier_responses', function (Blueprint $table) {
+            $table->id('courier_id');
+            $table->string('title');
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('courier_responses');
     }
 };

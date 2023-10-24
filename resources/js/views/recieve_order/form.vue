@@ -129,7 +129,7 @@
                                 :initialize="child.warehouse"
                                 :url="warehouses"
                                 @input="onWearhouse(childIndex, index, $event ,child)"
-                                class=" h-8 w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                class="Z-20 absolute h-8 w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="name"
                             />
                         </td>
