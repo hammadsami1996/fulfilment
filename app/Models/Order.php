@@ -57,10 +57,9 @@ class Order extends Model implements Auditable
     {
         return $this->belongsTo(Store::class, 'store_id', 'id');
     }
-
     public function items()
     {
-        return $this->hasMany(Order_item::class, 'id', 'order_id');
+        return $this->hasMany(Order_item::class, 'order_id', 'id');
     }
 
     public function warehouse()

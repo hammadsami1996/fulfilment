@@ -3,20 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourierResponse;
-use App\Models\OrderViews;
+use App\Models\Order;
 use Illuminate\Support\Facades\Http;
 
 class ShipmentController extends Controller
 {
     function generateCN($id)
     {
-        $order = OrderViews::with('city')->findOrfail($id);
+        $order = Order::with('city')->findOrfail($id);
         $res = false;
-        if ($order->courier_id == 1) {
-            $res = $this->trax($order);
+        if (!$order->tracking_id) {
+            if ($order->courier_id == 1) {
+                $res = $this->trax($order);
+            }
+
+            if ($res) {
+                $order->update(['tracking_id' => $res]);
+            }
         }
-        $order->
-        dd($res);
+        dd($order);
         return response()->json(['data' => $order]);
     }
 

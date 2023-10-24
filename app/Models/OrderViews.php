@@ -35,7 +35,7 @@ class OrderViews extends Model
 
     public function items()
     {
-        return $this->hasMany(Order_item::class, 'id', 'order_id');
+        return $this->hasMany(Order_item::class, 'order_id', 'id');
     }
 
     public function warehouse()

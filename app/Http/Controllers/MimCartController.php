@@ -60,7 +60,6 @@ class MimCartController extends Controller
                             $order->warehouse_id = $store->warehouse_id;
                             $order->order_form = 'MimCart';
                             $order->external_order_no = $rec['id'];
-                            $order->tracking_id = $rec['rend_order_id'];
                             // $order->name = $rec['name'];
                             if ($rec['mobile']) {
                                 $customer = Customer::where('phone', $rec['mobile'])->first();
