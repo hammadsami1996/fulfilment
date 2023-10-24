@@ -45,7 +45,7 @@ class Order extends Model implements Auditable
 
     public function status_logs()
     {
-        return $this->hasMany(Status_log::class);
+        return $this->hasMany(StatusLog::class);
     }
 
     public function customer()
@@ -71,7 +71,7 @@ class Order extends Model implements Auditable
 
     public function status()
     {
-        return $this->belongsTo(Delivery_status::class, 'status_id', 'id');
+        return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 
     public function courier()

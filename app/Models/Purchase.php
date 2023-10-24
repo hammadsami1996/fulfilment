@@ -13,9 +13,9 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Purchase extends Model implements Auditable
 {
-    
+
     use HasFactory,HasManyRelation, Notifiable,Search, HasRoles,SoftDeletes, \OwenIt\Auditing\Auditable;
-    
+
     protected $fillable = [
         'supplier_id', 'po_number', 'po_reference_number', 'po_date', 'due_date', 'discount', 'sku', 'name',
         'qty', 'purchasing_price', 'tax', 'sub_total','discount_percent','total'
@@ -46,7 +46,7 @@ class Purchase extends Model implements Auditable
     }
     public function status()
     {
-        return $this->belongsTo(Delivery_status::class, 'status_id', 'id');
+        return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 }
 

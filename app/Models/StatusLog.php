@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
+use App\Support\HasManyRelation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
-use App\Support\HasManyRelation;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Traits\HasRoles;
 
-class Status_log extends Model implements Auditable
+class StatusLog extends Model implements Auditable
 {
     use HasFactory ,Notifiable, HasRoles,SoftDeletes, HasManyRelation, \OwenIt\Auditing\Auditable;
-   
+
 
 
     protected $fillable = [
-       'order_id' , 'previous_sts' ,'updated_sts' , 'user_id'
+        'order_id' , 'previous_sts' ,'updated_sts' , 'user_id'
     ];
     protected $columns = [
         'order_id' , 'previous_sts' ,'updated_sts' , 'user_id'
@@ -29,7 +29,7 @@ class Status_log extends Model implements Auditable
 
     public function status()
     {
-        return $this->belongsTo(Delivery_status::class, 'previous_sts', 'id');
+        return $this->belongsTo(Status::class, 'previous_sts', 'id');
     }
 
     public function user()

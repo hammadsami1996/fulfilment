@@ -46,7 +46,7 @@ class OrderViews extends Model
 
     public function status()
     {
-        return $this->belongsTo(Delivery_status::class, 'status_id', 'id');
+        return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 
     public function courier()
