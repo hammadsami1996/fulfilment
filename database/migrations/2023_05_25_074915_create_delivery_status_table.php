@@ -22,7 +22,7 @@ return new class extends Migration
 //            $table->integer('sort')->nullable();
 //            $table->timestamps();
 //        });
-        DB::unprepared(file_get_contents(public_path('/delivery_status.sql')));
+        DB::unprepared(file_get_contents(public_path('/statuses.sql')));
     }
 
     /**
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('delivery_status');
+        Schema::dropIfExists('statuses');
     }
 };
