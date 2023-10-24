@@ -13,24 +13,19 @@ return new class extends Migration
     {
         Schema::create('couriers', function (Blueprint $table) {
             $table->id();
-            $table->integer('company_id')->nullable();
             $table->string('name');
-            $table->string('title')->nullable();
-            $table->string('value')->nullable();
             $table->integer('deleted_by')->nullable();
-           $table->timestamp('deleted_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
-        // DB::unprepared(file_get_contents(public_path('/delivery_status.sql')));
-
         DB::table('couriers')->insert(
             [
-                'name' => 'Leopards Overland',
+                'name' => 'Trax Saverplus',
             ]
         );
         DB::table('couriers')->insert(
             [
-                'name' => 'Trax Saverplus',
+                'name' => 'Leopards Overland',
             ]
         );
         DB::table('couriers')->insert(
@@ -60,6 +55,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('delivery_status');
+        Schema::dropIfExists('couriers');
     }
 };
