@@ -187,14 +187,13 @@ class WordpressController extends Controller
 //                                    $order->delivery_charges = $cityCourier->delivery_charges;
                                 }
                             }
-                            $order->tracking_id = $rec['cart_hash'];
                             $order->payment_method = $rec['payment_method_title'];
                             $order->so_number = $rec['number'];
                             $order->comments = $rec['customer_note'];
                             $order->currency_symbol = $rec['currency'];
                             $order->city_name = $rec['billing']['city'];
                             $order->location = $rec['billing']['address_1']. ' ' . $rec['billing']['last_name'];
-                           
+
 
                             $order->status_id = 1;
 

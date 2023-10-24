@@ -10,14 +10,12 @@ class ShipmentController extends Controller
 {
     function generateCN($id)
     {
-        $order = OrderViews::with('courier', 'city')->findOrfail($id);
-        $courier = $order->courier ? $order->courier->name : false;
+        $order = OrderViews::with('city')->findOrfail($id);
         $res = false;
-        if ($courier) {
-            if ($courier == 'Trax Saverplus') {
-                $res = $this->trax($order);
-            }
+        if ($order->courier_id == 1) {
+            $res = $this->trax($order);
         }
+        $order->
         dd($res);
         return response()->json(['data' => $order]);
     }
@@ -76,34 +74,18 @@ class ShipmentController extends Controller
         $result = $response->json();
         if (isset($result['errors'])) {
             $output = json_encode($result['errors']);
-        }
-//            elseif (isset($result['message']) && $result['status'] == 1) {
-//                $output = $result['message'];
-//            }
-        else {
-            if (isset($result['message'])){
-                $c = CourierResponse::where('title',$result['message'])->first();
-
+        } else {
+            if (isset($result['message'])) {
+                $c = CourierResponse::where('title', $result['message'])->first();
+                if (!$c) {
+                    CourierResponse::create(['title' => $result['message'], 'courier_id' => $order['courier_id']]);
+                }
             }
-            $output = $response->json();
+            $output = $result['tracking_number'];
         }
 
         return $output;
     }
-
-//    function buildRequestArray($fieldNames, $data)
-//    {
-//        $requestData = [];
-//
-//        foreach ($fieldNames as $fieldName) {
-//            // Check if the field exists and is not empty or null
-//            if (isset($data[$fieldName]) && !empty($data[$fieldName])) {
-//                $requestData[$fieldName] = $data[$fieldName];
-//            }
-//        }
-//
-//        return $requestData;
-//    }
 
     function buildRequestArray($fieldNames, $data)
     {

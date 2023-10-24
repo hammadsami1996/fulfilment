@@ -10,4 +10,9 @@ class CourierResponse extends Model
     protected $connection = 'mysql';
 
     use HasFactory;
+
+    protected $fillable = [
+        'courier_id',
+        'title',
+    ];
 }
