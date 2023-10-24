@@ -10,7 +10,7 @@ use App\Support\HasManyRelation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Statuslog extends Model implements Auditable
+class Status_log extends Model implements Auditable
 {
     use HasFactory ,Notifiable, HasRoles,SoftDeletes, HasManyRelation, \OwenIt\Auditing\Auditable;
    

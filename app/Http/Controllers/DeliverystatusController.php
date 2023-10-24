@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Delivery_status;
 use App\Models\Order;
 use App\Models\Purchase;
-use App\Models\Statuslog;
+use App\Models\Status_log;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -79,7 +79,7 @@ class DeliverystatusController extends Controller
     public function updatestatus(Request $request  )
     {
             $data = Order::where('id' , $request->ids)->first();
-            $logs = new Statuslog();
+            $logs = new Status_log();
             $logs->order_id = $request->ids;
             $logs->updated_sts = $request->name;
             $logs->previous_sts = $data->status_id;

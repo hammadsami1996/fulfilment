@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companysettings', function (Blueprint $table) {
+        Schema::create('company_settings', function (Blueprint $table) {
             $table->id();
             $table->string('key' ,  20);
             $table->json('value')->nullable();
@@ -25,14 +25,14 @@ return new class extends Migration
         });
 
        
-        DB::table('companysettings')->insert(['key' => 'sms_settings',
+        DB::table('company_settings')->insert(['key' => 'sms_settings',
        
        
 
        
     ]);
 
-    DB::table('companysettings')->insert(['key' => 'email_settings',
+    DB::table('company_settings')->insert(['key' => 'email_settings',
        
         
 
@@ -49,6 +49,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('companysettings');
+        Schema::dropIfExists('company_settings');
     }
 };

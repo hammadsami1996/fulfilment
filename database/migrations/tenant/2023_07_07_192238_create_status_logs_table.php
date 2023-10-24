@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('statuslogs', function (Blueprint $table) {
+        Schema::create('status_logs', function (Blueprint $table) {
             $table->id();
            
             $table->integer('order_id')->nullable();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('statuslogs');
+        Schema::dropIfExists('status_logs');
     }
 };

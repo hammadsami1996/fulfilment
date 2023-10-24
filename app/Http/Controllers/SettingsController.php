@@ -8,7 +8,7 @@ use Twilio\Rest\Client;
 use App\Models\settings;
 use App\Models\Mailtemplate;
 use Illuminate\Http\Request;
-use App\Models\Companysetting;
+use App\Models\Company_setting;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +33,7 @@ class SettingsController extends Controller
     //    dd(request()->all());
     $model = null;
     if(request()->key && request()->company){
-        $model = Companysetting::where('key' , request()->key)->where('company_id' , request()->company)->first();
+        $model = Company_setting::where('key' , request()->key)->where('company_id' , request()->company)->first();
 
     }
     // dd($model);
@@ -84,10 +84,10 @@ class SettingsController extends Controller
 
     public function add_settings(Request $request){
         // dd($request->all());
-        $model = Companysetting::where('key' , $request['value'])->where('company_id' , $request['company_id'])->first();
+        $model = Company_setting::where('key' , $request['value'])->where('company_id' , $request['company_id'])->first();
         
         // dd($model);
-        $model ? $model : $model = new Companysetting;
+        $model ? $model : $model = new Company_setting;
         // dd($model);
         if($request['value'] == 'sms_settings'){
             $value=[
@@ -136,7 +136,7 @@ class SettingsController extends Controller
     public function sendmail($model){
 
         $id= 1;
-        $email = Companysetting::findOrFail($model);
+        $email = Company_setting::findOrFail($model);
         $emails = json_decode($email->value);
         $smtp_encryption = 'tls,';
         // dd($emails->username);
@@ -167,7 +167,7 @@ class SettingsController extends Controller
 
     public function sendSMS($id)    
     {
-        $sms = Companysetting::findOrFail($id);
+        $sms = Company_setting::findOrFail($id);
         $sms2 = json_decode($sms->value);
         $sid = $sms2->login_id; 
         // $sid    = "ACbe1685f4dd8a33984d4255bc19f9eda9";
