@@ -132,6 +132,7 @@ Route::middleware([
         Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);
         Route::get('/fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
         Route::get('/company', [\App\Http\Controllers\CompanyController::class, 'index']);
+        Route::get('/generateCN/{id}', [\App\Http\Controllers\ShipmentController::class, 'generateCN']);
 
 
         //product
