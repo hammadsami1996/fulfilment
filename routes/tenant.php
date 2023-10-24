@@ -100,7 +100,7 @@ Route::middleware([
         Route::resource('order', \App\Http\Controllers\OrderController::class);
         Route::resource('customer', \App\Http\Controllers\CustomerController::class);
         Route::resource('type', \App\Http\Controllers\TypeController::class);
-        Route::resource('status', \App\Http\Controllers\DeliverystatusController::class);
+        Route::resource('status', \App\Http\Controllers\StatusController::class);
         Route::resource('category', \App\Http\Controllers\CategoryController::class);
         Route::resource('product_category', \App\Http\Controllers\ProductCategoryController::class);
         Route::resource('brand', \App\Http\Controllers\BrandController::class);
@@ -108,11 +108,11 @@ Route::middleware([
         Route::resource('order_type', \App\Http\Controllers\OrderTypeController::class);
         Route::resource('candidate', \App\Http\Controllers\CandidateController::class);
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
-        Route::post('update', [\App\Http\Controllers\DeliverystatusController::class, 'updatestatus']);
+        Route::post('update', [\App\Http\Controllers\StatusController::class, 'updatestatus']);
         Route::post('store_cities', [\App\Http\Controllers\CityController::class, 'storebulk']);
 
         Route::post('global_settings', [\App\Http\Controllers\SettingsController::class, 'add_settings']);
-        Route::post('updated', [\App\Http\Controllers\DeliverystatusController::class, 'updatedstatus']);
+        Route::post('updated', [\App\Http\Controllers\StatusController::class, 'updated_status']);
         Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
         Route::get('stores_data', [\App\Http\Controllers\StoreController::class, 'stores_data']);
         Route::get('woocommerce', [\App\Http\Controllers\WordpressController::class, 'store_order']);
@@ -125,7 +125,7 @@ Route::middleware([
         Route::post('/shopify_store_data/{id}', [\App\Http\Controllers\ShopifyController::class, 'storeOrder']);
         Route::post('receive_order_inventory', [\App\Http\Controllers\ReceiveOrderController::class, 'inventory']);
         Route::post('remianing', [\App\Http\Controllers\OrderController::class, 'remain']);
-        Route::get('sts', [\App\Http\Controllers\DeliverystatusController::class, 'searches']);
+        Route::get('sts', [\App\Http\Controllers\StatusController::class, 'searches']);
         Route::get('required_stock', [\App\Http\Controllers\ReportController::class, 'required']);
         Route::get('download_images', [\App\Http\Controllers\ProductController::class, 'download_images']);
         Route::get('product_details', [\App\Http\Controllers\OrderController::class, 'details']);

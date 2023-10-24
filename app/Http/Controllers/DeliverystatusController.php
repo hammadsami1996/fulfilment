@@ -24,27 +24,7 @@ class DeliverystatusController extends Controller
      */
     public function index()
     {
-        // dd(request('id'));
-        // dd(request('id'));
-    //    if(request('status') == 1){
-        $id = request('id');
-
-
-            // $data = Order::where('id',$id)->value('status_id');
-
-        // dd($data);
-        $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $id)->orderBy('id')
-          ->search();
-        // }
-        // if(request('status') == 2){
-        //     $results = Delivery_status::orderBy('id')->where('id' , 3)->orwhere('id' , 5)
-        //       ->search();
-        //     }
-        //     if(request('status') == 3){
-        //         $results = Delivery_status::orderBy('id')->where('id' , 4)->orwhere('id' , 5)
-        //           ->search();
-        //         }
-
+        $results = Delivery_status::where('head' , request('head'))->where('id', '!=', request('id'))->orderBy('id')->search();
         return response()->json(['data' => $results]);
     }
 
@@ -61,8 +41,7 @@ class DeliverystatusController extends Controller
      */
     public function store(Request $request  )
     {
-    //    dd($request->all());
-            $data = Order::where('id' , $request->ids)->get();
+        //
     }
 
     /**
@@ -111,14 +90,11 @@ class DeliverystatusController extends Controller
             $data->status_id = $request->id;
             $data->save();
 
-
-
             return response()->json(["saved" => true, "id" => $data->id]);
     }
 
     public function updatedstatus(Request $request  )
     {
-    //    dd($request->all());
             $data = Purchase::where('id' , $request->ids)->first();
             $data->status_id = $request->id;
             $data->save();
@@ -126,17 +102,13 @@ class DeliverystatusController extends Controller
     }
     public function searches()
     {
-        // dd(request('id'));
         $id = request('id');
 
-
-            // $data = Purchase::where('id',$id)->value('status_id');
-            $datas = Delivery_status::where('id',$id)->value('head_id');
-            $datasArray = explode(',', $datas);
+         $datas = Delivery_status::where('id',$id)->value('head_id');
+         $datasArray = explode(',', $datas);
 
         $results = Delivery_status::where('head' , request('head'))->where('id', '!=', $id)->whereIn('id' , $datasArray)->orderBy('id')
           ->search();
-
 
         return response()->json(['data' => $results]);
     }
