@@ -124,7 +124,7 @@ Route::middleware([
         Route::post('/woocommerce_store_data/{id}', [\App\Http\Controllers\WordpressController::class, 'storeOrder']);
         Route::post('/shopify_store_data/{id}', [\App\Http\Controllers\ShopifyController::class, 'storeOrder']);
         Route::post('receive_order_inventory', [\App\Http\Controllers\ReceiveOrderController::class, 'inventory']);
-        Route::post('remianing', [\App\Http\Controllers\OrderController::class, 'remain']);
+        Route::post('remaining', [\App\Http\Controllers\OrderController::class, 'remain']);
         Route::get('sts', [\App\Http\Controllers\StatusController::class, 'searches']);
         Route::get('required_stock', [\App\Http\Controllers\ReportController::class, 'required']);
         Route::get('download_images', [\App\Http\Controllers\ProductController::class, 'download_images']);

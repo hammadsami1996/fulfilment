@@ -516,7 +516,7 @@
                     e,
                     this.form.warehouse_id
                 ]
-                byMethod('POST', '/api/remianing', this.data).then(res => {
+                byMethod('POST', '/api/remaining', this.data).then(res => {
                     if (res.data.data == null) {
                         // console.log('abcd');
                         this.ids = e;
