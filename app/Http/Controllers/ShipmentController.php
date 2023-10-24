@@ -25,7 +25,6 @@ class ShipmentController extends Controller
     function trax($order, $service = "1")
     {
         $output = 0;
-
         $url = "https://sonic.pk/api/shipment/book";
         $fieldNames = [
             'service_type_id',
@@ -57,12 +56,12 @@ class ShipmentController extends Controller
             'consignee_name' => $order->s_name,
             'consignee_address' => $order->s_address_1,
             'consignee_phone_number_1' => $order->s_phone,
-            'consignee_email_address' => $order->s_email ?? '',
+            'consignee_email_address' => $order->s_email,
             'order_id' => $order->id,
             'item_product_type_id' => '22',
             'item_description' => empty($order->item_summary_mannual) ? $order->item_summary : $order->item_summary_mannual,
             'item_quantity' => $order->quantity ?? 1,
-            'item_insurance' => '0',
+            'item_insurance' => 0.00,
             'item_price' => $order->net_total,
             'pickup_date' => now()->format('Y-m-d'),
             'special_instructions' => !empty($order->instructions) ? $order->instructions : 'No',
@@ -72,7 +71,6 @@ class ShipmentController extends Controller
             'payment_mode_id' => '1',
         ];
         $requestData = $this->buildRequestArray($fieldNames, $data);
-        dd($requestData);
         $response = Http::withHeaders(['Authorization' => 'TUVEZkRzaHdCYkpIWEtWTGxyNG44UFhOMGhFenk4T1pUWjI5V3VkQ0FYV08xajVXYXlid1dvZ1lRUVlD608fd2e735113'])->post($url,$requestData);
 
         $result = $response->json();
@@ -84,7 +82,7 @@ class ShipmentController extends Controller
 //            }
         else {
             if (isset($result['message'])){
-                $c = CourierResponse::where('')->first();
+                $c = CourierResponse::where('title',$result['message'])->first();
 
             }
             $output = $response->json();
@@ -93,17 +91,32 @@ class ShipmentController extends Controller
         return $output;
     }
 
+//    function buildRequestArray($fieldNames, $data)
+//    {
+//        $requestData = [];
+//
+//        foreach ($fieldNames as $fieldName) {
+//            // Check if the field exists and is not empty or null
+//            if (isset($data[$fieldName]) && !empty($data[$fieldName])) {
+//                $requestData[$fieldName] = $data[$fieldName];
+//            }
+//        }
+//
+//        return $requestData;
+//    }
+
     function buildRequestArray($fieldNames, $data)
     {
         $requestData = [];
 
         foreach ($fieldNames as $fieldName) {
-            // Check if the field exists and is not empty or null
-            if (isset($data[$fieldName]) && !empty($data[$fieldName])) {
+            // Check if the field exists and is not empty or null, or if it's "0"
+            if (array_key_exists($fieldName, $data) && ($data[$fieldName] !== null || $data[$fieldName] !== "")) {
                 $requestData[$fieldName] = $data[$fieldName];
             }
         }
 
         return $requestData;
     }
+
 }
