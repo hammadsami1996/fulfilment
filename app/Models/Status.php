@@ -30,4 +30,10 @@ class Status extends Model implements Auditable
     {
         return $this->attributes['name'];
     }
+
+    public function courier_responses()
+    {
+        return $this->belongsToMany(CourierResponse::class);
+    }
+
 }

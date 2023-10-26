@@ -110,6 +110,8 @@ Route::middleware([
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
         Route::post('update', [\App\Http\Controllers\StatusController::class, 'updatestatus']);
         Route::post('store_cities', [\App\Http\Controllers\CityController::class, 'storebulk']);
+        Route::resource('courier_response', \App\Http\Controllers\CourierResponseController::class);
+        Route::get('courier_serach', [\App\Http\Controllers\CourierResponseController::class, 'search']);
 
         Route::post('global_settings', [\App\Http\Controllers\SettingsController::class, 'add_settings']);
         Route::post('updated', [\App\Http\Controllers\StatusController::class, 'updated_status']);
