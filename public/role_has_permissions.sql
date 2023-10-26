@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost_3306
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 80030
  Source Host           : localhost:3306
- Source Schema         : tenantfulfilment001
+ Source Schema         : tenantfulfilment2027
 
  Target Server Type    : MySQL
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 03/10/2023 17:13:03
+ Date: 26/10/2023 17:31:19
 */
 
 SET NAMES utf8mb4;
@@ -168,5 +168,19 @@ INSERT INTO `role_has_permissions` VALUES (250, 1);
 INSERT INTO `role_has_permissions` VALUES (251, 1);
 INSERT INTO `role_has_permissions` VALUES (252, 1);
 INSERT INTO `role_has_permissions` VALUES (253, 1);
+INSERT INTO `role_has_permissions` VALUES (70, 1);
+INSERT INTO `role_has_permissions` VALUES (71, 1);
+INSERT INTO `role_has_permissions` VALUES (72, 1);
+INSERT INTO `role_has_permissions` VALUES (73, 1);
+INSERT INTO `role_has_permissions` VALUES (74, 1);
+INSERT INTO `role_has_permissions` VALUES (256, 1);
+INSERT INTO `role_has_permissions` VALUES (257, 1);
+INSERT INTO `role_has_permissions` VALUES (258, 1);
+INSERT INTO `role_has_permissions` VALUES (259, 1);
+INSERT INTO `role_has_permissions` VALUES (262, 1);
+INSERT INTO `role_has_permissions` VALUES (263, 1);
+INSERT INTO `role_has_permissions` VALUES (264, 1);
+INSERT INTO `role_has_permissions` VALUES (265, 1);
+INSERT INTO `role_has_permissions` VALUES (266, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
