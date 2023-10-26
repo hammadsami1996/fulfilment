@@ -18,7 +18,7 @@ class ShipmentController extends Controller
             }
 
             if ($res) {
-                $order->update(['tracking_id' => $res]);
+                $order->update(['tracking_id' => $res['tracking_number']]);
             }
         }
         dd($order);
