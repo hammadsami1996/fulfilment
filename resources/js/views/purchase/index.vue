@@ -53,11 +53,11 @@
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:statuses="props" >
                     <div>
-                        <typeahead 
+                        <typeahead
                         :initialize="props.item.status"
                         :url="delivery+'?head=purchase&id='+ props.item.status.id"
                         @input="onDelivery($event ,props.item.id)" display="name"
-                      
+
                         v-if="props.item.status"
                         />
                     </div>
@@ -146,7 +146,7 @@
                 resource: "/purchase",
                 small: "purchase",
                 capital: "Purchase",
-                delivery:'/api/sts',
+                delivery:'/api/status',
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Supplier', field: 'name', displayText: 'supplier'},

@@ -223,7 +223,7 @@ class OrderController extends Controller
 
     public function details()
     {
-        // dd(request('id'));
+//         dd(request('id'));
         $data = Order_item::where('product_id', request('id'))->pluck('order_id')->unique();
         return response()->json(["data" => $data]);
     }
