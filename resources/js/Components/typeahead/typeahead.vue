@@ -52,7 +52,8 @@
     <div :class="[isOpen ? 'typeahead typeahead-open' : 'typeahead']" class="border border-gray-200 rounded ">
         <div :style="'font-size:'+size+'px'" class="typeahead-inner">
             <div :class="clearable ? 'row px-1' : ''">
-                <div :class="`${formSize} typeahead-selected overflow-x-clip font-semibold cursor-pointer py-2 px-4`" style="flex-wrap: wrap;"
+                <div :class="`${formSize} typeahead-selected overflow-x-clip font-semibold cursor-pointer py-2 px-4`"
+                     style="flex-wrap: wrap;"
                      :style="'font-size:'+size+'px'"
                      :tabindex="tabindex"
                      @click="onToggle"
@@ -64,7 +65,6 @@
                         <span @click="removeSelectedOption(selectedOption)"
                               class="cursor-pointer ml-1 text-red-500 font-bold">×</span>
                     </div>
-
                     <span v-else>{{selectedText}}</span>
                 </div>
                 <div @click="removeValue()"
@@ -150,8 +150,7 @@
         computed: {
             selectedText() {
                 if (this.multiSelect) {
-                    this.selectedOptions = this.initialize
-                    console.log(this.initialize);
+                    this.selectedOptions = Array.isArray(this.initialize) ? this.initialize : [];
                 } else {
                     return this.initialize && this.initialize[this.display]
                         ? this.initialize[this.display]
@@ -278,24 +277,28 @@
                     this.select(found)
                 }
             },
-            select(result) {
+            async select(result) {
                 if (this.multiSelect) {
-                    // Add the selected option to the selectedOptions array
-                    this.selectedOptions.push(result)
-                } else {
-                    this.selectedOptions = result // Single select
+                    const isAlreadySelected = this.selectedOptions.some(option => option.id === result.id);
+                    if (!isAlreadySelected) {
+                        this.selectedOptions.push(result);
+                        this.results = this.results.filter(option => option.id !== result.id);
+                        this.results.removeValue();
+                    } else {
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: 'Already exists',
+                            type: 'error',
+                            duration: 3000
+                        });
+                    }
                 }
-
-                // Emit the selected options
-                this.$emit('input', {
+                await this.$emit('input', {
                     target: {
-                        value: this.selectedOptions
+                        value: this.multiSelect ? this.selectedOptions : result
                     }
                 })
-                // this.$emit('input', this.selectedOptions)
-
-                // Close the dropdown
-                this.close()
+                this.close();
             },
             removeValue() {
                 if (this.multiSelect) {

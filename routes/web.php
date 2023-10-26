@@ -47,7 +47,6 @@ Route::prefix('api')->middleware(['auth', 'verified'])->group(function () {
     Route::post('assign_user_role', [\App\Http\Controllers\UserController::class, 'assign_user_role']);
     Route::post('change_password', [\App\Http\Controllers\UserController::class, 'changePassword']);
     Route::resource('role', \App\Http\Controllers\RoleController::class);
-    Route::resource('permission', \App\Http\Controllers\PermissionController::class);
     Route::resource('plan', \App\Http\Controllers\PlanController::class);
     Route::resource('user_plan', \App\Http\Controllers\UserPlanController::class);
     Route::get('submit/{id}', [\App\Http\Controllers\CandidateController::class, 'submit_get']);

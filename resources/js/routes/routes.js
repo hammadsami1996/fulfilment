@@ -17,6 +17,7 @@ import purchase from "@/routes/purchase";
 import order from "@/routes/order";
 import customer from "@/routes/customer";
 import customer_category from "@/routes/customer_category";
+import courier_response from "@/routes/courier_response";
 import report from "@/routes/report";
 import ledger from "@/routes/ledger";
 import settings from "@/routes/settings";
@@ -63,6 +64,7 @@ const router = createRouter({
         ...customer_category,
         ...receive_order,
         ...product_category,
+        ...courier_response,
         ...brand,
         ...replacement,
         ...report,
