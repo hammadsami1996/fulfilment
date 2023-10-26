@@ -83,13 +83,13 @@ class ShipmentController extends Controller
             if (isset($result['message'])) {
                 $c = CourierResponse::where('title', $result['message'])->first();
                 if (!$c) {
-                    CourierResponse::create(['title' => $result['message'], 'courier_id' => $order['courier_id']]);
+                    $c = CourierResponse::create(['title' => $result['message'], 'courier_id' => $order['courier_id']]);
                 }
+                $result['status_id'] = $c->id;
             }
-            $output = $result['tracking_number'];
+//            $output = $result['tracking_number'];
         }
-
-        return $output;
+        return $result;
     }
 
     function buildRequestArray($fieldNames, $data)
