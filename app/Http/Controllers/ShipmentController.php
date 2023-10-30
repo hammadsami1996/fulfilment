@@ -17,11 +17,11 @@ class ShipmentController extends Controller
                 $res = $this->trax($order);
             }
 
-            if ($res) {
-                $order->update(['tracking_id' => $res['tracking_number']]);
-            }
+            // if ($res) {
+            //     $order->update(['tracking_id' => $res['tracking_number']]);
+            // }
         }
-        dd($order);
+        dd($order,$res);
         return response()->json(['data' => $order]);
     }
 
@@ -85,6 +85,7 @@ class ShipmentController extends Controller
                 if (!$c) {
                     $c = CourierResponse::create(['title' => $result['message'], 'courier_id' => $order['courier_id']]);
                 }
+             
                 $result['status_id'] = $c->id;
             }
 //            $output = $result['tracking_number'];
