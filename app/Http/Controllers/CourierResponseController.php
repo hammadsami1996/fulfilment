@@ -20,7 +20,6 @@ class CourierResponseController extends Controller
     public function index()
     {
         return response()->json(['data' => Status::with('courier_responses')->search()]);
-
     }
 
     /**
@@ -60,7 +59,6 @@ class CourierResponseController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        dd($request->all());
         $model = Status::findOrFail($id);
         $model->courier_responses()->sync(array_column($request->all(), 'id'));
         return response()->json(["saved" => true, "id" => $model->id]);

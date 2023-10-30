@@ -24,4 +24,8 @@ class CourierResponse extends Model
         'courier_id',
         'title',
     ];
+    public function courier_status()
+    {
+        return $this->belongsToMany(Status::class);
+    }
 }

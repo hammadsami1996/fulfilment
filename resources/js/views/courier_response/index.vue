@@ -50,7 +50,7 @@
                 urlApi: "/api/courier_response",
                 resource: "/courier_response",
                 small: "courier_response",
-                capital: "Courier_response",
+                capital: "Courier Response",
                 columns: [
                     {label: "S.No", field: "id", format: "index"},
                     {label: "status", field: "name"},
@@ -71,8 +71,6 @@
                 const courier = e.target.value;
                 f.courier_responses = courier;
             },
-
-
             edit(e) {
                 byMethod("post", `/api/courier_response/${e.id}?_method=PUT`,e.courier_responses).then((res) => {
                     if (res.data.saved) {

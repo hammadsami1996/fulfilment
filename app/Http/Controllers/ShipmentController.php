@@ -16,12 +16,10 @@ class ShipmentController extends Controller
             if ($order->courier_id == 1) {
                 $res = $this->trax($order);
             }
-
-            // if ($res) {
-            //     $order->update(['tracking_id' => $res['tracking_number']]);
-            // }
+            if ($res) {
+                $order->update(['tracking_id' => $res['tracking_number'], 'status_id' => $res['status_id']]);
+            }
         }
-        dd($order,$res);
         return response()->json(['data' => $order]);
     }
 
@@ -81,14 +79,12 @@ class ShipmentController extends Controller
             $output = json_encode($result['errors']);
         } else {
             if (isset($result['message'])) {
-                $c = CourierResponse::where('title', $result['message'])->first();
+                $c = CourierResponse::with('courier_status')->where('title', $result['message'])->first();
                 if (!$c) {
                     $c = CourierResponse::create(['title' => $result['message'], 'courier_id' => $order['courier_id']]);
                 }
-             
-                $result['status_id'] = $c->id;
+                $result['status_id'] = $c->courier_status ? $c->courier_status[0]->id : 0;
             }
-//            $output = $result['tracking_number'];
         }
         return $result;
     }
