@@ -17,7 +17,10 @@ class ShipmentController extends Controller
                 $res = $this->trax($order);
             }
             if ($res) {
-                $order->update(['tracking_id' => $res['tracking_number'], 'status_id' => $res['status_id']]);
+                $order->update(['tracking_id' => $res['tracking_number']]);
+                if ($res['status_id']) {
+                    $order->update(['status_id' => $res['status_id']]);
+                }
             }
         }
         return response()->json(['data' => $order]);
