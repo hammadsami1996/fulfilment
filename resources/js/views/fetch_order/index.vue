@@ -36,11 +36,17 @@
         <div class="card-container mb-6">
             <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center" v-for="(item) in companies">
                 <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows">
+        <div class="card cursor-pointer" :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == item }" @click="onCompany(item)">
+          <img :src="getImagePath(item)" />
+        </div>
+        <span class="font-bold font-sm pl-2">{{ item.name }}</span>
+      </div>
+                <!-- <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows">
                     <div class="card cursor-pointer" :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == item }" @click="onCompany(item)">
                         <img :src="`/uploads/company/logo/` + item.logo">
                     </div>
                     <span class="font-bold font-sm pl-2">{{ item.name }}</span>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -139,9 +145,17 @@ export default {
                 this.returns(this.form.company_id);
                 this.selectedCompany = e;
             },
-            setActivePlatform(platform) {
-      this.activePlatform = platform;
-    },
+            getImagePath(item) {
+            if (item.logo) {
+                return `/uploads/company/logo/${item.logo}`;
+            } else {
+                // If no logo is uploaded, use a default image
+                return "/images/mimsoft.jpg";
+            }
+            },
+                    setActivePlatform(platform) {
+            this.activePlatform = platform;
+            },
             returns(e) {
                 byMethod("get", `/api/stores_data?company_id=${e}`).then(
                     (res) => {

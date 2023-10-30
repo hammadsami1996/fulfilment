@@ -172,8 +172,9 @@
                 </template>
                 <template v-slot:company="props">
                     <div>
-                        <img :src="`/uploads/company/logo/${props.item.stores.company.logo}`"
-                             class="shadow-xl h-10 w-10 rounded-full"/>
+<!--                        <img :src="`/uploads/company/logo/${props.item.stores.company.logo}`"-->
+<!--                             class="shadow-xl h-10 w-10 rounded-full"/>-->
+                        <img :src="getImagePath(props)" class="shadow-xl h-10 w-10 rounded-full" />
                         <!-- <p class="h-8 w-8">{{props.item.company.logo}}</p> -->
                         <!-- <p>{{props.item.stores.name}}</p> -->
                     </div>
@@ -344,6 +345,14 @@
                 this.sts = true;
                 this.ids = status_id;
                 this.id = e
+            },
+            getImagePath(props) {
+                if (props.item.stores.company.logo) {
+                    return `/uploads/company/logo/${props.item.stores.company.logo}`;
+                } else {
+                    // If no logo is uploaded, use a default image
+                    return "/images/mimsoft.jpg";
+                }
             },
             Update(e, id) {
                 byMethod('POST', '/api/update?ids=' + id, e).then(res => {
