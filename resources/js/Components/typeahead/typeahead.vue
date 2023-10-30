@@ -73,7 +73,7 @@
             </div>
             <transition mode="out-in" name="fade">
                 <div class="typeahead-dropdown z-10 relative" v-if="isOpen">
-                    <div class="typeahead-input_wrap">
+                    <div class="typeahead-input_wrap flex-wrap">
                         <input @blur="onBlur" @input="onSearch" @keydown.down="onDownKey" @keydown.enter="onEnterKey"
                                @keydown.esc="onEsc" @keydown.up="onUpKey"
                                autocomplete="off"

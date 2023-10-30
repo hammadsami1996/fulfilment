@@ -212,12 +212,12 @@ INSERT INTO `permissions` VALUES (251, 'edit-cities', 'web', NULL, NULL, 249, NU
 INSERT INTO `permissions` VALUES (252, 'create-cities', 'web', NULL, NULL, 249, NULL, '2023-10-18 06:48:33', '2023-10-18 06:48:33');
 INSERT INTO `permissions` VALUES (253, 'delete-cities', 'web', NULL, NULL, 249, NULL, '2023-10-18 06:48:33', '2023-10-18 06:48:33');
 INSERT INTO `permissions` VALUES (254, 'export-cities', 'web', NULL, NULL, 249, NULL, '2023-10-18 06:48:33', '2023-10-18 06:48:33');
-INSERT INTO `permissions` VALUES (255, NULL, 'web', 'Cities', NULL, NULL, 56, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (256, 'view-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (257, 'edit-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (258, 'create-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (259, 'delete-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (260, 'export-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (255, NULL, 'web', 'Courier_response', NULL, NULL, 56, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (256, 'view-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (257, 'edit-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (258, 'create-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (259, 'delete-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (260, 'export-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -377,6 +377,18 @@ INSERT INTO `role_has_permissions` VALUES (245, 1);
 INSERT INTO `role_has_permissions` VALUES (246, 1);
 INSERT INTO `role_has_permissions` VALUES (247, 1);
 INSERT INTO `role_has_permissions` VALUES (248, 1);
+INSERT INTO `role_has_permissions` VALUES (249, 1);
+INSERT INTO `role_has_permissions` VALUES (250, 1);
+INSERT INTO `role_has_permissions` VALUES (251, 1);
+INSERT INTO `role_has_permissions` VALUES (252, 1);
+INSERT INTO `role_has_permissions` VALUES (253, 1);
+INSERT INTO `role_has_permissions` VALUES (254, 1);
+INSERT INTO `role_has_permissions` VALUES (255, 1);
+INSERT INTO `role_has_permissions` VALUES (256, 1);
+INSERT INTO `role_has_permissions` VALUES (257, 1);
+INSERT INTO `role_has_permissions` VALUES (258, 1);
+INSERT INTO `role_has_permissions` VALUES (259, 1);
+INSERT INTO `role_has_permissions` VALUES (260, 1);
 
 -- ----------------------------
 -- Table structure for roles
