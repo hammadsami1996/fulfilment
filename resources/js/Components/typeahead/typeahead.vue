@@ -65,7 +65,7 @@
                         <span @click="removeSelectedOption(selectedOption)"
                               class="cursor-pointer ml-1 text-red-500 font-bold">×</span>
                     </div>
-                    <span v-else>{{selectedText}}</span>
+                    <span v-else class="h-4 flex items-center">{{selectedText}}</span>
                 </div>
                 <div @click="removeValue()"
                      class="cursor-pointer font-bold text-red-500 absolute right-8 top-2 bg-white" v-if="clearable">X

@@ -13,7 +13,12 @@ class CourierResponseController extends Controller
      */
     public function search()
     {
-        return response()->json(['data' => CourierResponse::search()]);
+        $results = CourierResponse::whereNotIn('id', function ($query) {
+            $query->select('courier_response_id')
+                ->from('courier_response_status');
+        })->search();
+        return response()->json(['data' => $results ]);
+        // return response()->json(['data' => CourierResponse::search()]);
 
     }
 
@@ -63,7 +68,7 @@ class CourierResponseController extends Controller
         $model->courier_responses()->sync(array_column($request->all(), 'id'));
         return response()->json(["saved" => true, "id" => $model->id]);
 
-
+        
     }
 
     /**
