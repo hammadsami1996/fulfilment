@@ -103,13 +103,26 @@ class WordpressController extends Controller
     public function storeOrder($id)
     {
         $store = Store::findOrFail($id);
+        // $latestRecord = Order::latest('external_order_no')->where('order_form','WooCommerce')->first('external_order_no');
+        $orderLastTimes = Order::where('store_id', $id)
+        ->orderBy('order_date', 'desc')
+        ->first();
+        // dd($orderLastTimes);
+        // die();
         if (isset($store) && $store->plate_form == 'WooCommerce') {
-            $apiUrl = $store->word_address . '/wp-json/wc/v3/orders';
-            $apiKey = $store->api_key;
+            if ($orderLastTimes) {
+                $apiUrl = $store->word_address . "/wp-json/wc/v3/orders?after=" . $orderLastTimes->order_date . "&order=asc";
+            } else {
+                $apiUrl = $store->word_address . "/wp-json/wc/v3/orders?order=asc";
+            }
+            $apiKey = $store->api_key;  
             $apiSecret = $store->api_secret;
             try {
 
                 $response = Http::withBasicAuth($apiKey, $apiSecret)->get($apiUrl);
+                $data = $response->json();
+                // dd($data);
+                // die();
                 if ($response->successful()) {
                     $i = 0;
 
@@ -123,6 +136,7 @@ class WordpressController extends Controller
                             $order->store_id = $id;
                             $order->warehouse_id = $store['warehouse_id'];
                             $order->company_id = $store['company_id'];
+                            $order->order_date = $rec['date_created'];
                             $order->order_form = 'WooCommerce';
                             $order->external_order_no = $rec['id'];
                             if ($rec['billing']['phone']) {

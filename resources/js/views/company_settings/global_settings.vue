@@ -11,7 +11,8 @@
                  v-for="(image, index) in com">
                 <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer">
                     <div :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == image }" @click="onCompany(image)" class="card">
-                        <img :src="`/uploads/company/logo/` + image.logo"/>
+                        <!-- <img :src="`/uploads/company/logo/` + image.logo"/> -->
+                        <img :src="getImagePath(image)" />
                         <div class="card__content">
                             <p class="card__title">{{ image.country ? image.country.text : '' }}</p>
                             <p class="card__description">{{ image.city ? image.city.text : '' }}</p>
@@ -880,6 +881,14 @@
             onImageChange(e) {
                 this.form.imgN = e.target.files;
                 this.ImgUrl = URL.createObjectURL(e.target.files[0]);
+            },
+            getImagePath(item) {
+            if (item.logo) {
+                return `/uploads/company/logo/${item.logo}`;
+            } else {
+                // If no logo is uploaded, use a default image
+                return "/images/mimsoft.jpg";
+            }
             },
             onCompany(e) {
                 const company = e
