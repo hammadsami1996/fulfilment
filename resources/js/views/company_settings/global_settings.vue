@@ -283,6 +283,9 @@
                 </div>
             </div>
         </div>
+             <div v-if="courier">
+                <cities/>
+            </div>
         <div class="" v-if="stores">
             <h1 class="text-lg font-bold text-center mb-4 mt-4">Store Settings</h1>
             <div class="card-container mb-6">
@@ -495,7 +498,6 @@
 
             </div>
 
-
             <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">
                 <button @click="wordpress"
                         class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
@@ -656,6 +658,7 @@
     import {byMethod} from "@/libs/api";
     import {form} from "@/libs/mixins";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import Cities from "@/views/cities/index.vue";
     import Modal from "@/Components/Modal.vue";
     import Stores from "../stores/form.vue";
     import {objectToFormData} from "@/libs/helpers";
@@ -663,13 +666,14 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead, Modal , Stores
+            Typeahead, Modal , Stores,Cities
         },
         data() {
             return {
                 showRadioInputs: false,
                 selectedCompanyese: null,
                 ImgUrl: null,
+                showDiv: false,
                 companies: '/api/company',
                 connectionBtn: true,
                 isOpen: false,
@@ -720,6 +724,10 @@
                 const imgN = e.target.files;
                 this.ImgUrl = URL.createObjectURL(imgN[0]);
             },
+            toggleDiv() {
+                this.email = this.courier = this.stores = false;
+            this.showDiv = true;
+        },
             getImagePath(item) {
                 if (item.logo) {
                     return `/uploads/company/logo/${item.logo}`;
