@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Traits\HasRoles;
 
 class City extends Model implements Auditable
 {
@@ -49,22 +49,15 @@ class City extends Model implements Auditable
     {
         return json_decode($this->attributes['tcs']);
     }
-
-
     public function companies()
     {
         return $this->belongsToMany(Company::class, 'company_city_courier')
             ->withPivot('courier_id');
     }
-
     public function courier()
     {
         return $this->belongsTo(Courier::class, 'courier_id');
     }
-    // public function couriers()
-    // {
-    //     return $this->belongsToMany(Courier::class);
-    // }
     public function couriers()
     {
         return $this->belongsToMany(Courier::class, tenancy()->tenant->tenancy_db_name.'.city_courier')

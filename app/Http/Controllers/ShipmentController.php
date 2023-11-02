@@ -13,18 +13,25 @@ class ShipmentController extends Controller
         $order = Order::with('city')->findOrfail($id);
         $res = false;
         if (!$order->tracking_id) {
-            if ($order->courier_id == 1) {
+            if ($order->courier_id == 1 && $order->city->trax) {
                 $res = $this->trax($order);
-            }
-//            dd($res);
-            if ($res) {
-                $order->update(['tracking_id' => $res['tracking_number']]);
-                if ($res['status_id']) {
-                    $order->update(['status_id' => $res['status_id']]);
+                if ($res) {
+                    $order->update(['tracking_id' => $res['tracking_number']]);
+                    if ($res['status_id']) {
+                        $order->update(['status_id' => $res['status_id']]);
+                    }
+                    return response()->json(['data' => $order]);
                 }
+            } else {
+                return response()->json(['error' => $order], 422);
             }
+        } elseif ($order->tracking_id) {
+            return response()->json(['error' => 'Already Generated'], 422);
+        } elseif ($order->city) {
+            return response()->json(['error' => 'Already Generated'], 422);
         }
-        return response()->json(['data' => $order]);
+        return response()->json(['error' => $order], 422);
+
     }
 
     function trax($order, $service = "1")
@@ -87,7 +94,7 @@ class ShipmentController extends Controller
                 if (!$c) {
                     $c = CourierResponse::create(['title' => $result['message'], 'courier_id' => $order['courier_id']]);
                 }
-                $result['status_id'] = $c->courier_status ? $c->courier_status[0]->id : 0;
+                $result['status_id'] = $c->courier_status[0]->id ?? 0;
             }
         }
         return $result;

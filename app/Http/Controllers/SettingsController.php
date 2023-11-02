@@ -157,7 +157,6 @@ class SettingsController extends Controller
         return response()->json(['Email sent successfully']);
     }
 
-
     public function sendSMS($id)
     {
         $sms = CompanySetting::findOrFail($id);
