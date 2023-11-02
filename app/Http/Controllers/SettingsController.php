@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Mail\MyMail;
-use Twilio\Rest\Client;
-use App\Models\settings;
-use App\Models\Mailtemplate;
-use Illuminate\Http\Request;
 use App\Models\CompanySetting;
-use Illuminate\Support\Facades\Mail;
+use App\Models\Mailtemplate;
+use App\Models\settings;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
+use Twilio\Rest\Client;
 
 
 class SettingsController extends Controller
@@ -30,15 +27,17 @@ class SettingsController extends Controller
      */
     public function create()
     {
-    //    dd(request()->all());
-    $model = null;
-    if(request()->key && request()->company){
-        $model = CompanySetting::where('key' , request()->key)->where('company_id' , request()->company)->first();
+        $key = request()->key;
+        $company_id = request()->company_id;
 
-    }
-    // dd($model);
+        $model = $key && $company_id
+            ? CompanySetting::where('key', $key)->where('company_id', $company_id)->first()
+            : null;
+
+        $form = $model ? json_decode($model->value, true) : [];
+
         return response()->json([
-            "form" =>$model ?  json_decode($model->value):['company'=>[]]
+            "form" => $form
         ]);
     }
 
@@ -82,55 +81,48 @@ class SettingsController extends Controller
         //
     }
 
-    public function add_settings(Request $request){
-        // dd($request->all());
-        $model = CompanySetting::where('key' , $request['value'])->where('company_id' , $request['company_id'])->first();
+    public function add_settings(Request $request)
+    {
+        $key = $request->input('value');
+        $company_id = $request->input('company_id');
 
-        // dd($model);
-        $model ? $model : $model = new CompanySetting;
-        // dd($model);
-        if($request['value'] == 'sms_settings'){
-            $value=[
-                'login_id'=>$request['login_id'],
-                'password'=>$request['password'],
+        $model = CompanySetting::where('key', $key)
+            ->where('company_id', $company_id)
+            ->first();
 
-                'mask'=>$request['mask'],
-
-            ];
-        }
-        if($request['value'] == 'email_settings'){
-            $value=[
-                'title'=>$request['title'],
-                'host'=>$request['host'],
-                'username'=>$request['username'],
-
-
-                'password'=>$request['password'],
-                'port'=>$request['port'],
-                'smtp'=>$request['smtp'],
-                'form_email'=>$request['form_email'],
-
-
-
-
-                'value'=>$request['value'],
-
-            ];
+        if (!$model) {
+            $model = new CompanySetting;
         }
 
-        $model->key = $request['value'];
+        $value = [];
+
+        if ($key === 'sms_settings') {
+            $value = [
+                'login_id' => $request->input('login_id'),
+                'password' => $request->input('password'),
+                'mask' => $request->input('mask'),
+            ];
+        } elseif ($key === 'email_settings') {
+            $value = [
+                'title' => $request->input('title'),
+                'host' => $request->input('host'),
+                'username' => $request->input('username'),
+                'password' => $request->input('password'),
+                'port' => $request->input('port'),
+                'smtp' => $request->input('smtp'),
+                'form_email' => $request->input('form_email'),
+                'value' => $key,
+            ];
+        }
+
+        $model->key = $key;
         $model->value = json_encode($value);
         $model->active = 1;
-        $model->company_id = $request['company_id'];
+        $model->company_id = $company_id;
 
         $model->save();
-        // $this->sendmail($model->id);
-        $this->sendSMS($model->id);
 
-        // return response()->json(['saved' => true, 'id' => $model->id
-        // ]);
-
-
+        return response()->json(['saved' => true, 'id' => $model->id]);
     }
 
     public function sendmail($model){

@@ -1049,7 +1049,7 @@
                 );
             },
             returns(e) {
-                byMethod("get", `/api/settings/create?key=${this.key}&company=${e}`).then(
+                byMethod("get", `/api/settings/create?key=${this.key}&company_id=${e}`).then(
                     (res) => {
                         (this.show_company_data = true), this.setData(res);
                     }
