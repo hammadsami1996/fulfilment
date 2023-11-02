@@ -101,6 +101,7 @@ class SettingsController extends Controller
                 'login_id' => $request->input('login_id'),
                 'password' => $request->input('password'),
                 'mask' => $request->input('mask'),
+                'url' => $request->input('url'),
             ];
         } elseif ($key === 'email_settings') {
             $value = [
@@ -155,7 +156,6 @@ class SettingsController extends Controller
         Mail::to($data['email'])->send(new MyMail($data));
         return response()->json(['Email sent successfully']);
     }
-
 
     public function sendSMS($id)
     {

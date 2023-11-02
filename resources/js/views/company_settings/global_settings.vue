@@ -646,169 +646,9 @@
 
             </div>
         </Modal>
-
-
         <Modal :show="isOpenStore" closeable="true">
-
             <Stores :show="true" additionalProp="global"  @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores>
         </Modal>
-
-        <!-- <Modal :show="isOpenStore" closeable="true">
-            <div class="">
-                <h1 class="text-lg font-bold  mt-4 mb-4 text-center">Add New Store</h1>
-                <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                    <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label
-                            class="block font-medium text-sm text-gray-700 mb-2"
-                        >Name <span class="text-red-600">*</span></label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            placeholder=" Name"
-                            v-model="form.name"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
-                    </div>
-                    <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label
-                            class="block font-medium text-sm text-gray-700 mb-2"
-                        >Location <span class="text-red-600">*</span></label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            placeholder=" location"
-                            v-model="form.location"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.location">{{ error.location[0] }}</p>
-                    </div>
-                </div>
-                <div class="flex-auto flex flex-col sm:flex-row sm:items-center mr-3">
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                        <label
-                            class="block font-medium text-sm text-gray-700 mb-2"
-                        >Company <span class="text-red-600">*</span></label>
-                        <typeahead :initialize="form.company" :url="companies" @input="onCompanyUpdate" display="name"/>
-                        <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
-                    </div>
-                </div>
-
-                <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-2">
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Store Type <span
-                            class="text-red-600">*</span></label>
-                        <div class="relative">
-                            <select
-                                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
-                                v-model="form.store_type">
-                                <option value="Physical">Physical</option>
-                                <option value="Online">Online</option>
-                            </select>
-                        </div>
-                        <p class="text-red-600 text-xs italic" v-if="error.store_type">{{ error.store_type[0] }}</p>
-                    </div>
-
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0 mr-2" v-if="form.store_type == 'Online'">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Plate Form</label>
-                        <div class="relative">
-                            <select
-                                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
-                                v-model="form.plate_form">
-                                <option value="WooCommerce">WooCommerce</option>
-                                <option value="Shopify">Shopify</option>
-                                <option value="MimCart">MimCart</option>
-                            </select>
-                        </div>
-                        <p class="text-red-600 text-xs italic" v-if="error.plate_form">{{ error.plate_form[0] }}</p>
-                    </div>
-                </div>
-                <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4"
-                     v-if="form.store_type  == 'Online'">
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                         v-if="form.plate_form == 'Shopify'">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Access Token</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            v-model="form.access_token"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                    </div>
-                    <div class="w-full sm:w-1/2 pl-3 mr-2 sm:mb-0"
-                         v-if="form.plate_form == 'Shopify'">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            placeholder="https://example.com"
-                            type="url"
-                            v-model="form.store_address"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                    </div>
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                         v-if="form.plate_form == 'WooCommerce'">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Store Address</label>
-                        <input
-                            class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
-                            v-model="form.word_address"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                    </div>
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                         v-if="form.plate_form == 'WooCommerce'">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            v-model="form.api_key"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                    </div>
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0 mr-2" v-if="form.plate_form == 'WooCommerce'">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Api Secret</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            v-model="form.api_secret"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                    </div>
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0"
-                         v-if="form.plate_form == 'MimCart'">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Api Key</label>
-                        <input
-                            class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
-                            v-model="form.mim_api_key"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                    </div>
-                    <div class="w-full sm:w-1/2 pl-3 mr-2 sm:mb-0"
-                         v-if="form.plate_form == 'MimCart'">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Store Addres</label>
-                        <input
-                            class="w-full py-2 px-3 bg-bg-white h-8 border border-gray-300 rounded-md"
-                            v-model="form.mim_store_address"
-                        />
-                        <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
-                    </div>
-                </div>
-                <div class="flex justify-end mt-8 space-x-4 p-3">
-                    <button
-                        @click="savestore"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600"
-                        type="button"
-                        v-if="!connectionBtn || form.store_type == 'Physical'">
-                        {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
-                    </button>
-                    <button @click="testConnection"
-                            class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white hover:bg-orange-500"
-                            type="button"
-                            v-if="connectionBtn && form.store_type == 'Online'">
-                        Test Connection
-                    </button>
-                    <button
-                        @click="successfull()"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600"
-                        type="button">
-                        Cancel
-                    </button>
-                </div>
-            </div>
-        </Modal> -->
     </div>
 </template>
 
@@ -818,10 +658,7 @@
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import Modal from "@/Components/Modal.vue";
     import Stores from "../stores/form.vue";
-
-
     import {objectToFormData} from "@/libs/helpers";
-
 
     export default {
         mixins: [form],
@@ -880,30 +717,28 @@
         },
         methods: {
             onImageChange(e) {
-                this.form.imgN = e.target.files;
-                this.ImgUrl = URL.createObjectURL(e.target.files[0]);
+                const imgN = e.target.files;
+                this.ImgUrl = URL.createObjectURL(imgN[0]);
             },
             getImagePath(item) {
-            if (item.logo) {
-                return `/uploads/company/logo/${item.logo}`;
-            } else {
-                // If no logo is uploaded, use a default image
-                return "/images/mimsoft.jpg";
-            }
+                if (item.logo) {
+                    return `/uploads/company/logo/${item.logo}`;
+                } else {
+                    return "/images/mimsoft.jpg";
+                }
             },
-            onCompany(e) {
-                const company = e
-                this.form.company = company
-                this.form.company_id = company.id
-                this.company_id = company.id
-                this.selectedCompany = e;
+            onCompany(company) {
+                this.form.company = company;
+                this.form.company_id = company.id;
+                this.company_id = company.id;
+                this.selectedCompany = company;
                 this.selectedCompanyese = e;
                  this.showRadioInputs = true;
             },
             onCompanyUpdate(e) {
-                const company = e.target.value
-                this.form.company = company
-                this.form.company_id = company.id
+                const company = e.target.value;
+                this.form.company = company;
+                this.form.company_id = company.id;
             },
             onCities(e) {
                 const city = e.target.value
@@ -1154,48 +989,41 @@
                     });
             },
             successfull(res) {
-                this.isOpen = false
-                this.isOpenStore = false
-                this.form = {}
-                this.ImgUrl = null
-            },
-            handleCancelStores(){
-                console.log('cancel');
-                this.isOpen = false
-                this.isOpenStore = false
-                this.form = []
-                this.ImgUrl = null
+                this.isOpen = this.isOpenStore = false;
+                this.form = {};
+                this.ImgUrl = null;
             },
             testConnection() {
-                let data = {}
-                let connention_url = ''
+                let data = {};
+                let connention_url = '';
                 if (this.form.plate_form == 'Shopify') {
                     data = {
                         store_address: this.form.store_address,
-                        access_token: this.form.access_token
-                    }
-                    connention_url = '/api/shopify_fetch_data'
+                        access_token: this.form.access_token,
+                    };
+                    connention_url = '/api/shopify_fetch_data';
                 } else if (this.form.plate_form == 'WooCommerce') {
                     data = {
                         api_key: this.form.api_key,
                         word_address: this.form.word_address,
                         api_secret: this.form.api_secret,
-                    }
-                    connention_url = '/api/ecommerce'
-
+                    };
+                    connention_url = '/api/ecommerce';
                 } else if (this.form.plate_form == 'MimCart') {
                     data = {
                         mim_api_key: this.form.mim_api_key,
-                        mim_store_address: this.form.mim_store_address
-                    }
-                    connention_url = '/api/mimcart_fetch_data'
+                        mim_store_address: this.form.mim_store_address,
+                    };
+                    connention_url = '/api/mimcart_fetch_data';
                 }
                 if (data && connention_url) {
-                    byMethod('post', connention_url, data).then(res => {
-                        this.connectionBtn = false
-                    }).catch(err => {
-                        console.log(err);
-                    })
+                    byMethod('post', connention_url, data)
+                        .then((res) => {
+                            this.connectionBtn = false;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
                 }
             },
         },

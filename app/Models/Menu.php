@@ -13,7 +13,7 @@ class Menu extends Model implements Auditable
 
     protected $connection = 'mysql';
 
-    public function children()
+    public function children(   )
     {
         $permissionsData = collect(auth()->user()->getAllPermissions());
         $permissions = $permissionsData->pluck('name');
@@ -21,7 +21,6 @@ class Menu extends Model implements Auditable
             ->where(function ($q) use ($permissions) {
                 $q->whereIn('route', $permissions)
                     ->orWhere('route', '=', null);
-            })->orderBy('sort')
-            ;
+            })->orderBy('sort');
     }
 }
