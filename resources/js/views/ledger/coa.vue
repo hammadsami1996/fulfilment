@@ -282,7 +282,7 @@
                                 
                                 {{ items.balance }}
                                    </td>
-                                   <td >
+                                   <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
                                 
                                 {{ items.debit }}
                                    </td>
