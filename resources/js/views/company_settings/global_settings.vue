@@ -7,9 +7,8 @@
             </p>
         </div>
         <div class="card-container mb-2 mt-3">
-            <div :key="index" class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center"
-                 v-for="(image, index) in com">
-                <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer">
+            <div :key="index" class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(image, index) in com" >
+                <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer" >
                     <div :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == image }" @click="onCompany(image)" class="card">
                         <!-- <img :src="`/uploads/company/logo/` + image.logo"/> -->
                         <img :src="getImagePath(image)" />
@@ -32,7 +31,7 @@
             </div>
         </div>
         <hr/>
-        <div class="w-full radio-inputs mb-4 mt-4 ml-3">
+        <div class="w-full radio-inputs mb-4 mt-4 ml-3" id="inputradio" v-if="showRadioInputs === true" >
             <label>
                 <input
                     @click="smstabs"
@@ -289,7 +288,7 @@
             <div class="card-container mb-6">
                 <div class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="stores in stores_data">
                     <div @click="create_store(stores)" class="w-full sm:w-1/8 pl-3 sm:mb-0 shows">
-                        <div class="radio-inputs">
+                        <div class="input_radio">
                             <label>
                                 <input
                                     class="radio-input"
@@ -831,6 +830,8 @@
         },
         data() {
             return {
+                showRadioInputs: false,
+                selectedCompanyese: null,
                 ImgUrl: null,
                 companies: '/api/company',
                 connectionBtn: true,
@@ -838,7 +839,7 @@
                 isOpenStore: false,
                 show_company_data: false,
                 email: false,
-                sms: true,
+                sms: false,
                 show_ecommerce: false,
                 show_company: false,
                 stores: false,
@@ -896,6 +897,8 @@
                 this.form.company_id = company.id
                 this.company_id = company.id
                 this.selectedCompany = e;
+                this.selectedCompanyese = e;
+                 this.showRadioInputs = true;
             },
             onCompanyUpdate(e) {
                 const company = e.target.value
