@@ -16,6 +16,7 @@ class ShipmentController extends Controller
             if ($order->courier_id == 1) {
                 $res = $this->trax($order);
             }
+//            dd($res);
             if ($res) {
                 $order->update(['tracking_id' => $res['tracking_number']]);
                 if ($res['status_id']) {
