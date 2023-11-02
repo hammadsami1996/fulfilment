@@ -192,8 +192,12 @@
                 </template>
                 <template v-slot:couriers="props">
                     <typeahead :initialize="props.item.courier" :url="courier"
-                               @input="onShippeds($event ,props.item)" display="name"
-                               v-if="props.item.courier_id"/>
+                               @input="onShippeds($event, props.item)" display="name"
+                               v-if=" !props.item.tracking_id"/>
+                    <div v-else>
+                        <span v-if="props.item.courier">{{ props.item.courier.name }}</span><br>
+                        <span>{{props.item.tracking_id}}</span>
+                    </div>
                 </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
