@@ -732,7 +732,7 @@
                 this.form.company_id = company.id;
                 this.company_id = company.id;
                 this.selectedCompany = company;
-                this.selectedCompanyese = e;
+                this.selectedCompanyese = company;
                  this.showRadioInputs = true;
             },
             onCompanyUpdate(e) {
