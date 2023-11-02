@@ -101,6 +101,7 @@ class SettingsController extends Controller
                 'login_id' => $request->input('login_id'),
                 'password' => $request->input('password'),
                 'mask' => $request->input('mask'),
+                'url' => $request->input('url'),
             ];
         } elseif ($key === 'email_settings') {
             $value = [
