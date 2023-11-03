@@ -242,4 +242,29 @@ class OrderController extends Controller
             "form" => $model
         ]);
     }
+
+    public function bulk_courier(Request $request)
+    {
+        $selectedItems = $request->selectedItems; // An array of item IDs
+        $statusData = $request->selectedstatus; // Status data to be applied to all items
+
+        foreach ($selectedItems as $itemId) {
+            // Create an array with the updated status data for the specific item
+            $data = [
+                'id' => $statusData['id'], // Use the item ID
+                'name' => $statusData['name'],
+                'created_at' => $statusData['created_at'],
+                'update_at' => $statusData['update_at'],
+                'color' => $statusData['color'],
+                'head' => $statusData['head'],
+                'head_id' => $statusData['head_id'],
+                'text' => $statusData['text'],
+                'ids' =>$itemId, // Include 'ids' if needed
+            ];
+
+            // Perform the updatestatus operation with the $data array
+            $this->updatestaus(new Request($data));
+        }
+
+    }
 }

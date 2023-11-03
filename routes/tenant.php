@@ -131,6 +131,8 @@ Route::middleware([
         Route::get('required_stock', [\App\Http\Controllers\ReportController::class, 'required']);
         Route::get('download_images', [\App\Http\Controllers\ProductController::class, 'download_images']);
         Route::get('product_details', [\App\Http\Controllers\OrderController::class, 'details']);
+        Route::post('/bulk_status', [\App\Http\Controllers\StatusController::class, 'bulk_status']);
+        Route::post('/bulk_courier', [\App\Http\Controllers\OrderController::class, 'bulk_courier']);
         Route::post('/order_single', [\App\Http\Controllers\ShipmentController::class, 'order_single']);
 
         Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);

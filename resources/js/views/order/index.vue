@@ -32,22 +32,7 @@
                 Unpackable
             </a> -->
         </div>
-        <div class="container px-4 py-5  sm:px-6 flex justify-between items-center">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
-
-            <div class="" style="display: contents">
-
-                <a @click="showpackable('packable',pack)"
-                   class="w-1/6 sm:mx-auto    py-4 px-6  text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
-                    Packable
-                </a>
-                <a @click="showpackable('unpackable',pack)"
-                   class="w-1/6 sm:mx-auto  py-4 px-6 text-center border-b-2 font-medium md:mx-auto lg:ml-[-10pc]   text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-                    Unpackable
-                </a>
-            </div>
-
-
+        <div class="container px-4 py-5  sm:px-6 flex justify-end items-center">
             <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
                              class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
@@ -64,6 +49,29 @@
                     class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-green-500 text-white"
                     type="button">Bulk CN Generate
                 </button>
+                <button
+                    @click="BulkCourierUpdate"
+                    class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-orange-500 text-white"
+                    type="button">Bulk Courier Update
+                </button>
+                <button
+                    @click="BulkStatusUpdate"
+                    class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-yellow-500 text-white"
+                    type="button">Bulk Status Update
+                </button>
+            </div>
+        </div>
+        <div class="container px-4 py-5  sm:px-6 flex justify-between items-center">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
+            <div class="" style="display: contents">
+                <a @click="showpackable('packable',pack)"
+                   class="w-1/6 sm:mx-auto    py-4 px-6  text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
+                    Packable
+                </a>
+                <a @click="showpackable('unpackable',pack)"
+                   class="w-1/6 sm:mx-auto  py-4 px-6 text-center border-b-2 font-medium md:mx-auto lg:ml-[-10pc]   text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
+                    Unpackable
+                </a>
             </div>
         </div>
         <div class="bg-gray-200 p-4" v-show='toggle'>
@@ -144,7 +152,7 @@
         </div>
 
         <div class="flex-col ">
-            <panel :columns="columns" :urlApi="urlApi" @selectAll="selectAll" ref="TableData">
+            <panel :columns="columns" :urlApi="urlApi" @selectAll="selectAll" ref="TableData" :search-enable="false">
                 <template v-slot:statuses="props">
                     <!--                    <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) "-->
                     <!--                            class="button">-->
@@ -267,6 +275,34 @@
             </panel>
         </div>
     </div>
+    <template>
+        <Modal :show="isOpenCourier" :closeable="true">
+            <div class="bg-gray-100">
+                <div class="p-5 grow" style="height: 250px">
+                    <label class="flex items-center text-gray-700 text-lg font-bold ml-2">Select Courier</label>
+                    <typeahead :initialize="selectedcourier" :url="courier" @input="onbulkShippeds($event ,selectedcourier)" display="name"></typeahead>
+                </div>
+                <div class="space-x-2 py-4 px-5 bg-gray-100 dark:bg-gray-900">
+                    <button @click="updateModalCourier" class="bg-blue-400 space-x-8 rounded-full p-2 mx-1 bottom-0 right-0">save</button>
+                    <button @click="resetModalCourier" class="rounded-full p-2 mx-1 bottom-0 right-0">cancel</button>
+                </div>
+            </div>
+        </Modal>
+    </template>
+    <template>
+        <Modal :show="isOpenStatus" :closeable="true">
+            <div class="bg-gray-100">
+                <div class="p-5 grow" style="height: 250px">
+                    <label class="flex items-center text-gray-700 text-lg font-bold ml-2">Select Status</label>
+                    <typeahead :initialize="selectedstatus" :url="delivery+'?head=order'" @input="onbulkstatus($event ,selectedstatus)" display="name"></typeahead>
+                </div>
+                <div class="space-x-2 py-4 px-5 bg-gray-100 dark:bg-gray-900">
+                    <button @click="updateModalStatus" class="bg-blue-400 space-x-8 rounded-full p-2 mx-1 bottom-0 right-0">save</button>
+                    <button @click="resetModalStatus" class="rounded-full p-2 mx-1 bottom-0 right-0">cancel</button>
+                </div>
+            </div>
+        </Modal>
+    </template>
     <Modal :show="show_msg" closeable="true">
         <div class="">
             <h1 class="text-lg font-bold mt-4 mb-4 text-center">Send SMS</h1>
@@ -305,7 +341,7 @@
 <script>
     import Panel from "@/components/panel/panel.vue";
     import {form} from "@/libs/mixins";
-    import {byMethod} from "@/libs/api";
+    import {byMethod, post} from "@/libs/api";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import Modal from "@/Components/Modal.vue";
     import {objectToFormData} from "@/libs/helpers";
@@ -318,6 +354,10 @@
         name: "Index",
         data() {
             return {
+                selectedcourier: [],
+                selectedstatus: [],
+                isOpenCourier: false,
+                isOpenStatus: false,
                 selectedItems: [],
                 toggle: false,
                 show_msg: false,
@@ -356,6 +396,28 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+            resetModalCourier() {
+                this.selectedcourier = {}
+                this.isOpenCourier = false
+            },
+            BulkCourierUpdate(data) {
+                // this.user_data = {
+                //     id: data.id,
+                //     roles: data.roles[0]
+                // };
+                this.isOpenCourier = true
+            },
+            resetModalStatus() {
+                this.selectedstatus = {}
+                this.isOpenStatus = false
+            },
+            BulkStatusUpdate(data) {
+                // this.user_data = {
+                //     id: data.id,
+                //     roles: data.roles[0]
+                // };
+                this.isOpenStatus = true
+            },
             selectAll(e) {
                 this.selectedItems = e
             },
@@ -367,6 +429,42 @@
                 this.sts = true;
                 this.ids = status_id;
                 this.id = e
+            },
+            updateModalCourier() {
+                let data= {
+                    selectedItems : this.selectedItems,
+                    selectedstatus: this.selectedstatus
+                }
+                byMethod('POST', '/api/bulk_courier', data).then(res => {
+                    this.$refs.TableData.reload();
+                    this.$toast.open({
+                        position: 'top-right',
+                        message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
+                        type: 'success',
+                        duration: 3000
+                    });
+                  this.resetModalCourier()
+                })
+            },
+            updateModalStatus() {
+                let data= {
+                    selectedItems : this.selectedItems,
+                    selectedstatus: this.selectedstatus
+                }
+                byMethod('POST', '/api/bulk_status', data).then(res => {
+                    this.$refs.TableData.reload();
+                    this.$toast.open({
+                        position: 'top-right',
+                        message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
+                        type: 'success',
+                        duration: 3000
+                    });
+                    this.resetModalStatus()
+                })
+
+                // post('/api/assign_user_role', this.user_data).then(res => {
+                //     this.resetModalCourier()
+                // })
             },
             getImagePath(props) {
                 if (props.item.stores.company.logo) {
@@ -384,6 +482,14 @@
                         this.$refs.TableData.reload();
                     }
                 })
+            },
+            onbulkstatus(e){
+                const deliver = e.target.value
+                this.selectedstatus = deliver
+            },
+            onbulkShippeds(e) {
+                const courier = e.target.value;
+                this.selectedcourier = courier;
             },
             onStatus(e, value) {
                 const status = e.target.value

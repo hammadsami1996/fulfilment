@@ -70,8 +70,9 @@ class StatusController extends Controller
 
     public function updatestatus(Request $request)
     {
-        $data = Order::where('id', $request->ids)->first();
+        $data = Order::findOrFail($request->ids);
         $logs = new StatusLog();
+
         $logs->order_id = $request->ids;
         $logs->updated_sts = $request->name;
         $logs->previous_sts = $data->status_id;
@@ -81,7 +82,6 @@ class StatusController extends Controller
 
         $data->status_id = $request->id;
         $data->save();
-
         return response()->json(["saved" => true, "id" => $data->id]);
     }
 
@@ -109,4 +109,28 @@ class StatusController extends Controller
 
         return response()->json(['data' => $results]);
     }
+    public function bulk_status(Request $request)
+    {
+        $selectedItems = $request->selectedItems; // An array of item IDs
+        $statusData = $request->selectedstatus; // Status data to be applied to all items
+
+        foreach ($selectedItems as $itemId) {
+            // Create an array with the updated status data for the specific item
+            $data = [
+                'id' => $statusData['id'], // Use the item ID
+                'name' => $statusData['name'],
+                'created_at' => $statusData['created_at'],
+                'update_at' => $statusData['update_at'],
+                'color' => $statusData['color'],
+                'head' => $statusData['head'],
+                'head_id' => $statusData['head_id'],
+                'text' => $statusData['text'],
+                'ids' =>$itemId, // Include 'ids' if needed
+            ];
+
+            // Perform the updatestatus operation with the $data array
+            $this->updatestatus(new Request($data));
+        }
+    }
+
 }
