@@ -84,13 +84,13 @@
                         <td class="w-48" v-if="item.product && item.product.product_img && item.product.product_img[0]">
                             <div
                                 class="image-container"
-                                style=" max-width: 40%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
+                                style=" max-width: 30%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
                                 <img :src="`/uploads/product/img/` +  item.product.product_img[0].img">
                             </div>
                         </td>
-                        <td v-else>
+                        <td v-else class="w-48">
                             <div
-                                style=" max-width: 25%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
+                                style=" max-width: 20%; height: auto;  justify-content: center; align-items: center; margin-left: 15%;">
                                 <img alt="No Picture" src="~@/images/no-picture-taking.png">
                                 <span class="text-center" style="font-weight: bold;"> No Product Image</span>
                             </div>
@@ -112,7 +112,7 @@
                         </td>
                         <td class="text-right">
                             <button @click="addchild(index)"
-                                    class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-yellow-300 to-yellow-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
+                                    class="mt-6 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-yellow-300 to-yellow-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75 mb-3"
                                     style=" margin-top: 10px; color:white; border-radius: 10%;"
                                     type="button" v-if="item.partail_remaining != 0">
                                 <i class="fa fa-plus-circle"></i> Add Warehouses
@@ -129,7 +129,7 @@
                                 :initialize="child.warehouse"
                                 :url="warehouses"
                                 @input="onWearhouse(childIndex, index, $event ,child)"
-                                class="Z-20 absolute h-8 w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                class="Z-20 relative h-8 w-64 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="name"
                             />
                         </td>
@@ -468,7 +468,7 @@
 
     .image-container:hover {
         /* margin-left:25%; */
-        transform: scale(1.8); /* Increase the image size on hover */
+        transform: scale(1.2); /* Increase the image size on hover */
         /* margin-left:25% */
 
     }

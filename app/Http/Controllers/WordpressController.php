@@ -190,6 +190,7 @@ class WordpressController extends Controller
 
                             $order->shipping_charges = $rec['shipping_tax'];
                             $order->total = $rec['total'];
+                            $order->net_total = $rec['total'];
                             $order->discount = $rec['discount_total'];
 
                             $cities = City::where('name', $rec['billing']['city'])->first();

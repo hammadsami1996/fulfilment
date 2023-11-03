@@ -118,6 +118,7 @@ class MimCartController extends Controller
                             $order->coupons_discount = $rec['coupons_discount'];
                             $order->coupons = $rec['coupons'];
                             $order->net_total = $rec['net_total'];
+                            $order->order_date = $rec['createdon'];
                             $order->location = $rec['address'];
                             $order->city_name = $rec['city'];
                             $order->shipment_services = $rec['shipment_services'] || null;
