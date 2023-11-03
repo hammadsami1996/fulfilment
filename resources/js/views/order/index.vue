@@ -144,7 +144,7 @@
         </div>
 
         <div class="flex-col ">
-            <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+            <panel :columns="columns" :urlApi="urlApi" @selectAll="selectAll" ref="TableData">
                 <template v-slot:statuses="props">
                     <!--                    <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) "-->
                     <!--                            class="button">-->
@@ -156,7 +156,7 @@
                         <span v-else> {{'This Order Not Packable'}}</span>
                     </div>
                 </template>
-                <template v-slot:id="props">
+                <template v-slot:checkbox="props">
                     <div class="text-center">
                         <input :value="props.item.id" class="form-checkbox h-5 w-5 text-blue-500" type="checkbox"
                                v-model="selectedItems"/>
@@ -337,7 +337,7 @@
                 small: "order",
                 capital: "Order",
                 columns: [
-                    {label: 'S.No', field: 'id', slot: true},
+                    {label: 'S.No', field: 'checkbox', slot: true},
                     // {label: 'Sales Number', field: 'so_number'},
                     {label: 'Customer', field: 'customers', slot: true},
                     {label: 'Status', field: 'statuses', slot: true},
@@ -356,6 +356,9 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+            selectAll(e) {
+                this.selectedItems = e
+            },
             Cancel() {
                 this.sts = false;
                 this.form.deliver = null;

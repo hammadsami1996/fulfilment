@@ -216,8 +216,11 @@
                                     :key="index"
                                     class="px-3 py-2 text-xs uppercase text-left"
                                     v-for="(column, index) in columns"
-                                >
-                                    {{ column.label ? column.label : '' }}
+                                ><span v-if="column.field == 'checkbox'">
+                                    <input @change="selectAll" class="form-checkbox h-5 w-5 text-blue-500"
+                                           type="checkbox"/>
+</span>
+                                    <span v-else>{{ column.label ? column.label : '' }}</span>
                                 </th>
                             </tr>
                         </thead>
@@ -431,7 +434,9 @@
                     });
                 }
             },
-            onRowClick(params) {
+            selectAll(e) {
+                this.$emit('selectAll', e.target.checked ? this.model.data.map(item => item.id) : []);
+            }, onRowClick(params) {
                 this.$emit('rowClick', params.row);
             },
             search(query) {
