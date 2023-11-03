@@ -50,14 +50,19 @@
 
             <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
-                             class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                             class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                              type="button">
                     Create Order
                 </router-link>
                 <button @click='toggle = !toggle'
-                        class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
+                        class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-purple-500 text-white"
                         type="button">
                     Advanced Search
+                </button>
+                <button
+                    @click="bulkCN(selectedItems)"
+                    class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-green-500 text-white"
+                    type="button">Bulk CN Generate
                 </button>
             </div>
         </div>
@@ -141,15 +146,23 @@
         <div class="flex-col ">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:statuses="props">
-<!--                    <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) "-->
-<!--                            class="button">-->
+                    <!--                    <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) "-->
+                    <!--                            class="button">-->
                     <div>
-                        <typeahead :initialize="props.item.status" :url="delivery+'?head=order&id='+ props.item.status.id"
+                        <typeahead :initialize="props.item.status"
+                                   :url="delivery+'?head=order&id='+ props.item.status.id"
                                    @input="onStatus($event ,props.item)" display="name"
                                    v-if="props.item.packability == 'packable' "/>
                         <span v-else> {{'This Order Not Packable'}}</span>
                     </div>
                 </template>
+                <template v-slot:id="props">
+                    <div class="text-center">
+                        <input :value="props.item.id" class="form-checkbox h-5 w-5 text-blue-500" type="checkbox"
+                               v-model="selectedItems"/>
+                    </div>
+                </template>
+
                 <template v-slot:customers="props">
                     <div>
                         <p v-if="props.item.customer">{{props.item.customer.name}}</p>
@@ -172,9 +185,9 @@
                 </template>
                 <template v-slot:company="props">
                     <div>
-<!--                        <img :src="`/uploads/company/logo/${props.item.stores.company.logo}`"-->
-<!--                             class="shadow-xl h-10 w-10 rounded-full"/>-->
-                        <img :src="getImagePath(props)" class="shadow-xl h-10 w-10 rounded-full" />
+                        <!--                        <img :src="`/uploads/company/logo/${props.item.stores.company.logo}`"-->
+                        <!--                             class="shadow-xl h-10 w-10 rounded-full"/>-->
+                        <img :src="getImagePath(props)" class="shadow-xl h-10 w-10 rounded-full"/>
                         <!-- <p class="h-8 w-8">{{props.item.company.logo}}</p> -->
                         <!-- <p>{{props.item.stores.name}}</p> -->
                     </div>
@@ -295,6 +308,7 @@
     import {byMethod} from "@/libs/api";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import Modal from "@/Components/Modal.vue";
+    import {objectToFormData} from "@/libs/helpers";
 
     export default {
         mixins: [form],
@@ -304,6 +318,7 @@
         name: "Index",
         data() {
             return {
+                selectedItems: [],
                 toggle: false,
                 show_msg: false,
                 sts: false,
@@ -322,7 +337,7 @@
                 small: "order",
                 capital: "Order",
                 columns: [
-                    {label: 'S.No', field: 'id', format: 'index'},
+                    {label: 'S.No', field: 'id', slot: true},
                     // {label: 'Sales Number', field: 'so_number'},
                     {label: 'Customer', field: 'customers', slot: true},
                     {label: 'Status', field: 'statuses', slot: true},
@@ -500,6 +515,17 @@
                 }, 500)
 
             },
+            bulkCN(item) {
+                byMethod('POST', '/api/order_single', objectToFormData(item)).then(res => {
+                    this.$refs.TableData.reload();
+                    this.$toast.open({
+                        position: 'top-right',
+                        message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
+                        type: 'success',
+                        duration: 3000
+                    });
+                })
+            },
             generateCN(id) {
                 byMethod('GET', `/api/generateCN/${id}`)
                     .then((res) => {
@@ -512,6 +538,7 @@
             sendMsg() {
                 this.show_msg = false
             }
+
         },
     }
 </script>

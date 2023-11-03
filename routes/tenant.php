@@ -131,6 +131,8 @@ Route::middleware([
         Route::get('required_stock', [\App\Http\Controllers\ReportController::class, 'required']);
         Route::get('download_images', [\App\Http\Controllers\ProductController::class, 'download_images']);
         Route::get('product_details', [\App\Http\Controllers\OrderController::class, 'details']);
+        Route::post('/order_single', [\App\Http\Controllers\ShipmentController::class, 'order_single']);
+
         Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);
         Route::get('/fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
         Route::get('/generateCN/{id}', [\App\Http\Controllers\ShipmentController::class, 'generateCN']);

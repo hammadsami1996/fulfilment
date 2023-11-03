@@ -4,10 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\CourierResponse;
 use App\Models\Order;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class ShipmentController extends Controller
 {
+    public function order_single(Request $request)
+    {
+//        dd($request->all());
+        foreach ($request->all() as $order) {
+            $this->generateCN($order);
+        }
+        return response()->json(["saved" => true]);
+    }
     function generateCN($id)
     {
         $order = Order::with('city')->findOrfail($id);
