@@ -49,10 +49,11 @@
 <!--    </div>-->
 <!--</template>-->
 <template>
-    <div :class="[isOpen ? 'typeahead typeahead-open' : 'typeahead']" class="border border-gray-200 rounded ">
-        <div :style="'font-size:'+size+'px'" class="typeahead-inner">
+    <div :class="[isOpen ? 'typeahead typeahead-open' : 'typeahead']" class="border border-gray-200 rounded max-w-sm">
+        <div :style="'font-size:'+size+'px'" class="typeahead-inner max-w-xl">
             <div :class="clearable ? 'row px-1' : ''">
-                <div :class="`${formSize} typeahead-selected overflow-x-clip font-semibold cursor-pointer py-2 px-4`"
+                <div   
+                :class="[`${formSize} typeahead-selected overflow-x-clip font-semibold cursor-pointer py-2 px-4 `,'multi-select-height']"
                      style="flex-wrap: wrap;"
                      :style="'font-size:'+size+'px'"
                      :tabindex="tabindex"
@@ -65,7 +66,8 @@
                         <span @click="removeSelectedOption(selectedOption)"
                               class="cursor-pointer ml-1 text-red-500 font-bold">×</span>
                     </div>
-                    <span v-else class="h-4 flex items-center">{{selectedText}}</span>
+                    <span v-else >{{selectedText}}</span>
+                    <!-- <span v-else class="h-4 flex items-center">{{selectedText}}</span> -->
                 </div>
                 <div @click="removeValue()"
                      class="cursor-pointer font-bold text-red-500 absolute right-8 top-2 bg-white" v-if="clearable">X
@@ -325,3 +327,10 @@
         }
     }
 </script>
+<style scoped>
+.multi-select-height {
+  min-height: 35px;
+  max-height: 200px;  
+  overflow-y: auto;
+}
+</style>

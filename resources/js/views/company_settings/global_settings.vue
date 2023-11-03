@@ -7,9 +7,8 @@
             </p>
         </div>
         <div class="card-container mb-2 mt-3">
-            <div :key="index" class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center"
-                 v-for="(image, index) in com">
-                <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer">
+            <div :key="index" class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(image, index) in com" >
+                <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer" >
                     <div :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == image }" @click="onCompany(image)" class="card">
                         <!-- <img :src="`/uploads/company/logo/` + image.logo"/> -->
                         <img :src="getImagePath(image)" />
@@ -32,7 +31,7 @@
             </div>
         </div>
         <hr/>
-        <div class="w-full radio-inputs mb-4 mt-4 ml-3">
+        <div class="w-full radio-inputs mb-4 mt-4 ml-3" id="inputradio" v-if="showRadioInputs === true" >
             <label>
                 <input
                     @click="smstabs"
@@ -284,12 +283,15 @@
                 </div>
             </div>
         </div>
+             <div v-if="courier">
+                <cities/>
+            </div>
         <div class="" v-if="stores">
             <h1 class="text-lg font-bold text-center mb-4 mt-4">Store Settings</h1>
             <div class="card-container mb-6">
                 <div class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="stores in stores_data">
                     <div @click="create_store(stores)" class="w-full sm:w-1/8 pl-3 sm:mb-0 shows">
-                        <div class="radio-inputs">
+                        <div class="input_radio">
                             <label>
                                 <input
                                     class="radio-input"
@@ -496,7 +498,6 @@
 
             </div>
 
-
             <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">
                 <button @click="wordpress"
                         class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
@@ -657,6 +658,7 @@
     import {byMethod} from "@/libs/api";
     import {form} from "@/libs/mixins";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import Cities from "@/views/cities/index.vue";
     import Modal from "@/Components/Modal.vue";
     import Stores from "../stores/form.vue";
     import {objectToFormData} from "@/libs/helpers";
@@ -664,18 +666,21 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead, Modal , Stores
+            Typeahead, Modal , Stores,Cities
         },
         data() {
             return {
+                showRadioInputs: false,
+                selectedCompanyese: null,
                 ImgUrl: null,
+                showDiv: false,
                 companies: '/api/company',
                 connectionBtn: true,
                 isOpen: false,
                 isOpenStore: false,
                 show_company_data: false,
                 email: false,
-                sms: true,
+                sms: false,
                 show_ecommerce: false,
                 show_company: false,
                 stores: false,
@@ -719,6 +724,10 @@
                 const imgN = e.target.files;
                 this.ImgUrl = URL.createObjectURL(imgN[0]);
             },
+            toggleDiv() {
+                this.email = this.courier = this.stores = false;
+            this.showDiv = true;
+        },
             getImagePath(item) {
                 if (item.logo) {
                     return `/uploads/company/logo/${item.logo}`;
@@ -731,6 +740,8 @@
                 this.form.company_id = company.id;
                 this.company_id = company.id;
                 this.selectedCompany = company;
+                this.selectedCompanyese = company;
+                 this.showRadioInputs = true;
             },
             onCompanyUpdate(e) {
                 const company = e.target.value;

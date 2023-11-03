@@ -488,7 +488,7 @@
 }
 
 .image-container:hover {
-    transform: scale(2.6); /* Increase the image size on hover */
+    transform: scale(1.2); /* Increase the image size on hover */
 
 }
 </style>
