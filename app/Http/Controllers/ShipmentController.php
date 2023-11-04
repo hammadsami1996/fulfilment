@@ -22,10 +22,11 @@ class ShipmentController extends Controller
         $order = Order::with('city')->findOrfail($id);
         $res = false;
         if (!$order->tracking_id) {
-            if ($order->courier_id == 1 && $order->city->trax) {
+            if ($order->courier_id == 1 && ($order->city && $order->city->trax)) {
                 $res = $this->trax($order);
                 if ($res) {
                     $order->update(['tracking_id' => $res['tracking_number']]);
+
                     if ($res['status_id']) {
                         $order->update(['status_id' => $res['status_id']]);
                     }

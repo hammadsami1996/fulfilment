@@ -131,6 +131,7 @@ class StatusController extends Controller
             // Perform the updatestatus operation with the $data array
             $this->updatestatus(new Request($data));
         }
+        return response()->json(['response'=> true]);
     }
 
 }

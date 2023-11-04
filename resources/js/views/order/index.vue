@@ -433,7 +433,7 @@
             updateModalCourier() {
                 let data= {
                     selectedItems : this.selectedItems,
-                    selectedstatus: this.selectedstatus
+                    selectedcourier: this.selectedcourier
                 }
                 byMethod('POST', '/api/bulk_courier', data).then(res => {
                     this.$refs.TableData.reload();

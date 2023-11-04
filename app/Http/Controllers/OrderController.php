@@ -20,7 +20,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'courier', 'city','stores', 'warehouse')
+        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'courier', 'city', 'stores', 'warehouse')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
             })->when(\request()->has('packability'), function ($q) {
@@ -130,8 +130,7 @@ class OrderController extends Controller
 
         $model->sub_total = collect($request->items)->sum(function ($item) {
             return $item['qty'] * $item['unit_price'];
-        });
-       ;
+        });;
 
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;
@@ -153,7 +152,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $model = Order::with('customer', 'items.product', 'stores', 'warehouse','courier')->findOrFail($id);
+        $model = Order::with('customer', 'items.product', 'stores', 'warehouse', 'courier')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -167,6 +166,7 @@ class OrderController extends Controller
             "form" => $model
         ]);
     }
+
     /**
      * Update the specified resource in storage.
      */
@@ -245,26 +245,15 @@ class OrderController extends Controller
 
     public function bulk_courier(Request $request)
     {
-        $selectedItems = $request->selectedItems; // An array of item IDs
-        $statusData = $request->selectedstatus; // Status data to be applied to all items
+        $selectedItems = $request['selectedItems']; // An array of item IDs
+        $statusData = $request['selectedcourier']; // Status data to be applied to all items
+//dd($statusData['id']);
 
         foreach ($selectedItems as $itemId) {
-            // Create an array with the updated status data for the specific item
-            $data = [
-                'id' => $statusData['id'], // Use the item ID
-                'name' => $statusData['name'],
-                'created_at' => $statusData['created_at'],
-                'update_at' => $statusData['update_at'],
-                'color' => $statusData['color'],
-                'head' => $statusData['head'],
-                'head_id' => $statusData['head_id'],
-                'text' => $statusData['text'],
-                'ids' =>$itemId, // Include 'ids' if needed
-            ];
-
-            // Perform the updatestatus operation with the $data array
-            $this->updatestaus(new Request($data));
+            $order = Order::findOrFail($itemId);
+            $order->courier_id = $statusData['id'];
+            $order->save();
         }
-
+        return response()->json(['response'=>true]);
     }
 }
