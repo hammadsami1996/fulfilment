@@ -275,14 +275,14 @@
             </panel>
         </div>
     </div>
-    <template >
+    <template>
         <Modal :show="isOpenCourier" :closeable="true" >
             <div class="bg-white rounded-lg shadow-lg w-1\2">
                 <div  style="height: 250px">
                     <div class="justify-start bg-gray-100 header-bg-color">
                     <h2 class="text-2xl p-3 font-semibold mb-4">Select Courier</h2>
                     </div>
-                    <typeahead :initialize="selectedcourier" :url="courier" @input="onbulkShippeds($event, selectedcourier)" display="name" class="ml-3" style="position: absolute; z-index: 9999;"></typeahead>
+                    <typeahead :initialize="selectedcourier" :url="courier" @input="onbulkShippeds($event, selectedcourier)" display="name" class="ml-3" ></typeahead>
                 </div>
                 <div class="flex justify-end p-4 bg-gray-100 dark:bg-gray-900">
                     <button @click="updateModalCourier" class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600">Save</button>
@@ -291,7 +291,7 @@
             </div>
         </Modal>
     </template>
-    
+
     <template>
         <Modal :show="isOpenStatus" :closeable="true">
             <div class="bg-white rounded-lg shadow-lg">
@@ -299,7 +299,7 @@
                     <div class="justify-start header-bg-color">
                         <h2 class="text-2xl p-3 font-semibold bg-gray-100 mb-4 text-gray-700">Select Status</h2>
                     </div>
-                    <typeahead :initialize="selectedstatus" :url="delivery+'?head=order'" @input="onbulkstatus($event, selectedstatus)" display="name" class="ml-3" style="z-index: 99999;"></typeahead>
+                    <typeahead :initialize="selectedstatus" :url="delivery+'?head=order'" @input="onbulkstatus($event, selectedstatus)" display="name" class="ml-3" ></typeahead>
                 </div>
                 <div class="flex justify-end p-4 bg-gray-100 dark:bg-gray-900">
                     <button @click="updateModalStatus" class="px-6 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600">Save</button>

@@ -50,8 +50,16 @@ class ShopifyController extends Controller
     public function storeOrder($id)
     {
         $store = Store::findOrFail($id);
+        $orderLastTimes = Order::where('store_id', $id)
+        ->orderBy('order_date', 'desc')
+        ->first();
         if (isset($store) && $store->plate_form == 'Shopify') {
-            $apiUrl = $store->store_address . '/admin/api/2023-07/orders.json?status=any&limit=250';
+            if ($orderLastTimes) {
+                $apiUrl = $store->store_address . "/admin/api/2023-07/orders.json?status=any&limit=250&after=" . $orderLastTimes->order_date . "&order=asc";
+            } else {
+                $apiUrl = $store->store_address . "/admin/api/2023-07/orders.json?status=any&limit=250&order=asc";
+            }
+            // $apiUrl = $store->store_address . '/admin/api/2023-07/orders.json?status=any&limit=250';
 //            dd($apiUrl);
             $headers = [
                 'X-Shopify-Access-Token' => $store->access_token,
@@ -60,7 +68,7 @@ class ShopifyController extends Controller
                 $response = Http::withHeaders($headers)->get($apiUrl);
                 if ($response->successful()) {
                     $shopify = $response->json();
-//                    dd($shopify);
+                //    dd($shopify);
                     $i = 0;
 
                     foreach ($shopify['orders'] as $rec) {
@@ -71,7 +79,7 @@ class ShopifyController extends Controller
                             $order = new Order();
                             $order->store_id = $store->id;
                             $order->company_id = $store->company_id;
-                            $order->order_date = $store->created_at;
+                            $order->order_date = $rec['created_at'];
                             $order->warehouse_id = $store->warehouse_id;
                             $order->order_form = 'Shopify';
                             $order->external_order_no = $rec['id'];
@@ -125,12 +133,15 @@ class ShopifyController extends Controller
                             }
                             $order->s_name = $rec['shipping_address']['name'];
                             $order->s_phone = $rec['shipping_address']['phone'];
+                            $order->s_email = $rec['email'];
                             $order->s_address_1 = $rec['shipping_address']['address1'] . ' ' . $rec['shipping_address']['address2'] . ' ' . $rec['shipping_address']['city'];
 
                             $order->sub_total = $rec['subtotal_price'];
                             $order->tax = $rec['total_tax'];
+                            $order->so_number = $rec['number'];
                             $order->shipping_charges = $rec['total_shipping_price_set']['presentment_money']['amount'];
                             $order->discount = $rec['total_discounts'];
+                            $order->currency_symbol = $rec['presentment_currency'];
                             $order->net_total = $rec['total_price'];
 
                             if ($order->net_total > 0) {
@@ -144,6 +155,8 @@ class ShopifyController extends Controller
                             $order->status_id = 1;
 
                             $items = [];
+                            $sum = '';
+                            $quantity = 0;
                             $totalQuantity = 0;
                             foreach ($rec['line_items'] as $key => $item) {
                                 $parent_product = Product::where('title', $item['title'])->whereNull('head_id')->first();
@@ -201,7 +214,11 @@ class ShopifyController extends Controller
                                 $items[$key]['product_name'] = $product['name'] ?? null;
                                 $items[$key]['sku'] = $product['sku'] ?? null;
                                 $items[$key]['unit_price'] = $item['price'];
+                                $sum .= $item['name'] . " (Qty:" . $item['quantity'] . ")\n";
+                                $quantity = $quantity + (int)$item['quantity'];
                             }
+                            $order['item_summary'] = $sum;
+                            $order['quantity'] = $quantity;
                             $order->quantity = $totalQuantity;
                             $order->storeHasMany([
                                 'items' => $items
