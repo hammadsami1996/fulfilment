@@ -119,7 +119,7 @@
 </script>
 <style scoped>
 .image-container:hover {
-    transform: scale(2.6);
+    transform: scale(1.2);
 
 }
 </style>
