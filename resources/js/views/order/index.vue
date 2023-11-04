@@ -275,7 +275,7 @@
             </panel>
         </div>
     </div>
-    <template style="width:200px">
+    <template >
         <Modal :show="isOpenCourier" :closeable="true" >
             <div class="bg-white rounded-lg shadow-lg w-1\2">
                 <div  style="height: 250px">
@@ -295,7 +295,7 @@
     <template>
         <Modal :show="isOpenStatus" :closeable="true">
             <div class="bg-white rounded-lg shadow-lg">
-                <div  style="height: 200px">
+                <div  style="height: 250px">
                     <div class="justify-start header-bg-color">
                         <h2 class="text-2xl p-3 font-semibold bg-gray-100 mb-4 text-gray-700">Select Status</h2>
                     </div>
