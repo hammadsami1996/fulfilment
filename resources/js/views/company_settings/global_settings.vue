@@ -283,7 +283,7 @@
                 </div>
             </div>
         </div>
-             <div v-if="courier">
+        <div v-if="courier">
                 <cities/>
             </div>
         <div class="" v-if="stores">
@@ -649,7 +649,7 @@
             </div>
         </Modal>
         <Modal :show="isOpenStore" closeable="true">
-            <Stores :show="true" additionalProp="global"  @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores>
+            <Stores @resp="()=>{isOpenStore = !isOpenStore}" :show="true" additionalProp="global"  @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores>
         </Modal>
     </div>
 </template>

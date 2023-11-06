@@ -6,7 +6,7 @@
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
             </h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                
+
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
@@ -58,7 +58,7 @@
                     </div>
                     <p class="text-red-600 text-xs italic" v-if="error.store_type">{{ error.store_type[0] }}</p>
                 </div>
-               
+
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0" v-if="form.store_type == 'Online'">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Platform</label>
@@ -140,7 +140,7 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.access_token">{{ error.access_token[0] }}</p>
                 </div>
-                
+
             </div>
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
             <label class="block font-medium text-sm text-gray-700 mb-2"
@@ -165,7 +165,7 @@
 
             <p class="text-red-600 text-xs italic" v-if="error.img">{{ error.img[0] }}</p>
         </div>
-           
+
             <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted()" v-if="!connectionBtn || form.store_type == 'Physical'"
@@ -178,7 +178,7 @@
                         type="button">
                     Test Connection
                 </button>
-                <button 
+                <button
                     @click="formSubmitted()" v-if="connectionBtn && form.store_type == 'Online'"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                     type="button">
@@ -227,7 +227,7 @@
   },
         data() {
             return {
-                ImgUrl: null, 
+                ImgUrl: null,
                 save_button: false,
                 error: {},
                 show: Boolean,
@@ -266,7 +266,7 @@
                 this.form.imgN = e.target.files;
                 // console.log(e.target.files);
                 this.ImgUrl = URL.createObjectURL(e.target.files[0]);
-              
+
             },
             onCompany(e) {
                 const company = e.target.value
@@ -339,6 +339,7 @@
                         type: 'success',
                         duration: 3000
                     });
+                    this.$emit('resp', true);
                 }).catch(err => {
                     this.error = err.response.data.errors;
                     this.$toast.open({
@@ -347,7 +348,6 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
             successfull(res) {
@@ -385,11 +385,8 @@
                     })
                 }
             },
-
-
             Shopify() {
                 byMethod('get', `/api/fetch_data?store_address=${this.form.store_address}&access_token=${this.form.access_token}`).then((res) => {
-                    // console.log(res);
                     if (res.error) {
                         this.errorMessage = res.error;
                     } else {
@@ -398,12 +395,9 @@
                             this.buttonText = 'Test Connection';
                         }, 3000);
                     }
-                })
-                    .catch((error) => {
+                }).catch((error) => {
                         console.error(error);
                     });
-
-
             },
             storeBtn(){
                 this.connectionBtn = true
