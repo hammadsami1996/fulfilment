@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->string('barcode', 25)->nullable();
             $table->decimal('quantity', 10, 2)->default(0);
             $table->tinyInteger('product_types')->default(0);
-            $table->tinyInteger('manage_inventory')->nullable();
+            $table->tinyInteger('manage_inventory')->nullable()->default(1);
             $table->decimal('weight', 10, 2)->default(0);
             $table->integer('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
