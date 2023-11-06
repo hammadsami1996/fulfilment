@@ -454,7 +454,6 @@
                 this.form.product_img[index].img = e.target.files[0];
             },
             onChildImageChange(e, item) {
-                console.log(item.product_img);
                 // this.ImgUrl[item].img = URL.createObjectURL(e.target.files[0]);
                 item.product_img = e.target.files[0]
 
@@ -586,7 +585,6 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
             successfull(res) {

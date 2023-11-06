@@ -190,14 +190,12 @@
                 window.api.data[this.indexBD].then(res => {
                     for (var i = 0; i < queryStr.length; i++) {
                         if (queryStr[i].split('=')[0] !== 'per_page' && i == 0) {
-                            console.log('1');
                             for (var j = 0; j < res.length; j++) {
                                 if (res[j][this.display].toLowerCase().includes(q.toLowerCase()) && res[j][queryStr[i].split('=')[0]] == queryStr[i].split('=')[1]) {
                                     resData.push(res[j])
                                 }
                             }
                         } else if (queryStr[i].split('=')[0] !== 'per_page' && i > 0) {
-                            console.log('2');
                             for (var j = 0; j < resData.length; j++) {
                                 if (resData[j][queryStr[i].split('=')[0]] == queryStr[i].split('=')[1]) {
                                     resData1.push(resData[j])
@@ -205,7 +203,6 @@
                             }
                             resData = resData1
                         } else if (queryStr[i].split('=')[0] == 'per_page' && i == 0) {
-                            console.log('3');
                             for (var i = 0; i < res.length; i++) {
                                 if (res[i][this.display].toLowerCase().includes(q.toLowerCase())) {
                                     resData.push(res[i])

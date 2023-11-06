@@ -262,9 +262,7 @@
         },
         methods: {
             onImageChange(e) {
-                // console.log('test')
                 this.form.imgN = e.target.files;
-                // console.log(e.target.files);
                 this.ImgUrl = URL.createObjectURL(e.target.files[0]);
 
             },
@@ -279,7 +277,6 @@
                 this.form.warehouse_id = warehouse.id
             },
             setData(res) {
-                // console.log(res);
                 this.connectionBtn = false
                 this.form = res.data.form;
                 if (this.$route.meta.mode == 'edit') {
@@ -323,7 +320,6 @@
                             });
                             // this.message = res.data.error
                         }
-                        // console.log(res.data.error)
 
                     }
                 )
@@ -381,7 +377,7 @@
                     byMethod('post', connention_url, data).then(res => {
                         this.connectionBtn = false
                     }).catch(err => {
-                        console.log(err);
+                        // console.log(err);
                     })
                 }
             },
@@ -406,7 +402,6 @@
                 this.$emit('cancel-stores', {
 
                 })
-                // console.log('aaaa');
                 // this.isOpen = false
                 // this.isOpenStore = false
                 // this.form = []

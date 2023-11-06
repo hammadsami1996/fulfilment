@@ -157,8 +157,7 @@
            },
             deleteRole(e) {
                 byMethod('delete', `/api/receive_order/${e}`)
-                    .then((res) => {
-                        // console.log(res);
+                    .then((res) => {;
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error( this.capital + " Deleted successfully!");

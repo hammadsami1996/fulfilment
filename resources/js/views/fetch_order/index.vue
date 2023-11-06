@@ -133,7 +133,6 @@ export default {
             // this.permissions = window.apex.user.permission
             byMethod('get', `/api/company`)
                 .then((res) => {
-                    console.log(res.data.data.data);
                     this.companies = res.data.data.data;
                 })
         },
@@ -160,9 +159,7 @@ export default {
                 byMethod("get", `/api/stores_data?company_id=${e}`).then(
                     (res) => {
                     (this.show_company_data = true);
-                    // console.log(res.data.data);
                     this.store = res.data.data.data;
-                    // console.log('nband');
                     }
                 );
             },
@@ -193,7 +190,6 @@ export default {
                 byMethod("POST", `/api/mimcart_store_data/${e}`).then(
                     (res) => {
                         if(res.data.saved == true){
-                            // console.log(res)
                             this.mimCartButton = true
                             this.$toast.success(`${res.data.new} Fetch Order Successfully`);
                         }

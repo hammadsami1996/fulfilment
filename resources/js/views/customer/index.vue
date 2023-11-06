@@ -91,7 +91,6 @@
             deleteRole(e) {
                 byMethod('delete', `/api/customer/${e}`)
                     .then((res) => {
-                        // console.log(res);
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error( this.capital + " Deleted successfully!");

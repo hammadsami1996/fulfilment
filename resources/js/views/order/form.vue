@@ -422,13 +422,11 @@
         },
         methods: {
             get_charges(i) {
-                console.log(i , this.form.city, this.form.city.id);
                 if (i && this.form.city) {
-                    console.log('j');
                     byMethod('GET', `/api/get_delivery_charges/${this.form.city.id}?weight=${i}&country_id=${this.form.city.country_id}`)
                 }
                 this.form.weight = i;
-                console.log('i');
+              
                 // let e = {
                 //     weight : i ,
                 //     city_id : this.form.city_id,
@@ -529,7 +527,7 @@
             },
 
             remain(e) {
-                // console.log(e);
+        
                 // this.count = 0;
                 this.data = [
                     e,
@@ -538,18 +536,18 @@
                 ]
                 byMethod('POST', '/api/remaining', this.data).then(res => {
                     if (res.data.data == null) {
-                        // console.log('abcd');
+ 
                         this.ids = e;
                         this.alert = true;
                     } else {
-                        // console.log('efg')
+         
                         this.count = res.data.data;
                     }
-                    // console.log(res.data.data);
+                
                 })
             },
             setData(res) {
-                // console.log(res);
+           
                 this.form = res.data.form;
                 if (this.$route.meta.mode == 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -611,7 +609,7 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
+         
                 })
             },
             successfull(res) {

@@ -149,7 +149,6 @@
 
             {
                 onPermissions(e) {
-                    // console.log(this.form.skill);
                     const permission_menu = e.target.value
                     this.form.menu = permission_menu
                     this.form.menu_id = permission_menu.id
@@ -199,7 +198,6 @@
                             type: 'error',
                             duration: 3000
                         });
-                        // console.log(err);
                     })
                 },
                 successfull(res) {

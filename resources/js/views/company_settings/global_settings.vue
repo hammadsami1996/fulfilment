@@ -6,6 +6,7 @@
                 <!-- <i @click="addCompany" class="fas fa-plus text-xl rounded-full bg-blue-400 text-white pl-2 pr-2 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"></i> -->
             </p>
         </div>
+      
         <div class="card-container mb-2 mt-3">
             <div :key="index" class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(image, index) in com" >
                 <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer" >
@@ -31,6 +32,11 @@
             </div>
         </div>
         <hr/>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+            <p class="w-full pb-1 pt-1 pl-8 text-center font-bold bg-gray-300 rounded text-lg">
+                Other settings
+            </p>
+        </div>
         <div class="w-full radio-inputs mb-4 mt-4 ml-3" id="inputradio" v-if="showRadioInputs === true" >
             <label>
                 <input
@@ -648,9 +654,14 @@
 
             </div>
         </Modal>
-        <Modal :show="isOpenStore" closeable="true">
-            <Stores @resp="()=>{isOpenStore = !isOpenStore}" :show="true" additionalProp="global"  @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores>
-        </Modal>
+        <!-- <Modal :show="isOpenStore" closeable="true">
+            <Stores @resp="()=>{isOpenStore = !isOpenStore}" :show="true" additionalProp="global"  @cancel-stores="()=>{handleCancelStores = !handleCancelStores} " @save-stores="handleCancelStores" ></Stores>
+            <Stores @resp="()=>{isOpenStore = !isOpenStore}" :show="true" additionalProp="global"  @cancel-stores="handleCancelStores " @save-stores="handleCancelStores" ></Stores>
+        </Modal> -->
+        <Modal :show="isOpenStore" closeable="true" @cancel="handleCancelStores">
+        <Stores @resp="()=>{isOpenStore = !true}" :show="true" additionalProp="global" @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores>
+        <!-- <Stores @resp="()=>{isOpenStore = !isOpenStore}" :show="true" additionalProp="global" @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores> -->
+    </Modal>
     </div>
 </template>
 
@@ -678,6 +689,7 @@
                 connectionBtn: true,
                 isOpen: false,
                 isOpenStore: false,
+                // handleCancelStores: false,
                 show_company_data: false,
                 email: false,
                 sms: false,
@@ -727,6 +739,9 @@
             toggleDiv() {
                 this.email = this.courier = this.stores = false;
             this.showDiv = true;
+        },
+        handleCancelStores() {
+            this.isOpenStore = false;
         },
             getImagePath(item) {
                 if (item.logo) {
@@ -911,7 +926,6 @@
             },
 
             setData(res) {
-                // console.log(res);
                 this.form = res.data.form;
                 this.show = true;
             },
@@ -920,7 +934,6 @@
                     this.successfull(res)
                     if (res.data.saved == true) {
                         byMethod("GET", '/api/stores').then(res => {
-                            console.log(res.data.data.data)
                             this.stores_data = res.data.data.data
                         })
                     }
@@ -938,16 +951,13 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
-
             formSubmitted() {
                 byMethod(this.method, '/api/company', objectToFormData(this.form))
                     .then((res) => {
                         if (res.data.saved == true) {
                             byMethod("GET", '/api/company').then(res => {
-                                console.log(res.data.data.data)
                                 this.com = res.data.data.data
                             })
                         }
@@ -970,7 +980,6 @@
                             type: "error",
                             duration: 3000,
                         });
-                        // console.log(err);
                     });
             },
 
@@ -993,7 +1002,6 @@
                             type: "error",
                             duration: 3000,
                         });
-                        // console.log(err);
                     });
             },
             successfull(res) {
@@ -1030,7 +1038,7 @@
                             this.connectionBtn = false;
                         })
                         .catch((err) => {
-                            console.log(err);
+                            // console.log(err);
                         });
                 }
             },

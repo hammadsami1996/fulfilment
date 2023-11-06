@@ -147,7 +147,7 @@
 <!-- Add this JavaScript block inside your Blade view -->
 <script>
     $(document).ready(function () {
-        console.log('Starting AJAX request...');
+        // console.log('Starting AJAX request...');
         $('#SubmitForm').on('submit', function (e) {
             e.preventDefault();
 
@@ -166,7 +166,7 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    console.log(response);
+             
                     // Registration successful
                     // Hide the loading indicator
                     $('#loading-indicator').addClass('hidden');
@@ -224,7 +224,7 @@
                 },
                 error: function (xhr, status, error) {
                     // Handle error response
-                    console.log(error);
+       
 
                     // Hide the loading indicator
                     $('#loading-indicator').addClass('hidden');
@@ -265,16 +265,16 @@
 {{--                    window.location.href = response.redirect_url;--}}
 {{--                },--}}
 {{--                error: function (xhr, status, error) {--}}
-{{--                    console.log(xhr, 'xhr')--}}
+{{--                  --}}
 {{--                    // Handle error response, including validation errors--}}
 {{--                    // if (xhr.status === 422) {--}}
 
 {{--                    //     // Unprocessable Entity (validation errors)--}}
 {{--                    //     var errors = xhr.responseJSON.errors;--}}
-{{--                    //     console.log(errors)--}}
+{{--                    //     --}}
 {{--                    //     // Display validation errors to the user--}}
 {{--                    //     $.each(errors, function (key, value) {--}}
-{{--                    //         console.log(value);--}}
+{{--                    //         --}}
 {{--                    //         // 'key' is the form field name, 'value' is the error message--}}
 {{--                    //         // You can display the error message in your form, e.g., next to the input field--}}
 {{--                    //         $('#error-' + key).text(value[0]);--}}
@@ -296,7 +296,7 @@
 {{--                    }--}}
 {{--                    else {--}}
 {{--                        // Handle other types of errors here--}}
-{{--                        console.log(error);--}}
+{{--                   --}}
 {{--                    }--}}
 {{--                    // Hide the loading indicator--}}
 {{--                    $('#loading-indicator').addClass('hidden');--}}

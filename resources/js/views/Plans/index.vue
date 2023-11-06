@@ -76,7 +76,6 @@
             }
         },
         created() {
-            // console.log(window.apex.user.permission)
             this.permissions = window.apex.user.permission
         },
         methods: {

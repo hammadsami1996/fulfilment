@@ -1043,7 +1043,6 @@
 
             editaccount(e){
                 byMethod('get', `/api/accounts/${e}/edit`).then((res) => {
-                    console.log(res.data.form);
                     this.form = res.data.form;
                     this.title4 = res.data.form.accounttitle
                   
@@ -1059,7 +1058,6 @@
             editgroup(e){
 
                 byMethod('get', `/api/accounts_group/${e}/edit`).then((res) => {
-                    console.log(res.data.form);
                     this.form = res.data.form;
                     this.title3 = res.data.form.groupname
                     this.show= true;
@@ -1070,7 +1068,6 @@
 
             editgroupclass(e){
                 byMethod('get', `/api/accounts_class/${e}/edit`).then((res) => {
-                    console.log(res.data.form);
                     this.form = res.data.form;
                     this.title2 = res.data.form.classname
                     this.show= true;
@@ -1081,7 +1078,6 @@
 
             editgroupclasstype(e){
                 byMethod('get', `/api/accounts_class_types/${e}/edit`).then((res) => {
-                    console.log(res.data.form);
                     this.form = res.data.form;
                     this.title1 = res.data.form.class_type
                     this.show= true;
@@ -1100,7 +1096,6 @@
                 
             },
             subMenuOpenall (){
-                console.log('abcd')
                 for (let i = 0; i < this.chart.length; i++){
                     this.subMenuOpen11[i] = false;
                     this.subMenuOpen_new[i] = true;
@@ -1109,7 +1104,6 @@
                 
             },
             subMenuOpenall2 (){
-                console.log('abcd')
                 for (let i = 0; i < this.chart.length; i++){
                     this.subMenuOpen22[i] = false;
                     this.subMenuOpen_new[i] = true;
@@ -1119,7 +1113,6 @@
                 
             },
             subMenuOpenall3 (){
-                console.log('abcd')
                 for (let i = 0; i < this.chart.length; i++){
                     this.subMenuOpen_new[i] = true;
                     this.subMenuOpen11[i] = true;
@@ -1142,7 +1135,6 @@
                   
                 }
                 byMethod('post', this.store3 , this.form).then((res) => {
-                    console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal3 = false;
                         this.$toast.open({
@@ -1165,7 +1157,6 @@
                   
                 }
                 byMethod('post', this.store2 , this.form).then((res) => {
-                    console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal2 = false;
                         this.$toast.open({
@@ -1182,14 +1173,11 @@
             },
 
             formSubmittedClass(){
-                console.log(this.form);
                 if (this.form.id){
-                    console.log(this.form.id)
                     this.store1 = `/api/accounts_class/${this.form.id}?_method=PUT`;
                   
                 }
                 byMethod('post', this.store1 , this.form).then((res) => {
-                    console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal1 = false;
                         this.$toast.open({
@@ -1205,14 +1193,10 @@
                 })
             },
             formSubmitted(){
-                if (this.form.id) {
-                    
-                    this.store = `/api/accounts_class_types/${this.form.id}?_method=PUT`;
-                  
+                if (this.form.id) {   
+                    this.store = `/api/accounts_class_types/${this.form.id}?_method=PUT`; 
                 }
-                console.log(this.form);
                 byMethod('post', this.store , this.form).then((res) => {
-                    console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal = false;
                         this.$toast.open({
@@ -1265,7 +1249,6 @@
         // this.subMenuOpen2[index][index1][index2] = !this.subMenuOpen2[index][index1][index2];
     },
             toggleSubSubmenu(index) {
-                console.log(index);
     //   this.$set(this.subMenuOpen, index, !this.subMenuOpen[index]);
              this.subMenuOpen[index] = !this.subMenuOpen[index];
     },
@@ -1281,7 +1264,6 @@
         // this.subMenuOpen2[index][index1][index2] = !this.subMenuOpen2[index][index1][index2];
     },
             toggleSubSubmenu_new(index) {
-                console.log(index);
     //   this.$set(this.subMenuOpen, index, !this.subMenuOpen[index]);
              this.subMenuOpen_new[index] = !this.subMenuOpen_new[index];
     },
@@ -1298,7 +1280,6 @@
         this.subMenuOpen[index] = !this.subMenuOpen[index]
     },
             // right_click(e){
-            //     // console.log(e);
             //     this.balance_one = !this.balance_one;
             //     // this.index_key = e
             // },
@@ -1341,8 +1322,6 @@
 
                         onProgress(e) {
 
-                        console.log(e, 'e');
-
                         },
 
                        
@@ -1352,12 +1331,9 @@
             },
 
             image_model(e) {
-              
-               
-                console.log(e);
                 this.modal_data = e,
                 byMethod('get', '/api/product_details?id=' +e.product_id).then((res) => {
-                        console.log(res.data.data);
+              
                         this.order_id = res.data.data,
                     this.show = true,
                         this.show_image_modal = true
@@ -1367,7 +1343,6 @@
 
        
             // isChecked(e) {
-            //     console.log(e);
             //     return this.download = e;
             // },
            
@@ -1375,7 +1350,6 @@
     setitems() {
                 byMethod("get", '/api/accounts_class_types').then(
                     res => {
-                       console.log(res.data.data.data)
                        this.chart = res.data.data.data;
                     }
                 );
@@ -1388,7 +1362,6 @@
             deleteRole(e) {
                 byMethod('delete', `/api/inventory/${e}`)
                     .then((res) => {
-                        // console.log(res);
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error( this.capital + " Deleted successfully!");
@@ -1400,7 +1373,7 @@
             deletegroupclasstype(e){
                 byMethod('delete', `/api/accounts_class_types/${e}`)
                     .then((res) => {
-                        // console.log(res);
+        
                         if (res.data.deleted) {
                             this.setitems();
                             // this.$refs.TableData.reload();
@@ -1412,7 +1385,7 @@
             deletegroupclass(e){
                 byMethod('delete', `/api/accounts_class/${e}`)
                     .then((res) => {
-                        // console.log(res);
+        
                         if (res.data.deleted) {
                             this.setitems();
                             // this.$refs.TableData.reload();
@@ -1425,7 +1398,7 @@
 
                 byMethod('delete', `/api/accounts_group/${e}`)
                     .then((res) => {
-                        // console.log(res);
+        
                         if (res.data.deleted) {
                             this.setitems();
                             // this.$refs.TableData.reload();
@@ -1438,7 +1411,7 @@
             deleteaccount(e){
                 byMethod('delete', `/api/accounts/${e}`)
                     .then((res) => {
-                        // console.log(res);
+        
                         if (res.data.deleted) {
                             this.setitems();
                             // this.$refs.TableData.reload();

@@ -168,7 +168,6 @@
             },
             select(option) {
                 if(this.multiple) {
-                    // console.log(option);
                     const payload = this.value
                     if(this.value.length === 0){
                         const temp = {};

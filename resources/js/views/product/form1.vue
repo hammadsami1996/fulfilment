@@ -659,8 +659,6 @@
         },
         methods: {
             onImageChange(e) {
-                // console.log('test')
-                // console.log(e.target.files);
                 this.ImgUrl = URL.createObjectURL(e.target.files[0]);
                 this.form.img = e.target.files;
             },
@@ -671,7 +669,6 @@
                 this.show1 = !this.show1;
             },
             setData(res) {
-                // console.log(res);
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -699,7 +696,6 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
             successfull(res) {

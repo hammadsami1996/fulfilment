@@ -336,8 +336,6 @@
 
                         onProgress(e) {
 
-                        console.log(e, 'e');
-
                         },
 
 
@@ -348,20 +346,15 @@
 
             image_model(e) {
 
-
-                console.log(e);
                 this.modal_data = e,
                 byMethod('get', '/api/product_details?id=' +e.product_id).then((res) => {
-                        console.log(res.data.data);
                         this.order_id = res.data.data,
                     this.show = true,
                         this.show_image_modal = true
                 })
             },
 
-
             isChecked(e , id) {
-        console.log(e);
         if (this.download.includes(e)) {
             this.download.splice(this.download.indexOf(e), 1);
 
@@ -377,36 +370,25 @@
         }
     },
             // isChecked(e) {
-            //     console.log(e);
             //     return this.download = e;
             // },
 
             downloadimage(){
-                console.log(this.download);
-                console.log(this.ids);
-
 
                 byMethod('get', '/api/download_images?id=' +this.download).then((res) => {
                     const zipPath = res.data.zipPath;
-                        console.log(res.data.zipPath);
 
                     const downloadUrl = '/download_zip/' + encodeURIComponent(zipPath);
-
 
                     window.open(downloadUrl, '_blank');
                 })
 
-                // console.log(this.$refs.TableData.model.data);
-
             },
 
             downloadImage() {
-                console.log(this.download);
     byMethod('get', '/api/download_images?id=' + this.ids).then((res) => {
         this.model = res.data.data.data;
         this.vendor = res.data.id;
-
-        console.log(res.data.id);
 
         this.download.forEach((item, index) => {
             const image = new Image();
@@ -480,10 +462,8 @@
 
 
             downloadImagessss() {
-                console.log(this.download);
                 byMethod('get', '/api/download_images?id=' +this.ids).then((res) => {
                         this.model = res.data.data.data;
-                    console.log(res.data.data.data);
                     this.download.forEach((item, index) => {
 
                 const image = new Image();
@@ -513,11 +493,6 @@
                     context.fillText(barcode, 10, 50);
                     context.font = '18px Arial';
                     context.fillText(Purchases, 10, 70);
-
-
-
-
-
 
 
                     if (productData.purchases && productData.purchases.length > 0) {
@@ -592,7 +567,6 @@
             deleteRole(e) {
                 byMethod('delete', `/api/inventory/${e}`)
                     .then((res) => {
-                        // console.log(res);
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error( this.capital + " Deleted successfully!");

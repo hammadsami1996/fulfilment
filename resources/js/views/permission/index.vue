@@ -68,7 +68,6 @@
             deleteRole(e) {
                 byMethod('delete', `/api/permission/${e}`)
                     .then((res) => {
-                        console.log(res);
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error("Permission Deleted successfully!");
