@@ -291,7 +291,7 @@
             </div>
         </Modal>
     </template>
-    
+
     <template>
         <Modal :show="isOpenStatus" :closeable="true">
             <div class="bg-white rounded-lg shadow-lg">
@@ -444,7 +444,7 @@
                     this.$refs.TableData.reload();
                     this.$toast.open({
                         position: 'top-right',
-                        message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
+                        message: this.mode ===  'All Courier Generated',
                         type: 'success',
                         duration: 3000
                     });
@@ -460,7 +460,7 @@
                     this.$refs.TableData.reload();
                     this.$toast.open({
                         position: 'top-right',
-                        message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
+                        message: this.mode === 'edit' ? 'Update Successfully' : 'All Status Generated',
                         type: 'success',
                         duration: 3000
                     });
@@ -634,7 +634,7 @@
                     this.$refs.TableData.reload();
                     this.$toast.open({
                         position: 'top-right',
-                        message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
+                        message: this.mode === 'edit' ? 'Update Successfully' : 'All CN Generated',
                         type: 'success',
                         duration: 3000
                     });
