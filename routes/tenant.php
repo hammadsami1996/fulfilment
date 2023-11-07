@@ -108,6 +108,8 @@ Route::middleware([
         Route::resource('order_type', \App\Http\Controllers\OrderTypeController::class);
         Route::resource('candidate', \App\Http\Controllers\CandidateController::class);
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
+        Route::get('dashboard', [\App\Http\Controllers\DashboardCountroller::class,'index']);
+        Route::get('getorders', [\App\Http\Controllers\DashboardCountroller::class, 'getorders']);
         Route::post('update', [\App\Http\Controllers\StatusController::class, 'updatestatus']);
         Route::post('store_cities', [\App\Http\Controllers\CityController::class, 'storebulk']);
         Route::resource('courier_response', \App\Http\Controllers\CourierResponseController::class);

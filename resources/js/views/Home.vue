@@ -3,20 +3,22 @@
 
         <div class="grid grid-cols-5 gap-4 lg:gap-8">
             <!-- Course Card -->
-            <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-blue-100 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
+            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-blue-100 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-blue-500">Payment%</div>
                     <div class="flex items-center pt-4">
-                        <p class="text-blue-500 text-2xl font-bold">473</p>
+                        <p class="text-blue-500 text-2xl font-bold">{{form.total_orders_amount}}</p>
                     </div>
                 </div>
-                
+
             </a>
             <!-- END Course Card -->
 
 
             <!-- Course Card -->
-            <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-yellow-100 overflow-hidden transition hover:ring-4 hover:ring-yellow-400 active:opacity-90 p-2">
+            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-yellow-100 overflow-hidden transition hover:ring-4 hover:ring-yellow-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-yellow-500">Return%</div>
                     <div class="flex items-center pt-4">
@@ -28,7 +30,8 @@
 
 
             <!-- Course Card -->
-            <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-red-100 overflow-hidden transition hover:ring-4 hover:ring-red-400 active:opacity-90 p-2">
+            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-red-100 overflow-hidden transition hover:ring-4 hover:ring-red-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-red-500">Cancel%</div>
                     <div class="flex items-center pt-4">
@@ -40,7 +43,8 @@
 
 
             <!-- Course Card -->
-            <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-green-100 overflow-hidden transition hover:ring-4 hover:ring-green-400 active:opacity-90 p-2">
+            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-green-100 overflow-hidden transition hover:ring-4 hover:ring-green-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-green-500">Fulfilment%</div>
                     <div class="flex items-center pt-4">
@@ -52,10 +56,10 @@
 
 
             <!-- Course Card -->
-            <a href="#" class="">
+            <a class="" href="#">
                 <div class="relative">
                     <select class="block appearance-none w-full bg-white px-4 py-2 pr-8 rounded leading-tight"
-                        >
+                    >
                         <option value="0">Daily</option>
                         <option value="1">Weekly</option>
                         <option value="2">Monthly</option>
@@ -70,7 +74,8 @@
 
         <div class="grid grid-cols-4 gap-4 lg:gap-8 mt-8">
             <!-- Course Card -->
-            <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
+            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-black">Due Recievable</div>
                     <div class="flex items-center pt-4">
@@ -80,7 +85,8 @@
                         <p class="text-gray-700 text-base">
                             <strong class="font-bold">174</strong> orders
                         </p>
-                        <button class="text-gray-400 py-1 px-2 rounded-full text-sm transition hover:bg-blue-200 hover:text-blue-500 active:opacity-90 p-2">
+                        <button
+                            class="text-gray-400 py-1 px-2 rounded-full text-sm transition hover:bg-blue-200 hover:text-blue-500 active:opacity-90 p-2">
                             VIEW
                         </button>
                     </div>
@@ -90,17 +96,20 @@
 
 
             <!-- Course Card -->
-            <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
+            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-black">Orders</div>
                     <div class="flex items-center pt-4">
-                        <p class="text-black text-2xl font-bold">5394</p>
+                        <p class="text-black text-2xl font-bold">{{form.total_orders}}</p>
                     </div>
                     <div class="flex justify-between items-center pt-5">
                         <p class="text-gray-700 text-base">
                             <strong class="font-bold">174</strong> orders Unsettled
                         </p>
-                        <button class="text-gray-400 py-1 px-2 rounded-full text-sm transition hover:bg-blue-200 hover:text-blue-500 active:opacity-90 p-2" @click="this.$router.push('/order')">
+                        <button
+                            @click="this.$router.push('/order')"
+                            class="text-gray-400 py-1 px-2 rounded-full text-sm transition hover:bg-blue-200 hover:text-blue-500 active:opacity-90 p-2">
                             VIEW
                         </button>
                     </div>
@@ -109,7 +118,8 @@
             <!-- END Course Card -->
 
             <!-- Course Card -->
-            <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
+            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-black">Cancel</div>
                     <div class="flex items-center pt-4">
@@ -119,16 +129,19 @@
                         <p class="text-gray-700 text-base">
                             <strong class="font-bold">174</strong> orders Unsettled
                         </p>
-                        <button class="text-gray-400 py-1 px-2 rounded-full text-sm transition hover:bg-blue-200 hover:text-blue-500 active:opacity-90 p-2" @click="this.$router.push('/order')">
+                        <button
+                            @click="this.$router.push('/order')"
+                            class="text-gray-400 py-1 px-2 rounded-full text-sm transition hover:bg-blue-200 hover:text-blue-500 active:opacity-90 p-2">
                             VIEW
                         </button>
                     </div>
                 </div>
             </a>
             <!-- END Course Card -->
-            
+
             <!-- Course Card -->
-            <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
+            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-black">Returned</div>
                     <div class="flex items-center pt-4">
@@ -138,7 +151,9 @@
                         <p class="text-gray-700 text-base">
                             <strong class="font-bold">174</strong> orders Unsettled
                         </p>
-                        <button class="text-gray-400 py-1 px-2 rounded-full text-sm transition hover:bg-blue-200 hover:text-blue-500 active:opacity-90 p-2" @click="this.$router.push('/order')">
+                        <button
+                            @click="this.$router.push('/order')"
+                            class="text-gray-400 py-1 px-2 rounded-full text-sm transition hover:bg-blue-200 hover:text-blue-500 active:opacity-90 p-2">
                             VIEW
                         </button>
                     </div>
@@ -147,11 +162,12 @@
             <!-- END Course Card -->
 
         </div>
-        
+
         <div class="grid grid-cols-3 gap-4 lg:gap-8 mt-8">
 
             <!-- Course Card -->
-            <a href="#" class="relative group flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
+            <a class="relative group flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-xl mb-1 text-black">Recent Transaction</div>
                     <!-- <div class="pt-5">
@@ -198,32 +214,36 @@
 
 
             <!-- Course Card -->
-                <a href="#" class="relative group sm:col-span-2 flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
-                    <div class="px-4 py-2">
-                        <div class="font-bold text-xl mb-1 text-black">Delivered Orders</div>
-                        <div class="flex items-center pt-4">
-                            <div id="chart">
-                                <apexchart type="line" height="250" width="700"  :options="chartOptions" :series="series"></apexchart>
-                            </div>
+            <a class="relative group sm:col-span-2 flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+               href="#">
+                <div class="px-4 py-2">
+                    <div class="font-bold text-xl mb-1 text-black">Delivered Orders</div>
+                    <div class="flex items-center pt-4">
+                        <div id="chart">
+                            <apexchart :options="chartOptions" :series="series" height="250" type="line"
+                                       width="700"></apexchart>
                         </div>
                     </div>
-                </a>
+                </div>
+            </a>
             <!-- END Course Card -->
 
         </div>
-        
+
         <div class="grid grid-cols-4 gap-4 lg:gap-8 mt-8">
 
-            <a href="#" class="relative group sm:col-span-2 flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
+            <a class="relative group sm:col-span-2 flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="flex items-center justify-between">
                         <p class="font-bold text-xl mb-1 text-black">Order Soap</p>
                         <div class="relative inline-block w-32">
-                            <select class="block appearance-none bg-white px-4 py-2 pr-8 rounded leading-tight border border-gray-300 text-sm text-black">
-                                <option value="0" class="text-black">Daily</option>
-                                <option value="1" class="text-black">Weekly</option>
-                                <option value="2" class="text-black">Monthly</option>
-                                <option value="3" class="text-black">Yearly</option>
+                            <select
+                                class="block appearance-none bg-white px-4 py-2 pr-8 rounded leading-tight border border-gray-300 text-sm text-black">
+                                <option class="text-black" value="0">Daily</option>
+                                <option class="text-black" value="1">Weekly</option>
+                                <option class="text-black" value="2">Monthly</option>
+                                <option class="text-black" value="3">Yearly</option>
                             </select>
                         </div>
                     </div>
@@ -275,16 +295,18 @@
                     </div>
                 </div>
             </a>
-            <a href="#" class="relative group sm:col-span-2 flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
+            <a class="relative group sm:col-span-2 flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+               href="#">
                 <div class="px-4 py-2">
                     <div class="flex items-center justify-between">
                         <p class="font-bold text-xl mb-1 text-black">Key Matrixs</p>
                         <div class="relative inline-block w-32">
-                            <select class="block appearance-none bg-white px-4 py-2 pr-8 rounded leading-tight border border-gray-300 text-sm text-black">
-                                <option value="0" class="text-black">Daily</option>
-                                <option value="1" class="text-black">Weekly</option>
-                                <option value="2" class="text-black">Monthly</option>
-                                <option value="3" class="text-black">Yearly</option>
+                            <select
+                                class="block appearance-none bg-white px-4 py-2 pr-8 rounded leading-tight border border-gray-300 text-sm text-black">
+                                <option class="text-black" value="0">Daily</option>
+                                <option class="text-black" value="1">Weekly</option>
+                                <option class="text-black" value="2">Monthly</option>
+                                <option class="text-black" value="3">Yearly</option>
                             </select>
                         </div>
                     </div>
@@ -366,12 +388,22 @@
 
 
 <script>
-// import VueApexCharts from "vue3-apexcharts";
+    // import VueApexCharts from "vue3-apexcharts";
+    import {get} from "@/libs/api";
+    import {form} from "@/libs/mixins";
 
-export default {
+    function initialize(to) {
+        let urls = {
+            add: `/api/dashboard`,
+        }
+        return urls.add
+    }
+
+    export default {
         components: {
             // apexchart: VueApexCharts,
         },
+        mixins: [form],
         data() {
             return {
                 chartOptions: {
@@ -440,15 +472,34 @@ export default {
                 ],
             }
         },
+        beforeRouteEnter(to, from, next) {
+            get(initialize(to))
+                .then((res) => {
+                    next(vm => vm.setData(res))
+                })
+        },
+        beforeRouteUpdate(to, from, next) {
+            get(initialize(to))
+                .then((res) => {
+                    this.setData(res);
+                    next()
+                })
+        },
         created() {
         },
-        methods: {}
+        methods: {
+            setData(res) {
+                this.form = res.data;
+                console.log(res.data);
+            }
+
+        }
     };
 
 </script>
 
 <style scoped>
-.bg-custom-color{
-    background-color: #685DD7;
-}
+    .bg-custom-color {
+        background-color: #685DD7;
+    }
 </style>

@@ -10,10 +10,9 @@
                         <p class="text-blue-500 text-2xl font-bold">473</p>
                     </div>
                 </div>
-                
+
             </a>
             <!-- END Course Card -->
-
 
             <!-- Course Card -->
             <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-yellow-100 overflow-hidden transition hover:ring-4 hover:ring-yellow-400 active:opacity-90 p-2">
@@ -126,7 +125,7 @@
                 </div>
             </a>
             <!-- END Course Card -->
-            
+
             <!-- Course Card -->
             <a href="#" class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
                 <div class="px-4 py-2">
@@ -147,7 +146,7 @@
             <!-- END Course Card -->
 
         </div>
-        
+
         <div class="grid grid-cols-3 gap-4 lg:gap-8 mt-8">
 
             <!-- Course Card -->
@@ -211,7 +210,7 @@
             <!-- END Course Card -->
 
         </div>
-        
+
         <div class="grid grid-cols-4 gap-4 lg:gap-8 mt-8">
 
             <a href="#" class="relative group sm:col-span-2 flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2">
@@ -367,6 +366,7 @@
 
 <script>
 import VueApexCharts from "vue3-apexcharts";
+import {byMethod} from "@/libs/api";
 
 export default {
         components: {
@@ -442,7 +442,9 @@ export default {
         },
         created() {
         },
-        methods: {}
+        methods: {
+
+        }
     };
 
 </script>

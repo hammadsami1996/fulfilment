@@ -141,7 +141,7 @@
                     { label: "Leopard", field: 'id', displayText: 'leopards' },
                     { label: "Trax", field: 'id' , displayText: 'trax'},
                     { label: "Rider", field: 'id' , displayText: 'tcs'},
-                    { label: "Shiping Charges", field: "charges", slot: true },
+                    { label: "shipping charges", field: "charges", slot: true },
                     { label: "Action", field: "action", action: true },
                 ],
             };
