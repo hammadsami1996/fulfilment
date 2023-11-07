@@ -127,8 +127,6 @@
         },
         methods: {
             setData(res) {
-                // console.log(this.$route,this.$router.push({path: `${this.resource}`}));
-
                 this.form = res.data.form;
                 this.permissions = res.data.permissions;
                 if (this.$route.meta.mode === 'edit') {
@@ -157,7 +155,6 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
             successfull(res) {

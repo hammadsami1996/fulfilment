@@ -48,7 +48,6 @@
         created() {
             byMethod("GET", "/api/menus").then((res) => {
                 this.menus = res.data.data;
-                // console.log(res);
             });
         },
         methods: {},

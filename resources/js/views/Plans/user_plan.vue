@@ -125,15 +125,13 @@
         created() {
             get('api/plan').then(res=>{
                 this.setData(res)
-                // console.log(res)
             })
         },
         methods: {
             setData(res) {
                 this.form = res.data.data;
-                // console.log(form.tenant_db);
+          
                 // this.form, 'tenant_db', res.tenant;
-                // console.log(res.tenant, 'tenant_db');
                 // if (this.$route.meta.mode === 'edit') {
                 //     this.stores = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
                 //     this.title = 'Edit';

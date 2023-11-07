@@ -77,7 +77,6 @@
             }
         },
         created() {
-            // console.log(window.apex.user.permission)
             this.permissions = window.apex.user.permission
         },
         methods: {
@@ -90,7 +89,6 @@
             deleteRole(e) {
                 byMethod('delete', `/api/role/${e}`)
                     .then((res) => {
-                        // console.log(res);
                         if(res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error( this.capital + " Deleted successfully!");

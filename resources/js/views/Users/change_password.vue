@@ -46,7 +46,7 @@
         methods: {
             save() {
                 byMethod("POST", '/api/change_password', this.form).then(res => {
-                    // console.log(res);
+                 
                 })
             }
         }

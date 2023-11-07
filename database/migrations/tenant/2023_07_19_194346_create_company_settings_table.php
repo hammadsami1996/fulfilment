@@ -25,19 +25,16 @@ return new class extends Migration
         });
 
        
-        DB::table('company_settings')->insert(['key' => 'sms_settings',
+    //     DB::table('company_settings')->insert(['key' => 'sms_settings',
        
+    
+    // ]);
+
+    // DB::table('company_settings')->insert(['key' => 'email_settings',
        
 
        
-    ]);
-
-    DB::table('company_settings')->insert(['key' => 'email_settings',
-       
-        
-
-       
-    ]);
+    // ]);
 
  
         

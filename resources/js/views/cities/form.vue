@@ -102,7 +102,6 @@
         },
         methods: {
             setData(res) {
-                // console.log(res);
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -130,7 +129,6 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
             successfull(res) {

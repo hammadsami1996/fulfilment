@@ -1059,10 +1059,8 @@
             editgroup(e){
 
                 byMethod('get', `/api/accounts_group/${e}/edit`).then((res) => {
-                    // console.log(res.data.form);
+
                     this.form = res.data.form;
-                    this.title3 = res.data.form.groupname
-                    this.show= true;
                 this.show_account_modal2 = true;
 
                 })
@@ -1190,10 +1188,7 @@
                 }
                 byMethod('post', this.store1 , this.form).then((res) => {
                     // console.log(res.data.saved)
-                    if(res.data.saved = true){
                         this.show_account_modal1 = false;
-                        this.$toast.open({
-                        position: 'top-right',
                         message: 'Successfully Add Account Group Class',
                         type: 'success',
                         duration: 3000
@@ -1213,6 +1208,10 @@
                 // console.log(this.form);
                 byMethod('post', this.store , this.form).then((res) => {
                     // console.log(res.data.saved)
+                if (this.form.id) {   
+                    this.store = `/api/accounts_class_types/${this.form.id}?_method=PUT`; 
+                }
+                byMethod('post', this.store , this.form).then((res) => {
                     if(res.data.saved = true){
                         this.show_account_modal = false;
                         this.$toast.open({
@@ -1281,7 +1280,6 @@
         // this.subMenuOpen2[index][index1][index2] = !this.subMenuOpen2[index][index1][index2];
     },
             toggleSubSubmenu_new(index) {
-                console.log(index);
     //   this.$set(this.subMenuOpen, index, !this.subMenuOpen[index]);
              this.subMenuOpen_new[index] = !this.subMenuOpen_new[index];
     },
@@ -1298,7 +1296,6 @@
         this.subMenuOpen[index] = !this.subMenuOpen[index]
     },
             // right_click(e){
-            //     // console.log(e);
             //     this.balance_one = !this.balance_one;
             //     // this.index_key = e
             // },
@@ -1341,8 +1338,6 @@
 
                         onProgress(e) {
 
-                        console.log(e, 'e');
-
                         },
 
 
@@ -1357,7 +1352,7 @@
                 console.log(e);
                 this.modal_data = e,
                 byMethod('get', '/api/product_details?id=' +e.product_id).then((res) => {
-                        console.log(res.data.data);
+              
                         this.order_id = res.data.data,
                     this.show = true,
                         this.show_image_modal = true
@@ -1367,7 +1362,6 @@
 
 
             // isChecked(e) {
-            //     console.log(e);
             //     return this.download = e;
             // },
 
@@ -1375,7 +1369,6 @@
     setitems() {
                 byMethod("get", '/api/accounts_class_types').then(
                     res => {
-                       console.log(res.data.data.data)
                        this.chart = res.data.data.data;
                     }
                 );
@@ -1388,7 +1381,6 @@
             deleteRole(e) {
                 byMethod('delete', `/api/inventory/${e}`)
                     .then((res) => {
-                        // console.log(res);
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error( this.capital + " Deleted successfully!");
@@ -1400,7 +1392,7 @@
             deletegroupclasstype(e){
                 byMethod('delete', `/api/accounts_class_types/${e}`)
                     .then((res) => {
-                        // console.log(res);
+        
                         if (res.data.deleted) {
                             this.setitems();
                             // this.$refs.TableData.reload();
@@ -1412,7 +1404,7 @@
             deletegroupclass(e){
                 byMethod('delete', `/api/accounts_class/${e}`)
                     .then((res) => {
-                        // console.log(res);
+        
                         if (res.data.deleted) {
                             this.setitems();
                             // this.$refs.TableData.reload();
@@ -1425,7 +1417,7 @@
 
                 byMethod('delete', `/api/accounts_group/${e}`)
                     .then((res) => {
-                        // console.log(res);
+        
                         if (res.data.deleted) {
                             this.setitems();
                             // this.$refs.TableData.reload();
@@ -1438,7 +1430,7 @@
             deleteaccount(e){
                 byMethod('delete', `/api/accounts/${e}`)
                     .then((res) => {
-                        // console.log(res);
+        
                         if (res.data.deleted) {
                             this.setitems();
                             // this.$refs.TableData.reload();

@@ -204,7 +204,7 @@
             deleteRole(e) {
                 byMethod('delete', `/api/order/${e}`)
                     .then((res) => {
-                        // console.log(res);
+               
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error(this.capital + " Deleted successfully!");
@@ -220,7 +220,7 @@
                     this.urlApi += e
                 }, 500)
                 setTimeout(() => {
-                    // console.log(this.$refs);
+                  
                     this.$refs.TableData.reload();
                 }, 500)
             },

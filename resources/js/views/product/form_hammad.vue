@@ -354,14 +354,12 @@
             },
             onproducttypes(e) {
                 const product_type = e.target.value
-                // console.log(product_type,product_type.id);
                 this.form.product_type = product_type
                 this.form.product_type_id = product_type.id
                 this.prod_type = product_type.id
             },
             onattribute(e) {
                 const attributesets = e.target.value
-                // console.log(e);
                 this.form.attribute_sets = null,
                     this.form.attribute_sets = attributesets
                 this.form.attribute_sets_id = attributesets.id
@@ -392,8 +390,6 @@
                 })
             },
             SaveRowData(e, f, g, h, i, j, k, l) {
-                // console.log(this.images, 'a');
-                // console.log(k, 'k', e, 'e', l, 'l');
                 // Vue.set(this.$data.form, 'AttributeImgs', this.AttributeImg)
                 let formData = new FormData();
                 for (let i = 0; i < this.images.length; i++) {
@@ -471,13 +467,10 @@
                 }
             },
             onImageChange(e, index) {
-                // console.log('test')
-                // console.log(e.target.files);
                 this.ImgUrl[index].img = URL.createObjectURL(e.target.files[0]);
                 this.form.product_img[index].img = e.target.files[0];
             },
             setData(res) {
-                // console.log(res);
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -489,7 +482,6 @@
                     if (res.data.details != null) {
                         for (let i = 0; i < res.data.details.length; i++) {
                             this.form.status = res.data.details[i].status
-                            // console.log(res.data.details[i].status, 'status');
                         }
                     }
                     if (res.data.Attibutes.length > 0) {
@@ -529,7 +521,6 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
             successfull(res) {

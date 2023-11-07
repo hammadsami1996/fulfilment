@@ -103,60 +103,65 @@ class CityController extends Controller
     {
         //
     }
+//    public function storebulk(Request $request)
+//    {
+//        $cityIds = [];
+//
+//        if ($request->city_id) {
+//            $cityIds = [$request->city_id];
+//        } elseif ($request->country_id) {
+//            $cityIds = City::where('country_id', $request->country_id)->pluck('id')->toArray();
+//        }
+//
+//        if (!empty($cityIds)) {
+//            City_Courier::whereIn('city_id', $cityIds)->delete();
+//
+//            $pivotData = [];
+//
+//            if (isset($request->courier_id)) {
+//                $pivotData['courier_id'] = $request->courier_id;
+//            }
+//            if (isset($request->shipping_charges)) {
+//                $pivotData['delivery_charges'] = $request->shipping_charges;
+//            }
+//
+//            foreach ($cityIds as $cityId) {
+//                $pivotData['city_id'] = $cityId;
+//                City_Courier::create($pivotData);
+//            }
+//        }
+//
+//        return response()->json(['saved' => true]);
+//    }
     public function storebulk(Request $request)
     {
+//        if (!$request->city_id && !$request->country_id) {
+//            return response()->json(['saved' => false, 'message' => 'Both city_id and country_id are missing.']);
+//        }
+
         $cityIds = [];
 
         if ($request->city_id) {
             $cityIds = [$request->city_id];
-        } elseif ($request->country_id) {
+        } else {
             $cityIds = City::where('country_id', $request->country_id)->pluck('id')->toArray();
         }
 
         if (!empty($cityIds)) {
+            $pivotData = [
+                'courier_id' => $request->courier_id ?? null,
+                'delivery_charges' => $request->shipping_charges ?? null,
+            ];
+
             City_Courier::whereIn('city_id', $cityIds)->delete();
 
-            $pivotData = [];
+            $insertData = array_map(function ($cityId) use ($pivotData) {
+                return array_merge(['city_id' => $cityId], $pivotData);
+            }, $cityIds);
 
-            if (isset($request->courier_id)) {
-                $pivotData['courier_id'] = $request->courier_id;
-            }
-            if (isset($request->shipping_charges)) {
-                $pivotData['delivery_charges'] = $request->shipping_charges;
-            }
-
-            foreach ($cityIds as $cityId) {
-                $pivotData['city_id'] = $cityId;
-                City_Courier::create($pivotData);
-            }
+            City_Courier::insert($insertData);
         }
 
         return response()->json(['saved' => true]);
     }
-
-
-//    public function storebulk(Request $request)
-//    {
-//        if ($request->city_id) {
-//            $city = City::where('id', $request->city_id)->pluck('id');
-//        } else {
-//            $city = City::where('country_id', $request->country_id)->pluck('id');
-//        }
-//        foreach ($city as $city_id) {
-//            $deleted = City_Courier::where('city_id', $city_id)->first();
-//            if ($deleted) {
-//                $deleted->delete();
-//            }
-//            $pivot = new City_Courier;
-//            $pivot->city_id = $city_id;
-//            if (isset($request->courier_id)) {
-//                $pivot->courier_id = $request->courier_id;
-//            }
-//            if (isset($request->shipping_charges)) {
-//                $pivot->delivery_charges = $request->shipping_charges;
-//            }
-//            $pivot->save();
-//        }
-//        return response()->json(['saved' => true]);
-//    }
 }

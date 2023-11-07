@@ -453,7 +453,6 @@
             isSaveDisabled() {
                 for (const item of this.form.items) {
                     if (this.count < item.qty) {
-                        // console.log(this.count)
                         // isProcess = false;
                         this.color = 'gray'
                         return true;
@@ -510,7 +509,6 @@
             },
 
             remain(e) {
-                // console.log(e);
                 // this.count = 0;
                 this.data = [
                     e,
@@ -518,20 +516,17 @@
                 ]
                 byMethod('POST', '/api/remaining', this.data).then(res => {
                     if (res.data.data == null) {
-                        // console.log('abcd');
                         this.ids = e;
                         this.alert = true;
                     } else {
-                        // console.log('efg')
                         this.count = res.data.data;
                     }
-                    // console.log(res.data.data);
+              
                 })
             },
             setData(res) {
-                // console.log(res);
+           
                 this.form = res.data.form;
-                // console.log(this.$route.meta.mode);
 
                 if (this.$route.meta.mode == 'edit') {
 
@@ -593,7 +588,6 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
             successfull(res) {

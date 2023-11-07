@@ -553,7 +553,6 @@
             deleteRole(e) {
                 byMethod('delete', `/api/order/${e}`)
                     .then((res) => {
-                        // console.log(res);
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error(this.capital + " Deleted successfully!");
@@ -561,7 +560,6 @@
                     })
             },
             showRecords(e) {
-                // console.log(e)
                 this.pack = e
                 setTimeout(() => {
                     this.urlApi = this.urlApi1
@@ -573,7 +571,6 @@
                     // this.urlApi += '?status_id=' + e
                 }, 500)
                 setTimeout(() => {
-                    // console.log(this.$refs);
                     this.$refs.TableData.reload();
                 }, 500)
             },
@@ -589,7 +586,6 @@
                     // this.urlApi += '?status_id=' + e.status_id;
                 }, 500)
                 setTimeout(() => {
-                    // console.log(this.$refs);
                     this.$refs.TableData.reload();
                 }, 500)
             },
@@ -624,7 +620,6 @@
                     // this.urlApi += '?status_id=' + e
                 }, 500)
                 setTimeout(() => {
-                    // console.log(this.$refs);
                     this.$refs.TableData.reload();
                 }, 500)
 

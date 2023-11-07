@@ -172,12 +172,9 @@
                     this.urlApi += '?status_id=' + e
                 }, 100)
                 setTimeout(() => {
-                    // console.log(this.$refs);
                     this.$refs.TableData.reload();
                 }, 100)
                 // byMethod('GET', '/api/purchases?status_id='+e  ).then(res => {
-
-
 
                 // })
             },
@@ -201,7 +198,6 @@
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
             Update(e ,id){
-               // console.log(e.id);
                if(e.id == 27){
 
                 this.$router.push(`/recieve_order/${id}/edit`)
@@ -223,7 +219,6 @@
             deleteRole(e) {
                 byMethod('delete', `/api/purchase/${e}`)
                     .then((res) => {
-                        // console.log(res);
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();
                             this.$toast.error( this.capital + " Deleted successfully!");

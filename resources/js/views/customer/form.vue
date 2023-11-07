@@ -256,7 +256,6 @@
         },
         methods: {
             showShipment() {
-                // console.log(this.form.copyBilling)
                 if (this.form.copyBilling) {
                     this.form.s_name = this.form.b_name;
                     this.form.s_phone = this.form.b_phone;
@@ -305,7 +304,6 @@
                 this.form.category_id = category.id
             },
             setData(res) {
-                console.log(res);
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -333,7 +331,6 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
             successfull(res) {

@@ -106,7 +106,6 @@ router.beforeEach(async (to, from, next) => {
     // try {
     //     // const response = await axios.get('/check-auth');
     //     // const isAuthenticated = response.data.authenticated;
-    //     // console.log(window.apex.user.permissions)
     //
     //     // if (isAuthenticated) {
     //     if (

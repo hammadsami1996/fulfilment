@@ -432,10 +432,7 @@
 
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
-                    // console.log('ddddfdf');
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
-
-                    // console.log(this.store);
 
                     this.title = 'Edit';
                     this.message = `${this.capital} has been updated`;
@@ -443,7 +440,6 @@
                 if (!this.form.items) {
                     this.addNewLine();
                 }
-                // console.log(this.form.date);
                 this.form.po_date = moment().format('YYYY-MM-DD');
                 this.show = true
             },
@@ -466,7 +462,6 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
                 })
             },
             successfull(res) {

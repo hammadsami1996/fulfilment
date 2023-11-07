@@ -17,8 +17,8 @@ return new class extends Migration
             $table->integer('courier_id')->nullable();
 
             $table->decimal('delivery_charges',10,2)->default(0);
-            $table->integer('deleted_by')->nullable();
-           $table->timestamp('deleted_at')->nullable();
+        //     $table->integer('deleted_by')->nullable();
+        //    $table->timestamp('deleted_at')->nullable();
             
             $table->timestamps();
         });
