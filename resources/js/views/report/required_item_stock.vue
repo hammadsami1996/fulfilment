@@ -336,7 +336,7 @@
 
                         onProgress(e) {
 
-                        console.log(e, 'e');
+                        // console.log(e, 'e');
 
                         },
 
@@ -349,10 +349,10 @@
             image_model(e) {
 
 
-                console.log(e);
+                // console.log(e);
                 this.modal_data = e,
                 byMethod('get', '/api/product_details?id=' +e.product_id).then((res) => {
-                        console.log(res.data.data);
+                        // console.log(res.data.data);
                         this.order_id = res.data.data,
                     this.show = true,
                         this.show_image_modal = true
@@ -361,7 +361,7 @@
 
 
             isChecked(e , id) {
-        console.log(e);
+        // console.log(e);
         if (this.download.includes(e)) {
             this.download.splice(this.download.indexOf(e), 1);
 
@@ -382,8 +382,8 @@
             // },
 
             downloadimage(){
-                console.log(this.download);
-                console.log(this.ids);
+                // console.log(this.download);
+                // console.log(this.ids);
 
 
                 byMethod('get', '/api/download_images?id=' +this.download).then((res) => {
@@ -401,12 +401,12 @@
             },
 
             downloadImage() {
-                console.log(this.download);
+                // console.log(this.download);
     byMethod('get', '/api/download_images?id=' + this.ids).then((res) => {
         this.model = res.data.data.data;
         this.vendor = res.data.id;
 
-        console.log(res.data.id);
+        // console.log(res.data.id);
 
         this.download.forEach((item, index) => {
             const image = new Image();

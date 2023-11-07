@@ -920,7 +920,7 @@
                     this.successfull(res)
                     if (res.data.saved == true) {
                         byMethod("GET", '/api/stores').then(res => {
-                            console.log(res.data.data.data)
+                            // console.log(res.data.data.data)
                             this.stores_data = res.data.data.data
                         })
                     }

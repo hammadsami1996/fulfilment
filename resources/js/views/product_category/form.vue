@@ -89,7 +89,7 @@
         methods: {
             onParent(e) {
                 const parent = e.target.value;
-                console.log(e);
+                // console.log(e);
                 this.form.parent = parent
                 this.form.parent_id = parent.id
             },

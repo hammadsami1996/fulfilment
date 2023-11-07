@@ -54,7 +54,7 @@
                 columns: [
                     {label: "S.No", field: "id", format: "index"},
                     {label: "status", field: "name"},
-                    {label: "courier_response", field: "couriersss", slot: true},
+                    {label: "Courier Response", field: "couriersss", slot: true},
                     {label: "Action", field: "action", action: true},
                 ],
             };

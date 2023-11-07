@@ -508,7 +508,7 @@
                 this.form.deliver_id = deliver.id
             },
             onShipped(e, f, ids) {
-                console.log(e, f)
+                // console.log(e, f)
                 const courier = e.target.value
                 f.couriers[0] = courier
                 ids.courier_id = courier.id
@@ -643,7 +643,7 @@
             generateCN(id) {
                 byMethod('GET', `/api/generateCN/${id}`)
                     .then((res) => {
-                        console.log(res.data.data);
+                        // console.log(res.data.data);
                     })
             },
             show_msg_modal() {

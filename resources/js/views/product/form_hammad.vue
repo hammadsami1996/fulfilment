@@ -373,7 +373,7 @@
                 }
                 byMethod("GET", `/api/search/assign_sets/${param}`).then((res) => {
                     this.ghi = res.data.data
-                    console.log(res.data.data);
+                    // console.log(res.data.data);
                     // console.log(res.data.results, 'ghi');
                     let group = [];
                     for (let i = 0; i < res.data.data.length; i++) {
@@ -483,8 +483,8 @@
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
                     this.title = 'Edit';
                     this.message = `${this.capital} has been updated`;
-                    console.log(res.data.details, 'details');
-                    console.log(res.data.Attibutes, 'Attibutes');
+                    // console.log(res.data.details, 'details');
+                    // console.log(res.data.Attibutes, 'Attibutes');
                     this.$data.detail = res.data.details;
                     if (res.data.details != null) {
                         for (let i = 0; i < res.data.details.length; i++) {
