@@ -422,11 +422,13 @@
         },
         methods: {
             get_charges(i) {
+                // console.log(i , this.form.city, this.form.city.id);
                 if (i && this.form.city) {
+                    // console.log('j');
                     byMethod('GET', `/api/get_delivery_charges/${this.form.city.id}?weight=${i}&country_id=${this.form.city.country_id}`)
                 }
                 this.form.weight = i;
-              
+                // console.log('i');
                 // let e = {
                 //     weight : i ,
                 //     city_id : this.form.city_id,

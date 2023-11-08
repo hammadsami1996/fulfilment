@@ -508,6 +508,7 @@
                 this.form.deliver_id = deliver.id
             },
             onShipped(e, f, ids) {
+                // console.log(e, f)
                 const courier = e.target.value
                 f.couriers[0] = courier
                 ids.courier_id = courier.id

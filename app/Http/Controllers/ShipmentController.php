@@ -41,7 +41,6 @@ class ShipmentController extends Controller
             return response()->json(['error' => 'Already Generated'], 422);
         }
         return response()->json(['error' => $order], 422);
-
     }
 
     function trax($order, $service = "1")

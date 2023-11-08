@@ -3,7 +3,7 @@
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <h2 class="text-lg leading-6 font-medium text-blue-900"> Filter By Dates</h2>
-                    
+
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
@@ -13,7 +13,7 @@
                         class="w-full py-2 px-3 bg-gray-100 border border-blue-300 rounded-md"
                         type="date"
                         placeholder="Auto Generated"
-                       
+
                         v-model="search_start_date"
                     />
                 </div>
@@ -34,7 +34,7 @@
                     type="button">
                    Filter
                 </button>
-                    
+
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <button
@@ -43,23 +43,23 @@
                     type="button">
                    Clear
                 </button>
-                    
+
                 </div>
             </div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
-          
+
 
         </div>
-       
-       
+
+
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <div class=" w-full sm:w-2/3 mb-4 sm:mb-0 p-2 col col-8">
                             <div class="panel-heading">
                                 <span class="panel-title">
                                     <strong>Account Heads</strong>
                                 </span>
-                               
+
                             </div>
                             <div class="panel-body"  >
                                 <div class="row pl-3">
@@ -73,11 +73,11 @@
                                 <i  v-if="item.main_class == 'Balance Sheet'" :class="['arrow-icon', { 'open': subMenuOpen[index] }]" @click="right_click(index ,'Balance Sheet')"></i>
                                 <i v-if="item.main_class == 'Balance Sheet'" class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccountclass(item.id , item.class_type)"></i><i v-if="item.main_class == 'Balance Sheet'" class="fa-solid fa-folder-minus ml-1 mr-2" style="color:rgb(24, 125, 192)"></i><span v-if="item.main_class == 'Balance Sheet'" @click="toggleSubSubmenu(index, 'Balance Sheet')">{{ item.text }}:<a class="ml-8" style="font-weight: lighter;">{{ item.balance }}</a></span>
                                 <ul class="context-menu" v-if="subMenuOpen[index]">
-                                    
+
                                 <li :key="index1" v-for="(items, index1) in item.classes">
                                     <i v-if="item.main_class == 'Balance Sheet'" :class="['arrow-icon', { 'open': subMenuOpen1[index1] }]" @click="right_click1(index , index1 ,'Balance Sheet')"></i>
                                     <i  class="fa fa-plus-circle mr-4" style="color:rgb(24, 125, 192)" @click="Addaccountgroup(items.id , items.classname)" ></i><i class="fa-solid fa-folder-open mr-2 ml-1" style="color:navy"></i><span v-if="item.main_class == 'Balance Sheet' " @click="toggleSubSubmenu1(index, index1, 'Balance Sheet')">{{ items.classname }}:<a class="ml-8" style="font-weight: lighter;">{{ items.balance }}</a></span>
-                                
+
                                 <ul class="context-menu" v-if="subMenuOpen1[index1]">
                                 <li :key="index2" v-for="(item1, index2) in items.groups">
                                       <i v-if="item.main_class == 'Balance Sheet'" :class="['arrow-icon', { 'open': subMenuOpen2[index2] }]" @click="toggleSubSubmenu2(index , index1 ,index2,'Balance Sheet')"></i>
@@ -94,12 +94,12 @@
                                 </ul>
                             </li>
                                 </ul>
-                           
+
                             </li>
                             </ul>
                         </div>
 
-                             
+
                                 </li>
                                 <li>
                                     <div class="bold">
@@ -131,7 +131,7 @@
                             </li>
                             </ul>
                         </div>
-                                   
+
                             </li>
                             </ul>
                         </div>
@@ -179,20 +179,20 @@
                     </div>
 
                 </transition>
-           
-            
-           
 
-            
-          
+
+
+
+
+
         </div>
 
-       
+
 
         <div class="py-12 px-2">
             <div class="px-4 py-5  sm:px-6 flex justify-between items-center text-center">
             <h1 class="flex justify-between items-center text-xl leading-6 font-bold text-gray-900 text-center">Chart Of Accounts</h1>
-          
+
 
         </div>
         <div class="flex justify-start mt-8 space-x-4 mb-4">
@@ -220,7 +220,7 @@
                     type="button">
                    Level 4
                 </button>
-              
+
             </div>
                 <!-- Responsive Table Container -->
                 <div class="overflow-x-auto">
@@ -260,9 +260,9 @@
                             <!-- <template v-if="column.action">
                                     <slot :item="row" name="action"></slot>
                                 </template> -->
-                                
-                            
-                            
+
+
+
                     </tr>
                     <template :key="index1"  v-for="(items, index1) in item.classes" v-if="subMenuOpen_new[index]">
                     <tr class="bg-white-50 text-red-600" @click="toggleSubSubmenu11(index, index1, 'Balance Sheet')">
@@ -271,24 +271,24 @@
                             <i @click="deletegroupclass(items.id)" class="fa-solid fa-trash text-red-500 ml-4 cursor-pointer"></i>
                             </td>
                         <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
-                                
+
                                 {{ items.code }}
                                    </td>
                             <td  class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
-                                
+
                              <span  >{{ items.classname }}</span>
                                 </td>
                                 <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
-                                
+
                                 {{ items.balance }}
                                    </td>
                                    <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
-                                
+
                                 {{ items.debit }}
                                    </td>
 
                                    <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
-                                
+
                                 {{ items.credit }}
                                    </td>
                                 </tr>
@@ -298,12 +298,12 @@
                             <i @click="editgroup(item1.id)" class="fa-regular fa-pen-to-square text-green-500 cursor-pointer"></i>
                             <i @click="deletegroup(item1.id)" class="fa-solid fa-trash text-red-500 ml-4 cursor-pointer"></i>
                             </td>
-                                       
+
                                         <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
                                             {{ item1.code !=null ? item1.code :'--' }}
                                         </td>
                                         <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
-                                
+
                                 <span >{{ item1.groupname }}</span>
                                    </td>
                                    <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
@@ -326,7 +326,7 @@
                                             {{ item2.accountcode !=null ? item2.accountcode :'--' }}
                                         </td>
                                         <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
-                                
+
                                 <span >{{ item2.accounttitle }}</span>
                                    </td>
                                    <td class="px-3 py-2 whitespace-nowrap sm:flex-row sm:items-center text-center">
@@ -341,7 +341,7 @@
                                     </tr>
                                 </template>
                                 </template>
-                               
+
                             </template>
                 </template>
                                 <!-- <div class="row pl-3">
@@ -355,11 +355,11 @@
                                 <i  v-if="item.main_class == 'Balance Sheet'" :class="['arrow-icon', { 'open': subMenuOpen[index] }]" @click="right_click(index ,'Balance Sheet')"></i>
                                 <i v-if="item.main_class == 'Balance Sheet'" class="fa fa-plus-circle mr-4" @click="Addaccountclass(item.id , item.class_type)"></i><span v-if="item.main_class == 'Balance Sheet'" @click="toggleSubSubmenu(index, 'Balance Sheet')">{{ item.text }}:<a class="ml-8" style="font-weight: lighter;">{{ item.balance }}</a></span>
                                 <ul class="context-menu" v-if="subMenuOpen[index]">
-                                    
+
                                 <li :key="index1" v-for="(items, index1) in item.classes">
                                     <i v-if="item.main_class == 'Balance Sheet'" :class="['arrow-icon', { 'open': subMenuOpen1[index1] }]" @click="right_click1(index , index1 ,'Balance Sheet')"></i>
                                     <i  class="fa fa-plus-circle mr-4" @click="Addaccountgroup(items.id , items.classname)" ></i><span v-if="item.main_class == 'Balance Sheet' " @click="toggleSubSubmenu1(index, index1, 'Balance Sheet')">{{ items.classname }}:<a class="ml-8" style="font-weight: lighter;">{{ items.balance }}</a></span>
-                                
+
                                 <ul class="context-menu" v-if="subMenuOpen1[index1]">
                                 <li :key="index2" v-for="(item1, index2) in items.groups">
                                       <i v-if="item.main_class == 'Balance Sheet'" :class="['arrow-icon', { 'open': subMenuOpen2[index2] }]" @click="toggleSubSubmenu2(index , index1 ,index2,'Balance Sheet')"></i>
@@ -376,12 +376,12 @@
                                 </ul>
                             </li>
                                 </ul>
-                           
+
                             </li>
                             </ul>
                         </div>
 
-                             
+
                                 </li>
                                 <li>
                                     <div class="bold">
@@ -413,7 +413,7 @@
                             </li>
                             </ul>
                         </div>
-                                   
+
                             </li>
                             </ul>
                         </div> -->
@@ -460,7 +460,7 @@
                         </div>
                 </div>
 
-                        
+
                         <!-- <div class="col col-5">
                             <div class="alert alert-danger" v-if="total_balance != 0">
                                 <strong class="hvr-buzz-out"><i class="fas fa-exclamation-triangle"></i> &nbsp;
@@ -478,20 +478,20 @@
                         </div>
                         <div class="col col-2"></div> -->
                     </div>
-                   
-                    </div>
-                      
-<!-- 
-                            <panel :columns="columns" :urlApi="urlApi" ref="TableData" >
-                               
-                                    
-                    
 
-                    
+                    </div>
+
+<!--
+                            <panel :columns="columns" :urlApi="urlApi" ref="TableData" >
+
+
+
+
+
 
                     </panel> -->
 
-         <Modal :show="true" 
+         <Modal :show="true"
 
                          height="900"
 
@@ -504,7 +504,7 @@
                          </div>
 
                          <div class="p-6">
-           
+
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
@@ -542,7 +542,7 @@
                     <p class="text-red-600 text-xs italic" v-if="error.qty">{{ error.qty[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                                
+
                                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Active </label>
@@ -550,8 +550,8 @@
                                         <option value="0">No</option>
                                         <option value="1">Yes</option>
                                     </select>
-                                 
-                                
+
+
                             </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">
@@ -569,13 +569,13 @@
                 </button>
             </div>
         </div>
-                      
-                  
-                         
+
+
+
                         </Modal>
 
 
-                        <Modal :show="true" 
+                        <Modal :show="true"
 
                 height="900"
 
@@ -626,7 +626,7 @@
                 <p class="text-red-600 text-xs italic" v-if="error.qty">{{ error.qty[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                    
+
                         <label
                 class="block font-medium text-sm text-gray-700 mb-2"
                 >Active </label>
@@ -634,8 +634,8 @@
                             <option value="0">No</option>
                             <option value="1">Yes</option>
                         </select>
-                        
-                    
+
+
                 </div>
                 </div>
                 <div class="flex justify-end mt-8 space-x-4">
@@ -659,7 +659,7 @@
                 </Modal>
 
 
-                <Modal :show="true" 
+                <Modal :show="true"
 
                     height="900"
 
@@ -710,7 +710,7 @@
                     <p class="text-red-600 text-xs italic" v-if="error.qty">{{ error.qty[0] }}</p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        
+
                             <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                     >Active </label>
@@ -718,8 +718,8 @@
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>
-                            
-                        
+
+
                     </div>
                     </div>
                     <div class="flex justify-end mt-8 space-x-4">
@@ -744,7 +744,7 @@
 
 
 
-                    <Modal :show="true" 
+                    <Modal :show="true"
 
                     height="900"
 
@@ -792,7 +792,7 @@
                     type="number"
                     v-model="form.group_id"
                     />
-                  
+
                     </div>
                     <div class="w-full sm:w-1/3 mb-4 sm:mb-0 p-2">
                     <label
@@ -803,7 +803,7 @@
                     type="number"
                     v-model="form.op_debit"
                     />
-                   
+
                     </div>
                     <div class="w-full sm:w-1/3 mb-4 sm:mb-0 p-2">
                     <label
@@ -814,7 +814,7 @@
                     type="number"
                     v-model="form.op_credit"
                     />
-                   
+
                     </div>
                     <div class="w-full sm:w-1/3 mb-4 sm:mb-0 p-2">
                     <label
@@ -825,10 +825,10 @@
                     type="date"
                     v-model="form.op_date"
                     />
-                   
+
                     </div>
-                    
-                    
+
+
                     </div>
                     <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                         <div class="w-full sm:w-2/3 mb-4 sm:mb-0 p-2">
@@ -841,10 +841,10 @@
                     type="area"
                     v-model="form.description"
                     /> -->
-                   
+
                     </div>
                         <div class="w-full sm:w-1/4 mb-4 sm:mb-0 p-2">
-                        
+
                             <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                     >Active </label>
@@ -852,8 +852,8 @@
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>
-                            
-                        
+
+
                     </div>
 
                     </div>
@@ -873,11 +873,11 @@
                     </div>
                     </div>
                     </Modal>
-                    
 
-                    
+
+
     </div>
- 
+
 </template>
 
 
@@ -892,16 +892,16 @@
     // import contextMenu from "vue-context-menu";
     // import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
     // import contextMenu from '@imengyu/vue3-context-menu'
- 
-   
- 
-  
-    
+
+
+
+
+
 
     export default {
         mixins: [form],
         components: {
-            Panel, Modal ,Typeahead 
+            Panel, Modal ,Typeahead
         },
         name: "Index",
         data() {
@@ -948,7 +948,7 @@
                 title4:{},
 
 
-              
+
                 bal_sheet_tog: false,
                 inc_state_tog: false,
                 account_columns: {
@@ -972,7 +972,7 @@
                 active:false,
                 account_model: {},
                 // form:{},
-           
+
 
                 chart:[],
 
@@ -989,13 +989,13 @@
                     {label: 'barcode', field: 'balance',},
                     {label: 'Product', field: 'credit'},
                     {label: 'Qty Reqiured(in order)', field: 'debit',},
-            
+
 
                     ]
             }
         },
 
-     
+
 
         created() {
             this.permissions = window.apex.user.permission
@@ -1038,18 +1038,19 @@
         },
 
 
-                 
+
         methods: {
 
             editaccount(e){
                 byMethod('get', `/api/accounts/${e}/edit`).then((res) => {
+                    // console.log(res.data.form);
                     this.form = res.data.form;
                     this.title4 = res.data.form.accounttitle
-                  
-             
+
+
                 this.show= true;
                 this.show_account_modal3 = true;
-                   
+
 
                 })
 
@@ -1058,9 +1059,8 @@
             editgroup(e){
 
                 byMethod('get', `/api/accounts_group/${e}/edit`).then((res) => {
+
                     this.form = res.data.form;
-                    this.title3 = res.data.form.groupname
-                    this.show= true;
                 this.show_account_modal2 = true;
 
                 })
@@ -1068,6 +1068,7 @@
 
             editgroupclass(e){
                 byMethod('get', `/api/accounts_class/${e}/edit`).then((res) => {
+                    // console.log(res.data.form);
                     this.form = res.data.form;
                     this.title2 = res.data.form.classname
                     this.show= true;
@@ -1078,6 +1079,7 @@
 
             editgroupclasstype(e){
                 byMethod('get', `/api/accounts_class_types/${e}/edit`).then((res) => {
+                    // console.log(res.data.form);
                     this.form = res.data.form;
                     this.title1 = res.data.form.class_type
                     this.show= true;
@@ -1086,55 +1088,59 @@
                 })
             },
             subMenuOpenall1 (){
-           
+
                 for (let i = 0; i < this.chart.length; i++){
                     this.subMenuOpen11[i] = false;
                     this.subMenuOpen_new[i] = false;
                     this.subMenuOpen22[i] = false
 
                 }
-                
+
             },
             subMenuOpenall (){
+                // console.log('abcd')
                 for (let i = 0; i < this.chart.length; i++){
                     this.subMenuOpen11[i] = false;
                     this.subMenuOpen_new[i] = true;
 
                 }
-                
+
             },
             subMenuOpenall2 (){
+                // console.log('abcd')
                 for (let i = 0; i < this.chart.length; i++){
                     this.subMenuOpen22[i] = false;
                     this.subMenuOpen_new[i] = true;
                     this.subMenuOpen11[i] = true;
 
                 }
-                
+
             },
             subMenuOpenall3 (){
+                // console.log('abcd')
                 for (let i = 0; i < this.chart.length; i++){
                     this.subMenuOpen_new[i] = true;
                     this.subMenuOpen11[i] = true;
                     this.subMenuOpen22[i] = true;
 
                 }
-                
+
             },
             onleave(){
-                this.active = false 
+                this.active = false
             },
             onchange(e){
                 this.hoverdata = e
-                this.active = true 
+                this.active = true
             },
             formSubmittedAccounts(){
                 if (this.form.id) {
-                    
+
                     this.store3 = `/api/accounts/${this.form.id}?_method=PUT`;
-                  
+
                 }
                 byMethod('post', this.store3 , this.form).then((res) => {
+                    // console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal3 = false;
                         this.$toast.open({
@@ -1152,11 +1158,12 @@
 
             formSubmittedGroup(){
                 if (this.form.id) {
-                    
+
                     this.store2 = `/api/accounts_group/${this.form.id}?_method=PUT`;
-                  
+
                 }
                 byMethod('post', this.store2 , this.form).then((res) => {
+                    // console.log(res.data.saved)
                     if(res.data.saved = true){
                         this.show_account_modal2 = false;
                         this.$toast.open({
@@ -1173,15 +1180,15 @@
             },
 
             formSubmittedClass(){
+                // console.log(this.form);
                 if (this.form.id){
+                    // console.log(this.form.id)
                     this.store1 = `/api/accounts_class/${this.form.id}?_method=PUT`;
-                  
+
                 }
                 byMethod('post', this.store1 , this.form).then((res) => {
-                    if(res.data.saved = true){
+                    // console.log(res.data.saved)
                         this.show_account_modal1 = false;
-                        this.$toast.open({
-                        position: 'top-right',
                         message: 'Successfully Add Account Group Class',
                         type: 'success',
                         duration: 3000
@@ -1193,6 +1200,14 @@
                 })
             },
             formSubmitted(){
+                if (this.form.id) {
+
+                    this.store = `/api/accounts_class_types/${this.form.id}?_method=PUT`;
+
+                }
+                // console.log(this.form);
+                byMethod('post', this.store , this.form).then((res) => {
+                    // console.log(res.data.saved)
                 if (this.form.id) {   
                     this.store = `/api/accounts_class_types/${this.form.id}?_method=PUT`; 
                 }
@@ -1206,7 +1221,7 @@
                         duration: 3000
                     });
 
-                   
+
                     this.setitems();
                     }
                 })
@@ -1228,14 +1243,14 @@
                 this.show_account_modal2 = true;
             },
             Addaccountclassgroup(e){
-                
+
                 this.title1 = e;
                 this.form.main_class = e;
                 this.show= true;
                 this.show_account_modal = true;
             },
             Addaccountclass(e , title){
-              
+
                 this.title2 = title;
                 this.form.class_type_id = e;
                 this.show= true;
@@ -1249,12 +1264,13 @@
         // this.subMenuOpen2[index][index1][index2] = !this.subMenuOpen2[index][index1][index2];
     },
             toggleSubSubmenu(index) {
+                // console.log(index);
     //   this.$set(this.subMenuOpen, index, !this.subMenuOpen[index]);
              this.subMenuOpen[index] = !this.subMenuOpen[index];
     },
     toggleSubSubmenu1(index ,index1) {
         this.subMenuOpen1[index1] = !this.subMenuOpen1[index1];
-    
+
              this.subMenuOpen1[index][index1] = !this.subMenuOpen1[index][index1];
     },
 
@@ -1269,10 +1285,10 @@
     },
     toggleSubSubmenu11(index ,index1) {
         this.subMenuOpen11[index1] = !this.subMenuOpen11[index1];
-    
+
              this.subMenuOpen11[index][index1] = !this.subMenuOpen11[index][index1];
     },
-    
+
     right_click1(index, index1) {
         this.subMenuOpen1[index1] = !this.subMenuOpen1[index1]
     },
@@ -1283,13 +1299,13 @@
             //     this.balance_one = !this.balance_one;
             //     // this.index_key = e
             // },
-            
+
             toggleSubMenu() {
-                
+
                 this.one = !this.one;
             },
             toggleSubMenu2() {
-                
+
                 this.one1 = !this.one1;
             },
             toggleBal() {
@@ -1303,34 +1319,37 @@
                 this.form.supplier_id = null
                 this.urlApi = this.urlApis
                 setTimeout(() => {
-                    
+
                     this.$refs.TableData.reload();
                 }, 100)
-                    
+
             },
             onSupplier(e) {
                 const supplier = e.target.value
                 this.form.supplier = supplier
                 this.form.supplier_id = supplier.id
                 this.filter(this.form.supplier_id)
-                
+
 
             },
-          
-       
-    
+
+
+
 
                         onProgress(e) {
 
                         },
 
-                       
+
                            close() {
                 this.show = false,
                     this.show_image_modal = false
             },
 
             image_model(e) {
+
+
+                console.log(e);
                 this.modal_data = e,
                 byMethod('get', '/api/product_details?id=' +e.product_id).then((res) => {
               
@@ -1341,12 +1360,12 @@
             },
 
 
-       
+
             // isChecked(e) {
             //     return this.download = e;
             // },
-           
-    
+
+
     setitems() {
                 byMethod("get", '/api/accounts_class_types').then(
                     res => {
@@ -1358,7 +1377,7 @@
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
-            
+
             deleteRole(e) {
                 byMethod('delete', `/api/inventory/${e}`)
                     .then((res) => {
@@ -1422,13 +1441,13 @@
             },
 
             searchByDate() {
-              
+
                 byMethod('get',
                     `/api/accounts_class_types?to=${this.search_start_date}&from=${this.search_end_date}`
                 ).then(res => {
                     this.chart =[];
                   this.chart = res.data.data.data;
-                  
+
                 });
             },
 
@@ -1575,7 +1594,7 @@
 .context-menu {
   /* Your submenu styles here */
   position: relative;
- 
+
   left: 5%;
   /* background-color: white;
   border: 1px solid #ccc; */
