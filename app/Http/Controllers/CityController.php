@@ -150,7 +150,7 @@ class CityController extends Controller
         if (!empty($cityIds)) {
             $pivotData = [
                 'courier_id' => $request->courier_id ?? null,
-                'delivery_charges' => $request->shipping_charges ?? null,
+                'delivery_charges' => $request->shipping_charges ?? 0,
             ];
 
             City_Courier::whereIn('city_id', $cityIds)->delete();
