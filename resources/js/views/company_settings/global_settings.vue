@@ -32,13 +32,10 @@
             </div>
         </div>
         <hr/>
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-            <p class="w-full pb-1 pt-1 pl-8 text-center font-bold bg-gray-300 rounded text-lg">
-                Other settings
-            </p>
-        </div>
+         
         <div class="w-full radio-inputs mb-4 mt-4 ml-3" id="inputradio" v-if="showRadioInputs === true" >
-            <label>
+                <div class="flex d-flex p-3">
+            <label class="p-1">
                 <input
                     @click="smstabs"
                     class="radio-input"
@@ -60,7 +57,7 @@
                     <span class="radio-label">SMS</span>
                 </span>
             </label>
-            <label class="">
+            <label class="p-1">
                 <input
                     @click="emailtabs"
                     class="radio-input"
@@ -83,7 +80,7 @@
                     <span class="radio-label">Email</span>
                 </span>
             </label>
-            <label>
+            <label class="p-1">
                 <input
                     @click="storetabs"
                     class="radio-input"
@@ -98,7 +95,7 @@
                     <span class="radio-label">Stores</span>
                 </span>
             </label>
-            <label>
+            <label class="p-1">
                 <input
                     @click="couriertabs"
                     class="radio-input"
@@ -113,8 +110,67 @@
                     <span class="radio-label">Courier</span>
                 </span>
             </label>
+            <label class="p-1">
+                <input
+                    @click="allcouriertabs"
+                    class="radio-input"
+                    name="engine"
+                    type="radio"
+                />
+                <span class="radio-tile">
+                    <span class="radio-icon">
+                        <svg height="1em" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+                            d="M48 0C21.5 0 0 21.5 0 48V368c0 26.5 21.5 48 48 48H64c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H48zM416 160h50.7L544 237.3V256H416V160zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+                    
+                        </span>
+                    <span class="radio-label">All Courier</span>
+                </span>
+            </label>
+        </div>
         </div>
         <hr/>
+        <div class="p-6" v-if="allcourier">
+            <h1 class="text-lg font-bold mb-4">All Courier</h1>
+            <!-- <div v-if="show_company_data"> -->
+                <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+               
+        <panel :columns="columns" :urlApi="urlApi" ref="TableData" >
+            <template v-slot:courier_names="props">
+          <div class="mb-2 py-3 px-2 custom-typeahead">
+            
+            <typeahead @input="onGroup($event, props.item)" display="name" v-model="selectedCourier" :url="urlApi"/>
+              </div>
+              </template>
+         
+    <template v-slot:inputfeild="props">
+    <div class="w-full mb-4 sm:mb-0 ">
+        <input  class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md" type="input"    @input="onkey($event ,props.item)"
+        />
+    </div>
+    </template>
+
+
+    <template v-slot:checkboxes="props">
+                    <div class="text-start">
+                        <input :value="props.item.id" class="form-checkbox h-5 w-5 text-blue-500" type="checkbox"
+                               v-model="selectedItems"/>
+                    </div>
+                </template>
+
+
+    <template v-slot:action="props">
+        <div class="text-sm font-medium flex">
+<span>
+  <a @click.prevent="edit(props.item)" href="#">
+    <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
+  </a>
+</span>
+        </div>
+    </template>
+</panel>
+</div>
+<!-- </div> -->
+</div>
         <div class="p-6" v-if="sms">
             <h1 class="text-lg font-bold mb-4">SMS Settings</h1>
             <div v-if="show_company_data">
@@ -667,6 +723,7 @@
 
 <script>
     import {byMethod} from "@/libs/api";
+    import Panel from "@/components/panel/panel.vue";
     import {form} from "@/libs/mixins";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import Cities from "@/views/cities/index.vue";
@@ -677,11 +734,14 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead, Modal , Stores,Cities
+            Typeahead, Modal , Stores,Cities ,Panel
         },
         data() {
             return {
                 showRadioInputs: false,
+                selectedItems: [],
+                keyvalue: '',
+                selectedText: null,
                 selectedCompanyese: null,
                 ImgUrl: null,
                 showDiv: false,
@@ -696,7 +756,9 @@
                 show_ecommerce: false,
                 show_company: false,
                 stores: false,
+                selectedCourier: null,
                 courier: false,
+                allcourier: false,
                 save_button: false,
                 connection_button: true,
                 error: {},
@@ -713,6 +775,7 @@
                 permissions: {},
                 online_store_name: {},
                 products: "/api/product",
+                urlApi: "/api/courier",
                 // warehouses: "/api/warehouse",
                 com: [],
                 stores_data: [],
@@ -720,7 +783,13 @@
                 image: {},
                 cities: '/api/city',
                 countries: '/api/country',
-                selectedCompany: null
+                selectedCompany: null,
+                columns: [
+                    {label: 'Courier', field: 'courier_names', slot: true},
+                    {label: 'Authentication Key', field: 'inputfeild', slot: true},
+                    {label: 'Active', field: 'checkboxes', slot: true},
+                    {label: 'Action', field: 'action', action: true},
+                ]
             };
         },
         created() {
@@ -750,6 +819,30 @@
                     return "/images/mimsoft.jpg";
                 }
             },
+            onkey(e, f) {
+                this.keyvalue = e.target.value;
+                f.key = this.keyvalue;
+               
+            },
+            onGroup(selectedValue, item) {
+                 // item.group = selectedValue;
+             this.selectedCourier = selectedValue;
+              },
+             edit(e) {
+           
+                byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${e.id}&company_id=${this.company_id}`).then((res) => {
+ 
+                    if (res.data.saved) {
+                        this.$toast.open({
+                            position: "top-right",
+                            message: "Successful",
+                            type: "success",
+                            duration: 3000,
+                        });
+                    }
+                });
+            },
+          
             onCompany(company) {
                 this.form.company = company;
                 this.form.company_id = company.id;
@@ -843,7 +936,7 @@
                 }
             },
             storetabs() {
-                this.email = this.sms = this.courier = false;
+                this.email = this.allcourier = this.sms = this.courier = false ;
                 this.stores = true;
                 if (isNaN(this.company_id)) {
                     this.$toast.open({
@@ -857,7 +950,7 @@
                 }
             },
             couriertabs() {
-                this.email = this.sms = this.stores = false;
+                this.email = this.allcourier = this.sms = this.stores = false;
                 this.courier = true;
                 if (isNaN(this.company_id)) {
                     this.$toast.open({
@@ -870,14 +963,30 @@
                     this.storereturn(this.company_id);
                 }
             },
+            allcouriertabs() {
+                this.email = this.courier = this.sms = this.stores = false;
+                this.allcourier = true;
+                console.log('click');
+             
+                if (isNaN(this.company_id)) {
+                    this.$toast.open({
+                        position: "top-right",
+                        message: "Please Select Company First",
+                        type: "error",
+                        duration: 3000,
+                    });
+                } else {
+                    this.storereturn(this.company_id);
+                }
+            },
             smstabs() {
-                this.email = this.courier = this.stores = false;
+                this.email = this.allcourier = this.courier = this.stores = false;
                 this.sms = true;
                 (this.key = "sms_settings");
                 this.returns(this.company_id);
             },
             emailtabs() {
-                this.sms = this.courier = this.stores = false;
+                this.sms = this.allcourier = this.courier = this.stores = false;
                 this.email = true;
                 (this.key = "email_settings");
                 this.returns(this.company_id);
