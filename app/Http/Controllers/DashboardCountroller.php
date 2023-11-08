@@ -19,13 +19,15 @@ class DashboardCountroller extends Controller
     {
         $total_orders = Order::count();
         $total_order_amount = Order::sum('net_total');
-        $total_order_cancel = Status::count();
-//        $status_count = Status::whereIn('status', ['Cancelled', 'Confirmed'])->count();
+        $total_order_cancel = Order::where('status_id', 5)->count();
+        $total_order_return_received = Order::where('status_id', 15)->count();
+        $total_order_onHold = Order::where('status_id', 6)->count();
+        $total_order_confirmed = Order::where('status_id', 2)->count();
 
         return response()->json(['total_orders' => $total_orders, 'total_orders_amount' => $total_order_amount,
-            'total_order_cancel' => $total_order_cancel,
-//            'status_count' => $status_count
-        ]);
+            'total_order_cancel' => $total_order_cancel,   'total_order_return_received' => $total_order_return_received,
+            'total_order_onHold' => $total_order_onHold, 'total_order_confirmed' => $total_order_confirmed,
+            ]);
 //        dd('abc');
     }
 

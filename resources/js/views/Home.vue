@@ -20,9 +20,9 @@
             <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-yellow-100 overflow-hidden transition hover:ring-4 hover:ring-yellow-400 active:opacity-90 p-2"
                href="#">
                 <div class="px-4 py-2">
-                    <div class="font-bold text-lg mb-1 text-yellow-500">Return%</div>
+                    <div class="font-bold text-lg mb-1 text-yellow-500">Return Received</div>
                     <div class="flex items-center pt-4">
-                        <p class="text-yellow-500 text-2xl font-bold">195</p>
+                        <p class="text-yellow-500 text-2xl font-bold">{{form.total_order_return_received}}</p>
                     </div>
                 </div>
             </a>
@@ -35,7 +35,7 @@
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-red-500">Cancel%</div>
                     <div class="flex items-center pt-4">
-                        <p class="text-red-500 text-2xl font-bold">89</p>
+                        <p class="text-red-500 text-2xl font-bold">{{form.total_order_cancel}}</p>
                     </div>
                 </div>
             </a>
@@ -121,9 +121,9 @@
             <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
                href="#">
                 <div class="px-4 py-2">
-                    <div class="font-bold text-lg mb-1 text-black">Cancel</div>
+                    <div class="font-bold text-lg mb-1 text-black">On Hold</div>
                     <div class="flex items-center pt-4">
-                        <p class="text-black text-2xl font-bold">183</p>
+                        <p class="text-black text-2xl font-bold">{{form.total_order_onHold}}</p>
                     </div>
                     <div class="flex justify-between items-center pt-5">
                         <p class="text-gray-700 text-base">
@@ -143,9 +143,9 @@
             <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
                href="#">
                 <div class="px-4 py-2">
-                    <div class="font-bold text-lg mb-1 text-black">Returned</div>
+                    <div class="font-bold text-lg mb-1 text-black">Confirmed</div>
                     <div class="flex items-center pt-4">
-                        <p class="text-black text-2xl font-bold">256</p>
+                        <p class="text-black text-2xl font-bold">{{form.total_order_confirmed}}</p>
                     </div>
                     <div class="flex justify-between items-center pt-5">
                         <p class="text-gray-700 text-base">
@@ -170,44 +170,6 @@
                href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-xl mb-1 text-black">Recent Transaction</div>
-                    <!-- <div class="pt-5">
-                        <table class="min-w-full divide-y divide-gray-300 text-center">
-                            <thead class="text-gray-600">
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Payment</th>
-                                    <th>Recieved</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-gray-600">
-                                <tr>
-                                    <td>1</td>
-                                    <td>165500</td>
-                                    <td>97500</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>135060</td>
-                                    <td>89050</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>39000</td>
-                                    <td>19000</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>44000</td>
-                                    <td>25000</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>69000</td>
-                                    <td>22000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> -->
                 </div>
             </a>
             <!-- END Course Card -->
