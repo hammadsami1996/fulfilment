@@ -167,22 +167,38 @@
         </div>
 
             <div class="flex justify-end mt-8 space-x-4">
+<!--                <button-->
+<!--                    @click="formSubmitted()" v-if="!connectionBtn || form.store_type == 'Physical'"-->
+<!--                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"-->
+<!--                    type="button">-->
+<!--                    {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}-->
+<!--                </button>-->
+<!--                <button @click="testConnection" v-if="connectionBtn && form.store_type == 'Online'"-->
+<!--                        class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"-->
+<!--                        type="button">-->
+<!--                    Test Connection-->
+<!--                </button>-->
+<!--                <button-->
+<!--                    @click="formSubmitted()" v-if="connectionBtn && form.store_type == 'Online'"-->
+<!--                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"-->
+<!--                    type="button">-->
+<!--                    {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}-->
+<!--                </button>-->
                 <button
-                    @click="formSubmitted()" v-if="!connectionBtn || form.store_type == 'Physical'"
+                    @click="formSubmitted()"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-                    type="button">
+                    type="button"
+                    v-if="!connectionBtn || (form.store_type == 'Physical' || (connectionBtn && form.store_type == 'Online'))"
+                >
                     {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
                 </button>
-                <button @click="testConnection" v-if="connectionBtn && form.store_type == 'Online'"
-                        class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
-                        type="button">
+                <button
+                    @click="testConnection"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
+                    type="button"
+                    v-if="connectionBtn && form.store_type == 'Online'"
+                >
                     Test Connection
-                </button>
-                <button
-                    @click="formSubmitted()" v-if="connectionBtn && form.store_type == 'Online'"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-                    type="button">
-                    {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
                 </button>
                 <button
                     @click="additionalProp ? successfully():successfull()"
