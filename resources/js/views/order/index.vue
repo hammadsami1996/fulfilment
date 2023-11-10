@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="bg-gray-100 py-4">
+        <div class="bg-gray-100 ">
             <nav class="container mx-auto flex justify-center">
                 <a @click="showRecords('0')"
                    class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-blue-500 focus:text-gray-700 focus:border-blue-300">
@@ -23,56 +23,69 @@
                     Fake
                 </a>
             </nav>
-            <!-- <a @click="showRecords('?packability=packable')"
-               class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
-                Packable
-            </a>
-            <a @click="showRecords('?packability=unpackable')"
-               class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-                Unpackable
-            </a> -->
         </div>
-        <div class="container px-4 py-5  sm:px-6 flex justify-end items-center">
-            <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
+<!--        <div class="container px-1 py-2  sm:px-6 flex justify-between items-center">-->
+<!--            <h3 class="text-lg leading-6 font-medium text-black-900">{{ capital }}</h3>-->
+<!--            <div class="mt-2 pb-2 sm:mt-0 sm:ml-2 flex justify-end">-->
+<!--                <router-link :to="{name:`create-${small}`}"-->
+<!--                             class="mt-6 ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1  text-sm border-gray-200 bg-blue-500 text-white"-->
+<!--                             type="button">-->
+<!--                    Create Order-->
+<!--                </router-link>-->
+<!--            </div>-->
+<!--        </div>-->
+        <hr>
+        <div class="container px-2 py-3  sm:px-6 flex justify-end items-center">
+            <div class="mt-3 pb-2 sm:mt-0 sm:ml-2 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
-                             class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-blue-500 text-white"
+                             class="mt-6 ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1  text-sm border-gray-200 bg-blue-500 text-white"
                              type="button">
                     Create Order
                 </router-link>
-                <button @click='toggle = !toggle'
-                        class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-purple-500 text-white"
-                        type="button">
+                <button @click="toggle = !toggle" class="mt-6 ml-1 buttonn inline-flex items-center  font-semibold rounded-lg px-1 py-1  text-sm border border-gray-200 bg-purple-500 text-white">
                     Advanced Search
                 </button>
-                <button
-                    @click="bulkCN(selectedItems)"
-                    class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-green-500 text-white"
-                    type="button">Bulk CN Generate
+                <button @click="bulkCN(selectedItems)" class="mt-6 ml-1 buttonn inline-flex items-center space-x-2 font-semibold rounded-lg px-1 py-1  text-sm border border-gray-200 bg-green-500 text-white">
+                    Bulk CN Generate
                 </button>
-<!--                <button-->
-<!--                    @click="BulkCourierUpdate"-->
-<!--                    class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-orange-500 text-white"-->
-<!--                    type="button">Bulk Courier Update-->
-<!--                </button>-->
-<!--                <button-->
-<!--                    @click="BulkStatusUpdate"-->
-<!--                    class="ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1 leading-5 text-sm border-gray-200 bg-yellow-500 text-white"-->
-<!--                    type="button">Bulk Status Update-->
-<!--                </button>-->
-<!--                <div class="flex-auto flex flex-col sm:flex-row sm:items-center ">-->
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                        <label class="block font-medium text-sm text-gray-700 mb-1" >Select Courier</label>
-                        <typeahead :initialize="selectedcourier" :url="courier" @input="onbulkShippeds($event, selectedcourier)"  display="name" class="ml-3" style="position: absolute; z-index: 9999;"></typeahead>
-                    </div>
-                    <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                        <label class="block font-medium text-sm text-gray-700 mb-1"  >Select Status</label>
-                        <typeahead :initialize="selectedstatus" :url="delivery+'?head=order'" @input="onbulkstatus($event, selectedstatus)"  display="name" class="ml-3" style="z-index: 99999;"></typeahead>
-                    </div>
-<!--                </div>-->
+                <div class="w-full sm:w-1/2 sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Select Courier</label>
+                    <typeahead :initialize="selectedcourier" :url="courier"
+                               @input="onbulkShippeds($event, selectedcourier)" class="ml-3" display="name"
+                               style=" z-index: 9999;"></typeahead>
+                </div>
+                <button @click="updateModalCourier" class="inline-flex justify-center items-center  border font-semibold rounded-lg px-1 py-1  text-sm border-gray-200 bg-blue-300 h-9 mt-6">
+                    <i class="fa-solid fa-check text-xl text-white-400"></i>
+                </button>
+                <div class="w-full sm:w-1/2  sm:mb-0">
+                    <label class="block font-medium text-sm text-gray-700 mb-1">Select Status</label>
+                    <typeahead :initialize="selectedstatus" :url="delivery+'?head=order'"
+                               @input="onbulkstatus($event, selectedstatus)" class="ml-3" display="name"
+                               style="z-index: 99999;"></typeahead>
+                </div>
+                <button @click="updateModalStatus" class="inline-flex justify-center items-center  border font-semibold rounded-lg px-1 py-1  text-sm border-gray-200 bg-blue-300 h-9 mt-6">
+                    <i class="fa-solid fa-check text-xl text-white-400"></i>
+                </button>
             </div>
         </div>
-        <div class="container px-4 py-5  sm:px-6 flex justify-between items-center">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
+        <hr>
+<!--        <div class="container px-1 py-2  sm:px-6 flex justify-end items-center">-->
+<!--            <div class=" pb-1 sm:mt-0 sm:ml-2 flex justify-end">-->
+<!--                <router-link :to="{name:`create-${small}`}"-->
+<!--                             class="mt-6 ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1  text-sm border-gray-200 bg-blue-500 text-white"-->
+<!--                             type="button">-->
+<!--                    Create Order-->
+<!--                </router-link>-->
+<!--                <button @click="toggle = !toggle" class="mt-6 ml-1 buttonn inline-flex items-center  font-semibold rounded-lg px-1 py-1  text-sm border border-gray-200 bg-purple-500 text-white">-->
+<!--                    Advanced Search-->
+<!--                </button>-->
+<!--                <button @click="bulkCN(selectedItems)" class="mt-6 ml-1 buttonn inline-flex items-center space-x-2 font-semibold rounded-lg px-1 py-1  text-sm border border-gray-200 bg-green-500 text-white">-->
+<!--                    Bulk CN Generate-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="container px-1 py-2  sm:px-6 flex justify-between items-center">
+            <h3 class="text-lg leading-6 font-medium text-black-900">{{ capital }}</h3>
             <div class="" style="display: contents">
                 <a @click="showpackable('packable',pack)"
                    class="w-1/6 sm:mx-auto    py-4 px-6  text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
@@ -84,6 +97,7 @@
                 </a>
             </div>
         </div>
+
         <div class="bg-gray-200 p-4" v-show='toggle'>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center ">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
@@ -163,7 +177,7 @@
 
         <div class="flex-col ">
             <panel :columns="columns" :urlApi="urlApi" @selectAll="selectAll" ref="TableData">
-<!--                   :search-enable="false">-->
+                <!--                   :search-enable="false">-->
 
                 <template v-slot:statuses="props">
                     <!--                    <button :style="{ background: props.item.status.color } " @click="shows(1 ,props.item.id) "-->
@@ -287,39 +301,39 @@
             </panel>
         </div>
     </div>
-<!--    <template style="width:200px">-->
-<!--        <Modal :show="isOpenCourier" :closeable="true" >-->
-<!--            <div class="bg-white rounded-lg shadow-lg w-1\2">-->
-<!--                <div  style="height: 250px">-->
-<!--                    <div class="justify-start bg-gray-100 header-bg-color">-->
-<!--                    <h2 class="text-2xl p-3 font-semibold mb-4">Select Courier</h2>-->
-<!--                    </div>-->
-<!--                    <typeahead :initialize="selectedcourier" :url="courier" @input="onbulkShippeds($event, selectedcourier)" display="name" class="ml-3" style="position: absolute; z-index: 9999;"></typeahead>-->
-<!--                </div>-->
-<!--                <div class="flex justify-end p-4 bg-gray-100 dark:bg-gray-900">-->
-<!--                    <button @click="updateModalCourier" class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600">Save</button>-->
-<!--                    <button @click="resetModalCourier" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Cancel</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </Modal>-->
-<!--    </template>-->
+    <!--    <template style="width:200px">-->
+    <!--        <Modal :show="isOpenCourier" :closeable="true" >-->
+    <!--            <div class="bg-white rounded-lg shadow-lg w-1\2">-->
+    <!--                <div  style="height: 250px">-->
+    <!--                    <div class="justify-start bg-gray-100 header-bg-color">-->
+    <!--                    <h2 class="text-2xl p-3 font-semibold mb-4">Select Courier</h2>-->
+    <!--                    </div>-->
+    <!--                    <typeahead :initialize="selectedcourier" :url="courier" @input="onbulkShippeds($event, selectedcourier)" display="name" class="ml-3" style="position: absolute; z-index: 9999;"></typeahead>-->
+    <!--                </div>-->
+    <!--                <div class="flex justify-end p-4 bg-gray-100 dark:bg-gray-900">-->
+    <!--                    <button @click="updateModalCourier" class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600">Save</button>-->
+    <!--                    <button @click="resetModalCourier" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Cancel</button>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </Modal>-->
+    <!--    </template>-->
 
-<!--    <template>-->
-<!--        <Modal :show="isOpenStatus" :closeable="true">-->
-<!--            <div class="bg-white rounded-lg shadow-lg">-->
-<!--                <div  style="height: 200px">-->
-<!--                    <div class="justify-start header-bg-color">-->
-<!--                        <h2 class="text-2xl p-3 font-semibold bg-gray-100 mb-4 text-gray-700">Select Status</h2>-->
-<!--                    </div>-->
-<!--                    <typeahead :initialize="selectedstatus" :url="delivery+'?head=order'" @input="onbulkstatus($event, selectedstatus)" display="name" class="ml-3" style="z-index: 99999;"></typeahead>-->
-<!--                </div>-->
-<!--                <div class="flex justify-end p-4 bg-gray-100 dark:bg-gray-900">-->
-<!--                    <button @click="updateModalStatus" class="px-6 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600">Save</button>-->
-<!--                    <button @click="resetModalStatus" class="px-6 py-2 bg-gray-400 text-gray-700 text-white rounded-lg hover-bg-gray-300">Cancel</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </Modal>-->
-<!--    </template>-->
+    <!--    <template>-->
+    <!--        <Modal :show="isOpenStatus" :closeable="true">-->
+    <!--            <div class="bg-white rounded-lg shadow-lg">-->
+    <!--                <div  style="height: 200px">-->
+    <!--                    <div class="justify-start header-bg-color">-->
+    <!--                        <h2 class="text-2xl p-3 font-semibold bg-gray-100 mb-4 text-gray-700">Select Status</h2>-->
+    <!--                    </div>-->
+    <!--                    <typeahead :initialize="selectedstatus" :url="delivery+'?head=order'" @input="onbulkstatus($event, selectedstatus)" display="name" class="ml-3" style="z-index: 99999;"></typeahead>-->
+    <!--                </div>-->
+    <!--                <div class="flex justify-end p-4 bg-gray-100 dark:bg-gray-900">-->
+    <!--                    <button @click="updateModalStatus" class="px-6 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600">Save</button>-->
+    <!--                    <button @click="resetModalStatus" class="px-6 py-2 bg-gray-400 text-gray-700 text-white rounded-lg hover-bg-gray-300">Cancel</button>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </Modal>-->
+    <!--    </template>-->
     <Modal :show="show_msg" closeable="true">
         <div class="">
             <h1 class="text-lg font-bold mt-4 mb-4 text-center">Send SMS</h1>
@@ -358,7 +372,7 @@
 <script>
     import Panel from "@/components/panel/panel.vue";
     import {form} from "@/libs/mixins";
-    import {byMethod, post} from "@/libs/api";
+    import {byMethod} from "@/libs/api";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import Modal from "@/Components/Modal.vue";
     import {objectToFormData} from "@/libs/helpers";
@@ -450,24 +464,24 @@
                 this.id = e
             },
             updateModalCourier() {
-                let data= {
-                    selectedItems : this.selectedItems,
+                let data = {
+                    selectedItems: this.selectedItems,
                     selectedcourier: this.selectedcourier
                 }
                 byMethod('POST', '/api/bulk_courier', data).then(res => {
                     this.$refs.TableData.reload();
                     this.$toast.open({
                         position: 'top-right',
-                        message: this.mode ===  'edit' ? 'Update Successfully' : 'All Courier Generated',
+                        message: this.mode === 'edit' ? 'Update Successfully' : 'All Courier Generated',
                         type: 'success',
                         duration: 3000
                     });
-                  this.resetModalCourier()
+                    this.resetModalCourier()
                 })
             },
             updateModalStatus() {
-                let data= {
-                    selectedItems : this.selectedItems,
+                let data = {
+                    selectedItems: this.selectedItems,
                     selectedstatus: this.selectedstatus
                 }
                 byMethod('POST', '/api/bulk_status', data).then(res => {
@@ -502,7 +516,7 @@
                     }
                 })
             },
-            onbulkstatus(e){
+            onbulkstatus(e) {
                 const deliver = e.target.value
                 this.selectedstatus = deliver
             },
