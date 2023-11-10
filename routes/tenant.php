@@ -116,6 +116,7 @@ Route::middleware([
         Route::get('courier_serach', [\App\Http\Controllers\CourierResponseController::class, 'search']);
 
         Route::post('global_settings', [\App\Http\Controllers\SettingsController::class, 'add_settings']);
+        Route::post('other_setting', [\App\Http\Controllers\SettingsController::class, 'other_setting']);
         Route::post('updated', [\App\Http\Controllers\StatusController::class, 'updated_status']);
         Route::get('purchases', [\App\Http\Controllers\PurchaseController::class, 'index']);
         Route::get('stores_data', [\App\Http\Controllers\StoreController::class, 'stores_data']);

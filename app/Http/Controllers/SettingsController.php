@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\MyMail;
 use App\Models\CompanySetting;
+use App\Models\Courier;
 use App\Models\Mailtemplate;
 use App\Models\settings;
 use Illuminate\Http\Request;
@@ -125,6 +126,46 @@ class SettingsController extends Controller
 
         return response()->json(['saved' => true, 'id' => $model->id]);
     }
+
+   
+    public function other_setting(Request $request) {
+        $courier_id = $request->input('courier_id');
+        $company_id = $request->input('company_id');
+        $courier = Courier::find($courier_id);
+        $key = $courier->name;
+    
+        // Check if a setting with the courier's name exists
+        $existingSetting = CompanySetting::where('key', $key)
+            ->where('company_id', $company_id)
+            ->whereJsonContains('value->courier_id', $courier_id)
+            ->first();
+    
+        if ($existingSetting) {
+            // If a setting with the same courier name exists, update it
+            $existingSetting->value = json_encode([
+                'authentication_key' => $request->input('key'),
+                'courier_id' => $courier_id,
+                'company_id' => $company_id,
+            ]);
+            $existingSetting->save();
+            return response()->json(['saved' => true, 'id' => $existingSetting->id]);
+        } else {
+            // If no setting with the same courier name exists, create a new one
+            $newSetting = new CompanySetting;
+            $newSetting->key = $key;
+            $newSetting->value = json_encode([
+                'authentication_key' => $request->input('key'),
+                'courier_id' => $courier_id,
+                'company_id' => $company_id,
+            ]);
+            $newSetting->active = 1;
+            $newSetting->company_id = $company_id;
+            $newSetting->save();
+            return response()->json(['saved' => true, 'id' => $newSetting->id]);
+        }
+    
+    }
+    
 
     public function sendmail($model){
 
