@@ -225,9 +225,20 @@
                 <div class="flex justify-end mt-8 space-x-4">
                     <button
                         @click="savejson('sms_settings')"
+                        :disabled="isSubmittingSetting"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button"
                     >
+                    <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none"
+                     role="status" v-if="isSubmittingSetting" viewBox="0 0 100 101"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="#E5E7EB"/>
+                    <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentColor"/>
+                </svg>
                         {{
                         $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add"
                         }}
@@ -335,9 +346,20 @@
                 <div class="flex justify-end mt-8 space-x-4">
                     <button
                         @click="savejson('email_settings')"
+                        :disabled="isSubmittingSetting"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button"
                     >
+                    <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none"
+                     role="status" v-if="isSubmittingSetting" viewBox="0 0 100 101"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="#E5E7EB"/>
+                    <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentColor"/>
+                </svg>
                         {{
                         $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add"
                         }}
@@ -561,16 +583,52 @@
             </div>
 
             <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">
-                <button @click="wordpress"
+                <button @click="wordpress" :disabled="isSubmitting"
                         class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-orange-400 text-white"
                         type="button"
                         v-if="connection_button">
+                        <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none" role="status" v-if="isSubmitting" viewBox="0 0 100 101"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="#E5E7EB"/>
+                        <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentColor"/>
+                    </svg>
                     Test Connecion
                 </button>
-                <button @click="save_store_data"
+                <!-- <button @click="wordpress" :disabled="isSubmitting"
+                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2
+                    leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600 transition duration-200
+                    ease-in-out"
+                    type="button"
+                    v-if="connection_button"
+                >
+                    <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none" role="status" v-if="isSubmitting" viewBox="0 0 100 101"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="#E5E7EB"/>
+                        <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentColor"/>
+                    </svg>
+                    Test Connection
+                </button> -->
+                <button @click="save_store_data" :disabled="isSubmittingSave"
                         class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button"
                         v-if="save_button">
+                          <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none" role="status" v-if="isSubmittingSave" viewBox="0 0 100 101"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="#E5E7EB"/>
+                        <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentColor"/>
+                    </svg>
                     Save
                 </button>
 
@@ -694,10 +752,26 @@
                     </div>
                 </div>
                 <div class="flex justify-end space-x-4 m-3">
-                    <button
+                    <!-- <button
                         @click="formSubmitted"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
                         type="button">
+                        {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
+                    </button> -->
+                    <button
+                        @click="formSubmitted()" :disabled="isSubmittingCompany"
+                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
+                        type="button">
+                        <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none"
+                     role="status" v-if="isSubmittingCompany" viewBox="0 0 100 101"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="#E5E7EB"/>
+                    <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentColor"/>
+                </svg>
                         {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
                     </button>
                     <button
@@ -742,6 +816,10 @@
                 selectedItems: [],
                 keyvalue: '',
                 selectedText: null,
+                isSubmitting: false,
+                isSubmittingSave: false,
+                isSubmittingCompany: false,
+                isSubmittingSetting: false,
                 selectedCompanyese: null,
                 ImgUrl: null,
                 showDiv: false,
@@ -891,10 +969,13 @@
                 let connention_url = ''
                 if (this.online_store_name == 'Shopify') {
                     connention_url = '/api/shopify_fetch_data'
+                    this.isSubmitting = true
                 } else if (this.online_store_name == 'WooCommerce') {
                     connention_url = '/api/woocommerce_fetch_data'
+                    this.isSubmitting = true
                 } else if (this.online_store_name == 'MimCart') {
                     connention_url = '/api/mimcart_fetch_data'
+                    this.isSubmitting = true
                 }
                 if (this.form && connention_url) {
                     byMethod('post', connention_url, this.form).then(res => {
@@ -933,6 +1014,9 @@
                             duration: 3000,
                         });
                     })
+                    .finally(() => {
+                this.isSubmitting = false; // Enable the button and hide the spinner
+                });
                 }
             },
             storetabs() {
@@ -992,10 +1076,22 @@
                 this.returns(this.company_id);
             },
             save_store_data() {
+                this.isSubmittingSave = true;
                 // byMethod("post", `/api/stores?store_id=${this.store_id}&company_id=${this.company_id}$name=${this.name}`  , this.data)
                 byMethod("put", `/api/stores/${this.store_id}`, this.form)
                     .then((res) => {
+                        this.show_ecommerce = false,
+                        this.$toast.open({
+                                position: "top-right",
+                                message:
+                                    "Save Successfully",
+                                type: "success",
+                                duration: 3000,
+                            });
                     })
+                    .finally(() => {
+                this.isSubmittingSave = false; // Enable the button and hide the spinner
+                });
             },
             create_store(stores) {
                 this.store_id = stores.id
@@ -1064,6 +1160,7 @@
                 })
             },
             formSubmitted() {
+                this.isSubmittingCompany = true; 
                 byMethod(this.method, '/api/company', objectToFormData(this.form))
                     .then((res) => {
                         if (res.data.saved == true) {
@@ -1090,10 +1187,14 @@
                             type: "error",
                             duration: 3000,
                         });
-                    });
+                    })
+                    .finally(() => {
+                this.isSubmittingCompany = false; // Enable the button and hide the spinner
+                });
             },
 
             savejson(e) {
+                this.isSubmittingSetting = true;
                 byMethod("post", `/api/global_settings?value=${e}&company_id=${this.company_id}`, this.form)
                     .then((res) => {
 
@@ -1112,7 +1213,10 @@
                             type: "error",
                             duration: 3000,
                         });
-                    });
+                    })
+                    .finally(() => {
+                this.isSubmittingSetting = false; // Enable the button and hide the spinner
+                });
             },
             successfull(res) {
                 this.isOpen = this.isOpenStore = false;

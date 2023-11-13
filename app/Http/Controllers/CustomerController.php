@@ -61,9 +61,9 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'name' => 'required',
-            // 'email' => 'required',
-            // 'phone' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
 //            'cateogory' => 'required',
 //            'balance' => 'required',
 //            'type_id' => 'required',
