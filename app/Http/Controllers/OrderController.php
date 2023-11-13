@@ -21,19 +21,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $a = '19-11-1996';
-        $b = '21-10-2000';
-
-        $dateA = Carbon::createFromFormat('d-m-Y', $a);
-        $dateB = Carbon::createFromFormat('d-m-Y', $b);
-
-        if ($dateA->gte($dateB)) {
-            echo "$a is greater than $b";
-        } elseif ($dateA->lt($dateB)) {
-            echo "$a is less than $b";
-        } else {
-            echo "$a is equal to $b";
-        }
         return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'courier', 'city', 'stores', 'warehouse')
             ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
                 $q->where('status_id', \request('status_id'));
