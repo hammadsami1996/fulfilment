@@ -21,21 +21,35 @@ class ShipmentController extends Controller
     {
         $order = Order::with('city')->findOrfail($id);
         $res = false;
-        if (!$order->tracking_id) {
-            if ($order->courier_id == 1 && ($order->city && $order->city->trax)) {
+//        if (!$order->tracking_id) {
+//            if ($order->courier_id == 1 && ($order->city && $order->city->trax)) {
+//                $res = $this->trax($order);
+//                if ($res && isset($res['tracking_number'])) {
+//                    $order->update(['tracking_id' => $res['tracking_number']]);
+//                    if ($res['status_id']) {
+//                        $order->update(['status_id' => $res['status_id']]);
+//                    }
+//                    return response()->json(['data' => $order]);
+//                }
+//            } else {
+//                return response()->json(['error' => $order], 422);
+//            }
+//        }
+        if(!$order->tracking_id){
+            if($order->courier_id == 1 && ($order->city && $order->city->trax)){
                 $res = $this->trax($order);
-                if ($res && isset($res['tracking_number'])) {
+                if ($res && isset($res['tracking_number'])){
                     $order->update(['tracking_id' => $res['tracking_number']]);
-
-                    if ($res['status_id']) {
+                    if ($res['status_id']){
                         $order->update(['status_id' => $res['status_id']]);
                     }
                     return response()->json(['data' => $order]);
+                } else{
+                    return response()->json(['error' => $order]);
                 }
-            } else {
-                return response()->json(['error' => $order], 422);
             }
-        } elseif ($order->tracking_id) {
+        }
+        elseif ($order->tracking_id) {
             return response()->json(['error' => 'Already Generated'], 422);
         } elseif ($order->city) {
             return response()->json(['error' => 'Already Generated'], 422);

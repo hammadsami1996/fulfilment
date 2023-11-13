@@ -10,7 +10,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Settings extends Model implements Auditable
 {
-  
+
     use HasFactory, Search, SoftDeletes, \OwenIt\Auditing\Auditable;
 
     protected $table = 'settings';
@@ -29,4 +29,10 @@ class Settings extends Model implements Auditable
         "key",
         "value",
     ];
+
+
+    public function courier()
+    {
+        return $this->belongsTo(Courier::class, 'courier_id');
+    }
 }

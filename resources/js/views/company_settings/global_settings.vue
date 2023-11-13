@@ -6,7 +6,7 @@
                 <!-- <i @click="addCompany" class="fas fa-plus text-xl rounded-full bg-blue-400 text-white pl-2 pr-2 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"></i> -->
             </p>
         </div>
-      
+
         <div class="card-container mb-2 mt-3">
             <div :key="index" class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(image, index) in com" >
                 <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer" >
@@ -32,7 +32,7 @@
             </div>
         </div>
         <hr/>
-         
+
         <div class="w-full radio-inputs mb-4 mt-4 ml-3" id="inputradio" v-if="showRadioInputs === true" >
                 <div class="flex d-flex p-3">
             <label class="p-1">
@@ -121,7 +121,7 @@
                     <span class="radio-icon">
                         <svg height="1em" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
                             d="M48 0C21.5 0 0 21.5 0 48V368c0 26.5 21.5 48 48 48H64c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H48zM416 160h50.7L544 237.3V256H416V160zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-                    
+
                         </span>
                     <span class="radio-label">All Courier</span>
                 </span>
@@ -133,15 +133,15 @@
             <h1 class="text-lg font-bold mb-4">All Courier</h1>
             <!-- <div v-if="show_company_data"> -->
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-               
+
         <panel :columns="columns" :urlApi="urlApi" ref="TableData" >
-            <template v-slot:courier_names="props">
-          <div class="mb-2 py-3 px-2 custom-typeahead">
-            
-            <typeahead @input="onGroup($event, props.item)" display="name" v-model="selectedCourier" :url="urlApi"/>
-              </div>
-              </template>
-         
+<!--            <template v-slot:courier_names="props">-->
+<!--          <div class="mb-2 py-3 px-2 custom-typeahead">-->
+
+<!--            <typeahead @input="onGroup($event, props.item)" display="name" v-model="selectedCourier" :url="urlApi"/>-->
+<!--              </div>-->
+<!--              </template>-->
+
     <template v-slot:inputfeild="props">
     <div class="w-full mb-4 sm:mb-0 ">
         <input  class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md" type="input"    @input="onkey($event ,props.item)"
@@ -863,7 +863,7 @@
                 countries: '/api/country',
                 selectedCompany: null,
                 columns: [
-                    {label: 'Courier', field: 'courier_names', slot: true},
+                    {label: 'Courier', field: 'name', slot: true},
                     {label: 'Authentication Key', field: 'inputfeild', slot: true},
                     {label: 'Active', field: 'checkboxes', slot: true},
                     {label: 'Action', field: 'action', action: true},
@@ -900,16 +900,16 @@
             onkey(e, f) {
                 this.keyvalue = e.target.value;
                 f.key = this.keyvalue;
-               
+
             },
             onGroup(selectedValue, item) {
                  // item.group = selectedValue;
              this.selectedCourier = selectedValue;
               },
              edit(e) {
-           
+
                 byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${e.id}&company_id=${this.company_id}`).then((res) => {
- 
+
                     if (res.data.saved) {
                         this.$toast.open({
                             position: "top-right",
@@ -920,7 +920,7 @@
                     }
                 });
             },
-          
+
             onCompany(company) {
                 this.form.company = company;
                 this.form.company_id = company.id;
@@ -1051,7 +1051,7 @@
                 this.email = this.courier = this.sms = this.stores = false;
                 this.allcourier = true;
                 console.log('click');
-             
+
                 if (isNaN(this.company_id)) {
                     this.$toast.open({
                         position: "top-right",

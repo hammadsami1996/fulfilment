@@ -332,6 +332,8 @@
         },
         data() {
             return {
+                dateA: '19-11-13000',
+                dateB: '21-10-2000',
                 isProcess: true,
                 error: {},
                 alert: false,
@@ -370,12 +372,6 @@
         //     }
         // },
         computed: {
-
-            subTotal() {
-                return this.form.items.reduce((carry, item) => {
-                    return carry + Number(item.unit_price) * Number(item.qty);
-                }, 0);
-            },
             total() {
                 var total = (this.subTotal + Number(this.form.mtax_amount));
                 // Vue.set(this.$data.form, 'tvalue_inc_tax', total);
@@ -540,7 +536,7 @@
             },
 
             remain(e) {
-        
+
                 // this.count = 0;
                 this.data = [
                     e,
@@ -549,18 +545,18 @@
                 ]
                 byMethod('POST', '/api/remaining', this.data).then(res => {
                     if (res.data.data == null) {
- 
+
                         this.ids = e;
                         this.alert = true;
                     } else {
-         
+
                         this.count = res.data.data;
                     }
-                
+
                 })
             },
             setData(res) {
-           
+
                 this.form = res.data.form;
                 if (this.$route.meta.mode == 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -623,7 +619,7 @@
                         type: 'error',
                         duration: 3000
                     });
-         
+
                 })
                 .finally(() => {
                 this.isSubmitting = false; // Enable the button and hide the spinner
