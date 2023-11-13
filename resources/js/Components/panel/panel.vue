@@ -211,111 +211,110 @@
                     <table class="min-w-full">
                         <!-- Table Header -->
                         <thead class="bg-gray-200">
-                            <tr>
-                                <th
-                                    :key="index"
-                                    class="px-3 py-2 text-xs uppercase text-left"
-                                    v-for="(column, index) in columns"
-                                ><span v-if="column.field == 'checkbox'">
+                        <tr>
+                            <th
+                                :key="index"
+                                class="px-3 py-2 text-xs uppercase text-left"
+                                v-for="(column, index) in columns"
+                            ><span v-if="column.field == 'checkbox'">
                                     <input @change="selectAll" class="form-checkbox h-5 w-5 text-blue-500"
-                                           type="checkbox"/>
-</span>
-                                    <span v-else>{{ column.label ? column.label : '' }}</span>
-                                </th>
-                            </tr>
+                                           type="checkbox"/></span>
+                                <span v-else>{{ column.label ? column.label : '' }}</span>
+                            </th>
+                        </tr>
                         </thead>
                         <!-- END Table Header -->
 
                         <!-- Table Body -->
                         <tbody class="bg-white">
-                            <tr
-                                :class="rowIndex % 2 ? 'bg-gray-100' : ''"
-                                :key="rowIndex"
-                                @click="onRowClick(row)"
-                                v-for="(row, rowIndex) in model.data" v-if="model.data.length > 0"
+                        <tr
+                            :class="rowIndex % 2 ? 'bg-gray-100' : ''"
+                            :key="rowIndex"
+                            @click="onRowClick(row)"
+                            v-for="(row, rowIndex) in model.data" v-if="model.data.length > 0"
+                        >
+                            <td
+                                :key="columnIndex"
+                                class="px-3 py-2 text-sm"
+                                v-for="(column, columnIndex) in columns"
                             >
-                                <td
-                                    :key="columnIndex"
-                                    class="px-3 py-2 text-sm"
-                                    v-for="(column, columnIndex) in columns"
-                                >
-                                    <template v-if="column.action">
-                                        <slot :item="row" name="action"></slot>
-                                    </template>
-                                    <template v-else-if="column.slot">
-                                        <slot :item="row" :name="column.field"></slot>
-                                    </template>
-                                    <template v-else-if="column.image">
-                                        <img
-                                            :src="row[column.field] ? (column.path ? column.path + row[column.field] : row[column.field]) : 'https://cdn.tailkit.com/media/placeholders/avatar-mEZ3PoFGs_k-160x160.jpg'"
-                                            alt="User Avarta"
-                                            class="inline-block w-10 h-10 rounded-full"
-                                        />
-                                    </template>
-                                    <template v-if="column.displayText">
-                                        <template v-if="column.multiple">
-                                            <template v-if="row[column.displayText].length > 0">
-                                                <a
-                                                    :href="item[column.field]"
-                                                    :key="index"
-                                                    :style="index === 0 ? 'display: flex; flex-direction: column;' : ''"
-                                                    class="text-primary"
-                                                    rel="Image"
-                                                    target="_blank"
-                                                    v-for="(item, index) in row[column.displayText]"
-                                                    v-if="column.link"
-                                                >
-                                                    {{ index + 1 }}. Scan Doc
-                                                </a>
-                                                <span
-                                                    :key="displayTextIndex"
-                                                    class="inline-block mr-1 px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary text-white"
-                                                    v-else
-                                                    v-for="(item, displayTextIndex) in row[column.displayText]"
-                                                >
+                                <template v-if="column.action">
+                                    <slot :item="row" name="action"></slot>
+                                </template>
+                                <template v-else-if="column.slot">
+                                    <slot :item="row" :name="column.field"></slot>
+                                </template>
+                                <template v-else-if="column.image">
+                                    <img
+                                        :src="row[column.field] ? (column.path ? column.path + row[column.field] : row[column.field]) : 'https://cdn.tailkit.com/media/placeholders/avatar-mEZ3PoFGs_k-160x160.jpg'"
+                                        alt="User Avarta"
+                                        class="inline-block w-10 h-10 rounded-full"
+                                    />
+                                </template>
+                                <template v-if="column.displayText">
+                                    <template v-if="column.multiple">
+                                        <template v-if="row[column.displayText].length > 0">
+                                            <a
+                                                :href="item[column.field]"
+                                                :key="index"
+                                                :style="index === 0 ? 'display: flex; flex-direction: column;' : ''"
+                                                class="text-primary"
+                                                rel="Image"
+                                                target="_blank"
+                                                v-for="(item, index) in row[column.displayText]"
+                                                v-if="column.link"
+                                            >
+                                                {{ index + 1 }}. Scan Doc
+                                            </a>
+                                            <span
+                                                :key="displayTextIndex"
+                                                class="inline-block mr-1 px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary text-white"
+                                                v-else
+                                                v-for="(item, displayTextIndex) in row[column.displayText]"
+                                            >
                                                     {{ item[column.field] }}
                                                 </span>
-                                            </template>
-                                            <template v-else>
-                                                {{ column.placeholder ? column.placeholder : 'No ' + column.displayText }}
-                                            </template>
                                         </template>
                                         <template v-else>
-                                            {{ row[column.displayText] ? row[column.displayText][column.field] : '-'}}
+                                            {{ column.placeholder ? column.placeholder : 'No ' + column.displayText }}
                                         </template>
                                     </template>
+                                    <template v-else>
+                                        {{ row[column.displayText] ? row[column.displayText][column.field] : '-'}}
+                                    </template>
+                                </template>
 
-                                    <template v-else-if="column.format">
+                                <template v-else-if="column.format">
                                         <span v-if="column.format === 'index'">
                                         {{ rowIndex + (model.from ? model.from : 1) }}
                                         </span>
-                                        <span v-else-if="column.format === 'formatDate'">
+                                    <span v-else-if="column.format === 'formatDate'">
                                             {{ row[column.field] | formatDate }}
                                         </span>
-                                        <span v-else-if="column.format === 'formatDateTime'">
+                                    <span v-else-if="column.format === 'formatDateTime'">
                                             {{ row[column.field] | formatDateTime }}
                                         </span>
-                                        <div style="text-align: end" v-else-if="column.format === 'formatMoney'">
-                                            {{ row[column.field] | formatMoney }}
-                                        </div>
-                                        <div style="text-align: end" v-else-if="column.format === 'formatMoneyNOD'">
-                                            {{ row[column.field] | formatMoneyNOD }}
-                                        </div>
-                                    </template>
-                                    <template v-else-if="column.index">
-                                        <span>{{ column.originalIndex }}</span>
-                                    </template>
-                                    <template v-else>
-                                        <span>{{ row[column.field] ? row[column.field] : ' ' }}</span>
-                                    </template>
-                                </td>
-                            </tr>
-                            <tr v-else>
-                                <td :colspan="columns.length"
-                                    class="flex items-center justify-center px-3 py-2 whitespace-nowrap text-gray-500">
-                                    No Record Found
-                                </td>
-                            </tr>
+                                    <div style="text-align: end" v-else-if="column.format === 'formatMoney'">
+                                        {{ row[column.field] | formatMoney }}
+                                    </div>
+                                    <div style="text-align: end" v-else-if="column.format === 'formatMoneyNOD'">
+                                        {{ row[column.field] | formatMoneyNOD }}
+                                    </div>
+                                </template>
+                                <template v-else-if="column.index">
+                                    <span>{{ column.originalIndex }}</span>
+                                </template>
+                                <template v-else>
+                                    <span>{{ row[column.field] ? row[column.field] : ' ' }}</span>
+                                </template>
+                            </td>
+                        </tr>
+                        <tr v-else>
+                            <td :colspan="columns.length"
+                                class="flex items-center justify-center px-3 py-2 whitespace-nowrap text-gray-500">
+                                No Record Found
+                            </td>
+                        </tr>
                         </tbody>
                         <!-- END Table Body -->
 
@@ -324,45 +323,46 @@
                         <!-- END Table Footer -->
                     </table>
                 </div>
-                    <div v-if="pagination">
-                            <div class="bg-gray-200 grid grid-cols-2 gap-4 lg:gap-8">
-                                <div class="px-3 py-2 text-xs font-medium text-gray-700 uppercase">
-                                    Show Records
-                                    <select @change="page(1)" @input="(value) => perPageUpdate(value)"
-                                            class="text-center border border-gray-300 rounded pt-0.5 pb-0.5" v-model="pageLength">
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                        <option value="500">500</option>
-                                    </select>
-                                    From {{ model.from }} To {{ model.to }} of {{ model.total }} entries -
-                                    Page {{ model.current_page }} of {{ model.last_page }}
-                                </div>
-                                <div>
-                                    <div class="flex items-center justify-end space-x-2 pt-2 pr-2">
-                                        <button :disabled="model.prev_page_url == null" @click="prevPage"
-                                                class="inline-flex justify-center items-center w-8 h-8 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-100">
-                                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2"></path>
-                                            </svg>
-                                        </button>
-                                        <input @input="(value) => page(value.data)"
-                                            class="text-sm text-center border border-gray-300 rounded pt-0.5 pb-0.5"
-                                            style="width: 60px" type="number"/>
-                                        <button :disabled="model.next_page_url == null" @click="nextPage"
-                                                class="inline-flex justify-center items-center w-8 h-8 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-100">
-                                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
+                <div v-if="pagination">
+                    <div class="bg-gray-200 grid grid-cols-2 gap-4 lg:gap-8">
+                        <div class="px-3 py-2 text-xs font-medium text-gray-700 uppercase">
+                            Show Records
+                            <select @change="page(1)" @input="(value) => perPageUpdate(value)"
+                                    class="text-center border border-gray-300 rounded pt-0.5 pb-0.5"
+                                    v-model="pageLength">
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="500">500</option>
+                            </select>
+                            From {{ model.from }} To {{ model.to }} of {{ model.total }} entries -
+                            Page {{ model.current_page }} of {{ model.last_page }}
+                            <div>
+                        </div>
+                            <div class="flex items-center justify-end space-x-2 pt-2 pr-2">
+                                <button :disabled="model.prev_page_url == null" @click="prevPage"
+                                        class="inline-flex justify-center items-center w-8 h-8 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-100">
+                                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2"></path>
+                                    </svg>
+                                </button>
+                                <input @input="(value) => page(value.data)"
+                                       class="text-sm text-center border border-gray-300 rounded pt-0.5 pb-0.5"
+                                       style="width: 60px" type="number"/>
+                                <button :disabled="model.next_page_url == null" @click="nextPage"
+                                        class="inline-flex justify-center items-center w-8 h-8 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-full hover:bg-gray-100">
+                                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2"></path>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
-                    <!-- END Alternate Responsive Table -->
+                    </div>
+                </div>
+                <!-- END Alternate Responsive Table -->
                 <!-- END Responsive Table Container -->
             </div>
 
@@ -519,22 +519,24 @@
     }
 </script>
 <style>
-.scrollbar-color{
-    cursor: pointer;
-}
-.scrollbar-color::-webkit-scrollbar {
-  height: 9px;
-  width: 9px;
-}
+    .scrollbar-color {
+        cursor: pointer;
+    }
 
-.scrollbar-color::-webkit-scrollbar-track {
-    background: rgb(230, 224, 224);
-}
+    .scrollbar-color::-webkit-scrollbar {
+        height: 9px;
+        width: 9px;
+    }
 
-.scrollbar-color::-webkit-scrollbar-thumb {
-    background: #60A5FA;
-}
-/* .nowrap{
-    white-space: nowrap;
-} */
+    .scrollbar-color::-webkit-scrollbar-track {
+        background: rgb(230, 224, 224);
+    }
+
+    .scrollbar-color::-webkit-scrollbar-thumb {
+        background: #60A5FA;
+    }
+
+    /* .nowrap{
+        white-space: nowrap;
+    } */
 </style>

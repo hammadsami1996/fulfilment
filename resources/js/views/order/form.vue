@@ -4,6 +4,13 @@
             <h1 class="text-lg font-bold mb-4">
                 {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
             </h1>
+            <div>
+                <p>Date A: {{ dateA }}</p>
+                <p>Date B: {{ dateB }}</p>
+                <p v-if="dateAIsGreater">Date A is greater than Date B</p>
+                <p v-else-if="dateBIsGreater">Date B is greater than Date A</p>
+                <p v-else>Date A is equal to Date B</p>
+            </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 pl-3">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Order Date <span class="text-red-600">*</span></label>
@@ -322,6 +329,8 @@
         },
         data() {
             return {
+                dateA: '19-11-13000',
+                dateB: '21-10-2000',
                 isProcess: true,
                 error: {},
                 alert: false,
@@ -359,7 +368,12 @@
         //     }
         // },
         computed: {
-
+            dateAIsGreater() {
+                return this.compareDates() === 1;
+            },
+            dateBIsGreater() {
+                return this.compareDates() === -1;
+            },
             subTotal() {
                 return this.form.items.reduce((carry, item) => {
                     return carry + Number(item.unit_price) * Number(item.qty);
@@ -421,6 +435,21 @@
                 })
         },
         methods: {
+            compareDates() {
+                const [dayA, monthA, yearA] = this.dateA.split('-').map(Number);
+                const [dayB, monthB, yearB] = this.dateB.split('-').map(Number);
+
+                if (yearA > yearB) return 1;
+                if (yearA < yearB) return -1;
+
+                if (monthA > monthB) return 1;
+                if (monthA < monthB) return -1;
+
+                if (dayA > dayB) return 1;
+                if (dayA < dayB) return -1;
+
+                return 0; // Dates are equal
+            },
             get_charges(i) {
                 // console.log(i , this.form.city, this.form.city.id);
                 if (i && this.form.city) {
@@ -529,7 +558,7 @@
             },
 
             remain(e) {
-        
+
                 // this.count = 0;
                 this.data = [
                     e,
@@ -538,18 +567,18 @@
                 ]
                 byMethod('POST', '/api/remaining', this.data).then(res => {
                     if (res.data.data == null) {
- 
+
                         this.ids = e;
                         this.alert = true;
                     } else {
-         
+
                         this.count = res.data.data;
                     }
-                
+
                 })
             },
             setData(res) {
-           
+
                 this.form = res.data.form;
                 if (this.$route.meta.mode == 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -611,7 +640,7 @@
                         type: 'error',
                         duration: 3000
                     });
-         
+
                 })
             },
             successfull(res) {
