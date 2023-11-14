@@ -154,7 +154,7 @@
                     <template v-slot:action="props">
                         <div class="text-sm font-medium flex">
 <span>
-  <a @click.prevent="edit(props.item,'All Courier')" href="#">
+  <a @click.prevent="edit(props.item,'All_Courier')" href="#">
     <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
   </a>
 </span>
@@ -808,6 +808,8 @@
                 showRadioInputs: false,
                 selectedItems: [],
                 keyvalue: '',
+                courierName: [],
+                courierIdString: {},
                 selectedText: null,
                 isSubmitting: false,
                 isSubmittingSave: false,
@@ -914,12 +916,13 @@
             //     });
             // },
             edit(item, k) {
-                console.log(item);
+                // console.log(item);
             // Check if the checkbox is checked
             let checkboxValue = this.selectedItems.includes(item.id) ? 1 : 0;
-            let courierIdString = JSON.stringify(item);
+             this.courierIdString = JSON.stringify(item);
+    
             // Send the checkbox value to the server along with other parameters
-            byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${courierIdString}&company_id=${this.company_id}&value=${k}&checkboxValue=${checkboxValue}`).then((res) => {
+            byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${this.courierIdString}&company_id=${this.company_id}&value=${k}&checkboxValue=${checkboxValue}`).then((res) => {
                 if (res.data.saved) {
                     this.$toast.open({
                         position: "top-right",
@@ -1142,6 +1145,8 @@
             },
             setData(res) {
                 this.form = res.data.form;
+                // console.log(this.form);
+                // this.form = res.data.status;
                 this.show = true;
             },
             savestore() {
