@@ -906,20 +906,37 @@
                  // item.group = selectedValue;
              this.selectedCourier = selectedValue;
               },
-             edit(e,k) {
+            //  edit(e,k) {
 
-                byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${e.id}&company_id=${this.company_id}&value=${k}`).then((res) => {
+            //     byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${e.id}&company_id=${this.company_id}&value=${k}`).then((res) => {
 
-                    if (res.data.saved) {
-                        this.$toast.open({
-                            position: "top-right",
-                            message: "Successful",
-                            type: "success",
-                            duration: 3000,
-                        });
-                    }
-                });
-            },
+            //         if (res.data.saved) {
+            //             this.$toast.open({
+            //                 position: "top-right",
+            //                 message: "Successful",
+            //                 type: "success",
+            //                 duration: 3000,
+            //             });
+            //         }
+            //     });
+            // },
+            edit(item, k) {
+                console.log(item);
+            // Check if the checkbox is checked
+            let checkboxValue = this.selectedItems.includes(item.id) ? 1 : 0;
+            let courierIdString = JSON.stringify(item);
+            // Send the checkbox value to the server along with other parameters
+            byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${courierIdString}&company_id=${this.company_id}&value=${k}&checkboxValue=${checkboxValue}`).then((res) => {
+                if (res.data.saved) {
+                    this.$toast.open({
+                        position: "top-right",
+                        message: "Successful",
+                        type: "success",
+                        duration: 3000,
+                    });
+                }
+            });
+        },
 
             onCompany(company) {
                 this.form.company = company;
