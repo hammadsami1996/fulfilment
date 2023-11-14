@@ -161,7 +161,7 @@
     <template v-slot:action="props">
         <div class="text-sm font-medium flex">
 <span>
-  <a @click.prevent="edit(props.item)" href="#">
+  <a @click.prevent="edit(props.item,'All Courier')" href="#">
     <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
   </a>
 </span>
@@ -906,9 +906,9 @@
                  // item.group = selectedValue;
              this.selectedCourier = selectedValue;
               },
-             edit(e) {
+             edit(e,k) {
 
-                byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${e.id}&company_id=${this.company_id}`).then((res) => {
+                byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${e.id}&company_id=${this.company_id}&value=${k}`).then((res) => {
 
                     if (res.data.saved) {
                         this.$toast.open({
