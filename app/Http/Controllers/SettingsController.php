@@ -180,9 +180,13 @@ class SettingsController extends Controller
             return response()->json(['saved' => true, 'id' => $newSetting->id]);
         }
 
+        if ($key === 'courier') {
+            $value = [
+                'name' => $request->input('name'),
+            ];
+        }
+
     }
-
-
     public function sendmail($model){
 
         $id= 1;
