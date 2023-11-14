@@ -130,22 +130,23 @@ class SettingsController extends Controller
    
     public function other_setting(Request $request) {
         $courier_id = $request->input('courier_id');
+        $key = $request->input('value');
         $company_id = $request->input('company_id');
         $courier = Courier::find($courier_id);
-        $key = $courier->name;
+        $couier_name = $courier->name;
     
         // Check if a setting with the courier's name exists
         $existingSetting = CompanySetting::where('key', $key)
             ->where('company_id', $company_id)
-            ->whereJsonContains('value->courier_id', $courier_id)
+            ->whereJsonContains('value->courier_name', $couier_name)
             ->first();
     
         if ($existingSetting) {
             // If a setting with the same courier name exists, update it
             $existingSetting->value = json_encode([
                 'authentication_key' => $request->input('key'),
-                'courier_id' => $courier_id,
-                'company_id' => $company_id,
+                'courier_name' => $couier_name,
+                
             ]);
             $existingSetting->save();
             return response()->json(['saved' => true, 'id' => $existingSetting->id]);
@@ -155,8 +156,8 @@ class SettingsController extends Controller
             $newSetting->key = $key;
             $newSetting->value = json_encode([
                 'authentication_key' => $request->input('key'),
-                'courier_id' => $courier_id,
-                'company_id' => $company_id,
+                'courier_id' => $couier_name,
+               
             ]);
             $newSetting->active = 1;
             $newSetting->company_id = $company_id;
