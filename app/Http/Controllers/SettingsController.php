@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Mail\MyMail;
 use App\Models\CompanySetting;
-use App\Models\Courier;
 use App\Models\Mailtemplate;
 use App\Models\settings;
 use Illuminate\Http\Request;
@@ -32,10 +31,20 @@ class SettingsController extends Controller
         $company_id = request()->company_id;
 
         $model = $key && $company_id
-            ? CompanySetting::where('key', $key)->where('company_id', $company_id)->first()
+            ? CompanySetting::where('key', $key)->where('company_id', $company_id)
             : null;
+        $model = \request()->count == 'one' ? $model->first() : $model->get();
+        if (\request()->count == 'All') {
+            $model->map(function ($item) {
+                return $item->value = json_decode($item->value, true);
+            });
+        } else{
+            $model = $model ? json_decode($model->value, true) : [];
+        }
 
-        $form = $model ? json_decode($model->value, true) : [];
+//        $form = $model ? json_decode($model->value, true) : [];
+
+        $form = $model ?? [];
 
         return response()->json([
             "form" => $form
@@ -129,14 +138,14 @@ class SettingsController extends Controller
 
 
     public function other_setting(Request $request) {
-       
+
         $key = $request->input('value');
         $company_id = $request->input('company_id');
         $checkboxValue = $request->input('checkboxValue');
-     
+
         $courier = json_decode($request->input('courier_id'), true);
-      
-     
+
+
         // Check if a setting with the courier's name exists
         $existingSetting = CompanySetting::where('key', $key)
             ->where('company_id', $company_id)
@@ -148,7 +157,7 @@ class SettingsController extends Controller
             $existingSetting->value = json_encode([
                 'authentication_key' => $request->input('key'),
                 'courier' => $courier,
-                
+
             ]);
             $existingSetting->active = $checkboxValue;
             $existingSetting->company_id = $company_id;
@@ -161,7 +170,7 @@ class SettingsController extends Controller
             $newSetting->value = json_encode([
                 'authentication_key' => $request->input('key'),
                 'courier' => $courier,
-               
+
             ]);
             $newSetting->active = $checkboxValue;
             $newSetting->company_id = $company_id;
