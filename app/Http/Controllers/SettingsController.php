@@ -129,25 +129,29 @@ class SettingsController extends Controller
 
    
     public function other_setting(Request $request) {
-        $courier_id = $request->input('courier_id');
+       
         $key = $request->input('value');
         $company_id = $request->input('company_id');
-        $courier = Courier::find($courier_id);
-        $couier_name = $courier->name;
-    
+        $checkboxValue = $request->input('checkboxValue');
+     
+        $courier = json_decode($request->input('courier_id'), true);
+      
+     
         // Check if a setting with the courier's name exists
         $existingSetting = CompanySetting::where('key', $key)
             ->where('company_id', $company_id)
-            ->whereJsonContains('value->courier_name', $couier_name)
+            ->whereJsonContains('value->courier->name', $courier['name'])
             ->first();
     
         if ($existingSetting) {
             // If a setting with the same courier name exists, update it
             $existingSetting->value = json_encode([
                 'authentication_key' => $request->input('key'),
-                'courier_name' => $couier_name,
+                'courier' => $courier,
                 
             ]);
+            $existingSetting->active = $checkboxValue;
+            $existingSetting->company_id = $company_id;
             $existingSetting->save();
             return response()->json(['saved' => true, 'id' => $existingSetting->id]);
         } else {
@@ -156,10 +160,10 @@ class SettingsController extends Controller
             $newSetting->key = $key;
             $newSetting->value = json_encode([
                 'authentication_key' => $request->input('key'),
-                'courier_id' => $couier_name,
+                'courier' => $courier,
                
             ]);
-            $newSetting->active = 1;
+            $newSetting->active = $checkboxValue;
             $newSetting->company_id = $company_id;
             $newSetting->save();
             return response()->json(['saved' => true, 'id' => $newSetting->id]);
