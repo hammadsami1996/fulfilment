@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Mail\MyMail;
 use App\Models\CompanySetting;
-use App\Models\Courier;
 use App\Models\Mailtemplate;
 use App\Models\settings;
 use Illuminate\Http\Request;
@@ -27,20 +26,32 @@ class SettingsController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        $key = request()->key;
-        $company_id = request()->company_id;
+{
+    $key = request()->key;
+    $company_id = request()->company_id;
+    // $courier = request()->input('courier');
 
         $model = $key && $company_id
-            ? CompanySetting::where('key', $key)->where('company_id', $company_id)->first()
+            ? CompanySetting::where('key', $key)->where('company_id', $company_id)
             : null;
+        $model = \request()->count == 'one' ? $model->first() : $model->get();
+        if (\request()->count == 'All') {
+            $model->map(function ($item) {
+                return $item->value = json_decode($item->value, true);
+            });
+        } else{
+            $model = $model ? json_decode($model->value, true) : [];
+        }
 
-        $form = $model ? json_decode($model->value, true) : [];
+//        $form = $model ? json_decode($model->value, true) : [];
 
-        return response()->json([
-            "form" => $form
-        ]);
-    }
+        $form = $model ?? [];
+
+    return response()->json([
+        "form" => $form,
+        "status" => $model->active,
+    ]);
+}
 
     /**
      * Store a newly created resource in storage.
