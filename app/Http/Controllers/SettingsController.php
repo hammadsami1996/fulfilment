@@ -129,14 +129,14 @@ class SettingsController extends Controller
 
 
     public function other_setting(Request $request) {
-       
+
         $key = $request->input('value');
         $company_id = $request->input('company_id');
         $checkboxValue = $request->input('checkboxValue');
-     
+
         $courier = json_decode($request->input('courier_id'), true);
-      
-     
+
+
         // Check if a setting with the courier's name exists
         $existingSetting = CompanySetting::where('key', $key)
             ->where('company_id', $company_id)
@@ -148,7 +148,7 @@ class SettingsController extends Controller
             $existingSetting->value = json_encode([
                 'authentication_key' => $request->input('key'),
                 'courier' => $courier,
-                
+
             ]);
             $existingSetting->active = $checkboxValue;
             $existingSetting->company_id = $company_id;
@@ -161,7 +161,7 @@ class SettingsController extends Controller
             $newSetting->value = json_encode([
                 'authentication_key' => $request->input('key'),
                 'courier' => $courier,
-               
+
             ]);
             $newSetting->active = $checkboxValue;
             $newSetting->company_id = $company_id;
@@ -169,9 +169,13 @@ class SettingsController extends Controller
             return response()->json(['saved' => true, 'id' => $newSetting->id]);
         }
 
+        if ($key === 'courier') {
+            $value = [
+                'name' => $request->input('name'),
+            ];
+        }
+
     }
-
-
     public function sendmail($model){
 
         $id= 1;
