@@ -135,16 +135,16 @@
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
 
         <panel :columns="columns" :urlApi="urlApi" ref="TableData" >
-<!--            <template v-slot:courier_names="props">-->
-<!--          <div class="mb-2 py-3 px-2 custom-typeahead">-->
-
-<!--            <typeahead @input="onGroup($event, props.item)" display="name" v-model="selectedCourier" :url="urlApi"/>-->
-<!--              </div>-->
-<!--              </template>-->
+            <template  v-slot:courier="props">
+                <div>
+      {{ props.item.name }} <!-- Assuming "name" is the property you want to display -->
+    </div>
+            </template>
 
     <template v-slot:inputfeild="props">
     <div class="w-full mb-4 sm:mb-0 ">
-        <input  class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md" type="input"    @input="onkey($event ,props.item)"
+        <input  class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md" type="input"
+         v-modal="form.authentication_key"    @input="onkey($event ,props.item)"
         />
     </div>
     </template>
@@ -153,7 +153,7 @@
     <template v-slot:checkboxes="props">
                     <div class="text-start">
                         <input :value="props.item.id" class="form-checkbox h-5 w-5 text-blue-500" type="checkbox"
-                               v-model="selectedItems"/>
+                               v-model="selectedItems" />
                     </div>
                 </template>
 
@@ -161,7 +161,7 @@
     <template v-slot:action="props">
         <div class="text-sm font-medium flex">
 <span>
-  <a @click.prevent="edit(props.item,'All Courier')" href="#">
+  <a @click.prevent="edit(props.item,'All_Courier')" href="#">
     <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
   </a>
 </span>
@@ -815,6 +815,8 @@
                 showRadioInputs: false,
                 selectedItems: [],
                 keyvalue: '',
+                courierName: [],
+                courierIdString: {},
                 selectedText: null,
                 isSubmitting: false,
                 isSubmittingSave: false,
@@ -921,12 +923,13 @@
             //     });
             // },
             edit(item, k) {
-                console.log(item);
+                // console.log(item);
             // Check if the checkbox is checked
             let checkboxValue = this.selectedItems.includes(item.id) ? 1 : 0;
-            let courierIdString = JSON.stringify(item);
+             this.courierIdString = JSON.stringify(item);
+    
             // Send the checkbox value to the server along with other parameters
-            byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${courierIdString}&company_id=${this.company_id}&value=${k}&checkboxValue=${checkboxValue}`).then((res) => {
+            byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${this.courierIdString}&company_id=${this.company_id}&value=${k}&checkboxValue=${checkboxValue}`).then((res) => {
                 if (res.data.saved) {
                     this.$toast.open({
                         position: "top-right",
@@ -1064,22 +1067,25 @@
                     this.storereturn(this.company_id);
                 }
             },
-            allcouriertabs() {
-                this.email = this.courier = this.sms = this.stores = false;
-                this.allcourier = true;
-                console.log('click');
+    allcouriertabs() {
+    this.email = this.courier = this.sms = this.stores = false;
+    this.allcourier = true;
 
-                if (isNaN(this.company_id)) {
-                    this.$toast.open({
-                        position: "top-right",
-                        message: "Please Select Company First",
-                        type: "error",
-                        duration: 3000,
-                    });
-                } else {
-                    this.storereturn(this.company_id);
-                }
-            },
+    // console.log('click');
+
+    if (isNaN(this.company_id)) {
+        this.$toast.open({
+            position: "top-right",
+            message: "Please Select Company First",
+            type: "error",
+            duration: 3000,
+        });
+    } else {
+        this.key = "All_Courier";
+        this.returns(this.company_id);
+     
+    }
+},
             smstabs() {
                 this.email = this.allcourier = this.courier = this.stores = false;
                 this.sms = true;
@@ -1132,6 +1138,7 @@
                 );
             },
             returns(e) {
+           
                 byMethod("get", `/api/settings/create?key=${this.key}&company_id=${e}`).then(
                     (res) => {
                         (this.show_company_data = true), this.setData(res);
@@ -1149,6 +1156,8 @@
 
             setData(res) {
                 this.form = res.data.form;
+                // console.log(this.form);
+                // this.form = res.data.status;
                 this.show = true;
             },
             savestore() {

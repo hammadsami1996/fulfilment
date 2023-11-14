@@ -27,20 +27,26 @@ class SettingsController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        $key = request()->key;
-        $company_id = request()->company_id;
+{
+    $key = request()->key;
+    $company_id = request()->company_id;
+    // $courier = request()->input('courier');
 
-        $model = $key && $company_id
-            ? CompanySetting::where('key', $key)->where('company_id', $company_id)->first()
-            : null;
+    $model = $key && $company_id 
+        ? CompanySetting::where('key', $key)
+            ->where('company_id', $company_id)
+            ->where('key', "All_Courier")
+            ->first()
+        : null;
 
-        $form = $model ? json_decode($model->value, true) : [];
+    $form = $model ? json_decode($model->value, true) : [];
+    
 
-        return response()->json([
-            "form" => $form
-        ]);
-    }
+    return response()->json([
+        "form" => $form,
+        "status" => $model->active,
+    ]);
+}
 
     /**
      * Store a newly created resource in storage.
