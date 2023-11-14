@@ -133,7 +133,7 @@ class SettingsController extends Controller
         return response()->json(['saved' => true, 'id' => $model->id]);
     }
 
-   
+
     public function other_setting(Request $request) {
        
         $key = $request->input('value');
@@ -148,7 +148,7 @@ class SettingsController extends Controller
             ->where('company_id', $company_id)
             ->whereJsonContains('value->courier->name', $courier['name'])
             ->first();
-    
+
         if ($existingSetting) {
             // If a setting with the same courier name exists, update it
             $existingSetting->value = json_encode([
@@ -174,9 +174,9 @@ class SettingsController extends Controller
             $newSetting->save();
             return response()->json(['saved' => true, 'id' => $newSetting->id]);
         }
-    
+
     }
-    
+
 
     public function sendmail($model){
 
