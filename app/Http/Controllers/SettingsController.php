@@ -49,7 +49,7 @@ class SettingsController extends Controller
 
     return response()->json([
         "form" => $form,
-        // "status" => $model->active,
+//        "status" => $model,
     ]);
 }
 
