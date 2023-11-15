@@ -143,21 +143,15 @@ class SettingsController extends Controller
 
         $courier_id = $request->data['id'];
 
-        // Check if a setting with the courier's name exists
         $existingSetting = CompanySetting::where('key', $request->key)
             ->where('company_id', $request->company_id)
-            ->whereJsonContains('value->courier->id', $courier_id)
+            ->whereJsonContains('value->id', $courier_id)
             ->first();
 
         if (!$existingSetting) {
             $existingSetting = new CompanySetting;
             $existingSetting->key = $request->key;
         }
-        $courier = [
-            'id' => $request->data['id'],
-            'name' => $request->data['name'],
-            'authentication_key' => $request->data['authentication_key'],
-        ];
         $existingSetting->value = json_encode([
                 'id' => $request->data['id'],
                 'name' => $request->data['name'],

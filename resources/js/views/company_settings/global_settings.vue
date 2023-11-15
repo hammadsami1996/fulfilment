@@ -935,7 +935,7 @@
                         });
                     }
                 });
-        },
+            },
             onCompany(company) {
                 this.form.company = company;
                 this.form.company_id = company.id;
