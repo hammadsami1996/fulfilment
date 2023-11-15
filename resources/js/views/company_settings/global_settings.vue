@@ -131,34 +131,57 @@
         <hr/>
         <div class="p-6" v-if="allcourier">
             <h1 class="text-lg font-bold mb-4">All Courier</h1>
+            <div v-if="show_company_data">
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-                <panel :columns="columns" :urlApi="urlApi" ref="TableData">
-                    <template v-slot:inputfeild="props">
+                <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Courier Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Authentication Key
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    active
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Action
+                </th>
+                </tr>
+                </thead>
+                <tbody class=" divide-y divide-gray-200">
+                    
+                    <tr v-for="item in courierdata" :key="item.id">
+                    <td class="px-6 py-4 whitespace-nowrap">{{item.name}}</td>
+                    
+                    <td class="px-6 py-4 whitespace-nowrap">
                         <div class="w-full mb-4 sm:mb-0 ">
-                            <input @input="onkey($event ,props.item)"
-                                   class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md"
-                                   type="input"
-                            />
-                        </div>
-                    </template>
-                    <template v-slot:checkboxes="props">
-                        <div class="text-start">
-                            <input :value="props.item.id" class="form-checkbox h-5 w-5 text-blue-500" type="checkbox"
-                                   v-model="selectedItems"/>
-                        </div>
-                    </template>
-                    <template v-slot:action="props">
+                                <input class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md" type="input"  @input="onkey($event ,item)" />
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-start">
+                                     <input class="form-checkbox h-5 w-5 text-blue-500" type="checkbox" v-model="form.selectedItems[item.id]"  />
+                                 </div>
+                                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                    
                         <div class="text-sm font-medium flex">
                             <span>
-                              <a @click.prevent="edit(props.item,'All_Courier')" href="#">
+                            <a @click.prevent="edit(item,'All_Courier')" href="#">
                                 <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
-                              </a>
+                            </a>
                             </span>
-                        </div>
-                    </template>
-                </panel>
+                            </div>
+                    
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+
             </div>
-            <!-- </div> -->
+            </div>
         </div>
         <div class="p-6" v-if="sms">
             <h1 class="text-lg font-bold mb-4">SMS Settings</h1>
@@ -802,7 +825,7 @@
         data() {
             return {
                 showRadioInputs: false,
-                selectedItems: [],
+                selectedItems: {},
                 keyvalue: '',
                 courierName: [],
                 courierIdString: {},
@@ -844,21 +867,22 @@
                 permissions: {},
                 online_store_name: {},
                 products: "/api/product",
-                urlApi: "/api/courier",
+                // urlApi: "/api/courier",
                 // warehouses: "/api/warehouse",
                 com: [],
+                courierdata: [],
                 stores_data: [],
                 form: {},
                 image: {},
                 cities: '/api/city',
                 countries: '/api/country',
                 selectedCompany: null,
-                columns: [
-                    {label: 'Courier', field: 'name', slot: true},
-                    {label: 'Authentication Key', field: 'inputfeild', slot: true},
-                    {label: 'Active', field: 'checkboxes', slot: true},
-                    {label: 'Action', field: 'action', action: true},
-                ]
+                // columns: [
+                //     {label: 'Courier', field: 'name', slot: true},
+                //     {label: 'Authentication Key', field: 'inputfeild', slot: true},
+                //     {label: 'Active', field: 'checkboxes', slot: true},
+                //     {label: 'Action', field: 'action', action: true},
+                // ]
             };
         },
         created() {
@@ -897,24 +921,13 @@
                  // item.group = selectedValue;
              this.selectedCourier = selectedValue;
               },
-            //  edit(e,k) {
-
-            //     byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${e.id}&company_id=${this.company_id}&value=${k}`).then((res) => {
-
-            //         if (res.data.saved) {
-            //             this.$toast.open({
-            //                 position: "top-right",
-            //                 message: "Successful",
-            //                 type: "success",
-            //                 duration: 3000,
-            //             });
-            //         }
-            //     });
-            // },
+          
             edit(item, k) {
+                console.log(item);
                 // console.log(item);
             // Check if the checkbox is checked
-            let checkboxValue = this.selectedItems.includes(item.id) ? 1 : 0;
+            // let checkboxValue = this.selectedItems.includes(item.id) ? 1 : 0;
+            let checkboxValue = this.selectedItems[item.id] ? 1 : 0;
              this.courierIdString = JSON.stringify(item);
 
             // Send the checkbox value to the server along with other parameters
@@ -1059,8 +1072,13 @@
             allcouriertabs() {
                 this.email = this.courier = this.sms = this.stores = false;
                 this.allcourier = true;
-                (this.key = "All Courier");
+                (this.key = "All_Courier");
                 this.returns(this.company_id,'All');
+                byMethod("get", "/api/courier").then(
+                (res) => {
+                    this.courierdata = res.data.data.data;
+                }
+            );
 
                 // if (isNaN(this.company_id)) {
                 //     this.$toast.open({
