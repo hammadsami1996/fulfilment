@@ -141,23 +141,19 @@
                             />
                         </div>
                     </template>
-
-
                     <template v-slot:checkboxes="props">
                         <div class="text-start">
                             <input :value="props.item.id" class="form-checkbox h-5 w-5 text-blue-500" type="checkbox"
                                    v-model="selectedItems"/>
                         </div>
                     </template>
-
-
                     <template v-slot:action="props">
                         <div class="text-sm font-medium flex">
-<span>
-  <a @click.prevent="edit(props.item,'All_Courier')" href="#">
-    <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
-  </a>
-</span>
+                            <span>
+                              <a @click.prevent="edit(props.item,'All_Courier')" href="#">
+                                <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
+                              </a>
+                            </span>
                         </div>
                     </template>
                 </panel>
@@ -920,7 +916,7 @@
             // Check if the checkbox is checked
             let checkboxValue = this.selectedItems.includes(item.id) ? 1 : 0;
              this.courierIdString = JSON.stringify(item);
-    
+
             // Send the checkbox value to the server along with other parameters
             byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${this.courierIdString}&company_id=${this.company_id}&value=${k}&checkboxValue=${checkboxValue}`).then((res) => {
                 if (res.data.saved) {
