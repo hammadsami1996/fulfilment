@@ -17,11 +17,7 @@ class CompanySetting extends Model implements Auditable
     protected $columns = [
         'key', 'value', 'company_id', 'active'
     ];
-
     protected $search = [
         'key', 'value', 'active'
     ];
-
-    
-
 }

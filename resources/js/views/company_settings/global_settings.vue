@@ -151,31 +151,31 @@
                 </tr>
                 </thead>
                 <tbody class=" divide-y divide-gray-200">
-                    
                     <tr v-for="item in courierdata" :key="item.id">
-                    <td class="px-6 py-4 whitespace-nowrap">{{item.name}}</td>
-                    
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="w-full mb-4 sm:mb-0 ">
-                                <input class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md" type="input"  @input="onkey($event ,item)" />
+                        <td class="px-6 py-4 whitespace-nowrap">{{item.name}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="w-full mb-4 sm:mb-0 ">
+                                <!--                                <input @input="onkey($event ,item)"-->
+                                <input class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md"
+                                       type="input"
+                                       v-model="item.authentication_key"/>
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-start">
-                                     <input class="form-checkbox h-5 w-5 text-blue-500" type="checkbox" v-model="form.selectedItems[item.id]"  />
-                                 </div>
-                                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                    
-                        <div class="text-sm font-medium flex">
-                            <span>
-                            <a @click.prevent="edit(item,'All_Courier')" href="#">
-                                <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
-                            </a>
-                            </span>
+                                <input class="form-checkbox h-5 w-5 text-blue-500" false-value=0
+                                       true-value=1 type="checkbox" v-model="item.active">
                             </div>
-                    
-                    </td>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium flex">
+                                <span>
+                                    <a @click.prevent="edit_All_Courier(item)" href="#">
+                                        <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
                 </table>
@@ -921,28 +921,21 @@
                  // item.group = selectedValue;
              this.selectedCourier = selectedValue;
               },
-          
-            edit(item, k) {
-                console.log(item);
-                // console.log(item);
-            // Check if the checkbox is checked
-            // let checkboxValue = this.selectedItems.includes(item.id) ? 1 : 0;
-            let checkboxValue = this.selectedItems[item.id] ? 1 : 0;
-             this.courierIdString = JSON.stringify(item);
-
-            // Send the checkbox value to the server along with other parameters
-            byMethod("post", `/api/other_setting?key=${this.keyvalue}&courier_id=${this.courierIdString}&company_id=${this.company_id}&value=${k}&checkboxValue=${checkboxValue}`).then((res) => {
-                if (res.data.saved) {
-                    this.$toast.open({
-                        position: "top-right",
-                        message: "Successful",
-                        type: "success",
-                        duration: 3000,
-                    });
+            edit_All_Courier(item) {
+                let data = {
+                    data: item
                 }
-            });
+                byMethod("post", `/api/other_setting?key=${this.key}&company_id=${this.company_id}`, data).then((res) => {
+                    if (res.data.saved) {
+                        this.$toast.open({
+                            position: "top-right",
+                            message: "Successful",
+                            type: "success",
+                            duration: 3000,
+                        });
+                    }
+                });
         },
-
             onCompany(company) {
                 this.form.company = company;
                 this.form.company_id = company.id;
@@ -1069,27 +1062,59 @@
                     this.storereturn(this.company_id);
                 }
             },
+            // allcouriertabs() {
+            //     this.email = this.courier = this.sms = this.stores = false;
+            //     this.allcourier = true;
+            //     (this.key = "All_Courier");
+            //     // byMethod("get", `/api/settings/create?key=${this.key}&company_id=${e}&count=All`).then((res)=>{
+            //     //     byMethod("get", "/api/courier").then(
+            //     //         (resp) => {
+            //     //             this.courierdata = resp.data.data.data;
+            //     //             this.form = res.data.form;
+            //     //             this.show = true;
+            //     //         });
+            //     //     (this.show_company_data = true),
+            //     //             this.form = res.data.form;
+            //     //     this.show = true;
+            //     //     }
+            //     // );
+            //     this.returns(this.company_id, 'All');
+            //     byMethod("get", "/api/courier").then(
+            //         (res) => {
+            //             this.courierdata = res.data.data.data;
+            //         });
+            // },
             allcouriertabs() {
                 this.email = this.courier = this.sms = this.stores = false;
                 this.allcourier = true;
-                (this.key = "All_Courier");
-                this.returns(this.company_id,'All');
-                byMethod("get", "/api/courier").then(
-                (res) => {
-                    this.courierdata = res.data.data.data;
-                }
-            );
+                this.key = "All_Courier";
+                byMethod("get", `/api/settings/create?key=${this.key}&company_id=${this.company_id}&count=All`).then((res) => {
+                    byMethod("get", "/api/courier").then((resp) => {
+                        this.courierdata = resp.data.data.data;
+                        this.form = res.data.form;
 
-                // if (isNaN(this.company_id)) {
-                //     this.$toast.open({
-                //         position: "top-right",
-                //         message: "Please Select Company First",
-                //         type: "error",
-                //         duration: 3000,
-                //     });
-                // } else {
-                //     this.storereturn(this.company_id);
-                // }
+                        // Map authentication_key from form to courierdata
+                        this.courierdata.forEach((courier) => {
+                            const matchingForm = this.form.find((formItem) => formItem.value.id === courier.id);
+                            if (matchingForm) {
+                                courier.authentication_key = matchingForm.value.authentication_key;
+                            }
+                        });
+                        this.show = true;
+                        this.show_company_data = true;
+                    });
+                });
+            },
+            returns(e, count = 'one') {
+                byMethod("get", `/api/settings/create?key=${this.key}&company_id=${e}&count=${count}`).then((res) => {
+                        (this.show_company_data = true),
+                            this.setData(res);
+                    }
+                );
+            },
+            setData(res) {
+                this.form = res.data.form;
+                this.show = true;
             },
             smstabs() {
                 this.email = this.allcourier = this.courier = this.stores = false;
@@ -1142,14 +1167,6 @@
                     }
                 );
             },
-            returns(e,count = 'one') {
-                byMethod("get", `/api/settings/create?key=${this.key}&company_id=${e}&count=${count}`).then((res)=>{
-                        (this.show_company_data = true),
-                            this.setData(res);
-                    }
-                );
-            },
-
             storereturn(e) {
                 byMethod("get", `/api/stores_data?company_id=${e}`).then(
                     (res) => {
@@ -1157,12 +1174,7 @@
                     }
                 );
             },
-            setData(res) {
-                this.form = res.data.form;
-                // console.log(this.form);
-                // this.form = res.data.status;
-                this.show = true;
-            },
+
             savestore() {
                 byMethod(this.method, '/api/stores', this.form).then(res => {
                     this.successfull(res)

@@ -141,51 +141,32 @@ class SettingsController extends Controller
 
     public function other_setting(Request $request) {
 
-        $key = $request->input('value');
-        $company_id = $request->input('company_id');
-        $checkboxValue = $request->input('checkboxValue');
-
-        $courier = json_decode($request->input('courier_id'), true);
-
+        $courier_id = $request->data['id'];
 
         // Check if a setting with the courier's name exists
-        $existingSetting = CompanySetting::where('key', $key)
-            ->where('company_id', $company_id)
-            ->whereJsonContains('value->courier->name', $courier['name'])
+        $existingSetting = CompanySetting::where('key', $request->key)
+            ->where('company_id', $request->company_id)
+            ->whereJsonContains('value->courier->id', $courier_id)
             ->first();
 
-        if ($existingSetting) {
-            // If a setting with the same courier name exists, update it
-            $existingSetting->value = json_encode([
-                'authentication_key' => $request->input('key'),
-                'courier' => $courier,
-
-            ]);
-            $existingSetting->active = $checkboxValue;
-            $existingSetting->company_id = $company_id;
-            $existingSetting->save();
-            return response()->json(['saved' => true, 'id' => $existingSetting->id]);
-        } else {
-            // If no setting with the same courier name exists, create a new one
-            $newSetting = new CompanySetting;
-            $newSetting->key = $key;
-            $newSetting->value = json_encode([
-                'authentication_key' => $request->input('key'),
-                'courier' => $courier,
-
-            ]);
-            $newSetting->active = $checkboxValue;
-            $newSetting->company_id = $company_id;
-            $newSetting->save();
-            return response()->json(['saved' => true, 'id' => $newSetting->id]);
+        if (!$existingSetting) {
+            $existingSetting = new CompanySetting;
+            $existingSetting->key = $request->key;
         }
-
-        if ($key === 'courier') {
-            $value = [
-                'name' => $request->input('name'),
-            ];
-        }
-
+        $courier = [
+            'id' => $request->data['id'],
+            'name' => $request->data['name'],
+            'authentication_key' => $request->data['authentication_key'],
+        ];
+        $existingSetting->value = json_encode([
+                'id' => $request->data['id'],
+                'name' => $request->data['name'],
+                'authentication_key' => $request->data['authentication_key'],
+            ]);
+        $existingSetting->active = $request->data['active'] ?? 0;
+        $existingSetting->company_id = $request->company_id;
+        $existingSetting->save();
+        return response()->json(['saved' => true, 'id' => $existingSetting->id]);
     }
     public function sendmail($model){
 
