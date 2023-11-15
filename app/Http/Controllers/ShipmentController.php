@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanySetting;
 use App\Models\CourierResponse;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class ShipmentController extends Controller
         }
         return response()->json(["saved" => true]);
     }
+
     function generateCN($id)
     {
         $order = Order::with('city')->findOrfail($id);
@@ -35,21 +37,20 @@ class ShipmentController extends Controller
 //                return response()->json(['error' => $order], 422);
 //            }
 //        }
-        if(!$order->tracking_id){
-            if($order->courier_id == 1 && ($order->city && $order->city->trax)){
+        if (!$order->tracking_id) {
+            if ($order->courier_id == 1 && ($order->city && $order->city->trax)) {
                 $res = $this->trax($order);
-                if ($res && isset($res['tracking_number'])){
+                if ($res && isset($res['tracking_number'])) {
                     $order->update(['tracking_id' => $res['tracking_number']]);
-                    if ($res['status_id']){
+                    if ($res['status_id']) {
                         $order->update(['status_id' => $res['status_id']]);
                     }
                     return response()->json(['data' => $order]);
-                } else{
+                } else {
                     return response()->json(['error' => $order]);
                 }
             }
-        }
-        elseif ($order->tracking_id) {
+        } elseif ($order->tracking_id) {
             return response()->json(['error' => 'Already Generated'], 422);
         } elseif ($order->city) {
             return response()->json(['error' => 'Already Generated'], 422);
@@ -105,8 +106,17 @@ class ShipmentController extends Controller
             'amount' => $order->net_total,
             'payment_mode_id' => '1',
         ];
+
+        $setAuthentication = CompanySetting::where('key', 'All_Courier')
+            ->where('company_id', $order->company_id)
+            ->whereJsonContains('value->id', $order->courier_id)->first();
+//       dd(json_decode($setAuthentication->value));
+        $setAuthentication = json_decode($setAuthentication->value);
+//      dd($setAuthentication->authentication_key);
+
         $requestData = $this->buildRequestArray($fieldNames, $data);
-        $response = Http::withHeaders(['Authorization' => 'TUVEZkRzaHdCYkpIWEtWTGxyNG44UFhOMGhFenk4T1pUWjI5V3VkQ0FYV08xajVXYXlid1dvZ1lRUVlD608fd2e735113'])->post($url,$requestData);
+//        $response = Http::withHeaders(['Authorization' => 'TUVEZkRzaHdCYkpIWEtWTGxyNG44UFhOMGhFenk4T1pUWjI5V3VkQ0FYV08xajVXYXlid1dvZ1lRUVlD608fd2e735113'])->post($url,$requestData);
+        $response = Http::withHeaders(['Authorization' => $setAuthentication->authentication_key])->post($url, $requestData);
 
         $result = $response->json();
         if (isset($result['errors'])) {
