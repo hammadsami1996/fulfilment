@@ -3,7 +3,6 @@
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
             <p class="w-full pb-1 pt-1 pl-8 text-center font-bold bg-gray-300 rounded text-lg">
                 Company settings
-                <!-- <i @click="addCompany" class="fas fa-plus text-xl rounded-full bg-blue-400 text-white pl-2 pr-2 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"></i> -->
             </p>
         </div>
 
@@ -11,7 +10,7 @@
             <div :key="index" class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="(image, index) in com" >
                 <div class="w-full sm:w-1/11 pl-3 sm:mb-0 shows pb-5 cursor-pointer" >
                     <div :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == image }" @click="onCompany(image)" class="card">
-                        <!-- <img :src="`/uploads/company/logo/` + image.logo"/> -->
+
                         <img :src="getImagePath(image)" />
                         <div class="card__content">
                             <p class="card__title">{{ image.country ? image.country.text : '' }}</p>
@@ -28,7 +27,6 @@
                         <p class="card__title">Add Company</p>
                     </div>
                 </div>
-                <!-- <span class="text-gray-500 font-bold text-sm">Add Company</span> -->
             </div>
         </div>
         <hr/>
@@ -40,15 +38,10 @@
                     @click="smstabs"
                     class="radio-input"
                     name="engine"
-                    type="radio"
-                />
+                    type="radio" />
                 <span class="radio-tile">
                     <span class="radio-icon">
-                        <svg
-                            height="1em"
-                            viewBox="0 0 512 512"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
+                        <svg height="1em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" >
                             <path
                                 d="M256 448c141.4 0 256-93.1 256-208S397.4 32 256 32S0 125.1 0 240c0 45.1 17.7 86.8 47.7 120.9c-1.9 24.5-11.4 46.3-21.4 62.9c-5.5 9.2-11.1 16.6-15.2 21.6c-2.1 2.5-3.7 4.4-4.9 5.7c-.6 .6-1 1.1-1.3 1.4l-.3 .3 0 0 0 0 0 0 0 0c-4.6 4.6-5.9 11.4-3.4 17.4c2.5 6 8.3 9.9 14.8 9.9c28.7 0 57.6-8.9 81.6-19.3c22.9-10 42.4-21.9 54.3-30.6c31.8 11.5 67 17.9 104.1 17.9zM202.9 176.8c6.5-2.2 13.7 .1 17.9 5.6L256 229.3l35.2-46.9c4.1-5.5 11.3-7.8 17.9-5.6s10.9 8.3 10.9 15.2v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V240l-19.2 25.6c-3 4-7.8 6.4-12.8 6.4s-9.8-2.4-12.8-6.4L224 240v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-6.9 4.4-13 10.9-15.2zm173.1 38c0 .2 0 .4 0 .4c.1 .1 .6 .8 2.2 1.7c3.9 2.3 9.6 4.1 18.3 6.8l.6 .2c7.4 2.2 17.3 5.2 25.2 10.2c9.1 5.7 17.4 15.2 17.6 29.9c.2 15-7.6 26-17.8 32.3c-9.5 5.9-20.9 7.9-30.7 7.6c-12.2-.4-23.7-4.4-32.6-7.4l0 0 0 0c-1.4-.5-2.7-.9-4-1.4c-8.4-2.8-12.9-11.9-10.1-20.2s11.9-12.9 20.2-10.1c1.7 .6 3.3 1.1 4.9 1.6l0 0 0 0c9.1 3.1 15.6 5.3 22.6 5.5c5.3 .2 10-1 12.8-2.8c1.2-.8 1.8-1.5 2.1-2c.2-.4 .6-1.2 .6-2.7l0-.2c0-.7 0-1.4-2.7-3.1c-3.8-2.4-9.6-4.3-18-6.9l-1.2-.4c-7.2-2.2-16.7-5-24.3-9.6c-9-5.4-17.7-14.7-17.7-29.4c-.1-15.2 8.6-25.7 18.5-31.6c9.4-5.5 20.5-7.5 29.7-7.4c10 .2 19.7 2.3 27.9 4.4c8.5 2.3 13.6 11 11.3 19.6s-11 13.6-19.6 11.3c-7.3-1.9-14.1-3.3-20.1-3.4c-4.9-.1-9.8 1.1-12.9 2.9c-1.4 .8-2.1 1.6-2.4 2c-.2 .3-.4 .8-.4 1.9zm-272 0c0 .2 0 .4 0 .4c.1 .1 .6 .8 2.2 1.7c3.9 2.3 9.6 4.1 18.3 6.8l.6 .2c7.4 2.2 17.3 5.2 25.2 10.2c9.1 5.7 17.4 15.2 17.6 29.9c.2 15-7.6 26-17.8 32.3c-9.5 5.9-20.9 7.9-30.7 7.6c-12.3-.4-24.2-4.5-33.2-7.6l0 0 0 0c-1.3-.4-2.5-.8-3.6-1.2c-8.4-2.8-12.9-11.9-10.1-20.2s11.9-12.9 20.2-10.1c1.4 .5 2.8 .9 4.1 1.4l0 0 0 0c9.5 3.2 16.5 5.6 23.7 5.8c5.3 .2 10-1 12.8-2.8c1.2-.8 1.8-1.5 2.1-2c.2-.4 .6-1.2 .6-2.7l0-.2c0-.7 0-1.4-2.7-3.1c-3.8-2.4-9.6-4.3-18-6.9l-1.2-.4 0 0c-7.2-2.2-16.7-5-24.3-9.6C80.8 239 72.1 229.7 72 215c-.1-15.2 8.6-25.7 18.5-31.6c9.4-5.5 20.5-7.5 29.7-7.4c9.5 .1 22.2 2.1 31.1 4.4c8.5 2.3 13.6 11 11.3 19.6s-11 13.6-19.6 11.3c-6.6-1.8-16.8-3.3-23.3-3.4c-4.9-.1-9.8 1.1-12.9 2.9c-1.4 .8-2.1 1.6-2.4 2c-.2 .3-.4 .8-.4 1.9z"
                             />
@@ -58,19 +51,10 @@
                 </span>
             </label>
             <label class="p-1">
-                <input
-                    @click="emailtabs"
-                    class="radio-input"
-                    name="engine"
-                    type="radio"
-                />
+                <input @click="emailtabs" class="radio-input" name="engine" type="radio"/>
                 <span class="radio-tile">
                     <span class="radio-icon">
-                        <svg
-                            height="1em"
-                            viewBox="0 0 512 512"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
+                        <svg height="1em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" >
                             <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                             <path
                                 d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
@@ -81,12 +65,7 @@
                 </span>
             </label>
             <label class="p-1">
-                <input
-                    @click="storetabs"
-                    class="radio-input"
-                    name="engine"
-                    type="radio"
-                />
+                <input @click="storetabs" class="radio-input" name="engine" type="radio" />
                 <span class="radio-tile">
                     <span class="radio-icon">
                       <svg height="1em" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
@@ -96,12 +75,7 @@
                 </span>
             </label>
             <label class="p-1">
-                <input
-                    @click="couriertabs"
-                    class="radio-input"
-                    name="engine"
-                    type="radio"
-                />
+                <input @click="couriertabs" class="radio-input" name="engine" type="radio" />
                 <span class="radio-tile">
                     <span class="radio-icon">
                         <svg height="1em" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
@@ -111,17 +85,11 @@
                 </span>
             </label>
             <label class="p-1">
-                <input
-                    @click="allcouriertabs"
-                    class="radio-input"
-                    name="engine"
-                    type="radio"
-                />
+                <input @click="allcouriertabs" class="radio-input" name="engine" type="radio"/>
                 <span class="radio-tile">
                     <span class="radio-icon">
                         <svg height="1em" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
                             d="M48 0C21.5 0 0 21.5 0 48V368c0 26.5 21.5 48 48 48H64c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H48zM416 160h50.7L544 237.3V256H416V160zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-
                         </span>
                     <span class="radio-label">All Courier</span>
                 </span>
@@ -155,16 +123,13 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{item.name}}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="w-full mb-4 sm:mb-0 ">
-                                <!--                                <input @input="onkey($event ,item)"-->
-                                <input class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md"
-                                       type="input"
-                                       v-model="item.authentication_key"/>
+
+                                <input class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md" type="input" v-model="item.authentication_key"/>
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-start">
-                                <input class="form-checkbox h-5 w-5 text-blue-500" false-value=0
-                                       true-value=1 type="checkbox" v-model="item.active">
+                                <input class="form-checkbox h-5 w-5 text-blue-500" false-value=0 true-value=1 type="checkbox" v-model="item.active">
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -179,7 +144,6 @@
                     </tr>
                 </tbody>
                 </table>
-
             </div>
             </div>
         </div>
@@ -189,33 +153,21 @@
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Login Id</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            type="text"
-                            v-model="form.login_id"
-                        />
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text" v-model="form.login_id" />
                         <p class="text-red-600 text-xs italic" v-if="error.login_id">
                             {{ error.login_id[0] }}
                         </p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Password</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            type="password"
-                            v-model="form.password"
-                        />
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="password" v-model="form.password" />
                         <p class="text-red-600 text-xs italic" v-if="error.password">
                             {{ error.password[0] }}
                         </p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Mask</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            type="text"
-                            v-model="form.mask"
-                        />
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text" v-model="form.mask" />
                         <p class="text-red-600 text-xs italic" v-if="error.mask">
                             {{ error.mask[0] }}
                         </p>
@@ -224,26 +176,17 @@
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
                         <label class="block font-medium text-sm text-gray-700 mb-2">URL</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            type="text"
-                            v-model="form.url"
-                        />
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text" v-model="form.url" />
                         <p class="text-red-600 text-xs italic" v-if="error.url">
                             {{ error.url[0] }}
                         </p>
                     </div>
                 </div>
                 <div class="flex justify-end mt-8 space-x-4">
-                    <button
-                        @click="savejson('sms_settings')"
-                        :disabled="isSubmittingSetting"
+                    <button @click="savejson('sms_settings')" :disabled="isSubmittingSetting"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
-                        type="button"
-                    >
-                    <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none"
-                     role="status" v-if="isSubmittingSetting" viewBox="0 0 100 101"
-                     xmlns="http://www.w3.org/2000/svg">
+                        type="button">
+                    <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none" role="status" v-if="isSubmittingSetting" viewBox="0 0 100 101" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                         fill="#E5E7EB"/>
@@ -251,9 +194,7 @@
                         d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
                         fill="currentColor"/>
                 </svg>
-                        {{
-                        $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add"
-                        }}
+                        {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
                     </button>
                 </div>
             </div>
@@ -264,22 +205,14 @@
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Title</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            type="text"
-                            v-model="form.title"
-                        />
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text" v-model="form.title" />
                         <p class="text-red-600 text-xs italic" v-if="error.title">
                             {{ error.title[0] }}
                         </p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                         <label class="block font-medium text-sm text-gray-700 mb-2">Host</label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            type="text"
-                            v-model="form.host"
-                        />
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text" v-model="form.host" />
                         <p class="text-red-600 text-xs italic" v-if="error.host">
                             {{ error.host[0] }}
                         </p>
@@ -330,11 +263,7 @@
                         <label class="block font-medium text-sm text-gray-700 mb-2">
                             SMTPSecure
                         </label>
-                        <input
-                            class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
-                            type="text"
-                            v-model="form.smtp"
-                        />
+                        <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text" v-model="form.smtp" />
                         <p class="text-red-600 text-xs italic" v-if="error.smtp">
                             {{ error.smtp[0] }}
                         </p>
@@ -348,8 +277,7 @@
                         <input
                             class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                             type="email"
-                            v-model="form.form_email"
-                        />
+                            v-model="form.form_email"/>
                         <p class="text-red-600 text-xs italic" v-if="error.form_email">
                             {{ error.form_email[0] }}
                         </p>
@@ -372,9 +300,7 @@
                         d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
                         fill="currentColor"/>
                 </svg>
-                        {{
-                        $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add"
-                        }}
+                        {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
                     </button>
                 </div>
             </div>
@@ -382,27 +308,22 @@
         <div v-if="courier">
                 <cities/>
             </div>
-        <div class="" v-if="stores">
+        <div  v-if="stores">
             <h1 class="text-lg font-bold text-center mb-4 mt-4">Store Settings</h1>
             <div class="card-container mb-6">
                 <div class="flex-auto flex flex-wrap sm:flex-nowrap sm:items-center" v-for="stores in stores_data">
                     <div @click="create_store(stores)" class="w-full sm:w-1/8 pl-3 sm:mb-0 shows">
                         <div class="input_radio">
                             <label>
-                                <input
-                                    class="radio-input"
-                                    name="engine"
-                                    type="radio"
-                                />
+                                <input class="radio-input" name="engine" type="radio" />
                                 <span class="radio-title">
                                     <span class="radio-icon cursor-pointer">
-                                        <!-- <i class="fa-solid fa-shop fa-2x" style="color: #d89d4b;"></i> -->
+                                       
                                         <div v-if="stores.plate_form == 'Shopify'">
 
                                             <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3"
                                             src="~@/images/Shopify-bag.png" v-if="!stores.img"/>
-                                            <!-- <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3"
-                                            src="~@/images/Shopify-bag.png" v-if="stores.plate_form == 'Shopify' && !stores.img"/> -->
+                                            
                                              <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3" :src="`/uploads/store/img/` + stores.img" v-else />
                                         </div>
                                         <div  v-if="stores.plate_form == 'WooCommerce'">
@@ -410,17 +331,14 @@
                                             <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3"
                                             src="~@/images/WooCommerce.png"
                                             v-if="!stores.img"/>
-                                            <!-- <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3"
-                                             src="~@/images/WooCommerce.png"
-                                             v-if="stores.plate_form == 'WooCommerce' && !stores.img"/> -->
+                                          
                                              <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3" :src="`/uploads/store/img/` + stores.img" v-else />
                                             </div>
                                             <div v-if="stores.plate_form == 'MimCart'">
 
                                                 <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3"
                                                 src="~@/images/MimCart.jpg" v-if="!stores.img"/>
-                                                <!-- <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3"
-                                                src="~@/images/MimCart.jpg" v-if="stores.plate_form == 'MimCart' && !stores.img"/> -->
+                                             
                                              <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3" :src="`/uploads/store/img/` + stores.img" v-else />
                                             </div>
                                             </span>
@@ -437,13 +355,11 @@
                             <p class="card__title">Add Store</p>
                         </div>
                     </div>
-                    <!-- <span class="text-gray-500 font-bold text-sm">Add Store</span> -->
                 </div>
             </div>
         </div>
-        <div class="" v-if="courier">
+        <div v-if="courier">
             <div class="card-container mb-6">
-
             </div>
         </div>
         <Modal :show="true" height="900" v-if="show_ecommerce">
@@ -457,31 +373,18 @@
                             <label class="block font-medium text-sm text-gray-700 mb-2"
                             >Api Key
                             </label>
-                            <input
-                                class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                                type="text"
-                                v-model="form.api_key"
-                            />
-
+                            <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text" v-model="form.api_key" />
                             <p class="text-red-600 text-xs italic" v-if="error.api_key">
                                 {{ error.api_key[0] }}
                             </p>
                         </div>
                         <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                            <label class="block font-medium text-sm text-gray-700 mb-2"
-                            >Api Secret</label
-                            >
-                            <input
-                                class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
-                                type="text"
-                                v-model="form.api_secret"
-                            />
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Api Secret</label>
+                            <input class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md" type="text" v-model="form.api_secret" />
                             <p class="text-red-600 text-xs italic" v-if="error.api_secret">
                                 {{ error.api_secret[0] }}
                             </p>
                         </div>
-
-
                     </div>
 
                     <div class="flex-auto flex flex-col sm:flex-row sm:items-center"
@@ -493,8 +396,7 @@
                             <input
                                 class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                                 type="text"
-                                v-model="form.word_address"
-                            />
+                                v-model="form.word_address"/>
                             <p class="text-red-600 text-xs italic" v-if="error.store_address">
                                 {{ error.store_address[0] }}
                             </p>
@@ -509,33 +411,25 @@
                             <input
                                 class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                                 type="text"
-                                v-model="form.access_token"
-                            />
+                                v-model="form.access_token"/>
 
                             <p class="text-red-600 text-xs italic" v-if="error.api_key">
                                 {{ error.api_key[0] }}
                             </p>
                         </div>
                         <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2" style="display:none">
-                            <label class="block font-medium text-sm text-gray-700 mb-2"
-                            >Api Secret</label
-                            >
+                            <label class="block font-medium text-sm text-gray-700 mb-2">Api Secret</label>
                             <input
                                 class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                                 type="text"
-                                v-model="form.api_secret"
-                            />
+                                v-model="form.api_secret"/>
                             <p class="text-red-600 text-xs italic" v-if="error.api_secret">
                                 {{ error.api_secret[0] }}
                             </p>
                         </div>
                     </div>
 
-
-                    <div class="flex-auto flex flex-col sm:flex-row sm:items-center"
-                         v-if="online_store_name == 'Shopify'">
-
-
+                    <div class="flex-auto flex flex-col sm:flex-row sm:items-center" v-if="online_store_name == 'Shopify'">
                         <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
                             <label class="block font-medium text-sm text-gray-700 mb-2">
                                 Shopify Store Address
@@ -543,8 +437,7 @@
                             <input
                                 class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                                 type="text"
-                                v-model="form.store_address"
-                            />
+                                v-model="form.store_address"/>
                             <p class="text-red-600 text-xs italic" v-if="error.store_address">
                                 {{ error.store_address[0] }}
                             </p>
@@ -553,8 +446,6 @@
 
                     <div class="flex-auto flex flex-col sm:flex-row sm:items-center"
                          v-if="online_store_name == 'MimCart'">
-
-
                         <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
                             <label class="block font-medium text-sm text-gray-700 mb-2">
                                 MimCart Api Key
@@ -562,8 +453,7 @@
                             <input
                                 class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                                 type="text"
-                                v-model="form.mim_api_key"
-                            />
+                                v-model="form.mim_api_key"/>
                             <p class="text-red-600 text-xs italic" v-if="error.store_address">
                                 {{ error.store_address[0] }}
                             </p>
@@ -573,8 +463,6 @@
 
                     <div class="flex-auto flex flex-col sm:flex-row sm:items-center"
                          v-if="online_store_name == 'MimCart'">
-
-
                         <div class="w-full sm:w-full mb-4 sm:mb-0 p-2">
                             <label class="block font-medium text-sm text-gray-700 mb-2">
                                 MimCart Store Address
@@ -582,16 +470,13 @@
                             <input
                                 class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"
                                 type="text"
-                                v-model="form.mim_store_address"
-                            />
+                                v-model="form.mim_store_address"/>
                             <p class="text-red-600 text-xs italic" v-if="error.store_address">
                                 {{ error.store_address[0] }}
                             </p>
                         </div>
                     </div>
-
                 </div>
-
             </div>
 
             <div class="flex justify-end mt-4 space-x-4 mb-6 mr-6">
@@ -610,24 +495,7 @@
                     </svg>
                     Test Connecion
                 </button>
-                <!-- <button @click="wordpress" :disabled="isSubmitting"
-                    class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2
-                    leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600 transition duration-200
-                    ease-in-out"
-                    type="button"
-                    v-if="connection_button"
-                >
-                    <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none" role="status" v-if="isSubmitting" viewBox="0 0 100 101"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                            fill="#E5E7EB"/>
-                        <path
-                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                            fill="currentColor"/>
-                    </svg>
-                    Test Connection
-                </button> -->
+           
                 <button @click="save_store_data" :disabled="isSubmittingSave"
                         class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button"
@@ -657,8 +525,7 @@
                 <h1 class="text-lg font-bold mt-4 mb-4 text-center">Add New Company</h1>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label class="block font-medium text-sm text-gray-700 mb-2">Name <span
-                            class="text-red-600">*</span></label>
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Name <span class="text-red-600">*</span></label>
                         <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                                placeholder="Name" v-model="form.name"/>
                         <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
@@ -669,20 +536,17 @@
                         <input
                             class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                             placeholder=" Email" type="email"
-                            v-model="form.email"
-                        />
+                            v-model="form.email"/>
                         <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
                     </div>
                 </div>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label class="block font-medium text-sm text-gray-700 mb-2"
-                        >Phone <span class="text-red-600">*</span></label>
+                        <label class="block font-medium text-sm text-gray-700 mb-2">Phone <span class="text-red-600">*</span></label>
                         <input
                             class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                             type="number"
-                            v-model="form.phone"
-                        />
+                            v-model="form.phone" />
                         <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
@@ -691,8 +555,7 @@
                         <input
                             class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                             type="number"
-                            v-model="form.tax_number"
-                        />
+                            v-model="form.tax_number" />
                         <p class="text-red-600 text-xs italic" v-if="error.tax_number">{{ error.tax_number[0] }}</p>
                     </div>
                 </div>
@@ -703,16 +566,12 @@
                         </label>
                         <typeahead :initialize="form.country" :url="countries" @input="onCountries"
                                    display="name"/>
-                        <!--  <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
                     </div>
                     <div class="w-full sm:w-1/2 sm:mb-0 mr-2 pl-1">
-                        <label
-                            class="block font-medium text-sm text-gray-700 mb-2"
-                        >City:</label>
+                        <label class="block font-medium text-sm text-gray-700 mb-2" >City:</label>
                         <typeahead :initialize="form.city"
                                    :url="form.country_id != null ? `/api/city?country_id=${form.country_id}` : cities"
                                    @input="onCities($event,'city')" display="name"/>
-                        <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                     </div>
                 </div>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
@@ -722,35 +581,29 @@
                         <input
                             class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                             type="number"
-                            v-model="form.postal"
-                        />
+                            v-model="form.postal"/>
                         <p class="text-red-600 text-xs italic" v-if="error.postal">{{ error.postal[0] }}</p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label class="block font-medium text-sm text-gray-700 mb-2"
-                        >Province/State</label>
+                        <label class="block font-medium text-sm text-gray-700 mb-2" >Province/State</label>
                         <input
                             class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                             type="text"
-                            v-model="form.province"
-                        />
+                            v-model="form.province"/>
                         <p class="text-red-600 text-xs italic" v-if="error.province">{{ error.province[0] }}</p>
                     </div>
                 </div>
                 <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label class="block font-medium text-sm text-gray-700 mb-2"
-                        >Address <span class="text-red-600">*</span></label>
+                        <label class="block font-medium text-sm text-gray-700 mb-2" >Address <span class="text-red-600">*</span></label>
                         <textarea
                             class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md"
                             type="text"
-                            v-model="form.address"
-                        />
+                            v-model="form.address"/>
                         <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p>
                     </div>
                     <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                        <label class="block font-medium text-sm text-gray-700 mb-2"
-                        >Logo</label>
+                        <label class="block font-medium text-sm text-gray-700 mb-2" >Logo</label>
                         <div class="flex items-center">
                             <input
                                 class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
@@ -764,12 +617,6 @@
                     </div>
                 </div>
                 <div class="flex justify-end space-x-4 m-3">
-                    <!-- <button
-                        @click="formSubmitted"
-                        class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
-                        type="button">
-                        {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Save" }}
-                    </button> -->
                     <button
                         @click="formSubmitted()" :disabled="isSubmittingCompany"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out"
@@ -793,16 +640,12 @@
                         Cancel
                     </button>
                 </div>
-
             </div>
         </Modal>
-        <!-- <Modal :show="isOpenStore" closeable="true">
-            <Stores @resp="()=>{isOpenStore = !isOpenStore}" :show="true" additionalProp="global"  @cancel-stores="()=>{handleCancelStores = !handleCancelStores} " @save-stores="handleCancelStores" ></Stores>
-            <Stores @resp="()=>{isOpenStore = !isOpenStore}" :show="true" additionalProp="global"  @cancel-stores="handleCancelStores " @save-stores="handleCancelStores" ></Stores>
-        </Modal> -->
+      
         <Modal :show="isOpenStore" closeable="true" @cancel="handleCancelStores">
         <Stores @resp="()=>{isOpenStore = !true}" :show="true" additionalProp="global" @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores>
-        <!-- <Stores @resp="()=>{isOpenStore = !isOpenStore}" :show="true" additionalProp="global" @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores> -->
+
     </Modal>
     </div>
 </template>
@@ -841,7 +684,6 @@
                 connectionBtn: true,
                 isOpen: false,
                 isOpenStore: false,
-                // handleCancelStores: false,
                 show_company_data: false,
                 email: false,
                 sms: false,
@@ -867,8 +709,6 @@
                 permissions: {},
                 online_store_name: {},
                 products: "/api/product",
-                // urlApi: "/api/courier",
-                // warehouses: "/api/warehouse",
                 com: [],
                 courierdata: [],
                 stores_data: [],
@@ -877,12 +717,6 @@
                 cities: '/api/city',
                 countries: '/api/country',
                 selectedCompany: null,
-                // columns: [
-                //     {label: 'Courier', field: 'name', slot: true},
-                //     {label: 'Authentication Key', field: 'inputfeild', slot: true},
-                //     {label: 'Active', field: 'checkboxes', slot: true},
-                //     {label: 'Action', field: 'action', action: true},
-                // ]
             };
         },
         created() {
@@ -915,7 +749,6 @@
             onkey(e, f) {
                 this.keyvalue = e.target.value;
                 f.key = this.keyvalue;
-
             },
             onGroup(selectedValue, item) {
                  // item.group = selectedValue;
@@ -1062,28 +895,6 @@
                     this.storereturn(this.company_id);
                 }
             },
-            // allcouriertabs() {
-            //     this.email = this.courier = this.sms = this.stores = false;
-            //     this.allcourier = true;
-            //     (this.key = "All_Courier");
-            //     // byMethod("get", `/api/settings/create?key=${this.key}&company_id=${e}&count=All`).then((res)=>{
-            //     //     byMethod("get", "/api/courier").then(
-            //     //         (resp) => {
-            //     //             this.courierdata = resp.data.data.data;
-            //     //             this.form = res.data.form;
-            //     //             this.show = true;
-            //     //         });
-            //     //     (this.show_company_data = true),
-            //     //             this.form = res.data.form;
-            //     //     this.show = true;
-            //     //     }
-            //     // );
-            //     this.returns(this.company_id, 'All');
-            //     byMethod("get", "/api/courier").then(
-            //         (res) => {
-            //             this.courierdata = res.data.data.data;
-            //         });
-            // },
             allcouriertabs() {
                 this.email = this.courier = this.sms = this.stores = false;
                 this.allcourier = true;
@@ -1092,12 +903,12 @@
                     byMethod("get", "/api/courier").then((resp) => {
                         this.courierdata = resp.data.data.data;
                         this.form = res.data.form;
-
                         // Map authentication_key from form to courierdata
                         this.courierdata.forEach((courier) => {
                             const matchingForm = this.form.find((formItem) => formItem.value.id === courier.id);
                             if (matchingForm) {
                                 courier.authentication_key = matchingForm.value.authentication_key;
+                                courier.active = matchingForm.active;
                             }
                         });
                         this.show = true;
@@ -1174,13 +985,12 @@
                     }
                 );
             },
-
             savestore() {
                 byMethod(this.method, '/api/stores', this.form).then(res => {
                     this.successfull(res)
                     if (res.data.saved == true) {
                         byMethod("GET", '/api/stores').then(res => {
-                            // console.log(res.data.data.data)
+
                             this.stores_data = res.data.data.data
                         })
                     }
@@ -1233,7 +1043,6 @@
                 this.isSubmittingCompany = false; // Enable the button and hide the spinner
                 });
             },
-
             savejson(e) {
                 this.isSubmittingSetting = true;
                 byMethod("post", `/api/global_settings?value=${e}&company_id=${this.company_id}`, this.form)
@@ -1401,7 +1210,6 @@
         text-align: center;
         font-size: 13px;
     }
-
     .radio-input {
         clip: rect(0 0 0 0);
         -webkit-clip-path: inset(100%);
@@ -1412,7 +1220,6 @@
         white-space: nowrap;
         width: 1px;
     }
-
     .card {
         position: relative;
         width: 70px;
@@ -1427,21 +1234,17 @@
         box-shadow: 0 0 0 5px #ffffff80;
         transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-
     .card svg {
         width: 48px;
         fill: #333333;
         transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-
     .card:hover {
         transform: scale(1.05);
         box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
     }
-
     .card__content {
         position: absolute;
-
         left: 0;
         width: 100%;
         height: 100%;
@@ -1451,22 +1254,18 @@
         transform: rotateX(-90deg);
         transform-origin: bottom;
     }
-
     .card:hover .card__content {
         transform: rotateX(0deg);
     }
-
     .card__title {
         margin: 0;
         font-size: 12px;
         color: #3985b1;
         font-weight: 700;
     }
-
     .card:hover svg {
         scale: 0;
     }
-
     .card__description {
         margin: 10px 0 0;
         font-size: 8px;
@@ -1474,13 +1273,11 @@
         color: #0c0c0c;
         line-height: 1.4;
     }
-
     .card-container {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
     }
-
     .coins {
         font-size: 80px;
         width: 0.1em;
@@ -1490,7 +1287,6 @@
         animation: rotate_4001510 7s infinite linear;
         transform-style: preserve-3d;
     }
-
     .coin {
         font-size: 80px;
         width: 0.1em;
@@ -1500,7 +1296,6 @@
         animation: rotate_4001510 7s infinite linear;
         transform-style: preserve-3d;
     }
-
     .coin .side, .coin:before, .coin:after {
         content: "";
         position: absolute;
@@ -1516,12 +1311,10 @@
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
-
     .coin .tails, .coin:after {
         left: -0.4em;
         transform: rotateY(90deg);
     }
-
     .coins .side, .coins:before, .coins:after {
         content: "";
         position: absolute;
@@ -1537,46 +1330,32 @@
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
-
     .coins .tails, .coins:after {
         left: -0.4em;
         transform: rotateY(90deg);
     }
-
-
     .coin:before, .coin:after {
         background: linear-gradient(49deg, rgba(37, 40, 119, 1) 0%, rgba(31, 31, 88, 1) 31%, rgba(11, 37, 37, 1) 71%);
         backface-visibility: hidden;
         transform: rotateY(90deg);
     }
-
     .coins:before, .coins:after {
         background: linear-gradient(49deg, rgb(91, 255, 154) 0%, rgb(29, 194, 65) 31%, rgb(4, 143, 4) 71%);
         backface-visibility: hidden;
         transform: rotateY(90deg);
     }
-
     .coin:after {
         transform: rotateY(-90deg);
     }
-
     .coins:after {
         transform: rotateY(-90deg);
     }
-
 
     @keyframes rotate_4001510 {
         100% {
             transform: rotateY(360deg);
         }
     }
-
-    /*
-    .svg_back {
-      transform: scaleX(-1);
-    } */
-
-
     /* === removing default button style ===*/
     .buttons {
         margin: 0;
@@ -1585,7 +1364,6 @@
         padding: 0;
         border: none;
     }
-
     /* button styling */
     .buttons {
         --border-right: 6px;
@@ -1601,7 +1379,6 @@
         color: transparent;
         -webkit-text-stroke: 1px var(--text-stroke-color);
     }
-
     /* this is the text, when you hover on button */
     .hover-text {
         position: absolute;
@@ -1615,12 +1392,9 @@
         transition: 0.5s;
         -webkit-text-stroke: 1px var(--animation-color);
     }
-
     /* hover */
     .buttons:hover .hover-text {
         width: 100%;
         filter: drop-shadow(0 0 23px var(--animation-color))
     }
-
-
 </style>
