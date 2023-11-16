@@ -134,7 +134,7 @@
 
             </button>
                 <button
-                    @click="successfull()"
+                    @click="additionalProp ? successfully():successfull()"
                     type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white">
                     Cancel
                 </button>
@@ -146,7 +146,7 @@
 <script>
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
-
+    import {objectToFormData} from "@/libs/helpers";
     function initialize(to) {
         let urls = {
             add: `/api/supplier/create`,
@@ -160,12 +160,17 @@
         components: {
             // Typeahead,
         },
+        props: {
+            show: Boolean,
+            additionalProp: String,
+        },
         data() {
             return {
                 error: {},
-                show: false,
+                // show: false,
                 isSubmitting: false,
                 resource: '/supplier',
+                show: Boolean,
                 store: '/api/supplier',
                 method: 'POST',
                 small: 'supplier',
@@ -223,16 +228,18 @@
             //     })
             // },
             formSubmitted() {
-                this.isSubmitting = true; // Disable the button and show the spinner
+                this.isSubmitting = true; 
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
-                    this.successfull(res)
+                    this.additionalProp ? this.formSubmiting():this.successfull(res)
+                    // this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
                         message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
                         type: 'success',
                         duration: 3000
                     });
+                    this.$emit('resp', true);
                 }).catch(err => {
                     this.error = err.response.data.errors;
                     this.$toast.open({
@@ -241,7 +248,7 @@
                         type: 'error',
                         duration: 3000
                     });
-                    // console.log(err);
+                    
                 })
                 .finally(() => {
                 this.isSubmitting = false; // Enable the button and hide the spinner
@@ -249,6 +256,17 @@
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
+            },
+            successfully(res) {
+                this.$emit('cancel-supplier', {
+
+                })
+            },
+
+            formSubmiting(){
+                this.$emit('save-supplier', {
+
+            })
             }
         },
     }

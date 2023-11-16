@@ -7,9 +7,16 @@
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
 
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label
-                        class="block font-medium text-sm text-gray-700 mb-2"
-                    >Supplier <span class="text-red-600">*</span></label>
+                    <!-- <label
+                        class="block font-medium text-sm text-gray-700 "
+                    >Supplier <span class="text-red-600">*</span>
+                    <button @click="supplierbtn" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-3 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out ">New</button>
+                </label> -->
+              
+                        <div class="block font-medium text-sm text-gray-700 ">
+                            <label>Supplier</label>
+                            <button @click="supplierbtn" class="inline-flex justify-center ml-2 items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-3 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out ">New</button>
+                        </div>
                     <typeahead :initialize="form.supplier" :url="suppliers" @input="onSupplier" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.supplier_id">{{error.supplier_id[0] }}</p>
                 </div>
@@ -288,6 +295,10 @@
                     type="button">
                     Cancel
                 </button>
+                    <Modal :show="showsupplier" closeable="true" @cancel="handleCancelSupplier" >
+                    <Supplier @resp="()=>{showsupplier = !true}" :show="true" additionalProp="global" @save-supplier="handleCancelSupplier"  @cancel-supplier="handleCancelSupplier" ></Supplier>
+                </Modal>
+            
             </div>
         </div>
 
@@ -295,8 +306,11 @@
 </template>
 
 <script>
-    import {byMethod, get} from '@/libs/api'
-    import {form} from '@/libs/mixins'
+   
+    import {byMethod, get} from '@/libs/api';
+    import Modal from "@/Components/Modal.vue";
+    import {form} from '@/libs/mixins';
+    import Supplier from "../supplier/form.vue";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import moment from 'moment';
 
@@ -312,13 +326,14 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead,
+            Typeahead, Modal,Supplier
         },
         data() {
             return {
                 error: {},
                 show: false,
                 isSubmitting: false,
+                showsupplier: false,
                 show_modal:false,
                 resource: '/purchase',
                 store: '/api/purchase',
@@ -446,6 +461,15 @@
                 this.form.supplier = supplier
                 this.form.supplier_id = supplier.id
             },
+            supplierbtn(){
+                console.log("click this button");
+                // this.$emit('show-supplier-modal', true);
+                this.showsupplier = true;
+            },
+            handleCancelSupplier() {
+                this.showsupplier = false;
+        },
+            
             setData(res) {
 
                 this.form = res.data.form;
