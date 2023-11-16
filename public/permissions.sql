@@ -11,7 +11,7 @@
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 18/10/2023 15:04:26
+ Date: 16/11/2023 11:07:55
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `permissions`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 249 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 267 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permissions
@@ -212,12 +212,24 @@ INSERT INTO `permissions` VALUES (251, 'edit-cities', 'web', NULL, NULL, 249, NU
 INSERT INTO `permissions` VALUES (252, 'create-cities', 'web', NULL, NULL, 249, NULL, '2023-10-18 06:48:33', '2023-10-18 06:48:33');
 INSERT INTO `permissions` VALUES (253, 'delete-cities', 'web', NULL, NULL, 249, NULL, '2023-10-18 06:48:33', '2023-10-18 06:48:33');
 INSERT INTO `permissions` VALUES (254, 'export-cities', 'web', NULL, NULL, 249, NULL, '2023-10-18 06:48:33', '2023-10-18 06:48:33');
-INSERT INTO `permissions` VALUES (255, NULL, 'web', 'Courier_response', NULL, NULL, 56, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (256, 'view-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (257, 'edit-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (258, 'create-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (259, 'delete-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (260, 'export-courier_response', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (255, NULL, 'web', 'Cities', NULL, NULL, 56, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (256, 'view-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (257, 'edit-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (258, 'create-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (259, 'delete-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (260, 'export-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
+INSERT INTO `permissions` VALUES (261, NULL, 'web', 'Permission', NULL, NULL, 56, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
+INSERT INTO `permissions` VALUES (262, 'view-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
+INSERT INTO `permissions` VALUES (263, 'edit-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
+INSERT INTO `permissions` VALUES (264, 'create-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
+INSERT INTO `permissions` VALUES (265, 'delete-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
+INSERT INTO `permissions` VALUES (266, 'export-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
+INSERT INTO `permissions` VALUES (267, NULL, 'web', 'General_voucher', NULL, NULL, 56, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (268, 'view-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (269, 'edit-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (270, 'create-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (271, 'delete-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (272, 'export-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -246,11 +258,6 @@ INSERT INTO `role_has_permissions` VALUES (65, 1);
 INSERT INTO `role_has_permissions` VALUES (66, 1);
 INSERT INTO `role_has_permissions` VALUES (67, 1);
 INSERT INTO `role_has_permissions` VALUES (68, 1);
-INSERT INTO `role_has_permissions` VALUES (70, 1);
-INSERT INTO `role_has_permissions` VALUES (71, 1);
-INSERT INTO `role_has_permissions` VALUES (72, 1);
-INSERT INTO `role_has_permissions` VALUES (73, 1);
-INSERT INTO `role_has_permissions` VALUES (74, 1);
 INSERT INTO `role_has_permissions` VALUES (76, 1);
 INSERT INTO `role_has_permissions` VALUES (77, 1);
 INSERT INTO `role_has_permissions` VALUES (78, 1);
@@ -341,54 +348,40 @@ INSERT INTO `role_has_permissions` VALUES (209, 1);
 INSERT INTO `role_has_permissions` VALUES (210, 1);
 INSERT INTO `role_has_permissions` VALUES (211, 1);
 INSERT INTO `role_has_permissions` VALUES (212, 1);
-INSERT INTO `role_has_permissions` VALUES (213, 1);
 INSERT INTO `role_has_permissions` VALUES (214, 1);
 INSERT INTO `role_has_permissions` VALUES (215, 1);
 INSERT INTO `role_has_permissions` VALUES (216, 1);
 INSERT INTO `role_has_permissions` VALUES (217, 1);
 INSERT INTO `role_has_permissions` VALUES (218, 1);
-INSERT INTO `role_has_permissions` VALUES (219, 1);
 INSERT INTO `role_has_permissions` VALUES (220, 1);
 INSERT INTO `role_has_permissions` VALUES (221, 1);
 INSERT INTO `role_has_permissions` VALUES (222, 1);
 INSERT INTO `role_has_permissions` VALUES (223, 1);
 INSERT INTO `role_has_permissions` VALUES (224, 1);
-INSERT INTO `role_has_permissions` VALUES (225, 1);
 INSERT INTO `role_has_permissions` VALUES (226, 1);
 INSERT INTO `role_has_permissions` VALUES (227, 1);
 INSERT INTO `role_has_permissions` VALUES (228, 1);
 INSERT INTO `role_has_permissions` VALUES (229, 1);
 INSERT INTO `role_has_permissions` VALUES (230, 1);
-INSERT INTO `role_has_permissions` VALUES (231, 1);
 INSERT INTO `role_has_permissions` VALUES (232, 1);
 INSERT INTO `role_has_permissions` VALUES (233, 1);
 INSERT INTO `role_has_permissions` VALUES (234, 1);
 INSERT INTO `role_has_permissions` VALUES (235, 1);
 INSERT INTO `role_has_permissions` VALUES (236, 1);
-INSERT INTO `role_has_permissions` VALUES (237, 1);
 INSERT INTO `role_has_permissions` VALUES (238, 1);
 INSERT INTO `role_has_permissions` VALUES (239, 1);
 INSERT INTO `role_has_permissions` VALUES (240, 1);
 INSERT INTO `role_has_permissions` VALUES (241, 1);
 INSERT INTO `role_has_permissions` VALUES (242, 1);
-INSERT INTO `role_has_permissions` VALUES (243, 1);
 INSERT INTO `role_has_permissions` VALUES (244, 1);
 INSERT INTO `role_has_permissions` VALUES (245, 1);
 INSERT INTO `role_has_permissions` VALUES (246, 1);
 INSERT INTO `role_has_permissions` VALUES (247, 1);
 INSERT INTO `role_has_permissions` VALUES (248, 1);
-INSERT INTO `role_has_permissions` VALUES (249, 1);
 INSERT INTO `role_has_permissions` VALUES (250, 1);
 INSERT INTO `role_has_permissions` VALUES (251, 1);
 INSERT INTO `role_has_permissions` VALUES (252, 1);
 INSERT INTO `role_has_permissions` VALUES (253, 1);
-INSERT INTO `role_has_permissions` VALUES (254, 1);
-INSERT INTO `role_has_permissions` VALUES (255, 1);
-INSERT INTO `role_has_permissions` VALUES (256, 1);
-INSERT INTO `role_has_permissions` VALUES (257, 1);
-INSERT INTO `role_has_permissions` VALUES (258, 1);
-INSERT INTO `role_has_permissions` VALUES (259, 1);
-INSERT INTO `role_has_permissions` VALUES (260, 1);
 
 -- ----------------------------
 -- Table structure for roles
@@ -402,7 +395,7 @@ CREATE TABLE `roles`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `roles_name_guard_name_unique`(`name`, `guard_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of roles

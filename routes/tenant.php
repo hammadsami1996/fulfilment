@@ -108,6 +108,7 @@ Route::middleware([
         Route::resource('order_type', \App\Http\Controllers\OrderTypeController::class);
         Route::resource('candidate', \App\Http\Controllers\CandidateController::class);
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
+        Route::resource('general_voucher', \App\Http\Controllers\GeneralVoucherController::class);
         Route::get('dashboard', [\App\Http\Controllers\DashboardCountroller::class,'index']);
         Route::get('getorders', [\App\Http\Controllers\DashboardCountroller::class, 'getorders']);
         Route::post('update', [\App\Http\Controllers\StatusController::class, 'updatestatus']);
