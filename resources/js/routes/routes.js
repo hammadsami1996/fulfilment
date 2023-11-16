@@ -27,6 +27,7 @@ import product_category from "@/routes/product_category";
 import brand from "@/routes/brand";
 import replacement from "@/routes/replacement";
 import cities from "@/routes/cities";
+import general_voucher from "@/routes/general_voucher";
 
 
 const toast = useToast(); // Initialize the toast plugin
@@ -72,6 +73,7 @@ const router = createRouter({
         ...settings,
         ...fetch_order,
         ...cities,
+        ...general_voucher,
 
         {
             path: '/error-404',

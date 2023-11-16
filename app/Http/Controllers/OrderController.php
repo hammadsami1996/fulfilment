@@ -9,7 +9,7 @@ use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\Order_item;
 use App\Models\OrderViews;
-use Carbon\Carbon;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -121,6 +121,8 @@ class OrderController extends Controller
             $Customer->save();
         }
 
+
+
         $number = Counter::where('key', 'sales_order');
         $model = new Order();
         $model->fill($request->except('items'));
@@ -131,7 +133,13 @@ class OrderController extends Controller
 
         $model->sub_total = collect($request->items)->sum(function ($item) {
             return $item['qty'] * $item['unit_price'];
-        });;
+        });
+
+        $store = Store::find($request->store_id);
+        $company_id = $store->company_id;
+//        dd($store->company_id);
+        $model->company_id = $company_id;
+//        dd($model->company_id);
 
         $model->tax = $request->mtax_amount;
         $model->total = $request->finaltotal;
@@ -141,7 +149,6 @@ class OrderController extends Controller
                 return $item;
             })
         ]);
-
         $number->update([
             'value' => ($number->first()->value + 1)
         ]);
@@ -255,6 +262,6 @@ class OrderController extends Controller
             $order->courier_id = $statusData['id'];
             $order->save();
         }
-        return response()->json(['response'=>true]);
+        return response()->json(['response' => true]);
     }
 }
