@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('debit', 15)->nullable();
             $table->string('credit', 15)->nullable();
             $table->string('reference', 15)->nullable();
+            $table->integer('deleted_by')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
