@@ -22,7 +22,7 @@
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
                             v-model="form.voucher_type" >
                             <option value="Payment">Payment</option>
-                            <option value="Recipt">Recipt</option>
+                            <option value="Receipt">Receipt</option>
                         </select>
                     </div>
                     <p class="text-red-600 text-xs italic" v-if="error.voucher_type">{{ error.voucher_type[0] }}</p>
