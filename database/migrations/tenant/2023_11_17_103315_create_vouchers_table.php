@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('payment_type', 5)->nullable();
             $table->string('remarks', 5)->nullable();
             $table->string('number', 10)->nullable();
+            $table->integer('deleted_by')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
