@@ -6,7 +6,6 @@ use App\Support\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use App\Support\HasManyRelation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -14,7 +13,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 class Purchase extends Model implements Auditable
 {
 
-    use HasFactory,HasManyRelation, Notifiable,Search, HasRoles,SoftDeletes, \OwenIt\Auditing\Auditable;
+    use HasFactory,HasManyRelation, Notifiable,Search,SoftDeletes, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'supplier_id', 'po_number', 'po_reference_number', 'po_date', 'due_date', 'discount', 'sku', 'name',

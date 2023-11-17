@@ -279,7 +279,13 @@
                         <div class="card-block mt-4 p-4 rounded-lg shadow-lg bg-white">
                             <h3 class="mb-4 text-xl font-semibold text-indigo-600">Product Supplier</h3>
                             <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700">Suppliers</label>
+                                <!-- <label class="block text-sm font-medium text-gray-700">Suppliers</label> -->
+                                <div class="block font-medium text-sm text-gray-700" >
+                                <label>Supplier</label>
+                                <span @click="supplierbtn" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                                    New
+                                </span>
+                            </div>
                                 <typeahead
                                     :initialize="form.supplier"
                                     :url="supplier"
@@ -299,7 +305,12 @@
                         <div class="card-block mt-4 p-4 rounded-lg shadow-lg bg-white">
                             <h3 class="mb-4 text-xl font-semibold text-indigo-600">Product Organization</h3>
                             <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700">Category</label>
+                                <div class="block font-medium text-sm text-gray-700" >
+                                <label>Category</label>
+                                <span @click="ProductCategorybtn" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                                    New
+                                </span>
+                            </div>
                                 <typeahead
                                     :initialize="form.category"
                                     :url="category"
@@ -312,7 +323,12 @@
 
                             </div>
                             <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700">Brand</label>
+                                <div class="block font-medium text-sm text-gray-700" >
+                                <label>Brand</label>
+                                <span @click="Brandbtn" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                                    New
+                                </span>
+                            </div>
                                 <div class="relative">
                                     <typeahead
                                         :initialize="form.brand"
@@ -406,6 +422,15 @@
                     type="button">
                     Cancel
                 </button>
+                <Modal :show="showsupplier" closeable="true" @cancel="handleCancelSupplier" >
+                    <Supplier @resp="()=>{showsupplier = !true}" :show="true" additionalProp="global" @save-supplier="handleCancelSupplier"  @cancel-supplier="handleCancelSupplier" ></Supplier>
+                </Modal>
+                <Modal :show="showProductCategory" closeable="true" @cancel="handleCancelProductCategory" >
+                    <ProductCategory @resp="()=>{showProductCategory = !true}" :show="true" additionalProp="global" @save-Productcategory="handleCancelProductCategory"  @cancel-Productcategory="handleCancelProductCategory" ></ProductCategory>
+                </Modal>
+                <Modal :show="showbrand" closeable="true" @cancel="handleCancelBrand" >
+                    <Brand @resp="()=>{showbrand = !true}" :show="true" additionalProp="global" @save-brand="handleCancelBrand"  @cancel-brand="handleCancelBrand" ></Brand>
+                </Modal>
             </div>
         </div>
     </div>
@@ -413,8 +438,12 @@
 
 <script>
     import {byMethod, get} from '@/libs/api'
+    import Modal from "@/Components/Modal.vue";
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import Supplier from "../supplier/form.vue";
+    import ProductCategory from "../product_category/form.vue";
+    import Brand from "../brand/form.vue";
     import {objectToFormData} from "@/libs/helpers";
 
     function initialize(to) {
@@ -428,7 +457,7 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead
+            Typeahead, Modal,Supplier,ProductCategory,Brand
         },
         data() {
             return {
@@ -436,6 +465,9 @@
                 error: {},
                 ImgUrl: [],
                 show: false,
+                showsupplier: false,
+                showProductCategory: false,
+                showbrand: false,
                 isSubmitting: false,
                 resource: '/product',
                 store: '/api/product',
@@ -562,16 +594,35 @@
                 this.form.category = category
                 this.form.category_id = category.id
             },
+            ProductCategorybtn(){
+               this.showProductCategory = true;
+            },
+            handleCancelProductCategory() {
+               this.showProductCategory = false;
+            },
             onSupplier(e) {
                 const supplier = e.target.value
                 this.form.supplier = supplier
                 this.form.supplier_id = supplier.id
             },
+            supplierbtn(){
+                this.showsupplier = true;
+            },
+            handleCancelSupplier() {
+                this.showsupplier = false;
+             },
+           
             onBrand(e) {
                 const brand = e.target.value
                 this.form.brand = brand
                 this.form.brand_id = brand.id
             },
+            Brandbtn(){
+                this.showbrand = true;
+            },
+            handleCancelBrand() {
+                this.showbrand = false;
+             },
             setData(res) {
                 this.form = res.data.form;
                 if (this.$route.meta.mode == 'edit') {

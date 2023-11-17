@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 
 class General_Voucher extends Model
 {
-    use HasFactory, Notifiable, HasRoles,SoftDeletes, Search;
+    use HasFactory, Notifiable,SoftDeletes, Search;
     protected $table = 'vouchers';
     protected $fillable = [
         'id','date', 'voucher_type', 'payment_type', 'currency', 'exchange_rate','remarks','number'

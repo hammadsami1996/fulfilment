@@ -53,7 +53,7 @@
                     {{ $route.meta.mode && $route.meta.mode === "edit" ? "Update" : "Add" }}
                 </button>
                 <button
-                    @click="successfull()"
+                    @click="additionalProp ? successfully():successfull()"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white"
                     type="button">
                     Cancel
@@ -82,10 +82,15 @@
         components: {
             Typeahead,
         },
+        props: {
+            show: Boolean,
+            additionalProp: String,
+        },
         data() {
             return {
                 error: {},
-                show: false,
+                // show: false,
+                show: Boolean,
                 isSubmitting: false,
                 resource: '/brand',
                 store: '/api/brand',
@@ -127,13 +132,14 @@
                 this.isSubmitting = true;
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
-                    this.successfull(res)
+                    this.additionalProp ? this.formSubmiting():this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
                         message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
                         type: 'success',
                         duration: 3000
                     });
+                    this.$emit('resp', true);
                 }).catch(err => {
                     this.error = err.response.data.errors;
                     this.$toast.open({
@@ -149,6 +155,16 @@
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
+            },
+             successfully(res) {
+                this.$emit('cancel-brand', {
+
+                })
+            },
+            formSubmiting(){
+                this.$emit('save-brand', {
+
+            })
             }
         },
     }

@@ -6,13 +6,12 @@ use App\Support\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Category extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles , SoftDeletes,Search, \OwenIt\Auditing\Auditable;
+    use HasFactory, Notifiable, SoftDeletes,Search, \OwenIt\Auditing\Auditable;
     
     protected $fillable = [
         'customer_category'
