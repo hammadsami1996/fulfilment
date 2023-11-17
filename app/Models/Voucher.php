@@ -13,9 +13,8 @@ use Spatie\Permission\Traits\HasRoles;
 class Voucher extends Model
 {
     use HasFactory, Notifiable, HasRoles,SoftDeletes, Search, HasManyRelation;
-//    protected $table = 'vouchers';
     protected $fillable = [
-        'id','date', 'voucher_type', 'payment_type',  'remarks','number'
+        'id','date', 'voucher_type', 'payment_type',  'remarks'
     ];
     protected $columns = [
         'date', 'voucher_type', 'payment_type', 'remarks','number'

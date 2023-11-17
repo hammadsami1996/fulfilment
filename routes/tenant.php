@@ -109,9 +109,10 @@ Route::middleware([
         Route::resource('candidate', \App\Http\Controllers\CandidateController::class);
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
         Route::resource('voucher', \App\Http\Controllers\VoucherController::class);
+        Route::get('voucher_number', [\App\Http\Controllers\VoucherController::class,'getNumber']);
         Route::get('dashboard', [\App\Http\Controllers\DashboardCountroller::class,'index']);
         Route::get('getorders', [\App\Http\Controllers\DashboardCountroller::class, 'getorders']);
-        Route::post('update', [\App\Http\Controllers\StatusController::class, 'updatestatus']);
+        Route::post('update', [\App\Http\Controllers\StatusController::class, 'updatestvoucher_numberatus']);
         Route::post('store_cities', [\App\Http\Controllers\CityController::class, 'storebulk']);
         Route::resource('courier_response', \App\Http\Controllers\CourierResponseController::class);
         Route::get('courier_serach', [\App\Http\Controllers\CourierResponseController::class, 'search']);

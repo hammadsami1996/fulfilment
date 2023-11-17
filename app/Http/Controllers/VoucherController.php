@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Counter;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,27 +10,19 @@ class VoucherController extends Controller
 {
     public function getNumber()
     {
-        $number = '';
-        $voucher_type = request('voucher_type_id');
-        if (request('transaction_type_id')) {
-            $transaction_type = request('transaction_type_id');
-        }
-        if ($voucher_type == 1) {
-            $number = counter()->next('journal_voucher');
-        } elseif ($voucher_type == 2) {
-            if ($transaction_type == 1)
-                $number = counter()->next('cash_payment_voucher');
-            else
-                $number = counter()->next('bank_payment_voucher');
-        } elseif ($voucher_type == 3) {
-            if ($transaction_type == 1) {
-                $number = counter()->next('cash_receipt_voucher');
-            } else {
-                $number = counter()->next('bank_receipt_voucher');
-            }
+        $number = null;
+        $voucher_type = request('voucher_type');
+        $payment_type = request('payment_type');
+        if ($voucher_type == 'Payment' && $payment_type == 'Cash') {
+            $number = counter()->next('cash_payment_voucher');
+        } else if ($voucher_type == 'Payment' && $payment_type == 'Bank') {
+            $number = counter()->next('bank_payment_voucher');
+        } else if ($voucher_type == 'Receipt' && $payment_type == 'Cash') {
+            $number = counter()->next('cash_receipt_voucher');
+        } else if ($voucher_type == 'Receipt' && $payment_type == 'Bank') {
+            $number = counter()->next('bank_receipt_voucher');
         }
         return response()->json(['results' => $number]);
-
     }
     /**
      * Display a listing of the resource.
@@ -74,32 +65,32 @@ class VoucherController extends Controller
 //            'exchange_rate' => 'required',
 //            'amount' => 'nullable|numeric|min:0',
 //        ]);
+
         $model = new Voucher();
         $model->fill($request->except('items'));
-
-//        $voucherType = '';
-//        $voucherType('bank_payment_voucher','cash_payment_voucher','bank_receipt_voucher','cash_receipt_voucher');
-//        foreach ($voucherType as $type){
-//            $number = Counter::where('key', $type);
-//            if ($type === 'bank_payment_voucher'){
-//                $model->bank_payment_voucher = $number->first()->prefix . $number->first()->value;
-//            }
-//            elseif ($type === 'cash_payment_voucher'){
-//                $model->cash_payment_voucher = $number->first()->prefix . $number->first()->value;
-//            }
-//            elseif ($type === 'bank_receipt_voucher'){
-//                $model->bank_receipt_voucher = $number->first()->prefix . $number->first()->value;
-//            }elseif ($type === 'cash_receipt_voucher'){
-//                $model->cash_receipt_voucher = $number->first()->prefix . $number->first()->value;
-//            }
-//            $number->increment('value');
-//        }
-//        $number = Counter::where('key', 'bank_payment_voucher');
-//        $model->number = ($number->first()->prefix . $number->first()->value);
-
+        $voucher_type = request('voucher_type');
+        $payment_type = request('payment_type');
+        if ($voucher_type == 'Payment' && $payment_type == 'Cash') {
+            $model->number = counter()->next('cash_payment_voucher');
+        } else if ($voucher_type == 'Payment' && $payment_type == 'Bank') {
+            $model->number = counter()->next('bank_payment_voucher');
+        } else if ($voucher_type == 'Receipt' && $payment_type == 'Cash') {
+            $model->number = counter()->next('cash_receipt_voucher');
+        } else if ($voucher_type == 'Receipt' && $payment_type == 'Bank') {
+            $model->number = counter()->next('bank_receipt_voucher');
+        }
         $model->storeHasMany([
             'items' => $request->items
         ]);
+        if ($voucher_type == 'Payment' && $payment_type == 'Cash') {
+            $model->number = counter()->increase('cash_payment_voucher');
+        } else if ($voucher_type == 'Payment' && $payment_type == 'Bank') {
+            $model->number = counter()->increase('bank_payment_voucher');
+        } else if ($voucher_type == 'Receipt' && $payment_type == 'Cash') {
+            $model->number = counter()->increase('cash_receipt_voucher');
+        } else if ($voucher_type == 'Receipt' && $payment_type == 'Bank') {
+            $model->number = counter()->increase('bank_receipt_voucher');
+        }
         return response()->json(["saved" => true, "id" => $model->id, 'results' => $number]);
     }
 

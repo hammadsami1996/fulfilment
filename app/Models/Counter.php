@@ -26,11 +26,9 @@ class Counter extends Model implements Auditable
     public function increase($key)
     {
         $result = $this->db()->where('key', $key)->increment('value');
-
         if (!$result) {
             throw new Exception('Counter could not increment');
         }
-
         return $result;
     }
 

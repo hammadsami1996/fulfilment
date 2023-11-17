@@ -277,8 +277,8 @@
                 }
             },
             getNumber(VoucherType, PaymentType){
-                byMethod('Get', `/api/voucher_number?voucher_type=${VoucherType}$payment_type=${PaymentType}`).then(res=>{
-                    res.data.number;
+                byMethod('Get', `/api/voucher_number?voucher_type=${VoucherType}&payment_type=${PaymentType}`).then(res=>{
+                    this.form.number = res.data.results;
                 })
                 console.log(VoucherType, PaymentType)
             },
