@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 
 class Voucher extends Model
 {
-    use HasFactory, Notifiable, HasRoles,SoftDeletes, Search, HasManyRelation;
+    use HasFactory, Notifiable,SoftDeletes, Search, HasManyRelation;
 //    protected $table = 'vouchers';
     protected $fillable = [
         'id','date', 'voucher_type', 'payment_type',  'remarks','number'
