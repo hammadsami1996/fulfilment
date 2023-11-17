@@ -94,8 +94,8 @@ class VoucherController extends Controller
 //            }
 //            $number->increment('value');
 //        }
-        $number = Counter::where('key', 'bank_payment_voucher');
-        $model->number = ($number->first()->prefix . $number->first()->value);
+//        $number = Counter::where('key', 'bank_payment_voucher');
+//        $model->number = ($number->first()->prefix . $number->first()->value);
 
         $model->storeHasMany([
             'items' => $request->items

@@ -241,24 +241,45 @@
         created() {
             this.form.date = moment().format('YYYY-MM-DD');
         },watch: {
-            form: {
-                deep: true,
-                handler(newFom, oldFom) {
-                    const newVoucherType = newFom.voucher_type;
-                    const newPaymentType = newFom.payment_type;
-                    const oldVoucherType = oldFom.voucher_type;
-                    const oldPaymentType = oldFom.payment_type;
-
-                    if (newVoucherType !== null && newPaymentType !== null &&
-                        (newVoucherType !== oldVoucherType || newPaymentType !== oldPaymentType)) {
-                        this.getNumber(newVoucherType, newPaymentType);
-                    }
-                }
+            'form.voucher_type': function(newVoucherType , oldVoucherType){
+                this.checkAndCallGetNumber();
+            },
+            'form.payment_type':function(newPaymentType, oldPaymentType){
+                this.checkAndCallGetNumber();
             }
+
+            // form: {
+            //     deep: true,
+            //     handler(newFom, oldFom) {
+            //         const newVoucherType = newFom.voucher_type;
+            //         const newPaymentType = newFom.payment_type;
+            //         const oldVoucherType = oldFom.voucher_type;
+            //         const oldPaymentType = oldFom.payment_type;
+            //
+            //         if (newVoucherType !== null && newPaymentType !== null &&
+            //             (newVoucherType !== oldVoucherType || newPaymentType !== oldPaymentType)) {
+            //             this.getNumber(newVoucherType, newPaymentType);
+            //         }
+            //     }
+            // }
         },
 
         methods: {
+            checkAndCallGetNumber(){
+                if(this.form.voucher_type !== null && this.form.payment_type !== null){
+                    if(this.form.voucher_type !== this.oldVoucherType || this.form.payment_type !== this.oldPaymentType){
+                        if(this.form.voucher_type && this.form.payment_type){
+                            this.getNumber(this.form.voucher_type, this.form.payment_type);
+                        }
+                        this.oldVoucherType = this.form.voucher_type;
+                        this.oldPaymentType = this.form.payment_type;
+                    }
+                }
+            },
             getNumber(VoucherType, PaymentType){
+                byMethod('Get', `/api/voucher_number?voucher_type=${VoucherType}$payment_type=${PaymentType}`).then(res=>{
+                    res.data.number;
+                })
                 console.log(VoucherType, PaymentType)
             },
             setData(res) {
