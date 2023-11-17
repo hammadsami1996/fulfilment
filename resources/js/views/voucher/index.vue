@@ -60,9 +60,9 @@
         data() {
             return {
                 permissions: [],
-                urlApi: "/api/general_voucher",
-                resource: "/general_voucher",
-                small: "general_voucher",
+                urlApi: "/api/voucher",
+                resource: "/voucher",
+                small: "voucher",
                 capital: "General Voucher",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
@@ -70,7 +70,6 @@
                     {label: 'Number', field: 'number'},
                     {label: 'Voucher Type', field: 'voucher_type'},
                     {label: 'Payment Type', field: 'payment_type'},
-                    {label: 'Exchange Rate', field: 'exchange_rate'},
                     {label: 'Action', field: 'action', action: true}
                 ]
             }
@@ -83,7 +82,7 @@
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
             deleteRole(e) {
-                byMethod('delete', `/api/general_voucher/${e}`)
+                byMethod('delete', `/api/voucher/${e}`)
                     .then((res) => {
                         if (res.data.deleted) {
                             this.$refs.TableData.reload();

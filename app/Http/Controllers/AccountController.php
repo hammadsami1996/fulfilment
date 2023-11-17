@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
+    public function index(){
+        return response()->json(['data' => Account::search()]);
+
+    }
     public function store(Request $request)
     {
         // dd($request->all());
