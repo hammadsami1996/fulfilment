@@ -14,14 +14,16 @@
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                 <label class="block font-medium text-sm text-gray-700 mb-2">
                     Cities:
-                    <button @click="clear('city')" class="text-red-400 text-sm hover:text-red-600">Clear</button>
+                    <!-- <button @click="clear('city')" class="text-red-400 text-sm hover:text-red-600">Clear</button> -->
                 </label>
-                <typeahead
+                <div class="custom-typeahead">
+                    <typeahead
                     :initialize="form.city"
                     :url="form.country_id != null ? `/api/city?country_id=${form.country_id}` : city"
                     @input="onCity"
                     display="name"
-                />
+                    multi-select="true"/>
+                </div>
             </div>
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                 <label class="block font-medium text-sm text-gray-700 mb-2">
@@ -77,12 +79,12 @@
                             style="height: 50px; width: 50px; border-radius: 50%"
                         />
                         <img
-                            v-if="props.item.couriers[0].id === 2 || props.item.couriers[0].id === 5"
-                            src="~@/images/trax.png"
+                            v-if="props.item.couriers[0].id ===  1 || props.item.couriers[0].id === 5"
+                            src="~@/images/trax.png" 
                             style="height: 50px; width: 50px; border-radius: 50%"
                         />
                         <img
-                            v-if="props.item.couriers[0].id === 6 || props.item.couriers[0].id === 1"
+                            v-if="props.item.couriers[0].id === 6 || props.item.couriers[0].id === 2"
                             src="~@/images/leopard.jpeg"
                             style="height: 50px; width: 50px; border-radius: 50%"
                         />

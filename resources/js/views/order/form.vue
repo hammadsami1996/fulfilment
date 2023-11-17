@@ -12,8 +12,13 @@
                     <p class="text-red-600 text-xs italic" v-if="error.order_date">{{ error.order_date[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Customer
-                        </label>
+                    <!-- <label class="block font-medium text-sm text-gray-700 mb-2">Customer   
+                           <button @click="customerbtn" class="block inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-3 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out ">New</button>
+                        </label> -->
+                        <div class="block font-medium text-sm text-gray-700 ">
+                            <label>Customer</label>
+                            <button @click="customerbtn" class="inline-flex justify-center ml-2 items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-3 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out ">New</button>
+                            </div>
                     <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
@@ -306,6 +311,9 @@
                     type="button">
                     Cancel
                 </button>
+                <Modal :show="showcustomer" closeable="true" @cancel="handleCancelCustomer">
+                    <Customer @resp="()=>{showcustomer = !true}" :show="true" additionalProp="global" @save-customer="handleCancelCustomer"  @cancel-customer="handleCancelCustomer" ></Customer>
+                </Modal>
             </div>
         </div>
     </div>
@@ -314,7 +322,9 @@
 <script>
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
+    import Modal from "@/Components/Modal.vue";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import Customer from "../customer/form.vue";
     import moment from 'moment';
 
     function initialize(to) {
@@ -328,7 +338,7 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead,
+            Typeahead,Customer, Modal
         },
         data() {
             return {
@@ -338,10 +348,11 @@
                 error: {},
                 alert: false,
                 isSubmitting: false,
+                showcustomer: false,
                 // count: null,
                 color: 'blue',
                 ids: {},
-                show: false,
+                // show: false,
                 resource: '/order',
                 store: '/api/order',
                 method: 'POST',
@@ -453,6 +464,12 @@
                 const country = e.target.value
                 this.form.country = country
                 this.form.country_id = country.id
+            },
+            customerbtn(){
+                this.showcustomer = true;
+            },
+            handleCancelCustomer() {
+                this.showcustomer = false;
             },
             onCourier(e) {
                 const courier = e.target.value;
