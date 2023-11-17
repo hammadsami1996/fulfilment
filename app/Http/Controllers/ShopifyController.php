@@ -11,6 +11,7 @@ use App\Models\ProductAttribute;
 use App\Models\ProductAttributeGroup;
 use App\Models\ProductAttributeValue;
 use App\Models\Store;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -79,7 +80,7 @@ class ShopifyController extends Controller
                             $order = new Order();
                             $order->store_id = $store->id;
                             $order->company_id = $store->company_id;
-                            $order->order_date = $rec['created_at'];
+                            $order->order_date = Carbon::parse($rec['created_at'])->toDateTimeString();
                             $order->warehouse_id = $store->warehouse_id;
                             $order->order_form = 'Shopify';
                             $order->external_order_no = $rec['id'];
