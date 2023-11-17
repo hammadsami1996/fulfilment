@@ -12,11 +12,12 @@
                     >Supplier <span class="text-red-600">*</span>
                     <button @click="supplierbtn" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-3 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out ">New</button>
                 </label> -->
-              
-                        <div class="block font-medium text-sm text-gray-700 ">
-                            <label>Supplier</label>
-                            <button @click="supplierbtn" class="inline-flex justify-center ml-2 items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-3 text-sm border-gray-200 bg-blue-400 text-white hover:bg-blue-600  transition duration-200 ease-in-out ">New</button>
-                        </div>
+                        <div class="block font-medium text-sm text-gray-700" >
+                        <label>Supplier</label>
+                        <span @click="supplierbtn" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                            New
+                        </span>
+                    </div>
                     <typeahead :initialize="form.supplier" :url="suppliers" @input="onSupplier" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.supplier_id">{{error.supplier_id[0] }}</p>
                 </div>
@@ -462,8 +463,6 @@
                 this.form.supplier_id = supplier.id
             },
             supplierbtn(){
-                console.log("click this button");
-                // this.$emit('show-supplier-modal', true);
                 this.showsupplier = true;
             },
             handleCancelSupplier() {

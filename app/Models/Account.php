@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Support\Search;
@@ -14,7 +13,7 @@ use App\Support\Search;
 class Account extends Model implements Auditable
 {
    
-    use HasFactory, Notifiable, HasRoles , SoftDeletes,Search, \OwenIt\Auditing\Auditable;
+    use HasFactory, Notifiable, SoftDeletes,Search, \OwenIt\Auditing\Auditable;
    
 
     protected $fillable = [

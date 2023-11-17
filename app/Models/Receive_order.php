@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\HasManyRelation;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use App\Support\Search;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Receive_order extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles,SoftDeletes, Search, HasManyRelation,\OwenIt\Auditing\Auditable;
+    use HasFactory, Notifiable,SoftDeletes, Search, HasManyRelation,\OwenIt\Auditing\Auditable;
    
 
 

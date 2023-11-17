@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Permission\Traits\HasRoles;
+
 
 class StatusLog extends Model implements Auditable
 {
-    use HasFactory ,Notifiable, HasRoles,SoftDeletes, HasManyRelation, \OwenIt\Auditing\Auditable;
+    use HasFactory ,Notifiable,SoftDeletes, HasManyRelation, \OwenIt\Auditing\Auditable;
 
 
 

@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Permission\Traits\HasRoles;
+
 
 class Status extends Model implements Auditable
 {
     protected $connection = 'mysql';
 
-    use HasFactory, Search, Notifiable, HasRoles, \OwenIt\Auditing\Auditable;
+    use HasFactory, Search, Notifiable, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'name',

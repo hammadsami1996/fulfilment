@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Permission\Traits\HasRoles;
+
 
 class Product extends Model implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles, SoftDeletes, Search, \OwenIt\Auditing\Auditable, HasManyRelation;
+    use HasFactory, Notifiable,SoftDeletes, Search, \OwenIt\Auditing\Auditable, HasManyRelation;
 
     protected $fillable = [
         "head_id", "title", "brand_id", "supplier_id", "category_id", "sku", "cost_price", "selling_price", "barcode",

@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 // use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Country extends Model implements Auditable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, Search,\OwenIt\Auditing\Auditable;
+    use HasApiTokens, HasFactory, Notifiable, Search,\OwenIt\Auditing\Auditable;
 
     protected $connection = 'mysql';
     protected $table = 'countries';

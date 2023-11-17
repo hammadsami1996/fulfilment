@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Permission\Traits\HasRoles;
+
 
 class Order extends Model implements Auditable
 {
-    use HasFactory, HasManyRelation, Search, Notifiable, HasRoles, SoftDeletes, \OwenIt\Auditing\Auditable;
+    use HasFactory, HasManyRelation, Search, Notifiable,SoftDeletes, \OwenIt\Auditing\Auditable;
 
 
     protected $fillable = [

@@ -7,14 +7,13 @@ use App\Support\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use function Symfony\Component\Console\Style\text;
 
 
 
 class OrderViews extends Model
 {
-    use HasFactory, Notifiable,HasManyRelation, HasRoles ,Search;
+    use HasFactory, Notifiable,HasManyRelation,Search;
 
     protected $search = [
         'order_date', 'total', 'tax', 'balance', 'payment_status', 'location', 'sales_rep', 'selling_price', 'external_order_no', 'sub_total', 'discount', 'discount_percent',
