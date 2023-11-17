@@ -108,13 +108,15 @@ Route::middleware([
         Route::resource('order_type', \App\Http\Controllers\OrderTypeController::class);
         Route::resource('candidate', \App\Http\Controllers\CandidateController::class);
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
-        Route::resource('general_voucher', \App\Http\Controllers\GeneralVoucherController::class);
+        Route::resource('voucher', \App\Http\Controllers\VoucherController::class);
         Route::get('dashboard', [\App\Http\Controllers\DashboardCountroller::class,'index']);
         Route::get('getorders', [\App\Http\Controllers\DashboardCountroller::class, 'getorders']);
         Route::post('update', [\App\Http\Controllers\StatusController::class, 'updatestatus']);
         Route::post('store_cities', [\App\Http\Controllers\CityController::class, 'storebulk']);
         Route::resource('courier_response', \App\Http\Controllers\CourierResponseController::class);
         Route::get('courier_serach', [\App\Http\Controllers\CourierResponseController::class, 'search']);
+//        Route::get('getnumber', [\App\Http\Controllers\VoucherController::class, 'getNumber']);
+
 
         Route::post('global_settings', [\App\Http\Controllers\SettingsController::class, 'add_settings']);
         Route::post('other_setting', [\App\Http\Controllers\SettingsController::class, 'other_setting']);

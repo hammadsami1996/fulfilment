@@ -1,33 +1,33 @@
 export default [
     {
-        path: '/general_voucher',
-        name: 'view-general_voucher',
-        component: () => import('../views/general_voucher/index.vue'),
+        path: '/voucher',
+        name: 'view-voucher',
+        component: () => import('../views/voucher/index.vue'),
         meta: {
-            pageTitle: 'general_voucher',
+            pageTitle: 'voucher',
             breadcrumb: [
                 {
                     text: 'Home'
                 },
                 {
-                    text: 'general_voucher',
+                    text: 'voucher',
                     active: true,
                 },
             ],
         },
     },
     {
-        path: '/general_voucher/create',
-        name: 'create-general_voucher',
-        component: () => import('../views/general_voucher/form.vue'),
+        path: '/voucher/create',
+        name: 'create-voucher',
+        component: () => import('../views/voucher/form.vue'),
         meta: {
-            pageTitle: 'general_voucher',
+            pageTitle: 'voucher',
             breadcrumb: [
                 {
                     text: 'Home'
                 },
                 {
-                    text: 'general_voucher',
+                    text: 'voucher',
                 },
                 {
                     text: 'Create',
@@ -37,22 +37,22 @@ export default [
         },
     },
     {
-        path: '/general_voucher/:id/edit',
-        name: 'edit-general_voucher',
-        component: () => import('../views/general_voucher/form.vue'),
+        path: '/voucher/:id/edit',
+        name: 'edit-voucher',
+        component: () => import('../views/voucher/form.vue'),
         meta: {
             mode: 'edit',
-            pageTitle: 'general_voucher',
+            pageTitle: 'voucher',
             breadcrumb: [
                 {
                     text: 'Home'
                 },
                 {
-                    text: 'general_voucher',
-                    link: '/general_voucher'
+                    text: 'voucher',
+                    link: '/voucher'
                 },
                 {
-                    text: 'general_voucher Edit',
+                    text: 'voucher Edit',
                     active: true,
                 },
             ],

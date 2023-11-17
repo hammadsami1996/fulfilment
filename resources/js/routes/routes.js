@@ -27,7 +27,7 @@ import product_category from "@/routes/product_category";
 import brand from "@/routes/brand";
 import replacement from "@/routes/replacement";
 import cities from "@/routes/cities";
-import general_voucher from "@/routes/general_voucher";
+import general_voucher from "@/routes/voucher";
 
 
 const toast = useToast(); // Initialize the toast plugin

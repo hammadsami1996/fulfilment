@@ -461,27 +461,6 @@
                 this.form.po_date = moment().format('YYYY-MM-DD');
                 this.show = true
             },
-
-            // formSubmitted() {
-            //     this.form.selectedPermissions = this.selectedPermissions
-            //     byMethod(this.method, this.store, this.form).then(res => {
-            //         this.successfull(res)
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
-            //             type: 'success',
-            //             duration: 3000
-            //         });
-            //     }).catch(err => {
-            //         this.error = err.response.data.errors;
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: 'Error',
-            //             type: 'error',
-            //             duration: 3000
-            //         });
-            //     })
-            // },
             formSubmitted() {
                 this.isSubmitting = true; // Disable the button and show the spinner
                 this.form.selectedPermissions = this.selectedPermissions
