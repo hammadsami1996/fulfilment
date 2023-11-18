@@ -11,7 +11,7 @@ return new class extends Migration
      */
    public function up(): void
    {
-//          DB::unprepared(file_get_contents(public_path('/cities.sql')));
+          DB::unprepared(file_get_contents(public_path('/cities.sql')));
    }
 
     /**
