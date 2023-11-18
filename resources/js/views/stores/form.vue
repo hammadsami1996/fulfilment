@@ -403,10 +403,9 @@
                         duration: 3000
                     });
                 })
-                // .finally(() => {
-                // this.isSubmittingdata = false; // Enable the button and hide the spinner
-                // });
-                this.isSubmittingdata = false;
+                .finally(() => {
+                this.isSubmittingdata = false; // Enable the button and hide the spinner
+                });
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})

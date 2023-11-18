@@ -124,10 +124,9 @@
                     });
 
                 })
-                // .finally(() => {
-                // this.isSubmitting = false; // Enable the button and hide the spinner
-                // });
-                this.isSubmitting = false;
+                .finally(() => {
+                this.isSubmitting = false; // Enable the button and hide the spinner
+                });
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})

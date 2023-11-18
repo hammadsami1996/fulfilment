@@ -175,11 +175,9 @@
                     });
 
                 })
-                // .finally(() => {
-                // this.isSubmitting = false;
-                // });
+                .finally(() => {
                 this.isSubmitting = false;
-
+                });
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
