@@ -62,11 +62,11 @@ class VoucherController extends Controller
            'voucher_type' => 'required',
            'payment_type' => 'required',
            'remarks' => 'max:100',
-           'account' => 'required'
+//           'account' => 'required'
         //    'exchange_rate' => 'required',
         //    'amount' => 'nullable|numeric|min:0',
        ]);
-    
+
 
         $model = new Voucher();
         $model->fill($request->except('items'));
