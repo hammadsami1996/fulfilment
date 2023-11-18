@@ -428,9 +428,10 @@
                         duration: 3000
                     });
                 })
-                .finally(() => {
-                this.isSubmitting = false; // Enable the button and hide the spinner
-                });
+                // .finally(() => {
+                // this.isSubmitting = false; // Enable the button and hide the spinner
+                // });
+                this.isSubmitting = false;
             },
             saveinvent() {
                 this.form.selectedPermissions = this.selectedPermissions

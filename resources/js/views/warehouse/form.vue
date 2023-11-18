@@ -121,7 +121,6 @@
         },
         methods: {
             setData(res) {
-              
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -130,28 +129,6 @@
                 }
                 this.show = true
             },
-
-            // formSubmitted() {
-            //     this.form.selectedPermissions = this.selectedPermissions
-            //     byMethod(this.method, this.store, this.form).then(res => {
-            //         this.successfull(res)
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
-            //             type: 'success',
-            //             duration: 3000
-            //         });
-            //     }).catch(err => {
-            //         this.error = err.response.data.errors;
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: 'Error',
-            //             type: 'error',
-            //             duration: 3000
-            //         });
-                  
-            //     })
-            // },
             formSubmitted() {
                 this.isSubmitting = true; // Disable the button and show the spinner
                 this.form.selectedPermissions = this.selectedPermissions
@@ -173,16 +150,16 @@
                     });
                     // console.log(err);
                 })
-                .finally(() => {
-                this.isSubmitting = false; // Enable the button and hide the spinner
-                });
+                // .finally(() => {
+                // this.isSubmitting = false; // Enable the button and hide the spinner
+                // });
+                this.isSubmitting = false;
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
             },
             onParent(e) {
                 const parent = e.target.value;
-      
                 this.form.parent = parent
                 this.form.parent_id = parent.id
             },

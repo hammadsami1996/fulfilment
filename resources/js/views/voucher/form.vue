@@ -20,7 +20,7 @@
                     <div class="relative">
                         <select
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
-                            v-model="form.voucher_type" >
+                            v-model="form.voucher_type">
                             <option value="Payment">Payment</option>
                             <option value="Receipt">Receipt</option>
                         </select>
@@ -42,18 +42,9 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2">Number <span class="text-gray-500 ml-12">(Auto Generated)</span></label>
-<!--                    <div class="relative">-->
-<!--                        <select-->
-<!--                            class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"-->
-<!--                            v-model="form.number">-->
-<!--                            <option value="bank_payment_voucher">Bank Payment Voucher</option>-->
-<!--                            <option value="cash_payment_voucher">Cash Payment Voucher</option>-->
-<!--                            <option value="bank_receipt_voucher">Bank Receipt Voucher</option>-->
-<!--                            <option value="cash_receipt_voucher">Cash Receipt Voucher</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
                     <input
-                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" disabled v-model="form.number"
+                        class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" disabled
+                        v-model="form.number"
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.number">{{ error.number[0] }}</p>
                 </div>
@@ -65,16 +56,18 @@
                               v-model="form.remarks"/>
                 </div>
             </div>
-            <div class="mt-4 ml-2 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+            <div
+                class="mt-4 ml-2 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
                 <table class="min-w-full text-sm whitespace-nowrap">
-                    <thead >
+                    <thead>
                     <tr class="border-b border-gray-100 dark:border-gray-700/50">
                         <th class="p-2 text-gray-900 bg-gray-100/75 font-semibold dark:text-gray-50 dark:bg-gray-700/25">
                             Account
                         </th>
                         <th class="text-gray-900 bg-gray-100/75 font-semibold dark:text-gray-50 dark:bg-gray-700/25">
                             Subledger
-                        </th><th class="text-gray-900 bg-gray-100/75 font-semibold dark:text-gray-50 dark:bg-gray-700/25">
+                        </th>
+                        <th class="text-gray-900 bg-gray-100/75 font-semibold dark:text-gray-50 dark:bg-gray-700/25">
                             Reference#
                         </th>
                         <th class="text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
@@ -102,25 +95,25 @@
                                 display="accounttitle"
                             />
                         </td>
-                        <td >
+                        <td>
                             <input
                                 class="px-2 py-1 mr-3 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 type="text"
                                 v-model="item.subledger">
                         </td>
-                        <td >
+                        <td>
                             <input
                                 class="px-2 py-1 mr-3 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 type="text"
                                 v-model="item.reference">
                         </td>
-                        <td >
+                        <td>
                             <input
                                 class="w-full px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 type="text"
                                 v-model="item.debit">
                         </td>
-                        <td >
+                        <td>
                             <input
                                 class="w-full px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 type="text"
@@ -152,7 +145,7 @@
                                     <strong class="text-lg text-blue-600" style="padding-right: 15px;">Total</strong>
 
                                     <div class="text-lg font-bold py-2" colspan="2">
-<!--                                        <strong class="text-red-500" style="padding-right: 15px;">{{ total_discount }}</strong>-->
+                                        <!--                                        <strong class="text-red-500" style="padding-right: 15px;">{{ total_discount }}</strong>-->
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +157,7 @@
 
             <div class="flex justify-end mt-8 space-x-4">
                 <button
-                    @click="formSubmitted" :disabled="isSubmitting"
+                    :disabled="isSubmitting" @click="formSubmitted"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                     type="button">
                     <svg aria-hidden="true" class="inline w-4 h-4 mr-3 text-white animate-spin" fill="none"
@@ -203,6 +196,7 @@
         }
         return urls[to.meta.mode] || urls.add
     }
+
     export default {
         mixins: [form],
         components: {
@@ -240,14 +234,14 @@
         },
         created() {
             this.form.date = moment().format('YYYY-MM-DD');
-        },watch: {
-            'form.voucher_type': function(newVoucherType , oldVoucherType){
+        },
+        watch: {
+            'form.voucher_type': function (newVoucherType, oldVoucherType) {
                 this.checkAndCallGetNumber();
             },
-            'form.payment_type':function(newPaymentType, oldPaymentType){
+            'form.payment_type': function (newPaymentType, oldPaymentType) {
                 this.checkAndCallGetNumber();
             }
-
             // form: {
             //     deep: true,
             //     handler(newFom, oldFom) {
@@ -265,10 +259,10 @@
         },
 
         methods: {
-            checkAndCallGetNumber(){
-                if(this.form.voucher_type !== null && this.form.payment_type !== null){
-                    if(this.form.voucher_type !== this.oldVoucherType || this.form.payment_type !== this.oldPaymentType){
-                        if(this.form.voucher_type && this.form.payment_type){
+            checkAndCallGetNumber() {
+                if (this.form.voucher_type !== null && this.form.payment_type !== null) {
+                    if (this.form.voucher_type !== this.oldVoucherType || this.form.payment_type !== this.oldPaymentType) {
+                        if (this.form.voucher_type && this.form.payment_type) {
                             this.getNumber(this.form.voucher_type, this.form.payment_type);
                         }
                         this.oldVoucherType = this.form.voucher_type;
@@ -276,8 +270,8 @@
                     }
                 }
             },
-            getNumber(VoucherType, PaymentType){
-                byMethod('Get', `/api/voucher_number?voucher_type=${VoucherType}&payment_type=${PaymentType}`).then(res=>{
+            getNumber(VoucherType, PaymentType) {
+                byMethod('Get', `/api/voucher_number?voucher_type=${VoucherType}&payment_type=${PaymentType}`).then(res => {
                     this.form.number = res.data.results;
                 })
                 console.log(VoucherType, PaymentType)
@@ -336,12 +330,13 @@
                         position: 'top-right',
                         message: 'Error',
                         type: 'error',
-                        duration: 3000
+                        duration: 500
                     });
                 })
-                    .finally(() => {
-                        this.isSubmitting = false; // Enable the button and hide the spinner
-                    });
+                // .finally(() => {
+                //     this.isSubmitting = false; // Enable the button and hide the spinner
+                // });
+                this.isSubmitting = false;
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})

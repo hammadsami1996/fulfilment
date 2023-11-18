@@ -382,7 +382,7 @@
                 )
             },
             formSubmitted() {
-                this.isSubmittingdata = true; 
+                this.isSubmittingdata = true;
                 this.form.selectedPermissions = this.selectedPermissions
 
                 byMethod(this.method, this.store, objectToFormData(this.form)).then(res => {
@@ -403,9 +403,10 @@
                         duration: 3000
                     });
                 })
-                .finally(() => {
-                this.isSubmittingdata = false; // Enable the button and hide the spinner
-                });
+                // .finally(() => {
+                // this.isSubmittingdata = false; // Enable the button and hide the spinner
+                // });
+                this.isSubmittingdata = false;
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})

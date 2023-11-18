@@ -56,7 +56,7 @@
         </div>
         <!-- <TransitionRoot :show="isOpen" appear as="template">
             <Dialog @close="isOpen = false" as="div" class="relative z-90">
-               
+
                 <TransitionChild
                     as="template"
                     enter="ease-out duration-200"
@@ -68,9 +68,9 @@
                 >
                     <div class="fixed inset-0 bg-gray-800 bg-opacity-75"></div>
                 </TransitionChild>
-               
 
-             
+
+
                 <div class="fixed inset-0 overflow-y-auto p-4 lg:p-8" style="top: 27%">
                     <TransitionChild
                         as="template"
@@ -103,7 +103,7 @@
                         </DialogPanel>
                     </TransitionChild>
                 </div>
-               
+
             </Dialog>
         </TransitionRoot> -->
     </div>
@@ -113,6 +113,7 @@
     import {byMethod, get, post} from '@/libs/api'
     import {form} from '@/libs/mixins'
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+
     // import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from "@headlessui/vue";
 
     function initialize(to) {
@@ -198,7 +199,7 @@
                 },
 
                 formSubmitted() {
-                this.isSubmitting = true; 
+                this.isSubmitting = true;
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
                     this.successfull(res)
@@ -216,11 +217,12 @@
                         type: 'error',
                         duration: 3000
                     });
-                   
+
                 })
-                .finally(() => {
-                this.isSubmitting = false; // Enable the button and hide the spinner
-                });
+                    // .finally(() => {
+                    // this.isSubmitting = false; // Enable the button and hide the spinner
+                    // });
+                    this.isSubmitting = false;
             },
                 successfull(res) {
                     this.$router.push({path: `${this.resource}`})

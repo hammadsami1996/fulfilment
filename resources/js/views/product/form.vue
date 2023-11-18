@@ -611,7 +611,7 @@
             handleCancelSupplier() {
                 this.showsupplier = false;
              },
-           
+
             onBrand(e) {
                 const brand = e.target.value
                 this.form.brand = brand
@@ -634,27 +634,6 @@
                 }
                 this.show = true
             },
-
-            // formSubmitted() {
-            //     this.form.sub_products = []
-            //     byMethod(this.method, this.store, objectToFormData(this.form)).then(res => {
-            //         this.successfull(res)
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
-            //             type: 'success',
-            //             duration: 3000
-            //         });
-            //     }).catch(err => {
-            //         this.error = err.response.data.errors;
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: 'Error',
-            //             type: 'error',
-            //             duration: 3000
-            //         });
-            //     })
-            // },
             formSubmitted() {
                 this.isSubmitting = true; // Disable the button and show the spinner
                 this.form.sub_products = []
@@ -675,11 +654,12 @@
                         type: 'error',
                         duration: 3000
                     });
-            
+
                 })
-                .finally(() => {
-                this.isSubmitting = false; // Enable the button and hide the spinner
-                });
+                // .finally(() => {
+                // this.isSubmitting = false; // Enable the button and hide the spinner
+                // });
+                this.isSubmitting = false;
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})

@@ -299,7 +299,7 @@
                     <Modal :show="showsupplier" closeable="true" @cancel="handleCancelSupplier" >
                     <Supplier @resp="()=>{showsupplier = !true}" :show="true" additionalProp="global" @save-supplier="handleCancelSupplier"  @cancel-supplier="handleCancelSupplier" ></Supplier>
                 </Modal>
-            
+
             </div>
         </div>
 
@@ -307,7 +307,7 @@
 </template>
 
 <script>
-   
+
     import {byMethod, get} from '@/libs/api';
     import Modal from "@/Components/Modal.vue";
     import {form} from '@/libs/mixins';
@@ -468,7 +468,7 @@
             handleCancelSupplier() {
                 this.showsupplier = false;
         },
-            
+
             setData(res) {
 
                 this.form = res.data.form;
@@ -505,9 +505,10 @@
                     });
                     // console.log(err);
                 })
-                .finally(() => {
-                this.isSubmitting = false; // Enable the button and hide the spinner
-                });
+                // .finally(() => {
+                // this.isSubmitting = false; // Enable the button and hide the spinner
+                // });
+                this.isSubmitting = false;
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})

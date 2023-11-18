@@ -250,9 +250,10 @@
                     // console.log(err);
 
                 })
-                .finally(() => {
-                this.isSubmitting = false; // Enable the button and hide the spinner
-                });
+                // .finally(() => {
+                // this.isSubmitting = false; // Enable the button and hide the spinner
+                // });
+                this.isSubmitting = false;
 
             },
 

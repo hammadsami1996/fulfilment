@@ -318,12 +318,12 @@
                                 <input class="radio-input" name="engine" type="radio" />
                                 <span class="radio-title">
                                     <span class="radio-icon cursor-pointer">
-                                       
+
                                         <div v-if="stores.plate_form == 'Shopify'">
 
                                             <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3"
                                             src="~@/images/Shopify-bag.png" v-if="!stores.img"/>
-                                            
+
                                              <img @click="ecommerce('Shopify')" class="w-16 h-16 rounded ml-3" :src="`/uploads/store/img/` + stores.img" v-else />
                                         </div>
                                         <div  v-if="stores.plate_form == 'WooCommerce'">
@@ -331,14 +331,14 @@
                                             <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3"
                                             src="~@/images/WooCommerce.png"
                                             v-if="!stores.img"/>
-                                          
+
                                              <img @click="ecommerce('WooCommerce')" class="w-16 h-16 rounded ml-3" :src="`/uploads/store/img/` + stores.img" v-else />
                                             </div>
                                             <div v-if="stores.plate_form == 'MimCart'">
 
                                                 <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3"
                                                 src="~@/images/MimCart.jpg" v-if="!stores.img"/>
-                                             
+
                                              <img @click="ecommerce('MimCart')" class="w-16 h-16 rounded ml-3" :src="`/uploads/store/img/` + stores.img" v-else />
                                             </div>
                                             </span>
@@ -495,7 +495,7 @@
                     </svg>
                     Test Connecion
                 </button>
-           
+
                 <button @click="save_store_data" :disabled="isSubmittingSave"
                         class=" inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button"
@@ -642,7 +642,7 @@
                 </div>
             </div>
         </Modal>
-      
+
         <Modal :show="isOpenStore" closeable="true" @cancel="handleCancelStores">
         <Stores @resp="()=>{isOpenStore = !true}" :show="true" additionalProp="global" @cancel-stores="handleCancelStores" @save-stores="handleCancelStores" ></Stores>
 
@@ -1039,9 +1039,10 @@
                             duration: 3000,
                         });
                     })
-                    .finally(() => {
-                this.isSubmittingCompany = false; // Enable the button and hide the spinner
-                });
+                //     .finally(() => {
+                // this.isSubmittingCompany = false; // Enable the button and hide the spinner
+                // });
+                this.isSubmittingCompany = false;
             },
             savejson(e) {
                 this.isSubmittingSetting = true;

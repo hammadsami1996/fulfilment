@@ -59,7 +59,7 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Number 1 
+                    >Number 1
                     <span class="text-red-600">*</span>
                 </label>
                     <input
@@ -85,7 +85,7 @@
                 <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Email Address 
+                    >Email Address
                     <!-- <span class="text-red-600">*</span> -->
                 </label>
                     <input
@@ -104,7 +104,7 @@
                         class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md"
                         placeholder=" Opening Balance"
                         type="number"
-                        
+
                         v-model="form.opening_balance"
                         />
                     <p class="text-red-600 text-xs italic" v-if="error.opening_balance">{{ error.opening_balance[0] }}</p>
@@ -224,11 +224,11 @@
             //             type: 'error',
             //             duration: 3000
             //         });
-   
+
             //     })
             // },
             formSubmitted() {
-                this.isSubmitting = true; 
+                this.isSubmitting = true;
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
                     this.additionalProp ? this.formSubmiting():this.successfull(res)
@@ -248,11 +248,12 @@
                         type: 'error',
                         duration: 3000
                     });
-                    
+
                 })
-                .finally(() => {
-                this.isSubmitting = false; // Enable the button and hide the spinner
-                });
+                // .finally(() => {
+                // this.isSubmitting = false; // Enable the button and hide the spinner
+                // });
+                this.isSubmitting = false;
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})

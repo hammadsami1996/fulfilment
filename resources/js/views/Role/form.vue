@@ -173,11 +173,13 @@
                         type: 'error',
                         duration: 3000
                     });
-                    
+
                 })
-                .finally(() => {
-                this.isSubmitting = false; 
-                });
+                // .finally(() => {
+                // this.isSubmitting = false;
+                // });
+                this.isSubmitting = false;
+
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
