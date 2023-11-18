@@ -212,19 +212,13 @@ INSERT INTO `permissions` VALUES (251, 'edit-cities', 'web', NULL, NULL, 249, NU
 INSERT INTO `permissions` VALUES (252, 'create-cities', 'web', NULL, NULL, 249, NULL, '2023-10-18 06:48:33', '2023-10-18 06:48:33');
 INSERT INTO `permissions` VALUES (253, 'delete-cities', 'web', NULL, NULL, 249, NULL, '2023-10-18 06:48:33', '2023-10-18 06:48:33');
 INSERT INTO `permissions` VALUES (254, 'export-cities', 'web', NULL, NULL, 249, NULL, '2023-10-18 06:48:33', '2023-10-18 06:48:33');
-INSERT INTO `permissions` VALUES (255, NULL, 'web', 'Cities', NULL, NULL, 56, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (256, 'view-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (257, 'edit-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (258, 'create-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (259, 'delete-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
-INSERT INTO `permissions` VALUES (260, 'export-cities', 'web', NULL, NULL, 255, NULL, '2023-10-18 10:02:56', '2023-10-18 10:02:56');
 INSERT INTO `permissions` VALUES (261, NULL, 'web', 'Permission', NULL, NULL, 56, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
 INSERT INTO `permissions` VALUES (262, 'view-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
 INSERT INTO `permissions` VALUES (263, 'edit-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
 INSERT INTO `permissions` VALUES (264, 'create-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
 INSERT INTO `permissions` VALUES (265, 'delete-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
 INSERT INTO `permissions` VALUES (266, 'export-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
-INSERT INTO `permissions` VALUES (267, NULL, 'web', 'General_voucher', NULL, NULL, 56, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (267, NULL, 'web', 'voucher', NULL, NULL, 56, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
 INSERT INTO `permissions` VALUES (268, 'view-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
 INSERT INTO `permissions` VALUES (269, 'edit-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
 INSERT INTO `permissions` VALUES (270, 'create-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
@@ -382,6 +376,12 @@ INSERT INTO `role_has_permissions` VALUES (250, 1);
 INSERT INTO `role_has_permissions` VALUES (251, 1);
 INSERT INTO `role_has_permissions` VALUES (252, 1);
 INSERT INTO `role_has_permissions` VALUES (253, 1);
+INSERT INTO `role_has_permissions` VALUES (267, 1);
+INSERT INTO `role_has_permissions` VALUES (268, 1);
+INSERT INTO `role_has_permissions` VALUES (269, 1);
+INSERT INTO `role_has_permissions` VALUES (270, 1);
+INSERT INTO `role_has_permissions` VALUES (271, 1);
+INSERT INTO `role_has_permissions` VALUES (272, 1);
 
 -- ----------------------------
 -- Table structure for roles

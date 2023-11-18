@@ -57,14 +57,16 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
-//        $request->validate([
-//            'date' => 'required|max:25',
-//            'voucher_type' => 'required',
-//            'payment_type' => 'required',
-//            'currency' => 'required',
-//            'exchange_rate' => 'required',
-//            'amount' => 'nullable|numeric|min:0',
-//        ]);
+       $request->validate([
+        //    'date' => 'required|max:25',
+           'voucher_type' => 'required',
+           'payment_type' => 'required',
+           'remarks' => 'max:100',
+           'account' => 'required'
+        //    'exchange_rate' => 'required',
+        //    'amount' => 'nullable|numeric|min:0',
+       ]);
+    
 
         $model = new Voucher();
         $model->fill($request->except('items'));

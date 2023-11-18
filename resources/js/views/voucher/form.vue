@@ -16,7 +16,7 @@
                     <p class="text-red-600 text-xs italic" v-if="error.date">{{ error.date[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Voucher Type</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Voucher Type <span class="text-red-600">*</span></label>
                     <div class="relative">
                         <select
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
@@ -28,7 +28,7 @@
                     <p class="text-red-600 text-xs italic" v-if="error.voucher_type">{{ error.voucher_type[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Payment Type</label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Payment Type <span class="text-red-600">*</span></label>
                     <div class="relative">
                         <select
                             class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"
@@ -63,6 +63,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2">Remarks </label>
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
                               v-model="form.remarks"/>
+                              <p class="text-red-600 text-xs italic" v-if="error.remarks">{{ error.remarks[0] }}</p>
                 </div>
             </div>
             <div class="mt-4 ml-2 border border-gray-200 rounded overflow-x-auto min-w-full bg-white dark:bg-gray-800 dark:border-gray-700">
@@ -70,7 +71,7 @@
                     <thead >
                     <tr class="border-b border-gray-100 dark:border-gray-700/50">
                         <th class="p-2 text-gray-900 bg-gray-100/75 font-semibold dark:text-gray-50 dark:bg-gray-700/25">
-                            Account
+                            Account <span class="text-red-600">*</span>
                         </th>
                         <th class="text-gray-900 bg-gray-100/75 font-semibold dark:text-gray-50 dark:bg-gray-700/25">
                             Subledger
@@ -101,6 +102,7 @@
                                 class="mr-3 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="accounttitle"
                             />
+                            <p class="text-red-600 text-xs italic" v-if="error.account">{{ error.account[0] }}</p>
                         </td>
                         <td >
                             <input

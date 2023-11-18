@@ -16,7 +16,7 @@ return new class extends Migration
             $table->dateTime('date')->nullable();
             $table->string('voucher_type', 8)->nullable();
             $table->string('payment_type', 5)->nullable();
-            $table->string('remarks', 5)->nullable();
+            $table->string('remarks', 100)->nullable();
             $table->string('number', 10)->nullable();
             $table->integer('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
