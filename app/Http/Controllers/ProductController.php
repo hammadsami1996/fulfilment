@@ -60,16 +60,17 @@ class ProductController extends Controller
         $model->fill(\request()->except('product_attribute', 'product_img'));
         $model->supplier_id = 1;
         $model->save();
-
-        foreach ($request->product_img as $imgN) {
-            $file = $imgN['img'];
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/product/img', $filename);
-            $parent_img = new ProductImg();
-            $parent_img->img = $filename;
-            $parent_img->parent_product_id = $model->id;
-            $parent_img->save();
+        if ($request->has('product_img')) {
+            foreach ($request->product_img as $imgN) {
+                $file = $imgN['img'];
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/product/img', $filename);
+                $parent_img = new ProductImg();
+                $parent_img->img = $filename;
+                $parent_img->parent_product_id = $model->id;
+                $parent_img->save();
+            }
         }
         if ($request->product_types) {
             $groupsAndValues = collect($request->product_attribute);
