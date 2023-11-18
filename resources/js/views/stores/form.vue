@@ -505,7 +505,6 @@
             },
             successfully(res) {
                 this.$emit('cancel-stores', {
-
                 })
                 // this.isOpen = false
                 // this.isOpenStore = false
