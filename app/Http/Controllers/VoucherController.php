@@ -67,7 +67,7 @@ class VoucherController extends Controller
         //    'exchange_rate' => 'required',
         //    'amount' => 'nullable|numeric|min:0',
        ]);
-    
+
 
         $model = new Voucher();
         $model->fill($request->except('items'));
