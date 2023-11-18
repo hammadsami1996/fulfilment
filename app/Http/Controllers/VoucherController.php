@@ -91,7 +91,17 @@ class VoucherController extends Controller
         } else if ($voucher_type == 'Receipt' && $payment_type == 'Bank') {
             $model->number = counter()->increase('bank_receipt_voucher');
         }
-        return response()->json(["saved" => true, "id" => $model->id, 'results' => $number]);
+//        // Increment the counter based on voucher type and payment type
+//        if ($voucher_type == 'Payment' && $payment_type == 'Cash') {
+//            counter()->increment('cash_payment_voucher');
+//        } else if ($voucher_type == 'Payment' && $payment_type == 'Bank') {
+//            counter()->increment('bank_payment_voucher');
+//        } else if ($voucher_type == 'Receipt' && $payment_type == 'Cash') {
+//            counter()->increment('cash_receipt_voucher');
+//        } else if ($voucher_type == 'Receipt' && $payment_type == 'Bank') {
+//            counter()->increment('bank_receipt_voucher');
+//        }
+        return response()->json(["saved" => true, "id" => $model->id ]);
     }
 
     /**

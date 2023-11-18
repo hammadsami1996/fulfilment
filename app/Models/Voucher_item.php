@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Voucher_item extends Model
 {
-    use HasFactory, Notifiable, HasRoles,SoftDeletes, Search;
+    use HasFactory, Notifiable,SoftDeletes, Search;
     protected $table = 'voucher_items';
     protected $fillable = [
         'account_id','subledger', 'debit', 'credit','reference'
