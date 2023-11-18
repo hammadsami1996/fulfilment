@@ -336,7 +336,6 @@
                             </select>
                             From {{ model.from }} To {{ model.to }} of {{ model.total }} entries -
                             Page {{ model.current_page }} of {{ model.last_page }}
-                            <div>
                         </div>
                             <div class="flex items-center justify-end space-x-2 pt-2 pr-2">
                                 <button :disabled="model.prev_page_url == null" @click="prevPage"
@@ -361,7 +360,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    
                 <!-- END Alternate Responsive Table -->
                 <!-- END Responsive Table Container -->
             </div>
@@ -479,11 +478,12 @@
             },
             page(e) {
                 const query = this.makeQuery();
+                const pageNumber = e > 0 ? e : 1;
                 let url = "";
                 if (this.urlApi.includes('?')) {
-                    url = `${this.urlApi}&page=${e}&per_page=${this.pageLength}&${query}`;
+                    url = `${this.urlApi}&page=${pageNumber}&per_page=${this.pageLength}&${query}`;
                 } else {
-                    url = `${this.urlApi}?page=${e}&per_page=${this.pageLength}&${query}`;
+                    url = `${this.urlApi}?page=${pageNumber}&per_page=${this.pageLength}&${query}`;
                 }
                 if (this.pageWithQueryString) {
                     url = this.makePageQuery(this.model?.first_page_url, e, query);
