@@ -11,12 +11,12 @@
                 </label>
                 <typeahead :initialize="form.country" :url="countries" @input="onCountries" display="name"/>
             </div>
-            <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
-                <label class="block font-medium text-sm text-gray-700 mb-2">
+            <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2 ">
+                <label class="block font-medium text-sm text-gray-700 mb-2 flex justify-between ">
                     Cities:
-                    <span class="checkbox-container ">
-                    <input class="styled-checkbox" type="checkbox" true-value="0" false-value="1" v-model="excludeChecked">
-                    <label class="checkbox-label ml-1">Exclude</label>
+                    <span>
+                    <input class="mr-2" type="checkbox" true-value="1" false-value="0" v-model="form.excludeChecked">
+                    <label>Exclude</label>
                     </span>
                 </label>
                 <div class="custom-typeahead">
