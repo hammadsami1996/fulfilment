@@ -14,13 +14,9 @@
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                 <label class="block font-medium text-sm text-gray-700 mb-2">
                     Cities:
-                    <span class="checkbox-container ml-7">
-                     <input class="styled-checkbox" type="checkbox" id="includeChecked">
-                    <label class="checkbox-label mr-2">Include</label>
-                    </span>
-                    <span class="checkbox-container mr-7">
+                    <span class="checkbox-container ">
                     <input class="styled-checkbox" type="checkbox" id="excludeChecked">
-                    <label class="checkbox-label">Exclude</label>
+                    <label class="checkbox-label ml-1">Exclude</label>
                     </span>
                 </label>
                 <div class="custom-typeahead">
