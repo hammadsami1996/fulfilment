@@ -251,7 +251,6 @@
                 title: 'Add',
                 message: 'New Customer Added',
                 permissions: {},
-                typess: '/api/type',
                 categorys: '/api/category',
                 cities: '/api/city',
                 countries: '/api/country',
@@ -310,17 +309,6 @@
                 this.form[key + 'country'] = country
                 this.form[key + 'country_id'] = country.id
             },
-            // onNationality(e) {
-            //     const nationality = e.target.value
-            //     this.form.nationality = nationality
-            //     this.form.nationality_id = nationality.id
-            //
-            // },
-            onType(e) {
-                const type = e.target.value
-                this.form.type = type
-                this.form.type_id = type.id
-            },
             onCategory(e) {
                 const category = e.target.value
                 this.form.category = category
@@ -336,26 +324,7 @@
                 this.form.date = moment().format('YYYY-MM-DD');
                 this.show = true
             },
-            // formSubmitted() {
-            //     this.form.selectedPermissions = this.selectedPermissions
-            //     byMethod(this.method, this.store, this.form).then(res => {
-            //         this.successfull(res)
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
-            //             type: 'success',
-            //             duration: 3000
-            //         });
-            //     }).catch(err => {
-            //         this.error = err.response.data.errors;
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: 'Error',
-            //             type: 'error',
-            //             duration: 3000
-            //         });
-            //     })
-            // },
+
             formSubmitted() {
                 this.isSubmitting = true; // Disable the button and show the spinner
                 this.form.selectedPermissions = this.selectedPermissions

@@ -282,7 +282,7 @@
                 byMethod('Get', `/api/voucher_number?voucher_type=${VoucherType}&payment_type=${PaymentType}`).then(res => {
                     this.form.number = res.data.results;
                 })
-                console.log(VoucherType, PaymentType)
+                // console.log(VoucherType, PaymentType)
             },
             setData(res) {
                 this.form = res.data.form;
@@ -306,8 +306,8 @@
                     account: null,
                     subledger: null,
                     reference: null,
-                    debit: 0,
-                    credit: 0,
+                    debit: 0.00,
+                    credit: 0.00,
                 });
 
             },
