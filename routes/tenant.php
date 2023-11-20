@@ -96,6 +96,7 @@ Route::middleware([
         Route::resource('accounts_class', \App\Http\Controllers\AccountClassController::class);
         Route::resource('accounts_group', \App\Http\Controllers\AccountGroupController::class);
         Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+        Route::resource('subledger', \App\Http\Controllers\SubLedgerController::class);
         Route::resource('settings', \App\Http\Controllers\SettingsController::class);
         Route::resource('order', \App\Http\Controllers\OrderController::class);
         Route::resource('customer', \App\Http\Controllers\CustomerController::class);

@@ -99,15 +99,20 @@
                                <p v-if="error['items.' + index + '.account']" class="text-red-600 text-xs italic">
                                         {{ error['items.' + index + '.account'][0]  }}
                                         </p>
-                               <!-- <p v-if="error['items.0.account']" class="text-red-600 text-xs italic">
-                                        {{ error['items.0.account'][0] }}
-                                        </p> -->
+
                         </td>
                         <td>
-                            <input
+                            <!-- <input
                                 class="px-2 py-1 mr-3 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 type="text"
-                                v-model="item.subledger">
+                                v-model="item.subledger"> -->
+                                <typeahead
+                                :initialize="item.subledger"
+                                :url="subledgers"
+                                @input="onSubledger(item, index, $event)"
+                                class="mr-3 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                display="subledger_title"
+                            />
                         </td>
                         <td>
                             <input
@@ -224,6 +229,8 @@
                 message: 'New voucher Added',
                 permissions: {},
                 accounts: '/api/accounts',
+                subledgers: '/api/subledger'
+
             }
         },
 
@@ -320,6 +327,11 @@
                 const account = e.target.value
                 item.account = account
                 item.account_id = account.id
+            },
+            onSubledger(item, index, e) {
+                const subledger = e.target.value
+                item.subledger = subledger
+                item.subledger_id = subledger.id
             },
             formSubmitted() {
                 this.isSubmitting = true;

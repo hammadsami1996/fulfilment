@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('voucher_items', function (Blueprint $table) {
+        Schema::create('sub_ledgers', function (Blueprint $table) {
             $table->id();
             $table->integer('account_id')->nullable();
-            $table->integer('subledger_id')->nullable();
-            $table->decimal('debit',10,2)->nullable()->default(0.00);
-            $table->decimal('credit',10,2)->nullable()->default(0.00);
-            $table->string('reference', 15)->nullable();
+            $table->string('subledger_title')->nullable();
+            $table->tinyInteger('active')->default(0);
             $table->integer('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
+
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('voucher_items');
+        Schema::dropIfExists('sub_ledgers');
     }
 };
