@@ -206,32 +206,30 @@ export default {
   data() {
     return {
       showDropdown: false,
-
-
     };
   }
 };
 </script>
 
 
-<style>
-    /* Define a zoom-out transition in your CSS */
-    .zoom-out-enter-active,
-    .zoom-out-leave-active {
-        transition: transform 0.5s ease-out;
-    }
-    .zoom-out-enter, .zoom-out-leave-to {
-        transform: scale(0.8);
-    }
-    #page-content {
-        transition: 0.6s;
-    }
-    .zoom-out-enter-active {
-        transition: 0.6s ease;
-        transform: scale(0.9);
-        /* animation: fadeIn 2s ease-in-out; */
-    }
-  
-</style>
+<!--<style>-->
+<!--    /* Define a zoom-out transition in your CSS */-->
+<!--    .zoom-out-enter-active,-->
+<!--    .zoom-out-leave-active {-->
+<!--        transition: transform 0.5s ease-out;-->
+<!--    }-->
+<!--    .zoom-out-enter, .zoom-out-leave-to {-->
+<!--        transform: scale(0.8);-->
+<!--    }-->
+<!--    #page-content {-->
+<!--        transition: 0.6s;-->
+<!--    }-->
+<!--    .zoom-out-enter-active {-->
+<!--        transition: 0.6s ease;-->
+<!--        transform: scale(0.9);-->
+<!--        /* animation: fadeIn 2s ease-in-out; */-->
+<!--    }-->
+<!--  -->
+<!--</style>-->
 
 
