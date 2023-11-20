@@ -62,11 +62,12 @@ class VoucherController extends Controller
            'voucher_type' => 'required',
            'payment_type' => 'required',
            'remarks' => 'max:100',
-           'account' => 'required'
+           'items' => 'required|array|min:1',
+           'items.*.account' => 'required',
         //    'exchange_rate' => 'required',
         //    'amount' => 'nullable|numeric|min:0',
        ]);
-    
+
 
         $model = new Voucher();
         $model->fill($request->except('items'));
@@ -93,16 +94,6 @@ class VoucherController extends Controller
         } else if ($voucher_type == 'Receipt' && $payment_type == 'Bank') {
             $model->number = counter()->increase('bank_receipt_voucher');
         }
-//        // Increment the counter based on voucher type and payment type
-//        if ($voucher_type == 'Payment' && $payment_type == 'Cash') {
-//            counter()->increment('cash_payment_voucher');
-//        } else if ($voucher_type == 'Payment' && $payment_type == 'Bank') {
-//            counter()->increment('bank_payment_voucher');
-//        } else if ($voucher_type == 'Receipt' && $payment_type == 'Cash') {
-//            counter()->increment('cash_receipt_voucher');
-//        } else if ($voucher_type == 'Receipt' && $payment_type == 'Bank') {
-//            counter()->increment('bank_receipt_voucher');
-//        }
         return response()->json(["saved" => true, "id" => $model->id ]);
     }
 

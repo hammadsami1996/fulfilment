@@ -95,7 +95,13 @@
                                 class="mr-3 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="accounttitle"
                             />
-                            <p class="text-red-600 text-xs italic" v-if="error.account">{{ error.account[0] }}</p>
+                            <!-- <p class="text-red-600 text-xs italic" v-if="error.account">{{ error.account[0] }}</p> -->
+                               <p v-if="error['items.' + index + '.account']" class="text-red-600 text-xs italic">
+                                        {{ error['items.' + index + '.account'][0]  }}
+                                        </p>
+                               <!-- <p v-if="error['items.0.account']" class="text-red-600 text-xs italic">
+                                        {{ error['items.0.account'][0] }}
+                                        </p> -->
                         </td>
                         <td>
                             <input
@@ -276,7 +282,7 @@
                 byMethod('Get', `/api/voucher_number?voucher_type=${VoucherType}&payment_type=${PaymentType}`).then(res => {
                     this.form.number = res.data.results;
                 })
-                console.log(VoucherType, PaymentType)
+                // console.log(VoucherType, PaymentType)
             },
             setData(res) {
                 this.form = res.data.form;
@@ -300,8 +306,8 @@
                     account: null,
                     subledger: null,
                     reference: null,
-                    debit: 0,
-                    credit: 0,
+                    debit: 0.00,
+                    credit: 0.00,
                 });
 
             },

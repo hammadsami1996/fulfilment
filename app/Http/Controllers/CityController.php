@@ -140,6 +140,8 @@ class CityController extends Controller
 //        }
 
         $cityIds = [];
+        $includeChecked =[];
+        $ixcludeChecked =[];
 
         if ($request->city_id) {
             $cityIds = [$request->city_id];

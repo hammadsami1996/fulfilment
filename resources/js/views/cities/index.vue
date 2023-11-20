@@ -14,15 +14,22 @@
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
                 <label class="block font-medium text-sm text-gray-700 mb-2">
                     Cities:
-                    <!-- <button @click="clear('city')" class="text-red-400 text-sm hover:text-red-600">Clear</button> -->
+                    <span class="checkbox-container ml-7">
+                     <input class="styled-checkbox" type="checkbox" id="includeChecked">
+                    <label class="checkbox-label mr-2">Include</label>
+                    </span>
+                    <span class="checkbox-container mr-7">
+                    <input class="styled-checkbox" type="checkbox" id="excludeChecked">
+                    <label class="checkbox-label">Exclude</label>
+                    </span>
                 </label>
                 <div class="custom-typeahead">
                     <typeahead
-                    :initialize="form.city"
-                    :url="form.country_id != null ? `/api/city?country_id=${form.country_id}` : city"
-                    @input="onCity"
-                    display="name"
-                    multi-select="true"/>
+                        :initialize="form.city"
+                        :url="form.country_id != null ? `/api/city?country_id=${form.country_id}` : city"
+                        @input="onCity($event)"
+                        display="name"
+                        multi-select="true"/>
                 </div>
             </div>
             <div class="w-full sm:w-1/2 mb-4 sm:mb-0 p-2">
@@ -62,37 +69,36 @@
                 Bulk Update
             </button>
         </div>
-
-
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
                 <template v-slot:couriersss="props">
                     <div v-if="props.item.couriers[0]">
                         <img
-                            v-if="props.item.couriers[0].id === 4"
                             src="~@/images/karachi.png"
                             style="height: 50px; width: 50px; border-radius: 50%"
+                            v-if="props.item.couriers[0].id === 4"
                         />
                         <img
-                            v-if="props.item.couriers[0].id === 3"
                             src="~@/images/rider.png"
                             style="height: 50px; width: 50px; border-radius: 50%"
+                            v-if="props.item.couriers[0].id === 3"
                         />
                         <img
-                            v-if="props.item.couriers[0].id ===  1 || props.item.couriers[0].id === 5"
-                            src="~@/images/trax.png" 
+                            src="~@/images/trax.png"
                             style="height: 50px; width: 50px; border-radius: 50%"
+                            v-if="props.item.couriers[0].id ===  1 || props.item.couriers[0].id === 5"
                         />
                         <img
-                            v-if="props.item.couriers[0].id === 6 || props.item.couriers[0].id === 2"
                             src="~@/images/leopard.jpeg"
                             style="height: 50px; width: 50px; border-radius: 50%"
+                            v-if="props.item.couriers[0].id === 6 || props.item.couriers[0].id === 2"
                         />
                     </div>
                 </template>
 
                 <template v-slot:courierss="props">
-                    <typeahead :initialize="props.item.couriers[0]" :url="courier" @input="onCourierss($event, props.item)" display="name" />
+                    <typeahead :initialize="props.item.couriers[0]" :url="courier"
+                               @input="onCourierss($event, props.item)" display="name"/>
                 </template>
 
                 <template v-slot:charges="props">
@@ -102,13 +108,15 @@
                         v-if="props.item.couriers[0] && props.item.couriers[0].pivot"
                         v-model="props.item.couriers[0].pivot.delivery_charges"
                     />
-                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number" v-else v-model="delivery_charges" />
+                    <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="number" v-else
+                           v-model="delivery_charges"/>
                 </template>
 
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
             <span>
-              <a @click.prevent="edit(props.item.id, props.item.couriers[0].id, props.item.couriers[0].pivot ? props.item.couriers[0].pivot.delivery_charges : delivery_charges)" href="#">
+              <a @click.prevent="edit(props.item.id, props.item.couriers[0].id, props.item.couriers[0].pivot ? props.item.couriers[0].pivot.delivery_charges : delivery_charges)"
+                 href="#">
                 <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
               </a>
             </span>
@@ -148,15 +156,15 @@
                 small: "cities",
                 capital: "Countries",
                 columns: [
-                    { label: "S.No", field: "id", format: "index" },
-                    { label: "Cities", field: "name" },
-                    { label: "", field: "couriersss", slot: true },
-                    { label: "Courier", field: "courierss", slot: true },
-                    { label: "Leopard", field: 'id', displayText: 'leopards' },
-                    { label: "Trax", field: 'id' , displayText: 'trax'},
-                    { label: "Rider", field: 'id' , displayText: 'tcs'},
-                    { label: "shipping charges", field: "charges", slot: true },
-                    { label: "Action", field: "action", action: true },
+                    {label: "S.No", field: "id", format: "index"},
+                    {label: "Cities", field: "name"},
+                    {label: "", field: "couriersss", slot: true},
+                    {label: "Courier", field: "courierss", slot: true},
+                    {label: "Leopard", field: 'id', displayText: 'leopards'},
+                    {label: "Trax", field: 'id', displayText: 'trax'},
+                    {label: "Rider", field: 'id', displayText: 'tcs'},
+                    {label: "shipping charges", field: "charges", slot: true},
+                    {label: "Action", field: "action", action: true},
                 ],
             };
         },
@@ -180,11 +188,15 @@
                 this.form.country_id = country.id;
                 this.filter();
             },
-            onCity(e) {
+            // onCity(e) {
+            //     const city = e.target.value;
+            //     this.form.city = city;
+            //     this.form.city_id = city.id;
+            //     this.filter();
+            // },
+            onCity(e, i) {
                 const city = e.target.value;
-                this.form.city = city;
-                this.form.city_id = city.id;
-                this.filter();
+                i.city = city
             },
             onCourier(e) {
                 const courier = e.target.value;
