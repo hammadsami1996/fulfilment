@@ -15,7 +15,7 @@
                 <label class="block font-medium text-sm text-gray-700 mb-2">
                     Cities:
                     <span class="checkbox-container ">
-                    <input class="styled-checkbox" type="checkbox" true-value="0" false-value="1" v-model="excludeChecked">
+                    <input class="styled-checkbox" type="checkbox" true-value="1" false-value="0" v-model="form.exclude">
                     <label class="checkbox-label ml-1">Exclude</label>
                     </span>
                 </label>
