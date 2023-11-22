@@ -14,14 +14,14 @@ class Voucher_item extends Model
     use HasFactory, Notifiable,SoftDeletes, Search;
     protected $table = 'voucher_items';
     protected $fillable = [
-        'account_id','subledger', 'debit', 'credit','reference'
+        'account_id','subledger_id', 'debit', 'credit','reference'
     ];
     protected $columns = [
-        'account_id','subledger', 'debit', 'credit','reference'
+        'account_id','subledger_id', 'debit', 'credit','reference'
         ];
 
     protected $search = [
-        'account_id','subledger', 'debit', 'credit','reference'
+        'account_id','subledger_id', 'debit', 'credit','reference'
         ];
     protected $appends = ['text'];
 
@@ -33,5 +33,9 @@ class Voucher_item extends Model
     public function account()
     {
         return $this->belongsTo(Account::class, 'account_id', 'id');
+    }
+    public function subledger()
+    {
+        return $this->belongsTo(subledger::class, 'subledger_id', 'id');
     }
 }

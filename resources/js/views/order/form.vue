@@ -241,12 +241,17 @@
                             <span class="text-sm text-gray-600 pl-3">Total Units: {{ qtySum }} | Total Items: {{ form.items.length }}</span>
                         </div>
                         <div class="item-empty align-right panel-title">
-                            <span class="item-dark font-semibold">Sub Total</span>
-                        </div>
-                        <div class="item-empty align-right panel-title">
-                            <span class="item-dark">{{ subTotal}}</span>
+                            <span class="item-dark">{{ subTotal }}</span>
                         </div>
                         <div class="item-empty align-right"></div>
+
+                        <div class="item-empty align-left panel-title">
+                            <span class="item-dark font-semibold">Sub Total</span>
+                        </div>
+                        <!-- <div class="item-empty align-right panel-title">
+                            <span class="item-dark">{{ subTotal }}</span>
+                        </div> -->
+                        <!-- <div class="item-empty align-right"></div> -->
                         <div class="item-empty align-right panel-title">
                             <span class="item-dark">{{ tot_tax_amt }}</span>
                         </div>
@@ -382,14 +387,27 @@
         //     }
         // },
         computed: {
+            // total() {
+            //     var total = 0;
+            //      var total = (this.subTotal + Number(this.form.mtax_amount));
+            //     var total = (this.subTotal + Number(this.form.tax_amount));
+            //      Vue.set(this.$data.form, 'tvalue_inc_tax', total);
+            //     this.form.value_inc_tax = total;
+            //      this.form.tvalue_inc_tax = total;
+            //     this.form.value_ex_tax = this.subTotal;
+            //      this.form.tvalue_ex_tax = this.subTotal;
+            //      Vue.set(this.$data.form, 'tvalue_ex_tax', this.subTotal);
+            //     return (total);
+            // },
             total() {
-                var total = (this.subTotal + Number(this.form.mtax_amount));
-                // Vue.set(this.$data.form, 'tvalue_inc_tax', total);
-                this.form.tvalue_inc_tax = total;
-                this.form.tvalue_ex_tax = this.subTotal;
-                // Vue.set(this.$data.form, 'tvalue_ex_tax', this.subTotal);
-                return (total);
+                var total = this.form.items.reduce((carry, item) => {
+                    return carry + Number(item.value_inc_tax);
+                }, 0);
+                this.form.value_inc_tax = total;
+                this.form.value_ex_tax = this.subTotal;
+                return total;
             },
+
             qtySum() {
                 var total = this.form.items.reduce((carry, item) => {
                     return carry + Number(item.qty);

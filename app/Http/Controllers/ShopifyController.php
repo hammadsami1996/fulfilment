@@ -109,20 +109,20 @@ class ShopifyController extends Controller
                                             $customer->s_country_id = $s_city['country_id'];
                                         }
                                     }
-                                    $customer->s_name = $rec['shipping_address']['name'];
-                                    $customer->s_phone = $rec['shipping_address']['phone'];
-                                    $customer->s_address_1 = $rec['shipping_address']['address1'] . ' ' . $rec['shipping_address']['address2'];
+                                    $customer->s_name = $rec['shipping_address']['name'] ?? null;
+                                    $customer->s_phone = $rec['shipping_address']['phone'] ?? null;
+                                    $customer->s_address_1 = $rec['shipping_address'] ? $rec['shipping_address']['address1'] ?? null. ' ' . $rec['shipping_address']['address2'] ?? null : '';
                                     $customer->save();
                                     $order->customer_id = $customer['id'];
                                 }
                             }
 
-                            $order->city_name = $rec['shipping_address']['city'];
+                            $order->city_name = $rec['shipping_address']['city'] ?? null;
 
                             $order->b_name = $rec['billing_address']['name'];
                             $order->b_phone = $rec['billing_address']['phone'];
                             $order->b_address_1 = $rec['billing_address']['address1'] . ' ' . $rec['billing_address']['address2'] . ' ' . $rec['billing_address']['city'];
-
+                            if (isset($rec['shipping_address']['city'])) {
                             $s_city = City::where('name', $rec['shipping_address']['city'])->first();
                             if ($s_city) {
                                 $order->city_id = $s_city->id;
@@ -132,10 +132,11 @@ class ShopifyController extends Controller
 //                                    $order->delivery_charges = $cityCourier->delivery_charges;
                                 }
                             }
-                            $order->s_name = $rec['shipping_address']['name'];
-                            $order->s_phone = $rec['shipping_address']['phone'];
-                            $order->s_email = $rec['email'];
-                            $order->s_address_1 = $rec['shipping_address']['address1'] . ' ' . $rec['shipping_address']['address2'] . ' ' . $rec['shipping_address']['city'];
+                        }
+                            $order->s_name = $rec['shipping_address']['name'] ?? null;
+                            $order->s_phone = $rec['shipping_address']['phone'] ?? null;
+                            $order->s_email = $rec['email'] ?? null;
+                            $order->s_address_1 = $rec['shipping_address']? $rec['shipping_address']['address1'] ?? null . ' ' . $rec['shipping_address']['address2'] ?? null . ' ' . $rec['shipping_address']['city'] ?? null : '';
 
                             $order->sub_total = $rec['subtotal_price'];
                             $order->tax = $rec['total_tax'];
