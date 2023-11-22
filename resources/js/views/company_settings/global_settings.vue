@@ -924,7 +924,11 @@
                 );
             },
             setData(res) {
-                this.form = res.data.form;
+                if(res.data.form){
+                    this.form = res.data.form;
+                } else {
+                    this.form = {}
+                }
                 this.show = true;
             },
             smstabs() {

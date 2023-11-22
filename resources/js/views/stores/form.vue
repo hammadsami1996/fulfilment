@@ -472,6 +472,12 @@
       .then(res => {
         this.connectionBtn = false;
         this.isSubmitting = false;
+        this.$toast.open({
+            position: 'top-right',
+            message:  'Connection Successfully',
+            type: 'success',
+            duration: 3000
+        });
       })
       .catch(err => {
         this.isSubmitting = false;

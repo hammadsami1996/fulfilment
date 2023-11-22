@@ -558,16 +558,11 @@
                 const value = e.target.value
                 i.values = value
             },
+     
             removeProductAttribute(item, index) {
-                byMethod('DELETE', '/api/product/' + item.id).then(res => {
-                    // this.successfull(res)
-                    this.$toast.open({
-                        position: 'top-right',
-                        message: 'Delete Successfully',
-                        type: 'success',
-                        duration: 3000
-                    });
-                })
+                if (this.form.product_attribute.length > 1) {
+                    this.form.product_attribute.splice(index, 1);
+                }
             },
             saveProductAttribute(item) {
                 byMethod(this.method, '/api/product_single', objectToFormData(item)).then(res => {

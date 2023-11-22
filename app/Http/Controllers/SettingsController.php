@@ -40,15 +40,13 @@ class SettingsController extends Controller
                 return $item->value = json_decode($item->value, true);
             });
         } else{
-            $model = $model ? json_decode($model->value, true) : [];
+            $model = $model ? json_decode($model->value, true) : false;
         }
 
 //        $form = $model ? json_decode($model->value, true) : [];
 
-        $form = $model ?? [];
-
     return response()->json([
-        "form" => $form,
+        "form" => $model,
 //        "status" => $model,
     ]);
 }
