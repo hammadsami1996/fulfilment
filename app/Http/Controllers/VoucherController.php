@@ -29,7 +29,7 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Voucher::with(['items.account'])->search()]);
+        return response()->json(['data' => Voucher::with(['items.account','items.subledger'])->search()]);
 
     }
 
@@ -45,6 +45,7 @@ class VoucherController extends Controller
             "remarks" => '',
             "number" => '',
             'account_id' => null,
+            'subledger_id' => null,
             'account' => null,
         ];
         return response()->json([
@@ -102,7 +103,7 @@ class VoucherController extends Controller
      */
     public function show($id)
     {
-        $model = Voucher::with(['items.account'])->findOrFail($id);
+        $model = Voucher::with(['items.account','items.subledger'])->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -111,7 +112,7 @@ class VoucherController extends Controller
      */
     public function edit($id)
     {
-        $model = Voucher::with([ 'items.account'])->findOrFail($id);
+        $model = Voucher::with([ 'items.account','items.subledger'])->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
