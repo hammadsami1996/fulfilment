@@ -142,6 +142,7 @@
                 permissions: [],
                 form: {
                     delivery_charges: "",
+                    shipping_charges: "0.00",
                 },
                 countries: "/api/country",
                 courier: "/api/courier",

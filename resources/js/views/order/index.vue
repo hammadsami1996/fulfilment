@@ -37,11 +37,7 @@
         <hr>
         <div class="container px-2 py-3  sm:px-6 flex justify-end items-center">
             <div class="mt-3 pb-2 sm:mt-0 sm:ml-2 flex justify-end">
-                <router-link :to="{name:`create-${small}`}"
-                             class="mt-6 ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1  text-sm border-gray-200 bg-blue-500 text-white"
-                             type="button">
-                    Create Order
-                </router-link>
+
                 <button @click="toggle = !toggle" class="mt-6 ml-1 buttonn inline-flex items-center  font-semibold rounded-lg px-1 py-1  text-sm border border-gray-200 bg-purple-500 text-white">
                     Advanced Search
                 </button>
@@ -105,6 +101,11 @@
                    class="w-1/6 sm:mx-auto  py-4 px-6 text-center border-b-2 font-medium md:mx-auto lg:ml-[-10pc]   text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
                     Unpackable
                 </a>
+                <router-link :to="{name:`create-${small}`}"
+                             class="mt-6 ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1  text-sm border-gray-200 bg-blue-500 text-white"
+                             type="button">
+                    Create Order
+                </router-link>
             </div>
         </div>
 

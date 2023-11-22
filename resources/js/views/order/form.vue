@@ -87,19 +87,19 @@
             <h1 class="font-bold mt-1">Shipping</h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Shiping Name </label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Shipping Name </label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"
                            v-model="form.s_name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Shiping Email </label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Shipping Email </label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="email"
                            v-model="form.s_email"/>
                     <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> Shiping Phone </label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Shipping Phone </label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="tel"
                            v-model="form.s_phone"/>
                     <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>

@@ -136,21 +136,18 @@ class CityController extends Controller
         if (!$request->city_id && !$request->country_id) {
             return response()->json(['saved' => false, 'message' => 'Both city_id and country_id are missing.']);
         }
-
         $excludeCondition = $request->has('exclude') && $request->exclude == 1 && ($request->city_id || $request->country_id);
         $includeCondition = (!$request->has('exclude') || $request->exclude == 0) && ($request->city_id || $request->country_id);
         if ($excludeCondition) {
             $cityIds = City::where('country_id', $request->country_id)->whereNotIn('id',[$request->city_id])->pluck('id')->toArray();
-        } elseif ($includeCondition) {
+        }elseif ($includeCondition) {
             $cityIds = City::where('country_id', $request->country_id)->whereIn('id',[$request->city_id])->pluck('id')->toArray();
         } elseif ($request->city_id) {
             $cityIds = [$request->city_id];
         } else {
             $cityIds = City::where('country_id', $request->country_id)->pluck('id')->toArray();
         }
-
         $cityIds = array_merge([$request->city_id], $cityIds);
-
         if (!empty($cityIds)) {
             $pivotData = [
                 'courier_id' => $request->courier_id ?? null,
