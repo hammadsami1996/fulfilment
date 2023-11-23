@@ -12,12 +12,19 @@ class SubLedger extends Model
 
     protected $table = 'sub_ledgers';
     protected $search = [
-        'account_id', 'subledger_title', 'active'
+         'subledger_title', 'active'
     ];
     protected $columns = [
-         'account_id', 'subledger_title', 'active'
+          'subledger_title', 'active'
     ];
     protected $fillable = [
-        'account_id', 'subledger_title', 'active'
+         'subledger_title', 'active'
     ];
+    protected $appends = ['text'];
+
+
+    public function getTextAttribute()
+    {
+        return $this->attributes['subledger_title'];
+    }
 }

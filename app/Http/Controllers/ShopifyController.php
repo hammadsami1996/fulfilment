@@ -111,7 +111,7 @@ class ShopifyController extends Controller
                                     }
                                     $customer->s_name = $rec['shipping_address']['name'] ?? null;
                                     $customer->s_phone = $rec['shipping_address']['phone'] ?? null;
-                                    $customer->s_address_1 = $rec['shipping_address']['address1'] ?? null. ' ' . $rec['shipping_address']['address2'] ?? null;
+                                    $customer->s_address_1 = $rec['shipping_address'] ? $rec['shipping_address']['address1'] ?? null. ' ' . $rec['shipping_address']['address2'] ?? null : '';
                                     $customer->save();
                                     $order->customer_id = $customer['id'];
                                 }

@@ -14,7 +14,7 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                         <div class="block font-medium text-sm text-gray-700" >
                         <label>Customer</label>
-                        <span @click="customerbtn" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                        <span @click="customerbtn" v-if="permissions.includes(`create-customer`)" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
                             New
                         </span>
                     </div>
@@ -80,26 +80,28 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Courier
                     </label>
-                    <typeahead :initialize="form.courier" :url="couriers" @input="onCourier" display="name"/>
+                    <typeahead :initialize="form.courier"
+                               :url="couriers"
+                               @input="onCourier" display="name"/>
                 </div>
             </div>
             <hr class="mt-4">
             <h1 class="font-bold mt-1">Shipping</h1>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Shiping Name </label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Shipping Name </label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"
                            v-model="form.s_name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.name">{{ error.name[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2">Shiping Email </label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Shipping Email </label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="email"
                            v-model="form.s_email"/>
                     <p class="text-red-600 text-xs italic" v-if="error.email">{{ error.email[0] }}</p>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                    <label class="block font-medium text-sm text-gray-700 mb-2"> Shiping Phone </label>
+                    <label class="block font-medium text-sm text-gray-700 mb-2"> Shipping Phone </label>
                     <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="tel"
                            v-model="form.s_phone"/>
                     <p class="text-red-600 text-xs italic" v-if="error.phone">{{ error.phone[0] }}</p>
@@ -364,7 +366,7 @@
                 capital: 'Order',
                 title: 'Add',
                 message: 'New order Added',
-                permissions: {},
+                permissions:[],
                 customers: '/api/customer',
                 products: '/api/product',
                 stores: '/api/stores',
@@ -376,6 +378,7 @@
             }
         },
         created() {
+            this.permissions = window.apex.user.permission
             this.form.order_date = moment().format('YYYY-MM-DD');
         },
         // watch: {
@@ -497,9 +500,17 @@
                 const city = e.target.value
                 this.form.city = city
                 this.form.city_id = city.id
+                if (city.couriers){
+                    let f = {
+                            target:{
+                                value:city.couriers[0]
+                            }
+                        }
+                    this.onCourier(f);
+                }
+                // console.log(city);
                 this.get_charges(this.total_weight);
             },
-
             onWarehouse(e) {
                 const warehouse = e.target.value
                 this.form.warehouse = warehouse

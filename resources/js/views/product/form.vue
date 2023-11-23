@@ -260,7 +260,6 @@
                                     v-model="form.cost_price">
                                 <p class="text-red-600 text-xs italic" v-if="error.cost_price">{{ error.cost_price[0]
                                     }}</p>
-
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Selling Price</label>
@@ -282,7 +281,7 @@
                                 <!-- <label class="block text-sm font-medium text-gray-700">Suppliers</label> -->
                                 <div class="block font-medium text-sm text-gray-700" >
                                 <label>Supplier</label>
-                                <span @click="supplierbtn" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                                <span @click="supplierbtn" v-if="permissions.includes(`create-supplier`)" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
                                     New
                                 </span>
                             </div>
@@ -307,7 +306,7 @@
                             <div class="mb-4">
                                 <div class="block font-medium text-sm text-gray-700" >
                                 <label>Category</label>
-                                <span @click="ProductCategorybtn" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                                <span @click="ProductCategorybtn" v-if="permissions.includes(`create-product_category`)" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
                                     New
                                 </span>
                             </div>
@@ -325,7 +324,7 @@
                             <div class="mb-4">
                                 <div class="block font-medium text-sm text-gray-700" >
                                 <label>Brand</label>
-                                <span @click="Brandbtn" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                                <span @click="Brandbtn"  v-if="permissions.includes(`create-brand`)" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
                                     New
                                 </span>
                             </div>
@@ -445,6 +444,7 @@
     import ProductCategory from "../product_category/form.vue";
     import Brand from "../brand/form.vue";
     import {objectToFormData} from "@/libs/helpers";
+    import moment from "moment";
 
     function initialize(to) {
         let urls = {
@@ -476,7 +476,7 @@
                 capital: 'Product Category',
                 title: 'Add',
                 message: 'New Product Added',
-                permissions: {},
+                permissions: [],
                 parentUrl: '/api/product',
                 supplier: '/api/supplier',
                 category: '/api/product_category',
@@ -496,6 +496,9 @@
                     this.setData(res);
                     next()
                 })
+        },
+        created() {
+            this.permissions = window.apex.user.permission
         },
         methods: {
             onImageChange(e, index) {
@@ -558,16 +561,11 @@
                 const value = e.target.value
                 i.values = value
             },
+     
             removeProductAttribute(item, index) {
-                byMethod('DELETE', '/api/product/' + item.id).then(res => {
-                    // this.successfull(res)
-                    this.$toast.open({
-                        position: 'top-right',
-                        message: 'Delete Successfully',
-                        type: 'success',
-                        duration: 3000
-                    });
-                })
+                if (this.form.product_attribute.length > 1) {
+                    this.form.product_attribute.splice(index, 1);
+                }
             },
             saveProductAttribute(item) {
                 byMethod(this.method, '/api/product_single', objectToFormData(item)).then(res => {

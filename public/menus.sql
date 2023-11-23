@@ -11,7 +11,7 @@
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 16/11/2023 11:07:20
+ Date: 23/11/2023 15:43:10
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `menus`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
@@ -72,5 +72,7 @@ INSERT INTO `menus` VALUES (29, 'Fetch Order', '/fetch_order', 'view-fetch_order
 INSERT INTO `menus` VALUES (30, 'Chart of Accounts', '/coa', 'view-chart_of_accounts', 5, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (31, 'Global Settings', '/global_settings', 'view-global_settings ', 6, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (32, 'General Voucher', '/voucher', 'view-voucher', 5, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (33, 'Account', '/accounts', 'view-account', 5, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (34, 'Subledger ', '/subledger', 'view-subledger ', 5, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

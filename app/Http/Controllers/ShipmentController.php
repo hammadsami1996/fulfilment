@@ -23,23 +23,14 @@ class ShipmentController extends Controller
     {
         $order = Order::with('city')->findOrfail($id);
         $res = false;
-//        if (!$order->tracking_id) {
-//            if ($order->courier_id == 1 && ($order->city && $order->city->trax)) {
-//                $res = $this->trax($order);
-//                if ($res && isset($res['tracking_number'])) {
-//                    $order->update(['tracking_id' => $res['tracking_number']]);
-//                    if ($res['status_id']) {
-//                        $order->update(['status_id' => $res['status_id']]);
-//                    }
-//                    return response()->json(['data' => $order]);
-//                }
-//            } else {
-//                return response()->json(['error' => $order], 422);
-//            }
-//        }
         if (!$order->tracking_id) {
             if ($order->courier_id == 1 && ($order->city && $order->city->trax)) {
                 $res = $this->trax($order);
+            }
+//            elseif ($order->courier_id == 2 && ($order->city && $order->city->trax)) {
+//                $res = $this->leoperd($order);
+//            }
+            if($res){
                 if ($res && isset($res['tracking_number'])) {
                     $order->update(['tracking_id' => $res['tracking_number']]);
                     if ($res['status_id']) {

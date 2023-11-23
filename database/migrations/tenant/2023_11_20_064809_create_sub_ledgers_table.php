@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('sub_ledgers', function (Blueprint $table) {
             $table->id();
-            $table->integer('account_id')->nullable();
             $table->string('subledger_title')->nullable();
-            $table->tinyInteger('active')->default(0);
+            $table->tinyInteger('active')->default(0)->nullable();
             $table->integer('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
-
             $table->timestamps();
         });
     }

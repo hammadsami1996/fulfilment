@@ -12,41 +12,37 @@ use App\Support\Search;
 
 class Account extends Model implements Auditable
 {
-   
+
     use HasFactory, Notifiable, SoftDeletes,Search, \OwenIt\Auditing\Auditable;
-   
+
 
     protected $fillable = [
-        'accounttitle', 'accountcode', 'active', 'user_id', 'opening_balance', 'opening_type',
-        'gain_loss_on_exchange', 'currency_id', 'rate', 'description', 'nature', 'group_id', 'level', 'short', 'company_id','op_debit','op_credit','op_date'
+        'accounttitle', 'shortname', 'active',
     ];
 
-    protected $search = ['id', 'accountcode', 'accounttitle', 'created_at', 'active'];
-    protected $columns = ['id', 'accountcode', 'accounttitle', 'created_at', 'active'];
+    protected $search = [  'accounttitle', 'shortname', 'active',];
+    protected $columns = [  'accounttitle', 'shortname', 'active',];
 
-    public function group()
-    {
-        return $this->belongsTo(Account_group::class, 'group_id', 'id');
-    }
+//    public function group()
+//    {
+//        return $this->belongsTo(Account_group::class, 'group_id', 'id');
+//    }
+//
+//
+//    public function user()
+//    {
+//        return $this->belongsTo(User::class, 'user_id', 'id');
+//    }
+//
+//    public function gain_loss_account()
+//    {
+//        return $this->belongsTo(Account::class, 'gain_loss_on_exch_account_id', 'id');
+//    }
 
+    protected $appends = ['text'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function gain_loss_account()
-    {
-        return $this->belongsTo(Account::class, 'gain_loss_on_exch_account_id', 'id');
-    }
-
-    protected $appends = ['text', 'name'];
 
     public function getTextAttribute()
-    {
-        return $this->attributes['accountcode'] . ' - ' . $this->attributes['accounttitle'];
-    }
-    public function getNameAttribute()
     {
         return $this->attributes['accounttitle'];
     }
