@@ -58,12 +58,11 @@
             <!-- Course Card -->
             <a class="" href="#">
                 <div class="relative">
-                    <select class="block appearance-none w-full bg-white px-4 py-2 pr-8 rounded leading-tight"
-                    >
-                        <option value="0">Daily</option>
-                        <option value="1">Weekly</option>
-                        <option value="2">Monthly</option>
-                        <option value="3">Yearly</option>
+                    <select v-model="selectedPeriod" @change="fetchData" class="block appearance-none w-full bg-white px-4 py-2 pr-8 rounded leading-tight">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
                     </select>
                 </div>
             </a>
@@ -83,7 +82,7 @@
                     </div>
                     <div class="flex justify-between items-center pt-5">
                         <p class="text-gray-700 text-base">
-                            <strong class="font-bold">174</strong> orders
+                            <strong class="font-bold">{{form.total_orders}}</strong> orders
                         </p>
                         <button
                             class="text-gray-400 py-1 px-2 rounded-full text-sm transition hover:bg-blue-200 hover:text-blue-500 active:opacity-90 p-2">
@@ -96,7 +95,7 @@
 
 
             <!-- Course Card -->
-            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
+            <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2" @click="this.$router.push('/order')"
                href="#">
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-black">Orders</div>
@@ -105,7 +104,7 @@
                     </div>
                     <div class="flex justify-between items-center pt-5">
                         <p class="text-gray-700 text-base">
-                            <strong class="font-bold">174</strong> orders Unsettled
+                            <strong class="font-bold">{{ form.unpackable_Orders_Count }}</strong> orders Unsettled
                         </p>
                         <button
                             @click="this.$router.push('/order')"
@@ -119,7 +118,7 @@
 
             <!-- Course Card -->
             <a class="relative group flex flex-col rounded-md shadow-sm text-white bg-gray-200 overflow-hidden transition hover:ring-4 hover:ring-blue-400 active:opacity-90 p-2"
-               href="#">
+               href="#" >
                 <div class="px-4 py-2">
                     <div class="font-bold text-lg mb-1 text-black">On Hold</div>
                     <div class="flex items-center pt-4">
@@ -127,7 +126,7 @@
                     </div>
                     <div class="flex justify-between items-center pt-5">
                         <p class="text-gray-700 text-base">
-                            <strong class="font-bold">174</strong> orders Unsettled
+                            <strong class="font-bold">{{ form.unpackable_Orders_Count }}</strong> orders Unsettled
                         </p>
                         <button
                             @click="this.$router.push('/order')"
@@ -149,7 +148,7 @@
                     </div>
                     <div class="flex justify-between items-center pt-5">
                         <p class="text-gray-700 text-base">
-                            <strong class="font-bold">174</strong> orders Unsettled
+                            <strong class="font-bold">{{ form.unpackable_Orders_Count }}</strong> orders Unsettled
                         </p>
                         <button
                             @click="this.$router.push('/order')"
@@ -353,6 +352,7 @@
     // import VueApexCharts from "vue3-apexcharts";
     import {get} from "@/libs/api";
     import {form} from "@/libs/mixins";
+    import axios from 'axios';
 
     function initialize(to) {
         let urls = {
@@ -368,6 +368,8 @@
         mixins: [form],
         data() {
             return {
+                selectedPeriod: 'daily', // Default to daily
+                 form: {},
                 chartOptions: {
                     chart: {
                         height: 350,
@@ -453,7 +455,17 @@
             setData(res) {
                 this.form = res.data;
                 console.log(res.data);
-            }
+            },
+ fetchData() {
+   
+        axios.get(`/api/dashboard?period=${this.selectedPeriod}`)
+             .then(response => {
+                 this.form = response.data;
+             })
+         .catch(error => {
+            console.error(error);
+        });
+    },
 
         }
     };
