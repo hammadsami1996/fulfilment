@@ -54,7 +54,7 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2">Remarks </label>
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
                               v-model="form.remarks"/>
-                              <p class="text-red-600 text-xs italic" v-if="error.remarks">{{ error.remarks[0] }}</p>
+                    <p class="text-red-600 text-xs italic" v-if="error.remarks">{{ error.remarks[0] }}</p>
                 </div>
             </div>
             <div
@@ -88,53 +88,60 @@
                     <tbody>
                     <tr class="border-gray-100 dark:border-gray-700/50" v-for="(item,index) in form.items">
                         <td class="text-center">
+<!--                            <label>new</label>-->
+                            <span @click="accountbtn" v-if="permissions.includes(`create-account`)"
+                                  class="mr-3 space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out"
+                                  style="float: right;">
+                                New
+                            </span>
                             <typeahead
                                 :initialize="item.account"
                                 :url="accounts"
                                 @input="onAccount(item, index, $event)"
-                                class="mr-3 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                class="mr-3 mt-4 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="accounttitle"
                             />
-                            <!-- <p class="text-red-600 text-xs italic" v-if="error.account">{{ error.account[0] }}</p> -->
-                               <p v-if="error['items.' + index + '.account']" class="text-red-600 text-xs italic">
-                                        {{ error['items.' + index + '.account'][0]  }}
-                                        </p>
 
+                            <p class="text-red-600 text-xs italic" v-if="error['items.' + index + '.account']">
+                                {{ error['items.' + index + '.account'][0] }}
+                            </p>
                         </td>
+
                         <td>
-                            <!-- <input
-                                class="px-2 py-1 mr-3 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
-                                type="text"
-                                v-model="item.subledger"> -->
-                                <typeahead
+                            <span @click="subledgerbtn" v-if="permissions.includes(`create-subledger`)"
+                                  class=" mr-3 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out"
+                                  style="float: right;">
+                                    New
+                             </span>
+                            <typeahead
                                 :initialize="item.subledger"
                                 :url="subledgers"
                                 @input="onSubledger(item, index, $event)"
-                                class="mr-3 text-sm rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                class="mr-3 text-sm mt-4 rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 display="subledger_title"
                             />
                         </td>
                         <td>
                             <input
-                                class="px-2 py-1 mr-3 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                class="px-2 py-1 mr-3 mt-4 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 type="text"
                                 v-model="item.reference">
                         </td>
                         <td>
                             <input
-                                class="w-full px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                class="w-full px-2 py-1 mt-4 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 type="text"
                                 v-model="item.debit">
                         </td>
                         <td>
                             <input
-                                class="w-full px-2 py-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
+                                class="w-full px-2 py-1 mt-4 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
                                 type="text"
                                 v-model="item.credit">
                         </td>
                         <td class=" text-center">
                             <button @click="removeLine(item,index)"
-                                    class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
+                                    class="mt-4 inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75"
                                     type="button">
                                 <i class="fa fa-trash mr-1"></i>
                             </button>
@@ -191,6 +198,14 @@
                     type="button">
                     Cancel
                 </button>
+                <Modal :show="showaccount" @cancel="handleCancelAcccount" closeable="true">
+                    <Account :show="true" @cancel-account="handleCancelAccount" @resp="()=>{showaccount = !true}"
+                             @save-account="handleCancelAccount" additionalProp="global"></Account>
+                </Modal>
+                <Modal :show="showsubledger" @cancel="handleCancelSubledger" closeable="true">
+                    <Subledger :show="true" @cancel-subledger="handleCancelSubledger" @resp="()=>{showsubledger = !true}"
+                             @save-subledger="handleCancelSubledger" additionalProp="global"></Subledger>
+                </Modal>
             </div>
         </div>
     </div>
@@ -201,6 +216,9 @@
     import {form} from '@/libs/mixins'
     import moment from "moment";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
+    import Modal from "@/Components/Modal.vue";
+    import Account from "../account/form.vue";
+    import Subledger from "../subledger/form.vue";
 
     function initialize(to) {
         let urls = {
@@ -210,10 +228,11 @@
         return urls[to.meta.mode] || urls.add
     }
 
+
     export default {
         mixins: [form],
         components: {
-            Typeahead,
+            Typeahead, Modal, Account,Subledger
         },
         data() {
             return {
@@ -227,13 +246,14 @@
                 capital: 'General Voucher',
                 title: 'Add',
                 message: 'New voucher Added',
-                permissions: {},
+                permissions: [],
                 accounts: '/api/accounts',
-                subledgers: '/api/subledger'
+                subledgers: '/api/subledger',
+                showaccount: false,
+                showsubledger: false,
 
             }
         },
-
         beforeRouteEnter(to, from, next) {
             get(initialize(to))
                 .then((res) => {
@@ -248,6 +268,7 @@
                 })
         },
         created() {
+            this.permissions = window.apex.user.permission
             this.form.date = moment().format('YYYY-MM-DD');
         },
         watch: {
@@ -353,14 +374,26 @@
                         duration: 500
                     });
                 })
-                .finally(() => {
-                    this.isSubmitting = false; // Enable the button and hide the spinner
-                });
+                    .finally(() => {
+                        this.isSubmitting = false; // Enable the button and hide the spinner
+                    });
 
             },
             successfull(res) {
                 this.$router.push({path: `${this.resource}`})
-            }
+            },
+            accountbtn() {
+                this.showaccount = true;
+            },
+            handleCancelAccount() {
+                this.showaccount = false;
+            },
+            subledgerbtn() {
+                this.showsubledger = true;
+            },
+            handleCancelSubledger() {
+                this.showsubledger = false;
+            },
         },
     }
 </script>

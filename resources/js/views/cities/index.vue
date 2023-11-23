@@ -172,6 +172,23 @@
             formSubmitted() {
                 this.isSubmitting = true; // Disable the button and show the spinner
                 byMethod("post", "/api/store_cities", this.form).then((res) => {
+                    if (res.data.error) {
+                        // this.$swal('Quantity cannot be greater than available product quantity for any item!');
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: 'Quantity cannot be greater than available product quantity for any item!',
+                            type: 'error',
+                            duration: 3000
+                        });
+                    } else {
+                        this.successfull(res)
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
+                            type: 'success',
+                            duration: 3000
+                        });
+                    }
                     // Handle the response here
                     this.isSubmitting = false; // Re-enable the button and hide the spinner
                 });

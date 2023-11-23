@@ -14,7 +14,7 @@
                 </label> -->
                         <div class="block font-medium text-sm text-gray-700" >
                         <label>Supplier</label>
-                        <span @click="supplierbtn" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                        <span @click="supplierbtn" v-if="permissions.includes(`create-supplier`)" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
                             New
                         </span>
                     </div>
@@ -343,7 +343,7 @@
                 capital: 'Purchase',
                 title: 'Add',
                 message: 'New purchase Added',
-                permissions: {},
+                permissions: [],
                 suppliers: '/api/supplier',
                 products: '/api/product?head_id=!null',
             }
@@ -363,6 +363,7 @@
                 })
         },
         created() {
+            this.permissions = window.apex.user.permission
             this.form.po_date = moment().format('YYYY-MM-DD');
         },
         computed: {

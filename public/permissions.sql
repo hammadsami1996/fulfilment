@@ -11,7 +11,7 @@
  Target Server Version : 80030
  File Encoding         : 65001
 
- Date: 16/11/2023 11:07:55
+ Date: 23/11/2023 15:38:42
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `permissions`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 267 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 291 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permissions
@@ -224,6 +224,18 @@ INSERT INTO `permissions` VALUES (269, 'edit-voucher', 'web', NULL, NULL, 267, N
 INSERT INTO `permissions` VALUES (270, 'create-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
 INSERT INTO `permissions` VALUES (271, 'delete-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
 INSERT INTO `permissions` VALUES (272, 'export-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (273, NULL, 'web', 'Account', NULL, NULL, 56, '2023-11-22 07:59:44', '2023-11-22 07:59:44');
+INSERT INTO `permissions` VALUES (274, 'view-account', 'web', NULL, NULL, 273, NULL, '2023-11-22 07:59:44', '2023-11-22 07:59:44');
+INSERT INTO `permissions` VALUES (275, 'edit-account', 'web', NULL, NULL, 273, NULL, '2023-11-22 07:59:44', '2023-11-22 07:59:44');
+INSERT INTO `permissions` VALUES (276, 'create-account', 'web', NULL, NULL, 273, NULL, '2023-11-22 07:59:44', '2023-11-22 07:59:44');
+INSERT INTO `permissions` VALUES (277, 'delete-account', 'web', NULL, NULL, 273, NULL, '2023-11-22 07:59:44', '2023-11-22 07:59:44');
+INSERT INTO `permissions` VALUES (278, 'export-account', 'web', NULL, NULL, 273, NULL, '2023-11-22 07:59:44', '2023-11-22 07:59:44');
+INSERT INTO `permissions` VALUES (279, NULL, 'web', 'Subledger', NULL, NULL, 56, '2023-11-22 11:28:44', '2023-11-22 11:28:44');
+INSERT INTO `permissions` VALUES (280, 'view-subledger', 'web', NULL, NULL, 279, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (281, 'edit-subledger', 'web', NULL, NULL, 279, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (282, 'create-subledger', 'web', NULL, NULL, 279, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (283, 'delete-subledger', 'web', NULL, NULL, 279, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (284, 'export-subledger', 'web', NULL, NULL, 279, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -376,6 +388,20 @@ INSERT INTO `role_has_permissions` VALUES (250, 1);
 INSERT INTO `role_has_permissions` VALUES (251, 1);
 INSERT INTO `role_has_permissions` VALUES (252, 1);
 INSERT INTO `role_has_permissions` VALUES (253, 1);
+INSERT INTO `role_has_permissions` VALUES (70, 1);
+INSERT INTO `role_has_permissions` VALUES (71, 1);
+INSERT INTO `role_has_permissions` VALUES (72, 1);
+INSERT INTO `role_has_permissions` VALUES (73, 1);
+INSERT INTO `role_has_permissions` VALUES (74, 1);
+INSERT INTO `role_has_permissions` VALUES (256, 1);
+INSERT INTO `role_has_permissions` VALUES (257, 1);
+INSERT INTO `role_has_permissions` VALUES (258, 1);
+INSERT INTO `role_has_permissions` VALUES (259, 1);
+INSERT INTO `role_has_permissions` VALUES (262, 1);
+INSERT INTO `role_has_permissions` VALUES (263, 1);
+INSERT INTO `role_has_permissions` VALUES (264, 1);
+INSERT INTO `role_has_permissions` VALUES (265, 1);
+INSERT INTO `role_has_permissions` VALUES (266, 1);
 INSERT INTO `role_has_permissions` VALUES (267, 1);
 INSERT INTO `role_has_permissions` VALUES (268, 1);
 INSERT INTO `role_has_permissions` VALUES (269, 1);
@@ -395,7 +421,7 @@ CREATE TABLE `roles`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `roles_name_guard_name_unique`(`name`, `guard_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of roles
