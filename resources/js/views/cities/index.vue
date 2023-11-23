@@ -191,12 +191,6 @@
                     }
                     // Handle the response here
                     this.isSubmitting = false; // Re-enable the button and hide the spinner
-                    this.$toast.open({
-            position: 'top-right',
-            message:  'Bulk Update Successfully',
-            type: 'success',
-            duration: 3000
-        });
                 });
             },
             onCountries(e) {
