@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('voucher_items', function (Blueprint $table) {
             $table->id();
             $table->integer('account_id')->nullable();
+            $table->integer('voucher_id')->nullable();
             $table->integer('subledger_id')->nullable();
             $table->decimal('debit',10,2)->nullable()->default(0.00);
             $table->decimal('credit',10,2)->nullable()->default(0.00);

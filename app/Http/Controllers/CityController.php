@@ -16,10 +16,11 @@ class CityController extends Controller
      */
     public function search()
     {
-        $results = City::when(request()->has('country_id') && \request('country_id'), function ($query) {
+        $results = City::with('couriers')
+            ->when(request()->has('country_id') && \request('country_id'), function ($query) {
             $query->where('country_id', \request('country_id'));
         })->when(request('q', null), function ($query) {
-            $query->where('name', 'like', '%' . request('q') . '%');
+            $query->where       ('name', 'like', '%' . request('q') . '%');
         })->paginate(10);
         return response()->json(['data' => $results]);
     }
