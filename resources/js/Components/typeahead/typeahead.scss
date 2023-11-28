@@ -100,4 +100,19 @@ $border-color: #f2f2f2;
         background: $color-primary !important;
         color: #fff;
     }
+
+    .typeahead-link {
+        display: block;
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.3s;
+    }
+
+    .typeahead-link:hover {
+        background-color: #f0f0f0;
+    }
+
+    .typeahead-active {
+        background-color: #ddd;
+    }
 }

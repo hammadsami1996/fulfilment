@@ -1,6 +1,6 @@
 <template>
     <div class="p-4" v-if="show">
-        <h1 class="text-lg font-bold mb-4">
+        <h1  class="mb-4 border-b-2 border-gray-200 py-2 text-2xl font-bold dark:border-gray-700 lg:mb-8">
             {{ $route.meta.mode && $route.meta.mode === "edit" ? `Edit ${capital}`: `Add New ${capital}`}}
         </h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
@@ -31,7 +31,7 @@
         <hr class="mt-6">
         <h1 class="font-bold mt-2 mb-2">Personal Contact</h1>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-            <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
+            <div class="w-full sm:w-1/2 pl-3 sm:mb-0 relative">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
                 >Email <span class="text-red-600">*</span></label>
@@ -69,7 +69,8 @@
         </div>
         <hr class="mt-6">
         <h1 class="font-bold mt-2 mb-2">Billing Address</h1>
-        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+<!--        <h1  class="mb-4 border-b-2 border-gray-200 py-2 text-2xl font-bold dark:border-gray-700 lg:mb-8">Billing Address</h1>-->
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center" style="position: relative">
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
@@ -82,8 +83,7 @@
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
-                >Phone</label>
+                    class="block font-medium text-sm text-gray-700 mb-2">Phone</label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md"
                     type="text"
@@ -102,7 +102,7 @@
             </div>
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
-                    class="block font-medium text-sm text-gray-700 mb-2"
+                    class="block font-medium text-sm text-gray-700 mb-2 relative"
                 >City:</label>
                 <typeahead :initialize="form.b_city"
                            :url="form.b_country_id != null ? `/api/city?country_id=${form.b_country_id}` : cities"

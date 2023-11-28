@@ -76,20 +76,28 @@
             <transition mode="out-in" name="fade">
                 <div class="typeahead-dropdown z-10 relative" v-if="isOpen">
                     <div class="typeahead-input_wrap flex-wrap">
-                        <input @blur="onBlur" @input="onSearch" @keydown.down="onDownKey" @keydown.enter="onEnterKey"
-                               @keydown.esc="onEsc" @keydown.up="onUpKey"
-                               autocomplete="off"
-                               class="typeahead-input bg-gray-100 border border-gray-300 rounded px-2 py-1"
-                               placeholder="Search..."
-                               ref="search"
-                               type="text">
+                        <input
+                            @blur="onBlur"
+                            @input="onSearch"
+                            @keydown.down="onDownKey"
+                            @keydown.enter="onEnterKey"
+                            @keydown.esc="onEsc"
+                            @keydown.up="onUpKey"
+                            autocomplete="off"
+                            class="typeahead-input bg-gray-100 border border-gray-300 rounded   "
+                            placeholder="Search..."
+                            ref="search"
+                            type="text"
+                        />
                     </div>
                     <ul class="typeahead-list" v-if="results.length">
                         <li :key="result.id" class="typeahead-item" v-for="(result, index) in results">
-                            <a :class="['typeahead-link', selectIndex === index ? 'typeahead-active' : '']"
-                               @mousedown.prevent="select(result)"
-                               @mouseover.prevent="onMouse(index)">
-                                {{result[display]}}
+                            <a
+                                :class="['typeahead-link', selectIndex === index ? 'typeahead-active' : '']"
+                                @mousedown.prevent="select(result)"
+                                @mouseover.prevent="onMouse(index)"
+                            >
+                                {{ result[display] }}
                             </a>
                         </li>
                     </ul>
@@ -328,9 +336,47 @@
     }
 </script>
 <style scoped>
-.multi-select-height {
-  min-height: 35px;
-  max-height: 200px;
-  overflow-y: auto;
-}
+    .typeahead-dropdown {
+        position: absolute;
+        width: 100%;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .typeahead-input_wrap {
+        padding: 4px;
+    }
+
+    .typeahead-input {
+        width: 100%;
+    }
+
+    .typeahead-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .typeahead-link {
+        display: block;
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.3s;
+    }
+
+    .typeahead-link:hover {
+        background-color: #f0f0f0;
+    }
+
+    .typeahead-active {
+        background-color: #ddd;
+    }
+
+    /*.typeahead-item {*/
+    /*    padding: 2px;*/
+    /*}*/
+
+
 </style>

@@ -15,7 +15,7 @@
                 <label class="block font-medium text-sm text-gray-700 mb-2 flex justify-between ">
                     Cities:
                     <span>
-                    <input class="mr-2" type="checkbox" true-value="1" false-value="0" v-model="form.exclude">
+                    <input class="mr-2" false-value="0" true-value="1" type="checkbox" v-model="form.exclude">
                     <label>Exclude</label>
                     </span>
                 </label>
@@ -189,9 +189,10 @@
                             duration: 3000
                         });
                     }
-                    // Handle the response here
-                    this.isSubmitting = false; // Re-enable the button and hide the spinner
-                });
+                })
+                    .finally(() => {
+                        this.isSubmitting = false; // Enable the button and hide the spinner
+                    });
             },
             onCountries(e) {
                 const country = e.target.value;

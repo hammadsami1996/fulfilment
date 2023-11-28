@@ -58,7 +58,11 @@ class SupplierController extends Controller
         $model = new Supplier();
         $model->fill($request->all());
         $model->save();
-        return response()->json(["saved" => true, "id" => $model->id]);
+//        $model = Supplier::create($request->all());
+
+//        $subledger = SubLedger::create(['subledger_title' =>$request->name]);
+//        dd($model, $subledger);
+        return response()->json(["saved" => true, "supplier_id" => $model->id]);
     }
 
     /**
@@ -109,7 +113,7 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         $model = Supplier::findOrFail($id);
-       $model->deleted_by = Auth::id();
+        $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();
         return response()->json(["deleted" => true]);

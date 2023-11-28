@@ -395,43 +395,89 @@
                 this.form.date = moment().format('YYYY-MM-DD');
                 this.mention = true
             },
+            // formSubmitted() {
+            //    this.isSubmitting = true;
+            //     for (const item of this.form.items) {
+            //         if (item.total_qty_deliver > item.qty) {
+            //             this.$toast.open({
+            //                 position: 'top-right',
+            //                 message: 'Product quantity shift to warehouse should not be greater than Product Qunatity In Order',
+            //                 type: 'error',
+            //                 duration: 3000,
+            //             });
+            //             return;
+            //         }
+            //     }
+            //     this.form.selectedPermissions = this.selectedPermissions
+            //     byMethod(this.method, this.store, this.form).then(res => {
+            //         if (res.data.saved) {
+            //             this.$toast.open({
+            //                 position: 'top-right',
+            //                 message: 'Create Successfully',
+            //                 type: 'success',
+            //                 duration: 3000,
+            //             });
+            //             this.successfull()
+            //         }
+            //     }).catch(err => {
+            //         this.error = err.response.data.errors;
+            //         this.$toast.open({
+            //             position: 'top-right',
+            //             message: 'Error',
+            //             type: 'error',
+            //             duration: 3000
+            //         });
+            //     })
+            //     .finally(() => {
+            //     this.isSubmitting = false; // Enable the button and hide the spinner
+            //     });
+            // },
+
+
             formSubmitted() {
-               this.isSubmitting = true;
+                this.isSubmitting = true;
+
                 for (const item of this.form.items) {
                     if (item.total_qty_deliver > item.qty) {
                         this.$toast.open({
                             position: 'top-right',
-                            message: 'Product quantity shift to warehouse should not be greater than Product Qunatity In Order',
+                            message: 'Product quantity shift to the warehouse should not be greater than Product Quantity In Order',
                             type: 'error',
                             duration: 3000,
                         });
+                        this.isSubmitting = false; // Ensure isSubmitting is set to false before returning
                         return;
                     }
                 }
-                this.form.selectedPermissions = this.selectedPermissions
-                byMethod(this.method, this.store, this.form).then(res => {
-                    if (res.data.saved) {
+
+                this.form.selectedPermissions = this.selectedPermissions;
+
+                byMethod(this.method, this.store, this.form)
+                    .then(res => {
+                        if (res.data.saved) {
+                            this.$toast.open({
+                                position: 'top-right',
+                                message: 'Create Successfully',
+                                type: 'success',
+                                duration: 3000,
+                            });
+                            this.successfull();
+                        }
+                    })
+                    .catch(err => {
+                        this.error = err.response.data.errors;
                         this.$toast.open({
                             position: 'top-right',
-                            message: 'Create Successfully',
-                            type: 'success',
+                            message: 'Error',
+                            type: 'error',
                             duration: 3000,
                         });
-                        this.successfull()
-                    }
-                }).catch(err => {
-                    this.error = err.response.data.errors;
-                    this.$toast.open({
-                        position: 'top-right',
-                        message: 'Error',
-                        type: 'error',
-                        duration: 3000
+                    })
+                    .finally(() => {
+                        this.isSubmitting = false; // Enable the button and hide the spinner
                     });
-                })
-                .finally(() => {
-                this.isSubmitting = false; // Enable the button and hide the spinner
-                });
             },
+
             saveinvent() {
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.send, this.form.items).then(res => {
@@ -463,6 +509,7 @@
                     });
                 })
             },
+
             successfull(res) {
                 this.$router.push({path: `/purchase`})
             }

@@ -292,7 +292,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="flex justify-end mt-8 space-x-4">
                 <button
                     @click="formSubmitted" :disabled="isSubmitting"
@@ -348,8 +347,8 @@
         },
         data() {
             return {
-                dateA: '19-11-13000',
-                dateB: '21-10-2000',
+                // dateA: '19-11-13000',
+                // dateB: '21-10-2000',
                 isProcess: true,
                 error: {},
                 alert: false,
@@ -581,12 +580,10 @@
             },
 
             remain(e) {
-
                 // this.count = 0;
                 this.data = [
                     e,
                     this.form.warehouse_id
-
                 ]
                 byMethod('POST', '/api/remaining', this.data).then(res => {
                     if (res.data.data == null) {
@@ -634,6 +631,7 @@
             },
             discountper() {
                 this.form.discount = this.total * Number(this.form.discount_percent) / 100;
+
             },
             formSubmitted() {
                 this.isSubmitting = true;

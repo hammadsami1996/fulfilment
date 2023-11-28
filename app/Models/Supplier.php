@@ -12,7 +12,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 class Supplier extends Model implements Auditable
 {
     use HasFactory, Notifiable,SoftDeletes, Search,  \OwenIt\Auditing\Auditable;
-   
+
     protected $fillable = [
         'name', 'company_name', 'website', 'address', 'number_1', 'number_2', 'email', 'opening_balance'
     ];
@@ -29,5 +29,10 @@ class Supplier extends Model implements Auditable
     public function getTextAttribute()
     {
         return $this->attributes['name'];
+    }
+
+    public function subLedger()
+    {
+        return $this->hasOne(SubLedger::class);
     }
 }
