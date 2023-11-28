@@ -111,23 +111,23 @@ class OrderController extends Controller
             $query->where('phone', $request->b_phone)
                 ->orWhere('phone', $request->s_phone);
         })->first();
-        if (!$c) {
-            $Customer = new Customer();
-            $Customer->name = $request->name;
-            $Customer->email = $request->email;
-            $Customer->phone = $request->phone;
-            $Customer->s_address_1 = $request->address;
-            $Customer->b_address_1 = $request->address;
-            $Customer->save();
-        }
+        // if (!$c) {
+        //     $Customer = new Customer();
+        //     $Customer->name = $request->name;
+        //     $Customer->email = $request->email;
+        //     $Customer->phone = $request->phone;
+        //     $Customer->s_address_1 = $request->address;
+        //     $Customer->b_address_1 = $request->address;
+        //     $Customer->save();
+        // }
 
 
 
         $number = Counter::where('key', 'sales_order');
         $model = new Order();
         $model->fill($request->except('items'));
-        if (!$c && $Customer['id']) {
-            $model->customer_id = $Customer['id'];
+        if ($c && $c['id']) {
+            $model->customer_id = $c['id'];
         }
         $model->so_number = ($number->first()->prefix . $number->first()->value);
 
