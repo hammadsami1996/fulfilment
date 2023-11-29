@@ -1,23 +1,40 @@
 <template>
     <div>
-        <div class="container px-1 py-2  sm:px-6 flex justify-between items-center">
-            <h3 class="text-lg leading-6 font-medium text-black-900">{{ capital }}</h3>
-            <div class="" style="display: contents">
-                <a @click="showpackable('packable',pack)"
-                   class="w-1/6 sm:mx-auto    py-4 px-6  text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
-                    Packable
+        <div class="bg-gray-100 ">
+            <nav class="container mx-auto flex justify-center">
+                <a @click="showRecords('0')"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-blue-500 focus:text-gray-700 focus:border-blue-300">
+                    All
                 </a>
-                <a @click="showpackable('unpackable',pack)"
-                   class="w-1/6 sm:mx-auto  py-4 px-6 text-center border-b-2 font-medium md:mx-auto lg:ml-[-10pc]   text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-                    Unpackable
+                <a @click="showRecords('1')"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
+                    Pending
                 </a>
-                <router-link :to="{name:`create-${small}`}"
-                             class="mt-6 ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1  text-sm border-gray-200 bg-blue-500 text-white"
-                             type="button">
-                    Create Order
-                </router-link>
-            </div>
+                <a @click="showRecords('2')"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
+                    Confirmed
+                </a>
+                <a @click="showRecords('6')"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
+                    On Hold
+                </a>
+                <a @click="showRecords('14')"
+                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-rose-500 focus:text-gray-700 focus:border-rose-300">
+                    Fake
+                </a>
+            </nav>
         </div>
+<!--        <div class="container px-1 py-2  sm:px-6 flex justify-between items-center">-->
+<!--            <h3 class="text-lg leading-6 font-medium text-black-900">{{ capital }}</h3>-->
+<!--            <div class="mt-2 pb-2 sm:mt-0 sm:ml-2 flex justify-end">-->
+<!--                <router-link :to="{name:`create-${small}`}"-->
+<!--                             class="mt-6 ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1  text-sm border-gray-200 bg-blue-500 text-white"-->
+<!--                             type="button">-->
+<!--                    Create Order-->
+<!--                </router-link>-->
+<!--            </div>-->
+<!--        </div>-->
+        <hr>
         <div class="container px-2 py-3  sm:px-6 flex justify-end items-center">
             <div class="mt-3 pb-2 sm:mt-0 sm:ml-2 flex justify-end">
 
@@ -73,7 +90,24 @@
 <!--                </button>-->
 <!--            </div>-->
 <!--        </div>-->
-
+        <div class="container px-1 py-2  sm:px-6 flex justify-between items-center">
+            <h3 class="text-lg leading-6 font-medium text-black-900">{{ capital }}</h3>
+            <div class="" style="display: contents">
+                <a @click="showpackable('packable',pack)"
+                   class="w-1/6 sm:mx-auto    py-4 px-6  text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-orange-500 focus:text-gray-700 focus:border-orange-300">
+                    Packable
+                </a>
+                <a @click="showpackable('unpackable',pack)"
+                   class="w-1/6 sm:mx-auto  py-4 px-6 text-center border-b-2 font-medium md:mx-auto lg:ml-[-10pc]   text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
+                    Unpackable
+                </a>
+                <router-link :to="{name:`create-${small}`}"
+                             class="mt-6 ml-1 buttonn inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-1  text-sm border-gray-200 bg-blue-500 text-white"
+                             type="button">
+                    Create Order
+                </router-link>
+            </div>
+        </div>
 
         <div class="bg-gray-200 p-4" v-show='toggle'>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center ">

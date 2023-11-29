@@ -49,12 +49,12 @@
 <!--    </div>-->
 <!--</template>-->
 <template>
-    <div :class="[isOpen ? 'typeahead typeahead-open' : 'typeahead']" class="border border-gray-200 rounded max-w-sm">
+    <div :class="[isOpen ? 'typeahead typeahead-open' : 'typeahead']" class=" border border-gray-200 rounded max-w-sm">
         <div :style="'font-size:'+size+'px'" class="typeahead-inner max-w-xl">
             <div :class="clearable ? 'row px-1' : ''">
                 <div
                 :class="[`${formSize} typeahead-selected overflow-x-clip font-semibold cursor-pointer py-2 px-4 `,'multi-select-height']"
-                     style="flex-wrap: wrap;"
+                     style="flex-wrap: wrap; padding: 12px;"
                      :style="'font-size:'+size+'px'"
                      :tabindex="tabindex"
                      @click="onToggle"
