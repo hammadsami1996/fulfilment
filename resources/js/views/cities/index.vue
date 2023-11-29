@@ -181,7 +181,7 @@
                             duration: 3000
                         });
                     } else {
-                        this.successfull(res)
+                        // successfull(res)
                         this.$toast.open({
                             position: 'top-right',
                             message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
