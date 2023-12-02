@@ -368,7 +368,7 @@
                                         }}</p>
 
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <label class="block text-sm font-medium text-gray-700">Product Quantity</label>
                                     <input
                                         @input="form.quantity = form.quantity.replace(/[^0-9]/g, '')"
@@ -376,7 +376,7 @@
                                         placeholder="Quantity" type="text"
                                         v-model="form.quantity"
                                     />
-                                </div>
+                                </div> -->
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Weight</label>
                                     <input

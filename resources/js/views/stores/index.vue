@@ -11,13 +11,15 @@
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+                <template v-slot:images="props">
+                    <div class="w-full">
+                    <img :src="getImagePath(props.item.img)" class="shadow-xl h-10  rounded-md" />
+                </div>
+                </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
-                         <span v-if="permissions.includes(`edit-${small}`)">
-                        <a
-                            @click.prevent="edit(props.item.id)"
-                            href="#"
-                        >
+                         <span v-if="permissions.includes(`edit-${small}`)" class="bg-blue-400 p-1 text-white border rounded border-blue-500 mr-2 hover:bg-blue-600 transition-colors duration-300" >
+                        <a @click.prevent="edit(props.item.id)" href="#" >
                             <svg class="h-5 w-5 " fill="none" stroke="currentColor"
                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0z" stroke="none"/>
@@ -27,16 +29,12 @@
                             </svg>
                         </a>
                          </span>
-                        <span v-if="permissions.includes(`delete-${small}`)">
-                        <a
-                            @click.prevent="deleteRole(props.item.id)"
-                            href="#"
-                        >
+                        <span v-if="permissions.includes(`delete-${small}`)" class="bg-red-500 p-1 border rounded border-red-500 text-white hover:bg-red-600 transition-colors duration-300">
+                        <a @click.prevent="deleteRole(props.item.id)" href="#" >
                             <svg class="h-5 w-5 " fill="none" stroke="currentColor" stroke-linecap="round"
                                  stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
                                 <polyline points="3 6 5 6 21 6"/>
-                                <path
-                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                             </svg>
                         </a>
                         </span>
@@ -67,6 +65,7 @@
                 capital: "Store",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
+                    {label: 'Image', field: 'images', slot: true},
                     {label: 'Name', field: 'name',},
                     {label: 'Location', field: 'location'},
                     {label: 'Store type', field: 'store_type'},
@@ -82,6 +81,14 @@
         methods: {
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
+            },
+            getImagePath(item) {
+                if (item) {
+                    return `/uploads/store/img/${item}`;
+                } else {
+                    // If no logo is uploaded, use a default image
+                    return "images/noimage.jpg";
+                }
             },
             deleteRole(e) {
                 byMethod('delete', `/api/stores/${e}`)

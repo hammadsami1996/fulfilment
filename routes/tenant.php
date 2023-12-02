@@ -151,7 +151,13 @@ Route::middleware([
         Route::resource('product_attribute_group', \App\Http\Controllers\ProductAttributeGroupController::class);
         Route::resource('product_attribute_value', \App\Http\Controllers\ProductAttributeValueController::class);
         Route::post('/product_single', [\App\Http\Controllers\ProductController::class, 'product_single']);
+        // Route::get('product/cost/', [\App\Http\Controllers\ProductController::class, 'updateCost']);
+        Route::put('product/cost/{itemId}', [\App\Http\Controllers\ProductController::class, 'updateCost'], ['methods' => ['PUT']]);
+        Route::put('product/selling/{itemId}', [\App\Http\Controllers\ProductController::class, 'updateSelling'], ['methods' => ['PUT']]);
+        Route::put('product/quantity/{itemId}', [\App\Http\Controllers\ProductController::class, 'updateQuantity'], ['methods' => ['PUT']]);
         Route::delete('/destroy_product_image/{id}', [\App\Http\Controllers\ProductController::class, 'destroy_product_image']);
+        Route::post('/bulk_price', [\App\Http\Controllers\ProductController::class, 'bulk_price']);
+        Route::post('/bulk_delete', [\App\Http\Controllers\ProductController::class, 'bulk_delete']);
 
 
         // Products work

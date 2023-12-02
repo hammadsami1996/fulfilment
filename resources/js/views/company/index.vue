@@ -4,20 +4,27 @@
             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
             <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
-                             type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
-                    Create
+                             type="button" class="inline-flex mr-3 justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm hover:bg-blue-600 border-gray-200 bg-blue-400 text-white">
+                   + Create Company
+                </router-link>
+                <router-link :to="{name:`create-stores`}"
+                             type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 hover:bg-blue-600 bg-blue-400 text-white">
+                   + Create Store
                 </router-link>
             </div>
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+                <template v-slot:images="props">
+                    <div class="w-full">
+                    <img :src="getImagePath(props.item.logo)" class="shadow-xl h-10  rounded-md" />
+                </div>
+                </template>
                 <template v-slot:action="props">
-                    <div class="text-sm font-medium flex">
-                         <span v-if="permissions.includes(`edit-${small}`)">
-                        <a
-                            @click.prevent="edit(props.item.id)"
-                            href="#"
-                        >
+                    <div class=" text-sm font-medium flex">
+                         <span v-if="permissions.includes(`edit-${small}`)" 
+              class="bg-blue-400 p-1 text-white border rounded border-blue-500 mr-2 hover:bg-blue-600 transition-colors duration-300">
+                        <a @click.prevent="edit(props.item.id)" href="#" >
                             <svg class="h-5 w-5 " fill="none" stroke="currentColor"
                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0z" stroke="none"/>
@@ -27,16 +34,13 @@
                             </svg>
                         </a>
                          </span>
-                        <span v-if="permissions.includes(`delete-${small}`)">
-                        <a
-                            @click.prevent="deleteRole(props.item.id)"
-                            href="#"
-                        >
+                        <span v-if="permissions.includes(`delete-${small}`)"
+                        class="bg-red-500 p-1 border rounded border-red-500 text-white hover:bg-red-600 transition-colors duration-300">
+                        <a @click.prevent="deleteRole(props.item.id)" href="#" >
                             <svg class="h-5 w-5 " fill="none" stroke="currentColor" stroke-linecap="round"
                                  stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
                                 <polyline points="3 6 5 6 21 6"/>
-                                <path
-                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                             </svg>
                         </a>
                         </span>
@@ -67,6 +71,7 @@
                 capital: "Company",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
+                    {label: 'Image', field: 'images', slot: true},
                     {label: 'Name', field: 'name',},
                     {label: 'Email', field: 'email',},
                     {label: 'Phone', field: 'phone',},
@@ -79,6 +84,14 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+            getImagePath(item) {
+                if (item) {
+                    return `/uploads/company/logo/${item}`;
+                } else {
+                    // If no logo is uploaded, use a default image
+                    return "images/noimage.jpg";
+                }
+            },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
