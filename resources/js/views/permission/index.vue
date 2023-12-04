@@ -15,6 +15,7 @@
                     <div class="text-sm font-medium flex">
                         <a
                             @click.prevent="deleteRole(props.item.id)"
+                            class="bg-red-500 p-1 border rounded border-red-500 text-white hover:bg-red-600 transition-colors duration-300"
                             href="#"
                         >
                             <svg class="h-5 w-5 " fill="none" stroke="currentColor" stroke-linecap="round"

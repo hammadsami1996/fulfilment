@@ -47,5 +47,9 @@ class Company extends Model implements Auditable
         return $this->belongsToMany(City::class, 'company_city_courier')
             ->withPivot('courier_id');
     }
+    public function stores()
+    {
+        return $this->hasMany(Store::class, 'company_id', 'id');
+    }
 
 }

@@ -409,7 +409,8 @@
                 });
             },
             successfull(res) {
-                this.$router.push({path: `${this.resource}`})
+                this.$router.push({path: "/company"})
+                // this.$router.push({path: `${this.resource}`})
             },
             // testConnection() {
             //     let data = {}

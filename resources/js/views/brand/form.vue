@@ -16,23 +16,26 @@
                     />
                     <p class="text-red-600 text-xs italic" v-if="error.title">{{ error.title[0] }}</p>
                 </div>
-                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 pl-2 pt-6">
-                    <label class="flex items-center space-x-2">
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0 pl-2 pt-4">
+                    <label class="flex items-center space-x-2 mb-2"> <span class="text-gray-700">Status</span>   </label>
                         <!-- <input type="checkbox"  class="form-checkbox h-6 w-6 text-indigo-600" checked  v-model="if (form.status && form.status == 1) {
 
                         } "> -->
-                        <input :checked="form.status === 1" @change="form.status = (form.status === 1) ? '' : 1"
-                               class="form-checkbox h-6 w-6 text-indigo-600" type="checkbox">
                         <!-- <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" checked v-model="form.status"> -->
-                        <span class="text-gray-700">Status</span>
-                    </label>
-                    <!--                    <label-->
-                    <!--                        class="block font-medium text-sm text-gray-700 mb-2"-->
-                    <!--                    >Status </label>-->
-                    <!--                    <input-->
-                    <!--                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md"-->
-                    <!--                        v-model="form.status"-->
-                    <!--                    /><p class="text-red-600 text-xs italic" v-if="error.status">{{ error.status[0] }}</p>-->
+                        <!-- <input :checked="form.status === 1" @change="form.status = (form.status === 1) ? '' : 1"
+                               class="form-checkbox h-6 w-6 text-indigo-600" type="checkbox"> -->
+                               <div class="space-x-2" style="margin-bottom: 10px;">
+                    <div class="inline-flex items-center space-x-3">
+                        <input
+                        type="checkbox"
+                        id="switch2"
+                        :checked="form.status === 1" @change="form.status = (form.status === 1) ? 0 : 1"
+                        name="switch2"
+                        class="h-7 w-12 rounded-full text-primary-500 transition-all duration-150 ease-out form-switch focus:ring focus:ring-primary-500 focus:ring-opacity-50 dark:bg-gray-700 dark:ring-offset-gray-900 dark:checked:bg-current"
+                        />
+                    </div>
+                    </div>
+     
                 </div>
             </div>
             <div class="flex justify-end mt-8 space-x-4">

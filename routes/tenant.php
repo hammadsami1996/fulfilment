@@ -158,6 +158,8 @@ Route::middleware([
         Route::delete('/destroy_product_image/{id}', [\App\Http\Controllers\ProductController::class, 'destroy_product_image']);
         Route::post('/bulk_price', [\App\Http\Controllers\ProductController::class, 'bulk_price']);
         Route::post('/bulk_delete', [\App\Http\Controllers\ProductController::class, 'bulk_delete']);
+        Route::post('/bulk_manage_inventry', [\App\Http\Controllers\ProductController::class, 'bulk_manage']);
+        Route::post('/brand_bulk_status', [\App\Http\Controllers\BrandController::class, 'status']);
 
 
         // Products work

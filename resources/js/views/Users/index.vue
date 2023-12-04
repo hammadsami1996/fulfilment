@@ -17,6 +17,7 @@
                     <div class="text-sm font-medium flex">
                         <a
                             @click="assignRole(props.item)"
+                            class="bg-green-400 p-1 text-white border rounded border-green-500 mr-2 hover:bg-green-600 transition-colors duration-300"
                             href="#"
                         >
                             <svg class="h-5 w-5 " fill="none" stroke="currentColor" stroke-linecap="round"
@@ -24,7 +25,8 @@
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                             </svg>
                         </a>
-                        <span v-if="permissions.includes(`edit-${small}`)">
+                        <span v-if="permissions.includes(`edit-${small}`)"
+                        class="bg-blue-400 p-1 text-white border rounded border-blue-500 mr-2 hover:bg-blue-600 transition-colors duration-300">
                         <a
                             @click.prevent="edit(props.item.id)" href="#"
                         >
@@ -37,7 +39,8 @@
                             </svg>
                         </a>
                         </span>
-                        <span v-if="permissions.includes(`delete-${small}`)">
+                        <span v-if="permissions.includes(`delete-${small}`)"
+                        class="bg-red-500 p-1 border rounded border-red-500 text-white hover:bg-red-600 transition-colors duration-300">
                         <a
                             @click.prevent="deleteUser(props.item.id)"
                             href="#">

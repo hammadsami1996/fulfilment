@@ -119,6 +119,7 @@ class ProductController extends Controller
         $model = new Product();
         $model->fill(\request()->except('product_attribute', 'product_img'));
         $model->supplier_id = 1;
+        // $model->manage_inventry = 1;
         $model->save();
         if ($request->has('product_img')) {
             foreach ($request->product_img as $imgN) {
@@ -495,6 +496,16 @@ class ProductController extends Controller
         $product->delete();
     }    
     return response()->json(['message' => 'Prices Delete successfully']);
+
+    }
+    public function bulk_manage(Request $request){
+        $id = $request->id;
+        $item = Product::findOrFail($id);
+        $item->manage_inventory = $request->data;
+        $item->save();
+    
+        return response()->json(['message' => 'Manage Inventory updated successfully']);
+
 
     }
 

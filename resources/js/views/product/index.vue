@@ -442,16 +442,19 @@
               </button>
             </div>  -->
             <p class="p-4 pl-0 pb-1">Manage Inventry</p>
+            <!-- <p>{{ props.item.manage_inventory }}</p> -->
             <div class="space-x-2">
       <div class="inline-flex items-center space-x-3">
         <input
           type="checkbox"
           id="switch2"
+          :checked="props.item.manage_inventory === 1" 
+          @change="updateManageInventory(props.item,props.item.id)"
           name="switch2"
           class="h-7 w-12 rounded-full text-primary-500 transition-all duration-150 ease-out form-switch focus:ring focus:ring-primary-500 focus:ring-opacity-50 dark:bg-gray-700 dark:ring-offset-gray-900 dark:checked:bg-current"
-          checked
-        />
-      </div>
+          
+          />
+  </div>
     </div>
            
           </div>
@@ -618,6 +621,22 @@ export default {
                     });
                 })
     },
+    updateManageInventory(item,id){
+ 
+      let record = {
+        data: item.manage_inventory === 1 ? 0 : 1,
+        id: id
+      }
+      byMethod('POST', '/api/bulk_manage_inventry', record).then(res => {
+                    this.$refs.TableData.reload();
+                    this.$toast.open({
+                        position: 'top-right',
+                        message: "Manage Inventry Update Successfully",
+                        type: 'success',
+                        duration: 3000
+                    });
+                })
+           },
   
     fetchProductCount() {
       axios.get(this.urlApi1)
@@ -690,6 +709,8 @@ export default {
        this.form.searchOperator = this.form.quantity  = this.form.searchQuantity = this.form.category =
        this.form.brand = this.form.supplier = null;
        this.$refs.TableData.reload();
+       this.$refs.TableData.reload();
+      //  this.fetchProductCount();
 
     },
     updateCostPrice(costese) {
