@@ -81,7 +81,12 @@ class ProductController extends Controller
         // Add more conditions as needed
         ->search();
 
-    $count = $products->count();
+    //  $pr = Product::all();
+    //  if($pr->deleted_by == null){
+    //      $count = $pr->count();
+
+    //  }
+    $count = Product::where('deleted_by', null)->count();
     return response()->json([
         'data' => $products,
         'count' => $count,

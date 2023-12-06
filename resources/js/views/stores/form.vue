@@ -32,7 +32,11 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Company <span class="text-red-600">*</span></label>
+                    >Company <span class="text-red-600">*</span>
+                    <span @click="companybtn" v-if="permissions.includes(`create-company`)" class="mb-3 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                        New
+                    </span> 
+                </label>
                     <typeahead :initialize="form.company" :url="companys" @input="onCompany" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
                 </div>
@@ -40,7 +44,11 @@
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
-                    >Warehouse</label>
+                    >Warehouse
+                    <span @click="warehousebtn" v-if="permissions.includes(`create-warehouse`)" class="mb-3 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                        New
+                    </span> 
+                </label>
                     <typeahead :initialize="form.warehouse" :url="warehouse" @input="onWarehouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
                 </div>
@@ -253,13 +261,23 @@
                     Cancel
                 </button> -->
             </div>
+            <Modal :show="showcompany" closeable="true" @cancel="handleCancelCompany" >
+                <Company @resp="()=>{showcompany = !true}" :show="true" additionalProp="global" @save-company="handleCancelCompany"  @cancel-company="handleCancelCompany" ></Company>
+                </Modal>
+                <Modal :show="showWarehouse" closeable="true" @cancel="handleCancelWarehouse" >
+                <Warehouse @resp="()=>{showWarehouse = !true}" :show="true" additionalProp="global" @save-warehouse="handleCancelWarehouse"  @cancel-warehouse="handleCancelWarehouse" ></Warehouse>
+                </Modal>
+           
         </div>
     </div>
 </template>
 
 <script>
     import {byMethod, get} from '@/libs/api'
+    import Modal from "@/Components/Modal.vue";
     import {form} from '@/libs/mixins'
+    import Company from "../company/form.vue";
+    import Warehouse from "../warehouse/form.vue";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import {objectToFormData} from "@/libs/helpers";
 
@@ -274,7 +292,7 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead,
+            Typeahead,Company,Modal,Warehouse
         },
         props: {
     show: Boolean,
@@ -287,6 +305,9 @@
                 save_button: false,
                 isSubmitting: false,
                 isSubmittingdata: false,
+                showcompany: false,
+                showWarehouse: false,
+                show_modal:false,
                 error: {},
                 show: Boolean,
                 resource: '/stores',
@@ -296,7 +317,7 @@
                 capital: 'Store',
                 title: 'Add',
                 message: 'New stores Added',
-                permissions: {},
+                permissions: [],
                 companys: '/api/company',
                 warehouse:'/api/warehouse',
                 errorMessage: '',
@@ -318,6 +339,9 @@
                     next()
                 })
         },
+        created() {
+            this.permissions = window.apex.user.permission
+        },
         methods: {
             onImageChange(e) {
                 this.form.imgN = e.target.files;
@@ -334,6 +358,12 @@
                 this.form.warehouse = warehouse
                 this.form.warehouse_id = warehouse.id
             },
+            handleCancelCompany() {
+                this.showcompany = false;
+        },
+        handleCancelWarehouse() {
+                this.showWarehouse = false;
+        },
             setData(res) {
                 this.connectionBtn = false
                 this.form = res.data.form;
@@ -343,6 +373,12 @@
                     this.message = `${this.capital} has been updated`;
                 }
                 this.show = true
+            },
+            companybtn(){
+                this.showcompany = true;
+            },
+            warehousebtn(){
+                this.showWarehouse = true;
             },
             wordpress() {
                 byMethod("post", '/api/ecommerce', this.form).then(

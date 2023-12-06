@@ -117,6 +117,56 @@
                     <p class="text-red-600 text-xs italic" v-if="error.logo">{{ error.logo[0] }}</p>
                 </div>
             </div>
+            <div class="p-2" v-if="$route.meta.mode == 'edit'" >
+            <h1 class="text-2xl text-center font-bold mb-4">All Courier</h1>
+            <div>
+            <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+                <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Courier Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Authentication Key
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    active
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Action
+                </th>
+                </tr>
+                </thead>
+                <tbody class=" divide-y divide-gray-200">
+                    <tr v-for="item in courierdata" :key="item.id">
+                        <td class="px-6 py-4 whitespace-nowrap">{{item.name}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="w-full mb-4 sm:mb-0 ">
+
+                                <input class="w-2/3 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md" type="input" v-model="item.authentication_key"/>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-start">
+                                <input class="form-checkbox h-5 w-5 text-blue-500" false-value=0 true-value=1 type="checkbox" v-model="item.active">
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium flex">
+                                <span>
+                                    <a @click.prevent="edit_All_Courier(item)" href="#">
+                                        <i class="fa-solid fa-check-double text-2xl text-blue-400"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
             <div class="flex justify-end mt-8 space-x-4">
                 <!-- <button
                     @click="formSubmitted"
@@ -142,7 +192,7 @@
 
             </button>
                 <button
-                    @click="successfull()"
+                    @click="additionalProp ? successfully():successfull();  ( !additionalProp ? anotherFunction() : '')"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-red-400 text-white hover:bg-red-600  transition duration-200 ease-in-out"
                     type="button">
                     Cancel
@@ -172,11 +222,19 @@
         components: {
             Typeahead,
         },
+        props: {
+            show: Boolean,
+            additionalProp: String,
+        },
         data() {
             return {
                 ImgUrl: null,
                 error: {},
-                show: false,
+                item: [],
+                courierdata: [],
+                // show: false,
+                show: Boolean,
+                key: '',
                 resource: '/company',
                 store: '/api/company',
                 isSubmitting: false,
@@ -204,6 +262,9 @@
                     next()
                 })
         },
+    //     mounted() {
+    //     this.allcouriertabs();
+    // },
         methods: {
             onImageChange(e) {
                 this.form.imgN = e.target.files;
@@ -219,7 +280,43 @@
                 this.form.country = country
                 this.form.country_id = country.id
             },
+            allcouriertabs() {
+                this.key = "All_Courier";
+                // byMethod("get", `/api/settings/create?key=${this.key}&company_id=${this.company_id}&count=All`).then((res) => {
+                    byMethod("get", "/api/courier").then((resp) => {
+                        byMethod("get", `/api/settings/create?key=${this.key}&company_id=${this.$route.params.id}&count=All`).then((res) => {
+                        this.courierdata = resp.data.data.data;
+                        this.item = res.data.form;
+                       
+                        // Map authentication_key from form to courierdata
+                        this.courierdata.forEach((courier) => {
+                            const matchingForm = this.item.find((formItem) => formItem.value.id === courier.id);
+                            if (matchingForm) {
+                                courier.authentication_key = matchingForm.value.authentication_key;
+                                courier.active = matchingForm.active;
+                            }
+                        });
+                    });
+                    });
+            },
+            edit_All_Courier(item) {
+                console.log("form id"+this.$route.params.id);
+                let data = {
+                    data: item,
+                }
+                byMethod("post", `/api/other_setting?key=${this.key}&company_id=${this.$route.params.id}`, data).then((res) => {
+                    if (res.data.saved) {
+                        this.$toast.open({
+                            position: "top-right",
+                            message: "Successful",
+                            type: "success",
+                            duration: 3000,
+                        });
+                    }
+                });
+            },
             setData(res) {
+                this.allcouriertabs();
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {
                     this.store = `/api/${this.small}/${this.$route.params.id}?_method=PUT`;
@@ -230,15 +327,17 @@
             },
             formSubmitted() {
                 this.isSubmitting = true; // Disable the button and show the spinner
-
+                this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, objectToFormData(this.form)).then(res => {
-                    this.successfull(res)
+                    this.additionalProp ? this.formSubmiting():this.successfull(res)
+                    // this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
                         message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
                         type: 'success',
                         duration: 3000
                     });
+                    this.$emit('resp', true);
                 }).catch(err => {
                     this.error = err.response.data.errors;
                     this.$toast.open({
@@ -275,7 +374,22 @@
             //     })
             // },
             successfull(res) {
+                // this.$router.push({path: `${this.resource}`})
+                this.$router.push(`${this.resource}/${this.$route.params.id}/edit`)
+            },
+            anotherFunction(){
                 this.$router.push({path: `${this.resource}`})
+            },
+            successfully(res) {
+                this.$emit('cancel-company', {
+
+                })
+            },
+
+            formSubmiting(){
+                this.$emit('save-company', {
+
+            })
             }
         },
     }

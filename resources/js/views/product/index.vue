@@ -322,7 +322,7 @@
        
         <template v-slot:skues="props">
           <div>
-            <button class="text-white font-bold py-2 px-4 rounded"  style="background-color: #04a2b3;"
+            <button class="text-white font-bold py-2 px-4 rounded"  style="background-color: #04a2b3;width: 150px; white-space: normal;overflow: hidden;text-overflow: ellipsis;"
           onmouseover="this.style.backgroundColor='#047d8f'"
           onmouseout="this.style.backgroundColor='#04a2b3'">
             {{ props.item.sku ? props.item.sku : "No SKU available" }}
@@ -613,6 +613,7 @@ export default {
       // console.log(this.selectedItems);
         byMethod('POST', '/api/bulk_delete', data).then(res => {
                     this.$refs.TableData.reload();
+                    this.fetchProductCount();
                     this.$toast.open({
                         position: 'top-right',
                         message: "Product Delete Successfully",
@@ -647,6 +648,17 @@ export default {
           console.error('Error fetching product count:', error);
         });
     },
+    onremove(){
+      this.form.title = this.form.sku = this.form.cost_price =
+      this.form.searchOperator = this.form.quantity  = this.form.searchQuantity = this.form.category =
+      this.form.brand = this.form.supplier = null;
+      this.urlApi = "/api/product";
+      this.fetchProductCount();
+      setTimeout(() => {
+    this.$refs.TableData.reload();
+  }, 100);
+      // this.$refs.TableData.reload();
+    },
     onSearch(){
       setTimeout(() => {
         this.urlApi = this.urlApi1
@@ -679,13 +691,13 @@ export default {
                       if (this.form.quantity != null) {
                         if (this.form.searchQuantity === '1') {
                           // Search logic for ==
-                          param += `&cost_price=${encodeURIComponent(this.form.quantity)}`;
+                         param += `&quantity=${encodeURIComponent(this.form.quantity)}`;
                         } else if (this.form.searchQuantity === '2') {
                           // Search logic for = >
-                          param += `&cost_price_greater_than=${encodeURIComponent(this.form.quantity)}`;
+                          param += `&quantity_greater_than=${encodeURIComponent(this.form.quantity)}`;
                         }else if (this.form.searchQuantity === '3') {
                           // Search logic for = >
-                          param += `&cost_price_greater_than=${encodeURIComponent(this.form.quantity)}`;
+                          param += `&quantity_greater_than=${encodeURIComponent(this.form.quantity)}`;
                         }
                       }
                     if (this.form.category != null) {
@@ -704,15 +716,8 @@ export default {
                     
                 }, 500)
     },
-    onremove(){
-      this.form.title = this.form.sku = this.form.cost_price =
-       this.form.searchOperator = this.form.quantity  = this.form.searchQuantity = this.form.category =
-       this.form.brand = this.form.supplier = null;
-       this.$refs.TableData.reload();
-       this.$refs.TableData.reload();
-      //  this.fetchProductCount();
 
-    },
+
     updateCostPrice(costese) {
       this.cost = costese;
   },
