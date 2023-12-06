@@ -142,6 +142,7 @@ Route::middleware([
         Route::post('/bulk_status', [\App\Http\Controllers\StatusController::class, 'bulk_status']);
         Route::post('/bulk_courier', [\App\Http\Controllers\OrderController::class, 'bulk_courier']);
         Route::post('/order_single', [\App\Http\Controllers\ShipmentController::class, 'order_single']);
+        Route::get('/order_status', [\App\Http\Controllers\OrderStatusController::class, 'index']);
 
         Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);
         Route::get('/fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);

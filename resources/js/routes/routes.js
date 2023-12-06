@@ -27,6 +27,7 @@ import product_category from "@/routes/product_category";
 import brand from "@/routes/brand";
 import replacement from "@/routes/replacement";
 import cities from "@/routes/cities";
+import order_status from "@/routes/order_status";
 import general_voucher from "@/routes/voucher";
 import account from "@/routes/account";
 import subledger from "@/routes/subledger";
@@ -76,6 +77,7 @@ const router = createRouter({
         ...settings,
         ...fetch_order,
         ...cities,
+        ...order_status,
         ...general_voucher,
         ...account,
         ...subledger,
