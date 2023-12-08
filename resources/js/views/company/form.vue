@@ -374,8 +374,8 @@
             //     })
             // },
             successfull(res) {
-                // this.$router.push({path: `${this.resource}`})
-                this.$router.push(`${this.resource}/${this.$route.params.id}/edit`)
+                this.$router.push({path: `${this.resource}`})
+                // this.$router.push(`${this.resource}/${this.$route.params.id}/edit`)
             },
             anotherFunction(){
                 this.$router.push({path: `${this.resource}`})
