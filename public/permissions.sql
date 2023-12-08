@@ -236,7 +236,12 @@ INSERT INTO `permissions` VALUES (281, 'edit-subledger', 'web', NULL, NULL, 279,
 INSERT INTO `permissions` VALUES (282, 'create-subledger', 'web', NULL, NULL, 279, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 INSERT INTO `permissions` VALUES (283, 'delete-subledger', 'web', NULL, NULL, 279, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 INSERT INTO `permissions` VALUES (284, 'export-subledger', 'web', NULL, NULL, 279, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
-
+INSERT INTO `permissions` VALUES (285, NULL, 'web', 'Order_status', NULL, NULL, 56, '2023-11-22 11:28:44', '2023-11-22 11:28:44');
+INSERT INTO `permissions` VALUES (286, 'view-order_status', 'web', NULL, NULL, 285, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (287, 'edit-order_status', 'web', NULL, NULL, 285, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (288, 'create-order_status', 'web', NULL, NULL, 285, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (289, 'delete-order_status', 'web', NULL, NULL, 285, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (290, 'export-order_status', 'web', NULL, NULL, 285, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 -- ----------------------------
 -- Table structure for role_has_permissions
 -- ----------------------------

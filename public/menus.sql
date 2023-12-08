@@ -74,5 +74,6 @@ INSERT INTO `menus` VALUES (31, 'Global Settings', '/global_settings', 'view-glo
 INSERT INTO `menus` VALUES (32, 'General Voucher', '/voucher', 'view-voucher', 5, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (33, 'Account', '/accounts', 'view-account', 5, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (34, 'Subledger ', '/subledger', 'view-subledger ', 5, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (35, 'Order Status', '/order_status', 'view-order_status', 3, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
