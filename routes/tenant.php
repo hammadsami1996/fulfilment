@@ -163,6 +163,10 @@ Route::middleware([
         Route::post('/bulk_delete', [\App\Http\Controllers\ProductController::class, 'bulk_delete']);
         Route::post('/bulk_manage_inventry', [\App\Http\Controllers\ProductController::class, 'bulk_manage']);
         Route::post('/brand_bulk_status', [\App\Http\Controllers\BrandController::class, 'status']);
+        Route::post('/bulk_order_status_email', [\App\Http\Controllers\OrderStatusController::class, 'bulk_order_email']);
+        Route::post('/bulk_order_status_sms', [\App\Http\Controllers\OrderStatusController::class, 'bulk_order_sms']);
+        Route::post('/bulk_order_status_active', [\App\Http\Controllers\OrderStatusController::class, 'bulk_order_active']);
+        Route::post('/bulk_order_status_sale', [\App\Http\Controllers\OrderStatusController::class, 'bulk_order_sale']);
 
 
         // Products work
