@@ -22,7 +22,7 @@ class OrderController extends Controller
     public function index()
     {
         return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'courier', 'city', 'stores', 'warehouse')
-            ->when(\request()->has('status_id') && \request('status_id') != 0, function ($q) {
+            ->when(\request()->has('status_id') && \request('status_id') != 0 && \request('status_id'), function ($q) {
                 $q->where('status_id', \request('status_id'));
             })->when(\request()->has('packability'), function ($q) {
                 $q->where('packability', \request('packability'));
@@ -34,6 +34,12 @@ class OrderController extends Controller
                 $q->where('courier_id', \request('courier_id'));
             })->when(\request()->has('quantity') && \request('quantity'), function ($q) {
                 $q->where('quantity', \request('quantity'));
+            })->when(\request()->has('store_id') && \request('store_id'), function ($q) {
+                $q->where('store_id', \request('store_id'));
+            })->when(\request()->has('company_id') && \request('company_id'), function ($q) {
+                $q->where('company_id', \request('company_id'));
+            })->when(\request()->has('store_id') && \request('store_id'), function ($q){
+                $q->where('store_id', \request('store_id'));
             })
             // ->when(\request()->has('order_type_id') && \request('order_type_id'), function ($q) {
             //     $q->where('order_type_id', \request('order_type_id'));
@@ -158,9 +164,13 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($id,Request $request )
     {
         $model = Order::with('customer', 'items.product', 'stores', 'warehouse', 'courier')->findOrFail($id);
+        if ($request->mode == "PDF") {
+            $doc = 'docs.order_pdf';
+            return pdf($doc, $model);
+        }
         return response()->json(["data" => $model]);
     }
 
@@ -263,5 +273,17 @@ class OrderController extends Controller
             $order->save();
         }
         return response()->json(['response' => true]);
+    }
+    public function bulk_PDF(Request $request)
+    {
+//        dd($request->all());
+//        dd($request->selectedItems);
+        $model = Order::with('customer', 'items.product', 'stores', 'warehouse', 'courier')
+            ->whereIn('id', explode(',', $request->selectedItems))->get();
+//        dd($model);
+        if ($request->mode == "PDF") {
+            $doc = 'docs.orders_pdf';
+            return pdf($doc, $model);
+        }
     }
 }

@@ -205,20 +205,19 @@
                 </div>
             </div>
 
-            <div class="p-4">
+            <div class="p-2">
                 <!-- Responsive Table Container -->
-                <div class="overflow-x-auto scrollbar-color">
-                    <table class="min-w-full">
+                <div class="overflow-x-auto ">
+                    <table class="min-w-full  align-middle text-sm">
                         <!-- Table Header -->
                         <thead class="bg-gray-200">
                         <tr>
-                            <th
-                                :key="index"
+                            <th :key="index"
                                 class="px-3 py-2 text-xs uppercase text-left"
-                                v-for="(column, index) in columns"
-                            ><span v-if="column.field == 'checkbox'">
-                                    <input @change="selectAll" class="form-checkbox h-5 w-5 text-blue-500"
-                                           type="checkbox"/></span>
+                                v-for="(column, index) in columns">
+                                <span v-if="column.field == 'checkbox'">
+                                    <input @change="selectAll" class="form-checkbox h-5 w-5 text-blue-500" type="checkbox"/>
+                                </span>
                                 <span v-else>{{ column.label ? column.label : '' }}</span>
                             </th>
                         </tr>
@@ -233,11 +232,9 @@
                             @click="onRowClick(row)"
                             v-for="(row, rowIndex) in model.data" v-if="model.data.length > 0"
                         >
-                            <td
-                                :key="columnIndex"
-                                class="px-3 py-2 text-sm"
-                                v-for="(column, columnIndex) in columns"
-                            >
+                            <td :key="columnIndex"
+                                class="px-1 py-2 text-sm"
+                                v-for="(column, columnIndex) in columns">
                                 <template v-if="column.action">
                                     <slot :item="row" name="action"></slot>
                                 </template>
@@ -360,7 +357,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 <!-- END Alternate Responsive Table -->
                 <!-- END Responsive Table Container -->
             </div>

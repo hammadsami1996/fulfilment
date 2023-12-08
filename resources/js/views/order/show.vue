@@ -521,11 +521,11 @@
                     } else {
                         this.count = res.data.data;
                     }
-              
+
                 })
             },
             setData(res) {
-           
+
                 this.form = res.data.form;
 
                 if (this.$route.meta.mode == 'edit') {

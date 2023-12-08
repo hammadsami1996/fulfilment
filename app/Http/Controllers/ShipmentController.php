@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Http;
 
 class ShipmentController extends Controller
 {
+    public function trax_multi_invoices(Request $request)
+    {
+        $orderIds = explode(',', $request->selectedItems);
+        $orders = Order::with('city', 'customer', 'items.product', 'stores', 'warehouse', 'courier')
+            ->whereIn('id', $orderIds)->get();
+        if ($request->mode == "PDF") {
+            $doc = 'docs.traxmultiorders_pdf';
+            return pdf($doc, $orders );
+        }
+    }
     public function order_single(Request $request)
     {
 //        dd($request->all());
