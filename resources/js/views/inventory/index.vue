@@ -44,7 +44,8 @@
                             </svg>
                         </a>
                          </span> -->
-                        <span v-if="permissions.includes(`delete-${small}`)">
+                        <span v-if="permissions.includes(`delete-${small}`)"
+                        class="bg-red-500 p-1 border rounded border-red-500 text-white hover:bg-red-600 transition-colors duration-300">
                         <a
                             @click.prevent="deleteRole(props.item.id)"
                             href="#"

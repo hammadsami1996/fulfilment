@@ -344,8 +344,21 @@
                     </div>
                     <!--          Inventory  -->
                     <div class="w-full">
-                        <div class="card-block mt-4 p-4 rounded-lg shadow-lg bg-white">
-                            <h3 class="text-2xl font-bold text-indigo-600 mb-4">Inventory</h3>
+                        <div class="card-block mt-4 p-4 rounded-lg shadow-lg bg-white ">
+                            <div class="flex flex-wrap w-full">
+                                <h3 class="text-2xl font-bold text-indigo-600 mb-4">Inventory</h3>
+                                <div class="space-x-2 r-0" style="margin-inline-start: auto; margin-top: -20px;">
+                                    <div class="inline-flex items-center space-x-3 mt-6">
+                                        <input
+                                        type="checkbox"
+                                        :checked="form.manage_inventory === 1" @change="form.manage_inventory = (form.manage_inventory === 1) ? 0 : 1"
+                                        id="switch2"
+                                        name="switch2"
+                                        class="h-7 w-12 rounded-full text-primary-500 transition-all duration-150 ease-out form-switch focus:ring focus:ring-primary-500 focus:ring-opacity-50 dark:bg-gray-700 dark:ring-offset-gray-900 dark:checked:bg-current"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 px-5">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Product Sku</label>
@@ -368,7 +381,7 @@
                                         }}</p>
 
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <label class="block text-sm font-medium text-gray-700">Product Quantity</label>
                                     <input
                                         @input="form.quantity = form.quantity.replace(/[^0-9]/g, '')"
@@ -376,7 +389,7 @@
                                         placeholder="Quantity" type="text"
                                         v-model="form.quantity"
                                     />
-                                </div>
+                                </div> -->
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Weight</label>
                                     <input
@@ -505,6 +518,10 @@
                 this.ImgUrl[index].img = URL.createObjectURL(e.target.files[0]);
                 this.form.product_img[index].img = e.target.files[0];
             },
+            updateManageInventory() {
+        this.form.manage_inventory = 1;
+        console.log(this.form.manage_inventory);
+             },
             onChildImageChange(e, item) {
                 // this.ImgUrl[item].img = URL.createObjectURL(e.target.files[0]);
                 item.product_img = e.target.files[0]

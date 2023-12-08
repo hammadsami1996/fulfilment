@@ -365,7 +365,7 @@
             subTotal() {
                 return this.form.items.reduce((carry, item) => {
                     return carry + Number(item.unit_price) * Number(item.qty);
-                }, 0);
+                }, 0);  
             },
             total() {
                 var total = (this.subTotal + Number(this.form.mtax_amount));
@@ -484,13 +484,15 @@
                 this.isSubmitting = true; // Disable the button and show the spinner
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, this.form).then(res => {
-                    this.successfull(res)
+                    this.additionalProp ? this.formSubmiting():this.successfull(res)
+                    // this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
                         message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
                         type: 'success',
                         duration: 3000
                     });
+                    this.$emit('resp', true);
                 }).catch(err => {
                     this.error = err.response.data.errors;
                     this.$toast.open({

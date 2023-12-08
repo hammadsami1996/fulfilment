@@ -84,5 +84,15 @@ class BrandController extends Controller
         return response()->json(["deleted" => true]);
     }
 
+    public function status(Request $request){
+        $id = $request->id;
+        $item = Brand::findOrFail($id);
+        $item->status = $request->data;
+        $item->save();
+    
+        return response()->json(['message' => 'Brand Status updated successfully']);
+
+    }
+
 
 }

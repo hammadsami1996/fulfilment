@@ -11,9 +11,38 @@
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+                <template v-slot:statuses="props">
+          <div>
+            <div class="space-x-2">
+      <div class="inline-flex items-center space-x-3">
+        <input
+          type="checkbox"
+          id="switch2"
+          :checked="props.item.status === 1" 
+          @change="updateManageInventory(props.item,props.item.id)"
+          name="switch2"
+          class="h-7 w-12 rounded-full text-primary-500 transition-all duration-150 ease-out form-switch focus:ring focus:ring-primary-500 focus:ring-opacity-50 dark:bg-gray-700 dark:ring-offset-gray-900 dark:checked:bg-current"
+          
+          />
+        <!-- <input
+          type="checkbox"
+          id="switch2"
+          :checked="props.item.status === 1" @change="props.item.status = (props.item.status === 1) ? 0 : 1"
+          name="switch2"
+          class="h-7 w-12 rounded-full text-primary-500 transition-all duration-150 ease-out form-switch focus:ring focus:ring-primary-500 focus:ring-opacity-50 dark:bg-gray-700 dark:ring-offset-gray-900 dark:checked:bg-current"
+          
+        /> -->
+      </div>
+    </div>
+            <!-- <button v-if="props.item.status === 1" class="bg-blue-500 border rounded-md text-white px-2 py-1 mr-2">Active</button>
+      <button v-if="props.item.status === 0" class="bg-red-500 text-white border rounded-md  px-2 py-1 mr-2">Inactive</button> -->
+          </div>
+        </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
-                         <span v-if="permissions.includes(`edit-${small}`)">
+                         <span v-if="permissions.includes(`edit-${small}`)"
+                         class="bg-blue-400 p-1 text-white border rounded border-blue-500 mr-2 hover:bg-blue-600 transition-colors duration-300"
+                         >
                         <a
                             @click.prevent="edit(props.item.id)"
                             href="#"
@@ -27,7 +56,8 @@
                             </svg>
                         </a>
                          </span>
-                        <span v-if="permissions.includes(`delete-${small}`)">
+                        <span v-if="permissions.includes(`delete-${small}`)"
+                        class="bg-red-500 p-1 border rounded border-red-500 text-white hover:bg-red-600 transition-colors duration-300">
                         <a
                             @click.prevent="deleteRole(props.item.id)"
                             href="#"
@@ -68,7 +98,7 @@
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Title', field: 'title'},
-                    {label: 'status', field: 'status',},
+                    {label: 'status', field: 'statuses', slot: true},
                     // {label: 'Active', field: 'active',},
                     {label: 'Action', field: 'action', action: true}
                     ]
@@ -78,6 +108,21 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+            updateManageInventory(item,id){
+                let record = {
+        data: item.status === 1 ? 0 : 1,
+        id: id
+      }
+      byMethod('POST', '/api/brand_bulk_status', record).then(res => {
+                    this.$refs.TableData.reload();
+                    this.$toast.open({
+                        position: 'top-right',
+                        message: "Status Update Successfully",
+                        type: 'success',
+                        duration: 3000
+                    });
+                })
+            },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },

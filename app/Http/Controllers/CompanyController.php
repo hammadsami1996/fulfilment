@@ -14,7 +14,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Company::with( 'country', 'city')->search()]);
+        return response()->json(['data' => Company::with( 'country', 'city','stores')->search()]);
     }
 
     /**
@@ -76,7 +76,8 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        $model = Company::findOrFail($id);
+        $model = Company::with('stores')->findOrFail($id);
+        // dd($model);
         return response()->json(["data" => $model]);
     }
 

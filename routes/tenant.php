@@ -144,6 +144,7 @@ Route::middleware([
         Route::post('/order_single', [\App\Http\Controllers\ShipmentController::class, 'order_single']);
         Route::get('/bulkPDF', [\App\Http\Controllers\OrderController::class, 'bulk_PDF']);
         Route::get('/trax_multi_invoices', [\App\Http\Controllers\ShipmentController::class, 'trax_multi_invoices']);
+        Route::get('/order_status', [\App\Http\Controllers\OrderStatusController::class, 'index']);
 
         Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);
         Route::get('/fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
@@ -153,7 +154,15 @@ Route::middleware([
         Route::resource('product_attribute_group', \App\Http\Controllers\ProductAttributeGroupController::class);
         Route::resource('product_attribute_value', \App\Http\Controllers\ProductAttributeValueController::class);
         Route::post('/product_single', [\App\Http\Controllers\ProductController::class, 'product_single']);
+        // Route::get('product/cost/', [\App\Http\Controllers\ProductController::class, 'updateCost']);
+        Route::put('product/cost/{itemId}', [\App\Http\Controllers\ProductController::class, 'updateCost'], ['methods' => ['PUT']]);
+        Route::put('product/selling/{itemId}', [\App\Http\Controllers\ProductController::class, 'updateSelling'], ['methods' => ['PUT']]);
+        Route::put('product/quantity/{itemId}', [\App\Http\Controllers\ProductController::class, 'updateQuantity'], ['methods' => ['PUT']]);
         Route::delete('/destroy_product_image/{id}', [\App\Http\Controllers\ProductController::class, 'destroy_product_image']);
+        Route::post('/bulk_price', [\App\Http\Controllers\ProductController::class, 'bulk_price']);
+        Route::post('/bulk_delete', [\App\Http\Controllers\ProductController::class, 'bulk_delete']);
+        Route::post('/bulk_manage_inventry', [\App\Http\Controllers\ProductController::class, 'bulk_manage']);
+        Route::post('/brand_bulk_status', [\App\Http\Controllers\BrandController::class, 'status']);
 
 
         // Products work

@@ -87,7 +87,8 @@
                 </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
-                         <span v-if="permissions.includes(`edit-${small}`) && props.item.status_id < 25">
+                         <span v-if="permissions.includes(`edit-${small}`) && props.item.status_id < 25"
+                         class="bg-blue-400 p-1 text-white border rounded border-blue-500 mr-2 hover:bg-blue-600 transition-colors duration-300">
                         <a
                             @click.prevent="edit(props.item.id)"
                             href="#"
@@ -101,7 +102,8 @@
                             </svg>
                         </a>
                          </span>
-                        <span v-if="permissions.includes(`delete-${small}`)">
+                        <span v-if="permissions.includes(`delete-${small}`)"
+                        class="bg-red-500 p-1 border rounded border-red-500 text-white hover:bg-red-600 transition-colors duration-300">
                         <a
                             @click.prevent="deleteRole(props.item.id)"
                             href="#"
