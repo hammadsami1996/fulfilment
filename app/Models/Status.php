@@ -12,17 +12,18 @@ use OwenIt\Auditing\Contracts\Auditable;
 class Status extends Model implements Auditable
 {
     protected $connection = 'mysql';
+    public $timestamps = false;
 
     use HasFactory, Search, Notifiable, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
-        'name',
+        'name','responses','message','stock_qty','sort','email','sms','active'
     ];
     protected $columns = [
-        'name',
+        'name','responses','message','stock_qty','sort','email','sms','active'
     ];
     protected $search = [
-        'name',
+        'name','responses','message','stock_qty','sort','email','sms','active'
     ];
     protected $appends = ['text'];
 
