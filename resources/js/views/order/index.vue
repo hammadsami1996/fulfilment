@@ -20,7 +20,6 @@
             </div>
             <div class="w-full sm:w-1/5">
                 <label class="block text-sm text-gray-700 mb-1 font-medium">Customer Name/Email/Phone</label>
-                <!--                <input class="w-full py-1 px-2 bg-white h-8 border border-gray-300 rounded-md" type="text" v-model="form.customer"/>-->
                 <typeahead :initialize="form.customer" :url="customers" @input="onCustomer" display="name"/>
             </div>
             <div class="w-full sm:w-1/6">
@@ -98,10 +97,6 @@
                     <label class="block font-medium text-sm text-gray-700 mb-1">City</label>
                     <typeahead :initialize="form.city" :url="city" @input="onCity" display="name"/>
                 </div>
-                <!--                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">-->
-                <!--                    <label class="block font-medium text-sm text-gray-700 mb-1">Status</label>-->
-                <!--                    <typeahead :initialize="form.deliver" :url="delivery" @input="onDeliverySearch" display="name"/>-->
-                <!--                </div>-->
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Company</label>
                     <typeahead :initialize="form.company" :url="companys" @input="onCompany" display="name"/>
@@ -123,50 +118,6 @@
                         <label class="ml-2 text-gray-700">No</label>
                     </div>
                 </div>
-                <!--                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">-->
-                <!--                    <label class="block font-medium text-sm text-gray-700 mb-1">Discount</label>-->
-                <!--                    <div class="relative">-->
-                <!--                        <select-->
-                <!--                            class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"-->
-                <!--                            v-model="form.discount">-->
-                <!--                            <option value="Applied">Applied</option>-->
-                <!--                            <option value="NotApplied">Not Applied</option>-->
-                <!--                        </select>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">-->
-                <!--                    <label class="block font-medium text-sm text-gray-700 mb-1">Packing Status</label>-->
-                <!--                    <select-->
-                <!--                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"-->
-                <!--                        name="payment-status" v-model="form.packability">-->
-                <!--                        <option value="packable">packable</option>-->
-                <!--                        <option value="unpackable">unpackable</option>-->
-                <!--                    </select>-->
-                <!--                </div>-->
-                <!--                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">-->
-                <!--                    <label class="block font-medium text-sm text-gray-700 mb-1">Shipping Charges</label>-->
-                <!--                    <select-->
-                <!--                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"-->
-                <!--                        v-model="form.discount">-->
-                <!--                        <option value="Applied">Applied</option>-->
-                <!--                        <option value="NotApplied">Not Applied</option>-->
-                <!--                    </select>-->
-                <!--                </div>-->
-                <!--                <div class="w-full sm:w-1/2 pl-2 sm:mb-0">-->
-                <!--                    <label class="block font-medium text-sm text-gray-700 mb-1 capitalize">Payment Status</label>-->
-                <!--                    <select-->
-                <!--                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring focus:border-blue-300"-->
-                <!--                        name="payment-status" v-model="form.payment_status">-->
-                <!--                        <option value="0">Paid</option>-->
-                <!--                        <option value="1">Unpaid</option>-->
-                <!--                    </select>-->
-                <!--                </div>-->
-                <!--                <div class="w-full sm:w-1/2 pl-3 sm:mb-0">-->
-                <!--                    <label class="block font-medium text-sm text-gray-700 mb-1 capitalize">Quantity</label>-->
-                <!--                    <input-->
-                <!--                        class="w-full py-2 px-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"-->
-                <!--                        placeholder="Quantity" type="number" v-model="form.quantity"/>-->
-                <!--                </div>-->
             </div>
         </div>
         <div class="container px-2 py-3  sm:px-4 flex justify-start items-center">
@@ -177,7 +128,7 @@
                            style=" z-index: 9999;"></typeahead>
             </div>
             <button @click="updateModalCourier"
-                    class="inline-flex justify-center items-center  border font-semibold rounded-lg px-1 py-1  text-sm border-gray-200 bg-blue-300 h-9 mt-6">
+                    class="inline-flex justify-center items-center  border font-semibold rounded-lg px-1 py-1  text-sm border-gray-200 bg-blue-300 h-7 mt-6">
                 <i class="fa-solid fa-check text-xl text-white-400"></i>
             </button>
             <div class="w-full sm:w-1/5  sm:mb-0">
@@ -187,11 +138,11 @@
                            style="z-index: 99999;"></typeahead>
             </div>
             <button @click="updateModalStatus"
-                    class="inline-flex justify-center items-center border font-semibold rounded-lg px-1 py-1  text-sm border-gray-200 bg-blue-300 h-9 mt-6">
+                    class="inline-flex justify-center items-center border font-semibold rounded-lg px-1 py-1  text-sm border-gray-200 bg-blue-300 h-7 mt-6">
                 <i class="fa-solid fa-check text-xl text-white-400"></i>
             </button>
             <button :disabled="isSubmitting" @click="bulkCN(selectedItems)"
-                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-3 py-2 font-semibold text-white text-sm">
+                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-1 py-1  font-semibold text-white text-sm">
                 Bulk CN Generate
                 <svg aria-hidden="true" class="inline w-12 h-12 ml-2 text-white animate-spin" fill="none"
                      role="status" v-if="isSubmitting" viewBox="0 0 100 101"
@@ -205,15 +156,15 @@
                 </svg>
             </button>
             <button @click="showpackable('packable', pack || 0)"
-                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-3 py-2 font-semibold text-white text-sm">
+                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-1 py-1  font-semibold text-white text-sm">
                 Packable
             </button>
             <button @click="showpackable('unpackable', pack || 0)"
-                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-3 py-2 font-semibold text-white text-sm">
+                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-1 py-1  font-semibold text-white text-sm">
                 Unpackable
             </button>
             <button @click="bulkPDF(selectedItems, 'PDF')"
-                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-3 py-2 font-semibold text-white text-sm">
+                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-1 py-1  font-semibold text-white text-sm">
                 <svg aria-hidden="true" class="hi-mini hi-banknotes inline-block w-5 h-5 text-white-700"
                      fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path clip-rule="evenodd"
@@ -221,83 +172,208 @@
                           fill-rule="evenodd"/>
                 </svg>
             </button>
-<!--            <button @click="bulkCNInvoice(selectedItems, 'PDF')"-->
-<!--                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-3 py-2 font-semibold text-white text-sm">-->
-<!--                CN + Invoice-->
-<!--            </button>-->
             <button @click="Multi_CNInvoice(selectedItems, 'PDF')"
-                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-3 py-2 font-semibold text-white text-sm">
+                    class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-1 py-1  font-semibold text-white text-sm">
                 Multi CNInvoice
             </button>
+<!--            <button-->
+<!--                class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-1 py-1  font-semibold text-white text-sm">-->
+<!--                Fetch Orders-->
+<!--            </button>-->
         </div>
-        <div class="flex-col">
-            <panel :columns="columns" :search-enable="false" :urlApi="urlApi" @selectAll="selectAll" ref="TableData">
-                <template v-slot:statuses="props">
-                    <div>
-                        <typeahead :initialize="props.item.status"
-                                   :url="delivery+'?head=order&id='+ props.item.status.id"
-                                   @input="onStatus($event ,props.item)" display="name"
-                                   v-if="props.item.packability == 'packable' "/>
-                        <span v-else> {{'This Order Not Packable'}}</span>
+        <div>
+            <div class="my-8 flex items-center">
+                <span aria-hidden="true" class="h-0.5 grow rounded bg-gray-200 dark:bg-gray-700/75"></span>
+                <span class="rounded-full bg-gray-200 px-3 py-2 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-200">Companies</span>
+                <span aria-hidden="true" class="h-0.5 grow rounded bg-gray-200 dark:bg-gray-700/75"></span>
+            </div>
+            <div class="card-container mb-6">
+                <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center" v-for="(item) in companies">
+                    <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows">
+                        <div :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == item }"
+                             @click="onCompanys(item)"
+                             class="card cursor-pointer">
+                            <img :src="getImagePaths(item)"/>
+                        </div>
+                        <span class="font-bold font-sm pl-2">{{ item.name }}</span>
                     </div>
-                </template>
-                <template v-slot:checkbox="props">
-                    <div class="text-center">
-                        <input :value="props.item.id" class="form-checkbox h-5 w-5 text-blue-500" type="checkbox"
-                               v-model="selectedItems"/>
+                </div>
+            </div>
+        </div>
+        <div v-if="store.length">
+            <div class="card-container mb-6">
+                <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center" v-for="data in store">
+                    <div v-if="data.plate_form == 'WooCommerce'">
+                        <div :class="activePlatform == data.id  ? 'border-4 border-blue-500 rounded-full'  : ''"
+                             @click="setActivePlatform(data.id)" class="card bg-gray-200 cursor-pointer">
+                            <img src="~@/images/WooCommerce.png" v-if="!data.img"/>
+
+                            <img :src="`/uploads/store/img/` + data.img" v-else/>
+                        </div>
+                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
+                        <div>
+                            <button
+                                :disabled="loadingWoo"
+                                @click="woocommerce_fetch_data(data.id)"
+                                class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white"
+                                v-if="activePlatform === data.id">
+                                Fetch
+                                <svg
+                                    aria-hidden="true" class="inline w-4 h-4 mr-3 ml-3 text-white animate-spin"
+                                    fill="none"
+                                    role="status"
+                                    v-if="loadingWoo"
+                                    viewBox="0 0 100 101"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                        fill="#E5E7EB"/>
+                                    <path
+                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                        fill="currentColor"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                </template>
-                <template v-slot:customers="props">
-                    <div>
-                        <p v-if="props.item.customer">{{props.item.customer.name}}</p>
-                        <p v-else>-</p>
-                        <p v-if="props.item.customer && props.item.customer.phone">
-                            <i class="fas fa-phone text-black"></i>
-                            {{props.item.customer.phone}}
-                        </p>
-                        <p v-else>-</p>
-                        <p v-if="props.item.customer && props.item.customer.email">
-                            <i class="fas fa-envelope text-black"></i>
-                            {{props.item.customer.email}}
-                        </p>
-                        <p v-else>-</p>
-                        <p v-if="props.item.customer && props.item.customer.b_address_1">
-                            {{props.item.customer.b_address_1}}
-                        </p>
-                        <p v-else>-</p>
+                    <div v-if="data.plate_form == 'Shopify'">
+                        <div :class="activePlatform === data.id  ? 'border-4 border-blue-500 rounded-full' : ''"
+                             @click="setActivePlatform(data.id)" class="card bg-gray-200 cursor-pointer">
+                            <img src="~@/images/Shopify-bag.png" v-if="!data.img"/>
+                            <img :src="`/uploads/store/img/` + data.img" v-else/>
+                        </div>
+                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
+                        <div>
+                            <button
+                                :disabled="loadingshop" @click="shopify_fetch_data(data.id)"
+                                class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white"
+                                v-if="activePlatform === data.id "
+                            >
+                                Fetch
+                                <svg aria-hidden="true"
+                                     class="inline w-4 h-4 mr-3 ml-3 text-white animate-spin"
+                                     fill="none"
+                                     role="status"
+                                     v-if="loadingshop"
+                                     viewBox="0 0 100 101"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                        fill="#E5E7EB"
+                                    />
+                                    <path
+                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+
+
                     </div>
-                </template>
-                <template v-slot:company="props">
-                    <div>
-                        <!--                        <img :src="/uploads/company/logo/${props.item.stores.company.logo}"-->
-                        <!--                             class="shadow-xl h-10 w-10 rounded-full"/>-->
-                        <img :src="getImagePath(props)" class="shadow-xl h-10 w-10 rounded-full"/>
-                        <!-- <p class="h-8 w-8">{{props.item.company.logo}}</p> -->
-                        <!-- <p>{{props.item.stores.name}}</p> -->
+                    <div v-if="data.plate_form == 'MimCart'">
+                        <div
+                            :class="activePlatform === data.id  ? 'border-4 border-blue-500 rounded-full' || shopifyButton === true || wooButton === true : ''"
+                            @click="setActivePlatform(data.id)" class="card bg-gray-200 cursor-pointer">
+                            <img src="~@/images/MimCart.jpg" v-if="!data.img"/>
+                            <img :src="`/uploads/store/img/` + data.img" v-else/>
+                        </div>
+                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
+                        <div>
+                            <button
+                                :disabled="loadingmim" @click="mimcart_fetch_data(data.id)"
+                                class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white"
+                                v-if="activePlatform === data.id">
+                                Fetch
+                                <svg aria-hidden="true"
+                                     class="inline w-4 h-4 mr-3 ml-3 text-white animate-spin"
+                                     fill="none"
+                                     role="status"
+                                     v-if="loadingmim"
+                                     viewBox="0 0 100 101"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                        fill="#E5E7EB"/>
+                                    <path
+                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                        fill="currentColor"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                </template>
-                <template v-slot:store="props">
-                    <div v-if="props.item.stores.plate_form == 'Shopify'">
-                        <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/Shopify-bag.png"/>
-                    </div>
-                    <div v-if="props.item.stores.plate_form == 'WooCommerce'">
-                        <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/WooCommerce.png"/>
-                    </div>
-                    <div v-if="props.item.stores.plate_form == 'MimCart'">
-                        <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/MimCart.jpg"/>
-                    </div>
-                </template>
-                <template v-slot:couriers="props">
-                    <typeahead :initialize="props.item.courier" :url="courier"
-                               @input="onShippeds($event, props.item)" display="name"
-                               v-if="props.item.city_id && !props.item.tracking_id"/>
-                    <div v-else>
-                        <span v-if="props.item.courier">{{ props.item.courier.name }}</span><br>
-                        <span>CN: {{props.item.tracking_id}}</span>
-                    </div>
-                </template>
-                <template v-slot:action="props">
-                    <div class="text-sm font-medium flex">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-col">
+        <panel :columns="columns" :search-enable="false" :urlApi="urlApi" @selectAll="selectAll" ref="TableData">
+            <template v-slot:statuses="props">
+                <div>
+                    <typeahead :initialize="props.item.status"
+                               :url="delivery+'?head=order&id='+ props.item.status.id"
+                               @input="onStatus($event ,props.item)" display="name"
+                               v-if="props.item.packability == 'packable' "/>
+                    <span v-else> {{'This Order Not Packable'}}</span>
+                </div>
+            </template>
+            <template v-slot:checkbox="props">
+                <div class="text-center">
+                    <input :value="props.item.id" class="form-checkbox h-5 w-5 text-blue-500" type="checkbox"
+                           v-model="selectedItems"/>
+                </div>
+            </template>
+            <template v-slot:customers="props">
+                <div>
+                    <p v-if="props.item.customer">{{props.item.customer.name}}</p>
+                    <p v-else>-</p>
+                    <p v-if="props.item.customer && props.item.customer.phone">
+                        <i class="fas fa-phone text-black"></i>
+                        {{props.item.customer.phone}}
+                    </p>
+                    <p v-else>-</p>
+                    <p v-if="props.item.customer && props.item.customer.email">
+                        <i class="fas fa-envelope text-black"></i>
+                        {{props.item.customer.email}}
+                    </p>
+                    <p v-else>-</p>
+                    <p v-if="props.item.customer && props.item.customer.b_address_1">
+                        {{props.item.customer.b_address_1}}
+                    </p>
+                    <p v-else>-</p>
+                </div>
+            </template>
+            <template v-slot:company="props">
+                <div>
+                    <!--                        <img :src="/uploads/company/logo/${props.item.stores.company.logo}"-->
+                    <!--                             class="shadow-xl h-10 w-10 rounded-full"/>-->
+                    <img :src="getImagePath(props)" class="shadow-xl h-10 w-10 rounded-full"/>
+                    <!-- <p class="h-8 w-8">{{props.item.company.logo}}</p> -->
+                    <!-- <p>{{props.item.stores.name}}</p> -->
+                </div>
+            </template>
+            <template v-slot:store="props">
+                <div v-if="props.item.stores.plate_form == 'Shopify'">
+                    <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/Shopify-bag.png"/>
+                </div>
+                <div v-if="props.item.stores.plate_form == 'WooCommerce'">
+                    <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/WooCommerce.png"/>
+                </div>
+                <div v-if="props.item.stores.plate_form == 'MimCart'">
+                    <img class="h-10 w-10 rounded-full shadow-xl" src="~@/images/MimCart.jpg"/>
+                </div>
+            </template>
+            <template v-slot:couriers="props">
+                <typeahead :initialize="props.item.courier" :url="courier"
+                           @input="onShippeds($event, props.item)" display="name"
+                           v-if="props.item.city_id && !props.item.tracking_id"/>
+                <div v-else>
+                    <span v-if="props.item.courier">{{ props.item.courier.name }}</span><br>
+                    <span>CN: {{props.item.tracking_id}}</span>
+                </div>
+            </template>
+            <template v-slot:action="props">
+                <div class="text-sm font-medium flex">
                         <span v-if="permissions.includes(`edit-${small}`)">
                         <a
                             @click.prevent="edit(props.item.id)"
@@ -312,7 +388,7 @@
                             </svg>
                         </a>
                         </span>
-                        <span v-if="permissions.includes(`delete-${small}`)">
+                    <span v-if="permissions.includes(`delete-${small}`)">
                         <a @click.prevent="deleteRole(props.item.id)" href="#">
                              <svg class="h-5 w-5 text-red-500" fill="none" stroke="currentColor" stroke-linecap="round"
                                   stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
@@ -323,77 +399,44 @@
                         </a>
 
                         </span>
-                        <a @click.prevent="generateCN(props.item.id)" href="#"
-                           v-if="props.item.status_id == 2 && props.item.courier_id">
-                            <svg aria-hidden="true" class="hi-mini hi-banknotes inline-block w-5 h-5 text-cyan-500"
-                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path clip-rule="evenodd"
-                                      d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z"
-                                      fill-rule="evenodd"/>
-                            </svg>
-                        </a>
-                        <a :href="`/api/order/${props.item.id}?mode=PDF`"
-                           target="_blank"
-                           title="Pdf">
-                            <svg aria-hidden="true"
-                                 class="hi-mini hi-banknotes inline-block w-5 h-5 text-fuchsia-700" fill="currentColor" viewBox="0 0 20 20"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path clip-rule="evenodd"
-                                      d="M5 2.75C5 1.784 5.784 1 6.75 1h6.5c.966 0 1.75.784 1.75 1.75v3.552c.377.046.752.097 1.126.153A2.212 2.212 0 0118 8.653v4.097A2.25 2.25 0 0115.75 15h-.241l.305 1.984A1.75 1.75 0 0114.084 19H5.915a1.75 1.75 0 01-1.73-2.016L4.492 15H4.25A2.25 2.25 0 012 12.75V8.653c0-1.082.775-2.034 1.874-2.198.374-.056.75-.107 1.127-.153L5 6.25v-3.5zm8.5 3.397a41.533 41.533 0 00-7 0V2.75a.25.25 0 01.25-.25h6.5a.25.25 0 01.25.25v3.397zM6.608 12.5a.25.25 0 00-.247.212l-.693 4.5a.25.25 0 00.247.288h8.17a.25.25 0 00.246-.288l-.692-4.5a.25.25 0 00-.247-.212H6.608z"
-                                      fill-rule="evenodd"/>
-                            </svg>
-                        </a>
+                    <a @click.prevent="generateCN(props.item.id)" href="#"
+                       v-if="props.item.status_id == 2 && props.item.courier_id">
+                        <svg aria-hidden="true" class="hi-mini hi-banknotes inline-block w-5 h-5 text-cyan-500"
+                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd"
+                                  d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z"
+                                  fill-rule="evenodd"/>
+                        </svg>
+                    </a>
+                    <a :href="`/api/order/${props.item.id}?mode=PDF`"
+                       target="_blank"
+                       title="Pdf">
+                        <svg aria-hidden="true"
+                             class="hi-mini hi-banknotes inline-block w-5 h-5 text-fuchsia-700" fill="currentColor"
+                             viewBox="0 0 20 20"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd"
+                                  d="M5 2.75C5 1.784 5.784 1 6.75 1h6.5c.966 0 1.75.784 1.75 1.75v3.552c.377.046.752.097 1.126.153A2.212 2.212 0 0118 8.653v4.097A2.25 2.25 0 0115.75 15h-.241l.305 1.984A1.75 1.75 0 0114.084 19H5.915a1.75 1.75 0 01-1.73-2.016L4.492 15H4.25A2.25 2.25 0 012 12.75V8.653c0-1.082.775-2.034 1.874-2.198.374-.056.75-.107 1.127-.153L5 6.25v-3.5zm8.5 3.397a41.533 41.533 0 00-7 0V2.75a.25.25 0 01.25-.25h6.5a.25.25 0 01.25.25v3.397zM6.608 12.5a.25.25 0 00-.247.212l-.693 4.5a.25.25 0 00.247.288h8.17a.25.25 0 00.246-.288l-.692-4.5a.25.25 0 00-.247-.212H6.608z"
+                                  fill-rule="evenodd"/>
+                        </svg>
+                    </a>
 
-                        <!--                        <a @click.prevent="showss(props.item.id)" href="#">-->
-                        <!--                            <svg class="h-5 w-5 "-->
-                        <!--                                 height="1em"-->
-                        <!--                                 viewBox="0 0 576 512"-->
-                        <!--                                 xmlns="http://www.w3.org/2000/svg">-->
-                        <!--                                <path-->
-                        <!--                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>-->
-                        <!--                            </svg>-->
-                        <!--                        </a>-->
-                        <!--                        <a @click="show_msg_modal">-->
-                        <!--                            <i class="fas fa-message pl-1 pt-1 text-md"></i>-->
-                        <!--                        </a>-->
-                    </div>
-                </template>
-            </panel>
-        </div>
+                    <!--                        <a @click.prevent="showss(props.item.id)" href="#">-->
+                    <!--                            <svg class="h-5 w-5 "-->
+                    <!--                                 height="1em"-->
+                    <!--                                 viewBox="0 0 576 512"-->
+                    <!--                                 xmlns="http://www.w3.org/2000/svg">-->
+                    <!--                                <path-->
+                    <!--                                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>-->
+                    <!--                            </svg>-->
+                    <!--                        </a>-->
+                    <!--                        <a @click="show_msg_modal">-->
+                    <!--                            <i class="fas fa-message pl-1 pt-1 text-md"></i>-->
+                    <!--                        </a>-->
+                </div>
+            </template>
+        </panel>
     </div>
-    <!--    <template style="width:200px">-->
-    <!--        <Modal :show="isOpenCourier" :closeable="true" >-->
-    <!--            <div class="bg-white rounded-lg shadow-lg w-1\2">-->
-    <!--                <div  style="height: 250px">-->
-    <!--                    <div class="justify-start bg-gray-100 header-bg-color">-->
-    <!--                    <h2 class="text-2xl p-3 font-semibold mb-4">Select Courier</h2>-->
-    <!--                    </div>-->
-    <!--                    <typeahead :initialize="selectedcourier" :url="courier" @input="onbulkShippeds($event, selectedcourier)" display="name" class="ml-3" style="position: absolute; z-index: 9999;"></typeahead>-->
-    <!--                </div>-->
-    <!--                <div class="flex justify-end p-4 bg-gray-100 dark:bg-gray-900">-->
-    <!--                    <button @click="updateModalCourier" class="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600">Save</button>-->
-    <!--                    <button @click="resetModalCourier" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Cancel</button>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </Modal>-->
-    <!--    </template>-->
-
-    <!--    <template>-->
-    <!--        <Modal :show="isOpenStatus" :closeable="true">-->
-    <!--            <div class="bg-white rounded-lg shadow-lg">-->
-    <!--                <div  style="height: 200px">-->
-    <!--                    <div class="justify-start header-bg-color">-->
-    <!--                        <h2 class="text-2xl p-3 font-semibold bg-gray-100 mb-4 text-gray-700">Select Status</h2>-->
-    <!--                    </div>-->
-    <!--                    <typeahead :initialize="selectedstatus" :url="delivery+'?head=order'" @input="onbulkstatus($event, selectedstatus)" display="name" class="ml-3" style="z-index: 99999;"></typeahead>-->
-    <!--                </div>-->
-    <!--                <div class="flex justify-end p-4 bg-gray-100 dark:bg-gray-900">-->
-    <!--                    <button @click="updateModalStatus" class="px-6 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600">Save</button>-->
-    <!--                    <button @click="resetModalStatus" class="px-6 py-2 bg-gray-400 text-gray-700 text-white rounded-lg hover-bg-gray-300">Cancel</button>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </Modal>-->
-    <!--    </template>-->
     <Modal :show="show_msg" closeable="true">
         <div class="">
             <h1 class="text-lg font-bold mt-4 mb-4 text-center">Send SMS</h1>
@@ -427,8 +470,6 @@
         </div>
     </Modal>
 </template>
-
-
 <script>
     import Panel from "@/components/panel/panel.vue";
     import {form} from "@/libs/mixins";
@@ -453,6 +494,16 @@
         name: "Index",
         data() {
             return {
+                wooButton: true,
+                shopifyButton: true,
+                mimCartButton: true,
+                activePlatform: '',
+                loadingWoo: false, // Initialize loading state as false
+                loadingshop: false, // Initialize loading state as false
+                loadingmim: false, // Initialize loading state as false
+                companies: {},
+                selectedCompany: null,
+                store: [],
                 model: {},
                 selectedcourier: [],
                 selectedstatus: [],
@@ -499,21 +550,14 @@
             }
         },
         created() {
+            byMethod('get', `/api/company`)
+                .then((res) => {
+                    // console.log(res.data.data.data);
+                    this.companies = res.data.data.data;
+                })
+
             this.permissions = window.apex.user.permission
         },
-        // beforeRouteEnter(to, from, next) {
-        //     get(initialize(to))
-        //         .then((res) => {
-        //             next(vm => vm.setData(res))
-        //         })
-        // },
-        // beforeRouteUpdate(to, from, next) {
-        //     get(initialize(to))
-        //         .then((res) => {
-        //             this.setData(res);
-        //             next()
-        //         })
-        // },
         methods: {
             // setData(res) {
             //
@@ -530,6 +574,75 @@
             //     }
             //     this.show = true
             // },
+            returns(e) {
+                byMethod("get", `/api/stores_data?company_id=${e}`).then(
+                    (res) => {
+                        (this.show_company_data = true);
+                        // console.log(res.data.data);
+                        this.store = res.data.data.data;
+                        // console.log('nband');
+                    }
+                );
+            },
+            async woocommerce_fetch_data(id) {
+                // this.loadingshop = this.loadingmim = false;
+                this.loadingWoo = true; // Set loading state to true when the fetch starts
+                try {
+                    // Make your fetch request here
+                    const res = await byMethod("POST", `/api/woocommerce_store_data/${id}`);
+
+                    if (res.data.saved === true) {
+                        this.$toast.success(`${res.data.new} Fetch Order Successfully`);
+                    }
+                } catch (error) {
+                    // Handle any errors
+                    this.$toast.error('Error fetching data');
+                } finally {
+                    this.loadingWoo = false; // Ensure loading is set back to false even if there is an error
+                }
+                this.$router.push({path: `${this.resource}`})
+            },
+            async shopify_fetch_data(id) {
+                // this.loadingWoo = this.loadingmim = false;
+                this.loadingshop = true;// Set loading state to true when the fetch starts
+                try {
+                    // Make your fetch request here
+                    const res = await byMethod("POST", `/api/shopify_store_data/${id}`);
+
+                    if (res.data.saved === true) {
+                        this.$toast.success(`${res.data.new} Fetch Order Successfully`);
+                    }
+                } catch (error) {
+                    // Handle any errors
+                    this.$toast.error('Error fetching data');
+                } finally {
+                    this.loadingshop = false;// Ensure loading is set back to false even if there is an error
+                }
+                this.$router.push({path: `${this.resource}`})
+            },
+            async mimcart_fetch_data(id) {
+                // this.loadingWoo = this.loadingshop = false;
+                this.loadingmim = true;
+                try {
+                    // Make your fetch request here
+                    const res = await byMethod("POST", `/api/mimcart_store_data/${id}`);
+
+                    if (res.data.saved === true) {
+                        this.$toast.success(`${res.data.new} Fetch Order Successfully`);
+                    }
+                } catch (error) {
+                    // Handle any errors
+                    this.$toast.error('Error fetching data');
+                } finally {
+                    this.loadingmim = false;  // Ensure loading is set back to false even if there is an error
+                }
+                this.$router.push({path: `${this.resource}`})
+
+            },
+            setActivePlatform(platform) {
+                this.activePlatform = platform;
+            },
+
             resetModalCourier() {
                 this.selectedcourier = {}
                 this.isOpenCourier = false
@@ -618,24 +731,7 @@
                 // Open a new window with the URL
                 window.open(`${url}?${queryString}`, '_blank');
             },
-            bulkCNInvoice(item, mode) {
-                let data = {
-                    selectedItems: this.selectedItems,
-                    mode: 'PDF',
-                    // Add any other necessary data
-                };
-                const url = '/api/cn_invoice';
-
-                // Serialize the data into a query string
-                const queryString = Object.keys(data)
-                    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-                    .join('&');
-
-                // Open a new window with the URL
-                window.open(`${url}?${queryString}`, '_blank');
-            },
-
-            Multi_CNInvoice(){
+            Multi_CNInvoice() {
                 let data = {
                     selectedItems: this.selectedItems,
                     mode: 'PDF',
@@ -646,53 +742,14 @@
                     .join('&');
                 window.open(`${url}?${queryString}`, '_blank');
             },
-
-            // bulkPDF(item){
-            //         // let data = item.map(item => item.id)
-            //     let data = {
-            //         selectedItems: this.selectedItems,
-            //         id: item.map(item => item.id),
-            //         // id: item.length > 0 ? item.map(item => item.id) : null,
-            //     }
-            //     byMethod('POST', '/api/bulkPDF', data).then(res => {
-            //         this.$refs.TableData.reload();
-            //         this.$toast.open({
-            //             position: 'top-right',
-            //             message: this.mode === 'edit' ? 'Update Successfully' : 'Order Invoice',
-            //             type: 'success',
-            //             duration: 3000
-            //         });
-            //     })
-            // },
-            // bulkPDF(item, mode) {
-            //     let data = {
-            //         selectedItems: this.selectedItems,
-            //         mode: 'PDF',
-            //         // mode: 'PDF', // Assuming 'mode' is required for your server-side logic
-            //     };
-            //     // Sending a POST request to the server
-            //     byMethod('POST', '/api/bulkPDF', data)
-            //         .then(res => {
-            //             // Handle the response if needed
-            //             console.log(res);
-            //
-            //             // Reload the table or perform other actions
-            //             this.$refs.TableData.reload();
-            //
-            //             // Show a success message
-            //             this.$toast.open({
-            //                 position: 'top-right',
-            //                 message: 'Order Invoice',
-            //                 type: 'success',
-            //                 duration: 3000
-            //             });
-            //         })
-            //         .catch(error => {
-            //             // Handle errors if needed
-            //             // console.error(error);
-            //         });
-            // },
-
+            getImagePaths(item) {
+                if (item.logo) {
+                    return `/uploads/company/logo/${item.logo}`;
+                } else {
+                    // If no logo is uploaded, use a default image
+                    return "/images/mimsoft.jpg";
+                }
+            },
             getImagePath(props) {
                 if (props.item.stores.company.logo) {
                     return `/uploads/company/logo/${props.item.stores.company.logo}`;
@@ -771,6 +828,12 @@
                 const company = e.target.value
                 this.form.company = company
                 this.form.company_id = company.id
+            },
+            onCompanys(e) {
+                const company = e;
+                this.form.company_id = company.id;
+                this.returns(this.form.company_id);
+                this.selectedCompany = e;
             },
             onStores(e) {
                 const stores = e.target.value
@@ -904,161 +967,95 @@
             sendMsg() {
                 this.show_msg = false
             }
-
         },
     }
 </script>
 <style scoped>
-
-    .button {
-        font-weight: bold !important;
-        border-radius: .25rem;
-        text-transform: uppercase;
-        font-style: normal;
-        font-weight: 400;
-        padding-left: 15px;
-        padding-right: 15px;
-        color: #fff;
-        /* -webkit-clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%); */
-        /* clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%); */
-        height: 30px;
-        font-size: 0.7rem;
-        line-height: 14px;
-        letter-spacing: 1.2px;
-        transition: .2s .1s;
-        border: 0 solid;
-        overflow: hidden;
-    }
-
-    .button:hover {
-        cursor: pointer;
-        transition: all .3s ease-in;
-        padding-right: 30px;
-        padding-left: 30px;
-    }
-
-    .buttonHide {
-        font-weight: bold !important;
-        border-radius: .25rem;
-        text-transform: uppercase;
-        font-style: normal;
-        font-weight: 400;
-        padding-left: 15px;
-        padding-right: 15px;
-        color: #fff;
-        -webkit-clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%);
-        clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%);
-        height: 30px;
-        font-size: 0.7rem;
-        line-height: 14px;
-        letter-spacing: 1.2px;
-        transition: .2s .1s;
-        border: 0 solid;
-        overflow: hidden;
-    }
-
-    .buttonHide:hover {
-        cursor: pointer;
-        transition: all .3s ease-in;
-        padding-right: 30px;
-        padding-left: 30px;
-    }
-
-    .buttonn {
-        font-weight: bold !important;
-        border-radius: .25rem;
-        text-transform: uppercase;
-        font-style: normal;
-        font-weight: 400;
-        padding-left: 25px;
-        padding-right: 25px;
-        color: #fff;
-        /* -webkit-clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%); */
-        /* clip-path: polygon(0 0, 0 0, 100% 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 100%); */
-        height: 40px;
-        font-size: 0.7rem;
-        line-height: 14px;
-        letter-spacing: 1.2px;
-        transition: .2s .1s;
-        border: 0 solid;
-        overflow: hidden;
-    }
-
-    .buttonn:hover {
-        cursor: pointer;
-        transition: all .3s ease-in;
-        padding-right: 30px;
-        padding-left: 30px;
-    }
-
-
-    .uiverse {
+    .card {
         position: relative;
-
-        padding: 15px;
-        margin: 10px;
-        border-radius: 10px;
-        width: 80px;
-        height: 40px;
-        font-size: 17px;
+        width: 70px;
+        height: 70px;
+        background-color: #f2f2f2;
+        border-radius: 50px;
         display: flex;
-        justify-content: center;
         align-items: center;
-        flex-direction: column;
-
-        cursor: pointer;
-        transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        justify-content: center;
+        overflow: hidden;
+        perspective: 1000px;
+        box-shadow: 0 0 0 5px #ffffff80;
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .uiverse:hover .tooltip {
-        top: -45px;
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
+    .card svg {
+        width: 48px;
+        fill: #333333;
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    svg:hover span,
-    svg:hover .tooltip {
-        text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
-    }
+    /* .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+    } */
 
-    .uiverse:hover,
-    .uiverse:hover .tooltip,
-    .uiverse:hover .tooltip::before {
-        /* background: linear-gradient(320deg, rgb(3, 77, 146), rgb(0, 60, 255)); */
-        background: #fff;
-        color: #ffffff;
-    }
-
-    /* .tooltip-container {
-        position: relative;
-        display: inline-block;
-    }
-
-    .tooltip-trigger {
-        cursor: pointer;
-    }
-
-    .tooltip-content {
-        visibility: hidden;
-        background-color: #f3f4f6;
-        color: #fff;
-        text-align: center;
-        border-radius: 4px;
-        padding: 5px;
+    .card__content {
         position: absolute;
-        z-index: 1;
-        bottom: -20%;
-        left: 580%;
-        transform: translateX(-50%);
-        opacity: 0;
-        transition: opacity 0.3s, visibility 0.3s;
+
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        background-color: #f2f2f2;
+        transform: rotateX(-90deg);
+        transform-origin: bottom;
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .tooltip-container:hover .tooltip-content {
-        visibility: visible;
-        opacity: 1;
-    } */
+    .card:hover .card__content {
+        transform: rotateX(0deg);
+    }
 
+    .card__title {
+        margin: 0;
+        font-size: 12px;
+        color: #3985b1;
+        font-weight: 700;
+    }
+
+    .card:hover svg {
+        scale: 0;
+    }
+
+    .card__description {
+        margin: 10px 0 0;
+        font-size: 8px;
+        font-weight: bold;
+        color: #0c0c0c;
+        line-height: 1.4;
+    }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    /* .shows{
+      flex: 0 0 calc(12.5% - 20px);
+      margin-right: 20px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    } */
+
+    .selected-card {
+        border: 2px solid blue; /* Change this to your desired border style and color */
+    }
+
+
+    @keyframes rotate_4001510 {
+        100% {
+            transform: rotateY(360deg);
+        }
+    }
 
 </style>

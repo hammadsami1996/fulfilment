@@ -287,7 +287,7 @@
                         byMethod("get", `/api/settings/create?key=${this.key}&company_id=${this.$route.params.id}&count=All`).then((res) => {
                         this.courierdata = resp.data.data.data;
                         this.item = res.data.form;
-                       
+
                         // Map authentication_key from form to courierdata
                         this.courierdata.forEach((courier) => {
                             const matchingForm = this.item.find((formItem) => formItem.value.id === courier.id);
@@ -330,7 +330,7 @@
                 this.form.selectedPermissions = this.selectedPermissions
                 byMethod(this.method, this.store, objectToFormData(this.form)).then(res => {
                     this.additionalProp ? this.formSubmiting():this.successfull(res)
-                    // this.successfull(res)
+                    this.successfull(res)
                     this.$toast.open({
                         position: 'top-right',
                         message: this.mode === 'edit' ? 'Update Successfully' : 'Create Successfully',
@@ -374,8 +374,8 @@
             //     })
             // },
             successfull(res) {
-                // this.$router.push({path: `${this.resource}`})
-                this.$router.push(`${this.resource}/${this.$route.params.id}/edit`)
+                this.$router.push({path: `${this.resource}`})
+                // this.$router.push(`${this.resource}/${this.$route.params.id}/edit`)
             },
             anotherFunction(){
                 this.$router.push({path: `${this.resource}`})
