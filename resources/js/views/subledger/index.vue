@@ -11,6 +11,22 @@
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+                <template v-slot:actives="props">
+                    <div>
+                        <div class="inline-flex items-center space-x-3">
+                    <input
+                    type="checkbox"
+                    id="switch2"
+                    :checked="props.item.active === 1" 
+                    @change="updateActive(props.item,props.item.id)"
+                    name="switch2"
+                    class="h-7 w-12 rounded-full text-primary-500 transition-all duration-150 ease-out form-switch focus:ring focus:ring-primary-500 focus:ring-opacity-50 dark:bg-gray-700 dark:ring-offset-gray-900 dark:checked:bg-current"
+                    
+                    />
+                </div>
+                        
+                    </div>
+                </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
                          <span v-if="permissions.includes(`edit-${small}`)"
@@ -71,7 +87,7 @@
                     {label: 'S.No', field: 'id', format: 'index'},
 
                     {label: 'Subledger Title', field: 'subledger_title',},
-                    {label: 'Active', field: 'active',},
+                    {label: 'Active', field: 'actives', slot:true},
                     {label: 'Action', field: 'action', action: true}
                     ]
             }
@@ -80,6 +96,22 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+            updateActive(item,id){
+ 
+            let record = {
+            data: item.active === 1 ? 0 : 1,
+            id: id
+            }
+            byMethod('POST', '/api/bulk_active', record).then(res => {
+                        this.$refs.TableData.reload();
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: "status Update Successfully",
+                            type: 'success',
+                            duration: 3000
+                        });
+                    })
+                },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },

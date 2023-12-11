@@ -167,6 +167,7 @@ Route::middleware([
         Route::post('/bulk_order_status_sms', [\App\Http\Controllers\OrderStatusController::class, 'bulk_order_sms']);
         Route::post('/bulk_order_status_active', [\App\Http\Controllers\OrderStatusController::class, 'bulk_order_active']);
         Route::post('/bulk_order_status_sale', [\App\Http\Controllers\OrderStatusController::class, 'bulk_order_sale']);
+        Route::post('/bulk_active', [\App\Http\Controllers\SubLedgerController::class,'bulk_active']);
 
 
         // Products work

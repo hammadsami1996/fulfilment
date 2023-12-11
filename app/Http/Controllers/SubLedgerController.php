@@ -83,4 +83,14 @@ class SubLedgerController extends Controller
         return response()
             ->json(['deleted' => true]);
     }
+
+    public function bulk_active(Request $request){
+        $id = $request->id;
+        $item = SubLedger::findOrFail($id);
+        $item->active = $request->data;
+        $item->save();
+    
+        return response()->json(['message' => 'status updated successfully']);
+
+    }
 }
