@@ -265,8 +265,7 @@ class OrderController extends Controller
     {
         $selectedItems = $request['selectedItems']; // An array of item IDs
         $statusData = $request['selectedcourier']; // Status data to be applied to all items
-//dd($statusData['id']);
-
+//      dd($statusData['id']);
         foreach ($selectedItems as $itemId) {
             $order = Order::findOrFail($itemId);
             $order->courier_id = $statusData['id'];

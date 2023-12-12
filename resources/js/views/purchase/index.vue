@@ -67,8 +67,6 @@
                            {{ props.item.status ? props.item.status.name :'' }}
                                 </button> -->
                                 <!-- <button @click="shows(1 ,props.item.id) ">Draft</button> -->
-
-
                                 <!-- <div v-if="sts && props.item.id == ids"> -->
                                     <!-- <div> -->
                                         <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#93b194,green); font-weight: bold;" @click="Update(form.deliver ,props.item.id) ">
@@ -77,12 +75,8 @@
                                 <!-- <button  style="width:50% ; height: 70%; background-image: linear-gradient(90deg,#975252,rgb(197, 13, 13)); font-weight: bold;" @click="Cancel() ">
                                     Hide
                                 </button> -->
-
-
                                     <!-- </div> -->
                                     <!-- <typeahead :initialize="form.deliver" :url="delivery+'?head=purchase&id='+ props.item.status.id"   @input="onDelivery($event ,props.item.id)" display="name" class="z-99"/> -->
-
-
                          <!-- </div> -->
                 </template>
                 <template v-slot:action="props">
@@ -215,8 +209,6 @@
                         }
                     })
                 }
-
-
            },
             deleteRole(e) {
                 byMethod('delete', `/api/purchase/${e}`)
