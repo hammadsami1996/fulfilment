@@ -145,6 +145,8 @@ Route::middleware([
         Route::get('/bulkPDF', [\App\Http\Controllers\OrderController::class, 'bulk_PDF']);
         Route::get('/trax_multi_invoices', [\App\Http\Controllers\ShipmentController::class, 'trax_multi_invoices']);
         Route::get('/order_status', [\App\Http\Controllers\OrderStatusController::class, 'index']);
+        Route::post('/order_staus_edit', [\App\Http\Controllers\OrderStatusController::class, 'edit']);
+        Route::post('/order_status_update', [\App\Http\Controllers\OrderStatusController::class, 'update']);
 
         Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);
         Route::get('/fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);
