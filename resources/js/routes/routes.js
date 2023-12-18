@@ -31,6 +31,7 @@ import order_status from "@/routes/order_status";
 import general_voucher from "@/routes/voucher";
 import account from "@/routes/account";
 import subledger from "@/routes/subledger";
+import account_setting from "@/routes/account_setting";
 
 
 
@@ -81,6 +82,7 @@ const router = createRouter({
         ...general_voucher,
         ...account,
         ...subledger,
+        ...account_setting,
 
         {
             path: '/error-404',

@@ -213,12 +213,12 @@
                     type="button">
                    Level 3
                 </button>
-                <!-- <button
+                <button
                     @click="subMenuOpenall3"
                     class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-gradient-to-r from-blue-400 to-indigo-600 text-white"
                     type="button">
                    Level 4
-                </button> -->
+                </button>
 
             </div>
                 <!-- Responsive Table Container -->
@@ -1388,7 +1388,6 @@
                         onProgress(e) {
 
                         },
-
 
                            close() {
                 this.show = false,

@@ -3,10 +3,14 @@
         <div class="px-4 py-5 sm:px-6 flex justify-between items-center border-b-2 border-gray-200 w-full">
     <h3 class="text-2xl leading-3 font-medium text-gray-900">{{ capital }}</h3>
 </div>
-<div class=" pl-4 pt-3">
+ <Modal :show="isOpen"  >
+    <div class="px-4 py-5 sm:px-6 border-b-2 border-gray-200 w-full flex justify-center">
+  <h3 class="text-2xl leading-3 font-medium text-gray-900">{{ capital }}</h3>
+</div>
+<div class=" pl-6 pt-3">
     <label class="block font-medium text-sm text-gray-700 mb-2"> Message </label>
     <div class="w-full">
-        <textarea  v-model="form.message"  class="w-full bg-white border border-gray-300 text-gray-700 py-4 px-4 rounded leading-tight focus:outline-none focus:border-gray-500" placeholder="Message"></textarea>
+        <textarea  v-model="form.message"  class="w-3/4  bg-white border border-gray-300 text-gray-700 py-4 px-4 rounded leading-tight focus:outline-none focus:border-gray-500" placeholder="Message"></textarea>
     </div>
 </div>
 <!-- <div class="  pl-4 pt-3">
@@ -36,11 +40,16 @@
 <div class="w-full  mb-4 md:w-1/2  p-2 ">
     <label class="block font-medium text-sm text-gray-700 mb-2"> Order Status Title: </label>
     <div class="relative flex">
-        <input type="text"  v-model="form.name" class="block w-full  border border-gray-300 text-black py-2 px-4 rounded leading-tight focus:outline-none focus:border-gray-500" placeholder="Title">
-        <button @click="formSubmitted" :disabled="saves" class=" px-3 py-2 bg-blue-400 hover:bg-blue-500 text-white rounded">Save</button>
+        <input type="text"  v-model="form.name" class="block w-full  border border-gray-300 text-black py-2 px-4 rounded leading-tight focus:outline-none focus:border-gray-500" placeholder="Title"> <br>
     </div>
 </div>
-        </div>
+</div>
+<div class="flex justify-end mb-2 mr-3 ">
+
+    <button @click="formSubmitted" :disabled="saves" class=" mr-2 px-3 py-2 bg-blue-400 hover:bg-blue-500 text-white rounded-md">Save</button>
+    <button @click="cencel"  class=" px-3 py-2 bg-red-400 hover:bg-red-500 text-white  rounded-md">Cencel</button>
+</div>
+</Modal>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData" :searchEnable="false">
                 <template v-slot:sortes="props">
@@ -103,18 +112,19 @@
     import Panel from "@/components/panel/panel.vue";
     import {form} from "@/libs/mixins";
     import {byMethod} from "@/libs/api";
+    import Modal from "@/Components/Modal.vue";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
 
     export default {
         mixins: [form],
         components: {
-            Panel,
-            Typeahead,
+            Panel,Typeahead,Modal
         },
         name: "Index",
         data() {
             return {
                 saves: true,
+                isOpen: false,
                 permissions: [],
                 urlApi: "/api/order_status",
                 small: "Order Status",
@@ -159,18 +169,24 @@
                             type: 'success',
                             duration: 3000,
                         });
+                        this.form.id = null;
                         this.form.message = null;
                         this.form.stock_qty = 'None';
                         this.form.sort = null;
                         this.form.name = null;
+                        this.isOpen = false;
                     }
             })
                     .finally(() => {
                         this.saves = true; 
                     });
                 },
+                cencel(){
+                    this.isOpen = false;
+                },
             edit(id) {
                 this.saves = false;
+                this.isOpen = true;
                 byMethod("post", `/api/order_staus_edit?id=${id}`).then((res) => {
                     this.form = res.data.data;
                     if (res.data.saved) {

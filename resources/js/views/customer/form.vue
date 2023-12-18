@@ -12,7 +12,7 @@
                 <p class="text-red-600 text-xs italic" v-if="error.date">{{ error.date[0] }}</p>
             </div> -->
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
-                <label class="block font-medium text-sm text-gray-700 mb-2">Customer <span class="text-red-600">*</span></label>
+                <label class="block font-medium text-sm text-gray-700 mb-2">Name <span class="text-red-600">*</span></label>
                 <input
                     class="w-full py-1 px-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     type="text" v-model="form.name"/>
@@ -22,7 +22,7 @@
             <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                 <label
                     class="block font-medium text-sm text-gray-700 mb-2"
-                >Category</label>
+                >Contact Category</label>
                 <typeahead :initialize="form.category" :url="categorys" @input="onCategory"
                            display="customer_category"/>
                 <p class="text-red-600 text-xs italic" v-if="error.category_id">{{error.category_id[0] }}</p>
@@ -67,6 +67,24 @@
                <!-- <p class="text-red-600 text-xs italic" v-if="error.cnic">{{error.cnic[0] }}</p> -->
             </div>
         </div>
+        <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
+        <div class="w-40 sm:w-/2 mb-4 sm:mb-0 pl-2 pt-4">
+                    <label class="flex items-center space-x-2 mb-2"> <span class="text-gray-700">Vender</span>   </label>
+                    <div class="space-x-2" style="margin-bottom: 10px;">
+                    <div class="inline-flex items-center space-x-3">
+                        <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" :checked="form.is_vendor === 1" @change="form.is_vender = (form.is_vender === 1) ? 0 : 1"/>
+                    </div>
+                    </div>
+                </div>
+                <div class=" sm:w-1/2 mb-4 sm:mb-0  pt-4">
+                    <label class="flex items-center space-x-2 mb-2"> <span class="text-gray-700">Customer</span>   </label>
+                    <div class="space-x-2" style="margin-bottom: 10px;">
+                    <div class="inline-flex items-center space-x-3">
+                        <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" :checked="form.is_customer === 1" @change="form.is_customer = (form.is_customer === 1) ? 0 : 1"/>
+                    </div>
+                    </div>
+                </div>
+                </div>
         <hr class="mt-6">
         <h1 class="font-bold mt-2 mb-2">Billing Address</h1>
 <!--        <h1  class="mb-4 border-b-2 border-gray-200 py-2 text-2xl font-bold dark:border-gray-700 lg:mb-8">Billing Address</h1>-->
@@ -247,7 +265,7 @@
                 store: '/api/customer',
                 method: 'POST',
                 small: 'customer',
-                capital: 'Customer',
+                capital: 'Contact',
                 title: 'Add',
                 message: 'New Customer Added',
                 permissions: {},

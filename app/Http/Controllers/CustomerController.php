@@ -40,6 +40,8 @@ class CustomerController extends Controller
             "state_id" => '',
             "b_city_id" => '',
             "s_city_id" => '',
+            'is_vender' => 0,
+            'is_customer' => 0,
 //            "number" => '',
             "cnic" => '',
             "b_name" => '',
@@ -64,6 +66,8 @@ class CustomerController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
+            'is_vender' => 'required',
+            'is_customer' => 'required'
 //            'cateogory' => 'required',
 //            'balance' => 'required',
 //            'type_id' => 'required',

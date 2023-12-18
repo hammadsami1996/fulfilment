@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountGroupController extends Controller
 {
+    public function index()
+    {
+        return response()->json(['data' => Account_group::search()]);
+
+    }
     public function search()
     {
         $results = Account_group::orderBy('id')
