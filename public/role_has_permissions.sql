@@ -205,5 +205,11 @@ INSERT INTO `role_has_permissions` VALUES (293, 1);
 INSERT INTO `role_has_permissions` VALUES (294, 1);
 INSERT INTO `role_has_permissions` VALUES (295, 1);
 INSERT INTO `role_has_permissions` VALUES (296, 1);
+INSERT INTO `role_has_permissions` VALUES (297, 1);
+INSERT INTO `role_has_permissions` VALUES (298, 1);
+INSERT INTO `role_has_permissions` VALUES (299, 1);
+INSERT INTO `role_has_permissions` VALUES (300, 1);
+INSERT INTO `role_has_permissions` VALUES (301, 1);
+INSERT INTO `role_has_permissions` VALUES (302, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
