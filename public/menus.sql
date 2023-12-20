@@ -53,12 +53,12 @@ INSERT INTO `menus` VALUES (10, 'Permission', '/permission', 'view-permission', 
 INSERT INTO `menus` VALUES (11, 'Company', '/company', 'view-company', 1, 'web', NULL, 4, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (12, 'Stores', '/stores', 'view-stores', 1, 'web', NULL, 6, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (13, 'Warehouse', '/warehouse', 'view-warehouse', 1, 'web', NULL, 5, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (14, 'Contact', '/contact', 'view-customer', 4, 'web', NULL, 7, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (14, 'Contact', '/customer', 'view-customer', 4, 'web', NULL, 7, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (15, 'User Subscription', '/user_subscription', 'view-user_subscription', 1, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (16, 'User Dashboard', '/user_dashboard', 'view-user_dashboard', 1, 'web', NULL, 9, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (17, 'Cities', '/cities', 'view-cities', 1, 'web', NULL, 10, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (18, 'Product Category', '/product_category', 'view-product_category', 7, 'web', NULL, 2, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (19, 'Contact Category', '/contact_category', 'view-customer_category', 4, 'web', NULL, 8, NULL, NULL, NULL, NULL);
+INSERT INTO `menus` VALUES (19, 'Contact Category', '/customer_category', 'view-customer_category', 4, 'web', NULL, 8, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (20, 'Brand', '/brand', 'view-brand', 7, 'web', NULL, 4, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (21, 'Suppliers', '/supplier', 'view-supplier', 2, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (22, 'Product', '/product', 'view-product', 7, 'web', NULL, 1, NULL, NULL, NULL, NULL);
