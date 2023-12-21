@@ -12,21 +12,19 @@ class StoreController extends Controller
     /**
      * Display a listing of the resource.
      */
-//    public function index()
-//    {
-//        return response()->json(['data' => Store::with('company' , 'warehouse')->when('')->search()]);
-//    }
-    public function index(Request $request)
+    public function index()
     {
-        return response()->json(['data' => Store::with('company' , 'warehouse')->when($request->has("fatch_order"))->search()]);
+        return response()->json(['data' => Store::with('company' , 'warehouse')->when(\request()->has("fatch_order"),function ($q) {
+            $q->where('fetch_order', \request('fatch_order'));
+        })->search()]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        
+
         $form = [
             "name" => '',
             "location" => '',
