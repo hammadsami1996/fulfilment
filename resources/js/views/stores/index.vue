@@ -16,6 +16,20 @@
                     <img :src="getImagePath(props.item.img)" class="shadow-xl h-10  rounded-md" />
                 </div>
                 </template>
+                <template v-slot:fetchorders="props">
+                        <div class="inline-flex items-center space-x-3" v-if="props.item.store_type == 'Online'">
+                            <input
+                                disabled
+                                true-value="1"
+                                false-value="0"
+                                type="checkbox"
+                                id="switch2"
+                                :checked="props.item.fetch_order"
+                                name="switch2"
+                                class="h-7 w-12 rounded-full text-primary-500 transition-all duration-150 ease-out form-switch focus:ring focus:ring-primary-500 focus:ring-opacity-50 dark:bg-gray-700 dark:ring-offset-gray-900 dark:checked:bg-current"
+                            />
+                        </div>
+                </template>
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
                          <span v-if="permissions.includes(`edit-${small}`)" class="bg-blue-400 p-1 text-white border rounded border-blue-500 mr-2 hover:bg-blue-600 transition-colors duration-300" >
@@ -69,7 +83,7 @@
                     {label: 'Name', field: 'name',},
                     {label: 'Location', field: 'location'},
                     {label: 'Store type', field: 'store_type'},
-                    {label: 'platform', field: 'plate_form'},
+                    {label: 'Auto Fetch',field: "fetchorders", slot: true  },
                     {label: 'Company', field: 'name', displayText: 'company'},
                     {label: 'Action', field: 'action', action: true}
                     ]

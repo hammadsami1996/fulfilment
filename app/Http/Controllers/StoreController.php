@@ -14,14 +14,17 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Store::with('company' , 'warehouse')->search()]);
+        return response()->json(['data' => Store::with('company' , 'warehouse')->when(\request()->has("fatch_order"),function ($q) {
+            $q->where('fetch_order', \request('fatch_order'));
+        })->search()]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+
         $form = [
             "name" => '',
             "location" => '',
@@ -36,6 +39,7 @@ class StoreController extends Controller
             "mim_api_key" => '',
             "img" => '',
             "mim_store_address" => '',
+            "fetch_order" => '',
 
         ];
         return response()->json([
@@ -61,7 +65,7 @@ class StoreController extends Controller
             $file = $request->file('imgN');
             $extension = $file[0]->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
-           
+
             $file[0]->move('uploads/store/img', $filename);
             $model->img = $filename;
         }

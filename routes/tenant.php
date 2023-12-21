@@ -144,6 +144,7 @@ Route::middleware([
         Route::get('product_details', [\App\Http\Controllers\OrderController::class, 'details']);
         Route::post('/bulk_status', [\App\Http\Controllers\StatusController::class, 'bulk_status']);
         Route::post('/bulk_courier', [\App\Http\Controllers\OrderController::class, 'bulk_courier']);
+        Route::post('/auto_order', [\App\Http\Controllers\OrderController::class, 'auto_order']);
         Route::post('/order_single', [\App\Http\Controllers\ShipmentController::class, 'order_single']);
         Route::get('/bulkPDF', [\App\Http\Controllers\OrderController::class, 'bulk_PDF']);
         Route::get('/trax_multi_invoices', [\App\Http\Controllers\ShipmentController::class, 'trax_multi_invoices']);
