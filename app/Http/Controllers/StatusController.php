@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
+use App\Models\Courier;
+use App\Models\Finance_transaction;
+use App\Models\Finance_transaction_master;
 use App\Models\Order;
 use App\Models\Purchase;
 use App\Models\Status;
@@ -111,6 +115,7 @@ class StatusController extends Controller
     }
     public function bulk_status(Request $request)
     {
+        $recentFinanceTransactionId = 0;
         $selectedItems = $request->selectedItems; // An array of item IDs
         $statusData = $request->selectedstatus; // Status data to be applied to all items
 
@@ -127,10 +132,76 @@ class StatusController extends Controller
                 'text' => $statusData['text'],
                 'ids' =>$itemId, // Include 'ids' if needed
             ];
-
             // Perform the updatestatus operation with the $data array
             $this->updatestatus(new Request($data));
         }
+        $statusides = Status::where('sales_on','=',1)->first();
+        $s_id = $statusides->id;
+        $orders = Order::where('status_id', $s_id)->get();
+    
+    foreach ($orders as $order) {
+        // Retrieve account details for the order
+        $account = Account::find($order->account_id);
+    
+        // Check if a record with the same reference number already exists in Finance_transaction
+        $existingFinance = Finance_transaction_master::where('reference_no', $order->id)->first();
+    
+        if (!$existingFinance) {
+            $finanace_master = new Finance_transaction_master();
+            $finanace_master->voucher_date = today();  
+            $finanace_master->reference_no = $order->id;
+            $finanace_master->voucher_type = "sale";
+            $finanace_master->voucher_number = 'JV-' . mt_rand(100000, 999999);
+            $finanace_master->debit = $order->total;
+            $finanace_master->credit = $order->total;
+            $finanace_master->detail_remarks = "sale order remarks";
+            $finanace_master->save();
+            $recentFinanceTransactionId = $finanace_master->id;
+        }
+            // Check if the account details are available
+            if ($account) {
+                // Check if a record with the same reference number already exists in Finance_transaction_master
+                $existingFinanceMaster = Finance_transaction::where('reference_no', $order->id)->first();
+    
+                if (!$existingFinanceMaster) {
+                    $finanace = new Finance_transaction();
+                    $finanace->voucher_date = today();  
+                    $finanace->reference_no = $order->id;
+                    $finanace->voucher_type = "sale";
+                    $finanace->debit = $order->total;
+                    $finanace->master_remarks = "sale order remarks";
+                    $finanace->credit = $order->total;
+                    $finanace->finance_transaction_master_id = $recentFinanceTransactionId;
+
+                    // Save the account details in Finance_transaction_master
+                    $finanace->account_id = $account->id;
+                    $finanace->save();
+                
+                    // Retrieve courier details for the order
+                    $courier = Courier::find($order->courier_id);
+    
+                    if ($courier) {
+                        // Retrieve account details for the courier
+                        $courierAccount = Account::find($courier->account_id);
+    
+                        if ($courierAccount) {
+                          
+                            $finanace2 = new Finance_transaction();
+                            $finanace2->voucher_date = today();  
+                            $finanace2->reference_no = $order->id;
+                            $finanace2->voucher_type = "sale";
+                            $finanace2->debit = $order->total;
+                            $finanace2->master_remarks = "sale order remarks";
+                            $finanace2->credit = $order->total;
+                            $finanace2->finance_transaction_master_id = $recentFinanceTransactionId;
+                            $finanace2->account_id = $courierAccount->id;
+                            $finanace2->save();
+                        }
+                    }  
+            }
+
+        }   
+    }
         return response()->json(['response'=> true]);
     }
 

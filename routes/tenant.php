@@ -95,6 +95,7 @@ Route::middleware([
         Route::resource('accounts_class_types', \App\Http\Controllers\AccountClassTypeController::class);
         Route::resource('accounts_class', \App\Http\Controllers\AccountClassController::class);
         Route::resource('accounts_group', \App\Http\Controllers\AccountGroupController::class);
+        Route::resource('journal_voucher', \App\Http\Controllers\FinanceTransactionController::class);
         Route::resource('accounts', \App\Http\Controllers\AccountController::class);
         Route::resource('account_setting', \App\Http\Controllers\AccountSettingController::class);
         Route::resource('subledger', \App\Http\Controllers\SubLedgerController::class);

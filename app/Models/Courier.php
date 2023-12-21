@@ -17,10 +17,10 @@ class Courier extends Model implements Auditable
    
 
     protected $fillable = [
-        'name',
+        'name','account_id'
     ];
     protected $columns = [
-        'name',
+        'name','account_id'
     ];
 
     protected $search = [

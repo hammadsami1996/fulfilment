@@ -15,29 +15,25 @@ return new class extends Migration
             $table->id();
             $table->string('voucher_type')->nullable();
             $table->string('voucher_number')->nullable();
+            $table->longText('master_remarks')->nullable();
+            $table->integer('reference_no')->nullable();
+            $table->date('voucher_date')->nullable();
+            $table->integer('finance_transaction_master_id')->nullable();
+            $table->decimal('debit', 10, 2)->default(0);
+            $table->decimal('credit', 10, 2)->default(0);    
+            $table->integer('account_id')->nullable();
             $table->string('account_title')->nullable();
             $table->string('subledger_type')->nullable();
             $table->string('subledger_code')->nullable();
             $table->string('contra_account_id')->nullable();
-            $table->longText('detail_remarks')->nullable();
-            $table->longText('master_remarks')->nullable();
-
-
-
-
-
-            $table->date('voucher_date')->nullable();
-            
+            $table->integer('group_id')->nullable();
             $table->integer('vid')->nullable();
             $table->integer('did')->nullable();
-            $table->integer('account_id')->nullable();
-            $table->integer('group_id')->nullable();
+            $table->longText('detail_remarks')->nullable();
             $table->integer('subledger_id')->nullable();
             $table->decimal('rate', 10, 2)->default(0);
             $table->decimal('fc_debit', 10, 2)->default(0);
             $table->decimal('fc_credit', 10, 2)->default(0);
-            $table->decimal('debit', 10, 2)->default(0);
-            $table->decimal('credit', 10, 2)->default(0);
             $table->bigInteger('serial')->nullable();
             $table->integer('cost_center_id')->nullable();
 

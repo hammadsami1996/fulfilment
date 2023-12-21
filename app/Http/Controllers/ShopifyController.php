@@ -145,6 +145,7 @@ class ShopifyController extends Controller
                             $order->discount = $rec['total_discounts'];
                             $order->currency_symbol = $rec['presentment_currency'];
                             $order->net_total = $rec['total_price'];
+                            $order->total = $rec['total_price'];
 
                             if ($order->net_total > 0) {
                                 $order->discount_percent = ($order->discount / $order->net_total) * 100;

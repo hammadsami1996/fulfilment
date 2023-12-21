@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Finance_transaction;
+use App\Models\Order;
 use App\Models\Status;
 use Illuminate\Http\Request;
 
@@ -62,6 +64,19 @@ class OrderStatusController extends Controller
         $item->sales_on = $request->data;
         $item->save();
         Status::where('id', '<>', $id)->update(['sales_on' => 0]);
+        // $orders = Order::where('status_id', $id)->get();
+
+        //     foreach ($orders as $order) {
+        //         $finanace = new Finance_transaction();
+        //         $finanace->voucher_date = today();  
+        //         $finanace->reference_no = $order->id;
+        //         $finanace->voucher_type = "sale";
+        //         $finanace->debit = $order->total;
+        //         $finanace->credit = $order->total;
+
+        //         $finanace->save();
+        //     }
+     
         return response()->json(['message' => 'order status updated successfully']);
     }
 }

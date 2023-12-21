@@ -65,6 +65,7 @@ return new class extends Migration
             $table->string('city_name')->nullable();
             $table->string('payment_description')->nullable();
             $table->integer('currency_id')->nullable();
+            $table->integer('account_id')->default(1);
             $table->string('currency_symbol',10)->nullable();
             $table->decimal('currency_value',10,2)->nullable()->default(0.00);
             $table->string('replacement_item_summary')->nullable();
