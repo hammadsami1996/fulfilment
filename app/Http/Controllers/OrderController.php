@@ -294,7 +294,6 @@ class OrderController extends Controller
                 if ($store->plate_form == "MimCart"){
                     $mimcart = new MimCartController();
                     $mimcart->storeOrder($store->id);
-//                    dd($mimcart);
                 }
                 if ($store->plate_form == "WooCommerce"){
                     $woocommerce = new WordpressController();

@@ -141,8 +141,9 @@
                                     <td class="p-3 text-center">{{ store.location }}</td>
                                     <td class="p-3 text-center">{{ store.store_type }}</td>
                                     <td class="p-3 text-center">{{ store.plate_form }}</td>
-                                    <td class="p-3 text-center" v-if="store.store_type == 'Online'">
+                                    <td class="p-3 text-center" >
                                         <input
+                                            v-if="store.store_type == 'Online'"
                                             disabled
                                             true-value="1"
                                             false-value="0"

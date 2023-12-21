@@ -18,7 +18,7 @@ class StoreController extends Controller
             $q->where('fetch_order', \request('fatch_order'));
         })->search()]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -39,7 +39,7 @@ class StoreController extends Controller
             "mim_api_key" => '',
             "img" => '',
             "mim_store_address" => '',
-            "fetch_order" => '',
+            "fetch_order" => 0,
 
         ];
         return response()->json([
