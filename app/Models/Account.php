@@ -17,16 +17,16 @@ class Account extends Model implements Auditable
 
 
     protected $fillable = [
-        'accounttitle', 'shortname', 'active',
+        'accounttitle', 'short', 'active','group_id','description','op_debit','op_credit','op_date'
     ];
 
-    protected $search = [  'accounttitle', 'shortname', 'active',];
-    protected $columns = [  'accounttitle', 'shortname', 'active',];
+    protected $search = ['accounttitle', 'short', 'active'];
+    protected $columns = ['accounttitle', 'short', 'active','group_id','description','op_debit','op_credit','op_date'];
 
-//    public function group()
-//    {
-//        return $this->belongsTo(Account_group::class, 'group_id', 'id');
-//    }
+   public function group()
+   {
+       return $this->belongsTo(Account_group::class, 'group_id', 'id');
+   }
 //
 //
 //    public function user()

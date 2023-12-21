@@ -70,8 +70,9 @@
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Account Title', field: 'accounttitle'},
-                    {label: 'Short Name', field: 'shortname',},
-                    // {label: 'Active', field: 'active',},
+                    {label: 'Description', field: 'description'},
+                    {label: 'Account Group', field: 'groupname' , displayText:'group'},
+                    {label: 'Active', field: 'active',},
                     {label: 'Action', field: 'action', action: true}
                     ]
             }

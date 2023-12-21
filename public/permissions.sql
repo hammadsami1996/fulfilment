@@ -242,6 +242,18 @@ INSERT INTO `permissions` VALUES (287, 'edit-order_status', 'web', NULL, NULL, 2
 INSERT INTO `permissions` VALUES (288, 'create-order_status', 'web', NULL, NULL, 285, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 INSERT INTO `permissions` VALUES (289, 'delete-order_status', 'web', NULL, NULL, 285, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 INSERT INTO `permissions` VALUES (290, 'export-order_status', 'web', NULL, NULL, 285, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (291, NULL, 'web', 'Account_setting', NULL, NULL, 56, '2023-11-22 11:28:44', '2023-11-22 11:28:44');
+INSERT INTO `permissions` VALUES (292, 'view-account_setting', 'web', NULL, NULL, 291, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (293, 'edit-account_setting', 'web', NULL, NULL, 291, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (294, 'create-account_setting', 'web', NULL, NULL, 291, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (295, 'delete-account_setting', 'web', NULL, NULL, 291, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (296, 'export-account_setting', 'web', NULL, NULL, 291, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (297, NULL, 'web', 'Journal_voucher', NULL, NULL, 56, '2023-11-22 11:28:44', '2023-11-22 11:28:44');
+INSERT INTO `permissions` VALUES (298, 'view-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (299, 'edit-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (300, 'create-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (301, 'delete-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (302, 'export-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 -- ----------------------------
 -- Table structure for role_has_permissions
 -- ----------------------------

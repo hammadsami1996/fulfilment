@@ -16,7 +16,7 @@ class Customer extends Model implements Auditable
 
     protected $fillable = [
         'name', 'email', 'phone',
-        'discount', 'b_country_id',
+        'discount', 'b_country_id','is_vender','is_customer',
         'b_city_id',  'cnic', 'b_name', 'b_phone', 'b_address_1', 's_name',
         's_phone', 's_address_1', 'category_id', 's_country_id', 's_city_id', 'quantity'];
     protected $columns = [
@@ -27,7 +27,7 @@ class Customer extends Model implements Auditable
 
     protected $search = [
         'name', 'email', 'phone',
-         'b_country_id',
+         'b_country_id','is_vender','is_customer',
         'b_city_id',  'cnic', 'b_name', 'b_phone', 'b_address_1', 's_name',
         's_phone', 's_address_1', 'category_id', 's_country_id', 's_city_id'
 

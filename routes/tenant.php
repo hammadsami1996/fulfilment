@@ -96,6 +96,7 @@ Route::middleware([
         Route::resource('accounts_class', \App\Http\Controllers\AccountClassController::class);
         Route::resource('accounts_group', \App\Http\Controllers\AccountGroupController::class);
         Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+        Route::resource('account_setting', \App\Http\Controllers\AccountSettingController::class);
         Route::resource('subledger', \App\Http\Controllers\SubLedgerController::class);
         Route::resource('settings', \App\Http\Controllers\SettingsController::class);
         Route::resource('order', \App\Http\Controllers\OrderController::class);
@@ -117,6 +118,7 @@ Route::middleware([
         Route::post('store_cities', [\App\Http\Controllers\CityController::class, 'storebulk']);
         Route::resource('courier_response', \App\Http\Controllers\CourierResponseController::class);
         Route::get('courier_serach', [\App\Http\Controllers\CourierResponseController::class, 'search']);
+        Route::get('getaccount', [\App\Http\Controllers\AccountSettingController::class, 'getaccount']);
 //        Route::get('getnumber', [\App\Http\Controllers\VoucherController::class, 'getNumber']);
 
 
@@ -146,6 +148,8 @@ Route::middleware([
         Route::get('/bulkPDF', [\App\Http\Controllers\OrderController::class, 'bulk_PDF']);
         Route::get('/trax_multi_invoices', [\App\Http\Controllers\ShipmentController::class, 'trax_multi_invoices']);
         Route::get('/order_status', [\App\Http\Controllers\OrderStatusController::class, 'index']);
+        Route::post('/order_staus_edit', [\App\Http\Controllers\OrderStatusController::class, 'edit']);
+        Route::post('/order_status_update', [\App\Http\Controllers\OrderStatusController::class, 'update']);
 
         Route::get('get_delivery_charges/{id}', [\App\Http\Controllers\OrderController::class, 'get_delivery_charges']);
         Route::get('/fetch_data', [\App\Http\Controllers\ShopifyController::class, 'fetchData']);

@@ -1389,7 +1389,6 @@
 
                         },
 
-
                            close() {
                 this.show = false,
                     this.show_image_modal = false

@@ -31,6 +31,9 @@ return new class extends Migration {
             $table->string('s_name', 50)->nullable();
             $table->string('s_phone', 20)->nullable();
             $table->string('s_address_1')->nullable();
+            $table->tinyInteger('is_vender')->default(0);
+            $table->tinyInteger('is_customer')->default(0);
+            $table->tinyInteger('active')->default(0);
 //            $table->date('date')->nullable();
             $table->integer('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
