@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('accounttitle')->nullable();
             $table->string('short')->nullable();
             $table->string('accountcode')->nullable();
+            $table->integer('group_id')->nullable();
 
             
             $table->decimal('nature',10,2)->default(0);
             $table->integer('level')->nullable();
-            $table->integer('group_id')->nullable();
             $table->integer('head_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('accept_payment')->nullable();
@@ -49,6 +49,69 @@ return new class extends Migration
 
             $table->timestamps();
         });
+        DB::table('accounts')->insert(
+            [
+                'accounttitle' => 'order sale',
+                'accountcode' => '4010010001', 
+                'group_id' => 18,
+                'active' => 1,
+                'description' => 'order account sale'
+            ]
+        );
+        DB::table('accounts')->insert(
+            [
+                'accounttitle' => 'Trax Saverplus account',
+                'accountcode' => '5040010001', 
+                'group_id' => 25,
+                'active' => 1,
+                'description' => 'courier saverplus account'
+            ]
+        );
+        DB::table('accounts')->insert(
+            [
+                'accounttitle' => 'Leopards Overland account',
+                'accountcode' => '5040010002', 
+                'group_id' => 25,
+                'active' => 1,
+                'description' => 'Leopards Overland account'
+            ]
+        );
+        DB::table('accounts')->insert(
+            [
+                'accounttitle' => 'Rider Overland account',
+                'accountcode' => '5040010003', 
+                'group_id' => 25,
+                'active' => 1,
+                'description' => 'Rider Overland account'
+            ]
+        );
+        DB::table('accounts')->insert(
+            [
+                'accounttitle' => 'Karachi Courier account',
+                'accountcode' => '5040010004', 
+                'group_id' => 25,
+                'active' => 1,
+                'description' => 'Karachi Courier account'
+            ]
+        );
+        DB::table('accounts')->insert(
+            [
+                'accounttitle' => 'Trax Rush account',
+                'accountcode' => '5040010005', 
+                'group_id' => 25,
+                'active' => 1,
+                'description' => 'Trax Rush account'
+            ]
+        );
+        DB::table('accounts')->insert(
+            [
+                'accounttitle' => 'Leopards Overnight account',
+                'accountcode' => '5040010006', 
+                'group_id' => 25,
+                'active' => 1,
+                'description' => 'Leopards Overnight  account'
+            ]
+        );
     }
 
     /**
