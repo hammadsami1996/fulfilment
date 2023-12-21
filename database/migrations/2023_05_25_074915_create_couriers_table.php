@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('couriers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('account_id')->nullable();
             $table->integer('deleted_by')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
@@ -21,31 +22,37 @@ return new class extends Migration
         DB::table('couriers')->insert(
             [
                 'name' => 'Trax Saverplus',
+                'account_id' => 2
             ]
         );
         DB::table('couriers')->insert(
             [
                 'name' => 'Leopards Overland',
+                'account_id' => 3
             ]
         );
         DB::table('couriers')->insert(
             [
                 'name' => 'Rider Overland',
+                'account_id' => 4
             ]
         );
         DB::table('couriers')->insert(
             [
                 'name' => 'Karachi Courier',
+                'account_id' => 5
             ]
         );
         DB::table('couriers')->insert(
             [
                 'name' => 'Trax Rush',
+                'account_id' => 6
             ]
         );
         DB::table('couriers')->insert(
             [
                 'name' => 'Leopards Overnight',
+                'account_id' => 7
             ]
         );
     }
