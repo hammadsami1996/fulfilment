@@ -35,7 +35,7 @@
                     >Company <span class="text-red-600">*</span>
                     <span @click="companybtn" v-if="permissions.includes(`create-company`)" class="mb-3 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
                         New
-                    </span> 
+                    </span>
                 </label>
                     <typeahead :initialize="form.company" :url="companys" @input="onCompany" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.company_id">{{ error.company_id[0] }}</p>
@@ -47,7 +47,7 @@
                     >Warehouse
                     <span @click="warehousebtn" v-if="permissions.includes(`create-warehouse`)" class="mb-3 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
                         New
-                    </span> 
+                    </span>
                 </label>
                     <typeahead :initialize="form.warehouse" :url="warehouse" @input="onWarehouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
@@ -80,6 +80,19 @@
                         </select>
                     </div>
                     <p class="text-red-600 text-xs italic" v-if="error.plate_form">{{ error.plate_form[0] }}</p>
+                </div>
+                <div class="w-full sm:w-1/2 pl-3 sm:mb-0" v-if="form.store_type == 'Online'" >
+                    <label class="block font-medium text-sm text-gray-700 mb-2">Auto Fetch</label>
+                    <div class="relative">
+                        <input
+                            true-value="1"
+                            false-value="0"
+                            type="checkbox"
+                            id="switch2"
+                            v-model="form.fetch_order"
+                            name="switch2"
+                            class="h-7 w-12 rounded-full text-primary-500 transition-all duration-150 ease-out form-switch focus:ring focus:ring-primary-500 focus:ring-opacity-50 dark:bg-gray-700 dark:ring-offset-gray-900 dark:checked:bg-current"/>
+                    </div>
                 </div>
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center mt-4" v-if="form.store_type  == 'Online'">
@@ -246,7 +259,7 @@
                 >
                     Test Connection
                 </button> -->
-             
+
 
                 <button
                     @click="additionalProp ? successfully():successfull()"
@@ -267,7 +280,7 @@
                 <Modal :show="showWarehouse" closeable="true" @cancel="handleCancelWarehouse" >
                 <Warehouse @resp="()=>{showWarehouse = !true}" :show="true" additionalProp="global" @save-warehouse="handleCancelWarehouse"  @cancel-warehouse="handleCancelWarehouse" ></Warehouse>
                 </Modal>
-           
+
         </div>
     </div>
 </template>

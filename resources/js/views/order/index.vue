@@ -1,16 +1,75 @@
 <template>
     <div>
-        <div
-            class="mb-4 text-center  sm:flex sm:items-center sm:justify-between sm:border-b-2 sm:border-gray-200 sm:text-left lg:mb-4">
-            <h3 class="mb-4 py-2 text-3xl font-bold  lg:mb-4">{{ capital }}</h3>
-            <div class="flex items-center justify-center space-x-2 rounded px-2 py-3 sm:justify-end sm:px-0">
-                <router-link :to="{name:`create-${small}`}"
-                             class="text-sm inline-flex items-center justify-center space-x-1 rounded-lg border bg-cyan-500  px-4 py-2 font-semibold leading-6 text-white hover:border-gray-300 hover:text-white-900 hover:shadow-sm focus:ring focus:ring-gray-300 focus:ring-opacity-25"
-                             type="button">
-                    Create Order
-                </router-link>
+        <div class="flex items-center justify-between w-full sm:border-b-2 sm:border-gray-200">
+            <div class=" text-center  sm:flex sm:items-center sm:justify-start  sm:text-left lg:mb-4">
+                <h3 class="mb-4 py-2 text-3xl font-bold  lg:mb-4 mt-4">{{ capital }}</h3>
+            </div>
+            <div class=" text-center sm:flex sm:items-center sm:justify-end sm:text-left">
+                <div class="w-full  pr-2 sm:mb-0 ">
+                    <label class="block font-medium text-sm text-gray-700">Select Company to Store</label>
+                    <!--                <div v-if="form.fetch_order === 1">-->
+                    <typeahead :initialize="form.company" :url="parentUrl"  @input="onParent" display="text"/>
+                    <!--                </div>-->
+                </div>
+                <button @click="CheckOrder"
+                        class="mt-5 inline-flex items-center justify-center  rounded-lg border bg-cyan-500  px-3 py-2 font-semibold text-white text-sm">
+                    Fetch Order
+                    <div v-if="activeLoadingState === 'loadingWoo'">
+                        <svg
+                            aria-hidden="true" class="inline w-4 h-4 mr-3 ml-3 text-white animate-spin"
+                            fill="none"
+                            role="status"
+                            viewBox="0 0 100 101"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="#E5E7EB"/>
+                            <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div v-if="activeLoadingState === 'loadingmim'">
+                        <svg
+                            aria-hidden="true" class="inline w-4 h-4 mr-3 ml-3 text-white animate-spin"
+                            fill="none"
+                            role="status"
+                            viewBox="0 0 100 101"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="#E5E7EB"/>
+                            <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div v-if="activeLoadingState === 'loadingshop'">
+                        <svg
+                            aria-hidden="true" class="inline w-4 h-4 mr-3 ml-3 text-white animate-spin"
+                            fill="none"
+                            role="status"
+                            viewBox="0 0 100 101"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="#E5E7EB"/>
+                            <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentColor"/>
+                        </svg>
+                    </div>
+                </button>
+                <div class="flex items-center justify-center space-x-2 rounded px-2 py-3 sm:justify-end sm:px-0">
+                    <router-link :to="{name:`create-${small}`}"
+                                 class="mt-5 inline-flex items-center justify-center  rounded-lg border bg-cyan-500  px-3 py-2 font-semibold text-white text-sm"
+                                 type="button">
+                        Create Order
+                    </router-link>
+                </div>
             </div>
         </div>
+
         <div class="container px-3 py-2 sm:px-6 flex justify-between items-center space-x-3 bg-white ">
             <div class="w-full sm:w-1/6 px-1 py-2">
                 <label class="block text-sm text-gray-700 mb-1 font-medium">Order ID</label>
@@ -176,134 +235,6 @@
                     class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-1 py-1  font-semibold text-white text-sm">
                 Multi CNInvoice
             </button>
-<!--            <button-->
-<!--                class="mt-5 inline-flex items-center justify-center space-x-1 rounded-md border bg-cyan-500  px-1 py-1  font-semibold text-white text-sm">-->
-<!--                Fetch Orders-->
-<!--            </button>-->
-        </div>
-        <div>
-            <div class="my-8 flex items-center">
-                <span aria-hidden="true" class="h-0.5 grow rounded bg-gray-200 dark:bg-gray-700/75"></span>
-                <span class="rounded-full bg-gray-200 px-3 py-2 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-200">Companies</span>
-                <span aria-hidden="true" class="h-0.5 grow rounded bg-gray-200 dark:bg-gray-700/75"></span>
-            </div>
-            <div class="card-container mb-6">
-                <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center" v-for="(item) in companies">
-                    <div class="w-full sm:w-1/8 pl-3 sm:mb-0 shows">
-                        <div :class="{ 'border-4 border-blue-500 rounded-full': selectedCompany == item }"
-                             @click="onCompanys(item)"
-                             class="card cursor-pointer">
-                            <img :src="getImagePaths(item)"/>
-                        </div>
-                        <span class="font-bold font-sm pl-2">{{ item.name }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="store.length">
-            <div class="card-container mb-6">
-                <div class="flex-auto flex flex-row sm:flex-nowrap sm:items-center" v-for="data in store">
-                    <div v-if="data.plate_form == 'WooCommerce'">
-                        <div :class="activePlatform == data.id  ? 'border-4 border-blue-500 rounded-full'  : ''"
-                             @click="setActivePlatform(data.id)" class="card bg-gray-200 cursor-pointer">
-                            <img src="~@/images/WooCommerce.png" v-if="!data.img"/>
-
-                            <img :src="`/uploads/store/img/` + data.img" v-else/>
-                        </div>
-                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
-                        <div>
-                            <button
-                                :disabled="loadingWoo"
-                                @click="woocommerce_fetch_data(data.id)"
-                                class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white"
-                                v-if="activePlatform === data.id">
-                                Fetch
-                                <svg
-                                    aria-hidden="true" class="inline w-4 h-4 mr-3 ml-3 text-white animate-spin"
-                                    fill="none"
-                                    role="status"
-                                    v-if="loadingWoo"
-                                    viewBox="0 0 100 101"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                        fill="#E5E7EB"/>
-                                    <path
-                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                        fill="currentColor"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div v-if="data.plate_form == 'Shopify'">
-                        <div :class="activePlatform === data.id  ? 'border-4 border-blue-500 rounded-full' : ''"
-                             @click="setActivePlatform(data.id)" class="card bg-gray-200 cursor-pointer">
-                            <img src="~@/images/Shopify-bag.png" v-if="!data.img"/>
-                            <img :src="`/uploads/store/img/` + data.img" v-else/>
-                        </div>
-                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
-                        <div>
-                            <button
-                                :disabled="loadingshop" @click="shopify_fetch_data(data.id)"
-                                class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white"
-                                v-if="activePlatform === data.id "
-                            >
-                                Fetch
-                                <svg aria-hidden="true"
-                                     class="inline w-4 h-4 mr-3 ml-3 text-white animate-spin"
-                                     fill="none"
-                                     role="status"
-                                     v-if="loadingshop"
-                                     viewBox="0 0 100 101"
-                                     xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                        fill="#E5E7EB"
-                                    />
-                                    <path
-                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-
-
-                    </div>
-                    <div v-if="data.plate_form == 'MimCart'">
-                        <div
-                            :class="activePlatform === data.id  ? 'border-4 border-blue-500 rounded-full' || shopifyButton === true || wooButton === true : ''"
-                            @click="setActivePlatform(data.id)" class="card bg-gray-200 cursor-pointer">
-                            <img src="~@/images/MimCart.jpg" v-if="!data.img"/>
-                            <img :src="`/uploads/store/img/` + data.img" v-else/>
-                        </div>
-                        <p class="text-black rounded-md font-bold text-sm">{{data.name}}</p>
-                        <div>
-                            <button
-                                :disabled="loadingmim" @click="mimcart_fetch_data(data.id)"
-                                class="bg-blue-400 hover:bg-blue-600 inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-2 py-2 leading-5 text-sm border-gray-200 text-white"
-                                v-if="activePlatform === data.id">
-                                Fetch
-                                <svg aria-hidden="true"
-                                     class="inline w-4 h-4 mr-3 ml-3 text-white animate-spin"
-                                     fill="none"
-                                     role="status"
-                                     v-if="loadingmim"
-                                     viewBox="0 0 100 101"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                        fill="#E5E7EB"/>
-                                    <path
-                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                        fill="currentColor"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <div class="flex-col">
@@ -494,14 +425,9 @@
         name: "Index",
         data() {
             return {
-                wooButton: true,
-                shopifyButton: true,
-                mimCartButton: true,
-                activePlatform: '',
                 loadingWoo: false, // Initialize loading state as false
                 loadingshop: false, // Initialize loading state as false
                 loadingmim: false, // Initialize loading state as false
-                companies: {},
                 selectedCompany: null,
                 store: [],
                 model: {},
@@ -527,6 +453,8 @@
                 delivery: '/api/status',
                 courier: '/api/courier',
                 stores: '/api/stores',
+                // parentUrl: '/api/stores',
+                parentUrl: '/api/stores?fatch_order=false',
                 customers: '/api/customer',
                 companys: '/api/company',
                 ordertype: '/api/order_type',
@@ -549,14 +477,22 @@
                 ]
             }
         },
-        created() {
-            byMethod('get', `/api/company`)
-                .then((res) => {
-                    // console.log(res.data.data.data);
-                    this.companies = res.data.data.data;
-                })
 
+        created() {
             this.permissions = window.apex.user.permission
+        },
+        computed: {
+            activeLoadingState() {
+                if (this.loadingWoo) {
+                    return 'loadingWoo';
+                } else if (this.loadingmim) {
+                    return 'loadingmim';
+                } else if (this.loadingshop) {
+                    return 'loadingshop';
+                }
+                // Handle default case if none of the conditions are met
+                return '';
+            },
         },
         methods: {
             // setData(res) {
@@ -574,6 +510,12 @@
             //     }
             //     this.show = true
             // },
+            onParent(e) {
+                const company = e.target.value;
+                this.form.company = company
+                this.form.company_id = company.id
+            },
+
             returns(e) {
                 byMethod("get", `/api/stores_data?company_id=${e}`).then(
                     (res) => {
@@ -583,9 +525,9 @@
                         // console.log('nband');
                     }
                 );
-            },
+            }
+            ,
             async woocommerce_fetch_data(id) {
-                // this.loadingshop = this.loadingmim = false;
                 this.loadingWoo = true; // Set loading state to true when the fetch starts
                 try {
                     // Make your fetch request here
@@ -600,8 +542,10 @@
                 } finally {
                     this.loadingWoo = false; // Ensure loading is set back to false even if there is an error
                 }
-                this.$router.push({path: `${this.resource}`})
-            },
+                this.$refs.TableData.reload();
+                // this.$router.push({path: `${this.resource}`})
+            }
+            ,
             async shopify_fetch_data(id) {
                 // this.loadingWoo = this.loadingmim = false;
                 this.loadingshop = true;// Set loading state to true when the fetch starts
@@ -618,8 +562,10 @@
                 } finally {
                     this.loadingshop = false;// Ensure loading is set back to false even if there is an error
                 }
-                this.$router.push({path: `${this.resource}`})
-            },
+                this.$refs.TableData.reload();
+                // this.$router.push({path: `${this.resource}`})
+            }
+            ,
             async mimcart_fetch_data(id) {
                 // this.loadingWoo = this.loadingshop = false;
                 this.loadingmim = true;
@@ -636,47 +582,66 @@
                 } finally {
                     this.loadingmim = false;  // Ensure loading is set back to false even if there is an error
                 }
-                this.$router.push({path: `${this.resource}`})
-
-            },
-            setActivePlatform(platform) {
-                this.activePlatform = platform;
-            },
+                this.$refs.TableData.reload();
+            }
+            ,
+            CheckOrder() {
+                const storeId = this.form.company.id;
+                const platform = this.form.company.plate_form;
+                // console.log(this.form.company.id);
+                if (platform === 'MimCart') {
+                    this.mimcart_fetch_data(storeId);
+                } else if (platform === 'Shopify') {
+                    this.shopify_fetch_data(storeId);
+                } else if (platform === 'WooCommerce') {
+                    this.woocommerce_fetch_data(storeId);
+                } else {
+                    console.error('Unsupported platform:', platform);
+                }
+            }
+            ,
 
             resetModalCourier() {
                 this.selectedcourier = {}
                 this.isOpenCourier = false
-            },
+            }
+            ,
             BulkCourierUpdate(data) {
                 // this.user_data = {
                 //     id: data.id,
                 //     roles: data.roles[0]
                 // };
                 this.isOpenCourier = true
-            },
+            }
+            ,
             resetModalStatus() {
                 this.selectedstatus = {}
                 this.isOpenStatus = false
-            },
+            }
+            ,
             BulkStatusUpdate(data) {
                 // this.user_data = {
                 //     id: data.id,
                 //     roles: data.roles[0]
                 // };
                 this.isOpenStatus = true
-            },
+            }
+            ,
             selectAll(e) {
                 this.selectedItems = e
-            },
+            }
+            ,
             Cancel() {
                 this.sts = false;
                 this.form.deliver = null;
-            },
+            }
+            ,
             shows(e, status_id) {
                 this.sts = true;
                 this.ids = status_id;
                 this.id = e
-            },
+            }
+            ,
             updateModalCourier() {
                 let data = {
                     selectedItems: this.selectedItems,
@@ -692,7 +657,8 @@
                     });
                     this.resetModalCourier()
                 })
-            },
+            }
+            ,
             updateModalStatus() {
                 let data = {
                     selectedItems: this.selectedItems,
@@ -712,7 +678,8 @@
                 // post('/api/assign_user_role', this.user_data).then(res => {
                 //     this.resetModalCourier()
                 // })
-            },
+            }
+            ,
 
             bulkPDF(item, mode) {
                 let data = {
@@ -730,7 +697,8 @@
 
                 // Open a new window with the URL
                 window.open(`${url}?${queryString}`, '_blank');
-            },
+            }
+            ,
             Multi_CNInvoice() {
                 let data = {
                     selectedItems: this.selectedItems,
@@ -741,15 +709,8 @@
                     .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
                     .join('&');
                 window.open(`${url}?${queryString}`, '_blank');
-            },
-            getImagePaths(item) {
-                if (item.logo) {
-                    return `/uploads/company/logo/${item.logo}`;
-                } else {
-                    // If no logo is uploaded, use a default image
-                    return "/images/mimsoft.jpg";
-                }
-            },
+            }
+            ,
             getImagePath(props) {
                 if (props.item.stores.company.logo) {
                     return `/uploads/company/logo/${props.item.stores.company.logo}`;
@@ -757,7 +718,8 @@
                     // If no logo is uploaded, use a default image
                     return "/images/mimsoft.jpg";
                 }
-            },
+            }
+            ,
             Update(e, id) {
                 byMethod('POST', '/api/update?ids=' + id, e).then(res => {
                     if (res.data.saved) {
@@ -766,39 +728,46 @@
                         this.$refs.TableData.reload();
                     }
                 })
-            },
+            }
+            ,
             onbulkstatus(e) {
                 const deliver = e.target.value
                 this.selectedstatus = deliver
-            },
+            }
+            ,
             onbulkShippeds(e) {
                 const courier = e.target.value;
                 this.selectedcourier = courier;
-            },
+            }
+            ,
             onStatus(e, value) {
                 const status = e.target.value
                 e.status = status
                 e.status_id = status.id
                 this.Update(status, value.id);
-            },
+            }
+            ,
             onDeliverySearch(e, id) {
                 const deliver = e.target.value
                 this.form.deliver = deliver
                 this.form.deliver_id = deliver.id
-            },
+            }
+            ,
             onShipped(e, f, ids) {
                 // console.log(e, f)
                 const courier = e.target.value
                 f.couriers[0] = courier
                 ids.courier_id = courier.id
                 byMethod('POST', `/api/order/${ids.id}?_method=PUT`, ids)
-            },
+            }
+            ,
             onShippeds(e, f) {
                 const courier = e.target.value
                 f.courier = courier
                 f.courier_id = courier.id
                 byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
-            },
+            }
+            ,
             onCustomer(e) {
                 const customer = e.target.value
                 this.form.customer = customer
@@ -807,45 +776,47 @@
                 this.form.phone = customer.phone
                 this.form.b_address_1 = customer.b_address_1
                 this.form.customer_id = customer.id
-            },
+            }
+            ,
             onshippedby(e) {
                 const courier = e.target.value
                 this.form.courier = courier
                 this.form.courier_id = courier.id
-            },
+            }
+            ,
             onOrder_type(e) {
                 const ordertype = e.target.value
                 this.form.ordertype = ordertype
                 this.form.order_type_id = ordertype.id
-            },
+            }
+            ,
             onCity(e) {
                 const city = e.target.value
                 this.form.city = city
                 this.form.city_id = city.id
                 // this.form.cities = city.id
-            },
+            }
+            ,
             onCompany(e) {
                 const company = e.target.value
                 this.form.company = company
                 this.form.company_id = company.id
-            },
-            onCompanys(e) {
-                const company = e;
-                this.form.company_id = company.id;
-                this.returns(this.form.company_id);
-                this.selectedCompany = e;
-            },
+            }
+            ,
             onStores(e) {
                 const stores = e.target.value
                 this.form.stores = stores
                 this.form.store_id = stores.id
-            },
+            }
+            ,
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
-            },
+            }
+            ,
             showss(id) {
                 this.$router.push(`${this.resource}/${id}/show`)
-            },
+            }
+            ,
             deleteRole(e) {
                 byMethod('delete', `/api/order/${e}`)
                     .then((res) => {
@@ -854,7 +825,8 @@
                             this.$toast.error(this.capital + " Deleted successfully!");
                         }
                     })
-            },
+            }
+            ,
             showRecords(e) {
                 this.pack = e
                 setTimeout(() => {
@@ -870,7 +842,8 @@
                 setTimeout(() => {
                     this.$refs.TableData.reload();
                 }, 500)
-            },
+            }
+            ,
             showpackable(packability, e) {
                 this.pack = e
                 // console.log( this.urlApi = this.urlApi1);
@@ -885,7 +858,8 @@
                 setTimeout(() => {
                     this.$refs.TableData.reload();
                 }, 500)
-            },
+            }
+            ,
             onSearch() {
                 this.isSubmittingSearch = true;
                 setTimeout(() => {
@@ -899,9 +873,6 @@
                     if (this.form.city_id != null) {
                         param += `&city_id=${this.form.city_id}`;
                     }
-                    // if (this.form.city != null) {
-                    //     param += &city_id=${this.form.city_id};
-                    // }
                     if (this.form.ordertype != null) {
                         param += `&order_type_id=${this.form.order_type_id}`;
                     }
@@ -931,14 +902,8 @@
                     this.isSubmittingSearch = false;
                 }, 500)
 
-            },
-            searchdoc(e = null) {
-                let query = '?q='
-                if (this.form.customer != null) {
-                    query += '&customer_id=' + this.form.customer_id;
-                }
-                window.open('/docs/order_pdf' + query, '_blank')
-            },
+            }
+            ,
             bulkCN(item) {
                 this.isSubmitting = true;
                 byMethod('POST', '/api/order_single', objectToFormData(item)).then(res => {
@@ -953,17 +918,20 @@
                     .finally(() => {
                         this.isSubmitting = false; // Enable the button and hide the spinner
                     });
-            },
+            }
+            ,
 
             generateCN(id) {
                 byMethod('GET', `/api/generateCN/${id}`)
                     .then((res) => {
                         // console.log(res.data.data);
                     })
-            },
+            }
+            ,
             show_msg_modal() {
                 this.show_msg = true
-            },
+            }
+            ,
             sendMsg() {
                 this.show_msg = false
             }

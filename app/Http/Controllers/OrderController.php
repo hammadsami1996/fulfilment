@@ -245,7 +245,6 @@ class OrderController extends Controller
         $data = Order_item::where('product_id', request('id'))->pluck('order_id')->unique();
         return response()->json(["data" => $data]);
     }
-
     public function get_delivery_charges($id)
     {
         $model = Delivery_Charges::where('city_id', $id)->where('weight', '<=', \request('id'))->orderBy('weight', 'DESC')->first();
@@ -284,5 +283,31 @@ class OrderController extends Controller
             $doc = 'docs.orders_pdf';
             return pdf($doc, $model);
         }
+    }
+
+    public function auto_order(Request $request)
+    {
+        $fetch = Store::where('store_type', 'Online')->where('fetch_order', true)->get();
+        if ($fetch->count() > 0) {
+            foreach ($fetch as $store) {
+//                dd($store);
+                if ($store->plate_form == "MimCart"){
+                    $mimcart = new MimCartController();
+                    $mimcart->storeOrder($store->id);
+//                    dd($mimcart);
+                }
+                if ($store->plate_form == "WooCommerce"){
+                    $woocommerce = new WordpressController();
+                    $woocommerce->storeOrder($store->id);
+                }
+                if ($store->plate_form == "Shopify"){
+                    $shopify = new ShopifyController();
+                    $shopify->storeOrder($store->id);
+                }
+            }
+        } else {
+
+        }
+        return response()->json(['response' => true]);
     }
 }
