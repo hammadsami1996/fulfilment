@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('voucher_number')->nullable();
             $table->longText('detail_remarks')->nullable();
             $table->integer('reference_no')->nullable();
-            $table->integer('subledger_id')->nullable();
+            // $table->integer('subledger_id')->nullable();
             $table->date('voucher_date')->nullable();
             $table->decimal('debit', 10, 2)->default(0);
             $table->decimal('credit', 10, 2)->default(0);

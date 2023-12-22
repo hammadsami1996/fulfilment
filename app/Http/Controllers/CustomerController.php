@@ -16,10 +16,17 @@ class CustomerController extends Controller
     {
         return response()->json(['data' => Customer::with(
             // 'type',
-         'category', 's_city','b_city',
+         'category', 's_city','b_city','account',
         //   's_country',
           'b_country')
             ->search()]);
+    }
+    public function getcourier(){
+        return response()->json([
+            'data' => Customer::with('category', 's_city', 'b_city', 'account', 'b_country')
+                ->where('is_courier', 1)
+                ->search()
+        ]);
     }
 
     /**
@@ -32,6 +39,7 @@ class CustomerController extends Controller
             "email" => '',
             "phone" => '',
             "category_id" => '',
+            "account_id" => '',
             // "balance" => '',
             // "type_id" => '',
 //            "address" => '',
@@ -42,6 +50,7 @@ class CustomerController extends Controller
             "s_city_id" => '',
             'is_vender' => 0,
             'is_customer' => 0,
+            'is_courier' => 0,
 //            "number" => '',
             "cnic" => '',
             "b_name" => '',
@@ -90,7 +99,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $model = Customer::with( 'category','s_city','b_city', 's_country','b_country')->findOrFail($id);
+        $model = Customer::with( 'category','s_city','b_city', 's_country','b_country','account')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -101,7 +110,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $model = Customer::with(
-             'category','s_city','b_city',
+             'category','s_city','b_city','account',
               's_country',
               'b_country')->findOrFail($id);
         return response()->json([
@@ -132,7 +141,7 @@ class CustomerController extends Controller
         ]);
         $model = Customer::with(
             // 'type',
-             'category', 's_city','b_city',
+             'category', 's_city','b_city','account',
             //   's_country',
               'b_country')->findOrFail($id);
         $model->fill($request->all());
@@ -148,7 +157,7 @@ class CustomerController extends Controller
     {
         $model = Customer::with(
             // 'type',
-             'category', 's_city','b_city',
+             'category', 's_city','b_city','account',
             //   's_country',
               'b_country')->findOrFail($id);
                $model->deleted_by = Auth::id();

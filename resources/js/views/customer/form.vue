@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="flex-auto flex flex-col sm:flex-row sm:items-center">
-        <div class="w-40 sm:w-/2 mb-4 sm:mb-0 pl-2 pt-4">
+        <div class="w-40 sm:w-2/2 mb-4 sm:mb-0 pl-2 pt-4">
                     <label class="flex items-center space-x-2 mb-2"> <span class="text-gray-700">Vender</span>   </label>
                     <div class="space-x-2" style="margin-bottom: 10px;">
                     <div class="inline-flex items-center space-x-3">
@@ -76,7 +76,15 @@
                     </div>
                     </div>
                 </div>
-                <div class=" sm:w-1/2 mb-4 sm:mb-0  pt-4">
+                <div class="w-40 sm:w-2/2 mb-4 sm:mb-0  pt-4">
+                    <label class="flex items-center space-x-2 mb-2"> <span class="text-gray-700">Courier</span>   </label>
+                    <div class="space-x-2" style="margin-bottom: 10px;">
+                    <div class="inline-flex items-center space-x-3">
+                        <input type="checkbox" class="form-checkbox h-6 w-6 text-indigo-600" :checked="form.is_courier === 1" @change="form.is_courier = (form.is_courier === 1) ? 0 : 1"/>
+                    </div>
+                    </div>
+                </div>
+                <div class="w-40 sm:w-2/2 mb-4 sm:mb-0  pt-4">
                     <label class="flex items-center space-x-2 mb-2"> <span class="text-gray-700">Customer</span>   </label>
                     <div class="space-x-2" style="margin-bottom: 10px;">
                     <div class="inline-flex items-center space-x-3">
@@ -84,6 +92,16 @@
                     </div>
                     </div>
                 </div>
+                <div class="md:w-60 sm:w-1/2  sm:mb-0 pt-4">
+                <label class="block font-medium text-sm text-gray-700 mb-2" >Account 
+
+                    <span @click="accountbtn"  class="mr-auto font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
+                                New
+                            </span>
+                </label> 
+                <typeahead :initialize="form.account" :url="accounts" @input="onAccount"
+                           display="accounttitle"/>
+            </div>
                 </div>
         <hr class="mt-6">
         <h1 class="font-bold mt-2 mb-2">Billing Address</h1>
@@ -226,6 +244,9 @@
                 type="button">
                 Cancel
             </button>
+            <Modal :show="showaccount" closeable="true" @cancel="handleCancelAccount" >
+                    <Account @resp="()=>{showaccount = !true}" :show="true" additionalProp="global" @save-account="handleCancelAccount"  @cancel-account="handleCancelAccount" ></Account>
+                </Modal>
         </div>
 
     </div>
@@ -234,8 +255,10 @@
 <script>
     import {byMethod, get} from '@/libs/api'
     import {form} from '@/libs/mixins'
+    import Modal from "@/Components/Modal.vue";
     import Typeahead from "@/Components/typeahead/typeahead.vue";
     import moment from "moment";
+    import Account from "../account/form.vue";
 
 
     function initialize(to) {
@@ -249,7 +272,7 @@
     export default {
         mixins: [form],
         components: {
-            Typeahead,
+            Typeahead,Account,Modal
         },
          props: {
             show: Boolean,
@@ -260,15 +283,17 @@
                 error: {},
                 show: false,
                 isSubmitting: false,
+                showaccount: false,
                 resource: '/customer',
                 show: Boolean,
                 store: '/api/customer',
+                accounts : '/api/accounts',
                 method: 'POST',
                 small: 'customer',
                 capital: 'Contact',
                 title: 'Add',
                 message: 'New Customer Added',
-                permissions: {},
+                permissions: [],    
                 categorys: '/api/category',
                 cities: '/api/city',
                 countries: '/api/country',
@@ -332,6 +357,17 @@
                 this.form.category = category
                 this.form.category_id = category.id
             },
+            onAccount(e){
+                const account = e.target.value
+                this.form.account = account
+                this.form.account_id = account.id
+            },
+            accountbtn(){
+                this.showaccount = true;
+            },
+            handleCancelAccount() {
+                this.showaccount = false;
+        },
             setData(res) {
                 this.form = res.data.form;
                 if (this.$route.meta.mode === 'edit') {

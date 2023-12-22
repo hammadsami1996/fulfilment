@@ -16,7 +16,7 @@ class FinanceTransactionController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Finance_transaction_master::with(['items.account','items.subledger'])->search()]);
+        return response()->json(['data' => Finance_transaction_master::with('items.account')->search()]);
     }
 
     /**
@@ -30,7 +30,7 @@ class FinanceTransactionController extends Controller
             "detail_remarks" => '',
             "master_remarks" => '',
             "account_id" => null,
-            "subledger_id" => null,
+            // "subledger_id" => null,
             "debit" => 0,
             "credit" => 0,
            
@@ -72,7 +72,7 @@ class FinanceTransactionController extends Controller
      */
     public function show($id)
     {
-        $model =  Finance_transaction_master::with(['items.account','items.subledger'])->findOrFail($id);
+        $model =  Finance_transaction_master::with('items.account')->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -81,7 +81,7 @@ class FinanceTransactionController extends Controller
      */
     public function edit( $id)
     {    
-        $model = Finance_transaction_master::with([ 'items.account','items.subledger'])->findOrFail($id);
+        $model = Finance_transaction_master::with('items.account')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);

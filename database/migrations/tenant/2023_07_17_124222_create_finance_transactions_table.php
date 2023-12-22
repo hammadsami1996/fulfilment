@@ -23,14 +23,14 @@ return new class extends Migration
             $table->decimal('credit', 10, 2)->default(0);    
             $table->integer('account_id')->nullable();
             $table->string('account_title')->nullable();
-            $table->string('subledger_type')->nullable();
-            $table->string('subledger_code')->nullable();
+            // $table->string('subledger_type')->nullable();
+            // $table->string('subledger_code')->nullable();
+            // $table->integer('subledger_id')->nullable();
             $table->string('contra_account_id')->nullable();
             $table->integer('group_id')->nullable();
             $table->integer('vid')->nullable();
             $table->integer('did')->nullable();
             $table->longText('detail_remarks')->nullable();
-            $table->integer('subledger_id')->nullable();
             $table->decimal('rate', 10, 2)->default(0);
             $table->decimal('fc_debit', 10, 2)->default(0);
             $table->decimal('fc_credit', 10, 2)->default(0);
