@@ -25,13 +25,14 @@
         <thead>
             <tr class="border-b border-gray-100 dark:border-gray-700/50">
                 
-                <th colspan="3" class="p-2 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                <th colspan="1" class="p-2 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                     Account
                 </th>
-                <th colspan="3" class="pl-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                <!-- <th colspan="3" class="pl-4 text-gray-900 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                     Subledger
-                </th>
-                <th colspan="2" class="text-gray-900 pl-2 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
+                </th> -->
+             
+                <th colspan="1" class="text-gray-900 pl-2 bg-gray-100/75 font-semibold text-left dark:text-gray-50 dark:bg-gray-700/25">
                     Remarks
                 </th>
                 <th colspan="1" class="text-gray-900 text-center bg-gray-100/75 font-semibold dark:text-gray-50 dark:bg-gray-700/25">
@@ -46,28 +47,27 @@
         <tbody>
             <tr v-for="(item,index) in form.items" :key="index" class="border-gray-100 dark:border-gray-700/50">
              
-                <td colspan="3" class="py-2 px-1">
-                    <typeahead :initialize="item.account" :url="accounts" class="w-full md:w-60  text-sm rounded-md ml-3 border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                <td colspan="1" class="py-2 ">
+                    <typeahead :initialize="item.account" :url="accounts" class="w-full md:w-48 max-[640px]:w-48  text-sm rounded-md ml-3 border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         @input="onAccount(item, index, $event)" display="accounttitle" />
                     <p class="text-red-600 text-xs italic" v-if="error['items.' + index + '.account']">
                         {{ error['items.' + index + '.account'][0] }}
                     </p>
                 </td>
-
-                <td colspan="3" class="py-2 px-1">
-                    <typeahead :initialize="item.subledger" :url="subledgers" class="w-full md:w-60 text-sm rounded-md ml-3 border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        @input="onSubledger(item, index, $event)" display="subledger_title" />
-                </td>
-                <td colspan="2" class="py-2 px-1">
+                <!-- <td colspan="3" class="py-2 px-1">
+                    <typeahead :initialize="item.subledger" :url="customers" class="w-full md:w-60 text-sm rounded-md ml-3 border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        @input="onCustomer(item, index, $event)" display="name" />
+                </td> -->
+                <td colspan="1" class="py-2 ">
                     <input class="w-full md:w-60 sm:w-60 max-[640px]:w-60 py-4 px-2 bg-white h-8 border border-gray-300 rounded-md" v-model="item.master_remarks" />
                 </td>
-                <td colspan="1" class="text-center py-2 px-1">
+                <td colspan="1" class="text-center py-2 ">
                     <input type="number" @input="onDebitInput(item.debit)" class="w-full md:w-20 sm:w-20 max-[640px]:w-20 py-2 px-2 bg-white h-8 border border-gray-300 rounded-md" v-model="item.debit" />
                 </td>
-                <td colspan="1" class="text-center py-2 px-1">
+                <td colspan="1" class="text-center py-2 ">
                     <input type="number" @input="onCreditInput(item.credit)" class="w-full md:w-20 sm:w-20  max-[640px]:w-20 py-4 px-3 bg-white h-8 border border-gray-300 rounded-md" v-model="item.credit" />
                 </td>
-                <td colspan="2" class="text-center py-2 px-1">
+                <td colspan="1" class="text-center py-2 px-1">
                     <button @click="removeProduct(item,index)" type="button" class="inline-flex items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 active:opacity-75">
                         <i class="fa fa-trash mr-1"></i>
                     </button>
@@ -84,9 +84,9 @@
                 </td>
             </tr>
             <tr >
-                <td colspan="10">
+                <td colspan="7">
                     <div class="flex   justify-end">
-                        <div class="flex items-center space-x-2 md:space-x-2 " >
+                        <div class="flex items-center space-x-2 md:space-x-10 pr-24 " >
                             <div class="font-bold mr-3">Total</div>
                             <div>
                                 <input v-model="totalDebit" type="number" class="w-20 md:w-20 px-2 py-1 rounded-md border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" min="0" placeholder="0" />
@@ -159,11 +159,11 @@
                 isSubmitting: false,
                 resource: '/journal_voucher',
                 accounts : '/api/accounts',
-                subledgers : '/api/subledger',
+                customers : '/api/customer',
                 store: '/api/journal_voucher',
                 method: 'POST',
                 small: 'journal_voucher',
-                capital: 'Journal Voucher',
+                capital: 'Voucher',
                 title: 'Add',
                 message: 'New Finance Transaction Added',
                 permissions: {},
@@ -241,10 +241,10 @@
                 item.account = account;
                 item.account_id = account.id;
             },
-            onSubledger(item, index, e) {
-                const subledger = e.target.value
-                item.subledger = subledger
-                item.subledger_id = subledger.id
+            onCustomer(item, index, e) {
+                const customer = e.target.value
+                item.subledger = customer
+                item.subledger_id = customer.id
             },
             formSubmitted() {
                 this.isSubmitting = true;

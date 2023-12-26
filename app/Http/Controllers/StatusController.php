@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Courier;
+use App\Models\Customer;
 use App\Models\Finance_transaction;
 use App\Models\Finance_transaction_master;
 use App\Models\Order;
@@ -144,9 +145,9 @@ class StatusController extends Controller
         $account = Account::find($order->account_id);
     
         // Check if a record with the same reference number already exists in Finance_transaction
-        $existingFinance = Finance_transaction_master::where('reference_no', $order->id)->first();
+        $existingFinanceMaster = Finance_transaction_master::where('reference_no', $order->id)->first();
     
-        if (!$existingFinance) {
+        if (!$existingFinanceMaster) {
             $finanace_master = new Finance_transaction_master();
             $finanace_master->voucher_date = today();  
             $finanace_master->reference_no = $order->id;
@@ -157,20 +158,22 @@ class StatusController extends Controller
             $finanace_master->detail_remarks = "sale order remarks";
             $finanace_master->save();
             $recentFinanceTransactionId = $finanace_master->id;
+            $recentFinanceTransactionNumber = $finanace_master->voucher_number;
         }
             // Check if the account details are available
             if ($account) {
                 // Check if a record with the same reference number already exists in Finance_transaction_master
-                $existingFinanceMaster = Finance_transaction::where('reference_no', $order->id)->first();
+                $existingFinance = Finance_transaction::where('reference_no', $order->id)->first();
     
-                if (!$existingFinanceMaster) {
+                if (!$existingFinance) {
                     $finanace = new Finance_transaction();
                     $finanace->voucher_date = today();  
                     $finanace->reference_no = $order->id;
                     $finanace->voucher_type = "sale";
                     $finanace->debit = $order->total;
-                    $finanace->master_remarks = "sale order remarks";
                     $finanace->credit = $order->total;
+                    $finanace->voucher_number = $recentFinanceTransactionNumber;
+                    $finanace->master_remarks = "sale order remarks";
                     $finanace->finance_transaction_master_id = $recentFinanceTransactionId;
 
                     // Save the account details in Finance_transaction_master
@@ -178,11 +181,12 @@ class StatusController extends Controller
                     $finanace->save();
                 
                     // Retrieve courier details for the order
-                    $courier = Courier::find($order->courier_id);
-    
-                    if ($courier) {
+                    $customer = Customer::find($order->courier_id);
+                    $accountes = $customer->account_id;
+                    // $courier = Customer::where('is_courier','=', 1)->first();
+                    if ($accountes) {
                         // Retrieve account details for the courier
-                        $courierAccount = Account::find($courier->account_id);
+                        $courierAccount = Account::find($accountes);
     
                         if ($courierAccount) {
                           
@@ -191,10 +195,12 @@ class StatusController extends Controller
                             $finanace2->reference_no = $order->id;
                             $finanace2->voucher_type = "sale";
                             $finanace2->debit = $order->total;
-                            $finanace2->master_remarks = "sale order remarks";
                             $finanace2->credit = $order->total;
+                            $finanace2->voucher_number = $recentFinanceTransactionNumber;
+                            $finanace2->master_remarks = "sale order remarks";
                             $finanace2->finance_transaction_master_id = $recentFinanceTransactionId;
                             $finanace2->account_id = $courierAccount->id;
+                            $finanace2->account_title = $courierAccount->name;
                             $finanace2->save();
                         }
                     }  

@@ -55,7 +55,7 @@
                 urlApi: "/api/journal_voucher",
                 resource: "/journal_voucher",
                 small: "journal_voucher",
-                capital: "Journal Voucher",
+                capital: "Voucher",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Number', field: 'voucher_number'},

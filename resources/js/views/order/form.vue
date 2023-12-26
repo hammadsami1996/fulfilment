@@ -372,7 +372,7 @@
                 warehouses: '/api/warehouse',
                 cities: '/api/city',
                 countries: '/api/country',
-                couriers: "/api/courier",
+                couriers: "/api/cus_courier",
                 // ordertype: '/api/order_type',
             }
         },
@@ -490,6 +490,11 @@
             handleCancelCustomer() {
                 this.showcustomer = false;
             },
+            // onCourier(e) {
+            //     const courier = e.target.value;
+            //     this.form.courier = courier;
+            //     this.form.courier_id = courier.id;
+            // },
             onCourier(e) {
                 const courier = e.target.value;
                 this.form.courier = courier;

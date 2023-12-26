@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->string('b_name', 50)->nullable();
             $table->string('b_phone', 20)->nullable();
             $table->string('b_address_1')->nullable();
+            $table->integer('account_id')->nullable();
 //            $table->integer('number')->nullable();
             $table->integer('s_country_id')->nullable();
             $table->integer('s_city_id')->nullable();
@@ -33,6 +34,7 @@ return new class extends Migration {
             $table->string('s_address_1')->nullable();
             $table->tinyInteger('is_vender')->default(0);
             $table->tinyInteger('is_customer')->default(0);
+            $table->tinyInteger('is_courier')->default(0);
             $table->tinyInteger('active')->default(0);
 //            $table->date('date')->nullable();
             $table->integer('deleted_by')->nullable();

@@ -295,6 +295,7 @@
                 </div>
             </template>
             <template v-slot:couriers="props">
+                <!-- <p>{{ props.item.courier }}</p> -->
                 <typeahead :initialize="props.item.courier" :url="courier"
                            @input="onShippeds($event, props.item)" display="name"
                            v-if="props.item.city_id && !props.item.tracking_id"/>
@@ -451,7 +452,7 @@
                 urlApi1: "/api/order",
                 resource: "/order",
                 delivery: '/api/status',
-                courier: '/api/courier',
+                courier: '/api/cus_courier',
                 stores: '/api/stores',
                 // parentUrl: '/api/stores',
                 parentUrl: '/api/stores?fatch_order=false',
@@ -751,23 +752,28 @@
                 const deliver = e.target.value
                 this.form.deliver = deliver
                 this.form.deliver_id = deliver.id
-            }
-            ,
+            },
             onShipped(e, f, ids) {
                 // console.log(e, f)
                 const courier = e.target.value
                 f.couriers[0] = courier
                 ids.courier_id = courier.id
                 byMethod('POST', `/api/order/${ids.id}?_method=PUT`, ids)
-            }
-            ,
+            },
+            // onShippeds(e, f) {
+            //     const courier = e.target.value
+            //     f.courier = courier
+            //     f.courier_id = courier.id
+            //     byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
+            // },
             onShippeds(e, f) {
                 const courier = e.target.value
+                if (courier.is_courier === 1) {
                 f.courier = courier
                 f.courier_id = courier.id
                 byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
-            }
-            ,
+                }
+            },  
             onCustomer(e) {
                 const customer = e.target.value
                 this.form.customer = customer
@@ -776,8 +782,7 @@
                 this.form.phone = customer.phone
                 this.form.b_address_1 = customer.b_address_1
                 this.form.customer_id = customer.id
-            }
-            ,
+            },
             onshippedby(e) {
                 const courier = e.target.value
                 this.form.courier = courier
