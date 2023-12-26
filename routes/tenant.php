@@ -95,7 +95,7 @@ Route::middleware([
         Route::resource('accounts_class_types', \App\Http\Controllers\AccountClassTypeController::class);
         Route::resource('accounts_class', \App\Http\Controllers\AccountClassController::class);
         Route::resource('accounts_group', \App\Http\Controllers\AccountGroupController::class);
-        Route::resource('journal_voucher', \App\Http\Controllers\FinanceTransactionController::class);
+        Route::resource('voucher', \App\Http\Controllers\FinanceTransactionController::class);
         Route::resource('accounts', \App\Http\Controllers\AccountController::class);
         Route::resource('account_setting', \App\Http\Controllers\AccountSettingController::class);
         Route::resource('subledger', \App\Http\Controllers\SubLedgerController::class);
@@ -111,7 +111,7 @@ Route::middleware([
         Route::resource('order_type', \App\Http\Controllers\OrderTypeController::class);
         Route::resource('candidate', \App\Http\Controllers\CandidateController::class);
         Route::resource('user_type', \App\Http\Controllers\UserTypeController::class);
-        Route::resource('voucher', \App\Http\Controllers\VoucherController::class);
+        Route::resource('general_voucher', \App\Http\Controllers\VoucherController::class);
         Route::get('voucher_number', [\App\Http\Controllers\VoucherController::class,'getNumber']);
         Route::get('dashboard', [\App\Http\Controllers\DashboardCountroller::class,'index']);
         Route::get('getorders', [\App\Http\Controllers\DashboardCountroller::class, 'getorders']);

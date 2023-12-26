@@ -200,7 +200,7 @@ class StatusController extends Controller
                             $finanace2->master_remarks = "sale order remarks";
                             $finanace2->finance_transaction_master_id = $recentFinanceTransactionId;
                             $finanace2->account_id = $courierAccount->id;
-                            $finanace2->account_title = $courierAccount->name;
+                            $finanace2->account_title = $courierAccount->accounttitle;
                             $finanace2->save();
                         }
                     }  

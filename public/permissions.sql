@@ -218,12 +218,12 @@ INSERT INTO `permissions` VALUES (263, 'edit-permission', 'web', NULL, NULL, 261
 INSERT INTO `permissions` VALUES (264, 'create-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
 INSERT INTO `permissions` VALUES (265, 'delete-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
 INSERT INTO `permissions` VALUES (266, 'export-permission', 'web', NULL, NULL, 261, NULL, '2023-10-26 12:30:12', '2023-10-26 12:30:12');
-INSERT INTO `permissions` VALUES (267, NULL, 'web', 'voucher', NULL, NULL, 56, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
-INSERT INTO `permissions` VALUES (268, 'view-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
-INSERT INTO `permissions` VALUES (269, 'edit-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
-INSERT INTO `permissions` VALUES (270, 'create-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
-INSERT INTO `permissions` VALUES (271, 'delete-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
-INSERT INTO `permissions` VALUES (272, 'export-voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (267, NULL, 'web', 'general_voucher', NULL, NULL, 56, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (268, 'view-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (269, 'edit-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (270, 'create-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (271, 'delete-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
+INSERT INTO `permissions` VALUES (272, 'export-general_voucher', 'web', NULL, NULL, 267, NULL, '2023-11-16 06:01:59', '2023-11-16 06:01:59');
 INSERT INTO `permissions` VALUES (273, NULL, 'web', 'Account', NULL, NULL, 56, '2023-11-22 07:59:44', '2023-11-22 07:59:44');
 INSERT INTO `permissions` VALUES (274, 'view-account', 'web', NULL, NULL, 273, NULL, '2023-11-22 07:59:44', '2023-11-22 07:59:44');
 INSERT INTO `permissions` VALUES (275, 'edit-account', 'web', NULL, NULL, 273, NULL, '2023-11-22 07:59:44', '2023-11-22 07:59:44');
@@ -248,12 +248,12 @@ INSERT INTO `permissions` VALUES (293, 'edit-account_setting', 'web', NULL, NULL
 INSERT INTO `permissions` VALUES (294, 'create-account_setting', 'web', NULL, NULL, 291, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 INSERT INTO `permissions` VALUES (295, 'delete-account_setting', 'web', NULL, NULL, 291, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 INSERT INTO `permissions` VALUES (296, 'export-account_setting', 'web', NULL, NULL, 291, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
-INSERT INTO `permissions` VALUES (297, NULL, 'web', 'Journal_voucher', NULL, NULL, 56, '2023-11-22 11:28:44', '2023-11-22 11:28:44');
-INSERT INTO `permissions` VALUES (298, 'view-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
-INSERT INTO `permissions` VALUES (299, 'edit-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
-INSERT INTO `permissions` VALUES (300, 'create-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
-INSERT INTO `permissions` VALUES (301, 'delete-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
-INSERT INTO `permissions` VALUES (302, 'export-journal_voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (297, NULL, 'web', 'voucher', NULL, NULL, 56, '2023-11-22 11:28:44', '2023-11-22 11:28:44');
+INSERT INTO `permissions` VALUES (298, 'view-voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (299, 'edit-voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (300, 'create-voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (301, 'delete-voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
+INSERT INTO `permissions` VALUES (302, 'export-voucher', 'web', NULL, NULL, 297, NULL, '2023-11-22 11:28:45', '2023-11-22 11:28:45');
 -- ----------------------------
 -- Table structure for role_has_permissions
 -- ----------------------------

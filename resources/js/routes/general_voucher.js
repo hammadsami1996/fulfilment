@@ -1,33 +1,33 @@
 export default [
     {
-        path: '/journal_voucher',
-        name: 'view-journal_voucher',
-        component: () => import('../views/journal_voucher/index.vue'),
+        path: '/general_voucher',
+        name: 'view-general_voucher',
+        component: () => import('../views/general_voucher/index.vue'),
         meta: {
-            pageTitle: 'journal_voucher',
+            pageTitle: 'general voucher',
             breadcrumb: [
                 {
                     text: 'Home'
                 },
                 {
-                    text: 'journal_voucher',
+                    text: 'general voucher',
                     active: true,
                 },
             ],
         },
     },
     {
-        path: '/journal_voucher/create',
-        name: 'create-journal_voucher',
-        component: () => import('../views/journal_voucher/form.vue'),
+        path: '/general_voucher/create',
+        name: 'create-general_voucher',
+        component: () => import('../views/general_voucher/form.vue'),
         meta: {
-            pageTitle: 'journal_voucher',
+            pageTitle: 'general voucher',
             breadcrumb: [
                 {
                     text: 'Home'
                 },
                 {
-                    text: 'journal_voucher',
+                    text: 'general voucher',
                 },
                 {
                     text: 'Create',
@@ -37,22 +37,22 @@ export default [
         },
     },
     {
-        path: '/journal_voucher/:id/edit',
-        name: 'edit-journal_voucher',
-        component: () => import('../views/journal_voucher/form.vue'),
+        path: '/general_voucher/:id/edit',
+        name: 'edit-general_voucher',
+        component: () => import('../views/general_voucher/form.vue'),
         meta: {
             mode: 'edit',
-            pageTitle: 'journal_voucher',
+            pageTitle: 'general voucher',
             breadcrumb: [
                 {
                     text: 'Home'
                 },
                 {
-                    text: 'journal_voucher',
-                    link: '/journal_voucher'
+                    text: 'general voucher',
+                    link: '/general_voucher'
                 },
                 {
-                    text: 'Journal Voucher Edit',
+                    text: 'general voucher Edit',
                     active: true,
                 },
             ],
