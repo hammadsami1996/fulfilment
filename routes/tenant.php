@@ -120,8 +120,7 @@ Route::middleware([
         Route::resource('courier_response', \App\Http\Controllers\CourierResponseController::class);
         Route::get('courier_serach', [\App\Http\Controllers\CourierResponseController::class, 'search']);
         Route::get('getaccount', [\App\Http\Controllers\AccountSettingController::class, 'getaccount']);
-        Route::get('cus_courier', [\App\Http\Controllers\CustomerController::class,'getcourier']);
-//        Route::get('getnumber', [\App\Http\Controllers\VoucherController::class, 'getNumber']);
+        Route::get('cus_courier', [\App\Http\Controllers\CourierController::class,'getcourier']);
 
 
         Route::post('global_settings', [\App\Http\Controllers\SettingsController::class, 'add_settings']);

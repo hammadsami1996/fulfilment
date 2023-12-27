@@ -5,11 +5,11 @@
             <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
                              type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
-                     + New Contact
+                     + New Customer
                 </router-link>
                 <router-link :to="{name:`create-customer_category`}"
                              type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
-                    New Contact Category
+                    New Customer Category
                 </router-link>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 urlApi: "/api/customer",
                 resource: "/customer",
                 small: "customer",
-                capital: "Contact",
+                capital: "Customer",
                 columns: [
                     {label: 'S.No', field: 'id', format: 'index'},
                     {label: 'Name', field: 'name',},

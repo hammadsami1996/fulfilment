@@ -72,16 +72,15 @@ class Order extends Model implements Auditable
     {
         return $this->belongsTo(Status::class, 'status_id', 'id');
     }
-    public function courier()
-    {
-        return $this->belongsTo(Customer::class, 'courier_id', 'id')
-                    ->where('is_courier','=', 1);
-    }
-
     // public function courier()
     // {
-    //     return $this->belongsTo(Courier::class, 'courier_id', 'id');
+    //     return $this->belongsTo(Customer::class, 'courier_id', 'id');
     // }
+
+    public function courier()
+    {
+        return $this->belongsTo(Courier::class, 'courier_id', 'id');
+    }
 
     public function city()
     {

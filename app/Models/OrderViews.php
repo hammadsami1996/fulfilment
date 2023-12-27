@@ -48,15 +48,14 @@ class OrderViews extends Model
         return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 
-    // public function courier()
-    // {
-    //     return $this->belongsTo(Courier::class, 'courier_id', 'id');
-    // }
     public function courier()
     {
-        return $this->belongsTo(Customer::class, 'courier_id', 'id')
-                    ->where('is_courier', 1);
+        return $this->belongsTo(Courier::class, 'courier_id', 'id');
     }
+    // public function courier()
+    // {
+    //     return $this->belongsTo(Customer::class, 'courier_id', 'id');
+    // }
 
     public function city()
     {
