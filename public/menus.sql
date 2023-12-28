@@ -68,7 +68,7 @@ INSERT INTO `menus` VALUES (25, 'Order', '/order', 'view-order', 3, 'web', NULL,
 INSERT INTO `menus` VALUES (26, 'Receive Order', '/receive_order', 'view-receive_order', 3, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (27, 'Place Replacement Order', '/replacement', 'view-replacement', 3, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (28, 'Required Item Stock', '/required_item_stock', 'view-required_item_stock', 3, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `menus` VALUES (29, 'Fetch Order', '/fetch_order', 'view-fetch_order', 3, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
+-- INSERT INTO `menus` VALUES (29, 'Fetch Order', '/fetch_order', 'view-fetch_order', 3, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (30, 'Chart of Accounts', '/coa', 'view-chart_of_accounts', 5, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (31, 'Global Settings', '/global_settings', 'view-global_settings ', 6, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `menus` VALUES (32, 'General Voucher', '/general_voucher', 'view-general_voucher', 5, 'web', NULL, NULL, NULL, NULL, NULL, NULL);
