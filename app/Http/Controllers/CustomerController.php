@@ -20,7 +20,7 @@ class CustomerController extends Controller
             // 'type',
          'category', 's_city','b_city','account',
         //   's_country',
-          'b_country')
+          'b_country')->where('is_vender','!=',1)
             ->search()]);
     }
 //     public function getcourier(){
