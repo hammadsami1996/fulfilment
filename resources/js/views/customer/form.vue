@@ -328,6 +328,8 @@
                     this.form.s_address_2 = this.form.b_address_2;
                     this.form.s_country = this.form.b_country;
                     this.form.s_city = this.form.b_city;
+                    this.form.s_country_id = this.form.b_country_id;
+                    this.form.s_city_id = this.form.b_city_id;
                 } else {
                     this.form.s_name = '';
                     this.form.s_phone = '';
