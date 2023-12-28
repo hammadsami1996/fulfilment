@@ -782,8 +782,8 @@
                 f.courier_id = courier.id
                 byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
 
-                }
-            },
+                },
+            
             onCustomer(e) {
                 const customer = e.target.value
                 this.form.customer = customer
@@ -948,10 +948,14 @@
             }
             ,
             sendMsg() {
-                this.show_msg = false
+                this.show_msg = false;
             }
-        },
-    }
+
+         }
+
+        }
+        
+    
 </script>
 <style scoped>
     .card {
