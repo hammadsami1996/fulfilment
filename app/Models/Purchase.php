@@ -37,7 +37,7 @@ class Purchase extends Model implements Auditable
     }
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
+        return $this->belongsTo(Customer::class, 'supplier_id', 'id')->where('is_vender',1);
     }
     public function items()
     {
