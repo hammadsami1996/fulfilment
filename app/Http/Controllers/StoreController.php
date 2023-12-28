@@ -65,7 +65,6 @@ class StoreController extends Controller
             $file = $request->file('imgN');
             $extension = $file[0]->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
-
             $file[0]->move('uploads/store/img', $filename);
             $model->img = $filename;
         }

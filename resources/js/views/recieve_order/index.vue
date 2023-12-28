@@ -47,7 +47,7 @@
         </div>
         <div class="flex-col">
             <panel :columns="columns" :urlApi="urlApi" ref="TableData">
-                
+
                 <!-- <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
                          <span v-if="permissions.includes(`edit-${small}`)">
@@ -113,11 +113,9 @@
                     {label: 'Supplier', field: 'name', displayText: 'supplier'},
                     {label: 'PO Number', field: 'po_number'},
                     {label: 'Date', field: 'date' },
-
                     {label: 'Addintion Note', field: 'note'},
                     // {label: 'Tax', field: 'tax'},
                     // {label: 'Status', field: 'statuses' , slot:true},
-
                     // {label: 'Action', field: 'action', action: true}
                     ]
             }
@@ -144,7 +142,7 @@
                 this.$router.push(`${this.resource}/${id}/edit`)
             },
             Update(e ,id){
-               
+
                byMethod('POST', '/api/updated?ids='+id , e).then(res => {
                    if (res.data.saved) {
                        this.sts = false,

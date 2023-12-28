@@ -43,7 +43,6 @@ class ReportController extends Controller
 ", ['supplier_id' => request('id')]);
 
     }
-
     else{
     $data = DB::select("SELECT
     p.title,
@@ -69,8 +68,6 @@ GROUP BY
     p.title, p.sku, p.barcode, i.product_id, i.warehouse_id, i.qty, pi.img
 		HAVING
     SUM(oi.qty) > i.qty;
-
-
 ");
 }
 

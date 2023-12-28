@@ -20,7 +20,6 @@ class Store extends Model implements Auditable
     protected $columns = [
         'name', 'location','company_id',
     ];
-
     protected $search = [
         'name', 'location','company_id',
     ];

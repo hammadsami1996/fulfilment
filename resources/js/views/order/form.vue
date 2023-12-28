@@ -52,9 +52,7 @@
                     <label
                         class="block font-medium text-sm text-gray-700 mb-2"
                     >Country:</label>
-                    <typeahead :initialize="form.country" :url="countries" @input="onCountries"
-                               display="name"/>
-                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_1">{{error.b_address_1[0] }}</p>-->
+                    <typeahead :initialize="form.country" :url="countries" @input="onCountries" display="name"/>
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label
@@ -63,7 +61,6 @@
                     <typeahead :initialize="form.city"
                                :url="form.country_id != null ? `/api/city?country_id=${form.country_id}` : cities"
                                @input="onCities($event,'city')" display="name"/>
-                    <!--                    <p class="text-red-600 text-xs italic" v-if="error.b_address_2">{{error.b_address_2[0] }}</p>-->
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Store <span class="text-red-600">*</span></label>
@@ -72,7 +69,6 @@
                 </div>
                 <div class="w-full sm:w-1/2 pl-3 sm:mb-0">
                     <label class="block font-medium text-sm text-gray-700 mb-2">Warehouse
-                         <!-- <span class="text-red-600">*</span> -->
                         </label>
                     <typeahead :initialize="form.warehouse" :url="warehouses" @input="onWarehouse" display="name"/>
                     <p class="text-red-600 text-xs italic" v-if="error.warehouse_id">{{ error.warehouse_id[0] }}</p>
@@ -110,7 +106,6 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2">Shipping Address </label>
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
                               v-model="form.s_address_1"/>
-                    <!-- <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p> -->
                 </div>
             </div>
             <hr class="mt-4">
@@ -138,7 +133,6 @@
                     <label class="block font-medium text-sm text-gray-700 mb-2">Billing Address </label>
                     <textarea class="w-full py-2 px-3 bg-white border border-gray-300 rounded-md" type="text"
                               v-model="form.b_address_1"/>
-                    <!-- <p class="text-red-600 text-xs italic" v-if="error.address">{{ error.address[0] }}</p> -->
                 </div>
             </div>
             <div class="flex-auto flex flex-col sm:flex-row sm:items-center pt-2">
@@ -167,7 +161,6 @@
                     <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-4 mb-4"  v-for="(item,index) in form.items">
                         <div class="sm:col-span-2">
                             <label class="block font-medium text-sm text-gray-700 mb-2">Item Description</label>
-                            <!-- <input class="w-full py-2 px-3 bg-white h-8 border border-gray-300 rounded-md" type="text"/> -->
                             <typeahead
                                 :initialize="item.product"
                                 :url="products"
@@ -373,6 +366,7 @@
                 cities: '/api/city',
                 countries: '/api/country',
                 couriers: "/api/cus_courier",
+                // couriers: "/api/courier",
                 // ordertype: '/api/order_type',
             }
         },
@@ -483,6 +477,7 @@
                 const country = e.target.value
                 this.form.country = country
                 this.form.country_id = country.id
+                // console.log(e.target.value);
             },
             customerbtn(){
                 this.showcustomer = true;
