@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanySetting;
 use Illuminate\Http\Request;
 use App\Models\Courier;
 
@@ -14,6 +15,26 @@ class CourierController extends Controller
     {
         return response()->json(['data' => Courier::search()]);
     }
+
+    public function getcourier()
+    {
+        $activeCourierSettings = CompanySetting::where('key', 'All_Courier')
+            ->where('active', 1)
+            ->orWhere('value', json_decode('value'))
+            ->get();
+    
+        $values = $activeCourierSettings->pluck('value')->map(function ($value) {
+            return json_decode($value, true)['id'];
+        })->toArray();
+    
+        // $courierData = Courier::whereIn('id', $values)->search();
+        // dd($courierData);
+        // Wrap the 'data' array within a new array with 'data' as the key
+        return response()->json([
+            'data' => Courier::whereIn('id', $values)->search()
+        ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.

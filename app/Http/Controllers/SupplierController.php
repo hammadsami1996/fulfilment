@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class SupplierController extends Controller
 
     {
         // dd('abcd');
-        return response()->json(['data' => Supplier::search()]);
+        return response()->json(['data' => Customer::where('is_vender', 1)->search()]);
 
     }
 
@@ -55,8 +56,9 @@ class SupplierController extends Controller
             // 'email' => 'required|max:25',
             // 'opening_balance' => 'required|max:25',
         ]);
-        $model = new Supplier();
+        $model = new Customer();
         $model->fill($request->all());
+        $model->is_vender = 1;
         $model->save();
 //        $model = Supplier::create($request->all());
 
@@ -70,7 +72,7 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        $model = Supplier::findOrFail($id);
+        $model = Customer::where('is_vender', 1)->findOrFail($id);
         return response()->json(["data" => $model]);
     }
 
@@ -79,7 +81,7 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        $model = Supplier::findOrFail($id);
+        $model = Customer::where('is_vender', 1)->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);
@@ -100,7 +102,7 @@ class SupplierController extends Controller
             // 'email' => 'required|max:25',
             // 'opening_balance' => 'required|max:25',
         ]);
-        $model = Supplier::findOrFail($id);
+        $model = Customer::where('is_vender', 1)->findOrFail($id);
         $model->fill($request->all());
 //        $model->updated_by = Auth::id();
         $model->save();
@@ -112,7 +114,7 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        $model = Supplier::findOrFail($id);
+        $model = Customer::where('is_vender', 1)->findOrFail($id);
         $model->deleted_by = Auth::id();
         $model->save();
         $model->delete();

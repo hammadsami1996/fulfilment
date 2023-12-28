@@ -766,10 +766,11 @@
             // },
             onShippeds(e, f) {
                 const courier = e.target.value
-                if (courier.is_courier === 1) {
+                // if (courier.is_courier === 1) {
                 f.courier = courier
                 f.courier_id = courier.id
                 byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
+
                 }
             },
             onCustomer(e) {

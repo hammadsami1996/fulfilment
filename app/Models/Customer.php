@@ -16,12 +16,14 @@ class Customer extends Model implements Auditable
 
     protected $fillable = [
         'name', 'email', 'phone','is_courier',
+        'opening_balance','address','number_1','number_2','company_name','website',
         'discount', 'b_country_id','is_vender','is_customer','account_id',
         'b_city_id',  'cnic', 'b_name', 'b_phone', 'b_address_1', 's_name',
         's_phone', 's_address_1', 'category_id', 's_country_id', 's_city_id', 'quantity'];
     protected $columns = [
         'name', 'email', 'phone',
         'discount', 'b_country_id','is_courier','account_id',
+        'opening_balance','address','number_1','number_2','company_name','website',
         'b_city_id',  'cnic', 'b_name', 'b_phone', 'b_address_1', 's_name',
         's_phone', 's_address_1', 'category_id', 's_country_id', 's_city_id', 'quantity'];
 

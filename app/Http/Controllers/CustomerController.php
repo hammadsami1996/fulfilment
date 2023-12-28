@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanySetting;
+use App\Models\Courier;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,16 +20,15 @@ class CustomerController extends Controller
             // 'type',
          'category', 's_city','b_city','account',
         //   's_country',
-          'b_country')
+          'b_country')->where('is_vender','!=',1)
             ->search()]);
     }
-    public function getcourier(){
-        return response()->json([
-            'data' => Customer::with('category', 's_city', 'b_city', 'account', 'b_country')
-                ->where('is_courier', 1)
-                ->search()
-        ]);
-    }
+//     public function getcourier(){
+//         return response()->json([
+//             'data' => Customer::with('category', 's_city', 'b_city', 'account', 'b_country')
+//                 ->where('is_courier', 1)
+//                 ->search()
+//         ]);}
 
     /**
      * Show the form for creating a new resource.
@@ -75,8 +76,6 @@ class CustomerController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'is_vender' => 'required',
-            'is_customer' => 'required'
 //            'cateogory' => 'required',
 //            'balance' => 'required',
 //            'type_id' => 'required',
@@ -90,6 +89,7 @@ class CustomerController extends Controller
         ]);
         $model = new Customer();
         $model->fill($request->all());
+        $model->is_customer = 1;
         $model->save();
         return response()->json(["saved" => true, "id" => $model->id]);
     }

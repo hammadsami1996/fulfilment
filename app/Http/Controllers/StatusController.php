@@ -181,12 +181,11 @@ class StatusController extends Controller
                     $finanace->save();
                 
                     // Retrieve courier details for the order
-                    $customer = Customer::find($order->courier_id);
-                    $accountes = $customer->account_id;
-                    // $courier = Customer::where('is_courier','=', 1)->first();
-                    if ($accountes) {
-                        // Retrieve account details for the courier
-                        $courierAccount = Account::find($accountes);
+                    // $customer = Customer::find($order->courier_id);
+                    // $accountes = $customer->account_id;
+                    //  $courier = Customer::where('is_courier','=', 1)->first();
+                       $courier_id = Courier::find($order->courier_id);
+                        $courierAccount = Account::find($courier_id->account_id);
     
                         if ($courierAccount) {
                           
@@ -200,10 +199,9 @@ class StatusController extends Controller
                             $finanace2->master_remarks = "sale order remarks";
                             $finanace2->finance_transaction_master_id = $recentFinanceTransactionId;
                             $finanace2->account_id = $courierAccount->id;
-                            $finanace2->account_title = $courierAccount->name;
+                            $finanace2->account_title = $courierAccount->accounttitle;
                             $finanace2->save();
                         }
-                    }  
             }
 
         }   

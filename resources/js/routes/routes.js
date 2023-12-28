@@ -28,11 +28,11 @@ import brand from "@/routes/brand";
 import replacement from "@/routes/replacement";
 import cities from "@/routes/cities";
 import order_status from "@/routes/order_status";
-import general_voucher from "@/routes/voucher";
+import general_voucher from "@/routes/general_voucher";
 import account from "@/routes/account";
 import subledger from "@/routes/subledger";
 import account_setting from "@/routes/account_setting";
-import journal_voucher from "@/routes/journal_voucher";
+import voucher from "@/routes/voucher";
 
 
 
@@ -84,7 +84,7 @@ const router = createRouter({
         ...account,
         ...subledger,
         ...account_setting,
-        ...journal_voucher,
+        ...voucher,
 
         {
             path: '/error-404',
