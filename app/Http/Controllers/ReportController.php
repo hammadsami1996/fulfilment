@@ -10,9 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class ReportController extends Controller
 {
    public function required(){
-    // dd(request()->all());
     if(request('id') !=null){
-        // dd('abcd');
+//         dd('abcd');
         $data = DB::select("
     SELECT
         p.title,
@@ -20,6 +19,7 @@ class ReportController extends Controller
         p.barcode,
         i.product_id,
         i.warehouse_id,
+
         SUM(oi.qty) AS ordered_qty,
         i.qty AS inventory_qty,
         pi.img AS product_image
@@ -43,7 +43,6 @@ class ReportController extends Controller
 ", ['supplier_id' => request('id')]);
 
     }
-
     else{
     $data = DB::select("SELECT
     p.title,
@@ -69,8 +68,6 @@ GROUP BY
     p.title, p.sku, p.barcode, i.product_id, i.warehouse_id, i.qty, pi.img
 		HAVING
     SUM(oi.qty) > i.qty;
-
-
 ");
 }
 

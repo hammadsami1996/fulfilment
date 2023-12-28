@@ -66,4 +66,8 @@ class OrderViews extends Model
     {
         return $this->belongsTo(Order_type::class, 'order_type_id', 'id');
     }
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
 }

@@ -21,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => OrderViews::with('customer', 'items.product', 'stores.company', 'status', 'courier', 'city', 'stores', 'warehouse')
+        return response()->json(['data' => OrderViews::with('country','customer', 'items.product', 'stores.company', 'status', 'courier', 'city', 'stores', 'warehouse')
             ->when(\request()->has('status_id') && \request('status_id') != 0 && \request('status_id'), function ($q) {
                 $q->where('status_id', \request('status_id'));
             })->when(\request()->has('packability'), function ($q) {
@@ -83,6 +83,7 @@ class OrderController extends Controller
             // 'order_type_id' => '',
             'payment_status' => '',
             'delivery_charges' => '',
+            'country_id' => '',
         ];
         return response()->json([
             'form' => $form
@@ -166,7 +167,7 @@ class OrderController extends Controller
      */
     public function show($id,Request $request )
     {
-        $model = Order::with('customer', 'items.product', 'stores', 'warehouse', 'courier')->findOrFail($id);
+        $model = Order::with('country', 'customer', 'items.product', 'stores', 'warehouse', 'courier')->findOrFail($id);
         if ($request->mode == "PDF") {
             $doc = 'docs.order_pdf';
             return pdf($doc, $model);
@@ -179,7 +180,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $model = Order::with('city', 'customer', 'items.product', 'stores', 'warehouse', 'status_logs.status', 'status_logs.user', 'courier')->findOrFail($id);
+        $model = Order::with('country','city', 'customer', 'items.product', 'stores', 'warehouse', 'status_logs.status', 'status_logs.user', 'courier')->findOrFail($id);
         return response()->json([
             "form" => $model
         ]);

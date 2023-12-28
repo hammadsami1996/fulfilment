@@ -35,17 +35,13 @@ class FetchOrderCorn extends Command
     public function handle()
     {
         $databases = Tenant::get();
-
         foreach ($databases as $database) {
             // Assuming $database->id is the identifier for the tenant
             $tenant = Tenant::find($database->id);
-
             if ($tenant) {
                 tenancy()->initialize($tenant);
             }
 //            dd($database->id);
-//            tenancy()->init($database->id);
-
             $fetch = Store::where('store_type', 'Online')->where('fetch_order', true)->get();
 //            $fetch = DB::table($database->id . ".store")->where('store_type', 'Online')->where('fetch_order', true)->get();
 //            $fetch = DB::table("{$database->id}.store")->where('store_type', 'Online')->where('fetch_order', true)->get();
@@ -67,54 +63,4 @@ class FetchOrderCorn extends Command
             }
         }
     }
-
-
-//    public function handle()
-//    {
-//        $databases = Tenant::get();
-//        foreach ($databases as $database) {
-////        $fetch = Store::where('store_type', 'Online')->where('fetch_order', true)->get();
-////            $fetch = DB::table($database->id . ".store")->where('store_type', 'Online')->where('fetch_order', true)->get();
-//            $fetch = DB::table("`{$database->id}`.store")->where('store_type', 'Online')->where('fetch_order', true)->get();
-//            if ($fetch->count() > 0) {
-//                foreach ($fetch as $store) {
-//                    if ($store->plate_form == "MimCart") {
-//                        $mimcart = new MimCartController();
-//                        $mimcart->storeOrder($store->id);
-//                    }
-//                    if ($store->plate_form == "WooCommerce") {
-//                        $woocommerce = new WordpressController();
-//                        $woocommerce->storeOrder($store->id);
-//                    }
-//                    if ($store->plate_form == "Shopify") {
-//                        $shopify = new ShopifyController();
-//                        $shopify->storeOrder($store->id);
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-
-
-//    public function handle()
-//    {
-//        $fetch = Store::where('store_type', 'Online')->where('fetch_order', true)->get();
-//        if ($fetch->count() > 0) {
-//            foreach ($fetch as $store) {
-//                if ($store->plate_form == "MimCart"){
-//                    $mimcart = new MimCartController();
-//                    $mimcart->storeOrder($store->id);
-//                }
-//                if ($store->plate_form == "WooCommerce"){
-//                    $woocommerce = new WordpressController();
-//                    $woocommerce->storeOrder($store->id);
-//                }
-//                if ($store->plate_form == "Shopify"){
-//                    $shopify = new ShopifyController();
-//                    $shopify->storeOrder($store->id);
-//                }
-//            }
-//        }
-//    }
 }

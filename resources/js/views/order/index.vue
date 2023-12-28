@@ -7,9 +7,7 @@
             <div class=" text-center sm:flex sm:items-center sm:justify-end sm:text-left">
                 <div class="w-full  pr-2 sm:mb-0 ">
                     <label class="block font-medium text-sm text-gray-700">Select Company to Store</label>
-                    <!--                <div v-if="form.fetch_order === 1">-->
                     <typeahead :initialize="form.company" :url="parentUrl"  @input="onParent" display="text"/>
-                    <!--                </div>-->
                 </div>
                 <button @click="CheckOrder"
                         class="mt-5 inline-flex items-center justify-center  rounded-lg border bg-cyan-500  px-3 py-2 font-semibold text-white text-sm">
@@ -783,8 +781,9 @@
                 f.courier = courier
                 f.courier_id = courier.id
                 byMethod('POST', `/api/order/${f.id}?_method=PUT`, f)
-                // }
-            },  
+
+                }
+            },
             onCustomer(e) {
                 const customer = e.target.value
                 this.form.customer = customer

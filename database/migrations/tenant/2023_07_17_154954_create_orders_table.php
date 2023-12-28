@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('customer_id')->nullable();
             $table->integer('company_id')->nullable();
             $table->string('city_id')->nullable();
+            $table->string('country_id')->nullable();
             $table->decimal('total',10,2)->default(0.00);
             $table->decimal('tax',10,2)->default(0.00);
             $table->decimal('balance',10,2)->nullable()->default(0.00);

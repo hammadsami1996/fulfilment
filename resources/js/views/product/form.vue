@@ -274,31 +274,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full">
-                        <div class="card-block mt-4 p-4 rounded-lg shadow-lg bg-white">
-                            <h3 class="mb-4 text-xl font-semibold text-indigo-600">Product Supplier</h3>
-                            <div class="mb-4">
-                                <!-- <label class="block text-sm font-medium text-gray-700">Suppliers</label> -->
-                                <div class="block font-medium text-sm text-gray-700" >
-                                <label>Supplier</label>
-                                <span @click="supplierbtn" v-if="permissions.includes(`create-supplier`)" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">
-                                    New
-                                </span>
-                            </div>
-                                <typeahead
-                                    :initialize="form.supplier"
-                                    :url="supplier"
-                                    @input="onSupplier"
-                                    class="w-full py-1 px-1 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-100"
-                                    display="text"
-                                />
-                                <p class="text-red-600 text-xs italic" v-if="error.supplier_id">{{ error.supplier_id[0]
-                                    }}</p>
+<!--                    <div class="w-full">-->
+<!--                        <div class="card-block mt-4 p-4 rounded-lg shadow-lg bg-white">-->
+<!--                            <h3 class="mb-4 text-xl font-semibold text-indigo-600">Product Supplier</h3>-->
+<!--                            <div class="mb-4">-->
+<!--                                &lt;!&ndash; <label class="block text-sm font-medium text-gray-700">Suppliers</label> &ndash;&gt;-->
+<!--                                <div class="block font-medium text-sm text-gray-700" >-->
+<!--                                <label>Supplier</label>-->
+<!--                                <span @click="supplierbtn" v-if="permissions.includes(`create-supplier`)" class="ml-2 items-right space-x-2 font-semibold text-sm text-blue-400 hover:text-blue-600 cursor-pointer transition duration-200 ease-in-out" style="float: right;">-->
+<!--                                    New-->
+<!--                                </span>-->
+<!--                            </div>-->
+<!--                                <typeahead-->
+<!--                                    :initialize="form.supplier"-->
+<!--                                    :url="supplier"-->
+<!--                                    @input="onSupplier"-->
+<!--                                    class="w-full py-1 px-1 text-sm bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-100"-->
+<!--                                    display="text"-->
+<!--                                />-->
+<!--                                <p class="text-red-600 text-xs italic" v-if="error.supplier_id">{{ error.supplier_id[0]-->
+<!--                                    }}</p>-->
 
-                            </div>
+<!--                            </div>-->
 
-                        </div>
-                    </div>
+<!--                        </div>-->
+<!--                    </div>-->
                     <!--            Product Organization-->
                     <div class="w-full">
                         <div class="card-block mt-4 p-4 rounded-lg shadow-lg bg-white">
@@ -578,7 +578,7 @@
                 const value = e.target.value
                 i.values = value
             },
-     
+
             removeProductAttribute(item, index) {
                 if (this.form.product_attribute.length > 1) {
                     this.form.product_attribute.splice(index, 1);
