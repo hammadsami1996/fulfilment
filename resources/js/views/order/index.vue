@@ -667,13 +667,24 @@
                 }
                 byMethod('POST', '/api/bulk_status', data).then(res => {
                     this.$refs.TableData.reload();
-                    this.$toast.open({
-                        position: 'top-right',
-                        message: this.mode === 'edit' ? 'Update Successfully' : 'All Status Generated',
-                        type: 'success',
-                        duration: 3000
-                    });
-                    this.resetModalStatus()
+                    if(res.data.error){
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: res.data.error,
+                            type: 'error',
+                            duration: 3000
+                        });
+                        this.resetModalStatus()
+
+                    }else{
+                        this.$toast.open({
+                            position: 'top-right',
+                            message: this.mode === 'edit' ? 'Update Successfully' : 'All Status Generated',
+                            type: 'success',
+                            duration: 3000
+                        });
+                        this.resetModalStatus()
+                    }
                 })
 
                 // post('/api/assign_user_role', this.user_data).then(res => {

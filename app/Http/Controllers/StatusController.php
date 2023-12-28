@@ -119,7 +119,17 @@ class StatusController extends Controller
         $recentFinanceTransactionId = 0;
         $selectedItems = $request->selectedItems; // An array of item IDs
         $statusData = $request->selectedstatus; // Status data to be applied to all items
-
+        $orders = Order::whereIn('id', $selectedItems)->get();
+           
+            // Check if any order has a null courier_id
+            $hasNullCourierId = false;
+        foreach ($orders as $order) {
+            if ($order->courier_id === null) {
+                $hasNullCourierId = true;
+                break;
+            }
+        }
+        if (!$hasNullCourierId) {
         foreach ($selectedItems as $itemId) {
             // Create an array with the updated status data for the specific item
             $data = [
@@ -207,6 +217,9 @@ class StatusController extends Controller
         }   
     }
         return response()->json(['response'=> true]);
+}else{
+    return response()->json(['error'=> 'courier not selected']);
+}
     }
 
 }
