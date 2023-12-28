@@ -132,7 +132,6 @@
                     <span>{{ modal_data.title }}</span> -->
 
                 </div>
-
             </div>
             <div class="flex justify-center mt-4 space-x-4 mb-6 mr-6" style="background-color:#273746 ; color:white">
                 <h1 class="text-lg font-bold mb-4 text-center">
