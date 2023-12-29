@@ -2,8 +2,6 @@
     <div>
         <div class="px-4 py-5  sm:px-6 flex justify-between items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ capital }}</h3>
-
-
             <!-- <div class="mt-3 pb-4 sm:mt-0 sm:ml-4 flex justify-end">
                 <router-link :to="{name:`create-${small}`}"
                              type="button" class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-2 leading-5 text-sm border-gray-200 bg-blue-400 text-white">
@@ -18,7 +16,6 @@
             <div class="flex flex-row">
                 <div class=" flex-col-6 ml-6 mt-4" colspan="8">
                     <button
-
                         @click="downloadImage"
                         class="inline-flex justify-center items-center space-x-2 border font-semibold rounded-lg px-3 py-3 leading-5 text-sm border-gray-200 bg-blue-400 text-white"
                         type="button">
@@ -43,28 +40,23 @@
 
                         Excel
                     </button>
-
                 </div>
                 <span class="ml-4 mt-6">Suppliers:</span>
 
                 <div class="ml-2 col-6 ">
-
-
                     <span @click="clearsupp" style="font-size: x-small; font-weight: bold; color:red; cursor: pointer;">clear:</span>
-
                     <typeahead :initialize="form.supplier" :url="Supplier" @input="onSupplier" display="name"
                                title="Supplier"/>
-
                 </div>
             </div>
             <panel :columns="columns" :urlApi="urlApi" id="print" ref="TableData">
                 <template v-slot:images="props">
                     <div class="flex items-center">
-                        <div class="w-20 h-20 rounded object-cover image-container"
+                        <div class="w-20 h-20 rounded  "
                              v-if="props.item.product_image !=null  ">
                             <img :src="`/uploads/product/img/` +  props.item.product_image">
                         </div>
-                        <div class="w-20 h-20 rounded object-cover image-container" v-else>
+                        <div class="w-20 h-20 rounded " v-else>
                             <img alt="No Picture" src="~@/images/no-picture-taking.png">
                         </div>
                     </div>

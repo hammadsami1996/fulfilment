@@ -1,33 +1,5 @@
 <template>
   <div>
-    <!-- <div class="bg-gray-100 py-4">
-            <nav class="container mx-auto flex justify-center">
-                <a @click="show_personal"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-blue-500 focus:text-gray-700 focus:border-blue-300">
-                    All
-                </a>
-                <a @click="show_eligibility"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-purple-500 focus:text-gray-700 focus:border-purple-300">
-                    In Stock
-                </a>
-                <a @click="show_references"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-green-500 focus:text-gray-700 focus:border-green-300">
-                    Services
-                </a>
-                <a @click="show_emergency"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-rose-500 focus:text-gray-700 focus:border-rose-300">
-                    Kit/Bundle
-                </a>
-                <a @click="show_bank_account"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-yellow-500 focus:text-gray-700 focus:border-yellow-300">
-                    Out Of Stock
-                </a>
-                <a @click="show_medical"
-                   class="w-1/4 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none text-gray-500 hover:text-gray-700 hover:border-lime-500 focus:text-gray-700 focus:border-lime-300">
-                    Low Stock
-                </a>
-            </nav>
-        </div> -->
     <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
       <h1
         class="text-4xl leading-7 font-semibold text-semibold font-lg text-gray-900"
@@ -155,7 +127,7 @@
               />
             </div>
           </div>
-        
+
           <div
             class="sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4 flex items-center mb-4 md:mb-0 mt-3"
           >
@@ -232,7 +204,7 @@
                   stroke-linejoin="round"
                   stroke-width="2"
                   viewBox="0 0 24 24"
-                 
+
                 >
                   <polyline points="3 6 5 6 21 6" />
                   <path
@@ -303,7 +275,7 @@
         </svg>
           Update
           </a>
-        
+
         </div>
     <!-- </template> -->
       <panel :columns="columns" :urlApi="urlApi" ref="TableData" id="print" @selectAll="selectAll" :search-enable="false">
@@ -319,7 +291,7 @@
             <p>{{ props.item.barcode ? props.item.barcode : "" }}</p>
           </div>
         </template>
-       
+
         <template v-slot:skues="props">
           <div>
             <button class="text-white font-bold py-2 px-4 rounded"  style="background-color: #04a2b3;width: 150px; white-space: normal;overflow: hidden;text-overflow: ellipsis;"
@@ -448,15 +420,15 @@
         <input
           type="checkbox"
           id="switch2"
-          :checked="props.item.manage_inventory === 1" 
+          :checked="props.item.manage_inventory === 1"
           @change="updateManageInventory(props.item,props.item.id)"
           name="switch2"
           class="h-7 w-12 rounded-full text-primary-500 transition-all duration-150 ease-out form-switch focus:ring focus:ring-primary-500 focus:ring-opacity-50 dark:bg-gray-700 dark:ring-offset-gray-900 dark:checked:bg-current"
-          
+
           />
   </div>
     </div>
-           
+
           </div>
         </template>
         <template v-slot:action="props">
@@ -529,7 +501,7 @@ export default {
       required: true,
     },
   },
- 
+
   components: {
     Panel,
     Typeahead,
@@ -623,7 +595,7 @@ export default {
                 })
     },
     updateManageInventory(item,id){
- 
+
       let record = {
         data: item.manage_inventory === 1 ? 0 : 1,
         id: id
@@ -638,7 +610,7 @@ export default {
                     });
                 })
            },
-  
+
     fetchProductCount() {
       axios.get(this.urlApi1)
         .then((response) => {
@@ -713,7 +685,7 @@ export default {
                 }, 500)
                 setTimeout(() => {
                     this.$refs.TableData.reload();
-                    
+
                 }, 500)
     },
 
@@ -775,7 +747,7 @@ export default {
           console.error('Error updating Quantity:', error);
         });
       },
-    
+
     onProCategory(e){
               const procategory = e.target.value
                 this.form.category = procategory

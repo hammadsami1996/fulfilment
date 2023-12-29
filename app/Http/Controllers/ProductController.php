@@ -48,7 +48,7 @@ class ProductController extends Controller
     //             // Add more conditions as needed
     //             ->search()
     //     ]);
-        
+
     // }
     public function index()
 {
@@ -395,7 +395,7 @@ class ProductController extends Controller
         $cost = $request->cost_price;
         $product = Product::findOrFail($itemId);
         $product->cost_price = $cost;
-      
+
         $product->save();
         return response()->json(['message' => 'Cost price updated successfully']);
     }
@@ -421,18 +421,18 @@ class ProductController extends Controller
     }
 
     public function bulk_price(Request $request){
-  
-        $selectedItems = $request['selectedItems']; 
-      
-        $operation = $request['operation']; 
-        $unit = $request['unit']; 
-        $costPercentage = $request['costPrice']; 
-        $sellingpercentage = $request['sellingPrice']; 
+
+        $selectedItems = $request['selectedItems'];
+
+        $operation = $request['operation'];
+        $unit = $request['unit'];
+        $costPercentage = $request['costPrice'];
+        $sellingpercentage = $request['sellingPrice'];
 
     if ($unit == 'rupees') {
         foreach ($selectedItems as $itemId) {
             $product = Product::findOrFail($itemId);
-    
+
             if ($operation == 'increase') {
                 $product->cost_price += $costPercentage;
                 $product->selling_price += $sellingpercentage;
@@ -441,7 +441,7 @@ class ProductController extends Controller
                 $product->cost_price = max(0, $product->cost_price - $costPercentage);
                 $product->selling_price = max(0, $product->selling_price - $sellingpercentage);
             }
-    
+
             $product->save();
             return response()->json(['message' => 'Prices update successfully']);
         }
@@ -449,41 +449,41 @@ class ProductController extends Controller
     elseif ($unit == 'percent') {
         if ($operation == 'increase') {
             $products = Product::whereIn('id', $selectedItems)->get();
-    
+
             foreach ($products as $product) {
                 // Extract the cost_price and selling_price for each product
                 $costPrice = $product->cost_price;
                 $sellingPrice = $product->selling_price;
-    
+
                 // Calculate new cost and selling prices based on the percentage for increase
                 $newCostPrice = $costPrice + ($costPrice * ( $costPercentage / 100));
                 $newSellingPrice = $sellingPrice + ($sellingPrice * ($sellingpercentage  / 100));
-    
-              
+
+
                 $product->cost_price = $newCostPrice;
                 $product->selling_price = $newSellingPrice;
                 $product->save();
 
             }
-    
+
             // Now $products are updated with increased prices
             return response()->json(['message' => 'Prices increased successfully']);
         } elseif ($operation == 'decrease') {
             $products = Product::whereIn('id', $selectedItems)->get();
-    
+
             foreach ($products as $product) {
                 // Extract the cost_price and selling_price for each product
                 $costPrice = $product->cost_price;
                 $sellingPrice = $product->selling_price;
-    
+
                 // Calculate new cost and selling prices based on the percentage for decrease
                 $newCostPrice = $costPrice - ($costPrice * ($costPercentage / 100));
                 $newSellingPrice = $sellingPrice - ($sellingPrice * ($sellingpercentage / 100));
-    
+
                 // Ensure prices don't go below zero
                 $newCostPrice = max(0, $newCostPrice);
                 $newSellingPrice = max(0, $newSellingPrice);
-    
+
                 $product->cost_price = $newCostPrice;
                 $product->selling_price = $newSellingPrice;
                 $product->save();
@@ -493,13 +493,13 @@ class ProductController extends Controller
     }
 }
    public function bulk_delete(Request $request){
-       $selectedItems = $request['selectedItems']; 
+       $selectedItems = $request['selectedItems'];
     foreach ($selectedItems as $itemId) {
         $product = Product::findOrFail($itemId);
         $product->deleted_by = Auth::id();
         $product->save();
         $product->delete();
-    }    
+    }
     return response()->json(['message' => 'Prices Delete successfully']);
 
     }
@@ -508,7 +508,7 @@ class ProductController extends Controller
         $item = Product::findOrFail($id);
         $item->manage_inventory = $request->data;
         $item->save();
-    
+
         return response()->json(['message' => 'Manage Inventory updated successfully']);
 
 
@@ -530,8 +530,6 @@ class ProductController extends Controller
         $data = Product::get();
         return Excel::download(new \App\Exports\product_excel($data), 'Product.xls');
     }
-
-
     public function download_images()
     {
         $datasArray = explode(',', request()->id);
