@@ -1,14 +1,13 @@
 @extends('docs.master', ['title' => 'ORDER'])
 
-
 @section('content')
 
 {{--    {{dd($model )}}--}}
     @foreach($model as $parent)
 {{--        {{dd($parent)}}--}}
         <div class="document">
-            <div class="document-heading">
-                <h3 style="text-align: center">Orders</h3>
+            <div class="document-heading ">
+                <h4 style="text-align: center; color: #333;  margin: 10px 10px;padding: 5px; text-decoration: underline; text-decoration-color: #0c0c0c;">Orders</h4>
                 <div class="col col-4">
                     <div class="grid grid-cols-2 gap-6">
                         <span style="text-transform: uppercase">Customer Name:<strong> {{ isset($parent->customer->name) ? $parent->customer->name : '- ' }},</strong></span><br>
@@ -19,7 +18,7 @@
 {{--                    {{dd($parent->customer->name)}}--}}
                 </div>
                 <div class="col col-4">
-                    &nbsp;
+
                 </div>
                 <div class="col col-4 offset-md5">
                     <table class="document-summary">
@@ -146,8 +145,23 @@
 
 
 <style>
+
+    /*.document-heading {*/
+    /*    text-align: center;*/
+    /*    color: #333; !* Set your preferred color *!*/
+    /*    margin: 10px 0;*/
+    /*    padding: 5px;*/
+    /*    text-decoration: underline;*/
+    /*    text-decoration-color: #0c0c0c;*/
+    /*}*/
     .document-footers {
         position: fixed;
         bottom: 4%;
             }
 </style>
+<script>
+    import Header from "@/Layouts/header";
+    export default {
+        components: {Header}
+    }
+</script>

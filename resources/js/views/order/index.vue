@@ -178,16 +178,6 @@
             </div>
         </div>
         <div class="container px-2 py-3  sm:px-4 flex justify-start items-center">
-            <div class="w-full sm:w-1/5 sm:mb-0">
-                <label class="block font-medium text-sm text-gray-700 mb-1">Select Courier</label>
-                <typeahead :initialize="selectedcourier" :url="courier"
-                           @input="onbulkShippeds($event, selectedcourier)" class="ml-3" display="name"
-                           style=" z-index: 9999;"></typeahead>
-            </div>
-            <button @click="updateModalCourier"
-                    class="inline-flex justify-center items-center  border font-semibold rounded-lg px-1 py-1  text-sm border-gray-200 bg-blue-300 h-7 mt-6">
-                <i class="fa-solid fa-check text-xl text-white-400"></i>
-            </button>
             <div class="w-full sm:w-1/5  sm:mb-0">
                 <label class="block font-medium text-sm text-gray-700 mb-1">Select Status</label>
                 <typeahead :initialize="selectedstatus" :url="delivery+'?head=order'"
@@ -196,6 +186,16 @@
             </div>
             <button @click="updateModalStatus"
                     class="inline-flex justify-center items-center border font-semibold rounded-lg px-1 py-1  text-sm border-gray-200 bg-blue-300 h-7 mt-6">
+                <i class="fa-solid fa-check text-xl text-white-400"></i>
+            </button>
+            <div class="w-full sm:w-1/5 sm:mb-0">
+                <label class="block font-medium text-sm text-gray-700 mb-1">Select Courier</label>
+                <typeahead :initialize="selectedcourier" :url="courier"
+                           @input="onbulkShippeds($event, selectedcourier)" class="ml-3" display="name"
+                           style=" z-index: 9999;"></typeahead>
+            </div>
+            <button @click="updateModalCourier"
+                    class="inline-flex justify-center items-center  border font-semibold rounded-lg px-1 py-1  text-sm border-gray-200 bg-blue-300 h-7 mt-6">
                 <i class="fa-solid fa-check text-xl text-white-400"></i>
             </button>
             <button :disabled="isSubmitting" @click="bulkCN(selectedItems)"

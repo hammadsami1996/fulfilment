@@ -51,47 +51,47 @@ class ProductController extends Controller
 
     // }
     public function index()
-{
-    $products = Product::with('category', 'brand', 'product_img', 'supplier')
-        ->when(\request()->has('title') && \request('title'), function ($q) {
-            // $q->where('title', \request('title'));
-            $q->where('title', 'like', '%' . \request('title') . '%');
-        })
-        ->when(\request()->has('sku') && \request('sku'), function ($q) {
-            // $q->where('sku', \request('sku'));
-            $q->where('sku', 'like', '%' . \request('sku') . '%');
-        })
-        ->when(\request()->has('cost_price') && \request('cost_price'), function ($q) {
-            // Apply your search logic for cost_price here
-            $q->where('cost_price', 'like', '%' . \request('cost_price') . '%');
-        })
-        ->when(\request()->has('quantity') && \request('quantity'), function ($q) {
-            // Apply your search logic for quantity here
-            $q->where('quantity', 'like', '%' . \request('quantity') . '%');
-        })
-        ->when(\request()->has('category_id') && \request('category_id'), function ($q) {
-            $q->where('category_id', \request('category_id'));
-        })
-        ->when(\request()->has('brand_id') && \request('brand_id'), function ($q) {
-            $q->where('brand_id', \request('brand_id'));
-        })
-        ->when(\request()->has('supplier_id') && \request('supplier_id'), function ($q) {
-            $q->where('supplier_id', \request('supplier_id'));
-        })
-        // Add more conditions as needed
-        ->search();
+    {
+        $products = Product::with('category', 'brand', 'product_img', 'supplier')
+            ->when(\request()->has('title') && \request('title'), function ($q) {
+                // $q->where('title', \request('title'));
+                $q->where('title', 'like', '%' . \request('title') . '%');
+            })
+            ->when(\request()->has('sku') && \request('sku'), function ($q) {
+                // $q->where('sku', \request('sku'));
+                $q->where('sku', 'like', '%' . \request('sku') . '%');
+            })
+            ->when(\request()->has('cost_price') && \request('cost_price'), function ($q) {
+                // Apply your search logic for cost_price here
+                $q->where('cost_price', 'like', '%' . \request('cost_price') . '%');
+            })
+            ->when(\request()->has('quantity') && \request('quantity'), function ($q) {
+                // Apply your search logic for quantity here
+                $q->where('quantity', 'like', '%' . \request('quantity') . '%');
+            })
+            ->when(\request()->has('category_id') && \request('category_id'), function ($q) {
+                $q->where('category_id', \request('category_id'));
+            })
+            ->when(\request()->has('brand_id') && \request('brand_id'), function ($q) {
+                $q->where('brand_id', \request('brand_id'));
+            })
+            ->when(\request()->has('supplier_id') && \request('supplier_id'), function ($q) {
+                $q->where('supplier_id', \request('supplier_id'));
+            })
+            // Add more conditions as needed
+            ->search();
 
-    //  $pr = Product::all();
-    //  if($pr->deleted_by == null){
-    //      $count = $pr->count();
+        //  $pr = Product::all();
+        //  if($pr->deleted_by == null){
+        //      $count = $pr->count();
 
-    //  }
-    $count = Product::where('deleted_by', null)->count();
-    return response()->json([
-        'data' => $products,
-        'count' => $count,
-    ]);
-}
+        //  }
+        $count = Product::where('deleted_by', null)->count();
+        return response()->json([
+            'data' => $products,
+            'count' => $count,
+        ]);
+    }
 
 
     /**
@@ -388,6 +388,7 @@ class ProductController extends Controller
 
         return response()->json(["deleted" => true]);
     }
+
     public function updateCost(Request $request, $itemId)
     {
         // Find the product by ID
@@ -399,6 +400,7 @@ class ProductController extends Controller
         $product->save();
         return response()->json(['message' => 'Cost price updated successfully']);
     }
+
     public function updateSelling(Request $request, $itemId)
     {
         // Find the product by ID
@@ -409,6 +411,7 @@ class ProductController extends Controller
         // You can return a response if needed
         return response()->json(['message' => 'selling price updated successfully']);
     }
+
     public function updateQuantity(Request $request, $itemId)
     {
         // Find the product by ID
@@ -420,7 +423,8 @@ class ProductController extends Controller
         return response()->json(['message' => 'quantity updated successfully']);
     }
 
-    public function bulk_price(Request $request){
+    public function bulk_price(Request $request)
+    {
 
         $selectedItems = $request['selectedItems'];
 
@@ -429,81 +433,84 @@ class ProductController extends Controller
         $costPercentage = $request['costPrice'];
         $sellingpercentage = $request['sellingPrice'];
 
-    if ($unit == 'rupees') {
+        if ($unit == 'rupees') {
+            foreach ($selectedItems as $itemId) {
+                $product = Product::findOrFail($itemId);
+
+                if ($operation == 'increase') {
+                    $product->cost_price += $costPercentage;
+                    $product->selling_price += $sellingpercentage;
+                } elseif ($operation == 'decrease') {
+                    // Ensure prices don't go below zero
+                    $product->cost_price = max(0, $product->cost_price - $costPercentage);
+                    $product->selling_price = max(0, $product->selling_price - $sellingpercentage);
+                }
+
+                $product->save();
+                return response()->json(['message' => 'Prices update successfully']);
+            }
+        } elseif ($unit == 'percent') {
+            if ($operation == 'increase') {
+                $products = Product::whereIn('id', $selectedItems)->get();
+
+                foreach ($products as $product) {
+                    // Extract the cost_price and selling_price for each product
+                    $costPrice = $product->cost_price;
+                    $sellingPrice = $product->selling_price;
+
+                    // Calculate new cost and selling prices based on the percentage for increase
+                    $newCostPrice = $costPrice + ($costPrice * ($costPercentage / 100));
+                    $newSellingPrice = $sellingPrice + ($sellingPrice * ($sellingpercentage / 100));
+
+
+                    $product->cost_price = $newCostPrice;
+                    $product->selling_price = $newSellingPrice;
+                    $product->save();
+
+                }
+
+                // Now $products are updated with increased prices
+                return response()->json(['message' => 'Prices increased successfully']);
+            } elseif ($operation == 'decrease') {
+                $products = Product::whereIn('id', $selectedItems)->get();
+
+                foreach ($products as $product) {
+                    // Extract the cost_price and selling_price for each product
+                    $costPrice = $product->cost_price;
+                    $sellingPrice = $product->selling_price;
+
+                    // Calculate new cost and selling prices based on the percentage for decrease
+                    $newCostPrice = $costPrice - ($costPrice * ($costPercentage / 100));
+                    $newSellingPrice = $sellingPrice - ($sellingPrice * ($sellingpercentage / 100));
+
+                    // Ensure prices don't go below zero
+                    $newCostPrice = max(0, $newCostPrice);
+                    $newSellingPrice = max(0, $newSellingPrice);
+
+                    $product->cost_price = $newCostPrice;
+                    $product->selling_price = $newSellingPrice;
+                    $product->save();
+                }
+                return response()->json(['message' => 'Prices decrease successfully']);
+            }
+        }
+    }
+
+    public function bulk_delete(Request $request)
+    {
+        $selectedItems = $request['selectedItems'];
         foreach ($selectedItems as $itemId) {
             $product = Product::findOrFail($itemId);
-
-            if ($operation == 'increase') {
-                $product->cost_price += $costPercentage;
-                $product->selling_price += $sellingpercentage;
-            } elseif ($operation == 'decrease') {
-                // Ensure prices don't go below zero
-                $product->cost_price = max(0, $product->cost_price - $costPercentage);
-                $product->selling_price = max(0, $product->selling_price - $sellingpercentage);
-            }
-
+            $product->deleted_by = Auth::id();
             $product->save();
-            return response()->json(['message' => 'Prices update successfully']);
+            $product->delete();
         }
-    }
-    elseif ($unit == 'percent') {
-        if ($operation == 'increase') {
-            $products = Product::whereIn('id', $selectedItems)->get();
-
-            foreach ($products as $product) {
-                // Extract the cost_price and selling_price for each product
-                $costPrice = $product->cost_price;
-                $sellingPrice = $product->selling_price;
-
-                // Calculate new cost and selling prices based on the percentage for increase
-                $newCostPrice = $costPrice + ($costPrice * ( $costPercentage / 100));
-                $newSellingPrice = $sellingPrice + ($sellingPrice * ($sellingpercentage  / 100));
-
-
-                $product->cost_price = $newCostPrice;
-                $product->selling_price = $newSellingPrice;
-                $product->save();
-
-            }
-
-            // Now $products are updated with increased prices
-            return response()->json(['message' => 'Prices increased successfully']);
-        } elseif ($operation == 'decrease') {
-            $products = Product::whereIn('id', $selectedItems)->get();
-
-            foreach ($products as $product) {
-                // Extract the cost_price and selling_price for each product
-                $costPrice = $product->cost_price;
-                $sellingPrice = $product->selling_price;
-
-                // Calculate new cost and selling prices based on the percentage for decrease
-                $newCostPrice = $costPrice - ($costPrice * ($costPercentage / 100));
-                $newSellingPrice = $sellingPrice - ($sellingPrice * ($sellingpercentage / 100));
-
-                // Ensure prices don't go below zero
-                $newCostPrice = max(0, $newCostPrice);
-                $newSellingPrice = max(0, $newSellingPrice);
-
-                $product->cost_price = $newCostPrice;
-                $product->selling_price = $newSellingPrice;
-                $product->save();
-            }
-            return response()->json(['message' => 'Prices decrease successfully']);
-        }
-    }
-}
-   public function bulk_delete(Request $request){
-       $selectedItems = $request['selectedItems'];
-    foreach ($selectedItems as $itemId) {
-        $product = Product::findOrFail($itemId);
-        $product->deleted_by = Auth::id();
-        $product->save();
-        $product->delete();
-    }
-    return response()->json(['message' => 'Prices Delete successfully']);
+        return response()->json(['message' => 'Prices Delete successfully']);
 
     }
-    public function bulk_manage(Request $request){
+
+    public function bulk_manage(Request $request)
+    {
         $id = $request->id;
         $item = Product::findOrFail($id);
         $item->manage_inventory = $request->data;
@@ -524,12 +531,12 @@ class ProductController extends Controller
         $model->delete(); // Delete the image record from the database
         return response()->json(["deleted" => true]);
     }
-
     public function product_excel(Request $request)
     {
         $data = Product::get();
         return Excel::download(new \App\Exports\product_excel($data), 'Product.xls');
     }
+
     public function download_images()
     {
         $datasArray = explode(',', request()->id);
@@ -538,7 +545,7 @@ class ProductController extends Controller
         foreach ($data as $key => $result) {
             $resultArray = get_object_vars($result);
             $dd = Purchase_item::with('purchase.supplier')->where('product_id', $result['id'])->orderBy('id', 'desc')->limit(3)->get();
-// dd($dd);
+            // dd($dd);
             // $dd = DB::select("select business_name,c.id,username,email,mobile_no,n.min from contractors c left join no_of_operatives n on c.no_operative = n.id ");
             $collectdd = collect($dd);
             // $resultArray['purchases'] = $collectdd->toArray();

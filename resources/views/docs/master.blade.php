@@ -143,14 +143,41 @@
         li {
             display: list-item;
         }
-
+        /* Basic table styling */
         table {
             border-collapse: collapse;
-            border-spacing: 0;
+            width: 100%;
         }
 
-        th,
-        td,
+        /* Header cell styling */
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        /* Data cell styling */
+        td {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        /* Optional: Alternating row colors */
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+
+        /*table {*/
+        /*    border-collapse: collapse;*/
+        /*    border-spacing: 0;*/
+        /*}*/
+
+        /*th,*/
+        /*td,*/
         caption {
             font-weight: normal;
             vertical-align: top;

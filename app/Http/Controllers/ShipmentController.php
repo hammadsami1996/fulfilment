@@ -28,7 +28,6 @@ class ShipmentController extends Controller
         }
         return response()->json(["saved" => true]);
     }
-
     function generateCN($id)
     {
         $order = Order::with('city')->findOrfail($id);

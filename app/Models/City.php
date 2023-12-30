@@ -31,7 +31,6 @@ class City extends Model implements Auditable
     protected $search = [
         "name",
     ];
-
     public function getTextAttribute()
     {
         return $this->attributes['name'];
