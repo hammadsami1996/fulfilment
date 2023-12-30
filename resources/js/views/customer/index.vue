@@ -14,7 +14,28 @@
             </div>
         </div>
         <div class="flex-col">
-            <panel :columns="columns" :urlApi="urlApi" ref="TableData">
+            <div class="flex justify-end">
+                <div class="flex items-center px-4 py-2">
+                    <label class="text-gray-600 mr-2">Search:</label>
+                    <div class="relative">
+                        <input
+                            @keyup="search()"
+                            class="rounded-md py-1 pl-4 pr-8 w-64 border-gray-300 focus:ring-primary focus:border-primary"
+                            placeholder="Search"
+                            type="text"
+                            v-model="searchTerm"
+                        />
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <svg class="text-gray-400 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 15l4 4m0 0l-4-4m4 4H4" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <panel :columns="columns" :urlApi="urlApi" ref="TableData" :search-Enable="false">
                 <template v-slot:action="props">
                     <div class="text-sm font-medium flex">
                          <span v-if="permissions.includes(`edit-${small}`)"
@@ -68,7 +89,9 @@
             return {
                 permissions: [],
                 urlApi: "/api/customer",
+                urlApi1: "/api/customer",
                 resource: "/customer",
+                searchTerm: '',
                 small: "customer",
                 capital: "Customer",
                 columns: [
@@ -87,6 +110,15 @@
             this.permissions = window.apex.user.permission
         },
         methods: {
+            search() {
+                this.urlApi = this.urlApi1
+                let param = "?q=";
+                if (this.searchTerm != null) {
+                        param += `&searchTerm=${this.searchTerm}`;
+                    }
+                    this.urlApi += param
+                    this.$refs.TableData.reload();
+                },
             edit(id) {
                 this.$router.push(`${this.resource}/${id}/edit`)
             },

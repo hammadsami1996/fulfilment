@@ -16,9 +16,13 @@ class SupplierController extends Controller
     public function index()
 
     {
-        // dd('abcd');
-        return response()->json(['data' => Customer::where('is_vender', 1)->search()]);
-
+        // return response()->json(['data' => Customer::where('is_vender', 1)->search()]);
+        $customers = Customer::when(\request()->has('searchTerm') && \request('searchTerm'), function ($q) {
+            $q->where('name', 'like', '%' . \request('searchTerm') . '%');
+        })->where('is_vender', 1)->search();
+        return response()->json([
+            'data' => $customers,
+        ]);
     }
 
     /**
