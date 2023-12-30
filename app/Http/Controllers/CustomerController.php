@@ -16,13 +16,6 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        // return response()->json(['data' => Customer::with(
-        //     // 'type',
-        //  'category', 's_city','b_city','account',
-        // //   's_country',
-        //   'b_country')->where('is_vender','!=',1)
-        //     ->search()]);
-
             $customer = Customer::with(// 'type',
                  'category', 's_city','b_city','account',
                 //   's_country',
@@ -35,12 +28,7 @@ class CustomerController extends Controller
             'data' => $customer,
         ]);
     }
-//     public function getcourier(){
-//         return response()->json([
-//             'data' => Customer::with('category', 's_city', 'b_city', 'account', 'b_country')
-//                 ->where('is_courier', 1)
-//                 ->search()
-//         ]);}
+
 
     /**
      * Show the form for creating a new resource.
