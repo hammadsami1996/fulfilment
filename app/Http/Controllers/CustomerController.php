@@ -16,19 +16,19 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => Customer::with(
-            // 'type',
-         'category', 's_city','b_city','account',
-        //   's_country',
-          'b_country')->where('is_vender','!=',1)
-            ->search()]);
+            $customer = Customer::with(// 'type',
+                 'category', 's_city','b_city','account',
+                //   's_country',
+                  'b_country')
+        ->when(\request()->has('searchTerm') && \request('searchTerm'), function ($q) {
+            // $q->where('title', \request('title'));
+            $q->where('name', 'like', '%' . \request('searchTerm') . '%');
+        })->where('is_vender','!=',1)->search();
+        return response()->json([
+            'data' => $customer,
+        ]);
     }
-//     public function getcourier(){
-//         return response()->json([
-//             'data' => Customer::with('category', 's_city', 'b_city', 'account', 'b_country')
-//                 ->where('is_courier', 1)
-//                 ->search()
-//         ]);}
+
 
     /**
      * Show the form for creating a new resource.
