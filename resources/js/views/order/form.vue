@@ -459,14 +459,6 @@
                     byMethod('GET', `/api/get_delivery_charges/${this.form.city.id}?weight=${i}&country_id=${this.form.city.country_id}`)
                 }
                 this.form.weight = i;
-                // console.log('i');
-                // let e = {
-                //     weight : i ,
-                //     city_id : this.form.city_id,
-                // }
-                // byMethod('GET',`/api/get_delivery_charges/weight=${i}&city_id=${this.form.city_id}`)
-                // byMethod('POST',`/api/get_delivery_charges/weight=${i}&city_id=${this.form.city_id}`)
-                // byMethod('POST',`/api/get_delivery_charges`,e)
             },
             // onOrder_type(e) {
             //     const ordertype = e.target.value
